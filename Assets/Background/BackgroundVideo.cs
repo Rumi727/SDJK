@@ -82,7 +82,7 @@ namespace SDJK
                 if (BGMManager.bgm.iObjectPooling != null)
                 {
                     double dis = (BGMManager.bgm.iTime.time - offset) - videoPlayer.time;
-                    float speed = BGMManager.bgm.iSpeed.speed;
+                    float speed = BGMManager.bgm.iSpeed.speed * Kernel.gameSpeed;
                     videoPlayer.playbackSpeed = speed;
 
                     if (dis.Abs() < 1)
