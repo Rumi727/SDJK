@@ -139,12 +139,10 @@ namespace SCKRM.SaveLoad
                 Save(saveLoadClassList[i], saveDataPath);
         }
 
-        public static void Save(SaveLoadClass saveLoadClass, string saveDataPath, bool noExistsCheck = false)
+        public static void Save(SaveLoadClass saveLoadClass, string saveDataPath)
         {
             if (saveLoadClass == null || saveDataPath == null || saveDataPath == "")
                 return;
-            else if (!noExistsCheck && !Directory.Exists(saveDataPath))
-                Directory.CreateDirectory(saveDataPath);
 
             JObject jObject = new JObject();
             for (int j = 0; j < saveLoadClass.propertyInfos.Length; j++)

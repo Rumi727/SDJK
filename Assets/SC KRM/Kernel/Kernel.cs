@@ -6,13 +6,14 @@ using SCKRM.Threads;
 using System;
 using UnityEngine;
 using SCKRM.Input;
+using System.IO;
 
 namespace SCKRM
 {
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        public static Version sckrmVersion { get; } = new Version(0, 4, 5);
+        public static Version sckrmVersion { get; } = new Version(0, 4, 6);
 
 
 
@@ -88,7 +89,14 @@ namespace SCKRM
                 if (_saveDataPath != "")
                     return _saveDataPath;
                 else
-                    return _saveDataPath = persistentDataPath + "/Save Data";
+                {
+                    _saveDataPath = persistentDataPath + "/Save Data";
+
+                    if (!Directory.Exists(_resourcePackPath))
+                        Directory.CreateDirectory(_resourcePackPath);
+
+                    return _saveDataPath;
+                }
             }
         }
         static string _saveDataPath = "";
@@ -103,7 +111,14 @@ namespace SCKRM
                 if (_resourcePackPath != "")
                     return _resourcePackPath;
                 else
-                    return _resourcePackPath = persistentDataPath + "/Resource Pack";
+                {
+                    _resourcePackPath = persistentDataPath + "/Resource Pack";
+
+                    if (!Directory.Exists(_resourcePackPath))
+                        Directory.CreateDirectory(_resourcePackPath);
+
+                    return _resourcePackPath;
+                }
             }
         }
         static string _resourcePackPath = "";

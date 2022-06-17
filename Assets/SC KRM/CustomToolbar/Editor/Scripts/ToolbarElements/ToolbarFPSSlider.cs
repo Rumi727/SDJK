@@ -43,7 +43,7 @@ internal class ToolbarFPSSlider : BaseToolbarElement {
 		int fpsLimit = EditorGUILayout.IntSlider("", VideoManager.SaveData.fpsLimit, minFPS, maxFPS, GUILayout.Width(WidthInToolbar - 30.0f));
 		GUI.enabled = true;
 
-		if (GUI.changed && Setting.settingInstance.TryGetValue("SCKRM.VideoManager+SaveData.fpsLimit", out Setting value))
+		if (fpsLimit != VideoManager.SaveData.fpsLimit.Clamp(minFPS, maxFPS) && Setting.settingInstance.TryGetValue("SCKRM.VideoManager+SaveData.fpsLimit", out Setting value))
 		{
 			VideoManager.SaveData.fpsLimit = fpsLimit;
 			value.ScriptOnValueChanged();
