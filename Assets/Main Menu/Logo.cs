@@ -70,7 +70,7 @@ namespace SDJK
             click = false;
 
             if (pointer)
-                MainMenu.Normal();
+                MainMenu.NextScreen();
         }
     }
 }
