@@ -47,7 +47,9 @@ namespace SDJK
                 iVolume = soundPlayer;
                 iSpeed = soundPlayer;
 
-                iTime.time = (float)map.info.mainMenuStartTime;
+                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    iTime.time = (float)map.info.mainMenuStartTime;
+
                 iLoop.looped += Looped;
 
                 RhythmManager.Play(MapManager.selectedMapEffect, MapManager.selectedMapInfo, MapManager.selectedMapEffect, soundPlayer, soundPlayer);
@@ -67,7 +69,9 @@ namespace SDJK
                 iVolume = nbsPlayer;
                 iSpeed = nbsPlayer;
 
-                iTime.time = (float)map.info.mainMenuStartTime;
+                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    iTime.time = (float)map.info.mainMenuStartTime;
+
                 iLoop.looped += Looped;
 
                 RhythmManager.Play(MapManager.selectedMapEffect, MapManager.selectedMapInfo, MapManager.selectedMapEffect, nbsPlayer, nbsPlayer);
@@ -117,8 +121,11 @@ namespace SDJK
 
         void Looped()
         {
-            SDJKMap map = MapManager.selectedMap;
-            iTime.time = (float)map.info.mainMenuStartTime;
+            if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+            {
+                SDJKMap map = MapManager.selectedMap;
+                iTime.time = (float)map.info.mainMenuStartTime;
+            }
         }
 
         public override bool Remove()
