@@ -13,7 +13,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        public static Version sckrmVersion { get; } = new Version(0, 4, 6);
+        public static Version sckrmVersion { get; } = new Version(0, 4, 7);
 
 
 
@@ -92,8 +92,8 @@ namespace SCKRM
                 {
                     _saveDataPath = persistentDataPath + "/Save Data";
 
-                    if (!Directory.Exists(_resourcePackPath))
-                        Directory.CreateDirectory(_resourcePackPath);
+                    if (!Directory.Exists(_saveDataPath))
+                        Directory.CreateDirectory(_saveDataPath);
 
                     return _saveDataPath;
                 }
