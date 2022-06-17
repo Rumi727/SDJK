@@ -1,0 +1,53 @@
+{
+  "controlSettingList": {
+    "gui.back": [
+      27
+    ],
+    "gui.home": [
+      278
+    ],
+    "gui.tab": [
+      9
+    ],
+    "kernel.full_screen": [
+      292
+    ],
+    "noticebar.show": [
+      306,
+      110
+    ],
+    "notice_manager.notice_remove": [
+      127
+    ],
+    "notice_manager.notice_clear_all": [
+      306,
+      127
+    ],
+    "settingbar.show": [
+      306,
+      111
+    ],
+    "controlbar.show": [
+      306,
+      106
+    ],
+    "volume_control.minus": [
+      45
+    ],
+    "volume_control.plus": [
+      61
+    ],
+    "debug_manager.toggle": [
+      284
+    ]
+  },
+  "inputLockList": {
+    "statusbar": false,
+    "sidebar": false,
+    "log": false,
+    "log.command": false,
+    "settingbar": false,
+    "volumecontrol": false,
+    "controlbar": false
+  }
+}

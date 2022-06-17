@@ -1,0 +1,215 @@
+{
+	"language.name": "日本語",
+	"language.region": "日本",
+	
+	
+	
+	"gui.done": "完了",
+	"gui.cancel": "キャンセル",
+	"gui.back": "戻る",
+	"gui.home": "ホームへ",
+	"gui.up": "上へ",
+	"gui.down": "下へ",
+	"gui.yes": "はい",
+	"gui.no": "いいえ",
+    "gui.none": "なし",
+	"gui.all": "みんな",
+	"gui.select": "選択",
+	"gui.selectall": "すべて選択",
+    "gui.ok": "確認",
+	"gui.am": "午前",
+	"gui.pm": "午後",
+	"gui.warning": "警告",
+	"gui.error": "エラー",
+	"gui.on": "点灯",
+	"gui.off": "オフ",
+	"gui.save": "保存",
+	"gui.open": "開く",
+	"gui.folder_select": "フォルダの選択",
+	
+	"gui.inputfield.enter_number": "数値を入力...",
+	"gui.inputfield.enter_text": "テキスト入力...",
+	"gui.inputfield.search": "検索...",
+	"gui.inputfield.enter_file_name": "ファイル名入力...",
+	"gui.inputfield.enter_folder_name": "フォルダ名入力...",
+	
+	
+	
+	"kernel.allrefresh.warning": "効果音や音楽が再生されている状態でリソースパックを更新すると、プログラムが強制終了されるバグがあります！\n本当に続けますか？",
+	"kernel.allrefresh.error": "効果音または音楽が再生されている間、リソースパックを更新できません！",
+	
+	
+	
+	"options.theme.title": "テーマ",
+	"options.theme.systemColor": "システムカラー",
+	"options.theme.systemColor.info": "システムの色を変更します",
+	
+	"options.language.title": "言語",
+	"options.language.language": "言語",
+	"options.language.language.info": "言語全体を変更します\n（誤解がある可能性があります）",
+	
+	"options.sound.title": "音",
+	"options.sound.mainVolume": "メイン",
+	"options.sound.bgmVolume": "音楽",
+	"options.sound.soundVolume": "効果音",
+	"options.sound.noteBlockVolume": "ノートブロック",
+	"options.sound.audio_reset": "オーディオリセット",
+	"options.sound.audio_reset.info": "Unityオーディオをリセットします（音が途切れたときにのみ使用してください）",
+	
+	"options.video.title": "画面",
+	"options.video.vSync": "垂直同期",
+	"options.video.vSync.info": "グラフィックカードのフレーム生成とモニターのフレーム出力タイミングを合わせます\n（楽にモニターのヘルツでフレームを制限すると考えてください）",
+	"options.video.fpsLimit": "FPS制限",
+	"options.video.fpsLimit.info": "FPSを制限します",
+	"options.video.guiSize": "GUIサイズ",
+	"options.video.guiSize.info": "全体のGUIサイズを変更します",
+	"options.video.fixedGuiSizeEnable": "固定GUIサイズの使用",
+	"options.video.fixedGuiSizeEnable.info": "GUIサイズを解像度に比例しないように固定します",
+	"options.video.resource_pack_setting": "リソースパックの設定",
+	
+	"options.statusbar.title": "ステータスバー",
+	"options.statusbar.bottomMode": "下部に表示",
+	"options.statusbar.bottomMode.info": "ステータスバーを一番下に表示します",
+	
+	"options.statusbar.time.title": "時間",
+	"options.statusbar.time.twentyFourHourSystem": "24時間制",
+	"options.statusbar.time.twentyFourHourSystem.info": "ステータスバーに表示される時間を24時間制に変更します",
+	"options.statusbar.time.toggleSeconds": "秒単位まで表示",
+	"options.statusbar.time.toggleSeconds.info": "ステータスバーに表示される時間に秒単位を追加します",
+	
+	"options.input.title": "入力",
+	"options.input.highPrecisionMouse": "システムマウスの加速を無視",
+	"options.input.highPrecisionMouse.info": "システムマウスのアクセラレーションを無視します\nWindowsでは、一般的にRaw Inputと呼ばれます",
+	"options.input.highPrecisionMouse.warning": "システムマウスのアクセラレーションを無視することは非常に不安定な設定です\nそれでもオンにしますか？<size=10>\n\n</size><size=15>(Windowsのマウス感度またはハードウェアのマウス感度をゲームの設定と同様に設定することをお勧めします)</size>",
+	"options.input.highPrecisionMouse.os_warning": "Windows以外のオペレーティングシステムはサポートされていません",
+	"options.input.mouseSensitivity": "マウス感度",
+	"options.input.mouseSensitivity.info": "マウスの感度を変更します（システムのマウスアクセラレータを無視する設定がオンの場合は、マウスポインタの感度も同様に変わります）",
+	"options.input.controls": "操作設定",
+	
+	"options.advanced.title": "詳細",
+	"options.advanced.allowProgressBarShow": "スタート画面に常にロードバーを表示",
+	"options.advanced.allowProgressBarShow.info": "スタート画面にロードバーを常に表示します(オフにしても、ロードに時間がかかるとロードバーが表示されます)",
+	
+	"options.debug.title": "デバッグ",
+	"options.debug.textShow": "テキスト表示",
+	"options.debug.textShow.info": "デバッグ画面にテキストを表示する",
+	"options.debug.graphShow": "グラフ表示",
+	"options.debug.graphShow.info": "デバッグ画面にグラフを表示する",
+	"options.debug.textRefreshDelay": "テキストリロードディレイ",
+	"options.debug.textRefreshDelay.info": "テキストが更新されるディレイを調整します",
+	"options.debug.graphRefreshDelay": "グラフリフレッシュディレイ",
+	"options.debug.graphRefreshDelay.info": "グラフが更新されるディレイを調整します",
+	"options.debug.graphSpeed": "グラフ速度",
+	"options.debug.graphSpeed.info": "グラフの速度を調整します",
+	
+	"options.set_default.info": "デフォルトに設定",
+	
+	
+	
+	"setting_info.no_hotkey": "ホットキーなし",
+	
+	
+	
+	"controls.emptying": "空にする",
+	"controls.reset_all": "すべてのキー設定の初期化",
+	
+	"controls.video.title": "動画",
+	"kernel.full_screen": "フルスクリーン",
+	
+	"controls.side_bar.title": "サイドバー",
+	"noticebar.show": "通知バーの切り替え",
+	"settingbar.show": "設定バーの切り替え",
+	"controlbar.show": "操作バーの切り替え",
+	
+	"controls.notice_bar.title": "通知バー",
+	"notice_manager.notice_remove": "通知をクリア",
+	"notice_manager.notice_clear_all": "すべての通知をクリア",
+	
+	"controls.volume_control.title": "ボリュームコントロール",
+	"volume_control.minus": "ボリュームを減らす",
+	"volume_control.plus": "ボリュームを上げる",
+	
+	
+	
+	"resource_pack.selected": "選択したリソースパック",
+	"resource_pack.available": "利用可能なリソースパック",
+	"resource_pack.drag_info": "ドラッグは本当に良いシステムですよね？",
+	
+	
+	
+	"notice.notice": "お知らせ",
+	"notice.notice.clear_all": "すべてクリア",
+	"notice.running_task": "実行中のジョブ",
+	"notice.running_task.cancel_all": "すべてキャンセル",
+	
+	
+	
+	"notice.running_task.resource_pack_refresh.name": "リソースパックの更新",
+	"notice.running_task.resource_pack_refresh.set_pack_textures.name": "リソースパックの更新（テクスチャマージ）",
+	"notice.running_task.resource_pack_refresh.set_sprite.name": "リソースパックの更新（スプライト設定）",
+	"notice.running_task.resource_pack_refresh.set_audio.name": "リソースパックの更新（オーディオ設定）",
+	"notice.running_task.resource_pack_refresh.set_language.name": "リソースパックの更新（言語設定）",
+	
+	"notice.running_task.rerender.name": "レンダラーの更新",
+	
+	"notice.running_task.audio_refresh.name": "オーディオリロード",
+	
+	"notice.running_task.drag_and_drop.file_load": "ファイルを読み込んでいます...",
+	"notice.running_task.drag_and_drop.resource_pack_load": "リソースパックを読み込んでいます...",
+	"notice.running_task.drag_and_drop.resource_pack_load.exists": "同じ名前のリソースパックがすでに存在しています",
+	
+	
+	
+	"compress_file_manager.compress": "圧縮中...",
+	"compress_file_manager.decompress": "解凍中...",
+	
+	
+	
+	"file_dialog.drive": "%value%ドライブ",
+	
+	"file_dialog.3d_objects": "3Dオブジェクト",
+	"file_dialog.downloads": "ダウンロード",
+	"file_dialog.videos": "ビデオ",
+	"file_dialog.documents": "ドキュメント",
+	"file_dialog.desktop": "デスクトップ",
+	"file_dialog.pictures": "ピクチャー",
+	"file_dialog.music": "音楽",
+	
+	"file_dialog.all_file": "すべてのファイル",
+	
+	"file_dialog.capacity_display": "%all%のうち%value%が利用可能",
+	
+	
+	
+	"notice.school_live.birthday.title": "がっこうぐらし！%value%周年",
+	"notice.school_live.birthday.description": "がっこうぐらし！%value%周年おめでとうございます！",
+	"notice.school_live_ani.birthday.title": "がっこうぐらし！アニメ%value%周年",
+	"notice.school_live_ani.birthday.description": "がっこうぐらし！アニメ%value%周年おめでとうございます！",
+	
+	"notice.ebisuzawa_kurumi_chan.birthday.title": "くるみお誕生日おめでとう",
+	"notice.ebisuzawa_kurumi_chan.birthday.description": "今日は「えびすざわ くるみ」の誕生日です",
+	"notice.takeya_yuki.birthday.title": "ゆきお誕生日おめでとう",
+	"notice.takeya_yuki.birthday.description": "今日は「たけや ゆき」の誕生日です",
+	"notice.wakasa_yuri.birthday.title": "ゆうりお誕生日おめでとう",
+	"notice.wakasa_yuri.birthday.description": "今日は「わかさ ゆうり」の誕生日です",
+	"notice.naoki_miki.birthday.title": "みきお誕生日おめでとう",
+	"notice.naoki_miki.birthday.description": "今日は「なおき みき」の誕生日です",
+	"notice.sakura_megumi.birthday.title": "めぐみお誕生日おめでとう",
+	"notice.sakura_megumi.birthday.description": "今日は「さくら めぐみ」の誕生日です'",
+	
+	"notice.marple.birthday.title": "Mined Apple （마인애플）さんお誕生日おめでとうございます",
+	"notice.marple.birthday.description": "今日はYouTubeのMinedApple （마인애플）の誕生日です",
+	
+	"notice.onell0.birthday.title": "SMP%value%周年",
+	"notice.onell0.birthday.description": "SMP%value%周年おめでとうございます！",
+	
+	"notice.korean_new_year.title": "明けましておめでとう",
+	"notice.korean_new_year.description": "今日は韓国のお正月です",
+	
+	"notice.april_fools_day.title": "今日は何日？",
+	"notice.april_fools_day.description": "今日はエイプリルフールです！\n<s>しかし今は私の昼食です</s>",
+	
+	
+	
+	"subtitles.easter_egg_music_play": "イースターエッグ音楽が再生されました"
+}

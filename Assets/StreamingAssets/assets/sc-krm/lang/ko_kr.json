@@ -1,0 +1,223 @@
+{
+	"language.name": "한국어",
+	"language.region": "대한민국",
+	
+	
+	
+	"gui.done": "완료",
+	"gui.cancel": "취소",
+	"gui.back": "뒤로",
+	"gui.home": "홈으로",
+	"gui.up": "위로",
+	"gui.down": "아래로",
+	"gui.yes": "예",
+	"gui.no": "아니요",
+    "gui.none": "없음",
+	"gui.all": "모두",
+	"gui.select": "선택",
+	"gui.selectall": "모두 선택",
+    "gui.ok": "확인",
+	"gui.am": "오전",
+	"gui.pm": "오후",
+	"gui.warning": "경고",
+	"gui.error": "오류",
+	"gui.on": "켜짐",
+	"gui.off": "꺼짐",
+	"gui.save": "저장",
+	"gui.open": "열기",
+	"gui.folder_select": "폴더 선택",
+	
+	"gui.inputfield.enter_number": "숫자 입력...",
+	"gui.inputfield.enter_text": "텍스트 입력...",
+	"gui.inputfield.search": "검색...",
+	"gui.inputfield.enter_file_name": "파일 이름 입력...",
+	"gui.inputfield.enter_folder_name": "폴더 이름 입력...",
+	
+	
+	
+	"kernel.allrefresh.warning": "효과음 또는 음악이 재생되고 있는 상태에서 리소스 팩을 새로 고치면 프로그램이 튕기는 버그가 있습니다!\n정말로 계속하시겠습니까?",
+	"kernel.allrefresh.error": "효과음 또는 음악이 재생되고 있는 상태에서 리소스 팩을 새로 고칠 수 없습니다!",
+	
+	
+	
+	"options.theme.title": "테마",
+	"options.theme.systemColor": "시스템 색상",
+	"options.theme.systemColor.info": "시스템 색상을 변경합니다",
+	
+	"options.language.title": "언어",
+	"options.language.language": "언어",
+	"options.language.language.info": "전체적인 언어를 변경합니다\n(오역이 있을 수 있습니다)",
+	
+	"options.sound.title": "소리",
+	"options.sound.mainVolume": "메인",
+	"options.sound.bgmVolume": "음악",
+	"options.sound.soundVolume": "효과음",
+	"options.sound.noteBlockVolume": "노트 블록",
+	"options.sound.audio_reset": "오디오 리셋",
+	"options.sound.audio_reset.info": "유니티 오디오를 리셋합니다 (소리가 끊길 때만 사용하세요)",
+	
+	"options.video.title": "비디오",
+	"options.video.vSync": "수직 동기화",
+	"options.video.vSync.info": "그래픽 카드의 프레임 생성과 모니터의 프레임 출력 타이밍을 맞춥니다\n(편하게 모니터의 헤르츠로 프레임을 제한한다고 생각하시면 됩니다)",
+	"options.video.fpsLimit": "FPS 제한",
+	"options.video.fpsLimit.info": "FPS를 제한합니다",
+	"options.video.guiSize": "GUI 크기",
+	"options.video.guiSize.info": "전체적인 GUI 크기를 변경합니다",
+	"options.video.fixedGuiSizeEnable": "고정적인 GUI 크기 사용",
+	"options.video.fixedGuiSizeEnable.info": "GUI 크기를 해상도에 비례하지 않게 고정합니다",
+	"options.video.resource_pack_setting": "리소스 팩 설정",
+	
+	"options.statusbar.title": "상태 표시줄",
+	"options.statusbar.bottomMode": "하단에 표시",
+	"options.statusbar.bottomMode.info": "상태 표시줄을 하단에 표시합니다",
+	
+	"options.statusbar.time.title": "시간",
+	"options.statusbar.time.twentyFourHourSystem": "24시간제",
+	"options.statusbar.time.twentyFourHourSystem.info": "상태 표시줄에 표시되는 시간을 24시간제로 변경합니다",
+	"options.statusbar.time.toggleSeconds": "초 단위까지 표시",
+	"options.statusbar.time.toggleSeconds.info": "상태 표시줄에 표시되는 시간에 초 단위를 추가합니다",
+	
+	"options.input.title": "입력",
+	"options.input.highPrecisionMouse": "시스템 마우스 가속 무시",
+	"options.input.highPrecisionMouse.info": "시스템 마우스 가속을 무시합니다\nWindows에선 흔히 Raw Input이라 불립니다",
+	"options.input.highPrecisionMouse.warning": "시스템 마우스 가속 무시는 많이 불안정한 설정입니다\n그래도 켜시겠습니까?<size=10>\n\n</size><size=15>(Windows 마우스 감도 또는 하드웨어 마우스 감도를 게임 설정과 유사하게 설정하는 것을 권장합니다)</size>",
+	"options.input.highPrecisionMouse.os_warning": "Windows 이외의 운영 체제는 지원되지 않습니다.",
+	"options.input.mouseSensitivity": "마우스 감도",
+	"options.input.mouseSensitivity.info": "마우스의 감도를 변경합니다 (시스템 마우스 가속 무시 설정이 켜져 있다면, 마우스 포인터의 감도도 같이 변경됩니다)",
+	"options.input.controls": "조작 설정",
+	
+	"options.advanced.title": "고급",
+	"options.advanced.allowProgressBarShow": "시작 화면에 항상 로딩 바 표시",
+	"options.advanced.allowProgressBarShow.info": "시작 화면에 로딩 바를 항상 표시합니다 (끄더라도, 로딩이 오래 걸리면 로딩 바가 나타납니다)",
+	
+	"options.debug.title": "디버그",
+	"options.debug.textShow": "텍스트 표시",
+	"options.debug.textShow.info": "디버그 화면에 텍스트를 표시합니다",
+	"options.debug.graphShow": "그래프 표시",
+	"options.debug.graphShow.info": "디버그 화면에 그래프를 표시합니다",
+	"options.debug.textRefreshDelay": "텍스트 새로고침 딜레이",
+	"options.debug.textRefreshDelay.info": "텍스트가 새로고침 되는 딜레이를 조절합니다",
+	"options.debug.graphRefreshDelay": "그래프 새로 고침 딜레이",
+	"options.debug.graphRefreshDelay.info": "그래프가 새로 고침 되는 딜레이를 조절합니다",
+	"options.debug.graphSpeed": "그래프 속도",
+	"options.debug.graphSpeed.info": "그래프의 속도를 조절합니다",
+	
+	"options.set_default.info": "기본값으로 설정",
+	
+	
+	
+	"setting_info.no_hotkey": "단축키 없음",
+	
+	
+	
+	"controls.emptying": "비우기",
+	"controls.reset_all": "모든 키 설정 초기화",
+	
+	"controls.video.title": "비디오",
+	"kernel.full_screen": "전체 화면",
+	
+	"controls.side_bar.title": "사이드 바",
+	"noticebar.show": "알림 표시줄 토글",
+	"settingbar.show": "설정 표시줄 토글",
+	"controlbar.show": "조작 표시줄 토글",
+	
+	"controls.notice_bar.title": "알림 표시줄",
+	"notice_manager.notice_remove": "알림 지우기",
+	"notice_manager.notice_clear_all": "모든 알림 지우기",
+	
+	"controls.volume_control.title": "볼륨 컨트롤",
+	"volume_control.minus": "볼륨 줄이기",
+	"volume_control.plus": "볼륨 올리기",
+	
+	
+	
+	"resource_pack.selected": "선택한 리소스 팩",
+	"resource_pack.available": "사용 가능한 리소스 팩",
+	"resource_pack.drag_info": "드래그란 참 좋은 시스템이에요, 그렇죠?",
+	
+	
+	
+	"notice.notice": "알림",
+	"notice.notice.clear_all": "모두 지우기",
+	"notice.running_task": "실행중인 작업",
+	"notice.running_task.cancel_all": "모두 취소",
+	
+
+	
+	"notice.running_task.resource_pack_refresh.name": "리소스팩 새로고침",
+	"notice.running_task.resource_pack_refresh.set_pack_textures.name": "리소스팩 새로고침 (텍스쳐 합치기)",
+	"notice.running_task.resource_pack_refresh.set_sprite.name": "리소스팩 새로고침 (스프라이트 설정)",
+	"notice.running_task.resource_pack_refresh.set_audio.name": "리소스팩 새로고침 (오디오 설정)",
+	"notice.running_task.resource_pack_refresh.set_language.name": "리소스팩 새로고침 (언어 설정)",
+	
+	"notice.running_task.rerender.name": "렌더러 새로고침",
+	
+	"notice.running_task.audio_refresh.name": "오디오 새로고침",
+	
+	"notice.running_task.drag_and_drop.file_load": "파일 로드 중...",
+	"notice.running_task.drag_and_drop.resource_pack_load": "리소스팩 로드 중...",
+	"notice.running_task.drag_and_drop.resource_pack_load.exists": "같은 이름의 리소스 팩이 이미 있습니다",
+	
+	
+	
+	"compress_file_manager.compress": "압축 중...",
+	"compress_file_manager.decompress": "압축 푸는 중...",
+	
+	
+	
+	"file_dialog.drive": "%value% 드라이브",
+	
+	"file_dialog.3d_objects": "3D 개체",
+	"file_dialog.downloads": "다운로드",
+	"file_dialog.videos": "동영상",
+	"file_dialog.documents": "문서",
+	"file_dialog.desktop": "바탕화면",
+	"file_dialog.pictures": "사진",
+	"file_dialog.music": "음악",
+	
+	"file_dialog.file.all": "모든 파일",
+	"file_dialog.file.video": "동영상 파일",
+	"file_dialog.file.text": "텍스트 파일",
+	"file_dialog.file.picture": "사진 파일",
+	"file_dialog.file.music": "음악 파일",
+	"file_dialog.file.compress": "압축 파일",
+	"file_dialog.file.code": "코드 파일",
+	
+	"file_dialog.capacity_display": "%all% 중 %value% 사용 가능",
+	
+	"file_dialog.file_save_warning": "%value%이(가) 이미 있습니다\n바꾸시겠습니까?",
+	
+	
+	
+	"notice.school_live.birthday.title": "학교생활! %value%주년",
+	"notice.school_live.birthday.description": "학교생활! %value%주년을 진심으로 축하합니다!",
+	"notice.school_live_ani.birthday.title": "학교생활! 애니 %value%주년",
+	"notice.school_live_ani.birthday.description": "학교생활! 애니 %value%주년을 진심으로 축하합니다!",
+	
+	"notice.ebisuzawa_kurumi_chan.birthday.title": "쿠루미쨩 생일 축하해",
+	"notice.ebisuzawa_kurumi_chan.birthday.description": "오늘은 '에비스자와 쿠루미'의 생일입니다",
+	"notice.takeya_yuki.birthday.title": "유키 생일 축하해",
+	"notice.takeya_yuki.birthday.description": "오늘은 '타케야 유키'의 생일입니다",
+	"notice.wakasa_yuri.birthday.title": "유리 생일 축하해",
+	"notice.wakasa_yuri.birthday.description": "오늘은 '와카사 유리'의 생일입니다",
+	"notice.naoki_miki.birthday.title": "미키 생일 축하해",
+	"notice.naoki_miki.birthday.description": "오늘은 '나오키 미키'의 생일입니다",
+	"notice.sakura_megumi.birthday.title": "메구미 생일 축하해",
+	"notice.sakura_megumi.birthday.description": "오늘은 '사쿠라 메구미'의 생일입니다",
+	
+	"notice.marple.birthday.title": "마플님 생일 축하드립니다",
+	"notice.marple.birthday.description": "오늘은 유튜버 마플님의 생일입니다",
+	
+	"notice.onell0.birthday.title": "스매프 %value%주년",
+	"notice.onell0.birthday.description": "스매프 %value%주년을 진심으로 축하합니다!",
+	
+	"notice.korean_new_year.title": "새해 복 많이 받으세요",
+	"notice.korean_new_year.description": "오늘은 한국의 설날입니다\n<s>용돈 받으러 갑시다</s>",
+	
+	"notice.april_fools_day.title": "오늘은 무슨 날?",
+	"notice.april_fools_day.description": "오늘은 만우절 입니다!\n<s>하지만 지금은 제 점심이죠</s>",
+	
+	
+
+	"subtitles.easter_egg_music_play": "이스터에그 음악이 재생됨"
+}

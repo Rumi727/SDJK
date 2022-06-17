@@ -1,0 +1,16 @@
+{
+  "prefabList": {
+    "notice_manager.notice": "Prefab/Side Bar/Notice",
+    "sound_manager.sound_object": "Prefab/Sound/Sound Object",
+    "sound_manager.nbs_player": "Prefab/Sound/NBS Player",
+    "running_task_list.running_task": "Prefab/Side Bar/Running Task",
+    "window_manager.message_box_button": "Prefab/Message Box/Button",
+    "resource_pack_list.resource_pack": "Prefab/Resource Pack List/Resource Pack",
+    "file_dialog_shortcut_bar.button": "Prefab/File Dialog/Shortcut Bar Button",
+    "file_dialog_shortcut_bar.line": "Prefab/File Dialog/Line",
+    "file_dialog_my_pc.button": "Prefab/File Dialog/My PC Button",
+    "bgm_manager.bgm": "Prefab/BGM/BGM",
+    "background_setting.background": "Prefab/Background/Background",
+    "background_video_setting.background_video": "Prefab/Background/Video"
+  }
+}

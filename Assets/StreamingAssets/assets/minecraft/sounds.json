@@ -1,0 +1,250 @@
+{
+  "ui.cartography_table.take_result": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "ui/cartography_table/drawmap1",
+        "pitch": 1.0,
+        "tempo": 1.0
+      },
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "ui/cartography_table/drawmap2",
+        "pitch": 1.0,
+        "tempo": 1.0
+      },
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "ui/cartography_table/drawmap3",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "entity.arrow.shoot": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "random/bow",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.banjo": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/banjo",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.bass": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/bass",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.bassdrum": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/bd",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.bell": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/bell",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.bit": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/bit",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.cow_bell": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/cow_bell",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.didgeridoo": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/didgeridoo",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.flute": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/flute",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.guitar": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/guitar",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.harp": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/harp",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.hat": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/hat",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.chime": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/icechime",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.iron_xylophone": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/iron_xylophone",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.pling": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/pling",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.snare": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/snare",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  },
+  "block.note_block.xylobone": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "note/xylobone",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  }
+}

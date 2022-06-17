@@ -1,0 +1,215 @@
+{
+	"language.name": "English",
+	"language.region": "US",
+	
+	
+	
+	"gui.done": "Done",
+	"gui.cancel": "Cancel",
+	"gui.back": "Back",
+	"gui.home": "Home",
+	"gui.up": "Up",
+	"gui.down": "Down",
+	"gui.yes": "Yes",
+	"gui.no": "No",
+	"gui.none": "None",
+	"gui.all": "All",
+	"gui.select": "Select",
+	"gui.selectAll": "Select All",
+	"gui.ok": "Ok",
+	"gui.am": "AM",
+	"gui.pm": "PM",
+	"gui.warning": "Warning",
+	"gui.error": "Error",
+	"gui.on": "On",
+	"gui.off": "Off",
+	"gui.save": "Save",
+	"gui.open": "Open",
+	"gui.folder_select": "Folder select",
+	
+	"gui.inputfield.enter_number": "Enter number...",
+	"gui.inputfield.enter_text": "Enter text...",
+	"gui.inputfield.search": "Serarch...",
+	"gui.inputfield.enter_file_name": "Enter file name...",
+	"gui.inputfield.enter_folder_name": "Enter folder name...",
+	
+	
+	
+	"kernel.allrefresh.warning": "There is a bug where refreshing the resource pack while sound effects or music is playing causes the program to crash!\nAre you sure you want to continue?",
+	"kernel.allrefresh.error": "Unable to refresh resource pack while sound effect or music is playing!",
+	
+	
+	
+	"options.theme.title": "Theme",
+	"options.theme.systemColor": "System Color",
+	"options.theme.systemColor.info": "Change system color",
+	
+	"options.language.title": "Language",
+	"options.language.language": "Language",
+	"options.language.language.info": "Change the overall language\n(there may be errors)",
+	
+	"options.sound.title": "Sound",
+	"options.sound.mainVolume": "Main",
+	"options.sound.bgmVolume": "Music",
+	"options.sound.soundVolume": "SFX",
+	"options.sound.noteBlockVolume": "Note Block",
+	"options.sound.audio_reset": "Audio reset",
+	"options.sound.audio_reset.info": "Reset Unity Audio (Only use when sound is choppy)",
+	
+	"options.video.title": "Video",
+	"options.video.vSync": "VSync",
+	"options.video.vSync.info": "Match the frame generation of the graphic card and the frame output timing of the monitor\n(You can think of it as limiting the frame rate to the monitor's hertz.)",
+	"options.video.fpsLimit": "FPS Limit",
+	"options.video.fpsLimit.info": "",
+	"options.video.guiSize": "GUI Size",
+	"options.video.guiSize.info": "Change the overall GUI size",
+	"options.video.fixedGuiSizeEnable": "Use a fixed GUI size",
+	"options.video.fixedGuiSizeEnable.info": "Fix GUI size not proportional to resolution",
+	"options.video.resource_pack_setting": "Resource Pack Settings",
+	
+	"options.statusbar.title": "Status Bar",
+	"options.statusbar.bottomMode": "Show at the bottom",
+	"options.statusbar.bottomMode.info": "Show the status bar at the bottom",
+	
+	"options.statusbar.time.title": "Time",
+	"options.statusbar.time.twentyFourHourSystem": "24-hour system",
+	"options.statusbar.time.twentyFourHourSystem.info": "Change the time displayed in the status bar to 24-hour clock",
+	"options.statusbar.time.toggleSeconds": "Toggle Seconds",
+	"options.statusbar.time.toggleSeconds.info": "Add seconds to the time displayed in the status bar",
+	
+	"options.input.title": "Input",
+	"options.input.highPrecisionMouse": "Ignore system mouse acceleration",
+	"options.input.highPrecisionMouse.info": "Ignore system mouse acceleration\nCommonly called Raw Input on Windows",
+	"options.input.highPrecisionMouse.warning": "Ignoring system mouse acceleration is a very unstable setting\nWould you still like to turn it on?<size=10>\n\n</size><size=15>(It is recommended to set the Windows mouse sensitivity or hardware mouse sensitivity similar to the game settings)</size>",
+	"options.input.highPrecisionMouse.os_warning": "Operating systems other than Windows are not supported",
+	"options.input.mouseSensitivity": "Mouse Sensitivity",
+	"options.input.mouseSensitivity.info": "Change the sensitivity of the mouse (if the Ignore system mouse acceleration setting is turned on, the sensitivity of the mouse pointer is also changed)",
+	"options.input.controls": "Control Settings",
+	
+	"options.advanced.title": "Advanced",
+	"options.advanced.allowProgressBarShow": "Always show loading bar on splash screen",
+	"options.advanced.allowProgressBarShow.info": "Always show the loading bar on the start screen (even if you turn it off, the loading bar will appear if it takes a long time to load)",
+	
+	"options.debug.title": "Debug",
+	"options.debug.textShow": "Text show",
+	"options.debug.textShow.info": "Display text on the debug screen",
+	"options.debug.graphShow": "Graph show",
+	"options.debug.graphShow.info": "Display the graph in the debug screen",
+	"options.debug.textRefreshDelay": "Text refresh delay",
+	"options.debug.textRefreshDelay.info": "Adjusts the delay at which text is refreshed",
+	"options.debug.graphRefreshDelay": "Graph refresh delay",
+	"options.debug.graphRefreshDelay.info": "Adjusts the delay at which the graph refreshes",
+	"options.debug.graphSpeed": "Graph speed",
+	"options.debug.graphSpeed.info": "Adjusts the speed of the graph",
+	
+	"options.set_default.info": "Set as default",
+	
+	
+	
+	"setting_info.no_hotkey": "No hotkey",
+	
+	
+	
+	"controls.emptying": "Emptying",
+	"controls.reset_all": "Reset all key settings",
+	
+	"controls.video.title": "Video",
+	"kernel.full_screen": "Full Screen",
+	
+	"controls.side_bar.title": "Side Bar",
+	"noticebar.show": "Notice bar toggle",
+	"settingbar.show": "Settings bar toggle",
+	"controlbar.show": "Control bar toggle",
+	
+	"controls.notice_bar.title": "Notice Bar",
+	"notice_manager.notice_remove": "Clear notifications",
+	"notice_manager.notice_clear_all": "Clear all notifications",
+	
+	"controls.volume_control.title": "Volume Control",
+	"volume_control.minus": "Reduce the volume",
+	"volume_control.plus": "Turn up the volume",
+	
+	
+	
+	"resource_pack.selected": "Selected resource pack",
+	"resource_pack.available": "Available resource packs",
+	"resource_pack.drag_info": "Drag is a great system, isn't it?",
+	
+	
+	
+	"notice.notice": "Notice",
+	"notice.notice.clear_all": "Clear All",
+	"notice.running_task": "Running Task",
+	"notice.running_task.cancel_all": "Cancel All",
+	
+	
+	
+	"notice.running_task.resource_pack_refresh.name": "Refresh resource pack",
+	"notice.running_task.resource_pack_refresh.set_pack_textures.name": "Refresh resource pack (Merging textures)",
+	"notice.running_task.resource_pack_refresh.set_sprite.name": "Refresh resource pack (Sprite settings)",
+	"notice.running_task.resource_pack_refresh.set_audio.name": "Refresh resource pack (Audio settings)",
+	"notice.running_task.resource_pack_refresh.set_language.name": "Refresh resource pack (Audio settings)",
+	
+	"notice.running_task.rerender.name": "Refresh renderer",
+	
+	"notice.running_task.audio_refresh.name": "Refresh audio",
+	
+	"notice.running_task.drag_and_drop.file_load": "Loading file...",
+	"notice.running_task.drag_and_drop.resource_pack_load": "Loading resource pack...",
+	"notice.running_task.drag_and_drop.resource_pack_load.exists": "A resource pack with the same name already exists.",
+	
+	
+	
+	"compress_file_manager.compress": "Compressing...",
+	"compress_file_manager.decompress": "Decompressing...",
+	
+	
+	
+	"file_dialog.drive": "%value% Drive",
+	
+	"file_dialog.3d_objects": "3D Objects",
+	"file_dialog.downloads": "Downloads",
+	"file_dialog.videos": "Videos",
+	"file_dialog.documents": "Documents",
+	"file_dialog.desktop": "Desktop",
+	"file_dialog.pictures": "Pictures",
+	"file_dialog.music": "Music",
+	
+	"file_dialog.all_file": "All files",
+	
+	"file_dialog.capacity_display": "%value% of %all% available",
+	
+	
+	
+	"notice.school_live.birthday.title": "%value%st anniversary of Gakkou Gurashi!",
+	"notice.school_live.birthday.description": "A hearty congratulations on the %value%st anniversary of Gakkou Gurashi!",
+	"notice.school_live_ani.birthday.title": "%value%st anniversary of Gakkou Gurashi! anime",
+	"notice.school_live_ani.birthday.description": "A hearty congratulations on the %value%st anniversary of Gakkou Gurashi! anime",
+	
+	"notice.ebisuzawa_kurumi_chan.birthday.title": "Happy Birthday Kurumi-chan",
+	"notice.ebisuzawa_kurumi_chan.birthday.description": "Today is the birthday of 'Kurumi Ebisuzawa'",
+	"notice.takeya_yuki.birthday.title": "Happy Birthday Yuki-chan",
+	"notice.takeya_yuki.birthday.description": "Today is the birthday of 'Yuki Takeya'",
+	"notice.wakasa_yuri.birthday.title": "Happy Birthday Rii-san",
+	"notice.wakasa_yuri.birthday.description": "Today is the birthday of 'Yuri Wakasa'",
+	"notice.naoki_miki.birthday.title": "Happy Birthday Mii-kun",
+	"notice.naoki_miki.birthday.description": "Today is the birthday of 'Miki Naoki'",
+	"notice.sakura_megumi.birthday.title": "Happy Birthday Megu-nee",
+	"notice.sakura_megumi.birthday.description": "Today is the birthday of 'Megumi Sakura'",
+	
+	"notice.marple.birthday.title": "Happy birthday MinedApple (마인애플)",
+	"notice.marple.birthday.description": "Today is YouTuber MinedApple's (마인애플) birthday",
+	
+	"notice.onell0.birthday.title": "%value%st anniversary of SMP",
+	"notice.onell0.birthday.description": "A hearty congratulations on the %value%st anniversary of SMP!",
+	
+	"notice.korean_new_year.title": "Happy Korean New Year",
+	"notice.korean_new_year.description": "Today is Korean New Year's Day",
+	
+	"notice.april_fools_day.title": "What day is today?",
+	"notice.april_fools_day.description": "Today is April Fool's Day!\n<s>But now it's my lunch</s>",
+	
+	
+	
+	"subtitles.easter_egg_music_play": "Easter egg music is playing"
+}
