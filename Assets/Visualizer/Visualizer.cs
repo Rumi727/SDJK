@@ -26,7 +26,7 @@ namespace SDJK
 
 
         float[] samples = new float[256];
-        SoundPlayer tempSoundPlayer;
+        ISoundPlayer tempSoundPlayer;
         void Update()
         {
             if (bars.Length != length)
@@ -44,8 +44,11 @@ namespace SDJK
                 }
             }
 
-            if (tempSoundPlayer != BGMManager.bgm && BGMManager.bgm.soundPlayer != null)
+            if (tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
+            {
                 BGMManager.bgm.soundPlayer.onAudioFilterReadEvent += VisualizerUpdate;
+                tempSoundPlayer = BGMManager.bgm.soundPlayer;
+            }
         }
 
         void OnDisable()
