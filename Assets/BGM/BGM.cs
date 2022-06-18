@@ -14,11 +14,7 @@ namespace SDJK
 {
     public sealed class BGM : ObjectPooling
     {
-        public IObjectPooling iObjectPooling { get; private set; }
-        public ITime iTime { get; private set; }
-        public ILoop iLoop { get; private set; }
-        public IVolume iVolume { get; private set; }
-        public ISpeed iSpeed { get; private set; }
+        public ISoundPlayer soundPlayer { get; private set; }
 
         public float volumePade { get; private set; } = 0;
         public bool padeOut { get; set; } = false;
@@ -40,19 +36,14 @@ namespace SDJK
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
-                SoundPlayer soundPlayer = SoundManager.PlaySound(soundData, 0, true);
-                iObjectPooling = soundPlayer;
-                iTime = soundPlayer;
-                iLoop = soundPlayer;
-                iVolume = soundPlayer;
-                iSpeed = soundPlayer;
+                soundPlayer = SoundManager.PlaySound(soundData, 0, true);
 
                 if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    iTime.time = (float)map.info.mainMenuStartTime;
+                    soundPlayer.time = (float)map.info.mainMenuStartTime;
 
-                iLoop.looped += Looped;
+                soundPlayer.looped += Looped;
 
-                RhythmManager.Play(MapManager.selectedMapEffect, MapManager.selectedMapInfo, MapManager.selectedMapEffect, soundPlayer, soundPlayer);
+                RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, soundPlayer);
 
                 isLoaded = true;
             }
@@ -62,19 +53,14 @@ namespace SDJK
                 NBSMetaData nbsMetaData = ResourceManager.CreateNBSMetaData(1, 1, nbsFile);
                 SoundData<NBSMetaData> soundData = ResourceManager.CreateSoundData("", true, nbsMetaData);
 
-                NBSPlayer nbsPlayer = SoundManager.PlayNBS(soundData, 0, true);
-                iObjectPooling = nbsPlayer;
-                iTime = nbsPlayer;
-                iLoop = nbsPlayer;
-                iVolume = nbsPlayer;
-                iSpeed = nbsPlayer;
+                soundPlayer = SoundManager.PlayNBS(soundData, 0, true);
 
                 if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    iTime.time = (float)map.info.mainMenuStartTime;
+                    soundPlayer.time = (float)map.info.mainMenuStartTime;
 
-                iLoop.looped += Looped;
+                soundPlayer.looped += Looped;
 
-                RhythmManager.Play(MapManager.selectedMapEffect, MapManager.selectedMapInfo, MapManager.selectedMapEffect, nbsPlayer, nbsPlayer);
+                RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, soundPlayer);
 
                 isLoaded = true;
             }
@@ -89,7 +75,7 @@ namespace SDJK
 
             SDJKMap map = MapManager.selectedMap;
 
-            if (iObjectPooling.isRemoved)
+            if (soundPlayer.isRemoved)
             {
                 Remove();
                 return;
@@ -113,10 +99,10 @@ namespace SDJK
             else
                 volumePade = volumePade.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-            iVolume.volume = (float)map.globalEffect.volume.GetValue() * volumePade;
+            soundPlayer.volume = (float)map.globalEffect.volume.GetValue() * volumePade;
 
-            iSpeed.pitch = (float)map.globalEffect.pitch.GetValue();
-            iSpeed.tempo = (float)map.globalEffect.tempo.GetValue();
+            soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue();
+            soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue();
         }
 
         void Looped()
@@ -124,7 +110,7 @@ namespace SDJK
             if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
             {
                 SDJKMap map = MapManager.selectedMap;
-                iTime.time = (float)map.info.mainMenuStartTime;
+                soundPlayer.time = (float)map.info.mainMenuStartTime;
             }
         }
 
@@ -132,21 +118,17 @@ namespace SDJK
         {
             if (base.Remove())
             {
-                if (iLoop != null)
+                if (soundPlayer != null)
                 {
-                    iLoop.looped -= Looped;
+                    soundPlayer.looped -= Looped;
 
-                    if (!iObjectPooling.isRemoved)
-                        iObjectPooling.Remove();
+                    if (!soundPlayer.isRemoved)
+                        soundPlayer.Remove();
                 }
 
                 isLoaded = false;
 
-                iObjectPooling = null;
-                iTime = null;
-                iLoop = null;
-                iVolume = null;
-                iSpeed = null;
+                soundPlayer = null;
 
                 volumePade = 0;
                 padeOut = false;

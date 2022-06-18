@@ -79,10 +79,10 @@ namespace SDJK
 
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-                if (BGMManager.bgm.iObjectPooling != null)
+                if (BGMManager.bgm.soundPlayer != null)
                 {
-                    double dis = (BGMManager.bgm.iTime.time - offset) - videoPlayer.time;
-                    float speed = BGMManager.bgm.iSpeed.speed * Kernel.gameSpeed;
+                    double dis = (BGMManager.bgm.soundPlayer.time - offset) - videoPlayer.time;
+                    float speed = BGMManager.bgm.soundPlayer.speed * Kernel.gameSpeed;
                     videoPlayer.playbackSpeed = speed;
 
                     if (dis.Abs() < 1)
@@ -96,9 +96,9 @@ namespace SDJK
                     else
                         videoPlayer.time = RhythmManager.time;
 
-                    if (videoPlayer.isPaused != BGMManager.bgm.iTime.isPaused)
+                    if (videoPlayer.isPaused != BGMManager.bgm.soundPlayer.isPaused)
                     {
-                        if (RhythmManager.iTime.isPaused)
+                        if (RhythmManager.soundPlayer.isPaused)
                             videoPlayer.Pause();
                         else
                             videoPlayer.Play();

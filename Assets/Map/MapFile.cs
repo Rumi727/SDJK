@@ -25,7 +25,7 @@ namespace SDJK.Map
         [JsonIgnore] public string mapFilePath { get; set; } = "";
     }
 
-    public sealed class SDJKMapInfo : IOffset
+    public sealed class SDJKMapInfo
     {
         public Version sckrmVersion { get; set; } = new Version();
         public Version sdjkVersion { get; set; } = new Version();
@@ -54,7 +54,7 @@ namespace SDJK.Map
         public string songName { get; set; } = "";
 
 
-        [JsonIgnore] double IOffset.offset { get => songOffset; set => songOffset = value; }
+
         public double songOffset { get; set; } = 0;
         public double mainMenuStartTime { get; set; } = 0;
 
@@ -63,7 +63,7 @@ namespace SDJK.Map
         public string by { get; set; } = "";
     }
 
-    public sealed class SDJKMapGlobalEffect : IBPM, IDropPart
+    public sealed class SDJKMapGlobalEffect
     {
         public SCKRM.Rhythm.BeatValuePairList<double> bpm { get; } = new();
         public SCKRM.Rhythm.BeatValuePairList<bool> dropPart { get; } = new();
