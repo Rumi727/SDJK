@@ -1,0 +1,15 @@
+{
+  "hitsound.normal": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "hitsound/normal",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  }
+}
