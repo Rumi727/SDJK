@@ -80,11 +80,6 @@ namespace SDJK
                 Remove();
                 return;
             }
-            else if (MapManager.isMapLoading)
-            {
-                Remove();
-                return;
-            }
 
             if (padeOut)
             {

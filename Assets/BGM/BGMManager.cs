@@ -33,15 +33,7 @@ namespace SDJK
             if (!InitialLoadManager.isSceneMoveEnd)
                 return;
 
-            if (MapManager.isMapLoading)
-            {
-                RhythmManager.Stop();
-
-                tempSDJKMapPack = null;
-                tempSDJKMap = null;
-                tempSongFile = "";
-            }
-            else if (MapManager.selectedMap != null)
+            if (MapManager.selectedMap != null)
             {
                 if (tempSDJKMapPack != MapManager.selectedMapPack || (tempSDJKMap != MapManager.selectedMap && tempSongFile != MapManager.selectedMapInfo.songFile))
                     Refresh();

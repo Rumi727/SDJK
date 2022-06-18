@@ -13,12 +13,7 @@ namespace SDJK
         SDJKMap tempSDJKMap;
         void Update()
         {
-            if (MapManager.isMapLoading)
-            {
-                tempSDJKMap = null;
-                return;
-            }
-            else if (MapManager.selectedMap != null && tempSDJKMap != MapManager.selectedMap)
+            if (MapManager.selectedMap != null && tempSDJKMap != MapManager.selectedMap)
             {
                 if (backgroundVideo != null)
                     backgroundVideo.PadeOut().Forget();
