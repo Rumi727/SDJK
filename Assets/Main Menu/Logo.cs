@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Rhythm;
+using SCKRM.Sound;
 using SCKRM.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace SDJK
 
         protected override void Awake() => image.alphaHitTestMinimumThreshold = 0.5f;
 
+        int lastCurrentBeat = 0;
         void Update()
         {
             beatScale = beatScaleAni.GetValue(RhythmManager.currentBeat1Beat);
@@ -47,6 +49,25 @@ namespace SDJK
             }
 
             transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
+
+            int currentBeat;
+            if (RhythmManager.currentBeat < 0)
+                currentBeat = (int)RhythmManager.currentBeat + 1;
+            else
+                currentBeat = (int)RhythmManager.currentBeat;
+
+            if (lastCurrentBeat != currentBeat)
+            {
+                if (pointer)
+                {
+                    if ((int)RhythmManager.currentBeat.Reapeat(4) == 0)
+                        SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.2f);
+
+                    SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f);
+                }
+
+                lastCurrentBeat = currentBeat;
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
