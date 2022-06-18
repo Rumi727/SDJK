@@ -4,21 +4,6 @@ using System.Collections.Generic;
 
 namespace SCKRM.Rhythm
 {
-    public interface IOffset
-    {
-        double offset { get; set; }
-    }
-
-    public interface IBPM
-    {
-        BeatValuePairList<double> bpm { get; }
-    }
-
-    public interface IDropPart
-    {
-        BeatValuePairList<bool> dropPart { get; }
-    }
-
     #region Beat Value Pair List
     public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>> { }
 

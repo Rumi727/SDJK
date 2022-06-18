@@ -28,26 +28,19 @@ namespace SCKRM.Editor
             EditorApplication.hierarchyChanged += () => { HierarchyChanged(true); };
 
             EditorApplication.update += Update;
+
+            File.WriteAllText(PathTool.Combine(Directory.GetCurrentDirectory(), "SC-KRM-Version"), Kernel.sckrmVersion.ToString());
         }
 
-        static bool initializeOnLoad = false;
-        static string bundleVersion = "";
         static void Update()
         {
-            if (!initializeOnLoad)
+            if (EditorBuildSettings.scenes.Length <= 0)
             {
                 SceneListChanged(true);
                 HierarchyChanged(false);
-
-                initializeOnLoad = true;
             }
 
-            string sckrmVersion = Kernel.sckrmVersion.ToString();
-            if (bundleVersion != sckrmVersion)
-            {
-                File.WriteAllText(PathTool.Combine(Directory.GetCurrentDirectory(), "SC-KRM-Version"), sckrmVersion);
-                bundleVersion = sckrmVersion;
-            }
+            EditorApplication.update -= Update;
         }
 
 

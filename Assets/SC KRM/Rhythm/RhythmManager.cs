@@ -19,11 +19,10 @@ namespace SCKRM.Rhythm
             [JsonProperty] public static double soundOffset { get; set; } = 0;
         }
 
-        public static IBPM iBPM { get; private set; }
-        public static IOffset iOffset { get; private set; }
-        public static IDropPart iDropPart { get; private set; }
-        public static ITime iTime { get; private set; }
-        public static ISpeed iSpeed { get; private set; }
+        public static ISoundPlayer soundPlayer { get; private set; }
+        public static BeatValuePairList<double> bpmList { get; private set; }
+        public static double offset { get; private set; }
+        public static BeatValuePairList<bool> dropPartList { get; private set; }
 
 
 
@@ -41,7 +40,7 @@ namespace SCKRM.Rhythm
 
 
 
-        public static float time => iTime != null ? iTime.time : 0;
+        public static float time => soundPlayer != null ? soundPlayer.time : 0;
         public static double currentBeat { get; private set; }
         public static double currentBeatSound { get; private set; }
         public static double currentBeatScreen { get; private set; }
@@ -66,14 +65,14 @@ namespace SCKRM.Rhythm
         {
             if (isPlaying)
             {
-                if (iBPM == null || iOffset == null || iDropPart == null || iTime == null || iSpeed == null)
+                if (soundPlayer == null || bpmList == null || dropPartList == null)
                     Stop();
                 else
                 {
                     SetCurrentBeat();
 
                     {
-                        bpm = iBPM.bpm.GetValue(currentBeat, out double beat, out bool isValueChanged);
+                        bpm = bpmList.GetValue(currentBeat, out double beat, out bool isValueChanged);
 
                         if (isValueChanged)
                         {
@@ -83,11 +82,11 @@ namespace SCKRM.Rhythm
                     }
 
                     {
-                        bpmFpsDeltaTime = (float)(bpm * 0.01f * Kernel.fpsDeltaTime * iSpeed.speed);
-                        bpmUnscaledFpsDeltaTime = (float)(bpm * 0.01f * Kernel.fpsUnscaledDeltaTime * iSpeed.speed);
+                        bpmFpsDeltaTime = (float)(bpm * 0.01f * Kernel.fpsDeltaTime * soundPlayer.speed);
+                        bpmUnscaledFpsDeltaTime = (float)(bpm * 0.01f * Kernel.fpsUnscaledDeltaTime * soundPlayer.speed);
                     }
 
-                    dropPart = iDropPart.dropPart.GetValue();
+                    dropPart = dropPartList.GetValue();
 
                     if (tempCurrentBeat != (int)currentBeat && currentBeat >= 0)
                     {
@@ -108,7 +107,7 @@ namespace SCKRM.Rhythm
 
         static void SetCurrentBeat()
         {
-            double soundTime = (double)time - iOffset.offset - bpmOffsetTime;
+            double soundTime = (double)time - offset - bpmOffsetTime;
             double bpmDivide60 = bpm / 60d;
 
             currentBeat = (soundTime * bpmDivide60) + bpmOffsetBeat;
@@ -124,41 +123,39 @@ namespace SCKRM.Rhythm
 
             bpmOffsetTime = 0;
             double tempBeat = 0;
-            for (int i = 0; i < iBPM.bpm.Count; i++)
+            for (int i = 0; i < bpmList.Count; i++)
             {
-                if (iBPM.bpm[0].beat >= offsetBeat)
+                if (bpmList[0].beat >= offsetBeat)
                     break;
 
                 double tempBPM;
                 if (i - 1 < 0)
-                    tempBPM = iBPM.bpm[0].value;
+                    tempBPM = bpmList[0].value;
                 else
-                    tempBPM = iBPM.bpm[i - 1].value;
+                    tempBPM = bpmList[i - 1].value;
 
-                bpmOffsetTime += (iBPM.bpm[i].beat - tempBeat) * (60d / tempBPM);
-                tempBeat = iBPM.bpm[i].beat;
+                bpmOffsetTime += (bpmList[i].beat - tempBeat) * (60d / tempBPM);
+                tempBeat = bpmList[i].beat;
 
-                if (iBPM.bpm[i].beat >= offsetBeat)
+                if (bpmList[i].beat >= offsetBeat)
                     break;
             }
 
             RhythmManager.bpm = bpm;
         }
 
-        public static void Play(IBPM iBPM, IOffset iOffset, IDropPart iDropPart, SoundPlayer soundPlayer) => Play(iBPM, iOffset, iDropPart, soundPlayer, soundPlayer);
-        public static void Play(IBPM iBPM, IOffset iOffset, IDropPart iDropPart, ITime iTime, ISpeed iSpeed)
+        public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> dropPartList, ISoundPlayer soundPlayer)
         {
             currentBeat = 0;
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
 
-            RhythmManager.iBPM = iBPM;
-            RhythmManager.iOffset = iOffset;
-            RhythmManager.iDropPart = iDropPart;
-            RhythmManager.iTime = iTime;
-            RhythmManager.iSpeed = iSpeed;
+            RhythmManager.bpmList = bpmList;
+            RhythmManager.offset = offset;
+            RhythmManager.dropPartList = dropPartList;
+            RhythmManager.soundPlayer = soundPlayer;
 
-            RhythmManager.iTime.timeChanged += SoundPlayerTimeChange;
+            RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
             isPlaying = true;
         }
 
@@ -168,24 +165,23 @@ namespace SCKRM.Rhythm
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
 
-            if (iTime != null)
-                iTime.timeChanged -= SoundPlayerTimeChange;
+            if (soundPlayer != null)
+                soundPlayer.timeChanged -= SoundPlayerTimeChange;
 
-            iBPM = null;
-            iOffset = null;
-            iDropPart = null;
-            iTime = null;
-            iSpeed = null;
+            bpmList = null;
+            offset = 0;
+            dropPartList = null;
+            soundPlayer = null;
 
             isPlaying = false;
         }
 
         static void SoundPlayerTimeChange()
         {
-            for (int i = 0; i < iBPM.bpm.Count; i++)
+            for (int i = 0; i < bpmList.Count; i++)
             {
                 {
-                    BeatValuePair<double> bpm = iBPM.bpm[i];
+                    BeatValuePair<double> bpm = bpmList[i];
                     BPMChange(bpm.value, bpm.beat);
                     SetCurrentBeat();
                 }
@@ -194,7 +190,7 @@ namespace SCKRM.Rhythm
                 {
                     if (i - 1 >= 0)
                     {
-                        BeatValuePair<double> bpm = iBPM.bpm[i - 1];
+                        BeatValuePair<double> bpm = bpmList[i - 1];
                         SetCurrentBeat();
                         BPMChange(bpm.value, bpm.beat);
                     }

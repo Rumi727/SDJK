@@ -96,7 +96,7 @@ MonoBehaviour:
         IsEnabled: 1
         WidthInToolbar: 200
         minFPS: 1
-        maxFPS: 120
+        maxFPS: 480
     - rid: 570256835537272844
       type: {class: ToolbarSpace, ns: , asm: CustomToolbar.Editor}
       data:

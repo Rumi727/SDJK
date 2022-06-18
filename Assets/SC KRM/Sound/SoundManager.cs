@@ -79,9 +79,9 @@ namespace SCKRM.Sound
 
 
 
-            ISoundPlayerRefresh[] iSoundPlayerRefresh = FindObjectsOfType<MonoBehaviour>().OfType<ISoundPlayerRefresh>().ToArray();
-            for (int i = 0; i < iSoundPlayerRefresh.Length; i++)
-                iSoundPlayerRefresh[i].Refresh();
+            ISoundPlayer[] soundPlayer = FindObjectsOfType<MonoBehaviour>().OfType<ISoundPlayer>().ToArray();
+            for (int i = 0; i < soundPlayer.Length; i++)
+                soundPlayer[i].Refresh();
         }
 
         /// <summary>

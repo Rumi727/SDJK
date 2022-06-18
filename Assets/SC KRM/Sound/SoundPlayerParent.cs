@@ -1,57 +1,56 @@
 using SCKRM.Object;
 using SCKRM.Resource;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace SCKRM.Sound
 {
-    public interface INameSpaceKey
+    public delegate void OnAudioFilterReadAction(float[] data, int channels);
+
+    public interface ISoundPlayerData<MetaData> where MetaData : SoundMetaDataParent
+    {
+        SoundData<MetaData> soundData { get; }
+        SoundData<MetaData> customSoundData { get; set; }
+
+        MetaData metaData { get; }
+    }
+
+    public interface ISoundPlayer : IRefreshable
     {
         string nameSpace { get; set; }
         string key { get; set; }
-    }
 
-    public interface ITime
-    {
+
+
         float time { get; set; }
         float realTime { get; set; }
 
+        float length { get; }
+        float realLength { get; }
+
+
+
         event Action timeChanged;
+        event Action looped;
 
 
 
+        bool isLooped { get; }
         bool isPaused { get; set; }
-    }
 
-    public interface ILength
-    {
-        float time { get; set; }
-        float realTime { get; set; }
 
-        event Action timeChanged;
-    }
 
-    public interface ISpeed
-    {
         float pitch { get; set; }
         float tempo { get; set; }
 
         float speed { get; set; }
-    }
 
-    public interface ILoop
-    {
-        event Action looped;
-        bool isLooped { get; }
-    }
 
-    public interface IVolume
-    {
+
+
         float volume { get; set; }
-    }
 
-    public interface ISpatial
-    {
         float minDistance { get; set; }
         float maxDistance { get; set; }
 
@@ -61,24 +60,15 @@ namespace SCKRM.Sound
 
         bool spatial { get; set; }
         Vector3 localPosition { get; set; }
+
+
+
+        event OnAudioFilterReadAction onAudioFilterReadEvent;
     }
 
-    public interface ISoundPlayerRefresh : IRefreshable
+    public abstract class SoundPlayerParent<MetaData> : ObjectPooling, ISoundPlayer, ISoundPlayerData<MetaData> where MetaData : SoundMetaDataParent
     {
-
-    }
-
-    public interface ISoundPlayer<MetaData> : IObjectPooling, INameSpaceKey, ITime, ILength, ISpeed, ILoop, IVolume, ISpatial, ISoundPlayerRefresh where MetaData : SoundMetaDataParent
-    {
-        public SoundData<MetaData> soundData { get; }
-        public SoundData<MetaData> customSoundData { get; set; }
-
-        public MetaData metaData { get; }
-    }
-
-    public abstract class SoundPlayerParent<MetaData> : ObjectPooling, ISoundPlayer<MetaData> where MetaData : SoundMetaDataParent
-    {
-        SoundData<MetaData> ISoundPlayer<MetaData>.soundData { get => soundData; }
+        SoundData<MetaData> ISoundPlayerData<MetaData>.soundData { get => soundData; }
         public SoundData<MetaData> soundData { get; protected set; }
         public SoundData<MetaData> customSoundData { get; set; }
 
@@ -108,7 +98,7 @@ namespace SCKRM.Sound
 
 
 
-        bool ILoop.isLooped { get => isLooped; }
+        bool ISoundPlayer.isLooped => isLooped;
         public abstract bool isLooped { get; protected set; }
         public abstract bool isPaused { get; set; }
 
@@ -132,6 +122,55 @@ namespace SCKRM.Sound
 
         public virtual bool spatial { get; set; } = false;
         public virtual Vector3 localPosition { get; set; } = Vector3.zero;
+
+
+
+        int onAudioFilterReadEventLock = 0;
+        event OnAudioFilterReadAction _onAudioFilterReadEvent;
+
+        /// <summary>
+        /// Thread-Safe (onAudioFilterReadEvent += () => { onAudioFilterReadEvent += () => { }; }; Do not add more methods to this event from inside this event method like this. This causes deadlock)
+        /// </summary>
+        public event OnAudioFilterReadAction onAudioFilterReadEvent
+        {
+            add
+            {
+                while (Interlocked.CompareExchange(ref onAudioFilterReadEventLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _onAudioFilterReadEvent += value;
+
+                Interlocked.Decrement(ref onAudioFilterReadEventLock);
+            }
+            remove
+            {
+                while (Interlocked.CompareExchange(ref onAudioFilterReadEventLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _onAudioFilterReadEvent -= value;
+
+                Interlocked.Decrement(ref onAudioFilterReadEventLock);
+            }
+        }
+
+        protected void OnAudioFilterReadInvoke(float[] data, int channels)
+        {
+            while (Interlocked.CompareExchange(ref onAudioFilterReadEventLock, 1, 0) != 0)
+                Thread.Sleep(1);
+
+            try
+            {
+                _onAudioFilterReadEvent?.Invoke(data, channels);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            finally
+            {
+                Interlocked.Decrement(ref onAudioFilterReadEventLock);
+            }
+        }
 
 
 
@@ -177,6 +216,7 @@ namespace SCKRM.Sound
             spatial = false;
             localPosition = Vector3.zero;
 
+            _onAudioFilterReadEvent = null;
             return true;
         }
     }
