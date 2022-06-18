@@ -1,5 +1,12 @@
 {
 	"gui.play": "Play",
 	"gui.edit": "Edit",
-	"gui.quit": "Quit"
+	"gui.quit": "Quit",
+	
+	"map_manager.music": "Music",
+	"map_manager.previous_music": "Previous music",
+	"map_manager.restart_music": "Restart music",
+	"map_manager.next_music": "Next  music",
+	"map_manager.play_music": "Play music",
+	"map_manager.pause_music": "Pause music"
 }

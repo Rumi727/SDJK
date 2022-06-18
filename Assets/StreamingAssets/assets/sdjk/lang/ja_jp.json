@@ -1,5 +1,12 @@
 {
 	"gui.play": "プレイ",
 	"gui.edit": "編集",
-	"gui.quit": "終了"
+	"gui.quit": "終了",
+	
+	"map_manager.music": "音楽",
+	"map_manager.previous_music": "以前の音楽",
+	"map_manager.restart_music": "音楽の再起動",
+	"map_manager.next_music": "次の音楽",
+	"map_manager.play_music": "音楽再生",
+	"map_manager.pause_music": "音楽一時停止"
 }
