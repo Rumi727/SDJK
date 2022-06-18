@@ -80,7 +80,6 @@ namespace SDJK.Map
 
 
 
-        public static bool isMapLoading { get; private set; } = false;
         public static event Action mapLoadingEnd;
 
 
@@ -159,11 +158,6 @@ namespace SDJK.Map
 
         public static void MapListLoad()
         {
-            if (isMapLoading)
-                return;
-
-            isMapLoading = true;
-
             currentMapPacks.Clear();
 
             string mapFolderPath = PathTool.Combine(Kernel.persistentDataPath, "Map");
@@ -172,10 +166,7 @@ namespace SDJK.Map
             
             string[] mapPackPaths = Directory.GetDirectories(mapFolderPath);
             if (mapPackPaths == null || mapPackPaths.Length <= 0)
-            {
-                isMapLoading = false;
                 return;
-            }
 
             for (int i = 0; i < mapPackPaths.Length; i++)
             {
@@ -210,7 +201,6 @@ namespace SDJK.Map
                     selectedMapPackIndex = selectedMapPackIndex;
             }
 
-            isMapLoading = false;
             mapLoadingEnd?.Invoke();
         }
     }

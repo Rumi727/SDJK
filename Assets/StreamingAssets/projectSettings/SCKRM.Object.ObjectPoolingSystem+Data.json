@@ -11,6 +11,7 @@
     "file_dialog_my_pc.button": "Prefab/File Dialog/My PC Button",
     "bgm_manager.bgm": "Prefab/BGM/BGM",
     "background_setting.background": "Prefab/Background/Background",
-    "background_video_setting.background_video": "Prefab/Background/Video"
+    "background_video_setting.background_video": "Prefab/Background/Video",
+    "map_select_screen.map_pack": "Prefab/Map Select Screen/Map Pack"
   }
 }
