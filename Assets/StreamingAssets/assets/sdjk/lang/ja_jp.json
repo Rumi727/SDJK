@@ -1,4 +1,6 @@
 {
+	"gui.not_implemented": "実装されていません",
+	
 	"gui.play": "プレイ",
 	"gui.edit": "編集",
 	"gui.quit": "終了",

@@ -1,4 +1,6 @@
 {
+	"gui.not_implemented": "Not implemented",
+	
 	"gui.play": "Play",
 	"gui.edit": "Edit",
 	"gui.quit": "Quit",
