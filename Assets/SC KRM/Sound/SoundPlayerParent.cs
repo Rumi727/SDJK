@@ -16,7 +16,7 @@ namespace SCKRM.Sound
         MetaData metaData { get; }
     }
 
-    public interface ISoundPlayer : IRefreshable
+    public interface ISoundPlayer : IRefreshable, IObjectPooling
     {
         string nameSpace { get; set; }
         string key { get; set; }
