@@ -196,6 +196,15 @@ namespace SDJK
             UIManager.BackEventRemove(Normal);
             UIManager.BackEventRemove(MapSelect);
         }
+
+        public static void ApplicationQuit()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 
     public enum ScreenMode
