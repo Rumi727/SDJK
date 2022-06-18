@@ -27,6 +27,10 @@ namespace SDJK.Map
 
     public sealed class SDJKMapInfo
     {
+        [System.Obsolete("Not implemented!", true), JsonIgnore] public ulong id { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+
+
         public Version sckrmVersion { get; set; } = new Version();
         public Version sdjkVersion { get; set; } = new Version();
 
@@ -52,6 +56,9 @@ namespace SDJK.Map
 
         public string artist { get; set; } = "";
         public string songName { get; set; } = "";
+
+        public string difficultyLabel { get; set; } = "";
+        public string[] tag { get; set; } = new string[0];
 
 
 
