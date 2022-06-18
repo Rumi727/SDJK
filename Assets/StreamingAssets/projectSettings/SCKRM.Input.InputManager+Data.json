@@ -39,6 +39,15 @@
     ],
     "debug_manager.toggle": [
       284
+    ],
+    "map_manager.previous_music": [
+      276
+    ],
+    "map_manager.next_music": [
+      275
+    ],
+    "map_manager.pause_music": [
+      274
     ]
   },
   "inputLockList": {
