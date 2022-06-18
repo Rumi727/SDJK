@@ -1,0 +1,19 @@
+{
+    "name": "SDJK.Editor",
+    "rootNamespace": "SDJK.Editor",
+    "references": [
+        "GUID:42ec50f206125f04894d9168eeb43a0f",
+        "GUID:d3187ea2c974e474f8608791b2a0c036"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
