@@ -49,7 +49,7 @@ namespace SDJK
                 NextScreen();
 
             if (currentScreenMode == ScreenMode.esc)
-                DefaultLogoAni(Vector2.zero, Vector2.zero);
+                DefaultLogoAni(Vector2.zero, new Vector2(logo.sizeDelta.x, 0));
             else if (currentScreenMode == ScreenMode.normal)
             {
                 #region Logo Ani
@@ -65,17 +65,32 @@ namespace SDJK
                     barCanvasGroup.interactable = true;
 
                     bar.sizeDelta = new Vector2(0, (float)EasingFunction.EaseOutCubic(0, 135, barAlpha));
-                    barLayout.offsetMin = barLayout.offsetMin.Lerp(new Vector2(-210, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
+
+                    Vector2 offsetMin = new Vector2(-210, 0);
+                    if (Vector2.Distance(barLayout.offsetMin, offsetMin) > 0.01f)
+                        barLayout.offsetMin = barLayout.offsetMin.Lerp(offsetMin, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    else
+                        barLayout.offsetMin = offsetMin;
+
                     barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+
+                    if (!bar.gameObject.activeSelf)
+                        bar.gameObject.SetActive(true);
                 }
 
-                float x = (float)EasingFunction.EaseInQuad(screenNormalStartPos.x, -300, screenNormalAniT);
-                float y = (float)EasingFunction.EaseInQuad(screenNormalStartPos.y, 0, screenNormalAniT);
-                logo.anchoredPosition = new Vector2(x, y);
+                if (logo.anchoredPosition != new Vector2(-300, 0))
+                {
+                    float x = (float)EasingFunction.EaseInQuad(screenNormalStartPos.x, -300, screenNormalAniT);
+                    float y = (float)EasingFunction.EaseInQuad(screenNormalStartPos.y, 0, screenNormalAniT);
+                    logo.anchoredPosition = new Vector2(x, y);
+                }
 
-                x = (float)EasingFunction.EaseInQuad(screenNormalStartSize.x, 320, screenNormalAniT);
-                y = (float)EasingFunction.EaseInQuad(screenNormalStartSize.y, 320, screenNormalAniT);
-                logo.sizeDelta = new Vector2(x, y);
+                if (logo.sizeDelta != new Vector2(320, 320))
+                {
+                    float x = (float)EasingFunction.EaseInQuad(screenNormalStartSize.x, 320, screenNormalAniT);
+                    float y = (float)EasingFunction.EaseInQuad(screenNormalStartSize.y, 320, screenNormalAniT);
+                    logo.sizeDelta = new Vector2(x, y);
+                }
                 #endregion
             }
             else if (currentScreenMode == ScreenMode.mapSelect)
@@ -85,12 +100,22 @@ namespace SDJK
             {
                 if (barAlpha <= 0)
                 {
-                    logo.anchoredPosition = logo.anchoredPosition.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
-                    logo.sizeDelta = logo.sizeDelta.Lerp(sizeDelta, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    if (Vector2.Distance(logo.anchoredPosition, anchoredPosition) > 0.01f)
+                        logo.anchoredPosition = logo.anchoredPosition.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    else
+                        logo.anchoredPosition = anchoredPosition;
+
+                    if (Vector2.Distance(logo.sizeDelta, sizeDelta) > 0.01f)
+                        logo.sizeDelta = logo.sizeDelta.Lerp(sizeDelta, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    else
+                        logo.sizeDelta = sizeDelta;
 
                     barLayoutHorizontalLayout.spacing = -200;
                     barLayout.offsetMin = new Vector2(-410, 0);
                     screenNormalAniT = 0;
+
+                    if (bar.gameObject.activeSelf)
+                        bar.gameObject.SetActive(false);
 
                     return true;
                 }
@@ -104,6 +129,7 @@ namespace SDJK
                     barCanvasGroup.interactable = false;
 
                     bar.sizeDelta = new Vector2(0, (float)EasingFunction.EaseOutCubic(0, 135, barAlpha));
+
                     barLayout.offsetMin = barLayout.offsetMin.Lerp(new Vector2(-410, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
                     barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-200, 0.2f * Kernel.fpsUnscaledDeltaTime);
 
