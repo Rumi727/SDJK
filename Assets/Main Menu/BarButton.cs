@@ -49,7 +49,13 @@ namespace SDJK
                 float sin = (float)Math.Sin(RhythmManager.currentBeat1Beat * Mathf.PI).Abs();
                 icon.anchoredPosition = new Vector2(icon.anchoredPosition.x, sin * 10);
 
-                if ((int)RhythmManager.currentBeat % 2 == 0)
+                int currentBeat;
+                if (RhythmManager.currentBeat < 0)
+                    currentBeat = (int)RhythmManager.currentBeat + 1;
+                else
+                    currentBeat = (int)RhythmManager.currentBeat;
+
+                if (currentBeat % 2 == 0)
                     rotation = rotation.MoveTowards(new Vector3(0, 0, 10), RhythmManager.bpmFpsDeltaTime);
                 else
                     rotation = rotation.MoveTowards(new Vector3(0, 0, -10), RhythmManager.bpmFpsDeltaTime);
