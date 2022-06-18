@@ -24,6 +24,10 @@ namespace SDJK.Editor
 
             Space();
 
+            UseProperty("_circle");
+
+            Space();
+
             UseProperty("_all", "한번에 변경");
 
             Space();
