@@ -81,6 +81,7 @@ namespace SDJK.Map
 
 
         public static bool isMapLoading { get; private set; } = false;
+        public static event Action mapLoadingEnd;
 
 
 
@@ -201,10 +202,11 @@ namespace SDJK.Map
                     currentMapPacks.Add(sdjkMapPack);
             }
 
-            isMapLoading = false;
-
             if (selectedMapPack == null && selectedMap == null && currentMapPacks.Count > 0)
                 selectedMapPackIndex = UnityEngine.Random.Range(0, currentMapPacks.Count);
+
+            isMapLoading = false;
+            mapLoadingEnd?.Invoke();
         }
     }
 }
