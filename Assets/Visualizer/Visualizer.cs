@@ -34,6 +34,8 @@ namespace SDJK
                 for (int i = 0; i < bars.Length; i++)
                     Destroy(bars[i]);
 
+                bars = new VisualizerBar[length];
+
                 for (int i = 0; i < bars.Length; i++)
                 {
                     VisualizerBar visualizerBar = Instantiate(barPrefab, transform);
