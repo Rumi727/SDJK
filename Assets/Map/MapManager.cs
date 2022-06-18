@@ -193,13 +193,8 @@ namespace SDJK.Map
                     currentMapPacks.Add(sdjkMapPack);
             }
 
-            if (currentMapPacks.Count > 0)
-            {
-                if (selectedMapPack == null && selectedMap == null)
-                    selectedMapPackIndex = UnityEngine.Random.Range(0, currentMapPacks.Count);
-                else
-                    selectedMapPackIndex = selectedMapPackIndex;
-            }
+            if (selectedMapPack == null && selectedMap == null && currentMapPacks.Count > 0)
+                selectedMapPackIndex = UnityEngine.Random.Range(0, currentMapPacks.Count);
 
             mapLoadingEnd?.Invoke();
         }
