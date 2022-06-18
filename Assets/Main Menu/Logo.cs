@@ -63,7 +63,7 @@ namespace SDJK
                     if ((int)RhythmManager.currentBeat.Reapeat(4) == 0)
                         SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.2f);
 
-                    SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f);
+                    SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.8f);
                 }
 
                 lastCurrentBeat = currentBeat;
