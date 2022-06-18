@@ -58,6 +58,8 @@ namespace SDJK.Map
         public string songName { get; set; } = "";
 
         public string difficultyLabel { get; set; } = "";
+
+        public string original { get; set; } = "";
         public string[] tag { get; set; } = new string[0];
 
 
