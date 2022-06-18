@@ -48,6 +48,9 @@ namespace SCKRM.Editor
 
             UseProperty("_index", "스프라이트 인덱스");
 
+            if (Kernel.isPlaying)
+                return;
+
             string nameSpace = editor.nameSpace;
             if (nameSpace == null || nameSpace == "")
                 nameSpace = ResourceManager.defaultNameSpace;
@@ -56,9 +59,6 @@ namespace SCKRM.Editor
             string filePath = PathTool.Combine(typePath, editor.path);
             string typeAllPath = PathTool.Combine(Kernel.streamingAssetsPath, typePath);
             ResourceManager.FileExtensionExists(PathTool.Combine(Kernel.streamingAssetsPath, filePath), out string fileAllPath, ResourceManager.textureExtension);
-
-            if (Kernel.isPlaying)
-                GUI.enabled = false;
 
             if (Directory.Exists(typeAllPath) && editor.type != null && editor.type != "")
             {
@@ -151,8 +151,6 @@ namespace SCKRM.Editor
             DrawLine();
 
             EditorGUILayout.LabelField("경로 - " + filePath);
-
-            GUI.enabled = true;
         }
     }
 }
