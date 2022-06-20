@@ -283,6 +283,8 @@ namespace SCKRM.Sound
                 soundPlayer.maxDistance = maxDistance;
 
                 soundPlayer.localPosition = new Vector3(x, y, z);
+
+                soundPlayer.audioSource.Play();
             }
 
             return soundPlayer;

@@ -300,7 +300,6 @@ namespace SCKRM.Sound
                     audioSource.time = Mathf.Min(backTime, length - 0.001f);
 
                 tempTime = audioSource.time;
-                audioSource.Play();
             }
         }
 

@@ -100,18 +100,16 @@ namespace SCKRM.NBS
         {
             get
             {
-                if (nbsFile == null)
+                if (metaData == null)
                     return 0;
 
-                return tempo * nbsFile.tickTempo;
+                return tempo * metaData.tempo;
             }
         }
 
         void Update()
-        {
-            time = 0;
-
-            if (!isPaused && speed != 0)
+        { 
+            if (!isPaused && realSpeed != 0)
             {
                 if (realSpeed < 0)
                 {
