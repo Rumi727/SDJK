@@ -16,14 +16,18 @@ namespace SDJK
         string lastVideoBackgroundNightFile;
         void Update()
         {
-            bool isBackgroundChanged = (lastVideoBackgroundFile != MapManager.selectedMapInfo.videoBackgroundFile || lastVideoBackgroundNightFile != MapManager.selectedMapInfo.videoBackgroundNightFile);
-            if (lastSDJKMapPack != MapManager.selectedMapPack || (lastSDJKMap != MapManager.selectedMap && isBackgroundChanged))
+            bool isVideoBackgroundChanged = (lastVideoBackgroundFile != MapManager.selectedMapInfo.videoBackgroundFile || lastVideoBackgroundNightFile != MapManager.selectedMapInfo.videoBackgroundNightFile);
+            if (lastSDJKMapPack != MapManager.selectedMapPack || (lastSDJKMap != MapManager.selectedMap && isVideoBackgroundChanged))
             {
                 if (backgroundVideo != null)
                     backgroundVideo.PadeOut().Forget();
 
                 backgroundVideo = (BackgroundVideo)ObjectPoolingSystem.ObjectCreate("background_video_setting.background_video", transform, false).monoBehaviour;
+
+                lastSDJKMapPack = MapManager.selectedMapPack;
                 lastSDJKMap = MapManager.selectedMap;
+                lastVideoBackgroundFile = MapManager.selectedMapInfo.backgroundFile;
+                lastVideoBackgroundNightFile = MapManager.selectedMapInfo.backgroundNightFile;
             }
         }
     }
