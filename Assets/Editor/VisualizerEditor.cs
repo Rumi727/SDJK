@@ -40,7 +40,6 @@ namespace SDJK.Editor
                 Space();
             }
 
-            UseProperty("_alpha");
             UseProperty("_offset");
             UseProperty("_size");
 

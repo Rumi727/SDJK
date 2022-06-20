@@ -10,7 +10,6 @@ namespace SDJK
     public class VisualizerBar : MonoBehaviour
     {
         public RectTransform rectTransform;
-        public Image image;
 
         /// <summary>
         /// Thread-Safe
@@ -47,6 +46,10 @@ namespace SDJK
                 size -= 5 * Kernel.fpsDeltaTime;
 
             transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(transform.localScale.x, size), 0.75f * Kernel.fpsDeltaTime);
+
+            float yPosOffset = transform.localScale.y * 0.5f;
+            float radRotation = -transform.eulerAngles.z * Mathf.Deg2Rad;
+            rectTransform.anchoredPosition = new Vector2(radRotation.Sin() * yPosOffset, radRotation.Cos() * yPosOffset);
         }
     }
 }

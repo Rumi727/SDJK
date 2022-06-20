@@ -109,8 +109,6 @@ namespace SDJK
         [Min(1), SerializeField] int _divide = 4;
         int divideLock = 0;
 
-        public float alpha { get => _alpha; set => _alpha = value; } [Min(0), SerializeField] float _alpha = 1;
-
         /// <summary>
         /// Thread-Safe
         /// </summary>
@@ -176,7 +174,6 @@ namespace SDJK
         protected override void OnEnable()
         {
             tempSoundPlayer = null;
-            tempAlpha = 0;
             tempCircle = false;
         }
 
@@ -185,7 +182,6 @@ namespace SDJK
         float[] samples = new float[256];
         ISoundPlayer tempSoundPlayer;
         bool tempCircle = false;
-        float tempAlpha = 0;
         void Update()
         {
             while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
@@ -198,7 +194,7 @@ namespace SDJK
 
             Interlocked.Decrement(ref barsLock);
 
-            if (isBarsLengthChanged || tempAlpha != alpha || tempCircle != circle)
+            if (isBarsLengthChanged || tempCircle != circle)
             {
                 while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
@@ -206,7 +202,11 @@ namespace SDJK
                 try
                 {
                     for (int i = 0; i < bars.Length; i++)
-                        Destroy(bars[i].gameObject);
+                    {
+                        GameObject bar = bars[i].gameObject;
+                        if (bar != null)
+                            Destroy(bar);
+                    }
 
                     bars = new VisualizerBar[length];
 
@@ -214,7 +214,6 @@ namespace SDJK
                     {
                         VisualizerBar visualizerBar = Instantiate(barPrefab, transform);
                         bars[i] = visualizerBar;
-                        visualizerBar.image.color = new Color(1, 1, 1, alpha);
 
                         if (!circle)
                         {
@@ -240,7 +239,6 @@ namespace SDJK
                     Interlocked.Decrement(ref barsLock);
                 }
 
-                tempAlpha = alpha;
                 tempCircle = circle;
             }
 
