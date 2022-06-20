@@ -108,7 +108,7 @@ namespace SCKRM.NBS
         }
 
         void Update()
-        { 
+        {
             if (!isPaused && realSpeed != 0)
             {
                 if (realSpeed < 0)
