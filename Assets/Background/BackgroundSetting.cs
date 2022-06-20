@@ -11,16 +11,27 @@ namespace SDJK
     {
         public static Background background { get; private set; } = null;
 
-        SDJKMap tempSDJKMap;
+        SDJKMapPack lastSDJKMapPack;
+        SDJKMap lastSDJKMap;
+        string lastBackgroundFile;
+        string lastBackgroundNightFile;
         void Update()
         {
-            if (MapManager.selectedMap != null && tempSDJKMap != MapManager.selectedMap)
+            if (MapManager.selectedMap != null)
             {
-                if (background != null)
-                    background.PadeOut().Forget();
+                bool isBackgroundChanged = (lastBackgroundFile != MapManager.selectedMapInfo.backgroundFile || lastBackgroundNightFile != MapManager.selectedMapInfo.backgroundNightFile);
+                if (lastSDJKMapPack != MapManager.selectedMapPack || (lastSDJKMap != MapManager.selectedMap && isBackgroundChanged))
+                {
+                    if (background != null)
+                        background.PadeOut().Forget();
 
-                background = (Background)ObjectPoolingSystem.ObjectCreate("background_setting.background", transform, false).monoBehaviour;
-                tempSDJKMap = MapManager.selectedMap;
+                    background = (Background)ObjectPoolingSystem.ObjectCreate("background_setting.background", transform, false).monoBehaviour;
+
+                    lastSDJKMapPack = MapManager.selectedMapPack;
+                    lastSDJKMap = MapManager.selectedMap;
+                    lastBackgroundFile = MapManager.selectedMapInfo.backgroundFile;
+                    lastBackgroundNightFile = MapManager.selectedMapInfo.backgroundNightFile;
+                }
             }
         }
     }

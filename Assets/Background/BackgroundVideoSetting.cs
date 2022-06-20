@@ -10,16 +10,20 @@ namespace SDJK
     {
         public static BackgroundVideo backgroundVideo { get; private set; } = null;
 
-        SDJKMap tempSDJKMap;
+        SDJKMapPack lastSDJKMapPack;
+        SDJKMap lastSDJKMap;
+        string lastVideoBackgroundFile;
+        string lastVideoBackgroundNightFile;
         void Update()
         {
-            if (MapManager.selectedMap != null && tempSDJKMap != MapManager.selectedMap)
+            bool isBackgroundChanged = (lastVideoBackgroundFile != MapManager.selectedMapInfo.videoBackgroundFile || lastVideoBackgroundNightFile != MapManager.selectedMapInfo.videoBackgroundNightFile);
+            if (lastSDJKMapPack != MapManager.selectedMapPack || (lastSDJKMap != MapManager.selectedMap && isBackgroundChanged))
             {
                 if (backgroundVideo != null)
                     backgroundVideo.PadeOut().Forget();
 
                 backgroundVideo = (BackgroundVideo)ObjectPoolingSystem.ObjectCreate("background_video_setting.background_video", transform, false).monoBehaviour;
-                tempSDJKMap = MapManager.selectedMap;
+                lastSDJKMap = MapManager.selectedMap;
             }
         }
     }
