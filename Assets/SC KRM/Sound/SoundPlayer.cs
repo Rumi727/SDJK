@@ -307,7 +307,7 @@ namespace SCKRM.Sound
         {
             if (soundData == null || metaData == null)
             {
-                audioSource.pitch = 1;
+                audioSource.pitch = 0;
                 return;
             }
 
@@ -336,6 +336,12 @@ namespace SCKRM.Sound
 
         void SetVolume()
         {
+            if (soundData == null)
+            {
+                audioSource.volume = 0;
+                return;
+            }
+
             if (speed == 0)
                 audioSource.volume = 0;
             else
