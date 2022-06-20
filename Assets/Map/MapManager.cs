@@ -150,7 +150,7 @@ namespace SDJK.Map
             }
         }
 
-        void OnApplicationFocus(bool focus) => MapListLoad();
+        //void OnApplicationFocus(bool focus) => MapListLoad();
 
         //void OnDestroy() => ResourceManager.audioResetEnd -= MapListLoad;
 
