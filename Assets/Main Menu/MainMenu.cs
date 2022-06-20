@@ -43,6 +43,56 @@ namespace SDJK
         static float barAlpha = 0;
         void Update()
         {
+            #region 곡 선택
+            if (currentScreenMode == ScreenMode.esc || currentScreenMode == ScreenMode.normal)
+            {
+                if (InputManager.GetKey("map_manager.pause_music"))
+                {
+                    if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && !BGMManager.bgm.soundPlayer.isRemoved)
+                    {
+                        if (!BGMManager.bgm.soundPlayer.isPaused)
+                        {
+                            BGMManager.bgm.soundPlayer.isPaused = true;
+                            SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.pause_music", "map_manager.pause_music");
+                        }
+                        else
+                        {
+                            BGMManager.bgm.soundPlayer.isPaused = false;
+                            SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.play_music", "map_manager.pause_music");
+                        }
+                    }
+                }
+                else if (InputManager.GetKey("map_manager.previous_music"))
+                {
+                    if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && !BGMManager.bgm.soundPlayer.isRemoved && BGMManager.bgm.soundPlayer.time > 10)
+                    {
+                        BGMManager.bgm.soundPlayer.time = 0;
+                        SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.restart_music", "map_manager.previous_music");
+                    }
+                    else
+                    {
+                        if (MapManager.selectedMapPackIndex - 1 < 0)
+                            MapManager.selectedMapPackIndex = MapManager.currentMapPacks.Count - 1;
+                        else
+                            MapManager.selectedMapPackIndex--;
+
+                        MapManager.selectedMapPack = MapManager.currentMapPacks[MapManager.selectedMapPackIndex];
+                        SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.previous_music", "map_manager.previous_music");
+                    }
+                }
+                if (InputManager.GetKey("map_manager.next_music"))
+                {
+                    if (MapManager.selectedMapPackIndex + 1 >= MapManager.currentMapPacks.Count)
+                        MapManager.selectedMapPackIndex = 0;
+                    else
+                        MapManager.selectedMapPackIndex++;
+
+                    MapManager.selectedMapPack = MapManager.currentMapPacks[MapManager.selectedMapPackIndex];
+                    SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.next_music", "map_manager.next_music");
+                }
+            }
+            #endregion
+
             canvasScaler.referenceResolution = new Vector2((ScreenManager.width / UIManager.currentGuiSize).Clamp(1280), (ScreenManager.height / UIManager.currentGuiSize).Clamp(720));
 
             if (InputManager.GetKey(KeyCode.Space) || InputManager.GetKey(KeyCode.Return))
