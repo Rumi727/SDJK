@@ -101,7 +101,7 @@ namespace SDJK.Map
             if (!InitialLoadManager.isInitialLoadEnd)
                 return;
 
-            if (MainMenu.currentScreenMode != ScreenMode.mapSelect)
+            if (MainMenu.currentScreenMode == ScreenMode.esc || MainMenu.currentScreenMode == ScreenMode.normal)
             {
                 if (InputManager.GetKey("map_manager.pause_music"))
                 {
