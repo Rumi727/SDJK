@@ -26,8 +26,8 @@ namespace SDJK
 
                 lastSDJKMapPack = MapManager.selectedMapPack;
                 lastSDJKMap = MapManager.selectedMap;
-                lastVideoBackgroundFile = MapManager.selectedMapInfo.backgroundFile;
-                lastVideoBackgroundNightFile = MapManager.selectedMapInfo.backgroundNightFile;
+                lastVideoBackgroundFile = MapManager.selectedMapInfo.videoBackgroundFile;
+                lastVideoBackgroundNightFile = MapManager.selectedMapInfo.videoBackgroundNightFile;
             }
         }
     }
