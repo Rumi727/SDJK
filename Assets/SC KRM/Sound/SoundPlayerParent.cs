@@ -45,6 +45,7 @@ namespace SCKRM.Sound
         float tempo { get; set; }
 
         float speed { get; set; }
+        float realSpeed { get; }
 
 
 
@@ -108,6 +109,7 @@ namespace SCKRM.Sound
         public virtual float tempo { get; set; } = 1;
 
         public abstract float speed { get; set; }
+        public abstract float realSpeed { get; }
 
 
 

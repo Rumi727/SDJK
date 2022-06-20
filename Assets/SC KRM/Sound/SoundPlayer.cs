@@ -102,8 +102,19 @@ namespace SCKRM.Sound
                     pitch = value;
             }
         }
+        public override float realSpeed
+        {
+            get
+            {
+                if (metaData == null)
+                    return 0;
 
-
+                if (soundData != null && soundData.isBGM && SoundManager.Data.useTempo)
+                    return tempo * metaData.tempo;
+                else
+                    return pitch * metaData.pitch;
+            }
+        }
 
         public override float volume
         {

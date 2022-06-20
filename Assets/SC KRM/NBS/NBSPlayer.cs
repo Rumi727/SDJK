@@ -14,7 +14,7 @@ namespace SCKRM.NBS
 
 
 
-        float tickTimer = 0;
+        float tickTimer = 0.05f;
 
         int _index = 0;
         public int index
@@ -66,11 +66,13 @@ namespace SCKRM.NBS
 
         public override float time
         {
-            get => (_tick * 0.05f) + tickTimer;
+            get => ((_tick * 0.05f) + tickTimer - 0.05f) / (nbsFile.tickTempo * 0.0005f);
             set
             {
-                tick = (int)(value * 20);
-                tickTimer = ((value * 20) - (int)(value * 20)) * 0.05f;
+                float value20 = (value * (nbsFile.tickTempo * 0.0005f)) * 20;
+
+                tick = (int)value20;
+                tickTimer = ((value20 - (int)value20) * 0.05f) + 0.05f;
 
                 _timeChanged?.Invoke();
             }
@@ -81,29 +83,39 @@ namespace SCKRM.NBS
         {
             get
             {
-                if (metaData == null)
+                if (nbsFile == null)
                     return 0;
 
-                return (float)(nbsFile?.songLength);
+                return nbsFile.songLength;
             }
         }
 
-        public override float realLength { get => length / tempo; }
+        public override float realLength => length / tempo;
 
         public override bool isLooped { get; protected set; } = false;
         public override bool isPaused { get; set; } = false;
 
         public override float speed { get => tempo; set => tempo = value; }
+        public override float realSpeed
+        {
+            get
+            {
+                if (nbsFile == null)
+                    return 0;
 
-
+                return tempo * nbsFile.tickTempo;
+            }
+        }
 
         void Update()
         {
-            if (!isPaused)
+            time = 0;
+
+            if (!isPaused && speed != 0)
             {
-                if (tempo * metaData.tempo < 0)
+                if (realSpeed < 0)
                 {
-                    tickTimer -= Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * tempo.Abs() * metaData.tempo;
+                    tickTimer -= Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
                     while (tickTimer <= 0)
                     {
                         _tick--;
@@ -114,7 +126,7 @@ namespace SCKRM.NBS
                 }
                 else
                 {
-                    tickTimer += Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * (tempo * metaData.tempo).Abs();
+                    tickTimer += Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
                     while (tickTimer >= 0.05f)
                     {
                         _tick++;
@@ -283,7 +295,7 @@ namespace SCKRM.NBS
 
         void SetIndex()
         {
-            if (tempo < 0)
+            if (realSpeed < 0)
             {
                 while (index > 0 && index < nbsFile.nbsNotes.Count && nbsFile.nbsNotes[index].delayTick >= tick)
                     _index--;
@@ -344,7 +356,7 @@ namespace SCKRM.NBS
 
             _index = 0;
             _tick = 0;
-            tickTimer = 0;
+            tickTimer = 0.05f;
 
             SoundManager.nbsList.Remove(this);
             SoundPlayer[] soundObjects = GetComponentsInChildren<SoundPlayer>();
