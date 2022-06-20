@@ -76,7 +76,6 @@ namespace SDJK
                         else
                             MapManager.selectedMapPackIndex--;
 
-                        MapManager.selectedMapPack = MapManager.currentMapPacks[MapManager.selectedMapPackIndex];
                         SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.previous_music", "map_manager.previous_music");
                     }
                 }
@@ -87,7 +86,6 @@ namespace SDJK
                     else
                         MapManager.selectedMapPackIndex++;
 
-                    MapManager.selectedMapPack = MapManager.currentMapPacks[MapManager.selectedMapPackIndex];
                     SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.next_music", "map_manager.next_music");
                 }
             }
