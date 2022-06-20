@@ -5,7 +5,9 @@ using SCKRM.UI;
 using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace SDJK
@@ -16,16 +18,26 @@ namespace SDJK
         public Image image => this.GetComponentFieldSave(_image); [SerializeField] Image _image;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;
 
-        public override void OnCreate()
+        CancellationTokenSource cancelSource = new CancellationTokenSource();
+        public override async void OnCreate()
         {
             base.OnCreate();
 
             transform.SetSiblingIndex(0);
 
             SDJKMap map = MapManager.selectedMap;
-            Texture2D texture = ResourceManager.GetTexture(PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile));
-            if (texture != null)
-                image.sprite = ResourceManager.GetSprite(texture);
+            string texturePath = PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile);
+            if (ResourceManager.FileExtensionExists(texturePath, out texturePath, ResourceManager.textureExtension))
+            {
+                using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(texturePath))
+                {
+                    if ((await www.SendWebRequest().ToUniTask(null, PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow()).IsCanceled)
+                        return;
+
+                    image.color = Color.white;
+                    image.sprite = ResourceManager.GetSprite(DownloadHandlerTexture.GetContent(www));
+                }
+            }
             else
                 Remove();
         }
@@ -38,7 +50,10 @@ namespace SDJK
                 await UniTask.NextFrame();
 
                 if (this == null)
+                {
+                    TextureDestroy();
                     return;
+                }
             }
 
             Remove();
@@ -49,15 +64,24 @@ namespace SDJK
             if (!base.Remove())
                 return false;
 
+            image.color = Color.black;
             canvasGroup.alpha = 1;
+            TextureDestroy();
+
+            return true;
+        }
+
+        void TextureDestroy()
+        {
+            cancelSource.Cancel();
+            cancelSource.Dispose();
+            cancelSource = new CancellationTokenSource();
 
             if (image.sprite != null)
             {
                 Destroy(image.sprite.texture);
                 Destroy(image.sprite);
             }
-
-            return true;
         }
     }
 }
