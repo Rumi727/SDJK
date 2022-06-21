@@ -114,24 +114,34 @@ namespace SCKRM.NBS
                 if (realSpeed < 0)
                 {
                     tickTimer -= Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
+
+                    bool soundPlayerAllow = false;
                     while (tickTimer <= 0)
                     {
                         _tick--;
                         tickTimer += 0.05f;
 
-                        SoundPlay();
+                        soundPlayerAllow = true;
                     }
+
+                    if (soundPlayerAllow)
+                        SoundPlay();
                 }
                 else
                 {
                     tickTimer += Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
+
+                    bool soundPlayerAllow = false;
                     while (tickTimer >= 0.05f)
                     {
                         _tick++;
                         tickTimer -= 0.05f;
 
-                        SoundPlay();
+                        soundPlayerAllow = true;
                     }
+
+                    if (soundPlayerAllow)
+                        SoundPlay();
                 }
             }
 
@@ -223,6 +233,9 @@ namespace SCKRM.NBS
 
         void SoundPlay()
         {
+            if (ResourceManager.isAudioReset)
+                return;
+
             if (index >= 0)
             {
                 NBSNote nbsNote = nbsFile.nbsNotes[index];

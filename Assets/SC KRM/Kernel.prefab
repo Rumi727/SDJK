@@ -8069,7 +8069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameSpace: sc-krm
   _path: home
-  _type: gui/icon
+  _type: gui/status_bar_icon
   _index: 0
   _image: {fileID: 3039359036523965130}
 --- !u!1 &1810844196716414690
@@ -16212,7 +16212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00052007375}
+  m_AnchoredPosition: {x: 0, y: 0.00068390643}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6411237787069789279
@@ -20592,7 +20592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00052007375}
+  m_AnchoredPosition: {x: 0, y: 0.00068390643}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2929005380522566110
@@ -25585,7 +25585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameSpace: sc-krm
   _path: back
-  _type: gui/icon
+  _type: gui/status_bar_icon
   _index: 0
   _image: {fileID: 1317011015429884555}
 --- !u!1 &6700682584340626350
@@ -32879,7 +32879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameSpace: sc-krm
   _path: setting
-  _type: gui/icon
+  _type: gui/status_bar_icon
   _index: 0
   _image: {fileID: 2090869630913219071}
 --- !u!1 &8755921983309001249

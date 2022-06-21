@@ -3240,6 +3240,8 @@ namespace SCKRM
 
         public static string RemoveInvalidFileNameChars(string filename) => string.Concat(filename.Split(Path.GetInvalidFileNameChars()));
         public static string ReplaceInvalidFileNameChars(string filename) => string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
+
+        public static string GetPathWithExtension(string path) => path.Remove(path.Length - Path.GetExtension(path).Length);
     }
 
     public static class DirectoryTool

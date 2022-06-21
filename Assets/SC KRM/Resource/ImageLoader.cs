@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace SCKRM.Resource
 {
+    [Obsolete("Use AsyncImageLoader instead")]
     public static class ImageLoader
     {
         // This was made by aaro4130 on the Unity forums.  Thanks boss!
         // It's been optimized and slimmed down for the purpose of loading Quake 3 TGA textures from memory streams.
+        [Obsolete("Use AsyncImageLoader.LoadImage instead")]
         public static Texture2D LoadTGA(string path, bool mipmapUse = false)
         {
             using (BinaryReader r = new BinaryReader(File.OpenRead(path)))
@@ -143,6 +145,7 @@ namespace SCKRM.Resource
             }
         }
 
+        [Obsolete("Use AsyncImageLoader.LoadImage instead")]
         public static Texture2D LoadDDS(string path)
         {
             BinaryReader reader = new BinaryReader(File.OpenRead(path));
