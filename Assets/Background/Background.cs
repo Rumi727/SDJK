@@ -27,18 +27,10 @@ namespace SDJK
 
             SDJKMap map = MapManager.selectedMap;
             string texturePath = PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile);
-            if (ResourceManager.FileExtensionExists(texturePath, out texturePath, ResourceManager.textureExtension))
-            {
-                using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(texturePath))
-                {
-                    if ((await www.SendWebRequest().ToUniTask(null, PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow()).IsCanceled)
-                        return;
+            image.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath));
+            image.color = Color.white;
 
-                    image.color = Color.white;
-                    image.sprite = ResourceManager.GetSprite(DownloadHandlerTexture.GetContent(www));
-                }
-            }
-            else
+            if (image.sprite == null)
                 Remove();
         }
 
