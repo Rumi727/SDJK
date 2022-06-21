@@ -9,7 +9,8 @@ namespace SDJK
 {
     public sealed class BackgroundSetting : MonoBehaviour
     {
-        public static Background background { get; private set; } = null;
+        public Background background { get; private set; } = null;
+        public string prefab { get => _prefab; set => _prefab = value; } [SerializeField] string _prefab = "background_setting.background";
 
         SDJKMapPack lastSDJKMapPack;
         SDJKMap lastSDJKMap;
@@ -25,7 +26,7 @@ namespace SDJK
                     if (background != null)
                         background.PadeOut().Forget();
 
-                    background = (Background)ObjectPoolingSystem.ObjectCreate("background_setting.background", transform, false).monoBehaviour;
+                    background = (Background)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
 
                     lastSDJKMapPack = MapManager.selectedMapPack;
                     lastSDJKMap = MapManager.selectedMap;
