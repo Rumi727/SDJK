@@ -32,7 +32,7 @@ namespace SDJK
             string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out _, ResourceManager.audioExtension))
             {
-                audioClip = await ResourceManager.GetAudio(path, true);
+                audioClip = await ResourceManager.GetAudio(path, false, true);
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
