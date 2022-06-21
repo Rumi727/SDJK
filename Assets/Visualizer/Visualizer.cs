@@ -2,6 +2,7 @@ using SCKRM;
 using SCKRM.Json;
 using SCKRM.Sound;
 using SCKRM.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -267,7 +268,7 @@ namespace SDJK
                 {
                     if (timer <= AudioSettings.dspTime)
                     {
-                        timer += 0.005f;
+                        timer = AudioSettings.dspTime + 0.005f;
 
                         samples = data;
 
@@ -285,7 +286,7 @@ namespace SDJK
                 {
                     if (timer <= AudioSettings.dspTime)
                     {
-                        timer += 0.01f;
+                        timer = AudioSettings.dspTime + 0.01f;
 
                         samples = data;
 
