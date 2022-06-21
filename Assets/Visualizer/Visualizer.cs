@@ -184,22 +184,16 @@ namespace SDJK
         bool tempCircle = false;
         void Update()
         {
-            while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
-                Thread.Sleep(1);
+            if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0) { }
 
             bool isBarsLengthChanged = false;
 
             if (bars != null)
                 isBarsLengthChanged = bars.Length != length;
 
-            Interlocked.Decrement(ref barsLock);
-
-            if (isBarsLengthChanged || tempCircle != circle)
+            try
             {
-                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
-                    Thread.Sleep(1);
-
-                try
+                if (isBarsLengthChanged || tempCircle != circle)
                 {
                     for (int i = 0; i < bars.Length; i++)
                     {
@@ -233,13 +227,13 @@ namespace SDJK
                             visualizerBar.rectTransform.localEulerAngles = new Vector3(0, 0, -rotation);
                         }
                     }
-                }
-                finally
-                {
-                    Interlocked.Decrement(ref barsLock);
-                }
 
-                tempCircle = circle;
+                    tempCircle = circle;
+                }
+            }
+            finally
+            {
+                Interlocked.Decrement(ref barsLock);
             }
 
             if (tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
@@ -265,8 +259,7 @@ namespace SDJK
             if (samples.Length != data.Length)
                 samples = new float[data.Length];
 
-            while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
-                Thread.Sleep(1);
+            if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0) { }
 
             try
             {
