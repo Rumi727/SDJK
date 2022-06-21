@@ -28,7 +28,18 @@ namespace SDJK
             SDJKMap map = MapManager.selectedMap;
             string texturePath = PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile);
             image.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath));
-            image.color = Color.white;
+
+            while (image.color.r < 1)
+            {
+                image.color = image.color.MoveTowards(Color.white, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                await UniTask.NextFrame();
+
+                if (this == null)
+                {
+                    TextureDestroy();
+                    return;
+                }
+            }
 
             if (image.sprite == null)
                 Remove();
