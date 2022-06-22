@@ -27,7 +27,7 @@ namespace SDJK
 
             SDJKMap map = MapManager.selectedMap;
             string texturePath = PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile);
-            image.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath));
+            image.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
 
             while (image.color.r < 1)
             {
