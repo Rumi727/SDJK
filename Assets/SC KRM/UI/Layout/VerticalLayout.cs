@@ -7,6 +7,7 @@ namespace SCKRM.UI.Layout
     [AddComponentMenu("SC KRM/UI/Layout/Vertical Layout")]
     public sealed class VerticalLayout : LayoutChildSetting<VerticalLayoutSetting>
     {
+        public float[] childYPoses { get; private set; } = new float[0];
         public float lastYPos { get; private set; } = 0;
         public float centerLastYPos { get; private set; } = 0;
         public float downLastYPos { get; private set; } = 0;
@@ -42,6 +43,9 @@ namespace SCKRM.UI.Layout
             if (!Kernel.isPlaying)
                 tracker.Clear();
 
+            if (childYPoses.Length != childRectTransforms.Count)
+                childYPoses = new float[childRectTransforms.Count];
+
             bool center = false;
             bool down = false;
             float y = 0;
@@ -49,9 +53,15 @@ namespace SCKRM.UI.Layout
             {
                 RectTransform childRectTransform = childRectTransforms[i];
                 if (childRectTransform == null)
+                {
+                    childYPoses[i] = y;
                     continue;
-                else if (!childRectTransform.gameObject.activeSelf)
+                }
+                else if (!childRectTransform.gameObject.activeInHierarchy)
+                {
+                    childYPoses[i] = y;
                     continue;
+                }
 
                 if (!Kernel.isPlaying)
                 {
@@ -74,27 +84,26 @@ namespace SCKRM.UI.Layout
                         center = true;
 
                         y = 0;
-                        y += (childRectTransform.sizeDelta.y - (padding.top - padding.bottom) - spacing) * 0.5f;
+                        y -= (childRectTransform.rect.height - (padding.top - padding.bottom) + spacing) * 0.5f;
                         for (int j = i; j < childRectTransforms.Count; j++)
                         {
                             RectTransform rectTransform2 = childRectTransforms[j];
                             Vector2 size = rectTransform2.rect.size;
                             if (rectTransform2 == null)
                                 continue;
-                            else if (!rectTransform2.gameObject.activeSelf)
-                                continue;
-                            else if (size.y == 0)
+                            else if (!rectTransform2.gameObject.activeInHierarchy)
                                 continue;
 
                             VerticalLayoutSetting taskBarLayoutSetting2 = childSettingComponents[j];
                             if (taskBarLayoutSetting2 != null && taskBarLayoutSetting2.mode == VerticalLayoutSetting.Mode.down)
                                 break;
 
-                            y -= size.y * 0.5f;
+                            y += (size.y + spacing) * 0.5f;
                         }
                     }
                 }
 
+                Vector2 pos;
                 if (down)
                 {
                     if (!onlyPos)
@@ -110,22 +119,12 @@ namespace SCKRM.UI.Layout
                         childRectTransform.pivot = new Vector2(childRectTransform.pivot.x, 0);
                     }
 
-                    if (!Kernel.isPlaying || !lerp || !useAni)
-                    {
-                        if (!onlyPos)
-                            childRectTransform.anchoredPosition = new Vector2((padding.left - padding.right) * 0.5f, y + padding.bottom);
-                        else
-                            childRectTransform.anchoredPosition = new Vector2(childRectTransform.anchoredPosition.x, y + padding.bottom);
-                    }
+                    if (!onlyPos)
+                        pos = new Vector2((padding.left - padding.right) * 0.5f, y + padding.bottom);
                     else
-                    {
-                        if (!onlyPos)
-                            childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(new Vector2((padding.left - padding.right) * 0.5f, y + padding.bottom), lerpValue * Kernel.fpsUnscaledDeltaTime);
-                        else
-                            childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(new Vector2(childRectTransform.anchoredPosition.x, y + padding.bottom), lerpValue * Kernel.fpsUnscaledDeltaTime);
-                    }
+                        pos = new Vector2(childRectTransform.anchoredPosition.x, y + padding.bottom);
 
-                    y += childRectTransform.rect.size.y + spacing;
+                    y += childRectTransform.rect.height + spacing;
                     downLastYPos = y;
                 }
                 else if (center)
@@ -143,22 +142,28 @@ namespace SCKRM.UI.Layout
                         childRectTransform.pivot = new Vector2(childRectTransform.pivot.x, 0.5f);
                     }
 
-                    if (!Kernel.isPlaying || !lerp || !useAni)
+                    float height = childRectTransform.rect.height;
+                    float offset = height;
+                    for (int j = i - 1; j >= 0; j--)
                     {
-                        if (!onlyPos)
-                            childRectTransform.anchoredPosition = new Vector2((padding.left - padding.right) * 0.5f, y);
-                        else
-                            childRectTransform.anchoredPosition = new Vector2(childRectTransform.anchoredPosition.x, y);
-                    }
-                    else
-                    {
-                        if (!onlyPos)
-                            childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(new Vector2((padding.left - padding.right) * 0.5f, y), lerpValue * Kernel.fpsUnscaledDeltaTime);
-                        else
-                            childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(new Vector2(childRectTransform.anchoredPosition.x, y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                        RectTransform backChildRectTransform = childRectTransforms[j];
+                        if (backChildRectTransform == null)
+                            continue;
+                        else if (!backChildRectTransform.gameObject.activeInHierarchy)
+                            continue;
+
+                        offset = backChildRectTransform.rect.height;
+                        break;
                     }
 
-                    y += childRectTransform.rect.size.y + spacing;
+                    y -= (height - offset) * 0.5f;
+
+                    if (!onlyPos)
+                        pos = new Vector2((padding.left - padding.right) * 0.5f, y);
+                    else
+                        pos = new Vector2(childRectTransform.anchoredPosition.x, y);
+
+                    y -= childRectTransform.rect.height + spacing;
                     centerLastYPos = y;
                 }
                 else
@@ -176,24 +181,21 @@ namespace SCKRM.UI.Layout
                         childRectTransform.pivot = new Vector2(childRectTransform.pivot.x, 1);
                     }
 
-                    if (!Kernel.isPlaying || !lerp || !useAni)
-                    {
-                        if (!onlyPos)
-                            childRectTransform.anchoredPosition = new Vector2((padding.left - padding.right) * 0.5f, y - padding.top);
-                        else
-                            childRectTransform.anchoredPosition = new Vector2(childRectTransform.anchoredPosition.x, y - padding.top);
-                    }
+                    if (!onlyPos)
+                        pos = new Vector2((padding.left - padding.right) * 0.5f, y - padding.top);
                     else
-                    {
-                        if (!onlyPos)
-                            childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(new Vector2((padding.left - padding.right) * 0.5f, y - padding.top), lerpValue * Kernel.fpsUnscaledDeltaTime);
-                        else
-                            childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(new Vector2(childRectTransform.anchoredPosition.x, y - padding.top), lerpValue * Kernel.fpsUnscaledDeltaTime);
-                    }
+                        pos = new Vector2(childRectTransform.anchoredPosition.x, y - padding.top);
 
-                    y -= childRectTransform.rect.size.y + spacing;
+                    y -= childRectTransform.rect.height + spacing;
                     lastYPos = y;
                 }
+
+                childYPoses[i] = y;
+
+                if (!Kernel.isPlaying || !lerp || !useAni)
+                    childRectTransform.anchoredPosition = pos;
+                else
+                    childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(pos, lerpValue * Kernel.fpsUnscaledDeltaTime);
 
                 if (!onlyPos)
                 {

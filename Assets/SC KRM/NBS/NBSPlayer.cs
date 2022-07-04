@@ -56,25 +56,39 @@ namespace SCKRM.NBS
 
                 value = value.Clamp(0, (int)length);
 
+                int lastTick = _tick;
+
                 tickTimer = 0;
                 _tick = value;
                 _index = nbsFile.nbsNotes.Select((d, i) => new { d.delayTick, index = i }).MinBy(x => (x.delayTick - value).Abs()).index;
 
-                _timeChanged?.Invoke();
+                if (lastTick != value)
+                    _timeChanged?.Invoke();
             }
         }
 
         public override float time
         {
-            get => ((_tick * 0.05f) + tickTimer - 0.05f) / (nbsFile.tickTempo * 0.0005f);
+            get
+            {
+                if (nbsFile == null)
+                    return 0;
+
+                return ((_tick * 0.05f) + tickTimer - 0.05f) / (nbsFile.tickTempo * 0.0005f);
+            }
             set
             {
-                float value20 = (value * (nbsFile.tickTempo * 0.0005f)) * 20;
+                if (nbsFile != null)
+                {
+                    float value20 = (value * (nbsFile.tickTempo * 0.0005f)) * 20;
+                    float lastTime = time;
 
-                tick = (int)value20;
-                tickTimer = ((value20 - (int)value20) * 0.05f) + 0.05f;
+                    tick = (int)value20;
+                    tickTimer = ((value20 - (int)value20) * 0.05f) + 0.05f;
 
-                _timeChanged?.Invoke();
+                    if (lastTime != tick)
+                        _timeChanged?.Invoke();
+                }
             }
         }
         public override float realTime { get => time / tempo; set => time = value * tempo; }
@@ -109,6 +123,8 @@ namespace SCKRM.NBS
 
         void Update()
         {
+            transform.localPosition = localPosition;
+
             if (!isPaused && realSpeed != 0)
             {
                 if (realSpeed < 0)
@@ -144,8 +160,6 @@ namespace SCKRM.NBS
                         SoundPlay();
                 }
             }
-
-            transform.localPosition = localPosition;
         }
 
 

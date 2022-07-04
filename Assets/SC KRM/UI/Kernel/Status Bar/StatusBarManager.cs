@@ -188,9 +188,9 @@ namespace SCKRM.UI.StatusBar
                         }
                     }
 
-                    if (backButtonShow && !backButton.activeSelf)
+                    if (backButtonShow && !backButton.activeInHierarchy)
                         backButton.SetActive(true);
-                    else if (!backButtonShow && backButton.activeSelf)
+                    else if (!backButtonShow && backButton.activeInHierarchy)
                         backButton.SetActive(false);
                 }
 

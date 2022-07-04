@@ -11,8 +11,6 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
-            DrawLine();
-
             UseProperty("_label");
             UseProperty("_toggle");
         }

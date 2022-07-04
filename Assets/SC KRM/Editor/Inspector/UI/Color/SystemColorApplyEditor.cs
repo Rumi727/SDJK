@@ -10,9 +10,6 @@ namespace SCKRM.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-
-            DrawLine();
-
             UseProperty("_offset");
         }
     }

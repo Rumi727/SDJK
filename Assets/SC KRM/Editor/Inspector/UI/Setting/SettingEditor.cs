@@ -26,8 +26,6 @@ namespace SCKRM.Editor
             if (saveLoadClassList == null)
                 SaveLoadManager.InitializeAll<GeneralSaveLoadAttribute>(out saveLoadClassList);
 
-            DrawLine();
-
             SaveLoadClass selectedSaveLoadClass = null;
 
             string[] fullNames = new string[saveLoadClassList.Length];

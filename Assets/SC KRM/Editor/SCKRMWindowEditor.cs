@@ -1128,10 +1128,19 @@ namespace SCKRM.Editor
                     GUILayout.Label("프리팹", GUILayout.ExpandWidth(false));
                     //문자열(경로)을 프리팹으로 변환
                     GameObject gameObject = null;
+                    GameObject loadedGameObject = Resources.Load<GameObject>(item.Value);
                     IObjectPooling objectPooling = null;
-                    MonoBehaviour monoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField("", Resources.Load<MonoBehaviour>(item.Value), typeof(MonoBehaviour), true);
-                    if (monoBehaviour != null)
-                        objectPooling = monoBehaviour as IObjectPooling;
+                    MonoBehaviour monoBehaviour = null;
+                    
+                    loadedGameObject = (GameObject)EditorGUILayout.ObjectField("", loadedGameObject, typeof(GameObject), true);
+
+                    if (loadedGameObject != null)
+                    {
+                        objectPooling = loadedGameObject.GetComponent<IObjectPooling>();
+                        if (objectPooling != null)
+                            monoBehaviour = (MonoBehaviour)objectPooling;
+                    }
+
                     if (objectPooling != null)
                         gameObject = monoBehaviour.gameObject;
 
@@ -1169,6 +1178,8 @@ namespace SCKRM.Editor
                             EditorGUILayout.HelpBox("'Resources' 폴더에 있고 IObjectPooling 인터페이스를 상속받는 스크립트가 최상단에 포함된 오브젝트를 넣어주세요", MessageType.Info);
                         }
                     }
+                    else
+                        EditorGUILayout.EndHorizontal();
 
                     GUI.enabled = true;
                 }

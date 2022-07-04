@@ -3,6 +3,7 @@ using UnityEngine;
 namespace SCKRM
 {
     [ExecuteAlways]
+    [RequireComponent(typeof(Canvas))]
     [AddComponentMenu("SC KRM/UI/Canvas Rendering Camera As Main Camera")]
     public sealed class CanvasRenderingCameraAsMainCamera : MonoBehaviour
     {

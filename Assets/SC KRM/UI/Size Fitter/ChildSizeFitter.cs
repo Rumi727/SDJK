@@ -56,7 +56,7 @@ namespace SCKRM.UI.Layout
                     spacingCancel();
                     continue;
                 }
-                else if (!childRectTransform.gameObject.activeSelf)
+                else if (!childRectTransform.gameObject.activeInHierarchy)
                 {
                     spacingCancel();
                     continue;

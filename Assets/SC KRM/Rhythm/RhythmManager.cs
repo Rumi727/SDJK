@@ -65,7 +65,7 @@ namespace SCKRM.Rhythm
         {
             if (isPlaying)
             {
-                if (soundPlayer == null || bpmList == null || dropPartList == null)
+                if (soundPlayer == null || soundPlayer.isRemoved || bpmList == null || dropPartList == null)
                     Stop();
                 else
                 {

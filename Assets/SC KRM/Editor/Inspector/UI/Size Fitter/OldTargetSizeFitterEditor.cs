@@ -20,8 +20,6 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
-            DrawLine();
-
             UseProperty("_targetRectTransform", "대상");
 
             Space();

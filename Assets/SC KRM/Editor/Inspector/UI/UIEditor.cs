@@ -1,5 +1,6 @@
 using SCKRM.UI;
 using UnityEditor;
+using UnityEngine;
 
 namespace SCKRM.Editor
 {
@@ -7,12 +8,14 @@ namespace SCKRM.Editor
     [CustomEditor(typeof(UI.UI))]
     public class UIEditor : CustomInspectorEditor
     {
-        [System.NonSerialized] UI.UI editor;
+        [System.NonSerialized] IUI editor;
+        [System.NonSerialized] GameObject editorGameObject;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            editor = (UI.UI)target;
+            editorGameObject = ((Component)target).gameObject;
+            editor = target as IUI;
         }
 
         /// <summary>
@@ -20,29 +23,34 @@ namespace SCKRM.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            if (editor.rectTransform.gameObject != editor.gameObject)
+            bool lineShow = false;
+
+            if (editor == null)
+            {
+                EditorGUILayout.HelpBox("컴포넌트가 IUI 인터페이스를 상속하지 않지만\n커스텀 인스펙터 에디터 스크립트는 UIEditor 클래스를 상속합니다", MessageType.Warning);
+                DrawLine();
+
+                return;
+            }
+
+            if (editor.rectTransform.gameObject != editorGameObject)
             {
                 EditorGUILayout.HelpBox("이 게임 오브젝트에 있는 RectTramsform 컴포넌트를 넣어야합니다!", MessageType.Error);
                 UseProperty("_rectTransform");
+
+                lineShow = true;
             }
 
-            if (editor.graphic != null && editor.graphic.gameObject != editor.gameObject)
+            if (editor.graphic != null && editor.graphic.gameObject != editorGameObject)
             {
                 EditorGUILayout.HelpBox("이 게임 오브젝트에 있는 그래픽 컴포넌트를 넣어야합니다!", MessageType.Error);
                 UseProperty("_graphic");
+
+                lineShow = true;
             }
 
-            EditorGUILayout.LabelField("Anchored Position: " + editor.rectTransform.anchoredPosition);
-            EditorGUILayout.LabelField("Size Delta: " + editor.rectTransform.sizeDelta);
-
-            Space();
-
-            EditorGUILayout.LabelField("Offset Min: " + editor.rectTransform.offsetMin);
-            EditorGUILayout.LabelField("Offset Max: " + editor.rectTransform.offsetMax);
-
-            Space();
-
-            EditorGUILayout.LabelField("Rect: " + editor.rectTransform.rect);
+            if (lineShow)
+                DrawLine();
         }
     }
 
@@ -68,8 +76,6 @@ namespace SCKRM.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-
-            DrawLine();
 
             UseProperty("_lerp", "애니메이션 사용");
 

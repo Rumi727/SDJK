@@ -20,10 +20,12 @@ namespace SCKRM.Sound
             get => audioSource.time;
             set
             {
+                float lastTime = audioSource.time;
                 audioSource.time = value;
                 tempTime = audioSource.time;
 
-                _timeChanged?.Invoke();
+                if (lastTime != value)
+                    _timeChanged?.Invoke();
             }
         }
         public override float realTime { get => time / speed; set => time = value * speed; }
@@ -285,6 +287,11 @@ namespace SCKRM.Sound
                     audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
                 else
                     audioSource.outputAudioMixerGroup = null;
+
+                SetTempoAndPitch();
+                SetVolume();
+
+                audioSource.Play();
             }
 
             if (!SoundManager.soundList.Contains(this))

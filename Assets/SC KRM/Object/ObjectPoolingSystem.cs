@@ -120,10 +120,15 @@ namespace SCKRM.Object
             }
             else if (Data.prefabList.ContainsKey(objectKey))
             {
-                MonoBehaviour monoBehaviour = Instantiate(Resources.Load<MonoBehaviour>(Data.prefabList[objectKey]), parent);
-                IObjectPooling objectPooling = monoBehaviour as IObjectPooling;
+                GameObject gameObject = Resources.Load<GameObject>(Data.prefabList[objectKey]);
+                if (gameObject == null)
+                    return (null, null);
+
+                IObjectPooling objectPooling = Instantiate(gameObject, parent).GetComponent<IObjectPooling>();
                 if (objectPooling == null)
                     return (null, null);
+
+                MonoBehaviour monoBehaviour = (MonoBehaviour)objectPooling;
 
                 monoBehaviour.name = objectKey;
                 objectPooling.objectKey = objectKey;

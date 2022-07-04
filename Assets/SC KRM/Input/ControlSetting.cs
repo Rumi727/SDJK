@@ -114,7 +114,7 @@ namespace SCKRM.Input.UI
             bool cancel = false;
             while (!loopBreak)
             {
-                if (!gameObject.activeSelf)
+                if (!gameObject.activeInHierarchy)
                     break;
 
                 for (int i = 0; i < InputManager.unityKeyCodeList.Length; i++)

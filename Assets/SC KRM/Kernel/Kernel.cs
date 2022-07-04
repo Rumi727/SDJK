@@ -13,7 +13,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        public static Version sckrmVersion { get; } = new Version(0, 6, 0);
+        public static Version sckrmVersion { get; } = new Version(0, 8, 1);
 
 
 
@@ -331,13 +331,14 @@ namespace SCKRM
 
             //유니티의 내장 변수들은 테스트 결과, 약간의 성능을 더 먹는것으로 확인되었기 때문에
             //이렇게 관리 스크립트가 변수를 할당하고 다른 스크립트가 그 변수를 가져오는것이 성능에 더 도움 되는것을 확인하였습니다
-            fps = 1f / deltaTime;
             deltaTime = Time.deltaTime;
             fpsDeltaTime = deltaTime * VideoManager.Data.standardFPS;
             unscaledDeltaTime = Time.unscaledDeltaTime;
             fpsUnscaledDeltaTime = unscaledDeltaTime * VideoManager.Data.standardFPS;
             fixedDeltaTime = 1f / VideoManager.Data.standardFPS;
             Time.fixedDeltaTime = fixedDeltaTime;
+
+            fps = 1f / deltaTime;
         }
 
         void OnApplicationQuit()

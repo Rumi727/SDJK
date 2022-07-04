@@ -12,8 +12,6 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
-            DrawLine();
-
             UseProperty("_alpha");
 
             if (Kernel.isPlaying)

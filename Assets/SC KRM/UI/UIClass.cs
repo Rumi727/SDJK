@@ -10,6 +10,7 @@ namespace SCKRM.UI
     {
         public RectTransform parentRectTransform { get; }
         public RectTransform rectTransform { get; }
+        public RectTransformTool rectTransformTool { get; }
 
         public Graphic graphic { get; }
     }
@@ -40,6 +41,7 @@ namespace SCKRM.UI
                 return _rectTransform;
             }
         }
+        [SerializeField] RectTransformTool _rectTransformTool; public RectTransformTool rectTransformTool => _rectTransformTool = this.GetComponentFieldSave(_rectTransformTool);
 
         [SerializeField] Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentTool.GetComponentMode.none);
     }

@@ -19,8 +19,6 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
-            DrawLine();
-
             UseProperty("_customSetting", "커스텀 설정");
 
             if (!editor.customSetting)

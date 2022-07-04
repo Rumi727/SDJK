@@ -267,26 +267,20 @@ namespace SCKRM.Sound
             if (soundData != null)
                 soundPlayer.customSoundData = soundData;
 
+            soundPlayer.volume = volume;
+            soundPlayer.loop = loop;
+            soundPlayer.pitch = pitch;
+            soundPlayer.tempo = tempo;
+
+            soundPlayer.panStereo = panStereo;
+            soundPlayer.spatial = spatial;
+
+            soundPlayer.minDistance = minDistance;
+            soundPlayer.maxDistance = maxDistance;
+
+            soundPlayer.localPosition = new Vector3(x, y, z);
+
             soundPlayer.Refresh();
-
-            if (soundPlayer.soundData != null)
-            {
-                soundPlayer.volume = volume;
-                soundPlayer.loop = loop;
-                soundPlayer.pitch = pitch;
-                soundPlayer.tempo = tempo;
-
-                soundPlayer.panStereo = panStereo;
-                soundPlayer.spatial = spatial;
-
-                soundPlayer.minDistance = minDistance;
-                soundPlayer.maxDistance = maxDistance;
-
-                soundPlayer.localPosition = new Vector3(x, y, z);
-
-                soundPlayer.audioSource.Play();
-            }
-
             return soundPlayer;
         }
 
@@ -564,24 +558,20 @@ namespace SCKRM.Sound
             if (nbsData != null)
                 nbsPlayer.customSoundData = nbsData;
 
+            nbsPlayer.volume = volume;
+            nbsPlayer.loop = loop;
+            nbsPlayer.pitch = pitch;
+            nbsPlayer.tempo = tempo;
+
+            nbsPlayer.panStereo = panStereo;
+            nbsPlayer.spatial = spatial;
+
+            nbsPlayer.minDistance = minDistance;
+            nbsPlayer.maxDistance = maxDistance;
+
+            nbsPlayer.localPosition = new Vector3(x, y, z);
+
             nbsPlayer.Refresh();
-
-            if (nbsPlayer.soundData != null)
-            {
-                nbsPlayer.volume = volume;
-                nbsPlayer.loop = loop;
-                nbsPlayer.pitch = pitch;
-                nbsPlayer.tempo = tempo;
-
-                nbsPlayer.panStereo = panStereo;
-                nbsPlayer.spatial = spatial;
-
-                nbsPlayer.minDistance = minDistance;
-                nbsPlayer.maxDistance = maxDistance;
-
-                nbsPlayer.localPosition = new Vector3(x, y, z);
-            }
-
             return nbsPlayer;
         }
 

@@ -18,8 +18,6 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
-            DrawLine();
-
             UseProperty("_xSize", "X 크기 변경");
             UseProperty("_ySize", "Y 크기 변경");
 

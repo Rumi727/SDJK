@@ -11,8 +11,6 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
-            DrawLine();
-
             UseProperty("_options", "종류");
             UseProperty("_customLabel", "이름 교체");
 
