@@ -116,26 +116,8 @@ namespace SDJK.Map
 
             for (int i = 0; i < mapPackPaths.Length; i++)
             {
-                string mapPackPath = mapPackPaths[i].Replace("\\", "/");
-                string[] mapPaths = Directory.GetFiles(mapPackPath, "*.sdjk");
-                if (mapPaths == null || mapPaths.Length <= 0)
-                    continue;
-
-                SDJKMapPack sdjkMapPack = new SDJKMapPack();
-                for (int j = 0; j < mapPaths.Length; j++)
-                {
-                    string mapFilePath = mapPaths[j].Replace("\\", "/");
-                    SDJKMap sdjkMap = JsonManager.JsonRead<SDJKMap>(mapFilePath, true);
-                    if (sdjkMap == null)
-                        continue;
-
-                    sdjkMap.mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
-                    sdjkMap.mapFilePath = mapFilePath;
-
-                    sdjkMapPack.maps.Add(sdjkMap);
-                }
-
-                if (sdjkMapPack.maps.Count > 0)
+                SDJKMapPack sdjkMapPack = MapLoader.MapPackLoad(mapPackPaths[i].Replace("\\", "/"));
+                if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
                     currentMapPacks.Add(sdjkMapPack);
             }
 
