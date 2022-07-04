@@ -69,7 +69,7 @@ namespace SDJK.Map
 
 
 
-        public string by { get; set; } = "";
+        public string author { get; set; } = "";
     }
 
     public sealed class SDJKMapGlobalEffect
