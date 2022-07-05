@@ -19,7 +19,7 @@ namespace SDJK.Map
 {
     public sealed class MapManager : Manager<MapManager>
     {
-        public static List<SDJKMapPack> currentMapPacks { get; } = new List<SDJKMapPack>();
+        public static List<MapPack> currentMapPacks { get; } = new List<MapPack>();
 
 
         public static int selectedMapPackIndex
@@ -33,7 +33,7 @@ namespace SDJK.Map
         }
         static int _selectedMapPackIndex = 0;
 
-        public static SDJKMapPack selectedMapPack 
+        public static MapPack selectedMapPack 
         {
             get => _selectedMapPack;
             set
@@ -42,7 +42,7 @@ namespace SDJK.Map
                 selectedMapIndex = 0;
             }
         }
-        static SDJKMapPack _selectedMapPack = null;
+        static MapPack _selectedMapPack = null;
 
         public static int selectedMapIndex
         {
@@ -116,7 +116,7 @@ namespace SDJK.Map
 
             for (int i = 0; i < mapPackPaths.Length; i++)
             {
-                SDJKMapPack sdjkMapPack = MapLoader.MapPackLoad(mapPackPaths[i].Replace("\\", "/"));
+                MapPack sdjkMapPack = MapLoader.MapPackLoad(mapPackPaths[i].Replace("\\", "/"));
                 if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
                     currentMapPacks.Add(sdjkMapPack);
             }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace SDJK.Map
 {
-    public sealed class SDJKMapPack
+    public sealed class MapPack
     {
         public List<Map> maps { get; } = new List<Map>();
     }

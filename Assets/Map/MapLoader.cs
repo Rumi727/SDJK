@@ -11,13 +11,13 @@ namespace SDJK
 {
     public static class MapLoader
     {
-        public static SDJKMapPack MapPackLoad(string packfolderPath)
+        public static MapPack MapPackLoad(string packfolderPath)
         {
             string[] packPaths = DirectoryTool.GetFiles(packfolderPath, new ExtensionFilter(MapCompatibilitySystem.compatibleMapExtensions).ToSearchPatterns());
             if (packPaths == null || packPaths.Length <= 0)
                 return null;
 
-            SDJKMapPack pack = new SDJKMapPack();
+            MapPack pack = new MapPack();
             for (int i = 0; i < packPaths.Length; i++)
             {
                 Map.Map map = MapLoad(packPaths[i].Replace("\\", "/"));

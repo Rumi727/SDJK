@@ -12,7 +12,7 @@ namespace SDJK
         public Background background { get; private set; } = null;
         public string prefab { get => _prefab; set => _prefab = value; } [SerializeField] string _prefab = "background_setting.background";
 
-        SDJKMapPack lastSDJKMapPack;
+        MapPack lastSDJKMapPack;
         Map.Map lastSDJKMap;
         string lastBackgroundFile;
         string lastBackgroundNightFile;
