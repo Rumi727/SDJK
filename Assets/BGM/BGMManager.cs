@@ -26,7 +26,7 @@ namespace SDJK
 
 
         static SDJKMapPack tempSDJKMapPack;
-        static SDJKMap tempSDJKMap;
+        static Map.Map tempSDJKMap;
         static string tempSongFile = "";
         void Update()
         {

@@ -44,7 +44,7 @@ namespace SDJK
             rectTransform.sizeDelta = Vector2.zero;
             transform.SetSiblingIndex(0);
 
-            SDJKMap map = MapManager.selectedMap;
+            Map.Map map = MapManager.selectedMap;
             string videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
             if (File.Exists(videoPath))
             {

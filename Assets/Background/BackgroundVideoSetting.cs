@@ -11,7 +11,7 @@ namespace SDJK
         public static BackgroundVideo backgroundVideo { get; private set; } = null;
 
         SDJKMapPack lastSDJKMapPack;
-        SDJKMap lastSDJKMap;
+        Map.Map lastSDJKMap;
         string lastVideoBackgroundFile;
         string lastVideoBackgroundNightFile;
         void Update()

@@ -61,7 +61,7 @@ namespace SDJK.Map
         }
         public static int _selectedMapIndex = 0;
 
-        public static SDJKMap selectedMap 
+        public static Map selectedMap 
         {
             get => _selectedMap;
             set
@@ -73,10 +73,10 @@ namespace SDJK.Map
                 selectedMapEffect = value.globalEffect;
             }
         }
-        static SDJKMap _selectedMap = null;
+        static Map _selectedMap = null;
 
-        public static SDJKMapInfo selectedMapInfo { get; private set; } = null;
-        public static SDJKMapGlobalEffect selectedMapEffect { get; private set; } = null;
+        public static MapInfo selectedMapInfo { get; private set; } = null;
+        public static MapGlobalEffect selectedMapEffect { get; private set; } = null;
 
 
 

@@ -16,15 +16,16 @@ namespace SDJK
     {
         public static string[] compatibleMapExtensions { get; } = new string[] { "sdjk", "adofai" };
 
-        public static SDJKMap GlobalMapCompatibility(string mapFilePath)
+        public static Map.Map GlobalMapCompatibility(string mapFilePath)
         {
             string extension = Path.GetExtension(mapFilePath);
             if (extension == ".adofai")
             {
                 try
                 {
-                    SDJKMap sdjk = new SDJKMap();
+                    Map.Map sdjk = new Map.Map();
                     ADOFAI adofai = JsonManager.JsonRead<ADOFAI>(mapFilePath, true);
+                    List<double> allBeat = new List<double>();
                     
                     #region Default Effect
                     {
@@ -102,7 +103,7 @@ namespace SDJK
                                 if (lastBeat == beat && !midspin)
                                     beat += 2;
 
-                                sdjk.allBeat.Add(beat);
+                                allBeat.Add(beat);
                             }
                             else
                             {
@@ -110,7 +111,7 @@ namespace SDJK
                                 if (lastBeat == beat && !midspin)
                                     beat += 2;
 
-                                sdjk.allBeat.Add(beat);
+                                allBeat.Add(beat);
                             }
 
                             lastAngle = angle;
@@ -214,12 +215,12 @@ namespace SDJK
                             if (action["speedType"].Value<string>() == "Bpm")
                             {
                                 bpm = action["beatsPerMinute"].Value<float>();
-                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(sdjk.allBeat[index], bpm));
+                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
                             }
                             else
                             {
                                 bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(sdjk.allBeat[index], bpm));
+                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
                             }
 
                             lastBpm = bpm;
@@ -229,19 +230,19 @@ namespace SDJK
                             if (action.ContainsKey("position"))
                             {
                                 float[] pos = action["position"].Values<float>().ToArray();
-                                sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(sdjk.allBeat[index], new JVector3(pos[0], pos[1], -14), duration, ease, false));
+                                sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(allBeat[index], new JVector3(pos[0], pos[1], -14), duration, ease, false));
                             }
 
                             if (action.ContainsKey("rotation"))
                             {
                                 float rotation = action["rotation"].Value<float>();
-                                sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(sdjk.allBeat[index], new JVector3(0, 0, rotation), duration, ease, false));
+                                sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(allBeat[index], new JVector3(0, 0, rotation), duration, ease, false));
                             }
 
                             if (action.ContainsKey("zoom"))
                             {
                                 double zoom = action["zoom"].Value<float>() * 0.01;
-                                sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(sdjk.allBeat[index], zoom, duration, ease, false));
+                                sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(allBeat[index], zoom, duration, ease, false));
                             }
                         }
                     }
@@ -256,7 +257,7 @@ namespace SDJK
                 }
             }
             else if (extension == ".sdjk")
-                return JsonManager.JsonRead<SDJKMap>(mapFilePath, true);
+                return JsonManager.JsonRead<Map.Map>(mapFilePath, true);
             else
                 return null;
         }

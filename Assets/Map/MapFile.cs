@@ -11,13 +11,13 @@ namespace SDJK.Map
 {
     public sealed class SDJKMapPack
     {
-        public List<SDJKMap> maps { get; } = new List<SDJKMap>();
+        public List<Map> maps { get; } = new List<Map>();
     }
 
-    public class SDJKMap
+    public class Map
     {
-        public SDJKMapInfo info { get; } = new SDJKMapInfo();
-        public SDJKMapGlobalEffect globalEffect { get; } = new SDJKMapGlobalEffect();
+        public MapInfo info { get; } = new MapInfo();
+        public MapGlobalEffect globalEffect { get; } = new MapGlobalEffect();
 
 
 
@@ -25,7 +25,7 @@ namespace SDJK.Map
         [JsonIgnore] public string mapFilePath { get; set; } = "";
     }
 
-    public sealed class SDJKMapInfo
+    public sealed class MapInfo
     {
         [System.Obsolete("Not implemented!", true), JsonIgnore] public ulong id { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
@@ -72,7 +72,7 @@ namespace SDJK.Map
         public string author { get; set; } = "";
     }
 
-    public sealed class SDJKMapGlobalEffect
+    public sealed class MapGlobalEffect
     {
         public SCKRM.Rhythm.BeatValuePairList<double> bpm { get; } = new();
         public SCKRM.Rhythm.BeatValuePairList<bool> dropPart { get; } = new();

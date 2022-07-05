@@ -28,7 +28,7 @@ namespace SDJK
         {
             base.OnCreate();
 
-            SDJKMap map = MapManager.selectedMap;
+            Map.Map map = MapManager.selectedMap;
             string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out _, ResourceManager.audioExtension))
             {
@@ -73,7 +73,7 @@ namespace SDJK
             if (!isLoaded || ResourceManager.isAudioReset)
                 return;
 
-            SDJKMap map = MapManager.selectedMap;
+            Map.Map map = MapManager.selectedMap;
 
             if (soundPlayer.isRemoved)
             {
@@ -104,7 +104,7 @@ namespace SDJK
         {
             if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
             {
-                SDJKMap map = MapManager.selectedMap;
+                Map.Map map = MapManager.selectedMap;
                 soundPlayer.time = (float)map.info.mainMenuStartTime;
             }
         }
