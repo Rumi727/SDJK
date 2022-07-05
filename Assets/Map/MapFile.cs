@@ -19,7 +19,7 @@ namespace SDJK.Map
         public SDJKMapInfo info { get; } = new SDJKMapInfo();
         public SDJKMapGlobalEffect globalEffect { get; } = new SDJKMapGlobalEffect();
 
-        public List<double> allBeat { get; } = new List<double>();
+
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = "";
         [JsonIgnore] public string mapFilePath { get; set; } = "";
