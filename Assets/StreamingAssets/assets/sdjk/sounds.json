@@ -11,5 +11,18 @@
         "tempo": 1.0
       }
     ]
+  },
+  "hitsound.kick": {
+    "subtitle": "",
+    "isBGM": false,
+    "sounds": [
+      {
+        "stream": false,
+        "loopStartTime": 0.0,
+        "path": "hitsound/kick",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
   }
 }

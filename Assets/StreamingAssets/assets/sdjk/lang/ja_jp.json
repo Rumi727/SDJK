@@ -10,5 +10,7 @@
 	"map_manager.restart_music": "音楽の再起動",
 	"map_manager.next_music": "次の音楽",
 	"map_manager.play_music": "音楽再生",
-	"map_manager.pause_music": "音楽一時停止"
+	"map_manager.pause_music": "音楽一時停止",
+	
+	"map_select_screen.by_map":"%value%さんのマップ"
 }

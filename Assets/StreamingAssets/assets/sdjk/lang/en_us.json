@@ -10,5 +10,7 @@
 	"map_manager.restart_music": "Restart music",
 	"map_manager.next_music": "Next  music",
 	"map_manager.play_music": "Play music",
-	"map_manager.pause_music": "Pause music"
+	"map_manager.pause_music": "Pause music",
+	
+	"map_select_screen.by_map":"%value%'s map"
 }

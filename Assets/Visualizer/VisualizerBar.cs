@@ -43,9 +43,9 @@ namespace SDJK
         void Update()
         {
             if (size > 0)
-                size -= 5 * Kernel.fpsDeltaTime;
+                size -= 5 * Kernel.fpsUnscaledDeltaTime;
 
-            transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(transform.localScale.x, size), 0.75f * Kernel.fpsDeltaTime);
+            transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(transform.localScale.x, size), 0.75f * Kernel.fpsUnscaledDeltaTime);
 
             float yPosOffset = transform.localScale.y * 0.5f;
             float radRotation = -transform.eulerAngles.z * Mathf.Deg2Rad;

@@ -4,6 +4,7 @@ using SCKRM.Input;
 using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.StatusBar;
+using SDJK.Map;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,12 +19,13 @@ namespace SDJK
 
 
 
-        [SerializeField] CanvasScaler canvasScaler;
-        [SerializeField] RectTransform logo;
-        [SerializeField] RectTransform bar;
-        [SerializeField] CanvasGroup barCanvasGroup;
-        [SerializeField] RectTransform barLayout;
-        [SerializeField] HorizontalLayout barLayoutHorizontalLayout;
+        [SerializeField, NotNull] CanvasScaler canvasScaler;
+        [SerializeField, NotNull] RectTransform logo;
+        [SerializeField, NotNull] RectTransform bar;
+        [SerializeField, NotNull] CanvasGroup barCanvasGroup;
+        [SerializeField, NotNull] RectTransform barLayout;
+        [SerializeField, NotNull] HorizontalLayout barLayoutHorizontalLayout;
+        [SerializeField, NotNull] CanvasGroup mapSelectScreen;
 
 
 
@@ -97,7 +99,14 @@ namespace SDJK
                 NextScreen();
 
             if (currentScreenMode == ScreenMode.esc)
+            {
                 DefaultLogoAni(Vector2.zero, new Vector2(logo.sizeDelta.x, 0));
+
+                if (mapSelectScreen.alpha > 0)
+                    mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledDeltaTime);
+                else if (mapSelectScreen.gameObject.activeSelf)
+                    mapSelectScreen.gameObject.SetActive(false);
+            }
             else if (currentScreenMode == ScreenMode.normal)
             {
                 #region Logo Ani
@@ -140,9 +149,25 @@ namespace SDJK
                     logo.sizeDelta = new Vector2(x, y);
                 }
                 #endregion
+
+                if (mapSelectScreen.alpha > 0)
+                    mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledDeltaTime);
+                else if (mapSelectScreen.gameObject.activeSelf)
+                    mapSelectScreen.gameObject.SetActive(false);
             }
             else if (currentScreenMode == ScreenMode.mapSelect)
-                DefaultLogoAni(new Vector2(-92, 50), new Vector2(250, 250));
+            {
+                if (DefaultLogoAni(new Vector2(-92, 50), new Vector2(250, 250)))
+                {
+                    if (mapSelectScreen.alpha < 1)
+                    {
+                        mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(1, 0.1f * Kernel.fpsUnscaledDeltaTime);
+
+                        if (!mapSelectScreen.gameObject.activeSelf)
+                            mapSelectScreen.gameObject.SetActive(true);
+                    }
+                }
+            }
 
             bool DefaultLogoAni(Vector2 anchoredPosition, Vector2 sizeDelta)
             {

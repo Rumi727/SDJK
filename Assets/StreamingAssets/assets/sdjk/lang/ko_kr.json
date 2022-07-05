@@ -10,5 +10,7 @@
 	"map_manager.restart_music": "음악 재시작",
 	"map_manager.next_music": "다음 음악",
 	"map_manager.play_music": "음악 재생",
-	"map_manager.pause_music": "음악 일시정지"
+	"map_manager.pause_music": "음악 일시정지",
+	
+	"map_select_screen.by_map":"%value%님의 맵"
 }
