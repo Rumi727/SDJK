@@ -38,7 +38,7 @@ namespace SDJK
                         sdjk.info.backgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgImage);
                         sdjk.info.videoBackgroundFile = adofai.settings.bgVideo;
 
-                        sdjk.info.videoOffset = adofai.settings.vidOffest * 0.001f;
+                        sdjk.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
                         sdjk.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
 
@@ -298,7 +298,7 @@ namespace SDJK
                 public string bgImage = "";
 
                 public string bgVideo = "";
-                public int vidOffest = 0;
+                public int vidOffset = 0;
 
                 public float[] position = new float[] { 0, 0 };
                 public float rotation = 0;
