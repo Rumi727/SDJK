@@ -54,8 +54,10 @@ namespace SDJK
                     }
                     #endregion
 
-                    #region Twirl
+                    #region Tile Effect
                     Dictionary<int, bool> twirlList = new Dictionary<int, bool>();
+                    Dictionary<int, int> holdList = new Dictionary<int, int>();
+                    Dictionary<int, double> pauseList = new Dictionary<int, double>();
                     {
                         bool twirl = false;
                         for (int i = 0; i < adofai.actions.Length; i++)
@@ -69,6 +71,10 @@ namespace SDJK
                                 twirl = !twirl;
                                 twirlList.Add(index, twirl);
                             }
+                            else if (eventType == "Pause")
+                                pauseList.Add(index, action["duration"].Value<int>());
+                            else if (eventType == "Hold")
+                                holdList.Add(index, action["duration"].Value<int>());
                         }
                     }
                     #endregion
@@ -84,6 +90,14 @@ namespace SDJK
                             if (twirlList.TryGetValue(i, out bool outTwirl))
                                 twirl = outTwirl;
 
+                            double pause = 0;
+                            if (pauseList.TryGetValue(i, out double outpause))
+                                pause = outpause;
+
+                            int hold = 0;
+                            if (holdList.TryGetValue(i, out int outHold))
+                                hold = outHold;
+
                             double beat = lastBeat;
                             double angle = adofai.angleData[i];
                             bool midspin = false;
@@ -97,22 +111,17 @@ namespace SDJK
                                     angle = 0;
                             }
 
+                            double offsetBeat;
                             if (!twirl)
-                            {
-                                beat += (1 + ((lastAngle - angle.Abs()) / 180)).Reapeat(2);
-                                if (lastBeat == beat && !midspin)
-                                    beat += 2;
-
-                                allBeat.Add(beat);
-                            }
+                                offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180)).Reapeat(2);
                             else
-                            {
-                                beat += (1 + ((angle.Abs() - lastAngle) / 180)).Reapeat(2);
-                                if (lastBeat == beat && !midspin)
-                                    beat += 2;
+                                offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180)).Reapeat(2);
 
-                                allBeat.Add(beat);
-                            }
+                            beat += (offsetBeat + pause) + (hold * 2);
+                            if (lastBeat == beat && !midspin)
+                                beat += 2;
+
+                            allBeat.Add(beat);
 
                             lastAngle = angle;
                             lastBeat = beat;
@@ -247,7 +256,6 @@ namespace SDJK
                         }
                     }
                     #endregion
-
                     return sdjk;
                 }
                 catch (Exception e)
