@@ -81,7 +81,7 @@ namespace SDJK
 
                 if (BGMManager.bgm.soundPlayer != null)
                 {
-                    double dis = (BGMManager.bgm.soundPlayer.time - offset) - videoPlayer.time;
+                    double dis = (BGMManager.bgm.soundPlayer.time + offset) - videoPlayer.time;
                     float speed = BGMManager.bgm.soundPlayer.speed * Kernel.gameSpeed;
                     videoPlayer.playbackSpeed = speed;
 
@@ -94,7 +94,7 @@ namespace SDJK
                             videoPlayer.playbackSpeed = speed * 0.25f;
                     }
                     else
-                        videoPlayer.time = RhythmManager.time;
+                        videoPlayer.time = RhythmManager.time + offset;
 
                     if (videoPlayer.isPaused != BGMManager.bgm.soundPlayer.isPaused)
                     {
