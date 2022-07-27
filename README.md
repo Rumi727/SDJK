@@ -13,6 +13,8 @@ TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 �
 
 위에 해당하지 않는다면, 파일에 작성되어있는 라이선스를 따르게 됩니다
 
+[TEAM Bucket 블랙리스트에 등록된 사용자 목록](https://docs.google.com/document/d/19ynkqpIDtOisojVoZP7-oyIraQOsx7wulU12dher28E/edit?usp=sharing)
+
 ## 사용된 패키지와 DLL, 오픈 소스
 - [SC KRM](https://github.com/SimsimhanChobo/SC-KRM)
 - [UI Soft Mask](https://github.com/mob-sakai/SoftMaskForUGUI)
