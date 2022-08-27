@@ -20,7 +20,7 @@ namespace SDJK
             MapPack pack = new MapPack();
             for (int i = 0; i < packPaths.Length; i++)
             {
-                Map.Map map = MapLoad(packPaths[i].Replace("\\", "/"));
+                Map.Map map = MapLoad<Map.Map>(packPaths[i].Replace("\\", "/"));
                 if (map != null)
                     pack.maps.Add(map);
             }
@@ -28,9 +28,9 @@ namespace SDJK
             return pack;
         }
 
-        public static Map.Map MapLoad(string mapFilePath)
+        public static T MapLoad<T>(string mapFilePath) where T : Map.Map, new()
         {
-            Map.Map sdjkMap = MapCompatibilitySystem.GlobalMapCompatibility(mapFilePath);
+            T sdjkMap = MapCompatibilitySystem.GlobalMapCompatibility<T>(mapFilePath);
             if (sdjkMap == null)
                 return null;
 
