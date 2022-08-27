@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
+using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.UI;
 using SDJK.Map;
@@ -46,11 +47,11 @@ namespace SDJK
 
             Map.Map map = MapManager.selectedMap;
             string videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
-            if (File.Exists(videoPath))
+            if (ResourceManager.FileExtensionExists(videoPath, out string fullPath, ResourceManager.videoExtension))
             {
                 offset = MapManager.selectedMap.info.videoOffset;
 
-                videoPlayer.url = videoPath;
+                videoPlayer.url = fullPath;
                 videoPlayer.Play();
             }
             else
