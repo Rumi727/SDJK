@@ -7,16 +7,18 @@ using UnityEngine;
 
 namespace SCKRM.NBS
 {
+    [WikiDescription("NBS를 플레이하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/NBS/NBS Player")]
     public sealed class NBSPlayer : SoundPlayerParent<NBSMetaData>
     {
-        public NBSFile nbsFile => metaData.nbsFile;
+        [WikiDescription("NBS 파일을 가져옵니다")] public NBSFile nbsFile => metaData.nbsFile;
 
 
 
         float tickTimer = 0.05f;
 
         int _index = 0;
+        [WikiDescription("현재 인덱스")]
         public int index
         {
             get => _index;
@@ -40,6 +42,7 @@ namespace SCKRM.NBS
         }
 
         int _tick;
+        [WikiDescription("현재 틱")]
         public int tick
         {
             get => _tick;
@@ -67,6 +70,7 @@ namespace SCKRM.NBS
             }
         }
 
+        [WikiDescription("현재 시간")]
         public override float time
         {
             get
@@ -91,8 +95,9 @@ namespace SCKRM.NBS
                 }
             }
         }
-        public override float realTime { get => time / tempo; set => time = value * tempo; }
+        [WikiDescription("실제 현재 시간")] public override float realTime { get => time / tempo; set => time = value * tempo; }
 
+        [WikiDescription("곡의 길이")]
         public override float length
         {
             get
@@ -104,12 +109,13 @@ namespace SCKRM.NBS
             }
         }
 
-        public override float realLength => length / tempo;
+        [WikiDescription("곡의 실제 시간")] public override float realLength => length / tempo;
 
-        public override bool isLooped { get; protected set; } = false;
-        public override bool isPaused { get; set; } = false;
+        [WikiDescription("루프 여부")] public override bool isLooped { get; protected set; } = false;
+        [WikiDescription("일시정지 여부")] public override bool isPaused { get; set; } = false;
 
-        public override float speed { get => tempo; set => tempo = value; }
+        [WikiDescription("속도")] public override float speed { get => tempo; set => tempo = value; }
+        [WikiDescription("실제 속도")]
         public override float realSpeed
         {
             get
@@ -164,6 +170,7 @@ namespace SCKRM.NBS
 
 
 
+        [WikiDescription("새로고침")]
         public override void Refresh()
         {
             if (!ThreadManager.isMainThread)
@@ -371,6 +378,7 @@ namespace SCKRM.NBS
 
 
 
+        [WikiDescription("플레이어 삭제")]
         public override bool Remove()
         {
             if (!base.Remove())

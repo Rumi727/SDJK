@@ -39,7 +39,7 @@ namespace SCKRM.SaveLoad
             this.fieldInfos = fieldInfos;
         }
 
-        public class SaveLoadVariable<T>
+        public class SaveLoadVariable<T> where T : MemberInfo
         {
             public T variableInfo { get; }
             public object defaultValue { get; }
@@ -65,10 +65,13 @@ namespace SCKRM.SaveLoad
         }
     }
 
+    [WikiDescription("세이브 로드를 관리하는 클래스 입니다")]
     public static class SaveLoadManager
     {
+        [WikiDescription("캐싱된 세이브 로드 클래스")]
         public static SaveLoadClass[] generalSLCList { get; [Obsolete("It is managed by the Kernel class. Please do not touch it.", false)] internal set; } = new SaveLoadClass[0];
 
+        [WikiDescription("전부 초기화")]
         public static void InitializeAll<T>(out SaveLoadClass[] result) where T : SaveLoadAttribute
         {
             List<SaveLoadClass> saveLoadClassList = new List<SaveLoadClass>();
@@ -90,6 +93,7 @@ namespace SCKRM.SaveLoad
             result = saveLoadClassList.ToArray();
         }
 
+        [WikiDescription("초기화")]
         public static void Initialize<T>(Type type, out SaveLoadClass result) where T : SaveLoadAttribute
         {
             T saveLoadAttribute = type.GetCustomAttribute(typeof(T)) as T;
@@ -128,6 +132,7 @@ namespace SCKRM.SaveLoad
             #endregion
         }
 
+        [WikiDescription("모두 저장")]
         public static void SaveAll(SaveLoadClass[] saveLoadClassList, string saveDataPath, bool noExistsCheck = false)
         {
             if (saveLoadClassList == null || saveDataPath == null || saveDataPath == "")
@@ -139,6 +144,7 @@ namespace SCKRM.SaveLoad
                 Save(saveLoadClassList[i], saveDataPath);
         }
 
+        [WikiDescription("저장")]
         public static void Save(SaveLoadClass saveLoadClass, string saveDataPath)
         {
             if (saveLoadClass == null || saveDataPath == null || saveDataPath == "")
@@ -160,9 +166,7 @@ namespace SCKRM.SaveLoad
             File.WriteAllText(PathTool.Combine(saveDataPath, saveLoadClass.name) + ".json", jObject.ToString());
         }
 
-        /// <summary>
-        /// GetTextWebRequest를 사용하기 때문에 안드로이드에선 메인 스레드에서 실행해야 합니다
-        /// </summary>
+        [WikiDescription("전부 로드")]
         public static void LoadAll(SaveLoadClass[] saveLoadClassList, string loadDataPath, bool noExistsCheck = false)
         {
             if (saveLoadClassList == null || loadDataPath == null || loadDataPath == "")
@@ -174,9 +178,7 @@ namespace SCKRM.SaveLoad
                 Load(saveLoadClassList[i], loadDataPath, noExistsCheck);
         }
 
-        /// <summary>
-        /// GetTextWebRequest를 사용하기 때문에 안드로이드에선 메인 스레드에서 실행해야 합니다
-        /// </summary>
+        [WikiDescription("로드")]
         public static void Load(SaveLoadClass saveLoadClass, string loadDataPath, bool noExistsCheck = false)
         {
             if (saveLoadClass == null || loadDataPath == null || loadDataPath == "")

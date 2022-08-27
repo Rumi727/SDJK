@@ -4,6 +4,7 @@ using System.IO;
 
 namespace SCKRM
 {
+    [WikiDescription("파일 아이콘 관련 메소드가 들어있는 클래스 입니다")]
     public static class FileDialogIcon
     {
         public static string[] textureExtension => ResourceManager.textureExtension;
@@ -13,6 +14,7 @@ namespace SCKRM
         public static string[] codeExtension { get; } = new string[] { "java", "php", "scss", "cs", "css", "js", "py", "c", "cpp", "class", "fs", "go", "rb" };
         public static string[] compressedExtension { get; } = new string[] { "zip" };
 
+        [WikiDescription("선택한 파일에 맞는 아이콘을 반환합니다")]
         public static NameSpaceIndexTypePathPair GetIcon(string path)
         {
             if (Directory.Exists(path))
@@ -47,6 +49,7 @@ namespace SCKRM
             return false;
         }
 
+        [WikiDescription("선택한 드라이브에 맞는 아이콘을 반환합니다")]
         public static NameSpaceIndexTypePathPair GetIcon(DriveInfo driveInfo)
         {
             if (driveInfo.DriveType == DriveType.Fixed)

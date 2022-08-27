@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace SCKRM.Object
 {
+    [WikiDescription("오브젝트 풀링 인터페이스")]
     public interface IObjectPooling : IRemoveable
     {
         string objectKey { get; set; }
@@ -12,6 +13,7 @@ namespace SCKRM.Object
 
         void OnCreate();
 
+        [WikiDescription("오브젝트를 생성할때의 기본 스크립트")]
         public static void OnCreateDefault(Transform transform, IObjectPooling objectPooling)
         {
             transform.gameObject.name = objectPooling.objectKey;
@@ -22,6 +24,7 @@ namespace SCKRM.Object
             transform.localScale = Vector3.one;
         }
 
+        [WikiDescription("오브젝트를 삭제할때의 기본 스크립트")]
         public static bool RemoveDefault(MonoBehaviour monoBehaviour, IObjectPooling objectPooling)
         {
             if (!objectPooling.isActived)
@@ -39,6 +42,7 @@ namespace SCKRM.Object
             return true;
         }
 
+        [WikiIgnore]
         public static bool RemoveDefault(UI.UI ui, IObjectPooling objectPooling)
         {
             if (!objectPooling.isActived)
@@ -57,20 +61,21 @@ namespace SCKRM.Object
         }
     }
 
+    [WikiDescription("오브젝트 풀링으로 생성된 오브젝트를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Object/Object Pooling")]
     public class ObjectPooling : MonoBehaviour, IObjectPooling
     {
-        public string objectKey { get; set; }
+        [WikiDescription("오브젝트 키")] public string objectKey { get; set; }
 
-        public bool isRemoved => !isActived;
+        [WikiDescription("삭제 여부")] public bool isRemoved => !isActived;
 
-        public bool isActived { get; private set; }
+        [WikiDescription("활성화 여부")] public bool isActived { get; private set; }
         bool IObjectPooling.isActived { get => isActived; set => isActived = value; }
 
 
 
         IRefreshable[] _refreshableObjects;
-        public IRefreshable[] refreshableObjects => _refreshableObjects = this.GetComponentsInChildrenFieldSave(_refreshableObjects, true);
+        [WikiDescription("새로고침 가능한 오브젝트들을 가져옵니다")] public IRefreshable[] refreshableObjects => _refreshableObjects = this.GetComponentsInChildrenFieldSave(_refreshableObjects, true);
 
 
 
@@ -82,6 +87,7 @@ namespace SCKRM.Object
         /// <summary>
         /// Please put base.Remove() when overriding
         /// </summary>
+        [WikiDescription("오브젝트 삭제")]
         public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
     }
 }

@@ -6,6 +6,7 @@ namespace SCKRM.Polygon
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(PolygonCollider2D))]
     [AddComponentMenu("SC KRM/Polygon/Polygon Collider To Mesh")]
+    [WikiDescription("폴리곤 콜라이더를 메쉬로 변환하는 클래스 입니다")]
     public sealed class PolygonColliderToMesh : MonoBehaviour
     {
         PolygonCollider2D _polygonCollider;

@@ -59,6 +59,7 @@ using System;
 
 namespace SCKRM.Easing
 {
+    [WikiDescription("Easing Function 관련 메소드가 들어있는 클래스 입니다")]
     public static class EasingFunction
     {
         public enum Ease

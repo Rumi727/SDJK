@@ -16,6 +16,7 @@ using UnityEngine.Networking;
 
 namespace SCKRM.Resource
 {
+    [WikiDescription("리소스를 관리하는 클래스 입니다")]
     public static class ResourceManager
     {
         [ProjectSettingSaveLoad]
@@ -160,6 +161,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription(
+@"리소스 새로고침 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
+Resource refresh (Since the Unity API is used, we need to run it on the main thread)"
+)]
         public static async UniTask ResourceRefresh(bool garbageRemoval)
         {
             if (!ThreadManager.isMainThread)
@@ -769,6 +774,10 @@ namespace SCKRM.Resource
         /// delete garbage
         /// </summary>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiDescription(
+@"찌꺼기를 삭제합니다
+delete garbage"
+)]
         public static void GarbageRemoval()
         {
             if (!ThreadManager.isMainThread)
@@ -780,6 +789,7 @@ namespace SCKRM.Resource
             garbages.Clear();
         }
 
+        [WikiDescription("오디오를 리셋합니다")]
         public static async UniTaskVoid AudioReset()
         {
             if (isAudioReset)
@@ -835,6 +845,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription(
+@"합쳐진 텍스쳐의 경로를 찾아서 반환합니다
+Finds the path of the merged texture and returns it"
+)]
         public static string SearchTexturePath(string type, string name, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
@@ -873,6 +887,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+[WikiDescription(
+@"합쳐진 텍스쳐를 반환합니다
+Returns the merged texture"
+)]
         public static Texture2D SearchPackTexture(string type, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
@@ -913,6 +931,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription(
+@"합쳐진 텍스쳐의 Rect를 반환합니다
+Returns a Rect of the merged texture."
+)]
         public static Rect SearchTextureRect(string type, string name, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
@@ -956,6 +978,7 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription("스프라이트 리스트에서 스프라이트를 찾고 반환합니다")]
         public static Sprite[] SearchSprites(string type, string name, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
@@ -999,6 +1022,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription(
+@"리소스팩에서 언어를 검색하고 반환합니다
+It can be executed even if it is not in the initial loading and play mode"
+)]
         public static string SearchLanguage(string key, string nameSpace = "", string language = "")
         {
             if (!Kernel.isPlaying)
@@ -1045,6 +1072,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription(
+@"리소스팩에서 사운드 데이터를 찾고 반환합니다
+Finds and returns sound data from resource packs"
+)]
         public static SoundData<SoundMetaData> SearchSoundData(string key, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
@@ -1083,6 +1114,10 @@ namespace SCKRM.Resource
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
+        [WikiDescription(
+@"리소스팩에서 NBS 데이터를 찾고 반환합니다
+Finds and returns sound data from resource packs"
+)]
         public static SoundData<NBSMetaData> SearchNBSData(string key, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
@@ -1128,6 +1163,10 @@ namespace SCKRM.Resource
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"이미지 파일을 Texture2D 타입으로 가져옵니다
+Import image files as Texture2D type"
+)]
         public static Texture2D GetTexture(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!pathExtensionUse)
@@ -1158,7 +1197,7 @@ namespace SCKRM.Resource
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
-        public static Texture2D GetTexture(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32) => GetTexture(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
+        [WikiIgnore] public static Texture2D GetTexture(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32) => GetTexture(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
 
         /// <summary>
         /// 이미지 파일을 Texture2D 타입으로 가져옵니다
@@ -1176,7 +1215,7 @@ namespace SCKRM.Resource
         /// 텍스쳐 포맷 (png, jpg 파일에서만 작동)
         /// </param>
         /// <returns></returns>
-        public static Texture2D GetTexture(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
+        [WikiIgnore] public static Texture2D GetTexture(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (path == null)
                 path = "";
@@ -1191,7 +1230,7 @@ namespace SCKRM.Resource
             {
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
                 texture.filterMode = filterMode;
-                texture.name = Path.GetFileName(path);
+                texture.name = Path.GetFileNameWithoutExtension(path);
 
                 AsyncImageLoader.LoaderSettings loaderSettings = AsyncImageLoader.LoaderSettings.Default;
                 loaderSettings.generateMipmap = mipmapUse;
@@ -1214,8 +1253,10 @@ namespace SCKRM.Resource
 
         #region Get Texture Async
         /// <summary>
-        /// 이미지 파일을 Texture2D 타입으로 가져옵니다
-        /// Import image files as Texture2D type
+        /// 이미지 파일을 Texture2D 타입으로 비동기로 가져옵니다
+        /// 다양한 포맷을 지원하며 이중엔 SC KRM이 지원하는 포맷과 유니티가 지원하는 포맷도 있습니다
+        /// Asynchronously import an image file as a Texture2D type.
+        /// Various formats are supported. Among them, there are formats supported by SC KRM and formats supported by Unity.
         /// </summary>
         /// <param name="path">
         /// 파일의 경로
@@ -1229,6 +1270,13 @@ namespace SCKRM.Resource
         /// 텍스쳐 포맷 (png, jpg 파일에서만 작동)
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"이미지 파일을 Texture2D 타입으로 비동기로 가져옵니다
+다양한 포맷을 지원하며 이중엔 SC KRM이 지원하는 포맷과 유니티가 지원하는 포맷도 있습니다
+
+Asynchronously import an image file as a Texture2D type.
+Various formats are supported. Among them, there are formats supported by SC KRM and formats supported by Unity."
+)]
         public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!pathExtensionUse)
@@ -1261,7 +1309,7 @@ namespace SCKRM.Resource
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
-        public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32) => GetTextureAsync(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
+        [WikiIgnore] public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32) => GetTextureAsync(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
 
         /// <summary>
         /// 이미지 파일을 Texture2D 타입으로 비동기로 가져옵니다
@@ -1281,6 +1329,7 @@ namespace SCKRM.Resource
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
+        [WikiIgnore]
         public static async UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!ThreadManager.isMainThread)
@@ -1289,12 +1338,15 @@ namespace SCKRM.Resource
             if (path == null)
                 path = "";
 
-            if (pathExtensionUse)
-                path = PathTool.GetPathWithExtension(path);
+            bool exists;
+            if (!pathExtensionUse)
+                exists = FileExtensionExists(path, out path, textureExtension);
+            else
+                exists = File.Exists(path);
 
-            if (FileExtensionExists(path, out string outPath, textureExtension))
+            if (exists)
             {
-                using UnityWebRequest www = UnityWebRequest.Get(outPath);
+                using UnityWebRequest www = UnityWebRequest.Get(path);
                 await www.SendWebRequest();
 
                 if (www.result != UnityWebRequest.Result.Success)
@@ -1302,7 +1354,7 @@ namespace SCKRM.Resource
 
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
                 texture.filterMode = filterMode;
-                texture.name = Path.GetFileName(path);
+                texture.name = Path.GetFileNameWithoutExtension(path);
 
                 AsyncImageLoader.LoaderSettings loaderSettings = AsyncImageLoader.LoaderSettings.Default;
                 loaderSettings.generateMipmap = mipmapUse;
@@ -1331,6 +1383,10 @@ namespace SCKRM.Resource
         /// <param name="texture"></param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiDescription(
+@"텍스쳐를 스프라이트로 변환합니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
+Convert texture to sprite (Since the Unity API is used, we need to run it on the main thread)"
+)]
         public static Sprite GetSprite(Texture2D texture, SpriteMetaData spriteMetaData = null)
         {
             if (!ThreadManager.isMainThread)
@@ -1376,6 +1432,10 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiDescription(
+@"이미지 파일을 스프라이트로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다.)
+Import image files as sprites (Since the Unity API is used, we need to run it on the main thread)"
+)]
         public static Sprite[] GetSprites(string resourcePackPath, string type, string name, string nameSpace = "", TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!ThreadManager.isMainThread)
@@ -1420,7 +1480,7 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
+        [WikiIgnore] public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException(nameof(GetSprites));
@@ -1446,7 +1506,7 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        public static Sprite[] GetSprites(Texture2D texture, params SpriteMetaData[] spriteMetaDatas)
+        [WikiIgnore] public static Sprite[] GetSprites(Texture2D texture, params SpriteMetaData[] spriteMetaDatas)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException(nameof(GetSprites));
@@ -1490,6 +1550,10 @@ namespace SCKRM.Resource
         /// Use extension in path
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"텍스트 파일을 string 타입으로 가져옵니다
+Import text file as string type"
+)]
         public static string GetText(string path, bool pathExtensionUse = false)
         {
             bool exists;
@@ -1522,6 +1586,10 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiDescription(
+@"오디오 파일을 오디오 클립으로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
+Import audio files as audio clips (Since the Unity API is used, we need to run it on the main thread)"
+)]
         public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false)
         {
             if (!ThreadManager.isMainThread)
@@ -1568,7 +1636,7 @@ namespace SCKRM.Resource
                 return null;
             }
         }
-#endregion
+        #endregion
 
 
 
@@ -1582,6 +1650,10 @@ namespace SCKRM.Resource
         /// namespace to import
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"로드 된 오디오 키 리스트를 가져옵니다 (플레이 중이 아니거나, 초기 로딩이 안되어있다면 기본 리소스팩에서 수동으로 찾습니다)
+Get the list of loaded audio keys (manually find in the default resource pack if not playing or not initially loaded)"
+)]
         public static string[] GetSoundDataKeys(string nameSpace = "")
         {
             if (nameSpace == null)
@@ -1616,6 +1688,10 @@ namespace SCKRM.Resource
         /// namespace to import
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"로드 된 NBS 키 리스트를 가져옵니다 (플레이 중이 아니거나, 초기 로딩이 안되어있다면 기본 리소스팩에서 수동으로 찾습니다)
+Get the list of loaded nbs keys (manually find in the default resource pack if not playing or not initially loaded)"
+)]
         public static string[] GetNBSDataKeys(string nameSpace = "")
         {
             if (nameSpace == null)
@@ -1651,6 +1727,10 @@ namespace SCKRM.Resource
         /// namespace to import
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"로드 된 스프라이트 타입 리스트를 가져옵니다 (플레이 중이 아니거나, 초기 로딩이 안되어있다면 기본 리소스팩에서 수동으로 찾습니다)
+Get the list of loaded sprite type (manually find in the default resource pack if not playing or not initially loaded)"
+)]
         public static string[] GetSpriteTypes(string nameSpace = "")
         {
             if (nameSpace == null)
@@ -1688,6 +1768,10 @@ namespace SCKRM.Resource
         /// namespace to import
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"로드 된 스프라이트 키 리스트를 가져옵니다 (플레이 중이 아니거나, 초기 로딩이 안되어있다면 기본 리소스팩에서 수동으로 찾습니다)
+Get the list of loaded sprite keys (manually find in the default resource pack if not playing or not initially loaded)"
+)]
         public static string[] GetSpriteKeys(string type, string nameSpace = "")
         {
             if (type == null)
@@ -1735,6 +1819,10 @@ namespace SCKRM.Resource
         /// namespace to import
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"로드 된 언어 키 리스트를 가져옵니다 (플레이 중이 아니거나, 초기 로딩이 안되어있다면 기본 리소스팩에서 수동으로 찾습니다)
+Get the list of loaded language keys (manually find in the default resource pack if not playing or not initially loaded)"
+)]
         public static string[] GetLanguageKeys(string language, string nameSpace = "")
         {
             if (language == null)
@@ -1782,6 +1870,10 @@ namespace SCKRM.Resource
         /// extension list
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"파일들에 특정 확장자가 있으면 true를 반환합니다
+Returns true if files have a specific extension"
+)]
         public static bool FileExtensionExists(string path, out string outPath, params string[] extensions)
         {
             if (path == null)
@@ -1819,6 +1911,10 @@ namespace SCKRM.Resource
         /// Remaining Text
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"텍스트에서 네임스페이스를 분리하고 네임스페이스를 반환합니다.
+Detach a namespace from text and return the namespace."
+)]
         public static string GetNameSpace(string text, out string value)
         {
             if (text == null)
@@ -1853,6 +1949,10 @@ namespace SCKRM.Resource
         /// Remaining Text
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"텍스트에서 텍스쳐 타입을 분리하고 타입을 반환합니다.
+Detach a namespace from text and return the namespace."
+)]
         public static string GetTextureType(string text, out string value)
         {
             if (text == null)
@@ -1887,6 +1987,10 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiDescription(
+@"텍스쳐의 평균 색상을 구합니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
+Gets the average color of a texture (Since the Unity API is used, we need to run it on the main thread)"
+)]
         public static Color AverageColorFromTexture(Texture2D texture) => AverageColorFromTexture(texture, 0, 0, texture.width, texture.height);
 
         /// <summary>
@@ -1903,7 +2007,7 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        public static Color AverageColorFromTexture(Texture2D texture, RectInt rect) => AverageColorFromTexture(texture, rect.x, rect.y, rect.width, rect.height);
+        [WikiIgnore] public static Color AverageColorFromTexture(Texture2D texture, RectInt rect) => AverageColorFromTexture(texture, rect.x, rect.y, rect.width, rect.height);
 
         /// <summary>
         /// 텍스쳐의 평균 색상을 구합니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
@@ -1931,6 +2035,7 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiIgnore]
         public static Color AverageColorFromTexture(Texture2D texture, int x, int y, int width, int height)
         {
             if (!ThreadManager.isMainThread)
@@ -2063,6 +2168,10 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
+        [WikiDescription(
+@"색상을 스프라이트로 변환합니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
+Convert color to sprite (Since the Unity API is used, we need to run it on the main thread)"
+)]
         public static Sprite SpriteFromColor(Color color, int width = 1, int height = 1, FilterMode filterMode = FilterMode.Point, SpriteMetaData spriteMetaData = null)
         {
             if (!ThreadManager.isMainThread)
@@ -2104,7 +2213,7 @@ namespace SCKRM.Resource
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        public static Sprite SpriteFromColor(Color color, Texture2D alpha, SpriteMetaData spriteMetaData = null)
+        [WikiIgnore] public static Sprite SpriteFromColor(Color color, Texture2D alpha, SpriteMetaData spriteMetaData = null)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException(nameof(SpriteFromColor));
@@ -2264,6 +2373,7 @@ namespace SCKRM.Resource
 
 
 
+    [WikiDescription("Search function cannot be used outside of play mode\n플레이 모드가 아니면 Search 함수를 사용할 수 없습니다")]
     public class NotPlayModeSearchMethodException : Exception
     {
         /// <summary>

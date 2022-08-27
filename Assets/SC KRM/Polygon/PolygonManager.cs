@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace SCKRM.Polygon
 {
+    [WikiDescription("다각형 관련 메소드가 있는 클래스 입니다")]
     public static class PolygonManager
     {
         //code author: https://gamedev.stackexchange.com/a/146460
+        [WikiDescription("여러개의 벡터를 채워진 메쉬로 변환합니다")]
         public static void ToFilledMesh(this Vector2[] positions, Mesh mesh)
         {
             if (positions == null)
@@ -136,6 +138,8 @@ namespace SCKRM.Polygon
             // Dot product of the perpendicular of vector a against vector b.
             float DotPerp(Vector2 a, Vector2 b) => a.x * b.y - a.y * b.x;
         }
+
+        [WikiIgnore]
         public static void ToFilledMesh(this Vector3[] positions, Mesh mesh)
         {
             Vector2[] positions2D = new Vector2[positions.Length];
@@ -144,6 +148,8 @@ namespace SCKRM.Polygon
 
             ToFilledMesh(positions2D, mesh);
         }
+
+        [WikiDescription("라인 렌더러를 메쉬로 변환합니다")]
         public static void PositionToFilledMesh(this LineRenderer lineRenderer, Mesh mesh)
         {
             if (lineRenderer == null)
@@ -157,6 +163,8 @@ namespace SCKRM.Polygon
 
             positions.ToFilledMesh(mesh);
         }
+
+        [WikiDescription("폴리곤 콜라이더를 메쉬로 변환합니다")]
         public static void PathToMesh(this PolygonCollider2D collider, Mesh mesh)
         {
             if (collider == null)
@@ -170,6 +178,7 @@ namespace SCKRM.Polygon
             collider.GetPath(0).ToFilledMesh(mesh);
         }
 
+        [WikiDescription("라인 렌더러로 정다각형을 그립니다")]
         public static void DrawRegularPolygon(this LineRenderer lineRenderer, float sides, float radius, float width)
         {
             if (lineRenderer == null)
@@ -211,6 +220,7 @@ namespace SCKRM.Polygon
                 lineRenderer.SetPosition(posCount - extraSteps + i, lineRenderer.GetPosition(i));
         }
 
+        [WikiDescription("라인 렌더러를 폴리곤 콜라이더로 변환합니다")]
         public static void PositionToPolygonCollider(this LineRenderer lineRenderer, PolygonCollider2D polygonCollider)
         {
             if (lineRenderer == null)
@@ -225,6 +235,8 @@ namespace SCKRM.Polygon
             polygonCollider.pathCount = 1;
             polygonCollider.SetPath(0, line);
         }
+
+        [WikiDescription("폴리곤 콜라이더를 라인 렌더러로 변환합니다")]
         public static void PathToLineRenderer(this PolygonCollider2D polygonCollider, LineRenderer lineRenderer)
         {
             if (polygonCollider == null)

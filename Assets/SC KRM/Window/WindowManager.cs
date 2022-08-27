@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace SCKRM.Window
 {
+    [WikiDescription("창 관련 메소드가 있는 클래스 입니다")]
     public static class WindowManager
     {
         public static Process currentProcess { get; } = Process.GetCurrentProcess();
@@ -59,8 +60,8 @@ namespace SCKRM.Window
 #endif
         }
 
-        public static Vector2Int GetWindowPos() => GetWindowPos(Vector2.zero, Vector2.zero);
-        public static Vector2Int GetWindowPos(Vector2 windowDatumPoint, Vector2 screenDatumPoint)
+        [WikiDescription("현재 창 위치")] public static Vector2Int GetWindowPos() => GetWindowPos(Vector2.zero, Vector2.zero);
+        [WikiIgnore] public static Vector2Int GetWindowPos(Vector2 windowDatumPoint, Vector2 screenDatumPoint)
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             GetWindowRect(currentHandle, out RECT rect);
@@ -70,6 +71,7 @@ namespace SCKRM.Window
 #endif
         }
 
+        [WikiDescription("현재 창 크기")]
         public static Vector2Int GetWindowSize()
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
@@ -80,6 +82,7 @@ namespace SCKRM.Window
 #endif
         }
 
+        [WikiDescription("현재 클라이언트 크기")]
         public static Vector2Int GetClientSize()
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
@@ -94,6 +97,7 @@ namespace SCKRM.Window
         /// <summary>
         /// The editor ignores this function.
         /// </summary>
+        [WikiDescription("창 Rect 정하기")]
         public static void SetWindowRect(Rect rect, Vector2 windowDatumPoint, Vector2 screenDatumPoint, bool clientDatum = true, bool Lerp = false, float time = 0.05f)
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace SCKRM.UI.SideBar
 {
+    [WikiDescription("사이드 바를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Kernel/UI/Side Bar Ani")]
     public sealed class SideBarAni : UIAni
     {
@@ -19,8 +20,9 @@ namespace SCKRM.UI.SideBar
 
 
         /// <summary>
-        /// 현제 사이드바가 활성화 되어있는가의 여부
+        /// 현재 사이드바가 활성화 되어있는가의 여부
         /// </summary>
+        [WikiDescription("현재 사이드바가 활성화 되어있는가의 여부")]
         public bool isShow
         {
             get => _isShow;
@@ -55,6 +57,7 @@ namespace SCKRM.UI.SideBar
         /// <summary>
         /// 사이드바가 오른쪽에 표시되는지에 대한 여부
         /// </summary>
+        [WikiDescription("사이드바가 오른쪽에 표시되는지에 대한 여부")]
         public bool right { get => _right; set => _right = value; } [SerializeField] bool _right = false;
 
 
@@ -70,6 +73,7 @@ namespace SCKRM.UI.SideBar
         /// <summary>
         /// 사이드 바를 활성화 합니다
         /// </summary>
+        [WikiDescription("사이드 바를 활성화 합니다")]
         public void Show()
         {
             isShow = true;
@@ -79,6 +83,7 @@ namespace SCKRM.UI.SideBar
         /// <summary>
         /// 사이드 바를 비활성화 합니다
         /// </summary>
+        [WikiDescription("사이드 바를 비활성화 합니다")]
         public void Hide()
         {
             isShow = false;
@@ -88,6 +93,7 @@ namespace SCKRM.UI.SideBar
         /// <summary>
         /// 사이드 바를 활성화/비활성화 합니다
         /// </summary>
+        [WikiDescription("사이드 바를 활성화/비활성화 합니다")]
         public void Toggle()
         {
             if (isShow)
@@ -99,6 +105,7 @@ namespace SCKRM.UI.SideBar
         /// <summary>
         /// 사이드 바를 뒤로 가는 이벤트로 비활성화 합니다
         /// </summary>
+        [WikiDescription("사이드 바를 뒤로 가는 이벤트로 비활성화 합니다")]
         public void Back()
         {
             Hide();

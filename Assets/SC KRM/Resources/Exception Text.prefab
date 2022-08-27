@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 1890234707364422121}
+  _graphic: {fileID: 9142599726430442164}
 --- !u!222 &6998685843114001787
 CanvasRenderer:
   m_ObjectHideFlags: 0

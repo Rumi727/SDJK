@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 50bd209b3c811004d9bf40a3da5d8968
+guid: 46b80538956e9e54598e56fd8ba0fa57
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pretendard Variable
+  - Pretendard JP Variable
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

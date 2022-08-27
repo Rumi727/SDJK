@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace SCKRM.Language.UI
 {
+    [WikiDescription("언어 리스트를 표시하기 위한 클래스 입니다")]
     [AddComponentMenu("SC KRM/Language/UI/Language List")]
     public sealed class LanguageList : SCKRM.UI.UI
     {

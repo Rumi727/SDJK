@@ -5,6 +5,9 @@ using SCKRM.Threads;
 using System;
 using SCKRM.UI.SideBar;
 using K4.Threading;
+using SCKRM.ProjectSetting;
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 #if !UNITY_EDITOR && UNITY_STANDALONE_WIN
 using B83.Win32;
 using System.Collections.Generic;
@@ -15,9 +18,21 @@ using UnityEditor;
 
 namespace SCKRM.DragAndDrop
 {
+    [WikiDescription("드래그 앤 드랍을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Drag And Drop/Drag And Drop Manager")]
     public sealed class DragAndDropManager : Manager<DragAndDropManager>
     {
+#if UNITY_EDITOR
+        /// <summary>
+        /// 이 클래스는 에디터에서만 접근할 수 있습니다
+        /// </summary>
+        [ProjectSettingSaveLoad]
+        public class Data
+        {
+            [JsonProperty] public static bool editorDADEnable { get; set; } = true;
+        }
+#endif
+
         /// <summary>
         /// </summary>
         /// <param name="paths">
@@ -37,6 +52,8 @@ namespace SCKRM.DragAndDrop
         /// The method should return true if the file was detected successfully, and false if the detection was unsuccessful.
         /// </returns>
         public delegate bool DragAndDropFunc(string path, bool isFolder, Vector2 mousePos, ThreadMetaData threadMetaData);
+
+        [WikiDescription("사용자가 파일을 드래그 앤 드랍할때 발생하는 이벤트 입니다")]
         public static event DragAndDropFunc dragAndDropEvent;
 
 
@@ -106,6 +123,9 @@ namespace SCKRM.DragAndDrop
         Type type;
         void Update()
         {
+            if (!Data.editorDADEnable)
+                return;
+
             if (type == null)
             {
                 type = assembly.GetType("UnityEditor.GameView");

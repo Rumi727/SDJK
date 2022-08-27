@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace SCKRM.Renderer
 {
+    [WikiDescription("선택 가능한 오브젝트 렌더러")]
     [AddComponentMenu("SC KRM/Renderer/UI/Selectable")]
     [RequireComponent(typeof(RequireComponent))]
     public sealed class CustomSelectableRenderer : CustomImageRenderer
@@ -23,22 +24,21 @@ namespace SCKRM.Renderer
         public SpriteStateData selectedSprite { get => _selectedSprite; set => _selectedSprite = value; }
         public SpriteStateData disabledSprite { get => _disabledSprite; set => _disabledSprite = value; }
 
-        public override async void Refresh()
+        [WikiDescription("새로고침")]
+        public override void Refresh()
         {
             base.Refresh();
 
             SpriteState spriteState = new SpriteState();
-            spriteState.highlightedSprite = SpriteReload(highlightedSprite.type, highlightedSprite.name, highlightedSprite.index, highlightedSprite.nameSpace);
-            spriteState.pressedSprite = SpriteReload(pressedSprite.type, pressedSprite.name, pressedSprite.index, pressedSprite.nameSpace);
-            spriteState.selectedSprite = SpriteReload(selectedSprite.type, selectedSprite.name, selectedSprite.index, selectedSprite.nameSpace);
-            spriteState.disabledSprite = SpriteReload(disabledSprite.type, disabledSprite.name, disabledSprite.index, disabledSprite.nameSpace);
+            spriteState.highlightedSprite = GetSprite(highlightedSprite.type, highlightedSprite.name, highlightedSprite.index, highlightedSprite.nameSpace);
+            spriteState.pressedSprite = GetSprite(pressedSprite.type, pressedSprite.name, pressedSprite.index, pressedSprite.nameSpace);
+            spriteState.selectedSprite = GetSprite(selectedSprite.type, selectedSprite.name, selectedSprite.index, selectedSprite.nameSpace);
+            spriteState.disabledSprite = GetSprite(disabledSprite.type, disabledSprite.name, disabledSprite.index, disabledSprite.nameSpace);
 
             if (ThreadManager.isMainThread)
                 selectable.spriteState = spriteState;
             else
-            {
-                await K4UnityThreadDispatcher.Execute(() => selectable.spriteState = spriteState);
-            }
+                K4UnityThreadDispatcher.Execute(() => selectable.spriteState = spriteState);
         }
 
         [System.Serializable]

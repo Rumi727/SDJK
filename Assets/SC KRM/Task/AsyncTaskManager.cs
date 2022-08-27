@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SCKRM
 {
+    [WikiDescription("비동기 작업을 관리하는 클래스 입니다")]
     public static class AsyncTaskManager
     {
         static readonly CancellationTokenSource _cancel = new CancellationTokenSource();
@@ -45,6 +46,7 @@ namespace SCKRM
         }
     }
 
+    [WikiDescription("비동기 작업 클래스")]
     public class AsyncTask : IRemoveableForce
     {
         public AsyncTask(string name = "", string info = "", bool loop = false, bool cantCancel = false)

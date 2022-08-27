@@ -1,0 +1,55 @@
+{
+	"deltaTime": "デルタタイム",
+	"fpsDeltaTime": "FPSデルタタイム",
+	
+	"unscaledDeltaTime": "スケールされていないデルタタイム",
+	"fpsUnscaledDeltaTime": "スケールされていないFPSデルタタイム",
+	
+	"fps": "FPS",
+	
+	"totalAllocatedMemory": "合計割り当てられたメモリ（MB）",
+	
+	"gameSpeed": "ゲームスピード",
+	
+	"asyncTasksCount": "非同期ジョブ数",
+	
+	"mainThreadId": "メインスレッドID",
+	"runningThreadsCount": "実行中のスレッド数",
+	
+	"soundListCount": "サウンド数",
+	"nbsListCount": "NBS数",
+	
+	
+	
+	"dataPath": "データパス",
+	"streamingAssetsPath": "ストリーミングアセットパス",
+	"persistentDataPath": "永続データパス",
+	"temporaryCachePath": "一時キャッシュパス",
+	"saveDataPath": "ストレージデータパス",
+	"resourcePackPath": "リソースパックパス",
+	"projectSettingPath": "プロジェクト設定パス",
+	
+	"companyName": "会社名",
+	"productName": "製品名",
+	
+	"version": "バージョン",
+	"unityVersion": "Unityバージョン",
+	
+	"platform": "プラットフォーム",
+	
+	"operatingSystem": "OS",
+	
+	"deviceModel": "デバイスモデル",
+	"deviceName": "デバイス名",
+	
+	"batteryStatus": "バッテリーの状態",
+	
+	"processorType": "プロセッサタイプ",
+	"processorFrequency": "プロセッサ周波数",
+	"processorCount": "プロセッサ数",
+	
+	"graphicsDeviceName": "グラフィックデバイス名",
+	"graphicsMemorySize": "グラフィックメモリサイズ(MB)",
+	
+	"systemMemorySize": "システムメモリサイズ(MB)",
+}

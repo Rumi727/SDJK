@@ -1,0 +1,55 @@
+{
+	"deltaTime": "델타 타임",
+	"fpsDeltaTime": "FPS 델타 타임",
+	
+	"unscaledDeltaTime": "스케일 되지 않은 델타 타임",
+	"fpsUnscaledDeltaTime": "스케일 되지 않은 FPS 델타 타임",
+	
+	"fps": "FPS",
+	
+	"totalAllocatedMemory": "총 할당된 메모리 (MB)",
+	
+	"gameSpeed": "게임 속도",
+	
+	"asyncTasksCount": "비동기 작업 수",
+	
+	"mainThreadId": "메인 스레드 ID",
+	"runningThreadsCount": "실행 중인 스레드 수",
+	
+	"soundListCount": "사운드 수",
+	"nbsListCount": "NBS 수",
+	
+	
+	
+	"dataPath": "데이터 경로",
+	"streamingAssetsPath": "스트리밍 에셋 경로",
+	"persistentDataPath": "영구 데이터 경로",
+	"temporaryCachePath": "임시 캐시 경로",
+	"saveDataPath": "저장 데이터 경로",
+	"resourcePackPath": "리소스팩 경로",
+	"projectSettingPath": "프로젝트 설정 경로",
+	
+	"companyName": "회사 이름",
+	"productName": "제품 이름",
+	
+	"version": "버전",
+	"unityVersion": "유니티 버전",
+	
+	"platform": "플랫폼",
+	
+	"operatingSystem": "OS",
+	
+	"deviceModel": "장치 모델",
+	"deviceName": "장치 이름",
+	
+	"batteryStatus": "배터리 상태",
+	
+	"processorType": "프로세서 유형",
+	"processorFrequency": "프로세서 주파수",
+	"processorCount": "프로세서 수",
+	
+	"graphicsDeviceName": "그래픽 장치 이름",
+	"graphicsMemorySize": "그래픽 메모리 크기 (MB)",
+	
+	"systemMemorySize": "시스템 메모리 크기 (MB)",
+}

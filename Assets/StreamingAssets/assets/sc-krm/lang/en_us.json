@@ -29,6 +29,7 @@
 	
 	"gui.inputfield.enter_number": "Enter number...",
 	"gui.inputfield.enter_text": "Enter text...",
+	"gui.inputfield.enter_command": "Enter command...",
 	"gui.inputfield.search": "Serarch...",
 	"gui.inputfield.enter_file_name": "Enter file name...",
 	"gui.inputfield.enter_folder_name": "Enter folder name...",
@@ -60,7 +61,7 @@
 	"options.video.vSync": "VSync",
 	"options.video.vSync.info": "Match the frame generation of the graphic card and the frame output timing of the monitor\n(You can think of it as limiting the frame rate to the monitor's hertz.)",
 	"options.video.fpsLimit": "FPS Limit",
-	"options.video.fpsLimit.info": "",
+	"options.video.fpsLimit.info": "FPS Limit",
 	"options.video.guiSize": "GUI Size",
 	"options.video.guiSize.info": "Change the overall GUI size",
 	"options.video.fixedGuiSizeEnable": "Use a fixed GUI size",
@@ -208,6 +209,67 @@
 	
 	"notice.april_fools_day.title": "What day is today?",
 	"notice.april_fools_day.description": "Today is April Fool's Day!\n<s>But now it's my lunch</s>",
+	
+	
+	
+	"command.double_too_small": "Double must not be less than %min%, found %found%",
+	"command.double_too_big": "Double must not be more than %max%, found %found%",
+	
+	"command.float_too_small": "Float must not be less than %min%, found %found%",
+	"command.float_too_big": "Float must not be more than %max%, found %found%",
+	
+	"command.integer_too_small": "Integer must not be less than %min%, found %found%",
+	"command.integer_too_big": "Integer must not be more than %max%, found %found%",
+	
+	"command.long_too_small": "Long must not be less than %min%, found %found%",
+	"command.long_too_big": "Long must not be more than %max%, found %found%",
+	
+	"command.colon_too_many": "Number of colons must not be many than %max%, found %found%",
+	
+	"command.literal_incorrect": "Expected literal %expected%",
+	
+	"command.world_local_pos_mixed": "Cannot mix world & local coordinates (everything must either use ^ or not)",
+	
+	"command.reader_expected_start_of_quote": "Expected quote to start a string",
+	"command.reader_expected_end_of_quote": "Unclosed quoted string",
+	"command.reader_invalid_escape": "Invalid escape sequence '\\%character%' in quoted string",
+	"command.reader_invalid_bool": "Invalid bool, expected true or false but found '%value%'",
+	"command.reader_invalid_int": "Invalid integer '%value%'",
+	"command.reader_expected_int": "Expected integer",
+	"command.reader_invalid_long": "Invalid long '%value%'",
+	"command.reader_expected_long": "Expected long",
+	"command.reader_invalid_double": "Invalid double '%value%'",
+	"command.reader_expected_double": "Expected double",
+	"command.reader_invalid_float": "Invalid float '%value%'",
+	"command.reader_expected_float": "Expected float",
+	"command.reader_expected_bool": "Expected bool",
+	"command.reader_expected_symbol": "Expected '%symbol%'",
+	"command.reader_invalid_pos_swizzle": "'Invalid swizzle, expected combination of 'x', 'y' and 'z'",
+	
+	"command.dispatcher_unknown_command": "Unknown or incomplete command",
+	"command.dispatcher_unknown_argument": "Incorrect argument for command",
+	"command.dispatcher_expected_argument_separator": "Expected whitespace to end one argument, but found trailing data",
+	"command.dispatcher_parse_exception": "Could not parse command: %message%",
+	
+	"command.context.here": "<--[HERE]",
+    "command.context.parse_error": "%message% at position %pos%: %text%",
+	
+	
+	
+	"command.value_of": "The value of %name% is %value%",
+	"command.change_to": "Changed %name% to %value%",
+	
+	"command.play_sound": "Played sound",
+	"command.stop_sound": "Stopped sound",
+	"command.stop_sound_all": "Stopped all sounds",
+	
+	"command.play_nbs": "Played NBS",
+	"command.stop_nbs": "Stopped NBS",
+	"command.stop_nbs_all": "Stopped all NBS",
+	
+	"command.all_refresh": "All refreshed",
+	"command.all_rerender": "Refreshed all renderers",
+	"command.all_text_rerender": "Refreshed all text renderers",
 	
 	
 	

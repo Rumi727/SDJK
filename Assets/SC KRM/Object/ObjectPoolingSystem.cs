@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace SCKRM.Object
 {
+    [WikiDescription("오브젝트 풀링을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Object/Object Pooling System", 0)]
     public sealed class ObjectPoolingSystem : Manager<ObjectPoolingSystem>
     {

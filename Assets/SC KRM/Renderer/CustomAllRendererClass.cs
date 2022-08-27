@@ -4,11 +4,13 @@ using System.Threading;
 
 namespace SCKRM.Renderer
 {
-    public abstract class CustomAllRenderer : MonoBehaviour, IRefreshable, INameSpaceKey
+    [WikiDescription("모든 렌더러들의 부모")]
+    public abstract class CustomAllRenderer : MonoBehaviour, IRendererRefreshable, INameSpaceKey
     {
         /// <summary>
         /// 렌더링 할 파일의 네임스페이스 (Thread-safe)
         /// </summary>
+        [WikiDescription("렌더링 할 파일의 네임스페이스 (Thread-safe)")]
         public string nameSpace
         {
             get
@@ -36,6 +38,7 @@ namespace SCKRM.Renderer
         /// <summary>
         /// 렌더링 할 파일의 경로 (Thread-safe)
         /// </summary>
+        [WikiDescription("렌더링 할 파일의 경로 (Thread-safe)")]
         public string path
         {
             get
@@ -65,6 +68,7 @@ namespace SCKRM.Renderer
         /// <summary>
         /// 네임스페이스랑 경로랑 동시에 설정할 수 있습니다 (Thread-safe)
         /// </summary>
+        [WikiDescription("네임스페이스랑 경로랑 동시에 설정할 수 있습니다 (Thread-safe)")]
         public NameSpacePathPair nameSpacePathPair
         {
             get => new NameSpacePathPair(nameSpace, path);
@@ -78,6 +82,7 @@ namespace SCKRM.Renderer
         /// <summary>
         /// 렌더러를 새로 고칩니다
         /// </summary>
+        [WikiDescription("렌더러를 새로 고칩니다")]
         public abstract void Refresh();
     }
 

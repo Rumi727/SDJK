@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace SCKRM.KnownFolder
 {
+    [WikiDescription("윈도우의 특수 폴더 관련 메소드가 있는 클래스 입니다")]
     public static class KnownFolders
     {
         /// <summary>
@@ -12,6 +13,7 @@ namespace SCKRM.KnownFolder
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [WikiDescription("특수 폴더를 가져옵니다")]
         public static string GetPath(KnownFolderType type)
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN

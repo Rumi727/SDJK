@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SCKRM.NBS
 {
+    [WikiDescription("NBS 파일 관련 메소드가 있는 클래스 입니다")]
     public static class NBSManager
     {
         /// <summary>
@@ -15,6 +16,7 @@ namespace SCKRM.NBS
         /// <returns>
         /// 불러온 NBS 파일 클래스
         /// </returns>
+        [WikiDescription("NBS 파일을 불러옵니다")]
         public static NBSFile ReadNBSFile(string path)
         {
             using FileStream fileStream = File.OpenRead(path);
@@ -111,15 +113,16 @@ namespace SCKRM.NBS
         }
     }
 
+    [WikiDescription("NBS 파일")]
     public class NBSFile
     {
-        public short songLength { get; } = 0;
-        public short tickTempo { get; } = 0;
+        [WikiDescription("곡의 길이")] public short songLength { get; } = 0;
+        [WikiDescription("곡의 템포")] public short tickTempo { get; } = 0;
         //public bool loop { get; set; } = false;
-        public short loopStartTick { get; } = 0;
+        [WikiDescription("반복 시작 틱")] public short loopStartTick { get; } = 0;
 
-        public List<NBSNote> nbsNotes { get; }
-        public List<NBSLayer> nbsLayers { get; }
+        [WikiDescription("노트")] public List<NBSNote> nbsNotes { get; }
+        [WikiDescription("레이어")] public List<NBSLayer> nbsLayers { get; }
 
         public NBSFile(short songLength, short tickTempo, short loopStartTick, List<NBSNote> nbsNotes, List<NBSLayer> nbsLayers)
         {
@@ -154,10 +157,11 @@ namespace SCKRM.NBS
         }
     }
 
+    [WikiDescription("NBS 노트")]
     public class NBSNote
     {
-        public short delayTick { get; } = 0;
-        public List<NBSNoteMetaData> nbsNoteMetaDatas { get; }
+        [WikiDescription("노트 위치")] public short delayTick { get; } = 0;
+        [WikiDescription("노트 메타데이터")] public List<NBSNoteMetaData> nbsNoteMetaDatas { get; }
 
         public NBSNote(short delayTick, List<NBSNoteMetaData> nbsNoteMetaDatas)
         {
@@ -180,16 +184,17 @@ namespace SCKRM.NBS
         }
     }
 
+    [WikiDescription("노트 메타데이터")]
     public class NBSNoteMetaData
     {
-        public short layerIndex { get; } = 0;
+        [WikiDescription("레이어 인덱스")] public short layerIndex { get; } = 0;
 
 
-        public byte instrument { get; } = 0;
-        public byte key { get; } = 0;
-        public byte velocity { get; } = 0;
-        public byte panning { get; } = 0;
-        public short pitch { get; } = 0;
+        [WikiDescription("악기")] public byte instrument { get; } = 0;
+        [WikiDescription("키")] public byte key { get; } = 0;
+        [WikiDescription("음")] public byte velocity { get; } = 0;
+        [WikiDescription("패닝")] public byte panning { get; } = 0;
+        [WikiDescription("피치")] public short pitch { get; } = 0;
 
         public NBSNoteMetaData(short layerIndex, byte instrument, byte key, byte velocity, byte panning, short pitch)
         {
@@ -204,12 +209,13 @@ namespace SCKRM.NBS
         public override string ToString() => $"(layerIndex:{layerIndex}, instrument:{instrument}, key:{key}, velocity:{velocity}, panning:{panning}, pitch:{pitch})";
     }
 
+    [WikiDescription("NBS 레이어")]
     public class NBSLayer
     {
-        public string layerName { get; } = "";
-        public byte layerLock { get; } = 0;
-        public byte layerVolume { get; } = 1;
-        public byte layerStereo { get; } = 0;
+        [WikiDescription("이름")] public string layerName { get; } = "";
+        [WikiDescription("잠금")] public byte layerLock { get; } = 0;
+        [WikiDescription("볼륨")] public byte layerVolume { get; } = 1;
+        [WikiDescription("스테레오")] public byte layerStereo { get; } = 0;
 
         public NBSLayer(string layerName, byte layerLock, byte layerVolume, byte layerStereo)
         {

@@ -19,6 +19,7 @@ namespace SCKRM.Json
         /// 경로에 확장자 사용
         /// </param>
         /// <returns></returns>
+        [WikiDescription("텍스트 파일에서 Json을 읽고 반환합니다")]
         public static T JsonRead<T>(string path, bool pathExtensionUse = false)
         {
             string json;
@@ -55,6 +56,7 @@ namespace SCKRM.Json
         /// 네임스페이스
         /// </param>
         /// <returns></returns>
+        [WikiDescription("리소스팩에서 딕셔너리로 된 Json을 찾고 반환합니다")]
         public static TValue JsonReadDictionary<TKey, TValue>(TKey key, string path, string nameSpace)
         {
             if (path == null)
@@ -78,9 +80,9 @@ namespace SCKRM.Json
             return default;
         }
 
-        public static T JsonToObject<T>(string json) => JsonConvert.DeserializeObject<T>(json);
-        public static string ObjectToJson(object value) => JsonConvert.SerializeObject(value, Formatting.Indented);
-        public static string ObjectToJson(params object[] value) => JsonConvert.SerializeObject(value, Formatting.Indented);
+        [WikiDescription("Json을 오브젝트로 변환합니다")] public static T JsonToObject<T>(string json) => JsonConvert.DeserializeObject<T>(json);
+        [WikiDescription("오브젝트를 Json으로 변환합니다")] public static string ObjectToJson(object value) => JsonConvert.SerializeObject(value, Formatting.Indented);
+        [WikiIgnore] public static string ObjectToJson(params object[] value) => JsonConvert.SerializeObject(value, Formatting.Indented);
     }
 
     public struct JVector2

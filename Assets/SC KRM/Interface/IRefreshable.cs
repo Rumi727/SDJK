@@ -8,4 +8,14 @@ namespace SCKRM
         /// </summary>
         void Refresh();
     }
+
+    public interface IRendererRefreshable : IRefreshable
+    {
+
+    }
+
+    public interface ITextRefreshable : IRefreshable
+    {
+
+    }
 }

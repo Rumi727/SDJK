@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace SCKRM.Rhythm
 {
+    [WikiDescription("리듬을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Rhythm/Rhythm Manager")]
     public sealed class RhythmManager : Manager<RhythmManager>
     {
@@ -19,32 +20,32 @@ namespace SCKRM.Rhythm
             [JsonProperty] public static double soundOffset { get; set; } = 0;
         }
 
-        public static ISoundPlayer soundPlayer { get; private set; }
-        public static BeatValuePairList<double> bpmList { get; private set; }
-        public static double offset { get; private set; }
-        public static BeatValuePairList<bool> dropPartList { get; private set; }
+        [WikiDescription("현재 사운드 플레이어")] public static ISoundPlayer soundPlayer { get; private set; }
+        [WikiDescription("현재 BPM 리스트")] public static BeatValuePairList<double> bpmList { get; private set; }
+        [WikiDescription("현재 오프셋")] public static double offset { get; private set; }
+        [WikiDescription("현재 드롭파트 리스트")] public static BeatValuePairList<bool> dropPartList { get; private set; }
 
 
 
-        public static bool isPlaying { get; private set; } = false;
+        [WikiDescription("리듬이 플레이 중 여부")] public static bool isPlaying { get; private set; } = false;
 
 
 
-        public static bool dropPart { get; set; } = false;
+        [WikiDescription("현재 드롭파트인지 여부")] public static bool dropPart { get; set; } = false;
 
 
 
-        public static double bpm { get; private set; }
-        public static float bpmFpsDeltaTime { get; private set; }
-        public static float bpmUnscaledFpsDeltaTime { get; private set; }
+        [WikiDescription("현재 BPM")] public static double bpm { get; private set; }
+        [WikiDescription("현재 BPM FPS 델타타임")] public static float bpmFpsDeltaTime { get; private set; }
+        [WikiDescription("현재 스케일 되지 않은 BPM FPS 델타타임")] public static float bpmUnscaledFpsDeltaTime { get; private set; }
 
 
 
-        public static double time { get; private set; } 
-        public static double currentBeat { get; private set; }
-        public static double currentBeatSound { get; private set; }
-        public static double currentBeatScreen { get; private set; }
-        public static double currentBeat1Beat { get; private set; }
+        [WikiDescription("현재 시간")] public static float time => soundPlayer != null ? soundPlayer.time : 0;
+        [WikiDescription("현재 비트")] public static double currentBeat { get; private set; }
+        [WikiDescription("현재 사운드 비트")] public static double currentBeatSound { get; private set; }
+        [WikiDescription("현재 스크린 비트")] public static double currentBeatScreen { get; private set; }
+        [WikiDescription("현재 1 비트")] public static double currentBeat1Beat { get; private set; }
 
         static double bpmOffsetBeat;
         static double bpmOffsetTime;
@@ -69,14 +70,6 @@ namespace SCKRM.Rhythm
                     Stop();
                 else
                 {
-                    time += Kernel.unscaledDeltaTime * soundPlayer.speed;
-                    UnityEngine.Debug.Log((soundPlayer.time - time));
-
-                    if (time - soundPlayer.time >= 0.01f)
-                        time -= Kernel.deltaTime;
-                    else if (soundPlayer.time - time >= 0.01f)
-                        time += Kernel.deltaTime;
-
                     SetCurrentBeat();
 
                     {
@@ -152,9 +145,9 @@ namespace SCKRM.Rhythm
             RhythmManager.bpm = bpm;
         }
 
+        [WikiDescription("리듬 재생")]
         public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> dropPartList, ISoundPlayer soundPlayer)
         {
-            time = 0;
             currentBeat = 0;
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
@@ -168,9 +161,9 @@ namespace SCKRM.Rhythm
             isPlaying = true;
         }
 
+        [WikiDescription("리듬 정지")]
         public static void Stop()
         {
-            time = 0;
             currentBeat = 0;
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
@@ -188,8 +181,6 @@ namespace SCKRM.Rhythm
 
         static void SoundPlayerTimeChange()
         {
-            time = soundPlayer.time;
-
             for (int i = 0; i < bpmList.Count; i++)
             {
                 {

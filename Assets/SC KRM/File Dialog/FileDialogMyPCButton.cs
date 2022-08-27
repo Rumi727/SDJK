@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace SCKRM.FileDialog.MyPC
 {
+    [WikiDescription("파일 선택 화면의 내 PC 화면에 있는 버튼을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/Object Pooling/File Dialog My PC Button")]
     public sealed class FileDialogMyPCButton : UIObjectPooling
     {
@@ -17,6 +18,7 @@ namespace SCKRM.FileDialog.MyPC
         [SerializeField, NotNull] TMP_Text _nameText; public TMP_Text nameText { get => _nameText; }
         [SerializeField, NotNull] CustomAllTextRenderer _capacityText; public CustomAllTextRenderer capacityText { get => _capacityText; }
 
+        [WikiDescription("버튼 삭제")]
         public override bool Remove()
         {
             button.onClick.RemoveAllListeners();

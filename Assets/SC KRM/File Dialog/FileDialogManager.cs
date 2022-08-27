@@ -20,52 +20,77 @@ using UnityEngine.UI;
 
 namespace SCKRM.FileDialog
 {
+    [WikiDescription("파일 다이얼로그를 관리하는 클래스입니다")]
     [AddComponentMenu("SC KRM/File Dialog/File Dialog Manager")]
     public sealed class FileDialogManager : Manager<FileDialogManager>, IUIOverlay
     {
         /// <summary>
         /// 파일 선택 창이 열려있는지의 대한 여부입니다
         /// </summary>
-        public static bool isFileDialogShow { get; private set; }
+        [WikiDescription("파일 선택 창이 열려있는지의 대한 여부입니다")] public static bool isFileDialogShow { get; private set; }
 
 
 
         /// <summary>
         /// 현재 선택된 파일의 경로들
         /// </summary>
-        public static List<string> selectedFilePath { get; set; } = new List<string>();
+        [WikiDescription("현재 선택된 파일의 경로들")] public static List<string> selectedFilePath { get; set; } = new List<string>();
         /// <summary>
         /// 현재 화면에 보이고 있는 경로
         /// </summary>
-        public static string currentPath { get; private set; } = "";
+        [WikiDescription("현재 화면에 보이고 있는 경로")] public static string currentPath { get; private set; } = "";
         /// <summary>
         /// 마지막으로 화면에 보였던 경로
         /// </summary>
-        public static string savedPath { get; private set; } = "";
+        [WikiDescription("마지막으로 화면에 보였던 경로")] public static string savedPath { get; private set; } = "";
 
 
 
-        public static string currentSearch { get; private set; } = "";
+        /// <summary>
+        /// 현재 입력된 검색어
+        /// </summary>
+        [WikiDescription("현재 입력된 검색어")] public static string currentSearch { get; private set; } = "";
 
 
 
-        public static ExtensionFilter currentFilter { get; private set; } = new ExtensionFilter();
-        public static ExtensionFilter[] allExtensionFilter { get; private set; } = new ExtensionFilter[0];
+        /// <summary>
+        /// 현재 선택된 모든 확장자 필터
+        /// </summary>
+        [WikiDescription("현재 선택된 확장자 필터")] public static ExtensionFilter currentFilter { get; private set; } = new ExtensionFilter();
+        [WikiDescription("현재 선택된 모든 확장자 필터")] public static ExtensionFilter[] allExtensionFilter { get; private set; } = new ExtensionFilter[0];
 
 
 
-        public static string fileName { get; private set; } = "";
+        /// <summary>
+        /// 현재 입력되거나 선택된 파일의 이름
+        /// </summary>
+        [WikiDescription("현재 입력되거나 선택된 파일의 이름")] public static string fileName { get; private set; } = "";
 
 
 
-        public static bool isSingle { get; private set; } = false;
-        public static bool isFileSaveMode { get; private set; } = false;
-        public static bool isFolderOpenMode { get; private set; } = false;
+        /// <summary>
+        /// 파일 또는 폴더를 하나만 선택할 수 있는지에 대한 여부
+        /// </summary>
+        [WikiDescription("파일을 하나만 선택할 수 있는지에 대한 여부")] public static bool isSingle { get; private set; } = false;
+        /// <summary>
+        /// 파일 저장 모드인지에 대한 여부
+        /// </summary>
+        [WikiDescription("파일 저장 모드인지에 대한 여부")] public static bool isFileSaveMode { get; private set; } = false;
+        /// <summary>
+        /// 폴더 열기 모드인지에 대한 여부
+        /// </summary>
+        [WikiDescription("폴더 열기 모드인지에 대한 여부")] public static bool isFolderOpenMode { get; private set; } = false;
 
 
 
-        public static List<string> undoPath { get; } = new List<string>();
-        public static int currentUndoIndex { get; private set; } = 0;
+        /// <summary>
+        /// 이전에 탐색한 위치
+        /// </summary>
+        [WikiDescription("이전에 탐색한 위치")] public static List<string> undoPath { get; } = new List<string>();
+        /// <summary>
+        /// 이전에 탐색한 위치로 얼마나 돌아갔는지에 대한 인덱스
+        /// </summary>
+        [WikiDescription("이전에 탐색한 위치로 얼마나 돌아갔는지에 대한 인덱스")] public static int currentUndoIndex { get; private set; } = 0;
 
 
 
@@ -112,13 +137,15 @@ namespace SCKRM.FileDialog
             {
                 fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
                 if (fileDialogCanvasGroup.alpha < 0.01f)
+                {
                     fileDialogCanvasGroup.alpha = 0;
+
+                    if (fileDialogBG.activeSelf)
+                        fileDialogBG.SetActive(false);
+                }
 
                 fileDialogCanvasGroup.interactable = false;
                 fileDialogCanvasGroup.blocksRaycasts = false;
-
-                if (fileDialogBG.activeSelf)
-                    fileDialogBG.SetActive(false);
             }
         }
 
@@ -130,6 +157,10 @@ namespace SCKRM.FileDialog
 
         void OnDestroy() => HideForce(true);
 
+        /// <summary>
+        /// 모든 화면 새로고침
+        /// </summary>
+        [WikiDescription("모든 화면 새로고침")]
         public static void AllRefresh()
         {
             instance.fileDialogShortcutBar.Refresh();
@@ -137,10 +168,34 @@ namespace SCKRM.FileDialog
         }
 
 
-        public static void ScreenRefresh() => ScreenRefresh(currentPath, true);
-        public static void ScreenRefresh(bool undoAllow) => ScreenRefresh(currentPath, undoAllow);
-        public static void ScreenRefresh(string path) => ScreenRefresh(path, true);
-        public static void ScreenRefresh(string path, bool undoAllow)
+        /// <summary>
+        /// 탐색 화면 새로고침
+        /// </summary>
+        [WikiDescription("탐색 화면 새로고침")] public static void ScreenRefresh() => ScreenRefresh(currentPath, true);
+        /// <summary>
+        /// 탐색 화면 새로고침
+        /// </summary>
+        /// <param name="undoAllow">
+        /// 언도 허용
+        /// </param>
+        [WikiIgnore] public static void ScreenRefresh(bool undoAllow) => ScreenRefresh(currentPath, undoAllow);
+        /// <summary>
+        /// 탐색 화면을 특정 경로로 변경
+        /// </summary>
+        /// <param name="path">
+        /// 경로
+        /// </param>
+        [WikiIgnore] public static void ScreenRefresh(string path) => ScreenRefresh(path, true);
+        /// <summary>
+        /// 탐색 화면을 특정 경로로 변경
+        /// </summary>
+        /// <param name="path">
+        /// 경로
+        /// </param>
+        /// <param name="undoAllow">
+        /// 언도 허용
+        /// </param>
+        [WikiIgnore] public static void ScreenRefresh(string path, bool undoAllow)
         {
             path = PathTool.ReplaceInvalidPathChars(path).Replace("\\", "/");
             currentPath = path;
@@ -188,6 +243,10 @@ namespace SCKRM.FileDialog
             instance.fileDialogPath.text = currentPath;
         }
 
+        /// <summary>
+        /// 이전에 탐색한 곳으로 이동
+        /// </summary>
+        [WikiDescription("이전에 탐색한 곳으로 이동")]
         public static void Undo()
         {
             if (currentUndoIndex > 0)
@@ -197,6 +256,10 @@ namespace SCKRM.FileDialog
             }
         }
 
+        /// <summary>
+        /// 최근에 탐색한 곳으로 이동
+        /// </summary>
+        [WikiDescription("최근에 탐색한 곳으로 이동")]
         public static void Redo()
         {
             if (currentUndoIndex < undoPath.Count - 1)
@@ -206,6 +269,10 @@ namespace SCKRM.FileDialog
             }
         }
 
+        /// <summary>
+        /// 한 단계 위로 이동
+        /// </summary>
+        [WikiDescription("한 단계 위로 이동")]
         public static void Up()
         {
             if (string.IsNullOrEmpty(currentPath))
@@ -223,8 +290,14 @@ namespace SCKRM.FileDialog
         /// 단일 폴더
         /// </param>
         /// <returns></returns>
+        [WikiDescription("폴더 열기")]
         public static async UniTask<(bool isSuccess, string[] selectedPath)> ShowFolderOpen(string title, bool single = false)
         {
+            if (!Kernel.isPlaying)
+                throw new NotPlayModeSearchMethodException();
+            if (!InitialLoadManager.isInitialLoadEnd)
+                throw new NotInitialLoadEndMethodException(nameof(ShowFolderOpen));
+
             await UniTask.WaitUntil(() => instance != null);
 
             isFolderOpenMode = true;
@@ -249,8 +322,14 @@ namespace SCKRM.FileDialog
         /// 확장자 필터
         /// </param>
         /// <returns></returns>
+        [WikiDescription("파일 열기")]
         public static async UniTask<(bool isSuccess, string[] selectedPath)> ShowFileOpen(string title, bool single = false, params ExtensionFilter[] extensionFilters)
         {
+            if (!Kernel.isPlaying)
+                throw new NotPlayModeSearchMethodException();
+            if (!InitialLoadManager.isInitialLoadEnd)
+                throw new NotInitialLoadEndMethodException(nameof(ShowFileOpen));
+
             await UniTask.WaitUntil(() => instance != null);
 
             isFolderOpenMode = false;
@@ -272,8 +351,14 @@ namespace SCKRM.FileDialog
         /// 확장자 필터
         /// </param>
         /// <returns></returns>
+        [WikiDescription("파일 저장")]
         public static async UniTask<(bool isSuccess, string selectedPath)> ShowFileSave(string title, params ExtensionFilter[] extensionFilters)
         {
+            if (!Kernel.isPlaying)
+                throw new NotPlayModeSearchMethodException();
+            if (!InitialLoadManager.isInitialLoadEnd)
+                throw new NotInitialLoadEndMethodException(nameof(ShowFileSave));
+
             await UniTask.WaitUntil(() => instance != null);
 
             isFolderOpenMode = false;
@@ -326,7 +411,7 @@ namespace SCKRM.FileDialog
             {
                 ExtensionFilter extensionFilter = extensionFilters[i];
                 string[] extensions = extensionFilter.extensions;
-                string label = LanguageManager.LanguageLoad(extensionFilter.label.path, extensionFilter.label.nameSpace);
+                string label = ResourceManager.SearchLanguage(extensionFilter.label.path, extensionFilter.label.nameSpace);
                 label += " (";
 
                 for (int j = 0; j < extensions.Length; j++)
@@ -449,6 +534,7 @@ namespace SCKRM.FileDialog
         /// 예상 할 경로
         /// </param>
         /// <returns></returns>
+        [WikiDescription("파일을 저장하면 저장된 파일의 경로가 어떤 경로가 될지를 예상한 다음 반환합니다")]
         public static string GetSaveFilePath(string path)
         {
             if (!isFileSaveMode)
@@ -467,6 +553,7 @@ namespace SCKRM.FileDialog
         /// <param name="value">
         /// 검색 할 문자열
         /// </param>
+        [WikiDescription("현재 화면에 보이는 곳에서 파일과 폴더를 검색하고 화면에 결과를 보여줍니다")]
         public static void Search(string value)
         {
             value = PathTool.ReplaceInvalidFileNameChars(value);
@@ -483,6 +570,7 @@ namespace SCKRM.FileDialog
         /// <param name="index">
         /// 필터의 인덱스
         /// </param>
+        [WikiDescription("파일의 확장자 필터를 정합니다")]
         public static void SetFilter(int index)
         {
             currentFilter = allExtensionFilter[index];
@@ -497,6 +585,7 @@ namespace SCKRM.FileDialog
         /// <param name="value">
         /// 파일의 이름
         /// </param>
+        [WikiDescription("파일이 저장 될 이름을 정합니다")]
         public static void SetFileName(string value)
         {
             value = PathTool.ReplaceInvalidFileNameChars(value);
@@ -511,6 +600,7 @@ namespace SCKRM.FileDialog
         /// <param name="isSuccess">
         /// 성공했는가의 여부를 결정합니다
         /// </param>
+        [WikiDescription("강제로 선택 화면을 종료합니다")]
         public static void HideForce(bool isSuccess)
         {
             cancelButIsSuccess = isSuccess;

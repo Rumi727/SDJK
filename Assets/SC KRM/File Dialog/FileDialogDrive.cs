@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace SCKRM.FileDialog.Drive
 {
+    [WikiDescription("윈도우 드라이브 관련 메소드가 들어있는 클래스 입니다")]
     public static class FileDialogDrive
     {
         const string KERNEL32 = "kernel32.dll";
@@ -15,6 +16,7 @@ namespace SCKRM.FileDialog.Drive
         [ResourceExposure(ResourceScope.None)]
         static extern bool GetVolumeInformation(string drive, [Out] StringBuilder volumeName, int volumeNameBufLen, out int volSerialNumber, out int maxFileNameLen, out int fileSystemFlags, [Out] StringBuilder fileSystemName, int fileSystemNameBufLen);
 
+        [WikiDescription("드라이브의 볼륨 라벨을 가져옵니다")]
         public static string GetDriveVolumeLabel(DriveInfo driveInfo)
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
@@ -41,6 +43,7 @@ namespace SCKRM.FileDialog.Drive
 #endif
         }
 
+        [WikiDescription("드라이브의 전체 이름을 가져옵니다")]
         public static string GetDriveFullName(DriveInfo driveInfo)
         {
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN

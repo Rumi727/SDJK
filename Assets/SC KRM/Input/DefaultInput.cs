@@ -17,6 +17,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace SCKRM.Input
 {
+    [WikiIgnore]
     public partial class @DefaultInput : IInputActionCollection2, IDisposable
     {
         public InputActionAsset asset { get; }

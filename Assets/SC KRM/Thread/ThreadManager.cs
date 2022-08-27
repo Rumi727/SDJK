@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SCKRM.Threads
 {
+    [WikiDescription("스레드를 관리하기 위한 클래스 입니다")]
     public static class ThreadManager
     {
         public static List<ThreadMetaData> runningThreads { get; } = new List<ThreadMetaData>();

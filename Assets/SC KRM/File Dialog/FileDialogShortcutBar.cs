@@ -8,11 +8,13 @@ using SCKRM.FileDialog.Drive;
 
 namespace SCKRM.FileDialog.ShortcurBar
 {
+    [WikiDescription("파일 선택 화면의 바로가기를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Shortcur Bar")]
     public sealed class FileDialogShortcutBar : UI.UI
     {
         List<IObjectPooling> buttons = new List<IObjectPooling>();
 
+        [WikiDescription("새로고침")]
         public void Refresh()
         {
             for (int i = 0; i < buttons.Count; i++)

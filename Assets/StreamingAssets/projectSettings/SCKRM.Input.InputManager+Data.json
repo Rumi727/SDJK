@@ -9,6 +9,9 @@
     "gui.tab": [
       9
     ],
+    "gui.ok": [
+      13
+    ],
     "kernel.full_screen": [
       292
     ],
@@ -39,6 +42,9 @@
     ],
     "debug_manager.toggle": [
       284
+    ],
+    "command_manager.chat_show": [
+      47
     ],
     "map_manager.previous_music": [
       276

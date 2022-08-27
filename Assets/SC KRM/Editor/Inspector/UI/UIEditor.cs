@@ -33,6 +33,9 @@ namespace SCKRM.Editor
                 return;
             }
 
+            if (editor.rectTransform == null)
+                return;
+
             if (editor.rectTransform.gameObject != editorGameObject)
             {
                 EditorGUILayout.HelpBox("이 게임 오브젝트에 있는 RectTramsform 컴포넌트를 넣어야합니다!", MessageType.Error);

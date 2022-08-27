@@ -5,20 +5,22 @@ using UnityEngine.UI;
 
 namespace SCKRM.Renderer
 {
+    [WikiDescription("이미지 렌더러")]
     [AddComponentMenu("SC KRM/Renderer/UI/Image")]
     [RequireComponent(typeof(Image))]
     public class CustomImageRenderer : CustomAllSpriteRenderer
     {
         [SerializeField, HideInInspector] Image _image; public Image image => _image = this.GetComponentFieldSave(_image);
 
-        public override async void Refresh()
+        [WikiDescription("새로고침")]
+        public override void Refresh()
         {
-            Sprite sprite = SpriteReload(type, path, index, nameSpace);
+            Sprite sprite = GetSprite(type, path, index, nameSpace);
 
             if (ThreadManager.isMainThread)
                 image.sprite = sprite;
             else
-                await K4UnityThreadDispatcher.Execute(() => image.sprite = sprite);
+                K4UnityThreadDispatcher.Execute(() => image.sprite = sprite);
         }
     }
 }

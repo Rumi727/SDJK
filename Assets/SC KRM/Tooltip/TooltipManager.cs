@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace SCKRM.Tooltip
 {
+    [WikiDescription("툴팁을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Tooltip/Tooltip Manager", 0)]
     public sealed class TooltipManager : Manager<TooltipManager>
     {
@@ -52,6 +53,7 @@ namespace SCKRM.Tooltip
             }
         }
 
+        [WikiDescription("툴팁 표시")]
         public static void Show(string text, string nameSpace = "")
         {
             instance.toolTipText.text = ResourceManager.SearchLanguage(text, nameSpace);
@@ -72,6 +74,7 @@ namespace SCKRM.Tooltip
             isShow = true;
         }
 
+        [WikiDescription("툴팁 숨기기")]
         public static void Hide() => isShow = false;
     }
 }

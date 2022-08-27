@@ -1,0 +1,13 @@
+{
+  "yasashii": {
+    "subtitle": "subtitles.easter_egg_music_play",
+    "isBGM": true,
+    "sounds": [
+      {
+        "path": "yasashii",
+        "pitch": 1.0,
+        "tempo": 1.0
+      }
+    ]
+  }
+}

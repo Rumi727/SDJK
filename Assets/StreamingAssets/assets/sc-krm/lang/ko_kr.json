@@ -29,6 +29,7 @@
 	
 	"gui.inputfield.enter_number": "숫자 입력...",
 	"gui.inputfield.enter_text": "텍스트 입력...",
+	"gui.inputfield.enter_command": "명령어 입력...",
 	"gui.inputfield.search": "검색...",
 	"gui.inputfield.enter_file_name": "파일 이름 입력...",
 	"gui.inputfield.enter_folder_name": "폴더 이름 입력...",
@@ -216,6 +217,67 @@
 	
 	"notice.april_fools_day.title": "오늘은 무슨 날?",
 	"notice.april_fools_day.description": "오늘은 만우절 입니다!\n<s>하지만 지금은 제 점심이죠</s>",
+	
+	
+	
+	"command.double_too_small": "배정도 부동 소수점은 %min% 이상이어야 하는데, %found%이(가) 있습니다",
+	"command.double_too_big": "배정도 부동 소수점은 %max% 이하여야 하는데, %found%이(가) 있습니다",
+	
+	"command.float_too_small": "부동 소수점은 %min% 이상이어야 하는데, %found%이(가) 있습니다",
+	"command.float_too_big": "부동 소수점은 %max% 이하여야 하는데, %found%이(가) 있습니다",
+	
+	"command.integer_too_small": "정수는 %min% 이상이어야 하는데, %found%이(가) 있습니다",
+	"command.integer_too_big": "정수는 %max% 이하여야 하는데, %found%이(가) 있습니다",
+	
+	"command.long_too_small": "64비트 정수는 %min% 이상이어야 하는데, %found%이(가) 있습니다",
+	"command.long_too_big": "64비트 정수는 %max% 이하여야 하는데, %found%이(가) 있습니다",
+	
+	"command.colon_too_many": "콜론 개수는 %max% 이하여야 하는데, %found%이(가) 있습니다",
+	
+	"command.literal_incorrect": "리터럴 %expected%이(가) 필요합니다",
+	
+	"command.world_local_pos_mixed": "세계와 로컬 좌표는 섞어 쓸 수 없습니다 (모두 ^을 사용하거나 사용하지 않아야 합니다)",
+	
+	"command.reader_expected_start_of_quote": "문자열을 시작하는 따옴표가 필요합니다",
+	"command.reader_expected_end_of_quote": "따옴표가 달린 문자열이 닫히지 않았습니다",
+	"command.reader_invalid_escape": "따옴표가 달린 문자열에 잘못된 이스케이프 시퀀스 '\\%character%'이(가) 있습니다",
+	"command.reader_invalid_bool": "잘못된 불리언입니다, 'true' 또는 'false'가 필요하지만 '%value%'이(가) 입력되었습니다",
+	"command.reader_invalid_int": "'%value%'은(는) 잘못된 정수입니다",
+	"command.reader_expected_int": "정수가 필요합니다",
+	"command.reader_invalid_long": "'%value%'은(는) 잘못된 64비트 정수입니다",
+	"command.reader_expected_long": "64비트 정수가 필요합니다",
+	"command.reader_invalid_double": "'%value%'은(는) 잘못된 배정도 부동 소수점입니다",
+	"command.reader_expected_double": "배정도 부동 소수점이 필요합니다",
+	"command.reader_invalid_float": "'%s'은(는) 잘못된 부동 소수점입니다",
+	"command.reader_expected_float": "부동 소수점이 필요합니다",
+	"command.reader_expected_bool": "불리언이 필요합니다",
+	"command.reader_expected_symbol": "'%symbol%'이(가) 필요합니다",
+	"command.reader_invalid_pos_swizzle": "'잘못된 스위즐입니다, 'x'와 'y', 'z'의 조합이 필요합니다",
+	
+	"command.dispatcher_unknown_command": "알 수 없거나 불완전한 명령어입니다",
+	"command.dispatcher_unknown_argument": "명령어에 잘못된 인수가 있습니다",
+	"command.dispatcher_expected_argument_separator": "인수를 끝내는 공백이 필요하지만, 후행 데이터가 입력되었습니다",
+	"command.dispatcher_parse_exception": "명령어를 구문 분석할 수 없습니다: %message%",
+	
+	"command.context.here": "<--[여기]",
+    "command.context.parse_error": "%message%. 위치 %pos%: %text%",
+	
+	
+	
+	"command.value_of": "%name%의 값은 %value%입니다",
+	"command.change_to": "%name%를 %value%(으)로 변경했습니다",
+	
+	"command.play_sound": "소리를 재생했습니다",
+	"command.stop_sound": "소리를 중지했습니다",
+	"command.stop_sound_all": "모든 소리를 중지했습니다",
+	
+	"command.play_nbs": "NBS를 재생했습니다",
+	"command.stop_nbs": "NBS를 중지했습니다",
+	"command.stop_nbs_all": "모든 NBS를 중지했습니다",
+	
+	"command.all_refresh": "모두 새로 고쳤습니다",
+	"command.all_rerender": "모든 렌더러를 새로 고쳤습니다",
+	"command.all_text_rerender": "모든 텍스트 렌더러를 새로 고쳤습니다",
 	
 	
 

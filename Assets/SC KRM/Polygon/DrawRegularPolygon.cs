@@ -5,6 +5,7 @@ namespace SCKRM.Polygon
     [ExecuteAlways]
     [RequireComponent(typeof(LineRenderer))]
     [AddComponentMenu("SC KRM/Polygon/Draw Regular Polygon")]
+    [WikiDescription("정다각형을 그리는 클래스 입니다")]
     public sealed class DrawRegularPolygon : MonoBehaviour
     {
         LineRenderer _lineRenderer;

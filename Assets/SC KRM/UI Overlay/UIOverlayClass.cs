@@ -1,4 +1,0 @@
-namespace SCKRM.UI.Overlay
-{
-
-}

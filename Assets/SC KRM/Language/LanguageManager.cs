@@ -8,6 +8,7 @@ using System.IO;
 
 namespace SCKRM.Language
 {
+    [WikiDescription("언어를 관리하는 클래스 입니다")]
     public static class LanguageManager
     {
         public struct Language
@@ -32,8 +33,8 @@ namespace SCKRM.Language
         }
 
 
-        public static event Action currentLanguageChange;
-        public static void LanguageChangeEventInvoke() => currentLanguageChange?.Invoke();
+        [WikiDescription("언어를 변경할때 발생하는 이벤트 입니다")] public static event Action currentLanguageChange;
+        [WikiDescription("언어 변경 이벤트를 실행합니다")] public static void LanguageChangeEventInvoke() => currentLanguageChange?.Invoke();
 
         /// <summary>
         /// 리소스팩에서 언어 파일을 가져온뒤, 키 값으로 텍스트를 찾고 반환합니다
@@ -50,6 +51,10 @@ namespace SCKRM.Language
         /// 언어
         /// </param>
         /// <returns></returns>
+        [WikiDescription(
+@"리소스팩에서 언어 파일을 가져온뒤, 키 값으로 텍스트를 찾고 반환합니다
+After importing the language file from the resource pack, it finds and returns the text as a key value."
+)]
         public static string LanguageLoad(string key, string nameSpace = "", string language = "")
         {
             if (key == null)
@@ -74,6 +79,7 @@ namespace SCKRM.Language
         /// Get a list of languages
         /// </summary>
         /// <returns></returns>
+        [WikiDescription("언어 리스트를 가져옵니다\nGet a list of languages")]
         public static Language[] GetLanguages()
         {
             List<Language> languages = new List<Language>();

@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace SCKRM.DebugUI
 {
+    [WikiDescription("F3 디버그 화면을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Debug/UI/Debug Manager")]
     public sealed class DebugManager : UIManager<DebugManager>
     {
@@ -27,14 +28,15 @@ namespace SCKRM.DebugUI
             [JsonProperty] public static bool graphShow { get; set; } = true;
         }
 
-        
 
+
+        [WikiDescription("F3 디버그 화면을 표시하는지에 대한 여부입니다")]
         public static bool isShow { get; set; } = false;
 
 
 
-        [SerializeField] GameObject _textLayout; public GameObject textLayout => _textLayout;
-        [SerializeField] GameObject _graphLayout; public GameObject graphLayout => _graphLayout;
+        [SerializeField] GameObject _textLayout; [WikiDescription("텍스트 레이아웃 오브젝트를 가져옵니다")] public GameObject textLayout => _textLayout;
+        [SerializeField] GameObject _graphLayout; [WikiDescription("그래프 레이아웃 오브젝트를 가져옵니다")] public GameObject graphLayout => _graphLayout;
 
 
 

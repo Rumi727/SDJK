@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace SCKRM.UI
 {
+    [WikiDescription("UI를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/UI/UI Manager")]
     public sealed class UIManager : Manager<UIManager>
     {
@@ -27,7 +28,7 @@ namespace SCKRM.UI
             static bool _fixedGuiSizeEnable = true; [JsonProperty] public static bool fixedGuiSizeEnable { get => _fixedGuiSizeEnable; set => _fixedGuiSizeEnable = value; }
         }
 
-        public static float currentGuiSize { get; private set; } = 1;
+        [WikiDescription("현재 GUI 크기")] public static float currentGuiSize { get; private set; } = 1;
         public static float scaleAccordingToScreenSize { get; private set; } = 1;
 
         [SerializeField] Canvas _kernelCanvas; public Canvas kernelCanvas => _kernelCanvas;
@@ -59,7 +60,7 @@ namespace SCKRM.UI
 
             if (InitialLoadManager.isInitialLoadEnd)
             {
-                if (InputManager.GetKey("gui.back", InputType.Down, InputManager.inputLockDenyAllForce))
+                if (InputManager.GetKey("gui.back", InputType.Down, InputManager.inputLockDenyAllForceInput))
                     BackEventInvoke();
                 else if (InputManager.GetKey("gui.home", InputType.Down, InputManager.inputLockDenyAll))
                     homeEvent.Invoke();
@@ -71,6 +72,7 @@ namespace SCKRM.UI
             kernelCanvasUI.offsetMax = StatusBarManager.cropedRect.max;
         }
 
+        [WikiDescription("뒤로가기 이벤트")]
         public static void BackEventInvoke()
         {
             if (highPriorityBackEventList.Count > 0)
@@ -79,8 +81,10 @@ namespace SCKRM.UI
                 backEventList[0].Invoke();
         }
 
+        [WikiDescription("홈 이벤트")]
         public static void HomeEventInvoke() => homeEvent.Invoke();
 
+        [WikiDescription("뒤로가기 이벤트 추가")]
         public static void BackEventAdd(Action action, bool highPriority = false)
         {
             if (highPriority)
@@ -89,6 +93,7 @@ namespace SCKRM.UI
                 backEventList.Insert(0, action);
         }
 
+        [WikiDescription("뒤로가기 이벤트 삭제")]
         public static void BackEventRemove(Action action, bool highPriority = false)
         {
             if (highPriority)

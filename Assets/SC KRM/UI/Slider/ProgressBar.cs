@@ -18,7 +18,7 @@ namespace SCKRM.UI
         public RectTransform fillShow => _fillShow;
 
 
-        public bool allowNoResponse { get; set; } = true;
+        [SerializeField] bool _allowNoResponse = true; public bool allowNoResponse { get => _allowNoResponse; set => _allowNoResponse = value; }
         public bool isNoResponse { get; private set; } = false;
 
         [System.NonSerialized] float loopValue = 0;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SCKRM.Renderer
 {
+    [WikiDescription("스프라이트 렌더러")]
     [AddComponentMenu("SC KRM/Renderer/Sprite Renderer")]
     [RequireComponent(typeof(SpriteRenderer))]
     public sealed class CustomSpriteRenderer : CustomAllSpriteRenderer
@@ -18,9 +19,9 @@ namespace SCKRM.Renderer
         [SerializeField] SpriteDrawMode _drawMode = SpriteDrawMode.Simple;
         public SpriteDrawMode drawMode { get => _drawMode; set => _drawMode = value; }
 
-        public override async void Refresh()
+        public override void Refresh()
         {
-            Sprite sprite = SpriteReload(type, path, index, nameSpace);
+            Sprite sprite = GetSprite(type, path, index, nameSpace);
             if (ThreadManager.isMainThread)
             {
                 spriteRenderer.sprite = sprite;
@@ -29,7 +30,7 @@ namespace SCKRM.Renderer
             }
             else
             {
-                await K4UnityThreadDispatcher.Execute(() =>
+                K4UnityThreadDispatcher.Execute(() =>
                 {
                     spriteRenderer.sprite = sprite;
                     spriteRenderer.drawMode = drawMode;

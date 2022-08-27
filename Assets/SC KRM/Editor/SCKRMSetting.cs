@@ -47,7 +47,10 @@ namespace SCKRM.Editor
 
 
         [MenuItem("SC KRM/Show control panel")]
-        public static void ShowWindow() => EditorWindow.GetWindow<SCKRMWindowEditor>(false, "SC KRM");
+        public static void ShowControlPanelWindow() => EditorWindow.GetWindow<SCKRMWindowEditor>(false, "SC KRM");
+
+        [MenuItem("SC KRM/Github Wiki Setting")]
+        public static void ShowGithubWikiWindow() => EditorWindow.GetWindow<SCKRMWikiEditor>(false, "SC KRM Github Wiki");
 
         [MenuItem("SC KRM/All Rerender")]
         public static void AllRerender()

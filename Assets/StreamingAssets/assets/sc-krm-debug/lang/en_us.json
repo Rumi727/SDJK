@@ -1,0 +1,55 @@
+{
+	"deltaTime": "Delta Time",
+	"fpsDeltaTime": "FPS Delta Time",
+	
+	"unscaledDeltaTime": "Unscaled Delta Time",
+	"fpsUnscaledDeltaTime": "Unscaled FPS Delta Time",
+	
+	"fps": "FPS",
+	
+	"totalAllocatedMemory": "Total allocated memory (MB)",
+	
+	"gameSpeed": "Game speed",
+	
+	"asyncTasksCount": "Async task count",
+	
+	"mainThreadId": "Main thread ID",
+	"runningThreadsCount": "Running threads count",
+	
+	"soundListCount": "Sound count",
+	"nbsListCount": "NBS count",
+	
+	
+	
+	"dataPath": "Data path",
+	"streamingAssetsPath": "Streaming asset path",
+	"persistentDataPath": "Persistent data path",
+	"temporaryCachePath": "Temporary cache path",
+	"saveDataPath": "Save data path",
+	"resourcePackPath": "Resource pack path",
+	"projectSettingPath": "Project setting path",
+	
+	"companyName": "Company name",
+	"productName": "Produce name",
+	
+	"version": "Version",
+	"unityVersion": "Unity version",
+	
+	"platform": "Platform",
+	
+	"operatingSystem": "OS",
+	
+	"deviceModel": "Device model",
+	"deviceName": "Device name",
+	
+	"batteryStatus": "Battery status",
+	
+	"processorType": "Processor type",
+	"processorFrequency": "Processor frequency",
+	"processorCount": "Processor count",
+	
+	"graphicsDeviceName": "Graphics device name",
+	"graphicsMemorySize": "Graphics memory size (MB)",
+	
+	"systemMemorySize": "System memory size (MB)",
+}

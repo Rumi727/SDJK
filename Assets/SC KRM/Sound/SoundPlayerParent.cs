@@ -16,18 +16,19 @@ namespace SCKRM.Sound
         MetaData metaData { get; }
     }
 
+    [WikiDescription("사운드 플레이어를 구현하기 위한 인터페이스")]
     public interface ISoundPlayer : IRefreshable, IObjectPooling
     {
-        string nameSpace { get; set; }
-        string key { get; set; }
+        [WikiDescription("재생할 네임스페이스")] string nameSpace { get; set; }
+        [WikiDescription("재생할 키")] string key { get; set; }
 
 
 
-        float time { get; set; }
-        float realTime { get; set; }
+        [WikiDescription("시간")] float time { get; set; }
+        [WikiDescription("실제 시간")] float realTime { get; set; }
 
-        float length { get; }
-        float realLength { get; }
+        [WikiDescription("곡의 길이")] float length { get; }
+        [WikiDescription("곡의 실제 길이")] float realLength { get; }
 
 
 
@@ -36,37 +37,38 @@ namespace SCKRM.Sound
 
 
 
-        bool isLooped { get; }
-        bool isPaused { get; set; }
+        [WikiDescription("이 프레임에서 루프가 됬는지 여부")] bool isLooped { get; }
+        [WikiDescription("일시중지 여부")] bool isPaused { get; set; }
 
 
 
-        float pitch { get; set; }
-        float tempo { get; set; }
+        [WikiDescription("피치")] float pitch { get; set; }
+        [WikiDescription("템포")] float tempo { get; set; }
 
-        float speed { get; set; }
-        float realSpeed { get; }
-
-
-
-
-        float volume { get; set; }
-
-        float minDistance { get; set; }
-        float maxDistance { get; set; }
-
-        float panStereo { get; set; }
+        [WikiDescription("속도")] float speed { get; set; }
+        [WikiDescription("실제 속도")] float realSpeed { get; }
 
 
 
-        bool spatial { get; set; }
-        Vector3 localPosition { get; set; }
+
+        [WikiDescription("볼륨")] float volume { get; set; }
+
+        [WikiDescription("최소 거리")] float minDistance { get; set; }
+        [WikiDescription("최대 거리")] float maxDistance { get; set; }
+
+        [WikiDescription("스테레오")] float panStereo { get; set; }
+
+
+
+        [WikiDescription("공간")] bool spatial { get; set; }
+        [WikiDescription("좌표")] Vector3 localPosition { get; set; }
 
 
 
         event OnAudioFilterReadAction onAudioFilterReadEvent;
     }
 
+    [WikiDescription("내장 사운드 플레이어")]
     public abstract class SoundPlayerParent<MetaData> : ObjectPooling, ISoundPlayer, ISoundPlayerData<MetaData> where MetaData : SoundMetaDataParent
     {
         SoundData<MetaData> ISoundPlayerData<MetaData>.soundData { get => soundData; }
@@ -77,18 +79,18 @@ namespace SCKRM.Sound
 
 
 
-        public string key { get; set; } = "";
-        public string nameSpace { get; set; } = "";
+        [WikiDescription("재생할 사운드 키")] public string key { get; set; } = "";
+        [WikiDescription("재생할 사운드 네임스페이스")] public string nameSpace { get; set; } = "";
 
 
 
-        public abstract float time { get; set; }
-        public abstract float realTime { get; set; }
+        [WikiDescription("시간")] public abstract float time { get; set; }
+        [WikiDescription("실제 시간")] public abstract float realTime { get; set; }
 
-        public abstract float length { get; }
-        public abstract float realLength { get; }
+        [WikiDescription("곡의 길이")] public abstract float length { get; }
+        [WikiDescription("곡의 실제 길이")] public abstract float realLength { get; }
 
-        public virtual bool loop { get; set; } = false;
+        [WikiDescription("루프 가능 여부")] public virtual bool loop { get; set; } = false;
 
 
 
@@ -100,30 +102,30 @@ namespace SCKRM.Sound
 
 
         bool ISoundPlayer.isLooped => isLooped;
-        public abstract bool isLooped { get; protected set; }
-        public abstract bool isPaused { get; set; }
+        [WikiDescription("이 프레임에서 루프가 됬는지 여부")] public abstract bool isLooped { get; protected set; }
+        [WikiDescription("일시중지 여부")] public abstract bool isPaused { get; set; }
 
 
 
-        public virtual float pitch { get; set; } = 1;
-        public virtual float tempo { get; set; } = 1;
+        [WikiDescription("피치")] public virtual float pitch { get; set; } = 1;
+        [WikiDescription("템포")] public virtual float tempo { get; set; } = 1;
 
-        public abstract float speed { get; set; }
-        public abstract float realSpeed { get; }
-
-
-
-        public virtual float volume { get; set; } = 1;
-
-        public virtual float minDistance { get; set; } = 0;
-        public virtual float maxDistance { get; set; } = 16;
-
-        public virtual float panStereo { get; set; } = 0;
+        [WikiDescription("속도")] public abstract float speed { get; set; }
+        [WikiDescription("실제 속도")] public abstract float realSpeed { get; }
 
 
 
-        public virtual bool spatial { get; set; } = false;
-        public virtual Vector3 localPosition { get; set; } = Vector3.zero;
+        [WikiDescription("볼륨")] public virtual float volume { get; set; } = 1;
+
+        [WikiDescription("최소 거리")] public virtual float minDistance { get; set; } = 0;
+        [WikiDescription("최대 거리")] public virtual float maxDistance { get; set; } = 16;
+
+        [WikiDescription("스테레오")] public virtual float panStereo { get; set; } = 0;
+
+
+
+        [WikiDescription("공간")] public virtual bool spatial { get; set; } = false;
+        [WikiDescription("좌표")] public virtual Vector3 localPosition { get; set; } = Vector3.zero;
 
 
 
@@ -176,10 +178,12 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("새로고침")]
         public abstract void Refresh();
 
 
 
+        [WikiDescription("플레이어 삭제")]
         public override bool Remove()
         {
             if (!base.Remove())

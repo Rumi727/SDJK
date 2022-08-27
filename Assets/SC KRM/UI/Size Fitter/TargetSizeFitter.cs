@@ -50,6 +50,8 @@ namespace SCKRM.UI
                 RectTransform targetRectTransform = targetRectTransforms[i];
                 if (targetRectTransform == null)
                     continue;
+                else if (!targetRectTransform.gameObject.activeInHierarchy)
+                    continue;
 
                 Vector2 targetSize = targetRectTransform.rect.size;
                 size += new Vector2(targetSize.x * targetRectTransform.localScale.x, targetSize.y * targetRectTransform.localScale.y) + offset;

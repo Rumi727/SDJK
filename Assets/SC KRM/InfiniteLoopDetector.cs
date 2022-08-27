@@ -3,6 +3,7 @@ using System;
 namespace SCKRM
 {
     /// <summary> 무한 루프 검사 및 방지(에디터 전용) </summary>
+    [WikiDescription("무한 루프 검사 및 방지를 위한 클래스 입니다")]
     public static class InfiniteLoopDetector
     {
         private static string prevPoint = "";

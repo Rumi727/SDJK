@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 namespace SCKRM.FileDialog.Screen
 {
+    [WikiDescription("파일 선택 화면의 버튼을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Screen Button")]
     public sealed class FileDialogScreenButton : UI.UI, ICell, IPointerClickHandler
     {
@@ -43,6 +44,7 @@ namespace SCKRM.FileDialog.Screen
             toggle.isOn = FileDialogManager.selectedFilePath.Contains(path);
         }
 
+        [WikiDescription("버튼 설정")]
         public void ConfigureCell(string path, ToggleGroup toggleGroup, string[] allPaths)
         {
             this.path = path;
@@ -62,6 +64,7 @@ namespace SCKRM.FileDialog.Screen
             icon.Refresh();
         }
 
+        [WikiDescription("클릭했을 때")]
         public void OnPointerClick(PointerEventData eventData)
         {
             if (doubleClick)

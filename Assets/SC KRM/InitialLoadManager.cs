@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using SCKRM.Input;
 using SCKRM.ProjectSetting;
 using SCKRM.Renderer;
 using SCKRM.Resource;
@@ -7,13 +8,20 @@ using SCKRM.Splash;
 using SCKRM.Threads;
 using SCKRM.UI;
 using SCKRM.UI.StatusBar;
+using SCKRM.VM;
 using System;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.LowLevel;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+[assembly: InternalsVisibleTo("SC-KRM-Editor")]
 
 namespace SCKRM
 {
+    [WikiDescription("초기 로딩을 위한 클래스 입니다")]
     public static class InitialLoadManager
     {
         public static bool isInitialLoadStart { get; private set; } = false;
@@ -138,7 +146,7 @@ namespace SCKRM
                         return;
 
                     //세이브 데이터를 다른 스레드에서 로딩합니다
-                    if (await UniTask.RunOnThreadPool(() => SaveLoadManager.LoadAll(ProjectSettingManager.projectSettingSLCList, Kernel.projectSettingPath, true), cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                    if (await UniTask.RunOnThreadPool(() => SaveLoadManager.LoadAll(ProjectSettingManager.projectSettingSLCList, Kernel.projectSettingPath), cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                         return;
 
                     //세이브 데이터를 다른 스레드에서 로딩합니다
@@ -159,6 +167,12 @@ namespace SCKRM
                     }
                 }
 
+                //가상머신 밴이 활성화되어있을때 가상 머신일 경우 프로그램을 강제종료 합니다
+#if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
+                if (VirtualMachineDetector.Data.vmBan && (VirtualMachineDetector.HardwareDetection() || VirtualMachineDetector.ProcessDetection() || VirtualMachineDetector.FileDetection()))
+                    ApplicationForceQuit(nameof(InitialLoadManager), "Virtual machines are prohibited");
+#endif
+
                 isSettingLoadEnd = true;
 
                 {
@@ -177,47 +191,47 @@ namespace SCKRM
                     isInitialLoadEnd = true;
                     initialLoadEnd?.Invoke();
 
-                    //리소스를 로딩했으니 모든 렌더러를 전부 재렌더링합니다
-                    RendererManager.AllRerender();
-
                     Debug.Log("Kernel: Initial loading finished!");
                 }
 
-#if UNITY_EDITOR
-                if (startedSceneIndex == 0)
-#endif
+                //강제종료 된 상태면, 씬을 이동하지 않습니다
+                if (!isForceQuit)
                 {
-                    //씬 애니메이션이 끝날때까지 기다립니다
-                    Debug.Log("Kernel: Waiting for scene animation...");
-                    if (await UniTask.WaitUntil(() => !SplashScreen.isAniPlaying, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                        return;
-                }
 #if UNITY_EDITOR
-                else
-                    SplashScreen.isAniPlaying = false;
+                    if (startedSceneIndex == 0)
+#endif
+                    {
+                        //씬 애니메이션이 끝날때까지 기다립니다
+                        Debug.Log("Kernel: Waiting for scene animation...");
+                        if (await UniTask.WaitUntil(() => !SplashScreen.isAniPlaying, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                            return;
+                    }
+#if UNITY_EDITOR
+                    else
+                        SplashScreen.isAniPlaying = false;
 #endif
 
-                StatusBarManager.allowStatusBarShow = true;
+                    StatusBarManager.allowStatusBarShow = true;
 
-                //씬이 바뀌었을때 렌더러를 재 렌더링해야하기때문에 이벤트를 걸어줍니다
-                SceneManager.sceneLoaded += (Scene scene, LoadSceneMode loadSceneMode) => RendererManager.AllRerender();
+                    //씬이 바뀌었을때 렌더러를 재 렌더링해야하기때문에 이벤트를 걸어줍니다
+                    SceneManager.sceneLoaded += (Scene scene, LoadSceneMode loadSceneMode) => RendererManager.AllRerender();
 
-                //GC를 호출합니다
-                GC.Collect();
-
+                    //GC를 호출합니다
+                    GC.Collect();
 #if UNITY_EDITOR
-                //씬을 이동합니다
-                if (startedSceneIndex != 0)
-                    SceneManager.LoadScene(startedSceneIndex);
-                else
-                    SceneManager.LoadScene(1);
+                    //씬을 이동합니다
+                    if (startedSceneIndex != 0)
+                        SceneManager.LoadScene(startedSceneIndex);
+                    else
+                        SceneManager.LoadScene(1);
 #else
                     SceneManager.LoadScene(1);
 #endif
 
-                //씬을 이동했으면 이벤트를 호출합니다
-                isSceneMoveEnd = true;
-                initialLoadEndSceneMove?.Invoke();
+                    //씬을 이동했으면 이벤트를 호출합니다
+                    isSceneMoveEnd = true;
+                    initialLoadEndSceneMove?.Invoke();
+                }
             }
             catch (Exception e)
             {
@@ -230,14 +244,67 @@ namespace SCKRM
                     Debug.LogError("Kernel: Initial loading failed");
 
                     if (isInitialLoadStart)
-                    {
-                        if (await UniTask.WaitUntil(() => UIManager.instance != null, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                            return;
-
-                        UnityEngine.Object.Instantiate(UIManager.instance.exceptionText, UIManager.instance.kernelCanvas.transform).text = "Kernel: Initial loading failed\n\n" + e.GetType().Name + ": " + e.Message + "\n\n" + e.StackTrace.Substring(5);
-                    }
+                        ApplicationForceQuit(nameof(InitialLoadManager), "Initial loading failed\n\n" + e.GetType().Name + ": " + e.Message + "\n\n" + e.StackTrace.Substring(5));
                 }
             }
+        }
+
+        [WikiDescription("프로그램의 강제 종료 여부")] public static bool isForceQuit { get; private set; }
+        [WikiDescription("프로그램을 강제 종료하지만 로그는 띄워야할때 사용하는 메소드 입니다")]
+        public static async void ApplicationForceQuit(string typeName, string message)
+        {
+            if (!Kernel.isPlaying)
+                throw new NotPlayModeMethodException(nameof(ApplicationForceQuit));
+            else if (isForceQuit)
+                return;
+
+            isForceQuit = true;
+
+            await UniTask.WaitUntil(() => UIManager.instance != null);
+            await UniTask.NextFrame(PlayerLoopTiming.LastPostLateUpdate);
+
+            if (isInitialLoadEnd)
+            {
+                SceneManager.LoadScene(0);
+                await UniTask.NextFrame(PlayerLoopTiming.LastPostLateUpdate);
+                
+                //Background
+                Image image = UnityEngine.Object.Instantiate(Kernel.emptyRectTransform, UIManager.instance.kernelCanvas.transform).gameObject.AddComponent<Image>();
+                image.color = Color.black;
+
+                image.rectTransform.anchorMin = Vector2.zero;
+                image.rectTransform.anchorMax = Vector2.one;
+
+                image.rectTransform.offsetMin = Vector2.zero;
+                image.rectTransform.offsetMax = Vector2.zero;
+
+                //Text
+                TMP_Text exceptionText = UnityEngine.Object.Instantiate(UIManager.instance.exceptionText, UIManager.instance.kernelCanvas.transform);
+                exceptionText.text = $"{typeName}: {message}";
+
+                GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(true);
+                GameObject kernel = Kernel.instance.gameObject;
+                GameObject uiManager = UIManager.instance.gameObject;
+                GameObject kernelCanvas = UIManager.instance.kernelCanvas.gameObject;
+
+                for (int i = 0; i < gameObjects.Length; i++)
+                {
+                    GameObject gameObject = gameObjects[i];
+                    if (gameObject != image.gameObject && gameObject != kernel && gameObject != uiManager && gameObject != kernelCanvas && gameObject != exceptionText.gameObject)
+                        UnityEngine.Object.DestroyImmediate(gameObjects[i]);
+                }
+
+                UnityEngine.Cursor.visible = true;
+
+                isInitialLoadStart = false;
+                isSettingLoadEnd = false;
+                isInitialLoadEnd = false;
+                isSceneMoveEnd = false;
+            }
+            else
+                UnityEngine.Object.Instantiate(UIManager.instance.exceptionText, UIManager.instance.kernelCanvas.transform).text = $"{typeName}: {message}";
+
+            InputManager.forceInputLock = true;
         }
     }
 }

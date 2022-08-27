@@ -17,28 +17,28 @@ namespace SCKRM
     {
         #region Trigonometric functions
         public static float Sin(this float value) => (float)Math.Sin(value);
-        public static double Sin(this double value) => Math.Sin(value);
-        public static decimal Sin(this decimal value) => (decimal)Math.Sin((double)value);
+        [WikiIgnore] public static double Sin(this double value) => Math.Sin(value);
+        [WikiIgnore] public static decimal Sin(this decimal value) => (decimal)Math.Sin((double)value);
 
         public static float Asin(this float value) => (float)Math.Asin(value);
-        public static double Asin(this double value) => Math.Asin(value);
-        public static decimal Asin(this decimal value) => (decimal)Math.Asin((double)value);
+        [WikiIgnore] public static double Asin(this double value) => Math.Asin(value);
+        [WikiIgnore] public static decimal Asin(this decimal value) => (decimal)Math.Asin((double)value);
 
         public static float Cos(this float value) => (float)Math.Cos(value);
-        public static double Cos(this double value) => Math.Cos(value);
-        public static decimal Cos(this decimal value) => (decimal)Math.Cos((double)value);
+        [WikiIgnore] public static double Cos(this double value) => Math.Cos(value);
+        [WikiIgnore] public static decimal Cos(this decimal value) => (decimal)Math.Cos((double)value);
 
         public static float Acos(this float value) => (float)Math.Acos(value);
-        public static double Acos(this double value) => Math.Acos(value);
-        public static decimal Acos(this decimal value) => (decimal)Math.Acos((double)value);
+        [WikiIgnore] public static double Acos(this double value) => Math.Acos(value);
+        [WikiIgnore] public static decimal Acos(this decimal value) => (decimal)Math.Acos((double)value);
 
         public static float Tan(this float value) => (float)Math.Tan(value);
-        public static double Tan(this double value) => Math.Tan(value);
-        public static decimal Tan(this decimal value) => (decimal)Math.Tan((double)value);
+        [WikiIgnore] public static double Tan(this double value) => Math.Tan(value);
+        [WikiIgnore] public static decimal Tan(this decimal value) => (decimal)Math.Tan((double)value);
 
         public static float Atan(this float value) => (float)Math.Atan(value);
-        public static double Atan(this double value) => Math.Atan(value);
-        public static decimal Atan(this decimal value) => (decimal)Math.Atan((double)value);
+        [WikiIgnore] public static double Atan(this double value) => Math.Atan(value);
+        [WikiIgnore] public static decimal Atan(this decimal value) => (decimal)Math.Atan((double)value);
         #endregion
 
         #region Abs
@@ -50,6 +50,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static short Abs(this short value)
         {
             if (value < 0)
@@ -58,6 +59,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static int Abs(this int value)
         {
             if (value < 0)
@@ -66,6 +68,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static long Abs(this long value)
         {
             if (value < 0)
@@ -74,6 +77,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static float Abs(this float value)
         {
             if (value < 0)
@@ -82,6 +86,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static double Abs(this double value)
         {
             if (value < 0)
@@ -90,6 +95,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static decimal Abs(this decimal value)
         {
             if (value < 0)
@@ -98,6 +104,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigInteger Abs(this BigInteger value)
         {
             if (value < 0)
@@ -106,6 +113,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigDecimal Abs(this BigDecimal value)
         {
             if (value < 0)
@@ -114,6 +122,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nint Abs(this nint value)
         {
             if (value < 0)
@@ -132,6 +141,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static short Sign(this short value)
         {
             if (value < 0)
@@ -140,6 +150,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this int value)
         {
             if (value < 0)
@@ -148,6 +159,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static long Sign(this long value)
         {
             if (value < 0)
@@ -156,6 +168,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this float value)
         {
             if (value < 0)
@@ -164,6 +177,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this double value)
         {
             if (value < 0)
@@ -172,6 +186,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this decimal value)
         {
             if (value < 0)
@@ -180,6 +195,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this BigInteger value)
         {
             if (value < BigInteger.Zero)
@@ -188,6 +204,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this BigDecimal value)
         {
             if (value < BigDecimal.Zero)
@@ -196,6 +213,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this nint value)
         {
             if (value < 0)
@@ -204,6 +222,7 @@ namespace SCKRM
                 return 1;
         }
 
+        [WikiIgnore]
         public static int Sign(this nuint value)
         {
             if (value < 0)
@@ -224,6 +243,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static sbyte Clamp(this sbyte value, sbyte min, sbyte max = sbyte.MaxValue)
         {
             if (value < min)
@@ -234,6 +254,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static short Clamp(this short value, short min, short max = short.MaxValue)
         {
             if (value < min)
@@ -244,6 +265,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static ushort Clamp(this ushort value, ushort min, ushort max = ushort.MaxValue)
         {
             if (value < min)
@@ -254,6 +276,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static int Clamp(this int value, int min, int max = int.MaxValue)
         {
             if (value < min)
@@ -264,6 +287,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static uint Clamp(this uint value, uint min, uint max = uint.MaxValue)
         {
             if (value < min)
@@ -274,6 +298,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static long Clamp(this long value, long min, long max = long.MaxValue)
         {
             if (value < min)
@@ -284,6 +309,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static ulong Clamp(this ulong value, ulong min, ulong max = ulong.MaxValue)
         {
             if (value < min)
@@ -294,6 +320,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static float Clamp(this float value, float min, float max = float.PositiveInfinity)
         {
             if (float.IsNaN(value))
@@ -307,6 +334,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static double Clamp(this double value, double min, double max = double.PositiveInfinity)
         {
             if (double.IsNaN(value))
@@ -320,6 +348,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static decimal Clamp(this decimal value, decimal min, decimal max = decimal.MaxValue)
         {
             if (value < min)
@@ -330,6 +359,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigInteger Clamp(this BigInteger value, BigInteger min)
         {
             if (value < min)
@@ -338,6 +368,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigInteger Clamp(this BigInteger value, BigInteger min, BigInteger max)
         {
             if (value < min)
@@ -348,6 +379,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigDecimal Clamp(this BigDecimal value, BigDecimal min)
         {
             if (value < min)
@@ -356,6 +388,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigDecimal Clamp(this BigDecimal value, BigDecimal min, BigDecimal max)
         {
             if (value < min)
@@ -366,6 +399,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nint Clamp(this nint value, nint min)
         {
             if (value < min)
@@ -374,6 +408,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nint Clamp(this nint value, nint min, nint max)
         {
             if (value < min)
@@ -384,6 +419,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nuint Clamp(this nuint value, nuint min)
         {
             if (value < min)
@@ -392,6 +428,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nuint Clamp(this nuint value, nuint min, nuint max)
         {
             if (value < min)
@@ -412,6 +449,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static sbyte Clamp01(this sbyte value)
         {
             if (value < 0)
@@ -422,6 +460,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static short Clamp01(this short value)
         {
             if (value < 0)
@@ -432,6 +471,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static ushort Clamp01(this ushort value)
         {
             if (value > 1)
@@ -440,6 +480,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static int Clamp01(this int value)
         {
             if (value < 0)
@@ -450,6 +491,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static uint Clamp01(this uint value)
         {
             if (value > 1)
@@ -458,6 +500,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static long Clamp01(this long value)
         {
             if (value < 0)
@@ -468,6 +511,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static ulong Clamp01(this ulong value)
         {
             if (value > 1)
@@ -476,6 +520,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static float Clamp01(this float value)
         {
             if (value < 0)
@@ -486,6 +531,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static double Clamp01(this double value)
         {
             if (value < 0)
@@ -496,6 +542,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static decimal Clamp01(this decimal value)
         {
             if (value < 0)
@@ -506,6 +553,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigInteger Clamp01(this BigInteger value)
         {
             if (value < 0)
@@ -516,6 +564,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static BigDecimal Clamp01(this BigDecimal value)
         {
             if (value < 0)
@@ -526,6 +575,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nint Clamp01(this nint value)
         {
             if (value < 0)
@@ -536,6 +586,7 @@ namespace SCKRM
                 return value;
         }
 
+        [WikiIgnore]
         public static nuint Clamp01(this nuint value)
         {
             if (value < 0)
@@ -549,20 +600,20 @@ namespace SCKRM
 
         #region Reapeat
         public static sbyte Reapeat(this sbyte t, sbyte length) => (sbyte)(t - (t / length) * length).Clamp(0, length);
-        public static byte Reapeat(this byte t, byte length) => (byte)(t - (t / length) * length).Clamp(0, length);
-        public static short Reapeat(this short t, short length) => (short)(t - (t / length) * length).Clamp(0, length);
-        public static ushort Reapeat(this ushort t, ushort length) => (ushort)(t - (t / length) * length).Clamp(0, length);
-        public static int Reapeat(this int t, int length) => (t - (t / length) * length).Clamp(0, length);
-        public static uint Reapeat(this uint t, uint length) => (t - (t / length) * length).Clamp(0, length);
-        public static long Reapeat(this long t, long length) => (t - (t / length) * length).Clamp(0, length);
-        public static ulong Reapeat(this ulong t, ulong length) => (t - (t / length) * length).Clamp(0, length);
-        public static float Reapeat(this float t, float length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        public static double Reapeat(this double t, double length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        public static decimal Reapeat(this decimal t, decimal length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        public static BigInteger Reapeat(this BigInteger t, BigInteger length) => (t - (t / length) * length).Clamp(0, length);
-        public static BigDecimal Reapeat(this BigDecimal t, BigDecimal length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        public static nint Reapeat(this nint t, nint length) => (t - (t / length) * length).Clamp(0, length);
-        public static nuint Reapeat(this nuint t, nuint length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static byte Reapeat(this byte t, byte length) => (byte)(t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static short Reapeat(this short t, short length) => (short)(t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static ushort Reapeat(this ushort t, ushort length) => (ushort)(t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static int Reapeat(this int t, int length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static uint Reapeat(this uint t, uint length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static long Reapeat(this long t, long length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static ulong Reapeat(this ulong t, ulong length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static float Reapeat(this float t, float length) => (t - (t / length).Floor() * length).Clamp(0, length);
+        [WikiIgnore] public static double Reapeat(this double t, double length) => (t - (t / length).Floor() * length).Clamp(0, length);
+        [WikiIgnore] public static decimal Reapeat(this decimal t, decimal length) => (t - (t / length).Floor() * length).Clamp(0, length);
+        [WikiIgnore] public static BigInteger Reapeat(this BigInteger t, BigInteger length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static BigDecimal Reapeat(this BigDecimal t, BigDecimal length) => (t - (t / length).Floor() * length).Clamp(0, length);
+        [WikiIgnore] public static nint Reapeat(this nint t, nint length) => (t - (t / length) * length).Clamp(0, length);
+        [WikiIgnore] public static nuint Reapeat(this nuint t, nuint length) => (t - (t / length) * length).Clamp(0, length);
         #endregion
 
         #region Lerp
@@ -573,6 +624,7 @@ namespace SCKRM
             return (byte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static byte Lerp(this byte current, byte target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -580,6 +632,7 @@ namespace SCKRM
             return (byte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static byte Lerp(this byte current, byte target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -587,6 +640,7 @@ namespace SCKRM
             return (byte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static byte Lerp(this byte current, byte target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -594,6 +648,7 @@ namespace SCKRM
             return (byte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static sbyte Lerp(this sbyte current, sbyte target, sbyte t, bool unclamped = false)
         {
             if (!unclamped)
@@ -601,6 +656,7 @@ namespace SCKRM
             return (sbyte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static sbyte Lerp(this sbyte current, sbyte target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -608,6 +664,7 @@ namespace SCKRM
             return (sbyte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static sbyte Lerp(this sbyte current, sbyte target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -615,6 +672,7 @@ namespace SCKRM
             return (sbyte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static sbyte Lerp(this sbyte current, sbyte target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -622,6 +680,7 @@ namespace SCKRM
             return (sbyte)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static short Lerp(this short current, short target, short t, bool unclamped = false)
         {
             if (!unclamped)
@@ -629,6 +688,7 @@ namespace SCKRM
             return (short)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static short Lerp(this short current, short target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -636,6 +696,7 @@ namespace SCKRM
             return (short)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static short Lerp(this short current, short target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -643,6 +704,7 @@ namespace SCKRM
             return (short)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static short Lerp(this short current, short target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -650,6 +712,7 @@ namespace SCKRM
             return (short)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ushort Lerp(this ushort current, ushort target, ushort t, bool unclamped = false)
         {
             if (!unclamped)
@@ -657,6 +720,7 @@ namespace SCKRM
             return (ushort)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ushort Lerp(this ushort current, ushort target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -664,6 +728,7 @@ namespace SCKRM
             return (ushort)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ushort Lerp(this ushort current, ushort target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -671,6 +736,7 @@ namespace SCKRM
             return (ushort)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ushort Lerp(this ushort current, ushort target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -678,6 +744,7 @@ namespace SCKRM
             return (ushort)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static int Lerp(this int current, int target, int t, bool unclamped = false)
         {
             if (!unclamped)
@@ -685,6 +752,7 @@ namespace SCKRM
             return (int)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static int Lerp(this int current, int target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -692,6 +760,7 @@ namespace SCKRM
             return (int)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static int Lerp(this int current, int target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -699,6 +768,7 @@ namespace SCKRM
             return (int)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static int Lerp(this int current, int target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -706,6 +776,7 @@ namespace SCKRM
             return (int)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static uint Lerp(this uint current, uint target, uint t, bool unclamped = false)
         {
             if (!unclamped)
@@ -713,6 +784,7 @@ namespace SCKRM
             return (uint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static uint Lerp(this uint current, uint target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -720,6 +792,7 @@ namespace SCKRM
             return (uint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static uint Lerp(this uint current, uint target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -727,6 +800,7 @@ namespace SCKRM
             return (uint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static uint Lerp(this uint current, uint target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -734,6 +808,7 @@ namespace SCKRM
             return (uint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static long Lerp(this long current, long target, long t, bool unclamped = false)
         {
             if (!unclamped)
@@ -741,6 +816,7 @@ namespace SCKRM
             return (long)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static long Lerp(this long current, long target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -748,6 +824,7 @@ namespace SCKRM
             return (long)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static long Lerp(this long current, long target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -755,6 +832,7 @@ namespace SCKRM
             return (long)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static long Lerp(this long current, long target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -762,6 +840,7 @@ namespace SCKRM
             return (long)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ulong Lerp(this ulong current, ulong target, ulong t, bool unclamped = false)
         {
             if (!unclamped)
@@ -769,6 +848,7 @@ namespace SCKRM
             return (ulong)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ulong Lerp(this ulong current, ulong target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -776,6 +856,7 @@ namespace SCKRM
             return (ulong)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ulong Lerp(this ulong current, ulong target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -783,6 +864,7 @@ namespace SCKRM
             return (ulong)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static ulong Lerp(this ulong current, ulong target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -790,6 +872,7 @@ namespace SCKRM
             return (ulong)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static float Lerp(this float current, float target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -797,6 +880,7 @@ namespace SCKRM
             return ((1 - t) * current) + (target * t);
         }
 
+        [WikiIgnore]
         public static double Lerp(this double current, double target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -804,6 +888,7 @@ namespace SCKRM
             return ((1 - t) * current) + (target * t);
         }
 
+        [WikiIgnore]
         public static decimal Lerp(this decimal current, decimal target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -811,6 +896,7 @@ namespace SCKRM
             return ((1 - t) * current) + (target * t);
         }
 
+        [WikiIgnore]
         public static BigInteger Lerp(this BigInteger current, BigInteger target, BigInteger t, bool unclamped = false)
         {
             if (!unclamped)
@@ -818,6 +904,7 @@ namespace SCKRM
             return ((1 - t) * current) + (target * t);
         }
 
+        [WikiIgnore]
         public static BigDecimal Lerp(this BigDecimal current, BigDecimal target, BigDecimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -825,6 +912,7 @@ namespace SCKRM
             return ((1 - t) * current) + (target * t);
         }
 
+        [WikiIgnore]
         public static nint Lerp(this nint current, nint target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -832,6 +920,7 @@ namespace SCKRM
             return (nint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static nint Lerp(this nint current, nint target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -839,6 +928,7 @@ namespace SCKRM
             return (nint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static nint Lerp(this nint current, nint target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -846,6 +936,7 @@ namespace SCKRM
             return (nint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static nuint Lerp(this nuint current, nuint target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -853,6 +944,7 @@ namespace SCKRM
             return (nuint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static nuint Lerp(this nuint current, nuint target, double t, bool unclamped = false)
         {
             if (!unclamped)
@@ -860,6 +952,7 @@ namespace SCKRM
             return (nuint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static nuint Lerp(this nuint current, nuint target, decimal t, bool unclamped = false)
         {
             if (!unclamped)
@@ -867,6 +960,7 @@ namespace SCKRM
             return (nuint)(((1 - t) * current) + (target * t));
         }
 
+        [WikiIgnore]
         public static Vector2 Lerp(this Vector2 current, Vector2 target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -874,6 +968,7 @@ namespace SCKRM
             return new Vector2(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t);
         }
 
+        [WikiIgnore]
         public static Vector3 Lerp(this Vector3 current, Vector3 target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -881,6 +976,7 @@ namespace SCKRM
             return new Vector3(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t, current.z + (target.z - current.z) * t);
         }
 
+        [WikiIgnore]
         public static Vector4 Lerp(this Vector4 current, Vector4 target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -888,6 +984,7 @@ namespace SCKRM
             return new Vector4(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t, current.z + (target.z - current.z) * t, current.w + (target.w - current.w) * t);
         }
 
+        [WikiIgnore]
         public static Rect Lerp(this Rect current, Rect target, float t, bool unclamped = false)
         {
             if (!unclamped)
@@ -895,6 +992,7 @@ namespace SCKRM
             return new Rect(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t, current.width + (target.width - current.width) * t, current.height + (target.height - current.height) * t);
         }
 
+        [WikiIgnore]
         public static Color Lerp(this Color current, Color target, float t, bool alpha = true, bool unclamped = false)
         {
             if (!unclamped)
@@ -916,6 +1014,7 @@ namespace SCKRM
             return (byte)(current + maxDelta);
         }
 
+        [WikiIgnore]
         public static sbyte MoveTowards(this sbyte current, sbyte target, sbyte maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -924,6 +1023,7 @@ namespace SCKRM
             return (sbyte)(current + (target - current).Sign() * maxDelta);
         }
 
+        [WikiIgnore]
         public static short MoveTowards(this short current, short target, short maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -932,6 +1032,7 @@ namespace SCKRM
             return (short)(current + (target - current).Sign() * maxDelta);
         }
 
+        [WikiIgnore]
         public static ushort MoveTowards(this ushort current, ushort target, ushort maxDelta)
         {
             if ((target - current) <= maxDelta)
@@ -940,6 +1041,7 @@ namespace SCKRM
             return (ushort)(current + maxDelta);
         }
 
+        [WikiIgnore]
         public static int MoveTowards(this int current, int target, int maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -948,6 +1050,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static uint MoveTowards(this uint current, uint target, uint maxDelta)
         {
             if ((target - current) <= maxDelta)
@@ -956,6 +1059,7 @@ namespace SCKRM
             return current + maxDelta;
         }
 
+        [WikiIgnore]
         public static long MoveTowards(this long current, long target, long maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -964,6 +1068,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static ulong MoveTowards(this ulong current, ulong target, ulong maxDelta)
         {
             if ((target - current) <= maxDelta)
@@ -972,6 +1077,7 @@ namespace SCKRM
             return current + maxDelta;
         }
 
+        [WikiIgnore]
         public static float MoveTowards(this float current, float target, float maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -980,6 +1086,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static double MoveTowards(this double current, double target, double maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -988,6 +1095,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static decimal MoveTowards(this decimal current, decimal target, decimal maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -996,6 +1104,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static BigInteger MoveTowards(this BigInteger current, BigInteger target, BigInteger maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -1004,6 +1113,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static BigDecimal MoveTowards(this BigDecimal current, BigDecimal target, BigDecimal maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -1012,6 +1122,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static nint MoveTowards(this nint current, nint target, nint maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
@@ -1020,6 +1131,7 @@ namespace SCKRM
             return current + (target - current).Sign() * maxDelta;
         }
 
+        [WikiIgnore]
         public static nuint MoveTowards(this nuint current, nuint target, nuint maxDelta)
         {
             if ((target - current) <= maxDelta)
@@ -1028,6 +1140,7 @@ namespace SCKRM
             return current + maxDelta;
         }
 
+        [WikiIgnore]
         public static Vector2 MoveTowards(this Vector2 current, Vector2 target, float maxDistanceDelta)
         {
             float num = target.x - current.x;
@@ -1039,6 +1152,7 @@ namespace SCKRM
             float num4 = (float)Math.Sqrt(num3);
             return new Vector2(current.x + num / num4 * maxDistanceDelta, current.y + num2 / num4 * maxDistanceDelta);
         }
+        [WikiIgnore]
         public static Vector3 MoveTowards(this Vector3 current, Vector3 target, float maxDistanceDelta)
         {
             float num = target.x - current.x;
@@ -1051,6 +1165,7 @@ namespace SCKRM
             float num5 = (float)Math.Sqrt(num4);
             return new Vector3(current.x + num / num5 * maxDistanceDelta, current.y + num2 / num5 * maxDistanceDelta, current.z + num3 / num5 * maxDistanceDelta);
         }
+        [WikiIgnore]
         public static Vector4 MoveTowards(this Vector4 current, Vector4 target, float maxDistanceDelta)
         {
             float num = target.x - current.x;
@@ -1064,6 +1179,7 @@ namespace SCKRM
             float num6 = (float)Math.Sqrt(num5);
             return new Vector4(current.x + num / num6 * maxDistanceDelta, current.y + num2 / num6 * maxDistanceDelta, current.z + num3 / num6 * maxDistanceDelta, current.w + num4 / num6 * maxDistanceDelta);
         }
+        [WikiIgnore]
         public static Rect MoveTowards(this Rect current, Rect target, float maxDistanceDelta)
         {
             float num = target.x - current.x;
@@ -1077,6 +1193,7 @@ namespace SCKRM
             float num6 = (float)Math.Sqrt(num5);
             return new Rect(current.x + num / num6 * maxDistanceDelta, current.y + num2 / num6 * maxDistanceDelta, current.width + num3 / num6 * maxDistanceDelta, current.height + num4 / num6 * maxDistanceDelta);
         }
+        [WikiIgnore]
         public static Color MoveTowards(this Color current, Color target, float maxDistanceDelta)
         {
             float num = target.r - current.r;
@@ -1094,42 +1211,42 @@ namespace SCKRM
 
         #region Ceil
         public static float Ceil(this float value) => (float)Math.Ceiling(value);
-        public static double Ceil(this double value) => Math.Ceiling(value);
-        public static decimal Ceil(this decimal value) => Math.Ceiling(value);
-        public static BigDecimal Ceil(this BigDecimal value) => BigDecimal.Ceiling(value);
+        [WikiIgnore] public static double Ceil(this double value) => Math.Ceiling(value);
+        [WikiIgnore] public static decimal Ceil(this decimal value) => Math.Ceiling(value);
+        [WikiIgnore] public static BigDecimal Ceil(this BigDecimal value) => BigDecimal.Ceiling(value);
 
         public static int CeilToInt(this float value) => (int)Math.Ceiling(value);
-        public static int CeilToInt(this double value) => (int)Math.Ceiling(value);
-        public static int CeilToInt(this decimal value) => (int)Math.Ceiling(value);
-        public static BigInteger CeilToInt(this BigDecimal value) => (BigInteger)BigDecimal.Ceiling(value);
+        [WikiIgnore] public static int CeilToInt(this double value) => (int)Math.Ceiling(value);
+        [WikiIgnore] public static int CeilToInt(this decimal value) => (int)Math.Ceiling(value);
+        [WikiIgnore] public static BigInteger CeilToInt(this BigDecimal value) => (BigInteger)BigDecimal.Ceiling(value);
         #endregion
 
         #region Floor
         public static float Floor(this float value) => (float)Math.Floor(value);
-        public static double Floor(this double value) => Math.Floor(value);
-        public static decimal Floor(this decimal value) => Math.Floor(value);
-        public static BigDecimal Floor(this BigDecimal value) => BigDecimal.Floor(value);
+        [WikiIgnore] public static double Floor(this double value) => Math.Floor(value);
+        [WikiIgnore] public static decimal Floor(this decimal value) => Math.Floor(value);
+        [WikiIgnore] public static BigDecimal Floor(this BigDecimal value) => BigDecimal.Floor(value);
 
         public static int FloorToInt(this float value) => (int)Math.Floor(value);
-        public static int FloorToInt(this double value) => (int)Math.Floor(value);
-        public static int FloorToInt(this decimal value) => (int)Math.Floor(value);
-        public static BigInteger FloorToInt(this BigDecimal value) => (BigInteger)BigDecimal.Floor(value);
+        [WikiIgnore] public static int FloorToInt(this double value) => (int)Math.Floor(value);
+        [WikiIgnore] public static int FloorToInt(this decimal value) => (int)Math.Floor(value);
+        [WikiIgnore] public static BigInteger FloorToInt(this BigDecimal value) => (BigInteger)BigDecimal.Floor(value);
         #endregion
 
         #region Round
         public static float Round(this float value) => (float)Math.Round(value);
-        public static double Round(this double value) => Math.Round(value);
-        public static decimal Round(this decimal value) => Math.Round(value);
-        public static BigDecimal Round(this BigDecimal value) => BigDecimal.Round(value);
+        [WikiIgnore] public static double Round(this double value) => Math.Round(value);
+        [WikiIgnore] public static decimal Round(this decimal value) => Math.Round(value);
+        [WikiIgnore] public static BigDecimal Round(this BigDecimal value) => BigDecimal.Round(value);
 
         public static int RoundToInt(this float value) => (int)Math.Round(value);
-        public static int RoundToInt(this double value) => (int)Math.Round(value);
-        public static int RoundToInt(this decimal value) => (int)Math.Round(value);
-        public static BigInteger RoundToInt(this BigDecimal value) => BigDecimal.Round(value);
+        [WikiIgnore] public static int RoundToInt(this double value) => (int)Math.Round(value);
+        [WikiIgnore] public static int RoundToInt(this decimal value) => (int)Math.Round(value);
+        [WikiIgnore] public static BigInteger RoundToInt(this BigDecimal value) => BigDecimal.Round(value);
 
         public static float Round(this float value, int digits) => (float)Math.Round(value, digits);
-        public static double Round(this double value, int digits) => Math.Round(value, digits);
-        public static decimal Round(this decimal value, int digits) => Math.Round(value, digits);
+        [WikiIgnore] public static double Round(this double value, int digits) => Math.Round(value, digits);
+        [WikiIgnore] public static decimal Round(this decimal value, int digits) => Math.Round(value, digits);
         #endregion
 
         #region Pow
@@ -1140,8 +1257,8 @@ namespace SCKRM
 
         #region Sqrt
         public static float Sqrt(this float value) => (float)Math.Sqrt(value);
-        public static double Sqrt(this double value) => Math.Sqrt(value);
-        public static decimal Sqrt(this decimal value) => (decimal)Math.Sqrt((double)value);
+        [WikiIgnore] public static double Sqrt(this double value) => Math.Sqrt(value);
+        [WikiIgnore] public static decimal Sqrt(this decimal value) => (decimal)Math.Sqrt((double)value);
         #endregion
 
         #region Min
@@ -1153,6 +1270,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static byte Min(this byte a, byte b)
         {
             if (a < b)
@@ -1161,6 +1279,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static short Min(this short a, short b)
         {
             if (a < b)
@@ -1169,6 +1288,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static ushort Min(this ushort a, ushort b)
         {
             if (a < b)
@@ -1177,6 +1297,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static int Min(this int a, int b)
         {
             if (a < b)
@@ -1185,6 +1306,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static uint Min(this uint a, uint b)
         {
             if (a < b)
@@ -1193,6 +1315,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static long Min(this long a, long b)
         {
             if (a < b)
@@ -1201,6 +1324,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static ulong Min(this ulong a, ulong b)
         {
             if (a < b)
@@ -1209,6 +1333,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static float Min(this float a, float b)
         {
             if (a < b)
@@ -1217,6 +1342,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static double Min(this double a, double b)
         {
             if (a < b)
@@ -1225,6 +1351,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static decimal Min(this decimal a, decimal b)
         {
             if (a < b)
@@ -1233,6 +1360,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static BigInteger Min(this BigInteger a, BigInteger b)
         {
             if (a < b)
@@ -1241,6 +1369,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static BigDecimal Min(this BigDecimal a, BigDecimal b)
         {
             if (a < b)
@@ -1249,6 +1378,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static nint Min(this nint a, nint b)
         {
             if (a < b)
@@ -1257,6 +1387,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static nuint Min(this nuint a, nuint b)
         {
             if (a < b)
@@ -1267,6 +1398,7 @@ namespace SCKRM
         #endregion
 
         #region Min Array
+        [WikiIgnore]
         public static sbyte Min(this sbyte value, params sbyte[] values)
         {
             if (values == null)
@@ -1286,6 +1418,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static byte Min(this byte value, params byte[] values)
         {
             if (values == null)
@@ -1305,6 +1438,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static short Min(this short value, params short[] values)
         {
             if (values == null)
@@ -1324,6 +1458,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static ushort Min(this ushort value, params ushort[] values)
         {
             if (values == null)
@@ -1343,6 +1478,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static int Min(this int value, params int[] values)
         {
             if (values == null)
@@ -1362,6 +1498,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static uint Min(this uint value, params uint[] values)
         {
             if (values == null)
@@ -1381,6 +1518,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static long Min(this long value, params long[] values)
         {
             if (values == null)
@@ -1400,6 +1538,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static ulong Min(this ulong value, params ulong[] values)
         {
             if (values == null)
@@ -1419,6 +1558,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static float Min(this float value, params float[] values)
         {
             if (values == null)
@@ -1438,6 +1578,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static double Min(this double value, params double[] values)
         {
             if (values == null)
@@ -1457,6 +1598,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static decimal Min(this decimal value, params decimal[] values)
         {
             if (values == null)
@@ -1476,6 +1618,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static BigInteger Min(this BigInteger value, params BigInteger[] values)
         {
             if (values == null)
@@ -1495,6 +1638,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static BigDecimal Min(this BigDecimal value, params BigDecimal[] values)
         {
             if (values == null)
@@ -1514,6 +1658,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static nint Min(this nint value, params nint[] values)
         {
             if (values == null)
@@ -1533,6 +1678,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static nuint Min(this nuint value, params nuint[] values)
         {
             if (values == null)
@@ -1562,6 +1708,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static byte Max(this byte a, byte b)
         {
             if (a > b)
@@ -1570,6 +1717,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static short Max(this short a, short b)
         {
             if (a > b)
@@ -1578,6 +1726,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static ushort Max(this ushort a, ushort b)
         {
             if (a > b)
@@ -1586,6 +1735,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static int Max(this int a, int b)
         {
             if (a > b)
@@ -1594,6 +1744,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static uint Max(this uint a, uint b)
         {
             if (a > b)
@@ -1602,6 +1753,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static long Max(this long a, long b)
         {
             if (a > b)
@@ -1610,6 +1762,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static ulong Max(this ulong a, ulong b)
         {
             if (a > b)
@@ -1618,6 +1771,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static float Max(this float a, float b)
         {
             if (a > b)
@@ -1626,6 +1780,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static double Max(this double a, double b)
         {
             if (a > b)
@@ -1634,6 +1789,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static decimal Max(this decimal a, decimal b)
         {
             if (a > b)
@@ -1642,6 +1798,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static BigInteger Max(this BigInteger a, BigInteger b)
         {
             if (a > b)
@@ -1650,6 +1807,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static BigDecimal Max(this BigDecimal a, BigDecimal b)
         {
             if (a > b)
@@ -1658,6 +1816,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static nint Max(this nint a, nint b)
         {
             if (a > b)
@@ -1666,6 +1825,7 @@ namespace SCKRM
                 return b;
         }
 
+        [WikiIgnore]
         public static nuint Max(this nuint a, nuint b)
         {
             if (a > b)
@@ -1676,6 +1836,7 @@ namespace SCKRM
         #endregion
 
         #region Max Array
+        [WikiIgnore]
         public static sbyte Max(this sbyte value, params sbyte[] values)
         {
             if (values == null)
@@ -1695,6 +1856,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static byte Max(this byte value, params byte[] values)
         {
             if (values == null)
@@ -1714,6 +1876,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static short Max(this short value, params short[] values)
         {
             if (values == null)
@@ -1733,6 +1896,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static ushort Max(this ushort value, params ushort[] values)
         {
             if (values == null)
@@ -1752,6 +1916,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static int Max(this int value, params int[] values)
         {
             if (values == null)
@@ -1771,6 +1936,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static uint Max(this uint value, params uint[] values)
         {
             if (values == null)
@@ -1790,6 +1956,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static long Max(this long value, params long[] values)
         {
             if (values == null)
@@ -1809,6 +1976,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static ulong Max(this ulong value, params ulong[] values)
         {
             if (values == null)
@@ -1828,6 +1996,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static float Max(this float value, params float[] values)
         {
             if (values == null)
@@ -1847,6 +2016,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static double Max(this double value, params double[] values)
         {
             if (values == null)
@@ -1866,6 +2036,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static decimal Max(this decimal value, params decimal[] values)
         {
             if (values == null)
@@ -1885,6 +2056,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static BigInteger Max(this BigInteger value, params BigInteger[] values)
         {
             if (values == null)
@@ -1904,6 +2076,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static BigDecimal Max(this BigDecimal value, params BigDecimal[] values)
         {
             if (values == null)
@@ -1923,6 +2096,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static nint Max(this nint value, params nint[] values)
         {
             if (values == null)
@@ -1942,6 +2116,7 @@ namespace SCKRM
             return num2;
         }
 
+        [WikiIgnore]
         public static nuint Max(this nuint value, params nuint[] values)
         {
             if (values == null)
@@ -1965,7 +2140,7 @@ namespace SCKRM
 
     public static class ListTool
     {
-        public static void Move<T>(this List<T> list, int oldIndex, int newIndex)
+        public static void Move<T>(this IList<T> list, int oldIndex, int newIndex)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -1975,7 +2150,7 @@ namespace SCKRM
             list.Insert(newIndex, temp);
         }
 
-        public static void Change<T>(this List<T> list, int oldIndex, int newIndex)
+        public static void Change<T>(this IList<T> list, int oldIndex, int newIndex)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -1992,12 +2167,12 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static byte CloseValue(this List<byte> list, byte target)
+        public static byte CloseValue(this IEnumerable<byte> list, byte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
@@ -2009,12 +2184,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static sbyte CloseValue(this List<sbyte> list, sbyte target)
+        [WikiIgnore]
+        public static sbyte CloseValue(this IEnumerable<sbyte> list, sbyte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2026,12 +2202,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static short CloseValue(this List<short> list, short target)
+        [WikiIgnore]
+        public static short CloseValue(this IEnumerable<short> list, short target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2043,12 +2220,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static ushort CloseValue(this List<ushort> list, ushort target)
+        [WikiIgnore]
+        public static ushort CloseValue(this IEnumerable<ushort> list, ushort target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
@@ -2060,12 +2238,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static int CloseValue(this List<int> list, int target)
+        [WikiIgnore]
+        public static int CloseValue(this IEnumerable<int> list, int target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2077,12 +2256,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static uint CloseValue(this List<uint> list, uint target)
+        [WikiIgnore]
+        public static uint CloseValue(this IEnumerable<uint> list, uint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
@@ -2094,12 +2274,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static long CloseValue(this List<long> list, long target)
+        [WikiIgnore]
+        public static long CloseValue(this IEnumerable<long> list, long target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2111,12 +2292,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static ulong CloseValue(this List<ulong> list, ulong target)
+        [WikiIgnore]
+        public static ulong CloseValue(this IEnumerable<ulong> list, ulong target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
@@ -2128,12 +2310,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static float CloseValue(this List<float> list, float target)
+        [WikiIgnore]
+        public static float CloseValue(this IEnumerable<float> list, float target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2145,12 +2328,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static double CloseValue(this List<double> list, double target)
+        [WikiIgnore]
+        public static double CloseValue(this IEnumerable<double> list, double target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2162,12 +2346,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static decimal CloseValue(this List<decimal> list, decimal target)
+        [WikiIgnore]
+        public static decimal CloseValue(this IEnumerable<decimal> list, decimal target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2179,12 +2364,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static BigInteger CloseValue(this List<BigInteger> list, BigInteger target)
+        [WikiIgnore]
+        public static BigInteger CloseValue(this IEnumerable<BigInteger> list, BigInteger target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2196,12 +2382,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static BigDecimal CloseValue(this List<BigDecimal> list, BigDecimal target)
+        [WikiIgnore]
+        public static BigDecimal CloseValue(this IEnumerable<BigDecimal> list, BigDecimal target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
@@ -2213,12 +2400,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static nint CloseValue(this List<nint> list, nint target)
+        [WikiIgnore]
+        public static nint CloseValue(this IEnumerable<nint> list, nint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
@@ -2230,12 +2418,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static nuint CloseValue(this List<nuint> list, nuint target)
+        [WikiIgnore]
+        public static nuint CloseValue(this IEnumerable<nuint> list, nuint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (list.Count > 0)
+            if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
@@ -2249,7 +2438,7 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<byte> list, byte target)
+        public static int CloseValueIndex(this IList<byte> list, byte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2266,7 +2455,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<sbyte> list, sbyte target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<sbyte> list, sbyte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2283,7 +2473,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<short> list, short target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<short> list, short target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2300,7 +2491,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<ushort> list, ushort target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<ushort> list, ushort target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2317,7 +2509,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<int> list, int target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<int> list, int target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2334,7 +2527,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<uint> list, uint target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<uint> list, uint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2351,7 +2545,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<long> list, long target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<long> list, long target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2368,7 +2563,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<ulong> list, ulong target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<ulong> list, ulong target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2385,7 +2581,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<float> list, float target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<float> list, float target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2402,7 +2599,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<double> list, double target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<double> list, double target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2419,7 +2617,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<decimal> list, decimal target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<decimal> list, decimal target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2436,7 +2635,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<BigInteger> list, BigInteger target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<BigInteger> list, BigInteger target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2453,7 +2653,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<BigDecimal> list, BigDecimal target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<BigDecimal> list, BigDecimal target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2470,7 +2671,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<nint> list, nint target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<nint> list, nint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2487,7 +2689,8 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this List<nuint> list, nuint target)
+        [WikiIgnore]
+        public static int CloseValueIndex(this IList<nuint> list, nuint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -2512,7 +2715,7 @@ namespace SCKRM
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2523,13 +2726,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<sbyte> list, sbyte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2540,13 +2744,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<short> list, short target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2557,13 +2762,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<ushort> list, ushort target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2574,13 +2780,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<int> list, int target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2591,13 +2798,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<uint> list, uint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2608,13 +2816,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<long> list, long target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2625,13 +2834,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<ulong> list, ulong target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2642,13 +2852,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<float> list, float target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2659,13 +2870,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<double> list, double target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2676,13 +2888,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<decimal> list, decimal target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2693,13 +2906,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<BigInteger> list, BigInteger target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2710,13 +2924,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<BigDecimal> list, BigDecimal target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2727,13 +2942,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<nint> list, nint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2744,13 +2960,14 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static int CloseValueIndexBinarySearch(this List<nuint> list, nuint target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count > 0)
-                return list.IndexOf(list.CloseValue(target));
+                return list.BinarySearch(list.CloseValue(target));
 
             return 0;
         }
@@ -2787,7 +3004,7 @@ namespace SCKRM
         }
 
         #region Deduplicate
-        public static void Deduplicate(this List<float> values, float delta)
+        public static void Deduplicate(this IList<float> values, float delta)
         {
             int index = 0;
             while (index < values.Count)
@@ -2807,7 +3024,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<float> values, float delta, float setValue)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<float> values, float delta, float setValue)
         {
             int index = 0;
             while (index < values.Count)
@@ -2827,7 +3045,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<double> values, double delta)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<double> values, double delta)
         {
             int index = 0;
             while (index < values.Count)
@@ -2847,7 +3066,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<double> values, double delta, double setValue)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<double> values, double delta, double setValue)
         {
             int index = 0;
             while (index < values.Count)
@@ -2867,7 +3087,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<decimal> values, decimal delta)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<decimal> values, decimal delta)
         {
             int index = 0;
             while (index < values.Count)
@@ -2887,7 +3108,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<decimal> values, decimal delta, decimal setValue)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<decimal> values, decimal delta, decimal setValue)
         {
             int index = 0;
             while (index < values.Count)
@@ -2907,7 +3129,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<BigDecimal> values, BigDecimal delta)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<BigDecimal> values, BigDecimal delta)
         {
             int index = 0;
             while (index < values.Count)
@@ -2927,7 +3150,8 @@ namespace SCKRM
             }
         }
 
-        public static void Deduplicate(this List<BigDecimal> values, BigDecimal delta, BigDecimal setValue)
+        [WikiIgnore]
+        public static void Deduplicate(this IList<BigDecimal> values, BigDecimal delta, BigDecimal setValue)
         {
             int index = 0;
             while (index < values.Count)
@@ -2947,356 +3171,6 @@ namespace SCKRM
             }
         }
         #endregion
-    }
-
-    public static class ArrayTool
-    {
-        #region Close Value
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// byte
-        /// </returns>
-        public static byte CloseValue(this byte[] array, byte target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// sbyte
-        /// </returns>
-        public static sbyte CloseValue(this sbyte[] array, sbyte target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// short
-        /// </returns>
-        public static short CloseValue(this short[] array, short target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// ushort
-        /// </returns>
-        public static ushort CloseValue(this ushort[] array, ushort target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// int
-        /// </returns>
-        public static int CloseValue(this int[] array, int target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// uint
-        /// </returns>
-        public static uint CloseValue(this uint[] array, uint target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// long
-        /// </returns>
-        public static long CloseValue(this long[] array, long target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// ulong
-        /// </returns>
-        public static ulong CloseValue(this ulong[] array, ulong target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// float
-        /// </returns>
-        public static float CloseValue(this float[] array, float target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// double
-        /// </returns>
-        public static double CloseValue(this double[] array, double target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// double
-        /// </returns>
-        public static decimal CloseValue(this decimal[] array, decimal target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// double
-        /// </returns>
-        public static BigInteger CloseValue(this BigInteger[] array, BigInteger target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// double
-        /// </returns>
-        public static BigDecimal CloseValue(this BigDecimal[] array, BigDecimal target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// double
-        /// </returns>
-        public static nint CloseValue(this nint[] array, nint target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 가장 가까운 수를 찾습니다
-        /// </summary>
-        /// <param name="array">
-        /// 리스트
-        /// </param>
-        /// <param name="target">
-        /// 기준
-        /// </param>
-        /// <returns>
-        /// double
-        /// </returns>
-        public static nuint CloseValue(this nuint[] array, nuint target)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            if (array.Length > 0)
-                return array.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
-
-            return 0;
-        }
-        #endregion Close Value
     }
 
     public static class StringTool
@@ -3724,7 +3598,7 @@ namespace SCKRM
         /// <param name="max"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static string ToBar(this float value, float max, int length, string fill = "■", string half = "▣", string empty = "□") => ToBar((double)value, max, length, fill, half, empty);
+        [WikiIgnore] public static string ToBar(this float value, float max, int length, string fill = "■", string half = "▣", string empty = "□") => ToBar((double)value, max, length, fill, half, empty);
 
         /// <summary>
         /// (value = 5.5, max = 10, length = 10) = "■■■■■▣□□□□"
@@ -3733,6 +3607,7 @@ namespace SCKRM
         /// <param name="max"></param>
         /// <param name="length"></param>
         /// <returns></returns>
+        [WikiIgnore]
         public static string ToBar(this double value, double max, int length, string fill = "■", string half = "▣", string empty = "□")
         {
             if (fill == null)
@@ -3768,7 +3643,7 @@ namespace SCKRM
         /// <param name="byteSize">계산할 용량</param>
         /// <param name="digits">계산된 용량에서 표시할 소수점 자리수</param>
         /// <returns>계산된 용량</returns>
-        public static string DataSizeToString(this long byteSize, int digits) => ByteTo(byteSize, out string space).Round(digits) + space;
+        [WikiIgnore] public static string DataSizeToString(this long byteSize, int digits) => ByteTo(byteSize, out string space).Round(digits) + space;
 
         /// <summary>
         /// 데이터 크기를(바이트) 적절하게 바꿔줍니다 (B, KB, MB, GB, TB, PB, EB, ZB, YB)
@@ -3807,6 +3682,7 @@ namespace SCKRM
             return size;
         }
 
+        [WikiIgnore]
         public static double ByteTo(long byteSize, DataSizeType dataSizeType, out string space)
         {
             double size = byteSize / Math.Pow(1024, (int)dataSizeType);
@@ -3845,7 +3721,7 @@ namespace SCKRM
         /// <param name="path2">두번째 경로</param>
         /// <param name="path3">세번째 경로</param>
         /// <returns></returns>
-        public static string Combine(string path1, string path2, string path3) => Path.Combine(path1, path2, path3).Replace("\\", "/");
+        [WikiIgnore] public static string Combine(string path1, string path2, string path3) => Path.Combine(path1, path2, path3).Replace("\\", "/");
         /// <summary>
         /// (paths = ("asdf", "asdf")) = "asdf/asdf" (Path.Combine is "asdf\asdf")
         /// </summary>
@@ -3854,13 +3730,13 @@ namespace SCKRM
         /// <param name="path3">세번째 경로</param>
         /// <param name="path4">네번째 경로</param>
         /// <returns></returns>
-        public static string Combine(string path1, string path2, string path3, string path4) => Path.Combine(path1, path2, path3, path4).Replace("\\", "/");
+        [WikiIgnore] public static string Combine(string path1, string path2, string path3, string path4) => Path.Combine(path1, path2, path3, path4).Replace("\\", "/");
         /// <summary>
         /// (paths = ("asdf", "asdf")) = "asdf/asdf" (Path.Combine is "asdf\asdf")
         /// </summary>
         /// <param name="paths">경로들</param>
         /// <returns></returns>
-        public static string Combine(params string[] paths) => Path.Combine(paths).Replace("\\", "/");
+        [WikiIgnore] public static string Combine(params string[] paths) => Path.Combine(paths).Replace("\\", "/");
 
         public static string RemoveInvalidPathChars(string filename) => string.Concat(filename.Split(Path.GetInvalidPathChars()));
         public static string ReplaceInvalidPathChars(string filename) => string.Join("_", filename.Split(Path.GetInvalidPathChars()));
@@ -3868,7 +3744,14 @@ namespace SCKRM
         public static string RemoveInvalidFileNameChars(string filename) => string.Concat(filename.Split(Path.GetInvalidFileNameChars()));
         public static string ReplaceInvalidFileNameChars(string filename) => string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
 
-        public static string GetPathWithExtension(string path) => path.Remove(path.Length - Path.GetExtension(path).Length);
+        public static string GetPathWithExtension(string path)
+        {
+            string extension = Path.GetExtension(path);
+            if (extension != "")
+                return path.Remove(path.Length - extension.Length);
+            else
+                return path;
+        }
     }
 
     public static class DirectoryTool
@@ -3899,6 +3782,7 @@ namespace SCKRM
         }
 
         public static string[] GetFiles(string path, params string[] searchPatterns) => GetFiles(path, searchPatterns, SearchOption.TopDirectoryOnly);
+        [WikiIgnore]
         public static string[] GetFiles(string path, string[] searchPatterns, SearchOption searchOption)
         {
             List<string> paths = new List<string>();
@@ -3957,7 +3841,7 @@ namespace SCKRM
         /// <param name="hourAlwayShow">시간, 분 단위 항상 표시</param>
         /// <param name="dayAlwayShow">하루, 시간, 분 단위 항상 표시</param>
         /// <returns></returns>
-        public static string ToTime(this float second, bool decimalShow = true, bool minuteAlwayShow = false, bool hourAlwayShow = false, bool dayAlwayShow = false) => ToTime((double)second, decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
+        [WikiIgnore] public static string ToTime(this float second, bool decimalShow = true, bool minuteAlwayShow = false, bool hourAlwayShow = false, bool dayAlwayShow = false) => ToTime((double)second, decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
 
         /// <summary>
         /// (second = 70.1) = "1:10.1"
@@ -3968,6 +3852,7 @@ namespace SCKRM
         /// <param name="hourAlwayShow">시간, 분 단위 항상 표시</param>
         /// <param name="dayAlwayShow">하루, 시간, 분 단위 항상 표시</param>
         /// <returns></returns>
+        [WikiIgnore]
         public static string ToTime(this double second, bool decimalShow = true, bool minuteAlwayShow = false, bool hourAlwayShow = false, bool dayAlwayShow = false)
         {
             try
@@ -4012,10 +3897,9 @@ namespace SCKRM
         }
         #endregion
 
+        static readonly KoreanLunisolarCalendar klc = new KoreanLunisolarCalendar();
         public static DateTime ToLunarDate(this DateTime dateTime)
         {
-            KoreanLunisolarCalendar klc = new KoreanLunisolarCalendar();
-
             int year = klc.GetYear(dateTime);
             int month = klc.GetMonth(dateTime);
             int day = klc.GetDayOfMonth(dateTime);
@@ -4036,8 +3920,6 @@ namespace SCKRM
 
         public static DateTime ToSolarDate(this DateTime dateTime, bool isLeapMonth = false)
         {
-            KoreanLunisolarCalendar klc = new KoreanLunisolarCalendar();
-
             int year = dateTime.Year;
             int month = dateTime.Month;
             int day = dateTime.Day;

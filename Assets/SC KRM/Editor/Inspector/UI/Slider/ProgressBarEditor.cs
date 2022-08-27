@@ -18,6 +18,10 @@ namespace SCKRM.Editor
 
             DrawLine();
 
+            UseProperty("_allowNoResponse", "응답 없음 애니메이션 허용");
+
+            DrawLine();
+
             UseProperty("_slider");
             UseProperty("_fillShow");
         }

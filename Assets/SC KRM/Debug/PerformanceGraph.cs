@@ -8,6 +8,7 @@ using UnityEngine.UI.Extensions;
 
 namespace SCKRM.DebugUI
 {
+    [WikiDescription("F3 디버그 모드의 FPS 및 메모리 그래프를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Debug/UI/Performance Graph")]
     public sealed class PerformanceGraph : UIAni
     {

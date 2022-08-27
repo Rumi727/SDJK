@@ -4,6 +4,7 @@ using SCKRM.ProjectSetting;
 
 namespace SCKRM.Splash
 {
+    [WikiDescription("스플래시 스크린을 관리하는 클래스 입니다")]
     public static class SplashScreen
     {
         [ProjectSettingSaveLoad]
@@ -22,6 +23,7 @@ namespace SCKRM.Splash
             [JsonProperty] public static bool allowProgressBarShow { get; set; } = false;
         }
 
+        [WikiDescription("스플래시 스크린이 재생 중인지 여부")]
         public static bool isAniPlaying { get; set; } = true;
     }
 }

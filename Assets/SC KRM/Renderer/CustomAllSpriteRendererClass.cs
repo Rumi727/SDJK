@@ -1,9 +1,11 @@
 using SCKRM.Resource;
+using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
 
 namespace SCKRM.Renderer
 {
+    [WikiDescription("모든 스프라이트 렌더러의 부모")]
     public abstract class CustomAllSpriteRenderer : CustomAllRenderer
     {
         int typeLock = 0;
@@ -86,21 +88,21 @@ namespace SCKRM.Renderer
             queue.Enqueue();
         }*/
 
-        public Sprite SpriteReload(string type, string name, int index, string nameSpace = "")
+        public static Sprite GetSprite(string type, string name, int index, string nameSpace = "")
         {
-            if (Kernel.isPlaying)
+            if (Kernel.isPlaying && InitialLoadManager.isInitialLoadEnd)
             {
                 Sprite[] sprites = ResourceManager.SearchSprites(type, name, nameSpace);
-                if (sprites != null && index < sprites.Length)
-                    return sprites[index];
+                if (sprites != null && sprites.Length > 0)
+                    return sprites[index.Clamp(0, sprites.Length - 1)];
 
                 return null;
             }
             else
             {
-                Sprite[] sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace, TextureFormat.DXT5);
-                if (sprites != null && index < sprites.Length)
-                    return sprites[index];
+                Sprite[] sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace, TextureFormat.DXT1);
+                if (sprites != null && sprites.Length > 0)
+                    return sprites[index.Clamp(0, sprites.Length - 1)];
                 else
                     return null;
             }
@@ -189,8 +191,12 @@ namespace SCKRM.Renderer
         {
             string nameSpace = ResourceManager.GetNameSpace(value, out value);
 
-            if (!int.TryParse(ResourceManager.GetNameSpace(value, out value), out int spriteIndex))
-                spriteIndex = 0;
+            MatchCollection matches = Regex.Matches(value, ":");
+            int count = matches.Count;
+
+            int spriteIndex = 0;
+            if (count >= 2 && !int.TryParse(ResourceManager.GetNameSpace(value, out value), out spriteIndex))
+                spriteIndex = -1;
 
             string type = ResourceManager.GetTextureType(value, out value);
             return new NameSpaceIndexTypePathPair(nameSpace, spriteIndex, type, value);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace SCKRM.FileDialog.Screen
 {
+    [WikiDescription("파일 선택 화면을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Screen")]
     public sealed class FileDialogScreen : UI.UI, IRecyclableScrollRectDataSource
     {
@@ -18,6 +19,7 @@ namespace SCKRM.FileDialog.Screen
 
         protected override void Awake() => recyclableScrollRect.Initialize(this);
 
+        [WikiDescription("새로고침")]
         public void Refresh()
         {
             string path = FileDialogManager.currentPath;
@@ -59,8 +61,10 @@ namespace SCKRM.FileDialog.Screen
             recyclableScrollRect.ReloadData();
         }
 
+        [WikiDescription("표시된 아이템이 개수")]
         public int GetItemCount() => directorys.Length + files.Length;
 
+        [WikiDescription("파일 선택 화면의 버튼을 설정")]
         public void SetCell(ICell cell, int index)
         {
             FileDialogScreenButton item = (FileDialogScreenButton)cell;

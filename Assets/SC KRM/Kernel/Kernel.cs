@@ -10,28 +10,30 @@ using System.IO;
 
 namespace SCKRM
 {
+    [WikiDescription("총 관리자")]
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        public static Version sckrmVersion { get; } = new Version(0, 8, 1);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 10, 0);
 
 
 
-        public static float fps { get; private set; } = 60;
+        [WikiDescription("현재 FPS")] public static float fps { get; private set; } = 60;
 
-        public static float deltaTime { get; private set; } = fps60second;
-        public static float fpsDeltaTime { get; private set; } = 1;
-        public static float unscaledDeltaTime { get; private set; } = fps60second;
-        public static float fpsUnscaledDeltaTime { get; private set; } = 1;
-        public static float fixedDeltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 델타타임")] public static float deltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 FPS 델타타임")] public static float fpsDeltaTime { get; private set; } = 1;
+        [WikiDescription("현재 스케일되지 않은 델타타임")] public static float unscaledDeltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 스케일되지 않은 FPS 델타타임")] public static float fpsUnscaledDeltaTime { get; private set; } = 1;
+        [WikiDescription("현재 고정 델타타임")] public static float fixedDeltaTime { get; private set; } = fps60second;
 
-        public const float fps60second = 1f / 60f;
-        
+        [WikiDescription("1 / 60")] public const float fps60second = 1f / 60f;
+
 
 
         /// <summary>
         /// Application.dataPath
         /// </summary>
+        [WikiDescription("[Application.dataPath](https://docs.unity3d.com/ScriptReference/Application-dataPath.html)")]
         public static string dataPath
         {
             get
@@ -47,11 +49,13 @@ namespace SCKRM
         /// <summary>
         /// Application.streamingAssetsPath
         /// </summary>
+        [WikiDescription("[Application.streamingAssetsPath](https://docs.unity3d.com/ScriptReference/Application-streamingAssetsPath.html)")]
         public static string streamingAssetsPath { get; } = Application.streamingAssetsPath;
 
         /// <summary>
         /// Application.persistentDataPath
         /// </summary>
+        [WikiDescription("[Application.persistentDataPath](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html)")]
         public static string persistentDataPath
         {
             get
@@ -67,6 +71,7 @@ namespace SCKRM
         /// <summary>
         /// Application.temporaryCachePath
         /// </summary>
+        [WikiDescription("[Application.temporaryCachePath](https://docs.unity3d.com/ScriptReference/Application-temporaryCachePath.html)")]
         public static string temporaryCachePath
         {
             get
@@ -82,6 +87,7 @@ namespace SCKRM
         /// <summary>
         /// Kernel.persistentDataPath + "/Save Data"
         /// </summary>
+        [WikiDescription("[Kernel.persistentDataPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#persistentdatapath) + \"/Save Data\"")]
         public static string saveDataPath
         {
             get
@@ -104,6 +110,7 @@ namespace SCKRM
         /// <summary>
         /// Kernel.persistentDataPath + "/Resource Pack"
         /// </summary>
+        [WikiDescription("[Kernel.persistentDataPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#persistentdatapath) + \"/Resource Pack\"")]
         public static string resourcePackPath
         {
             get
@@ -126,6 +133,7 @@ namespace SCKRM
         /// <summary>
         /// Kernel.streamingAssetsPath + "/projectSettings"
         /// </summary>
+        [WikiDescription("[Kernel.streamingAssetsPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#streamingAssetsPath) + \"/projectSettings\"")]
         public static string projectSettingPath { get; } = streamingAssetsPath + "/projectSettings";
 
 
@@ -133,6 +141,7 @@ namespace SCKRM
         /// <summary>
         /// Application.companyName
         /// </summary>
+        [WikiDescription("[Application.companyName](https://docs.unity3d.com/ScriptReference/Application-companyName.html)")]
         public static string companyName
         {
             get
@@ -148,6 +157,7 @@ namespace SCKRM
         /// <summary>
         /// Application.productName
         /// </summary>
+        [WikiDescription("[Application.productName](https://docs.unity3d.com/ScriptReference/Application-productName.html)")]
         public static string productName
         {
             get
@@ -163,6 +173,7 @@ namespace SCKRM
         /// <summary>
         /// Application.version
         /// </summary>
+        [WikiDescription("[Application.version](https://docs.unity3d.com/ScriptReference/Application-version.html)")]
         public static string version
         {
             get
@@ -180,6 +191,7 @@ namespace SCKRM
         /// <summary>
         /// Application.unityVersion
         /// </summary>
+        [WikiDescription("[Application.unityVersion](https://docs.unity3d.com/ScriptReference/Application-unityVersion.html)")]
         public static string unityVersion
         {
             get
@@ -197,6 +209,7 @@ namespace SCKRM
         /// <summary>
         /// Application.platform
         /// </summary>
+        [WikiDescription("[Application.platform](https://docs.unity3d.com/ScriptReference/Application-platform.html)")]
         public static RuntimePlatform platform { get; } = Application.platform;
 
 
@@ -204,6 +217,7 @@ namespace SCKRM
         /// <summary>
         /// 게임의 전체 속도를 결정 합니다
         /// </summary>
+        [WikiDescription("게임의 전체 속도를 결정 합니다")]
         public static float gameSpeed { get; set; } = 1;
 
 
@@ -214,6 +228,10 @@ namespace SCKRM
         /// /
         /// Build: const false
         /// </summary>
+        [WikiDescription(
+@"Editor: [ThreadManager.isMainThread](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Threads.ThreadManager#ismainthread) && [Application.isEditor](https://docs.unity3d.com/ScriptReference/Application-isEditor.html)
+Build: const false"
+)]
         public static bool isEditor => ThreadManager.isMainThread && Application.isEditor;
 
         /// <summary>
@@ -221,6 +239,10 @@ namespace SCKRM
         /// /
         /// Build: const true
         /// </summary>
+        [WikiDescription(
+@"Editor: ![ThreadManager.isMainThread](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Threads.ThreadManager#ismainthread) || [Application.isPlaying](https://docs.unity3d.com/ScriptReference/Application-isPlaying.html)
+Build: const true"
+)]
         public static bool isPlaying => !ThreadManager.isMainThread || Application.isPlaying;
 
         /// <summary>
@@ -228,6 +250,10 @@ namespace SCKRM
         /// /
         /// Build: const true
         /// </summary>
+        [WikiDescription(
+        @"Editor: ![ThreadManager.isMainThread](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Threads.ThreadManager#ismainthread) || ([Application.isPlaying](https://docs.unity3d.com/ScriptReference/Application-isPlaying.html) && ![UnityEditor.EditorApplication.isPaused](https://docs.unity3d.com/ScriptReference/EditorApplication-isPaused.html))
+Build: const true"
+)]
         public static bool isPlayingAndNotPaused => !ThreadManager.isMainThread || (Application.isPlaying && !UnityEditor.EditorApplication.isPaused);
 #else
         public const bool isEditor = false;
@@ -240,6 +266,7 @@ namespace SCKRM
         /// <summary>
         /// 빈 게임 오브젝트
         /// </summary>
+        [WikiDescription("빈 게임 오브젝트")]
         public static Transform emptyTransform
         {
             get
@@ -255,6 +282,7 @@ namespace SCKRM
         /// <summary>
         /// 사각 트랜스폼이 추가된 빈 게임 오브젝트
         /// </summary>
+        [WikiDescription("사각 트랜스폼이 추가된 빈 게임 오브젝트")]
         public static RectTransform emptyRectTransform
         {
             get
@@ -272,6 +300,7 @@ namespace SCKRM
         /// <summary>
         /// 프로그램 종료 이벤트
         /// </summary>
+        [WikiDescription("프로그램 종료 이벤트")]
         public static event Func<bool> shutdownEvent;
 
 
@@ -371,8 +400,9 @@ namespace SCKRM
 
 
 
-        public static event Action allRefreshStart;
-        public static event Action allRefreshEnd;
+        [WikiDescription("전체 새로고침 시작 이벤트")] public static event Action allRefreshStart;
+        [WikiDescription("전체 새로고침 끝 이벤트")] public static event Action allRefreshEnd;
+        [WikiDescription("전체 새로고침")]
         public static async UniTaskVoid AllRefresh()
         {
             if (!ThreadManager.isMainThread)
@@ -395,10 +425,11 @@ namespace SCKRM
             allRefreshEnd?.Invoke();
         }
 
-        public static void RevealInFinder(string path) => Application.OpenURL("file:///" + path);
+        [WikiDescription("파일 탐색기로 열기")] public static void RevealInFinder(string path) => Application.OpenURL("file:///" + path);
     }
 
 
+    [WikiDescription("It is not possible to use {method} functions when not in play mode.\n플레이 모드가 아닐때 이 함수를 사용하는건 불가능합니다")]
     public class NotPlayModeMethodException : Exception
     {
         /// <summary>
@@ -416,6 +447,7 @@ namespace SCKRM
 
 
 
+    [WikiDescription("It is not possible to use this property when not in play mode.\n플레이 모드가 아닐때 이 프로퍼티를 사용하는건 불가능합니다")]
     public class NotPlayModePropertyException : Exception
     {
         /// <summary>
@@ -433,6 +465,7 @@ namespace SCKRM
 
 
 
+    [WikiDescription("Initial loading was not finished, but I tried to use a function that needs loading\n초기 로딩이 안끝났는데 로딩이 필요한 함수를 사용하려 했습니다")]
     public class NotInitialLoadEndMethodException : Exception
     {
         /// <summary>
@@ -450,6 +483,7 @@ namespace SCKRM
 
 
 
+    [WikiDescription("No object in folder\n폴더에 오브젝트가 없습니다")]
     public class NullObjectException : Exception
     {
         /// <summary>
@@ -471,6 +505,7 @@ namespace SCKRM
         public NullObjectException(string objectPath, string objectName) : base($"Object {objectName} does not exist in {objectPath} folder\n{objectPath} 폴더에 {objectName} 오브젝트가 없습니다") { }
     }
 
+    [WikiDescription("No object in resource folder\n리소스 폴더에 오브젝트가 없습니다")]
     public class NullResourceObjectException : Exception
     {
         /// <summary>
@@ -486,6 +521,7 @@ namespace SCKRM
         public NullResourceObjectException(string objectName) : base($"Object {objectName} does not exist in resource folder\n리소스 폴더에 {objectName} 오브젝트가 없습니다") { }
     }
 
+    [WikiDescription("no scene\n씬이 없습니다")]
     public class NullSceneException : Exception
     {
         /// <summary>
@@ -501,6 +537,7 @@ namespace SCKRM
         public NullSceneException(string sceneName) : base($"{sceneName} no scene\n{sceneName} 씬이 없습니다") { }
     }
 
+    [WikiDescription("Failed to execute function because script does not exist\n스크립트가 없어서 함수를 실행하지 못했습니다")]
     public class NullScriptMethodException : Exception
     {
         /// <summary>

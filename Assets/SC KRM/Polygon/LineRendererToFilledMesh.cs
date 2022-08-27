@@ -6,6 +6,7 @@ namespace SCKRM.Polygon
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(LineRenderer))]
     [AddComponentMenu("SC KRM/Polygon/Line Renderer To Filled Mesh")]
+    [WikiDescription("라인 렌더러를 채워진 메쉬로 변환하는 클래스 입니다")]
     public sealed class LineRendererToFilledMesh : MonoBehaviour
     {
         LineRenderer _lineRenderer;

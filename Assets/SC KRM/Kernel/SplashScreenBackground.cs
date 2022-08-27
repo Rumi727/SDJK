@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace SCKRM
 {
+    [WikiDescription("SC KRM의 초기 로딩이 끝난 직후 페이드 아웃을 표시하기 위한 클래스 입니다")]
     [AddComponentMenu("SC KRM/Kernel/Splash Screen Background")]
     public sealed class SplashScreenBackground : MonoBehaviour
     {

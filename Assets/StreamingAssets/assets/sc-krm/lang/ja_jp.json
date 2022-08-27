@@ -29,6 +29,7 @@
 	
 	"gui.inputfield.enter_number": "数値を入力...",
 	"gui.inputfield.enter_text": "テキスト入力...",
+	"gui.inputfield.enter_command": "命令入力...",
 	"gui.inputfield.search": "検索...",
 	"gui.inputfield.enter_file_name": "ファイル名入力...",
 	"gui.inputfield.enter_folder_name": "フォルダ名入力...",
@@ -208,6 +209,67 @@
 	
 	"notice.april_fools_day.title": "今日は何日？",
 	"notice.april_fools_day.description": "今日はエイプリルフールです！\n<s>しかし今は私の昼食です</s>",
+	
+	
+	
+	"command.double_too_small": "この倍精度浮動小数点数は%min%以上でなくてはならないため、%found%は適しません",
+	"command.double_too_big": "この倍精度浮動小数点数は%max%以下でなくてはならないため、%found%は適しません",
+	
+	"command.float_too_small": "この浮動小数点数は%min%以上でなくてはならないため、%found%は適しません",
+	"command.float_too_big": "この浮動小数点数は%max&以下でなくてはならないため、%found%は適しません",
+	
+	"command.integer_too_small": "この整数は%min%以上でなくてはならないため、%found%は適しません",
+	"command.integer_too_big": "この整数は%max%以下でなくてはならないため、%found%は適しません",
+	
+	"command.long_too_small": "この64ビット整数は%min%以上でなくてはならないため、%found%は適しません",
+	"command.long_too_big": "この64ビット整数は%max%以下でなくてはならないため、%found%は適しません",
+	
+	"command.colon_too_many": "コロンの数は%max%以下でなくてはならないため、%found%は適しません",
+	
+	"command.literal_incorrect": "リテラル「%expected%」が必要です",
+	
+	"command.world_local_pos_mixed": "ワールド座標とローカル座標は混合できません（^を用いるか用いないかは統一する必要があります）",
+	
+	"command.reader_expected_start_of_quote": "文字列の始めには引用符が必要です",
+	"command.reader_expected_end_of_quote": "文字列の引用符が閉じられていません",
+	"command.reader_invalid_escape": "無効な文字列内のエスケープシーケンス：「\\%character%」",
+	"command.reader_invalid_bool": "「%value%」は不正なブーリアン値です。「true」もしくは「false」である必要があります",
+	"command.reader_invalid_int": "「%value%」は無効な整数です",
+	"command.reader_expected_int": "整数が必要です",
+	"command.reader_invalid_long": "「%value%」は無効な64ビット整数です",
+	"command.reader_expected_long": "64ビット整数が必要です",
+	"command.reader_invalid_double": "「%value%」は無効な倍精度浮動小数点数です",
+	"command.reader_expected_double": "倍精度浮動小数点数が必要です",
+	"command.reader_invalid_float": "「%value%」は無効な浮動小数点数です",
+	"command.reader_expected_float": "浮動小数点数が必要です",
+	"command.reader_expected_bool": "ブーリアン値が必要です",
+	"command.reader_expected_symbol": "「%symbol%」が必要です",
+	"command.reader_invalid_pos_swizzle": "'無効な組み合わせです。「x」「y」「z」の組み合わせであるべきです",
+	
+	"command.dispatcher_unknown_command": "不明または不完全なコマンドです",
+	"command.dispatcher_unknown_argument": "コマンドの引数が正しくありません",
+	"command.dispatcher_expected_argument_separator": "引数の区切りに空白が必要ですが、つながっています",
+	"command.dispatcher_parse_exception": "コマンドを解釈できませんでした：%message%",
+	
+	"command.context.here": "←［問題箇所］",
+    "command.context.parse_error": "%pos%文字目の%message%：%text%",
+	
+	
+	
+	"command.value_of": "%name% の値は %value% です",
+	"command.change_to": "%name% を %value% に変更しました",
+	
+	"command.play_sound": "音を再生しました",
+	"command.stop_sound": "音を停止しました",
+	"command.stop_sound_all": "すべての音を停止しました",
+	
+	"command.play_nbs": "NBSを再生しました",
+	"command.stop_nbs": "NBSを停止しました",
+	"command.stop_nbs_all": "すべてのNBSを停止しました",
+	
+	"command.all_refresh": "すべて更新しました",
+	"command.all_rerender": "すべてのレンダラーを更新しました",
+	"command.all_text_rerender": "すべてのテキストレンダラーを更新しました",
 	
 	
 	

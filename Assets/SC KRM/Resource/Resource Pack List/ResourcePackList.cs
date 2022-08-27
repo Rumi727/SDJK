@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace SCKRM.Resource.UI
 {
+    [WikiDescription("리소스팩 리스트를 표시하기 위한 클래스 입니다")]
     [AddComponentMenu("SC KRM/Resource/Resource Pack List/Resource Pack List")]
     public sealed class ResourcePackList : MonoBehaviour
     {

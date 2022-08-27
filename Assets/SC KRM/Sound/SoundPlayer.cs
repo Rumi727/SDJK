@@ -6,6 +6,7 @@ using SCKRM.UI.Overlay;
 
 namespace SCKRM.Sound
 {
+    [WikiDescription("사운드를 플레이하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Sound/Sound Player", 0)]
     [RequireComponent(typeof(AudioSource)), RequireComponent(typeof(AudioLowPassFilter))]
     public sealed class SoundPlayer : SoundPlayerParent<SoundMetaData>
@@ -15,6 +16,7 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("현재 시간")]
         public override float time
         {
             get => audioSource.time;
@@ -28,11 +30,12 @@ namespace SCKRM.Sound
                     _timeChanged?.Invoke();
             }
         }
-        public override float realTime { get => time / speed; set => time = value * speed; }
+        [WikiDescription("현재 실제 시간")] public override float realTime { get => time / speed; set => time = value * speed; }
 
-        public override float length => (float)(audioSource.clip != null ? audioSource.clip.length : 0);
-        public override float realLength => length / speed;
+        [WikiDescription("곡의 길이")] public override float length => (float)(audioSource.clip != null ? audioSource.clip.length : 0);
+        [WikiDescription("곡의 실제 길이")] public override float realLength => length / speed;
 
+        [WikiDescription("루프 가능 여부")]
         public override bool loop
         {
             get => base.loop;
@@ -45,9 +48,11 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("현재 루프 중인지에 대한 여부")]
         public override bool isLooped { get; protected set; } = false;
 
         bool _isPaused = false;
+        [WikiDescription("일시중지 여부")]
         public override bool isPaused
         {
             get => _isPaused;
@@ -64,6 +69,7 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("피치")]
         public override float pitch
         {
             get => base.pitch;
@@ -75,6 +81,7 @@ namespace SCKRM.Sound
                 SetVolume();
             }
         }
+        [WikiDescription("템포")]
         public override float tempo
         {
             get => base.tempo;
@@ -87,6 +94,7 @@ namespace SCKRM.Sound
             }
         }
 
+        [WikiDescription("속도")]
         public override float speed
         {
             get
@@ -104,6 +112,7 @@ namespace SCKRM.Sound
                     pitch = value;
             }
         }
+        [WikiDescription("실제 속도")]
         public override float realSpeed
         {
             get
@@ -118,6 +127,7 @@ namespace SCKRM.Sound
             }
         }
 
+        [WikiDescription("볼륨")]
         public override float volume
         {
             get => base.volume;
@@ -129,6 +139,7 @@ namespace SCKRM.Sound
         }
 
 
+        [WikiDescription("최소 거리")]
         public override float minDistance
         {
             get => base.minDistance;
@@ -138,6 +149,7 @@ namespace SCKRM.Sound
                 audioSource.minDistance = value;
             }
         }
+        [WikiDescription("최대 거리")]
         public override float maxDistance
         {
             get => base.maxDistance;
@@ -148,6 +160,7 @@ namespace SCKRM.Sound
             }
         }
 
+        [WikiDescription("스테레오")]
         public override float panStereo
         {
             get => base.panStereo;
@@ -160,6 +173,7 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("공간")]
         public override bool spatial
         {
             get => base.spatial;
@@ -173,6 +187,7 @@ namespace SCKRM.Sound
                     audioSource.spatialBlend = 0;
             }
         }
+        [WikiDescription("좌표")]
         public override Vector3 localPosition
         {
             get => base.localPosition;
@@ -232,6 +247,7 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("새로고침")]
         public override void Refresh()
         {
             if (!ThreadManager.isMainThread)
@@ -362,6 +378,7 @@ namespace SCKRM.Sound
 
 
 
+        [WikiDescription("플레이어 삭제")]
         public override bool Remove()
         {
             if (!base.Remove())
