@@ -37,13 +37,12 @@ namespace SDJK
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
                 soundPlayer = SoundManager.PlaySound(soundData, 0, true);
-
-                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    soundPlayer.time = (float)map.info.mainMenuStartTime;
-
                 soundPlayer.looped += Looped;
 
                 RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, soundPlayer);
+
+                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    soundPlayer.time = (float)map.info.mainMenuStartTime;
 
                 isLoaded = true;
             }
@@ -54,13 +53,12 @@ namespace SDJK
                 SoundData<NBSMetaData> soundData = ResourceManager.CreateSoundData("", true, nbsMetaData);
 
                 soundPlayer = SoundManager.PlayNBS(soundData, 0, true);
-
-                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    soundPlayer.time = (float)map.info.mainMenuStartTime;
-
                 soundPlayer.looped += Looped;
 
                 RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, soundPlayer);
+
+                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    soundPlayer.time = (float)map.info.mainMenuStartTime;
 
                 isLoaded = true;
             }
