@@ -6,7 +6,7 @@ namespace SDJK
 {
     public class SDJKMapFile : Map.Map
     {
-        public List<List<Note>> notes = new List<List<Note>>();
+        public List<List<Note>> notes { get; set; } = new List<List<Note>>();
     }
 
     public struct Note
