@@ -42,7 +42,7 @@ namespace SDJK
 
                         sdjk.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
 
-                        sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(0, adofai.settings.bpm));
+                        sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(double.MinValue, adofai.settings.bpm));
                         sdjk.globalEffect.volume.Add(new BeatValuePairAni<double>(double.MinValue, adofai.settings.volume * 0.01, 0, EasingFunction.Ease.Linear, false));
                         sdjk.info.songOffset = adofai.settings.offset * 0.001f;
                         sdjk.globalEffect.pitch.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, adofai.settings.pitch * 0.01, 0, EasingFunction.Ease.Linear));
