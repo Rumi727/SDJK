@@ -195,6 +195,23 @@ namespace SCKRM.Rhythm
         }
     }
 
+    public class BeatValuePairAniListColor32 : BeatValuePairAniList<JColor32>
+    {
+        public override JColor32 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
+
+        static JColor32 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor32> previousBeatValuePair, IBeatValuePairAni<JColor32> beatValuePair)
+        {
+            JColor32 pre = previousBeatValuePair.value;
+            JColor32 value = beatValuePair.value;
+            byte r = (byte)easingFunction.Invoke(pre.r, value.r, t);
+            byte g = (byte)easingFunction.Invoke(pre.g, value.g, t);
+            byte b = (byte)easingFunction.Invoke(pre.b, value.b, t);
+            byte a = (byte)easingFunction.Invoke(pre.a, value.a, t);
+
+            return new JColor32(r, g, b, a);
+        }
+    }
+
     public class BeatValuePairAniListRect : BeatValuePairAniList<JRect>
     {
         public override JRect GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);

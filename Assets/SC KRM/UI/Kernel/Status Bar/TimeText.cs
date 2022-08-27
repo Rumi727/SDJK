@@ -25,7 +25,12 @@ namespace SCKRM.UI.StatusBar
         static bool tempToggleSeconds = false;
 
 #pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
-        [Starten] static void Starten() => LanguageManager.currentLanguageChange += LanguageChange;
+        [Starten]
+        static void Starten()
+        {
+            LanguageChange();
+            LanguageManager.currentLanguageChange += LanguageChange;
+        }
 #pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
 
         void Update()

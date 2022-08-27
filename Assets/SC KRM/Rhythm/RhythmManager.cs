@@ -120,7 +120,7 @@ namespace SCKRM.Rhythm
 
         static void BPMChange(double bpm, double offsetBeat)
         {
-            bpmOffsetBeat = offsetBeat;
+            bpmOffsetBeat = offsetBeat.Clamp(0);
 
             bpmOffsetTime = 0;
             double tempBeat = 0;
