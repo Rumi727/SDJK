@@ -121,6 +121,7 @@ namespace SDJK
                             if (lastBeat == beat && !midspin)
                                 beat += 2;
 
+                            sdjk.allBeat.Add(beat);
                             allBeat.Add(beat);
 
                             lastAngle = angle;
@@ -128,7 +129,7 @@ namespace SDJK
                         }
                     }
                     else
-                        throw new NotSupportedException();
+                        throw new NotSupportedException("ADOFAI pathData");
                     #endregion
 
                     #region Actions

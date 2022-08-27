@@ -40,7 +40,7 @@ namespace SCKRM.Rhythm
 
 
 
-        public static float time => soundPlayer != null ? soundPlayer.time : 0;
+        public static double time { get; private set; } 
         public static double currentBeat { get; private set; }
         public static double currentBeatSound { get; private set; }
         public static double currentBeatScreen { get; private set; }
@@ -69,6 +69,14 @@ namespace SCKRM.Rhythm
                     Stop();
                 else
                 {
+                    time += Kernel.unscaledDeltaTime * soundPlayer.speed;
+                    UnityEngine.Debug.Log((soundPlayer.time - time));
+
+                    if (time - soundPlayer.time >= 0.01f)
+                        time -= Kernel.deltaTime;
+                    else if (soundPlayer.time - time >= 0.01f)
+                        time += Kernel.deltaTime;
+
                     SetCurrentBeat();
 
                     {
@@ -146,6 +154,7 @@ namespace SCKRM.Rhythm
 
         public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> dropPartList, ISoundPlayer soundPlayer)
         {
+            time = 0;
             currentBeat = 0;
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
@@ -161,6 +170,7 @@ namespace SCKRM.Rhythm
 
         public static void Stop()
         {
+            time = 0;
             currentBeat = 0;
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
@@ -178,6 +188,8 @@ namespace SCKRM.Rhythm
 
         static void SoundPlayerTimeChange()
         {
+            time = soundPlayer.time;
+
             for (int i = 0; i < bpmList.Count; i++)
             {
                 {
