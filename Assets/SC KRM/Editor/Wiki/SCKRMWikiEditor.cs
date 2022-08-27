@@ -557,72 +557,72 @@ namespace SCKRM.Editor
 
         bool IsObsolete(Type type, out string description)
         {
-            ObsoleteAttribute obsoleteAttribute = (ObsoleteAttribute)type.GetCustomAttribute(typeof(ObsoleteAttribute));
-            if (obsoleteAttribute == null)
+            Attribute[] obsoleteAttributes = Attribute.GetCustomAttributes(type, typeof(ObsoleteAttribute));
+            if (obsoleteAttributes.Length <= 0)
             {
                 description = "";
                 return false;
             }
 
-            description = obsoleteAttribute.Message;
+            description = ((ObsoleteAttribute)obsoleteAttributes[0]).Message;
             return true;
         }
 
         bool IsObsolete(PropertyInfo propertyInfo, out string description)
         {
-            ObsoleteAttribute obsoleteAttribute = (ObsoleteAttribute)propertyInfo.GetCustomAttribute(typeof(ObsoleteAttribute));
-            if (obsoleteAttribute == null)
+            Attribute[] obsoleteAttributes = Attribute.GetCustomAttributes(propertyInfo, typeof(ObsoleteAttribute));
+            if (obsoleteAttributes.Length <= 0)
             {
                 description = "";
                 return false;
             }
 
-            description = obsoleteAttribute.Message;
+            description = ((ObsoleteAttribute)obsoleteAttributes[0]).Message;
             return true;
         }
 
         bool IsObsolete(FieldInfo fieldInfo, out string description)
         {
-            ObsoleteAttribute obsoleteAttribute = (ObsoleteAttribute)fieldInfo.GetCustomAttribute(typeof(ObsoleteAttribute));
-            if (obsoleteAttribute == null)
+            Attribute[] obsoleteAttributes = Attribute.GetCustomAttributes(fieldInfo, typeof(ObsoleteAttribute));
+            if (obsoleteAttributes.Length <= 0)
             {
                 description = "";
                 return false;
             }
 
-            description = obsoleteAttribute.Message;
+            description = ((ObsoleteAttribute)obsoleteAttributes[0]).Message;
             return true;
         }
 
         bool IsObsolete(EventInfo eventInfo, out string description)
         {
-            ObsoleteAttribute obsoleteAttribute = (ObsoleteAttribute)eventInfo.GetCustomAttribute(typeof(ObsoleteAttribute));
-            if (obsoleteAttribute == null)
+            Attribute[] obsoleteAttributes = Attribute.GetCustomAttributes(eventInfo, typeof(ObsoleteAttribute));
+            if (obsoleteAttributes.Length <= 0)
             {
                 description = "";
                 return false;
             }
 
-            description = obsoleteAttribute.Message;
+            description = ((ObsoleteAttribute)obsoleteAttributes[0]).Message;
             return true;
         }
 
         bool IsObsolete(MethodInfo methodInfo, out string description)
         {
-            ObsoleteAttribute obsoleteAttribute = (ObsoleteAttribute)methodInfo.GetCustomAttribute(typeof(ObsoleteAttribute));
-            if (obsoleteAttribute == null)
+            Attribute[] obsoleteAttributes = Attribute.GetCustomAttributes(methodInfo, typeof(ObsoleteAttribute));
+            if (obsoleteAttributes.Length <= 0)
             {
                 description = "";
                 return false;
             }
 
-            description = obsoleteAttribute.Message;
+            description = ((ObsoleteAttribute)obsoleteAttributes[0]).Message;
             return true;
         }
 
         string GetDescription(Type type)
         {
-            Attribute[] descriptionAttribute = type.GetCustomAttributes(typeof(WikiDescriptionAttribute)).ToArray();
+            Attribute[] descriptionAttribute = Attribute.GetCustomAttributes(type, typeof(WikiDescriptionAttribute));
             if (descriptionAttribute.Length > 0 && !string.IsNullOrEmpty(((WikiDescriptionAttribute)descriptionAttribute[0]).description))
                 return ((WikiDescriptionAttribute)descriptionAttribute[0]).description;
 
@@ -631,7 +631,7 @@ namespace SCKRM.Editor
 
         string GetDescription(PropertyInfo propertyInfo)
         {
-            Attribute[] descriptionAttribute = propertyInfo.GetCustomAttributes(typeof(WikiDescriptionAttribute)).ToArray();
+            Attribute[] descriptionAttribute = Attribute.GetCustomAttributes(propertyInfo, typeof(WikiDescriptionAttribute));
             if (descriptionAttribute.Length > 0 && !string.IsNullOrEmpty(((WikiDescriptionAttribute)descriptionAttribute[0]).description))
                 return ((WikiDescriptionAttribute)descriptionAttribute[0]).description;
 
@@ -640,7 +640,7 @@ namespace SCKRM.Editor
 
         string GetDescription(FieldInfo fieldInfo)
         {
-            Attribute[] descriptionAttribute = fieldInfo.GetCustomAttributes(typeof(WikiDescriptionAttribute)).ToArray();
+            Attribute[] descriptionAttribute = Attribute.GetCustomAttributes(fieldInfo, typeof(WikiDescriptionAttribute));
             if (descriptionAttribute.Length > 0 && !string.IsNullOrEmpty(((WikiDescriptionAttribute)descriptionAttribute[0]).description))
                 return ((WikiDescriptionAttribute)descriptionAttribute[0]).description;
 
@@ -649,7 +649,7 @@ namespace SCKRM.Editor
 
         string GetDescription(EventInfo eventInfo)
         {
-            Attribute[] descriptionAttribute = eventInfo.GetCustomAttributes(typeof(WikiDescriptionAttribute)).ToArray();
+            Attribute[] descriptionAttribute = Attribute.GetCustomAttributes(eventInfo, typeof(WikiDescriptionAttribute));
             if (descriptionAttribute.Length > 0 && !string.IsNullOrEmpty(((WikiDescriptionAttribute)descriptionAttribute[0]).description))
                 return ((WikiDescriptionAttribute)descriptionAttribute[0]).description;
 
@@ -658,18 +658,18 @@ namespace SCKRM.Editor
 
         string GetDescription(MethodInfo methodInfo)
         {
-            Attribute[] descriptionAttribute = methodInfo.GetCustomAttributes(typeof(WikiDescriptionAttribute)).ToArray();
+            Attribute[] descriptionAttribute = Attribute.GetCustomAttributes(methodInfo, typeof(WikiDescriptionAttribute));
             if (descriptionAttribute.Length > 0 && !string.IsNullOrEmpty(((WikiDescriptionAttribute)descriptionAttribute[0]).description))
                 return ((WikiDescriptionAttribute)descriptionAttribute[0]).description;
 
             return "설명 없음";
         }
 
-        bool IsIgnore(Type type) => type.GetCustomAttribute(typeof(WikiIgnoreAttribute)) != null;
-        bool IsIgnore(PropertyInfo propertyInfo) => propertyInfo.GetCustomAttribute(typeof(WikiIgnoreAttribute)) != null;
-        bool IsIgnore(FieldInfo fieldInfo) => fieldInfo.GetCustomAttribute(typeof(WikiIgnoreAttribute)) != null;
-        bool IsIgnore(EventInfo eventInfo) => eventInfo.GetCustomAttribute(typeof(WikiIgnoreAttribute)) != null;
-        bool IsIgnore(MethodInfo methodInfo) => methodInfo.GetCustomAttribute(typeof(WikiIgnoreAttribute)) != null;
+        bool IsIgnore(Type type) => Attribute.GetCustomAttributes(type, typeof(WikiIgnoreAttribute)).Length > 0;
+        bool IsIgnore(PropertyInfo propertyInfo) => Attribute.GetCustomAttributes(propertyInfo, typeof(WikiIgnoreAttribute)).Length > 0;
+        bool IsIgnore(FieldInfo fieldInfo) => Attribute.GetCustomAttributes(fieldInfo, typeof(WikiIgnoreAttribute)).Length > 0;
+        bool IsIgnore(EventInfo eventInfo) => Attribute.GetCustomAttributes(eventInfo, typeof(WikiIgnoreAttribute)).Length > 0;
+        bool IsIgnore(MethodInfo methodInfo) => Attribute.GetCustomAttributes(methodInfo, typeof(WikiIgnoreAttribute)).Length > 0;
     }
 
     public static class PropertyEventMethod

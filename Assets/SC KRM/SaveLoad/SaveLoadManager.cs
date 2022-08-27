@@ -96,8 +96,7 @@ namespace SCKRM.SaveLoad
         [WikiDescription("초기화")]
         public static void Initialize<T>(Type type, out SaveLoadClass result) where T : SaveLoadAttribute
         {
-            T saveLoadAttribute = type.GetCustomAttribute(typeof(T)) as T;
-            if (saveLoadAttribute == null)
+            if (Attribute.GetCustomAttributes(type, typeof(T)).Length <= 0)
             {
                 result = null;
                 return;
@@ -110,8 +109,8 @@ namespace SCKRM.SaveLoad
             for (int i = 0; i < propertyInfos.Length; i++)
             {
                 PropertyInfo propertyInfo = propertyInfos[i];
-                bool ignore = propertyInfo.GetCustomAttributes(typeof(JsonIgnoreAttribute)).Any();
-                if (!propertyInfo.GetCustomAttributes(typeof(JsonPropertyAttribute)).Any() && !ignore)
+                bool ignore = Attribute.GetCustomAttributes(propertyInfo, typeof(JsonIgnoreAttribute)).Length > 0;
+                if (Attribute.GetCustomAttributes(propertyInfo, typeof(JsonPropertyAttribute)).Length <= 0 && !ignore)
                     Debug.LogWarning(type.FullName + " " + propertyInfo.PropertyType + " " + propertyInfo.Name + " 에 [JsonProperty] 어트리뷰트가 추가되어있지 않습니다.\n이 변수는 로드되지 않을것입니다.\n무시를 원하신다면 [JsonIgnore] 어트리뷰트를 추가해주세요");
                 else if (!ignore)
                     propertyInfoList.Add(new SaveLoadClass.SaveLoadVariable<PropertyInfo>(propertyInfo, propertyInfo.GetValue(propertyInfo.PropertyType)));
@@ -121,8 +120,8 @@ namespace SCKRM.SaveLoad
             for (int i = 0; i < fieldInfos.Length; i++)
             {
                 FieldInfo fieldInfo = fieldInfos[i];
-                bool ignore = fieldInfo.GetCustomAttributes(typeof(JsonIgnoreAttribute)).Any();
-                if (!fieldInfo.GetCustomAttributes(typeof(JsonPropertyAttribute)).Any() && !ignore)
+                bool ignore = Attribute.GetCustomAttributes(fieldInfo, typeof(JsonIgnoreAttribute)).Length > 0;
+                if (Attribute.GetCustomAttributes(fieldInfo, typeof(JsonPropertyAttribute)).Length <= 0 && !ignore)
                     Debug.LogWarning(type.FullName + " " + fieldInfo.FieldType + " " + fieldInfo.Name + " 에 [JsonProperty] 어트리뷰트가 추가되어있지 않습니다.\n이 변수는 로드되지 않을것입니다.\n무시를 원하신다면 [JsonIgnore] 어트리뷰트를 추가해주세요");
                 else if (!ignore)
                     fieldInfoList.Add(new SaveLoadClass.SaveLoadVariable<FieldInfo>(fieldInfo, fieldInfo.GetValue(fieldInfo.FieldType)));

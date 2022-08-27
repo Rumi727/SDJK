@@ -29,7 +29,6 @@ namespace SCKRM
         public static bool isInitialLoadEnd { get; private set; } = false;
         public static bool isSceneMoveEnd { get; private set; } = false;
 
-        public static event Action initialLoadStart;
         public static event Action initialLoadEnd;
         public static event Action initialLoadEndSceneMove;
 
@@ -45,7 +44,6 @@ namespace SCKRM
             {
                 //초기로딩이 시작됬습니다
                 isInitialLoadStart = true;
-                initialLoadStart?.Invoke();
 
                 //이 함수는 어떠한 경우에도 메인스레드가 아닌 스레드에서 실행되면 안됩니다
                 if (!ThreadManager.isMainThread)
@@ -167,13 +165,14 @@ namespace SCKRM
                     }
                 }
 
+                isSettingLoadEnd = true;
+
                 //가상머신 밴이 활성화되어있을때 가상 머신일 경우 프로그램을 강제종료 합니다
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
                 if (VirtualMachineDetector.Data.vmBan && (VirtualMachineDetector.HardwareDetection() || VirtualMachineDetector.ProcessDetection() || VirtualMachineDetector.FileDetection()))
                     ApplicationForceQuit(nameof(InitialLoadManager), "Virtual machines are prohibited");
 #endif
-
-                isSettingLoadEnd = true;
+                AwakenManager.AllAwakenableMethodAwaken();
 
                 {
                     //리소스를 로딩합니다
@@ -193,6 +192,8 @@ namespace SCKRM
 
                     Debug.Log("Kernel: Initial loading finished!");
                 }
+
+                StartenManager.AllStartableMethodAwaken();
 
                 //강제종료 된 상태면, 씬을 이동하지 않습니다
                 if (!isForceQuit)

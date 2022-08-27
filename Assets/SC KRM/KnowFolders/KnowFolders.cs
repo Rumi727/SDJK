@@ -253,7 +253,7 @@ namespace SCKRM.KnownFolder
         internal static Guid GetGuid(this KnownFolderType value)
         {
             FieldInfo member = typeof(KnownFolderType).GetField(value.ToString());
-            return member.GetCustomAttributes<KnownFolderGuidAttribute>(false).First().Guid;
+            return ((KnownFolderGuidAttribute)Attribute.GetCustomAttributes(member, typeof(KnownFolderGuidAttribute), false)[0]).Guid;
         }
     }
 

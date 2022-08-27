@@ -24,17 +24,9 @@ namespace SCKRM.UI.StatusBar
         static bool tempTwentyFourHourSystem = false;
         static bool tempToggleSeconds = false;
 
-        protected override void OnEnable()
-        {
-            InitialLoadManager.initialLoadEnd += LanguageChange;
-            LanguageManager.currentLanguageChange += LanguageChange;
-        }
-
-        protected override void OnDestroy()
-        {
-            InitialLoadManager.initialLoadEnd -= LanguageChange;
-            LanguageManager.currentLanguageChange -= LanguageChange;
-        }
+#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
+        [Starten] static void Starten() => LanguageManager.currentLanguageChange += LanguageChange;
+#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
 
         void Update()
         {
@@ -61,7 +53,7 @@ namespace SCKRM.UI.StatusBar
             }
         }
 
-        void LanguageChange()
+        static void LanguageChange()
         {
             am = ResourceManager.SearchLanguage("gui.am");
             pm = ResourceManager.SearchLanguage("gui.pm");
