@@ -16,6 +16,9 @@ namespace SDJK
         string lastVideoBackgroundNightFile;
         void Update()
         {
+            if (MapManager.selectedMapInfo == null)
+                return;
+
             bool isVideoBackgroundChanged = (lastVideoBackgroundFile != MapManager.selectedMapInfo.videoBackgroundFile || lastVideoBackgroundNightFile != MapManager.selectedMapInfo.videoBackgroundNightFile);
             if (lastSDJKMapPack != MapManager.selectedMapPack || (lastSDJKMap != MapManager.selectedMap && isVideoBackgroundChanged))
             {

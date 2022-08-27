@@ -17,6 +17,8 @@ namespace SDJK
         void Update()
         {
             Map.Map map = MapManager.selectedMap;
+            if (map == null)
+                return;
 
             if (hitSoundPlay)
             {

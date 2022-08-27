@@ -237,7 +237,7 @@ namespace SDJK
                 Interlocked.Decrement(ref barsLock);
             }
 
-            if (tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
+            if (BGMManager.bgm != null && tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
             {
                 if (tempSoundPlayer != null && !tempSoundPlayer.isRemoved)
                     tempSoundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
@@ -249,7 +249,7 @@ namespace SDJK
 
         protected override void OnDisable()
         {
-            if (BGMManager.bgm.soundPlayer != null)
+            if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null)
                 BGMManager.bgm.soundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
         }
 
