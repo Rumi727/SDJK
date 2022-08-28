@@ -120,13 +120,15 @@ namespace SCKRM.Rhythm
 
         static void BPMChange(double bpm, double offsetBeat)
         {
-            bpmOffsetBeat = offsetBeat.Clamp(0);
+            offsetBeat = offsetBeat.Clamp(0);
+            bpmOffsetBeat = offsetBeat;
 
             bpmOffsetTime = 0;
             double tempBeat = 0;
             for (int i = 0; i < bpmList.Count; i++)
             {
-                if (bpmList[0].beat >= offsetBeat)
+                double beat = bpmList[i].beat.Clamp(0);
+                if (bpmList[0].beat.Clamp(0) >= offsetBeat)
                     break;
 
                 double tempBPM;
@@ -135,10 +137,10 @@ namespace SCKRM.Rhythm
                 else
                     tempBPM = bpmList[i - 1].value;
 
-                bpmOffsetTime += (bpmList[i].beat - tempBeat) * (60d / tempBPM);
-                tempBeat = bpmList[i].beat;
+                bpmOffsetTime += (beat - tempBeat) * (60d / tempBPM);
+                tempBeat = beat;
 
-                if (bpmList[i].beat >= offsetBeat)
+                if (beat >= offsetBeat)
                     break;
             }
 
@@ -186,7 +188,6 @@ namespace SCKRM.Rhythm
                 {
                     BeatValuePair<double> bpm = bpmList[i];
                     BPMChange(bpm.value, bpm.beat);
-                    SetCurrentBeat();
                 }
 
                 if (bpmOffsetTime >= time)
@@ -194,13 +195,14 @@ namespace SCKRM.Rhythm
                     if (i - 1 >= 0)
                     {
                         BeatValuePair<double> bpm = bpmList[i - 1];
-                        SetCurrentBeat();
                         BPMChange(bpm.value, bpm.beat);
                     }
 
                     break;
                 }
             }
+
+            SetCurrentBeat();
         }
     }
 }
