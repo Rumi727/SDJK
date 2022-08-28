@@ -29,6 +29,12 @@ namespace SDJK
             string texturePath = PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile);
             image.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
 
+            if (image.sprite == null)
+            {
+                Remove();
+                return;
+            }
+
             while (image.color.r < 1)
             {
                 image.color = image.color.MoveTowards(Color.white, 0.05f * Kernel.fpsUnscaledDeltaTime);
@@ -40,9 +46,6 @@ namespace SDJK
                     return;
                 }
             }
-
-            if (image.sprite == null)
-                Remove();
         }
 
         public async UniTaskVoid PadeOut()

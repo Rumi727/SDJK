@@ -23,7 +23,7 @@ namespace SDJK
                 bool isBackgroundChanged = (lastBackgroundFile != MapManager.selectedMapInfo.backgroundFile || lastBackgroundNightFile != MapManager.selectedMapInfo.backgroundNightFile);
                 if (lastSDJKMapPack != MapManager.selectedMapPack || (lastSDJKMap != MapManager.selectedMap && isBackgroundChanged))
                 {
-                    if (background != null)
+                    if (background != null && !background.isRemoved)
                         background.PadeOut().Forget();
 
                     background = (Background)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
