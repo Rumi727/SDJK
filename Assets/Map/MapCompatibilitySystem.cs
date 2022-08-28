@@ -5,6 +5,7 @@ using SCKRM.Json;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -25,19 +26,21 @@ namespace SDJK
                 try
                 {
                     T sdjk = new T();
-                    ADOFAI adofai = JsonManager.JsonRead<ADOFAI>(mapFilePath, true);
                     List<double> allBeat = new List<double>();
+                    ADOFAI adofai = JsonManager.JsonRead<ADOFAI>(mapFilePath, true);
+                    if (adofai == null)
+                        return null;
 
                     #region Default Effect
                     {
-                        sdjk.info.artist = Path.GetFileNameWithoutExtension(adofai.settings.artist);
-                        sdjk.info.songName = Path.GetFileNameWithoutExtension(adofai.settings.song);
-                        sdjk.info.author = Path.GetFileNameWithoutExtension(adofai.settings.author);
+                        sdjk.info.artist = adofai.settings.artist;
+                        sdjk.info.songName = adofai.settings.song;
+                        sdjk.info.author = adofai.settings.author;
 
                         sdjk.info.mainMenuStartTime = adofai.settings.previewSongStart;
 
                         sdjk.info.backgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgImage);
-                        sdjk.info.videoBackgroundFile = adofai.settings.bgVideo;
+                        sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
 
                         sdjk.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
@@ -81,8 +84,61 @@ namespace SDJK
                     #endregion
 
                     #region Beat
-                    if (adofai.angleData.Length != 0)
                     {
+                        if (adofai.pathData.Length > 0)
+                        {
+                            float previousAngle = 0;
+                            List<float> angleData = new List<float>();
+                            for (int i = 0; i < adofai.pathData.Length; i++)
+                            {
+                                char path = adofai.pathData[i];
+                                if (path == 'R')
+                                    angleData.Add(0);
+                                else if (path == 'J')
+                                    angleData.Add(30);
+                                else if (path == 'E')
+                                    angleData.Add(45);
+                                else if (path == 'T')
+                                    angleData.Add(60);
+                                else if (path == 'U')
+                                    angleData.Add(90);
+                                else if (path == 'G')
+                                    angleData.Add(120);
+                                else if (path == 'Q')
+                                    angleData.Add(135);
+                                else if (path == 'H')
+                                    angleData.Add(150);
+                                else if (path == 'L')
+                                    angleData.Add(180);
+                                else if (path == 'N')
+                                    angleData.Add(210);
+                                else if (path == 'Z')
+                                    angleData.Add(225);
+                                else if (path == 'F')
+                                    angleData.Add(240);
+                                else if (path == 'D')
+                                    angleData.Add(270);
+                                else if (path == 'B')
+                                    angleData.Add(300);
+                                else if (path == 'C')
+                                    angleData.Add(315);
+                                else if (path == 'M')
+                                    angleData.Add(330);
+                                else if (path == '5')
+                                    angleData.Add(previousAngle + 72);
+                                else if (path == '7')
+                                    angleData.Add(previousAngle + 52);
+                                else if (path == '!')
+                                    angleData.Add(999);
+                                else
+                                    throw new NotSupportedException($"Unsupported patch data character '{path}'");
+
+                                previousAngle = angleData[i];
+                            }
+
+                            adofai.angleData = angleData.ToArray();
+                        }
+
                         bool twirl = false;
                         double lastBeat = -1;
                         double lastAngle = 0;
@@ -129,8 +185,6 @@ namespace SDJK
                             lastBeat = beat;
                         }
                     }
-                    else
-                        throw new NotSupportedException("ADOFAI pathData");
                     #endregion
 
                     #region Actions
@@ -223,14 +277,22 @@ namespace SDJK
                         if (eventType == "SetSpeed")
                         {
                             float bpm;
-                            if (action["speedType"].Value<string>() == "Bpm")
+                            if (action["speedType"] != null)
                             {
-                                bpm = action["beatsPerMinute"].Value<float>();
-                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
+                                if (action["speedType"].Value<string>() == "Bpm")
+                                {
+                                    bpm = action["beatsPerMinute"].Value<float>();
+                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
+                                }
+                                else
+                                {
+                                    bpm = lastBpm * action["bpmMultiplier"].Value<float>();
+                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
+                                }
                             }
                             else
                             {
-                                bpm = lastBpm * action["bpmMultiplier"].Value<float>();
+                                bpm = action["beatsPerMinute"].Value<float>();
                                 sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
                             }
 
@@ -262,6 +324,7 @@ namespace SDJK
                 }
                 catch (Exception e)
                 {
+                    Debug.Log(mapFilePath);
                     Debug.LogException(e);
                     return null;
                 }
@@ -270,231 +333,241 @@ namespace SDJK
             {
                 {
                     T map = JsonManager.JsonRead<T>(mapFilePath, true);
-                    if (map.info.sdjkVersion != new Version())
+                    if (map == null)
+                        return null;
+                    else if (map.info.sdjkVersion != new Version())
                         return map;
                 }
 
-                if (typeof(T) == typeof(Map.Map) || typeof(T) == typeof(SDJKMapFile))
+                try
                 {
-                    SDJKMapFile map = new SDJKMapFile();
-                    OldSDJK oldMap = JsonManager.JsonRead<OldSDJK>(mapFilePath, true);
-
-                    #region Default Effect
-                    for (int i = 0; i < oldMap.AllBeat.Count; i++)
+                    if (typeof(T) == typeof(Map.Map) || typeof(T) == typeof(SDJKMapFile))
                     {
-                        if (i < oldMap.AllBeat.Count - 1)
-                            map.allBeat.Add(oldMap.AllBeat[i] - 1);
-                    }
+                        SDJKMapFile map = new SDJKMapFile();
+                        OldSDJK oldMap = JsonManager.JsonRead<OldSDJK>(mapFilePath, true);
 
-
-
-                    map.info.sckrmVersion = Kernel.sckrmVersion;
-                    map.info.sdjkVersion = new Version(Application.version);
-
-
-
-                    map.info.mode = "sdjk";
-
-
-
-                    map.info.songFile = oldMap.BGM;
-
-
-
-                    map.info.backgroundFile = oldMap.Background;
-                    map.info.backgroundNightFile = oldMap.BackgroundNight;
-
-                    map.info.videoBackgroundFile = oldMap.VideoBackground;
-                    map.info.videoBackgroundNightFile = oldMap.VideoBackgroundNight;
-
-                    map.info.videoOffset = oldMap.VideoOffset;
-
-
-
-                    map.info.artist = oldMap.Artist;
-                    map.info.songName = oldMap.BGMName;
-
-                    map.info.difficultyLabel = oldMap.Difficulty;
-
-
-
-                    map.info.songOffset = oldMap.Offset;
-                    map.info.mainMenuStartTime = oldMap.MainMenuStartTime;
-                    #endregion
-
-                    #region Beat
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.CapsLock.Count; i++)
+                        #region Default Effect
+                        for (int i = 0; i < oldMap.AllBeat.Count; i++)
                         {
-                            if (oldMap.HoldCapsLock.Count != oldMap.CapsLock.Count)
-                                notes.Add(new Note(oldMap.CapsLock[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.CapsLock[i] - 1, oldMap.HoldCapsLock[i] - 1));
+                            if (i < oldMap.AllBeat.Count - 1)
+                                map.allBeat.Add(oldMap.AllBeat[i] - 1);
                         }
 
-                        map.notes.Add(notes);
-                    }
 
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.A.Count; i++)
+
+                        map.info.sckrmVersion = Kernel.sckrmVersion;
+                        map.info.sdjkVersion = new Version(Application.version);
+
+
+
+                        map.info.mode = "sdjk";
+
+
+
+                        map.info.songFile = oldMap.BGM;
+
+
+
+                        map.info.backgroundFile = oldMap.Background;
+                        map.info.backgroundNightFile = oldMap.BackgroundNight;
+
+                        map.info.videoBackgroundFile = oldMap.VideoBackground;
+                        map.info.videoBackgroundNightFile = oldMap.VideoBackgroundNight;
+
+                        map.info.videoOffset = oldMap.VideoOffset;
+
+
+
+                        map.info.artist = oldMap.Artist;
+                        map.info.songName = oldMap.BGMName;
+
+                        map.info.difficultyLabel = oldMap.Difficulty;
+
+
+
+                        map.info.songOffset = oldMap.Offset;
+                        map.info.mainMenuStartTime = oldMap.MainMenuStartTime;
+                        #endregion
+
+                        #region Beat
                         {
-                            if (oldMap.HoldA.Count != oldMap.A.Count)
-                                notes.Add(new Note(oldMap.A[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.A[i] - 1, oldMap.HoldA[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.CapsLock.Count; i++)
+                            {
+                                if (oldMap.HoldCapsLock.Count != oldMap.CapsLock.Count)
+                                    notes.Add(new Note(oldMap.CapsLock[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.CapsLock[i] - 1, oldMap.HoldCapsLock[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
-                    }
-
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.S.Count; i++)
                         {
-                            if (oldMap.HoldS.Count != oldMap.S.Count)
-                                notes.Add(new Note(oldMap.S[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.S[i] - 1, oldMap.HoldS[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.A.Count; i++)
+                            {
+                                if (oldMap.HoldA.Count != oldMap.A.Count)
+                                    notes.Add(new Note(oldMap.A[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.A[i] - 1, oldMap.HoldA[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
-                    }
-
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.D.Count; i++)
                         {
-                            if (oldMap.HoldD.Count != oldMap.D.Count)
-                                notes.Add(new Note(oldMap.D[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.D[i] - 1, oldMap.HoldD[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.S.Count; i++)
+                            {
+                                if (oldMap.HoldS.Count != oldMap.S.Count)
+                                    notes.Add(new Note(oldMap.S[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.S[i] - 1, oldMap.HoldS[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
-                    }
-
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.J.Count; i++)
                         {
-                            if (oldMap.HoldJ.Count != oldMap.J.Count)
-                                notes.Add(new Note(oldMap.J[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.J[i] - 1, oldMap.HoldJ[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.D.Count; i++)
+                            {
+                                if (oldMap.HoldD.Count != oldMap.D.Count)
+                                    notes.Add(new Note(oldMap.D[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.D[i] - 1, oldMap.HoldD[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
-                    }
-
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.K.Count; i++)
                         {
-                            if (oldMap.HoldK.Count != oldMap.K.Count)
-                                notes.Add(new Note(oldMap.K[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.K[i] - 1, oldMap.HoldK[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.J.Count; i++)
+                            {
+                                if (oldMap.HoldJ.Count != oldMap.J.Count)
+                                    notes.Add(new Note(oldMap.J[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.J[i] - 1, oldMap.HoldJ[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
-                    }
-
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.L.Count; i++)
                         {
-                            if (oldMap.HoldL.Count != oldMap.L.Count)
-                                notes.Add(new Note(oldMap.L[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.L[i] - 1, oldMap.HoldL[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.K.Count; i++)
+                            {
+                                if (oldMap.HoldK.Count != oldMap.K.Count)
+                                    notes.Add(new Note(oldMap.K[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.K[i] - 1, oldMap.HoldK[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
-                    }
-
-                    {
-                        List<Note> notes = new List<Note>();
-                        for (int i = 0; i < oldMap.Semicolon.Count; i++)
                         {
-                            if (oldMap.HoldSemicolon.Count != oldMap.Semicolon.Count)
-                                notes.Add(new Note(oldMap.Semicolon[i] - 1, 0));
-                            else
-                                notes.Add(new Note(oldMap.Semicolon[i] - 1, oldMap.HoldSemicolon[i] - 1));
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.L.Count; i++)
+                            {
+                                if (oldMap.HoldL.Count != oldMap.L.Count)
+                                    notes.Add(new Note(oldMap.L[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.L[i] - 1, oldMap.HoldL[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
                         }
 
-                        map.notes.Add(notes);
+                        {
+                            List<Note> notes = new List<Note>();
+                            for (int i = 0; i < oldMap.Semicolon.Count; i++)
+                            {
+                                if (oldMap.HoldSemicolon.Count != oldMap.Semicolon.Count)
+                                    notes.Add(new Note(oldMap.Semicolon[i] - 1, 0));
+                                else
+                                    notes.Add(new Note(oldMap.Semicolon[i] - 1, oldMap.HoldSemicolon[i] - 1));
+                            }
+
+                            map.notes.Add(notes);
+                        }
+                        #endregion
+
+                        #region Effect
+                        map.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(double.MinValue, oldMap.Effect.BPM));
+                        for (int i = 0; i < oldMap.Effect.BPMEffect.Count; i++)
+                        {
+                            var effect = oldMap.Effect.BPMEffect[i];
+                            map.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(effect.Beat - 1, effect.Value));
+                        }
+
+                        map.globalEffect.dropPart.Add(new SCKRM.Rhythm.BeatValuePair<bool>(double.MinValue, oldMap.Effect.DropPart));
+                        for (int i = 0; i < oldMap.Effect.DropPartEffect.Count; i++)
+                        {
+                            var effect = oldMap.Effect.DropPartEffect[i];
+                            map.globalEffect.dropPart.Add(new SCKRM.Rhythm.BeatValuePair<bool>(effect.Beat - 1, effect.Value));
+                        }
+
+                        map.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Camera.CameraZoom, 0, EasingFunction.Ease.Linear, false));
+                        map.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, oldMap.Effect.Camera.CameraPos, 0, EasingFunction.Ease.Linear, false));
+                        map.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, oldMap.Effect.Camera.CameraRotation, 0, EasingFunction.Ease.Linear, false));
+
+                        map.globalEffect.pitch.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Pitch, 0, EasingFunction.Ease.Linear));
+                        map.globalEffect.tempo.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 1, 0, EasingFunction.Ease.Linear));
+
+                        map.globalEffect.volume.Add(new BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Volume * 2, 0, EasingFunction.Ease.Linear, false));
+
+                        map.globalEffect.hpAddValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPAddValue, 0, EasingFunction.Ease.Linear));
+                        for (int i = 0; i < oldMap.Effect.HPAddValueEffect.Count; i++)
+                        {
+                            var effect = oldMap.Effect.HPAddValueEffect[i];
+                            map.globalEffect.hpAddValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
+                        }
+
+                        map.globalEffect.hpMissValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
+                        for (int i = 0; i < oldMap.Effect.HPRemoveValueEffect.Count; i++)
+                        {
+                            var effect = oldMap.Effect.HPRemoveValueEffect[i];
+                            map.globalEffect.hpMissValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
+                        }
+
+                        {
+                            var effect = oldMap.Effect.HPRemove;
+                            if (effect)
+                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
+                            else
+                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 0, 0, EasingFunction.Ease.Linear));
+                        }
+
+                        for (int i = 0; i < oldMap.Effect.HPRemoveEffect.Count; i++)
+                        {
+                            var effect = oldMap.Effect.HPRemoveEffect[i];
+                            if (effect.Value)
+                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
+                            else
+                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, 0, 0, EasingFunction.Ease.Linear));
+                        }
+
+                        map.globalEffect.judgmentSize.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.JudgmentSize, 0, EasingFunction.Ease.Linear));
+                        for (int i = 0; i < oldMap.Effect.JudgmentSizeEffect.Count; i++)
+                        {
+                            var effect = oldMap.Effect.JudgmentSizeEffect[i];
+                            map.globalEffect.judgmentSize.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
+                        }
+                        #endregion
+
+                        return map as T;
                     }
-                    #endregion
 
-                    #region Effect
-                    map.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(double.MinValue, oldMap.Effect.BPM));
-                    for (int i = 0; i < oldMap.Effect.BPMEffect.Count; i++)
-                    {
-                        var effect = oldMap.Effect.BPMEffect[i];
-                        map.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(effect.Beat - 1, effect.Value));
-                    }
-
-                    map.globalEffect.dropPart.Add(new SCKRM.Rhythm.BeatValuePair<bool>(double.MinValue, oldMap.Effect.DropPart));
-                    for (int i = 0; i < oldMap.Effect.DropPartEffect.Count; i++)
-                    {
-                        var effect = oldMap.Effect.DropPartEffect[i];
-                        map.globalEffect.dropPart.Add(new SCKRM.Rhythm.BeatValuePair<bool>(effect.Beat - 1, effect.Value));
-                    }
-                    
-                    map.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Camera.CameraZoom, 0, EasingFunction.Ease.Linear, false));
-                    map.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, oldMap.Effect.Camera.CameraPos, 0, EasingFunction.Ease.Linear, false));
-                    map.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, oldMap.Effect.Camera.CameraRotation, 0, EasingFunction.Ease.Linear, false));
-
-                    map.globalEffect.pitch.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Pitch, 0, EasingFunction.Ease.Linear));
-                    map.globalEffect.tempo.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 1, 0, EasingFunction.Ease.Linear));
-
-                    map.globalEffect.volume.Add(new BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Volume * 2, 0, EasingFunction.Ease.Linear, false));
-
-                    map.globalEffect.hpAddValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPAddValue, 0, EasingFunction.Ease.Linear));
-                    for (int i = 0; i < oldMap.Effect.HPAddValueEffect.Count; i++)
-                    {
-                        var effect = oldMap.Effect.HPAddValueEffect[i];
-                        map.globalEffect.hpAddValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
-                    }
-
-                    map.globalEffect.hpMissValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
-                    for (int i = 0; i < oldMap.Effect.HPRemoveValueEffect.Count; i++)
-                    {
-                        var effect = oldMap.Effect.HPRemoveValueEffect[i];
-                        map.globalEffect.hpMissValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
-                    }
-
-                    {
-                        var effect = oldMap.Effect.HPRemove;
-                        if (effect)
-                            map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
-                        else
-                            map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 0, 0, EasingFunction.Ease.Linear));
-                    }
-
-                    for (int i = 0; i < oldMap.Effect.HPRemoveEffect.Count; i++)
-                    {
-                        var effect = oldMap.Effect.HPRemoveEffect[i];
-                        if (effect.Value)
-                            map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
-                        else
-                            map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, 0, 0, EasingFunction.Ease.Linear));
-                    }
-
-                    map.globalEffect.judgmentSize.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.JudgmentSize, 0, EasingFunction.Ease.Linear));
-                    for (int i = 0; i < oldMap.Effect.JudgmentSizeEffect.Count; i++)
-                    {
-                        var effect = oldMap.Effect.JudgmentSizeEffect[i];
-                        map.globalEffect.judgmentSize.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
-                    }
-                    #endregion
-
-                    return map as T;
+                    return null;
                 }
-
-                return null;
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                    return null;
+                }
             }
             else
                 return null;
