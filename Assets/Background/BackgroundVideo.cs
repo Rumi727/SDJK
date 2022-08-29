@@ -53,7 +53,12 @@ namespace SDJK
                 offset = MapManager.selectedMap.info.videoOffset;
 
                 videoPlayer.url = fullPath;
+                videoPlayer.time = RhythmManager.time + offset;
+
+                videoPlayer.Prepare();
                 videoPlayer.Play();
+
+                SetResolution();
             }
             else
                 Remove();
@@ -76,8 +81,6 @@ namespace SDJK
                 if (videoPlayer.width != renderTexture.width || videoPlayer.height != renderTexture.height)
                     SetResolution();
 
-                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
-
                 if (BGMManager.bgm.soundPlayer != null)
                 {
                     double dis = (BGMManager.bgm.soundPlayer.time + offset) - videoPlayer.time;
@@ -86,6 +89,8 @@ namespace SDJK
 
                     if (dis.Abs() < 1)
                     {
+                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+
                         if (dis >= 0.06)
                             videoPlayer.playbackSpeed = speed * 4;
 
@@ -111,7 +116,7 @@ namespace SDJK
             renderTexture.width = (int)videoPlayer.width;
             renderTexture.height = (int)videoPlayer.height;
 
-            aspectRatioFitter.aspectRatio = (float)videoPlayer.width / (float)videoPlayer.height;
+            aspectRatioFitter.aspectRatio = (float)videoPlayer.width / videoPlayer.height;
         }
 
         bool isPadeOut = false;
