@@ -137,6 +137,22 @@ namespace SDJK
                                     angleData.Add(315);
                                 else if (path == 'M')
                                     angleData.Add(330);
+                                else if (path == 'p')
+                                    angleData.Add(15);
+                                else if (path == 'o')
+                                    angleData.Add(75);
+                                else if (path == 'q')
+                                    angleData.Add(105);
+                                else if (path == 'W')
+                                    angleData.Add(165);
+                                else if (path == 'x')
+                                    angleData.Add(195);
+                                else if (path == 'V')
+                                    angleData.Add(255);
+                                else if (path == 'Y')
+                                    angleData.Add(285);
+                                else if (path == 'A')
+                                    angleData.Add(345);
                                 else if (path == '5')
                                     angleData.Add(previousAngle + 72);
                                 else if (path == '7')
