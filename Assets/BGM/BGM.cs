@@ -39,7 +39,7 @@ namespace SDJK
                 soundPlayer = SoundManager.PlaySound(soundData, 0, true);
                 soundPlayer.looped += Looped;
 
-                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
                     soundPlayer.time = (float)map.info.mainMenuStartTime;
 
                 isLoaded = true;
@@ -53,7 +53,7 @@ namespace SDJK
                 soundPlayer = SoundManager.PlayNBS(soundData, 0, true);
                 soundPlayer.looped += Looped;
 
-                if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
                     soundPlayer.time = (float)map.info.mainMenuStartTime;
 
                 isLoaded = true;

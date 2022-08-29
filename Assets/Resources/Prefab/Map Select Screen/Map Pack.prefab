@@ -349,6 +349,7 @@ MonoBehaviour:
   background: {fileID: 2416322190213699761}
   songName: {fileID: 2416322190844784860}
   artist: {fileID: 2416322189155291007}
+  isMap: 0
 --- !u!1 &2416322190213699756
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ GameObject:
   - component: {fileID: 2895001351872807033}
   - component: {fileID: 2416322190213699760}
   - component: {fileID: 2416322190213699761}
-  - component: {fileID: 2416322190213699758}
+  - component: {fileID: 7740769765935395550}
   - component: {fileID: 2416322190213699763}
   - component: {fileID: 2416322190213699762}
   m_Layer: 5
@@ -445,7 +446,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2416322190213699758
+--- !u!114 &7740769765935395550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -454,11 +455,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2416322190213699756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Script: {fileID: 11500000, guid: ba59ca41b8d72ec41955c77522275adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 1.777778
+  m_AspectRatio: 1
+  _parentRectTransform: {fileID: 0}
+  _rectTransform: {fileID: 2416322190213699759}
+  _rectTransformTool: {fileID: 0}
+  _graphic: {fileID: 2416322190213699761}
 --- !u!114 &2416322190213699763
 MonoBehaviour:
   m_ObjectHideFlags: 0

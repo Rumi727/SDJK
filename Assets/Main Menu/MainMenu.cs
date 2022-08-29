@@ -155,6 +155,19 @@ namespace SDJK
                 else if (mapSelectScreen.gameObject.activeSelf)
                     mapSelectScreen.gameObject.SetActive(false);
             }
+            else if (currentScreenMode == ScreenMode.mapPackSelect)
+            {
+                if (DefaultLogoAni(new Vector2(-92, 50), new Vector2(250, 250)))
+                {
+                    if (mapSelectScreen.alpha < 1)
+                    {
+                        mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(1, 0.1f * Kernel.fpsUnscaledDeltaTime);
+
+                        if (!mapSelectScreen.gameObject.activeSelf)
+                            mapSelectScreen.gameObject.SetActive(true);
+                    }
+                }
+            }
             else if (currentScreenMode == ScreenMode.mapSelect)
             {
                 if (DefaultLogoAni(new Vector2(-92, 50), new Vector2(250, 250)))
@@ -216,11 +229,9 @@ namespace SDJK
             if (currentScreenMode == ScreenMode.esc)
                 Normal();
             else if (currentScreenMode == ScreenMode.normal)
+                MapPackSelect();
+            else if (currentScreenMode == ScreenMode.mapPackSelect)
                 MapSelect();
-            else if (currentScreenMode == ScreenMode.mapSelect)
-            {
-
-            }
         }
 
         public static void Esc()
@@ -243,13 +254,22 @@ namespace SDJK
             screenNormalStartSize = instance.logo.rect.size;
         }
 
+        public static void MapPackSelect()
+        {
+            currentScreenMode = ScreenMode.mapPackSelect;
+            StatusBarManager.allowStatusBarShow = true;
+
+            ScreenChange(Vector2.right, Vector2.right);
+            UIManager.BackEventAdd(Normal);
+        }
+
         public static void MapSelect()
         {
             currentScreenMode = ScreenMode.mapSelect;
             StatusBarManager.allowStatusBarShow = true;
 
             ScreenChange(Vector2.right, Vector2.right);
-            UIManager.BackEventAdd(Normal);
+            UIManager.BackEventAdd(MapPackSelect);
         }
 
         static void ScreenChange(Vector2 anchorMin, Vector2 anchorMax)
@@ -267,6 +287,7 @@ namespace SDJK
 
             UIManager.BackEventRemove(Esc);
             UIManager.BackEventRemove(Normal);
+            UIManager.BackEventRemove(MapPackSelect);
             UIManager.BackEventRemove(MapSelect);
         }
 
@@ -284,6 +305,7 @@ namespace SDJK
     {
         esc,
         normal,
+        mapPackSelect,
         mapSelect
     }
 }

@@ -19,20 +19,14 @@ namespace SDJK.MapSelectScreen
         float upTimer2 = 0;
         float downTimer = 0;
         float downTimer2 = 0;
-        float leftTimer = 0;
-        float leftTimer2 = 0;
-        float rightTimer = 0;
-        float rightTimer2 = 0;
         void Update()
         {
             canvasScaler.referenceResolution = new Vector2((ScreenManager.width / UIManager.currentGuiSize).Clamp(1920), (ScreenManager.height / UIManager.currentGuiSize).Clamp(1080));
 
-            if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
             {
                 bool up = ReapeatInput(KeyCode.UpArrow, ref upTimer, ref upTimer2);
                 bool down = ReapeatInput(KeyCode.DownArrow, ref downTimer, ref downTimer2);
-                bool left = ReapeatInput(KeyCode.LeftArrow, ref leftTimer, ref leftTimer2);
-                bool right = ReapeatInput(KeyCode.RightArrow, ref rightTimer, ref rightTimer2);
 
                 bool ReapeatInput(KeyCode keyCode, ref float timer, ref float timer2)
                 {
@@ -68,26 +62,34 @@ namespace SDJK.MapSelectScreen
 
                 if (up)
                 {
-                    if (MapManager.selectedMapIndex - 1 < 0)
-                    {
+                    if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect)
                         Left();
-                        MapManager.selectedMapIndex = MapManager.selectedMapPack.maps.Count - 1;
+                    else if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    {
+                        if (MapManager.selectedMapIndex - 1 < 0)
+                        {
+                            //Left();
+                            MapManager.selectedMapIndex = MapManager.selectedMapPack.maps.Count - 1;
+                        }
+                        else
+                            MapManager.selectedMapIndex--;
                     }
-                    else
-                        MapManager.selectedMapIndex--;
                 }
                 if (down)
                 {
-                    if (MapManager.selectedMapIndex + 1 >= MapManager.selectedMapPack.maps.Count)
+                    if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect)
                         Right();
-                    else
-                        MapManager.selectedMapIndex++;
+                    else if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    {
+                        if (MapManager.selectedMapIndex + 1 >= MapManager.selectedMapPack.maps.Count)
+                        {
+                            //Right();
+                            MapManager.selectedMapIndex = 0;
+                        }
+                        else
+                            MapManager.selectedMapIndex++;
+                    }
                 }
-
-                if (left)
-                    Left();
-                if (right)
-                    Right();
 
                 void Left()
                 {

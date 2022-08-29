@@ -21,6 +21,7 @@ namespace SDJK.MapSelectScreen
         [SerializeField, NotNull] Image background;
         [SerializeField, NotNull] TMP_Text songName;
         [SerializeField, NotNull] TMP_Text artist;
+        [SerializeField] bool isMap = false;
 
         public override void OnCreate()
         {
@@ -30,20 +31,23 @@ namespace SDJK.MapSelectScreen
             rectTransform.offsetMax = new Vector2(40, rectTransform.offsetMax.y);
         }
 
+        MapPackList mapPackList;
         MapPack mapPack;
         int mapPackIndex;
+        Map.Map map;
+        int mapIndex;
         void Update()
         {
-            if (mapPack == MapManager.selectedMapPack)
+            if ((mapPack == MapManager.selectedMapPack && MainMenu.currentScreenMode == ScreenMode.mapPackSelect && !isMap) || (map == MapManager.selectedMap && MainMenu.currentScreenMode == ScreenMode.mapSelect && isMap))
             {
                 outline.color = outline.color.MoveTowards(Color.white, 0.1f * Kernel.fpsUnscaledDeltaTime);
                 rectTransform.offsetMin = rectTransform.offsetMin.Lerp(new Vector2(0, rectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
 
-                float viewportHeight = MapPackList.instance.viewport.rect.height;
-                float contentHeight = MapPackList.instance.content.rect.height;
+                float viewportHeight = mapPackList.viewport.rect.height;
+                float contentHeight = mapPackList.content.rect.height;
 
                 float thisPos = -rectTransform.anchoredPosition.y + (rectTransform.rect.height * 0.5f);
-                MapPackList.contentPosY = (thisPos - (viewportHeight * 0.5f)).Clamp(0, contentHeight - viewportHeight);
+                mapPackList.contentPosY = (thisPos - (viewportHeight * 0.5f)).Clamp(0, contentHeight - viewportHeight);
             }
             else
             {
@@ -53,16 +57,32 @@ namespace SDJK.MapSelectScreen
         }
 
         CancellationTokenSource cancelSource = new CancellationTokenSource();
-        public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex)
+        public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, Map.Map map, int mapIndex)
         {
+            this.mapPackList = mapPackList;
             this.mapPack = mapPack;
             this.mapPackIndex = mapPackIndex;
+            this.map = map;
+            this.mapIndex = mapIndex;
 
-            Map.Map firstMap = mapPack.maps[0];
+            Map.Map selectedMap;
+            if (!isMap)
+                selectedMap = mapPack.maps[0];
+            else
+                selectedMap = map;
 
             background.sprite = null;
-            songName.text = firstMap.info.songName;
-            artist.text = firstMap.info.artist;
+
+            if (!isMap)
+            {
+                songName.text = selectedMap.info.songName;
+                artist.text = selectedMap.info.artist;
+            }
+            else
+            {
+                songName.text = selectedMap.info.difficultyLabel;
+                artist.text = selectedMap.info.author;
+            }
 
             if (await UniTask.WaitUntil(() => !isTextureLoading, PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
                 return;
@@ -72,7 +92,7 @@ namespace SDJK.MapSelectScreen
             if (background.sprite != null)
                 Destroy(background.sprite);
 
-            string texturePath = PathTool.Combine(firstMap.mapFilePathParent, firstMap.info.backgroundFile);
+            string texturePath = PathTool.Combine(selectedMap.mapFilePathParent, selectedMap.info.backgroundFile);
             background.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
 
             isTextureLoading = false;
@@ -100,6 +120,22 @@ namespace SDJK.MapSelectScreen
             return true;
         }
 
-        public void OnPointerClick(PointerEventData eventData) => MapManager.selectedMapPackIndex = mapPackIndex;
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!isMap)
+            {
+                if (MapManager.selectedMapPackIndex != mapPackIndex)
+                    MapManager.selectedMapPackIndex = mapPackIndex;
+                else
+                    MainMenu.NextScreen();
+            }
+            else
+            {
+                if (MapManager.selectedMapIndex != mapIndex)
+                    MapManager.selectedMapIndex = mapIndex;
+                else
+                    MainMenu.NextScreen();
+            }
+        }
     }
 }
