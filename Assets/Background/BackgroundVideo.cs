@@ -21,6 +21,7 @@ namespace SDJK
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;
 
         public RawImage rawImage => _rawImage; [SerializeField, NotNull] RawImage _rawImage;
+        public AspectRatioFitter aspectRatioFitter => _aspectRatioFitter; [SerializeField, NotNull] AspectRatioFitter _aspectRatioFitter;
 
 
 
@@ -68,15 +69,12 @@ namespace SDJK
                 return;
             }
 
-            if (!isPadeOut && videoPlayer.isPrepared)
+            if (!isPadeOut && videoPlayer.isPrepared && videoPlayer.canStep)
             {
                 isPlaying = true;
 
                 if (videoPlayer.width != renderTexture.width || videoPlayer.height != renderTexture.height)
-                {
-                    renderTexture.width = (int)videoPlayer.width;
-                    renderTexture.height = (int)videoPlayer.height;
-                }
+                    SetResolution();
 
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
@@ -106,6 +104,14 @@ namespace SDJK
                     }
                 }
             }
+        }
+
+        void SetResolution()
+        {
+            renderTexture.width = (int)videoPlayer.width;
+            renderTexture.height = (int)videoPlayer.height;
+
+            aspectRatioFitter.aspectRatio = (float)videoPlayer.width / (float)videoPlayer.height;
         }
 
         bool isPadeOut = false;

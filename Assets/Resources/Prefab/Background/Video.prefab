@@ -75,6 +75,7 @@ MonoBehaviour:
   _videoPlayer: {fileID: 0}
   _canvasGroup: {fileID: 0}
   _rawImage: {fileID: 5120385154579889633}
+  _aspectRatioFitter: {fileID: 7666195117202146692}
 --- !u!328 &7597983266089402887
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ GameObject:
   - component: {fileID: 3830772100397463882}
   - component: {fileID: 3352827940158938525}
   - component: {fileID: 5120385154579889633}
-  - component: {fileID: 2242866151975445373}
+  - component: {fileID: 7666195117202146692}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -212,7 +213,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2242866151975445373
+--- !u!114 &7666195117202146692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,12 +222,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7962222814270224787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba59ca41b8d72ec41955c77522275adb, type: 3}
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
   m_AspectRatio: 1
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5011246470483341284}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5120385154579889633}
