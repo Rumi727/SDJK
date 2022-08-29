@@ -221,15 +221,6 @@ namespace SCKRM
             else
                 return 1;
         }
-
-        [WikiIgnore]
-        public static int Sign(this nuint value)
-        {
-            if (value < 0)
-                return -1;
-            else
-                return 1;
-        }
         #endregion
 
         #region Clamp

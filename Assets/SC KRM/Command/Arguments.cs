@@ -82,7 +82,7 @@ namespace SCKRM.Command
             (Vector3 result, NumberBaseType[] numberBaseTypes) = context.GetArgument<(Vector3 result, NumberBaseType[] numberBaseTypes)>(name);
 
             if (numberBaseTypes[0] == NumberBaseType.local)
-                return offset + (Quaternion.Euler(source.currentRotation) * new Vector3(result.x, result.y));
+                return offset + (Quaternion.Euler(source.currentRotation) * new Vector3(result.x, result.y, result.z));
             else
             {
                 if (numberBaseTypes[0] == NumberBaseType.offset)
@@ -104,7 +104,7 @@ namespace SCKRM.Command
             DefaultCommandSource source = GetDefaultCommandSource(context.Source);
 
             if (numberBaseTypes[0] == NumberBaseType.local)
-                return offset + UnityEngine.Vector3Int.FloorToInt(Quaternion.Euler(source.currentRotation) * new Vector3(result.x, result.y));
+                return offset + UnityEngine.Vector3Int.FloorToInt(Quaternion.Euler(source.currentRotation) * new Vector3(result.x, result.y, result.z));
             else
             {
                 if (numberBaseTypes[0] == NumberBaseType.offset)

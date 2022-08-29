@@ -240,8 +240,6 @@ namespace SCKRM.Command
                                             Vector3 rotation = Arguments.GetVector3(x, "rot", x.Source.currentRotation);
                                             float magnitude = rotation.magnitude;
 
-                                            Debug.Log(rotation);
-
                                             x.Source.currentRotation = rotation;
                                             x.Source.lastCommandResult = new CommandResult(true, rotation, magnitude);
 
