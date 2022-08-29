@@ -160,6 +160,8 @@ namespace SCKRM.Rhythm
             RhythmManager.soundPlayer = soundPlayer;
 
             RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
+            SoundPlayerTimeChange();
+
             isPlaying = true;
         }
 
