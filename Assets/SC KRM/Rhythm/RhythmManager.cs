@@ -192,7 +192,7 @@ namespace SCKRM.Rhythm
                     BPMChange(bpm.value, bpm.beat);
                 }
 
-                if (bpmOffsetTime >= time)
+                if (bpmOffsetTime > time - offset)
                 {
                     if (i - 1 >= 0)
                     {

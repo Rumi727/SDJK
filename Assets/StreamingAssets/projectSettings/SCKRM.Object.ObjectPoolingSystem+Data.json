@@ -14,6 +14,7 @@
     "background_setting.background": "Prefab/Background/Background",
     "background_video_setting.background_video": "Prefab/Background/Video",
     "map_select_screen.background": "Prefab/Map Select Screen/Map Info Background",
-    "map_select_screen.map_pack": "Prefab/Map Select Screen/Map Pack"
+    "map_select_screen.map_pack": "Prefab/Map Select Screen/Map Pack",
+    "map_select_screen.map": "Prefab/Map Select Screen/Map"
   }
 }
