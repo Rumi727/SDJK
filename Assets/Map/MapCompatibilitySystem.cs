@@ -39,6 +39,20 @@ namespace SDJK
 
                         sdjk.info.mainMenuStartTime = adofai.settings.previewSongStart;
 
+                        {
+                            int difficulty = adofai.settings.difficulty;
+                            if (difficulty >= 1 && difficulty <= 3)
+                                sdjk.info.difficultyLabel = "Easy (ADOFAI)";
+                            else if (difficulty >= 4 && difficulty <= 6)
+                                sdjk.info.difficultyLabel = "Normal (ADOFAI)";
+                            else if (difficulty >= 7 && difficulty <= 9)
+                                sdjk.info.difficultyLabel = "Hard (ADOFAI)";
+                            if (difficulty >= 10)
+                                sdjk.info.difficultyLabel = "Very Hard (ADOFAI)";
+                            else
+                                sdjk.info.difficultyLabel = "ADOFAI";
+                        }
+
                         sdjk.info.backgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgImage);
                         sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
 
@@ -54,7 +68,6 @@ namespace SDJK
                         sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14), 0, EasingFunction.Ease.Linear, false));
                         sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(0, 0, adofai.settings.rotation), 0, EasingFunction.Ease.Linear, false));
                         sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(double.MinValue, adofai.settings.zoom * 0.01, 0, EasingFunction.Ease.Linear, false));
-                        ;
                     }
                     #endregion
 
@@ -381,7 +394,21 @@ namespace SDJK
                         map.info.artist = oldMap.Artist;
                         map.info.songName = oldMap.BGMName;
 
-                        map.info.difficultyLabel = oldMap.Difficulty;
+                        {
+                            string difficulty = oldMap.Difficulty;
+                            if (difficulty == "very_easy")
+                                map.info.difficultyLabel = "Very Easy (SDJK 1.0)";
+                            else if (difficulty == "easy")
+                                map.info.difficultyLabel = "Easy (SDJK 1.0)";
+                            else if (difficulty == "normal")
+                                map.info.difficultyLabel = "Normal (SDJK 1.0)";
+                            else if (difficulty == "hard")
+                                map.info.difficultyLabel = "Hard (SDJK 1.0)";
+                            else if (difficulty == "very_hard")
+                                map.info.difficultyLabel = "Very Hard (SDJK 1.0)";
+                            else
+                                map.info.difficultyLabel = difficulty + " (SDJK 1.0)";
+                        }
 
 
 
@@ -873,6 +900,8 @@ namespace SDJK
                 public string songFilename = "";
 
                 public int previewSongStart = 0;
+
+                public int difficulty = 0;
 
                 public float bpm = 100;
                 public int volume = 100;
