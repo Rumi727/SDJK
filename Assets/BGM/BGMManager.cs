@@ -39,7 +39,7 @@ namespace SDJK
                 if (tempSDJKMapPack != MapManager.selectedMapPack || (tempSDJKMap != MapManager.selectedMap && tempSongFile != MapManager.selectedMapInfo.songFile))
                     Refresh();
                 
-                if (tempSDJKMap2 != MapManager.selectedMap && bgm != null && bgm.soundPlayer != null)
+                if ((tempSDJKMap2 != MapManager.selectedMap || !RhythmManager.isPlaying) && bgm != null && bgm.soundPlayer != null)
                 {
                     RhythmManager.Stop();
                     RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, bgm.soundPlayer);
