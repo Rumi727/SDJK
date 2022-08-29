@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1174958582390905568}
   - component: {fileID: 978618387941541928}
   - component: {fileID: 5314454185515033005}
-  - component: {fileID: 2834449651920743494}
+  - component: {fileID: 5687367417876357807}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
+  _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 0}
   _image: {fileID: 0}
   _canvasGroup: {fileID: 0}
@@ -108,7 +109,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2834449651920743494
+--- !u!114 &5687367417876357807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,8 +118,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1174958582390905573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Script: {fileID: 11500000, guid: ba59ca41b8d72ec41955c77522275adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 1.777778
+  m_AspectRatio: 1
+  _parentRectTransform: {fileID: 0}
+  _rectTransform: {fileID: 1174958582390905574}
+  _rectTransformTool: {fileID: 0}
+  _graphic: {fileID: 978618387941541928}
