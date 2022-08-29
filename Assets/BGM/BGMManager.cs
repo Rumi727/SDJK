@@ -27,6 +27,7 @@ namespace SDJK
 
         static MapPack tempSDJKMapPack;
         static Map.Map tempSDJKMap;
+        static Map.Map tempSDJKMap2;
         static string tempSongFile = "";
         void Update()
         {
@@ -37,6 +38,14 @@ namespace SDJK
             {
                 if (tempSDJKMapPack != MapManager.selectedMapPack || (tempSDJKMap != MapManager.selectedMap && tempSongFile != MapManager.selectedMapInfo.songFile))
                     Refresh();
+                
+                if (tempSDJKMap2 != MapManager.selectedMap && bgm != null && bgm.soundPlayer != null)
+                {
+                    RhythmManager.Stop();
+                    RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, bgm.soundPlayer);
+
+                    tempSDJKMap2 = MapManager.selectedMap;
+                }
             }
         }
 

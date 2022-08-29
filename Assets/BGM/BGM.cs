@@ -39,8 +39,6 @@ namespace SDJK
                 soundPlayer = SoundManager.PlaySound(soundData, 0, true);
                 soundPlayer.looped += Looped;
 
-                RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, soundPlayer);
-
                 if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
                     soundPlayer.time = (float)map.info.mainMenuStartTime;
 
@@ -54,8 +52,6 @@ namespace SDJK
 
                 soundPlayer = SoundManager.PlayNBS(soundData, 0, true);
                 soundPlayer.looped += Looped;
-
-                RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, soundPlayer);
 
                 if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
                     soundPlayer.time = (float)map.info.mainMenuStartTime;
@@ -100,7 +96,7 @@ namespace SDJK
 
         void Looped()
         {
-            if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
+            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect)
             {
                 Map.Map map = MapManager.selectedMap;
                 soundPlayer.time = (float)map.info.mainMenuStartTime;
