@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Resource;
+using SCKRM.Rhythm;
 using SCKRM.UI;
 using SDJK.Map;
 using System.Collections;
@@ -18,51 +19,48 @@ namespace SDJK
         public Image image => this.GetComponentFieldSave(_image); [SerializeField] Image _image;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;
 
+        public bool padeOut { get; set; } = false;
+
         CancellationTokenSource cancelSource = new CancellationTokenSource();
-        public override async void OnCreate()
+        Map.Map map;
+        public override void OnCreate()
         {
             base.OnCreate();
 
             transform.SetSiblingIndex(0);
-
-            Map.Map map = MapManager.selectedMap;
-            string texturePath = PathTool.Combine(map.mapFilePathParent, map.info.backgroundFile);
-            image.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
-
-            if (image.sprite == null)
-            {
-                Remove();
-                return;
-            }
-
-            while (image.color.r < 1)
-            {
-                image.color = image.color.MoveTowards(Color.white, 0.05f * Kernel.fpsUnscaledDeltaTime);
-                await UniTask.NextFrame();
-
-                if (this == null)
-                {
-                    TextureDestroy();
-                    return;
-                }
-            }
+            map = MapManager.selectedMap;
         }
 
-        public async UniTaskVoid PadeOut()
+        string tempTexturePath = "";
+        void Update()
         {
-            while (canvasGroup.alpha > 0)
+            if (!padeOut)
+            {
+                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+
+                {
+                    string texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundFile;
+                    if (texturePath != tempTexturePath)
+                    {
+                        tempTexturePath = texturePath;
+
+                        texturePath = PathTool.Combine(map.mapFilePathParent, texturePath);
+                        image.sprite = ResourceManager.GetSprite(ResourceManager.GetTexture(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
+                    }
+                }
+
+                if (image.sprite != null)
+                    image.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
+                else
+                    image.color = Color.black;
+            }
+            else
             {
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
-                await UniTask.NextFrame();
 
-                if (this == null)
-                {
-                    TextureDestroy();
-                    return;
-                }
+                if (canvasGroup.alpha <= 0)
+                    Remove();
             }
-
-            Remove();
         }
 
         public override bool Remove()
@@ -70,8 +68,10 @@ namespace SDJK
             if (!base.Remove())
                 return false;
 
+            tempTexturePath = "";
+            padeOut = false;
             image.color = Color.black;
-            canvasGroup.alpha = 1;
+            canvasGroup.alpha = 0;
             TextureDestroy();
 
             return true;

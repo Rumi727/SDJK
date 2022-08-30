@@ -92,8 +92,12 @@ namespace SDJK.MapSelectScreen
             if (background.sprite != null)
                 Destroy(background.sprite);
 
-            string texturePath = PathTool.Combine(selectedMap.mapFilePathParent, selectedMap.info.backgroundFile);
-            background.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
+            if (selectedMap.globalEffect.background.Count > 0)
+            {
+                string texturePath = selectedMap.globalEffect.background[0].value.backgroundFile;
+                texturePath = PathTool.Combine(selectedMap.mapFilePathParent, texturePath);
+                background.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
+            }
 
             isTextureLoading = false;
         }

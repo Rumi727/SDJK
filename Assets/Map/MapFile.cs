@@ -44,8 +44,6 @@ namespace SDJK.Map
 
 
 
-        public string backgroundFile { get; set; } = "";
-        public string backgroundNightFile { get; set; } = "";
 
         public string videoBackgroundFile { get; set; } = "";
         public string videoBackgroundNightFile { get; set; } = "";
@@ -76,6 +74,11 @@ namespace SDJK.Map
     {
         public SCKRM.Rhythm.BeatValuePairList<double> bpm { get; } = new();
         public SCKRM.Rhythm.BeatValuePairList<bool> dropPart { get; } = new();
+
+
+
+        public BeatValuePairList<BackgroundEffect> background { get; } = new();
+        public BeatValuePairAniListColor backgroundColor { get; } = new();
 
 
 
@@ -250,6 +253,22 @@ namespace SDJK.Map
             this.easingFunction = easingFunction;
 
             this.disturbance = disturbance;
+        }
+    }
+    #endregion
+
+
+
+    #region Effect
+    public struct BackgroundEffect
+    {
+        public string backgroundFile { get; set; }
+        public string backgroundNightFile { get; }
+
+        public BackgroundEffect(string backgroundFile, string backgroundNightFile)
+        {
+            this.backgroundFile = backgroundFile;
+            this.backgroundNightFile = backgroundNightFile;
         }
     }
     #endregion

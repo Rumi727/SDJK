@@ -53,9 +53,14 @@ namespace SDJK
                                 sdjk.info.difficultyLabel = "ADOFAI";
                         }
 
-                        sdjk.info.backgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgImage);
-                        sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
+                        sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(double.MinValue, new BackgroundEffect(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""), false));
 
+                        if (ColorUtility.TryParseHtmlString("#" + adofai.settings.bgImageColor, out Color color))
+                            sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, color, 0, EasingFunction.Ease.Linear, false));
+                        else
+                            sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
+
+                        sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
                         sdjk.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
                         sdjk.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
@@ -64,6 +69,7 @@ namespace SDJK
                         sdjk.globalEffect.volume.Add(new BeatValuePairAni<double>(double.MinValue, adofai.settings.volume * 0.02, 0, EasingFunction.Ease.Linear, false));
                         sdjk.info.songOffset = adofai.settings.offset * 0.001f;
                         sdjk.globalEffect.pitch.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, adofai.settings.pitch * 0.01, 0, EasingFunction.Ease.Linear));
+                        sdjk.globalEffect.tempo.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 1, 0, EasingFunction.Ease.Linear));
 
                         sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14), 0, EasingFunction.Ease.Linear, false));
                         sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(0, 0, adofai.settings.rotation), 0, EasingFunction.Ease.Linear, false));
@@ -223,6 +229,7 @@ namespace SDJK
                         JObject action = adofai.actions[i];
                         int index = action["floor"].Value<int>() - 1;
                         string eventType = action["eventType"].Value<string>();
+                        double beat = allBeat[index.Clamp(0, allBeat.Count - 1)];
                         float duration = 0;
                         float angleOffset = 0;
                         EasingFunction.Ease ease = EasingFunction.Ease.Linear;
@@ -311,18 +318,18 @@ namespace SDJK
                                 if (action["speedType"].Value<string>() == "Bpm")
                                 {
                                     bpm = action["beatsPerMinute"].Value<float>();
-                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
+                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
                                 }
                                 else
                                 {
                                     bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
+                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
                                 }
                             }
                             else
                             {
                                 bpm = action["beatsPerMinute"].Value<float>();
-                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(allBeat[index], bpm));
+                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
                             }
 
                             lastBpm = bpm;
@@ -332,23 +339,42 @@ namespace SDJK
                             if (action.ContainsKey("position"))
                             {
                                 float[] pos = action["position"].Values<float>().ToArray();
-                                sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(allBeat[index], new JVector3(pos[0], pos[1], -14), duration, ease, false));
+                                sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(pos[0], pos[1], -14), duration, ease, false));
                             }
 
                             if (action.ContainsKey("rotation"))
                             {
                                 float rotation = action["rotation"].Value<float>();
-                                sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(allBeat[index], new JVector3(0, 0, rotation), duration, ease, false));
+                                sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(0, 0, rotation), duration, ease, false));
                             }
 
                             if (action.ContainsKey("zoom"))
                             {
                                 double zoom = action["zoom"].Value<float>() * 0.01;
-                                sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(allBeat[index], zoom, duration, ease, false));
+                                sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(beat, zoom, duration, ease, false));
+                            }
+                        }
+                        else if (eventType == "CustomBackground")
+                        {
+                            if (action.ContainsKey("imageColor"))
+                            {
+                                if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
+                                    sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, color, 0, EasingFunction.Ease.Linear, false));
+                                else
+                                    sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                            }
+
+                            if (action.ContainsKey("bgImage"))
+                            {
+                                string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
+                                sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(beat, new BackgroundEffect(background, ""), false));
+                            }
+                        }
                             }
                         }
                     }
                     #endregion
+
                     return sdjk;
                 }
                 catch (Exception e)
@@ -397,8 +423,8 @@ namespace SDJK
 
 
 
-                        map.info.backgroundFile = oldMap.Background;
-                        map.info.backgroundNightFile = oldMap.BackgroundNight;
+                        map.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(double.MinValue, new BackgroundEffect(oldMap.Background, oldMap.BackgroundNight), false));
+                        map.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
 
                         map.info.videoBackgroundFile = oldMap.VideoBackground;
                         map.info.videoBackgroundNightFile = oldMap.VideoBackgroundNight;
@@ -925,6 +951,7 @@ namespace SDJK
                 public int pitch = 100;
 
                 public string bgImage = "";
+                public string bgImageColor = "";
 
                 public string bgVideo = "";
                 public int vidOffset = 0;
