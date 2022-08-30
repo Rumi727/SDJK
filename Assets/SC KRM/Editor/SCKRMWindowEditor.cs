@@ -28,6 +28,9 @@ namespace SCKRM.Editor
         int tabIndex = 0;
         void OnGUI()
         {
+            if (Event.current.type != EventType.Layout && Event.current.type != EventType.Repaint)
+                return;
+
             {
                 EditorGUILayout.Space();
                 GUILayout.BeginHorizontal();
