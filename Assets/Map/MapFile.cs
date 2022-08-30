@@ -86,6 +86,10 @@ namespace SDJK.Map
         public BeatValuePairAniListVector3 cameraPos { get; } = new();
         public BeatValuePairAniListVector3 cameraRotation { get; } = new();
 
+        public BeatValuePairAniListColor backgroundFlash { get; } = new();
+        public BeatValuePairAniListColor fieldFlash { get; } = new();
+        public BeatValuePairAniListColor uiFlash { get; } = new();
+
 
 
         public SCKRM.Rhythm.BeatValuePairAniListDouble pitch { get; } = new();
@@ -270,6 +274,14 @@ namespace SDJK.Map
             this.backgroundFile = backgroundFile;
             this.backgroundNightFile = backgroundNightFile;
         }
+    }
+
+    [SerializeField]
+    public enum FlashOrder
+    {
+        background,
+        field,
+        ui
     }
     #endregion
 }

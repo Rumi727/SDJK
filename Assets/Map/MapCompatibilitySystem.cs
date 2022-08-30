@@ -74,6 +74,10 @@ namespace SDJK
                         sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14), 0, EasingFunction.Ease.Linear, false));
                         sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(0, 0, adofai.settings.rotation), 0, EasingFunction.Ease.Linear, false));
                         sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(double.MinValue, adofai.settings.zoom * 0.01, 0, EasingFunction.Ease.Linear, false));
+
+                        sdjk.globalEffect.backgroundFlash.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.zero, 0, EasingFunction.Ease.Linear, false));
+                        sdjk.globalEffect.fieldFlash.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.zero, 0, EasingFunction.Ease.Linear, false));
+                        sdjk.globalEffect.uiFlash.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.zero, 0, EasingFunction.Ease.Linear, false));
                     }
                     #endregion
 
@@ -370,6 +374,30 @@ namespace SDJK
                                 sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(beat, new BackgroundEffect(background, ""), false));
                             }
                         }
+                        else if (eventType == "Flash")
+                        {
+                            if (action.ContainsKey("startColor") && action.ContainsKey("endColor") && action.ContainsKey("startOpacity") && action.ContainsKey("endOpacity") && action.ContainsKey("plane"))
+                            {
+                                if (ColorUtility.TryParseHtmlString("#" + action["startColor"], out Color startColor) && ColorUtility.TryParseHtmlString("#" + action["endColor"], out Color endColor))
+                                {
+                                    string plane = action.Value<string>("plane");
+                                    startColor.a *= action.Value<float>("startOpacity") * 0.01f;
+                                    endColor.a *= action.Value<float>("endOpacity") * 0.01f;
+
+                                    BeatValuePairAni<JColor> start = new BeatValuePairAni<JColor>(beat, startColor, 0, EasingFunction.Ease.Linear, false);
+                                    BeatValuePairAni<JColor> end = new BeatValuePairAni<JColor>(beat, endColor, duration, EasingFunction.Ease.Linear, false);
+
+                                    if (plane == "Foreground")
+                                    {
+                                        sdjk.globalEffect.fieldFlash.Add(start);
+                                        sdjk.globalEffect.fieldFlash.Add(end);
+                                    }
+                                    else
+                                    {
+                                        sdjk.globalEffect.backgroundFlash.Add(start);
+                                        sdjk.globalEffect.backgroundFlash.Add(end);
+                                    }
+                                }
                             }
                         }
                     }
