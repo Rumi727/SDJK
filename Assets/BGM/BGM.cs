@@ -24,11 +24,12 @@ namespace SDJK
 
 
         AudioClip audioClip;
+        Map.Map map;
         public override async void OnCreate()
         {
             base.OnCreate();
 
-            Map.Map map = MapManager.selectedMap;
+            map = MapManager.selectedMap;
             string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
@@ -67,8 +68,6 @@ namespace SDJK
             if (!isLoaded || ResourceManager.isAudioReset)
                 return;
 
-            Map.Map map = MapManager.selectedMap;
-
             if (soundPlayer.isRemoved)
             {
                 Remove();
@@ -77,7 +76,7 @@ namespace SDJK
 
             if (padeOut)
             {
-                volumePade = volumePade.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                soundPlayer.volume = soundPlayer.volume.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
                 if (volumePade <= 0)
                 {
@@ -86,21 +85,19 @@ namespace SDJK
                 }
             }
             else
+            {
                 volumePade = volumePade.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                soundPlayer.volume = (float)map.globalEffect.volume.GetValue() * volumePade;
 
-            soundPlayer.volume = (float)map.globalEffect.volume.GetValue() * volumePade;
-
-            soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue();
-            soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue();
+                soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue();
+                soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue();
+            }
         }
 
         void Looped()
         {
             if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect)
-            {
-                Map.Map map = MapManager.selectedMap;
                 soundPlayer.time = (float)map.info.mainMenuStartTime;
-            }
         }
 
         public override bool Remove()
