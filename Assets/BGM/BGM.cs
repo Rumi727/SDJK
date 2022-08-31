@@ -78,7 +78,7 @@ namespace SDJK
             {
                 soundPlayer.volume = soundPlayer.volume.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-                if (volumePade <= 0)
+                if (soundPlayer.volume <= 0)
                 {
                     Remove();
                     return;
