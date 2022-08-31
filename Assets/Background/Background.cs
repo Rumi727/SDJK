@@ -44,6 +44,12 @@ namespace SDJK
                     {
                         tempTexturePath = texturePath;
 
+                        if (image.sprite != null)
+                        {
+                            Destroy(image.sprite.texture);
+                            Destroy(image.sprite);
+                        }
+
                         texturePath = PathTool.Combine(map.mapFilePathParent, texturePath);
                         image.sprite = ResourceManager.GetSprite(ResourceManager.GetTexture(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
                     }
