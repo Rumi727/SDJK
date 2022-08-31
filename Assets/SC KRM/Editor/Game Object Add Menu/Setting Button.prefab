@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
+  _rectTransform: {fileID: 149191433057823382}
   _graphic: {fileID: 0}
 --- !u!114 &4895079024698297325
 MonoBehaviour:
@@ -281,9 +281,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 4322184613533496135}
+  _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 4205948363159493598}
   _lerp: 1
   _lerpValue: 0.2
+  _awakeNoAni: 0
   _targetCanvasRenderer: {fileID: 1143155284997355180}
   _targetGraphic: {fileID: 8350708535258979915}
 --- !u!1 &8769101219243043486
@@ -341,8 +343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 9165870227546675092}
+  _graphic: {fileID: 8350708535258979915}
 --- !u!222 &1143155284997355180
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -426,5 +428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 9165870227546675092}
+  _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 8350708535258979915}
   _offset: {r: 1, g: 1, b: 1, a: 1}

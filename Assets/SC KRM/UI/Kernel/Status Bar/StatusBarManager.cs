@@ -52,6 +52,10 @@ namespace SCKRM.UI.StatusBar
         [SerializeField] GameObject _backButton; public GameObject backButton => _backButton;
         [SerializeField] GameObject _layout; public GameObject layout => _layout;
 
+        [SerializeField] Transform _left; public static Transform left => instance._left;
+        [SerializeField] Transform _center; public static Transform center => instance._center;
+        [SerializeField] Transform _right; public static Transform right => instance._right;
+
 
 
         [SerializeField] Sprite downGradation;

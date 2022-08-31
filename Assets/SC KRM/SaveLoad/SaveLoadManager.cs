@@ -69,7 +69,7 @@ namespace SCKRM.SaveLoad
     public static class SaveLoadManager
     {
         [WikiDescription("캐싱된 세이브 로드 클래스")]
-        public static SaveLoadClass[] generalSLCList { get; [Obsolete("It is managed by the Kernel class. Please do not touch it.", false)] internal set; } = new SaveLoadClass[0];
+        public static SaveLoadClass[] generalSLCList { get; [Obsolete("It is managed by the InitialLoadManager class. Please do not touch it.", false)] internal set; } = new SaveLoadClass[0];
 
         [WikiDescription("전부 초기화")]
         public static void InitializeAll<T>(out SaveLoadClass[] result) where T : SaveLoadAttribute

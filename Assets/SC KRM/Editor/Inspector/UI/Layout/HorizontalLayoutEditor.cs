@@ -20,24 +20,27 @@ namespace SCKRM.Editor
 
             UseProperty("_padding");
 
-            EditorGUILayout.Space();
+            Space();
 
             UseProperty("_spacing");
 
-            EditorGUILayout.Space();
+            Space();
 
             UseProperty("_onlyPos", "좌표만 변경");
+
+            Space();
+
             UseProperty("_lerp", "애니메이션 사용");
             if (editor.lerp)
             {
                 UseProperty("_lerpValue", "애니메이션 속도");
 
-                EditorGUILayout.Space();
+                Space();
 
                 UseProperty("_allLerp", "Y 좌표도 애니메이션 사용");
             }
 
-            EditorGUILayout.Space();
+            Space();
 
             UseProperty("_ignore", "무시");
         }

@@ -131,6 +131,9 @@ namespace SCKRM.UI
         public bool lerp { get => _lerp; set => _lerp = value; }
         [SerializeField, Range(0, 1)] float _lerpValue = 0.2f;
         public float lerpValue { get => _lerpValue; set => _lerpValue = value; }
+
+        [SerializeField] bool _awakeNoAni = false;
+        public bool awakeNoAni { get => _awakeNoAni; set => _awakeNoAni = value; }
     }
 
     public abstract class UIAniLayout : UIAni
@@ -142,7 +145,19 @@ namespace SCKRM.UI
         protected override void Awake()
         {
             onTransformParentChangedMethodLock = true;
-            Update();
+
+            if (!awakeNoAni)
+                Update();
+            else
+            {
+                onRectTransformDimensionsChangeMethodLock = true;
+
+                LayoutRefresh();
+                SizeUpdate(false);
+
+                onRectTransformDimensionsChangeMethodLock = false;
+            }
+
             onTransformParentChangedMethodLock = false;
         }
 

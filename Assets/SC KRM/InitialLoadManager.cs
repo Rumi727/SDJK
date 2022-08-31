@@ -172,6 +172,11 @@ namespace SCKRM
                 if (VirtualMachineDetector.Data.vmBan && (VirtualMachineDetector.HardwareDetection() || VirtualMachineDetector.ProcessDetection() || VirtualMachineDetector.FileDetection()))
                     ApplicationForceQuit(nameof(InitialLoadManager), "Virtual machines are prohibited");
 #endif
+
+                //Awake, OnEnable 함수의 작동이 끝날때까지 기다립니다
+                if (await UniTask.NextFrame(PlayerLoopTiming.LastTimeUpdate, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                    return;
+
                 AwakenManager.AllAwakenableMethodAwaken();
 
                 {

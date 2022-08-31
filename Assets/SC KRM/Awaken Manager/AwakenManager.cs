@@ -31,7 +31,7 @@ namespace SCKRM
                     for (int methodInfoIndex = 0; methodInfoIndex < methodInfos.Length; methodInfoIndex++)
                     {
                         MethodInfo methodInfo = methodInfos[methodInfoIndex];
-                        if (Attribute.GetCustomAttributes(methodInfo, typeof(AwakenAttribute)).Length < 0 && methodInfo.GetParameters().Length <= 0)
+                        if (Attribute.GetCustomAttributes(methodInfo, typeof(AwakenAttribute)).Length > 0 && methodInfo.GetParameters().Length <= 0)
                             methodInfo.Invoke(null, null);
                     }
                 }
