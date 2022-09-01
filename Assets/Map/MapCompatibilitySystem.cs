@@ -198,7 +198,7 @@ namespace SDJK
                             double angle = adofai.angleData[i];
                             bool midspin = false;
 
-                            if (angle > 360)
+                            if (angle == 999)
                             {
                                 midspin = true;
 
@@ -206,6 +206,8 @@ namespace SDJK
                                 if (angle >= 360)
                                     angle = 0;
                             }
+                            else
+                                angle = angle.Reapeat(360);
 
                             double offsetBeat;
                             if (!twirl)
