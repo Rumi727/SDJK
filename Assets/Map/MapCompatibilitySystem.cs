@@ -47,8 +47,8 @@ namespace SDJK
                                 sdjk.info.difficultyLabel = "Normal (ADOFAI)";
                             else if (difficulty >= 7 && difficulty <= 9)
                                 sdjk.info.difficultyLabel = "Hard (ADOFAI)";
-                            if (difficulty >= 10)
-                                sdjk.info.difficultyLabel = "Very Hard (ADOFAI)";
+                            else if (difficulty >= 10)
+                                sdjk.info.difficultyLabel = "Insane (ADOFAI)";
                             else
                                 sdjk.info.difficultyLabel = "ADOFAI";
                         }
