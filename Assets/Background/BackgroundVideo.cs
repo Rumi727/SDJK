@@ -37,6 +37,7 @@ namespace SDJK
             videoPlayer.targetTexture = renderTexture;
         }
 
+        Map.Map map;
         public override void OnCreate()
         {
             base.OnCreate();
@@ -46,7 +47,7 @@ namespace SDJK
             rectTransform.sizeDelta = Vector2.zero;
             transform.SetSiblingIndex(0);
 
-            Map.Map map = MapManager.selectedMap;
+            map = MapManager.selectedMap;
             string videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
             if (ResourceManager.FileExtensionExists(videoPath, out string fullPath, ResourceManager.videoExtension))
             {
@@ -80,6 +81,8 @@ namespace SDJK
 
                 if (videoPlayer.width != renderTexture.width || videoPlayer.height != renderTexture.height)
                     SetResolution();
+
+                rawImage.color = map.globalEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
 
                 if (BGMManager.bgm.soundPlayer != null)
                 {

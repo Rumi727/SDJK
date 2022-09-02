@@ -80,6 +80,8 @@ namespace SDJK.Map
         public BeatValuePairList<BackgroundEffect> background { get; } = new();
         public BeatValuePairAniListColor backgroundColor { get; } = new();
 
+        public BeatValuePairAniListColor videoColor { get; } = new();
+
 
 
         public BeatValuePairAniListDouble cameraZoom { get; } = new();
