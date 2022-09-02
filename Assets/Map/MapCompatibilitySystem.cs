@@ -420,7 +420,7 @@ namespace SDJK
                     T map = JsonManager.JsonRead<T>(mapFilePath, true);
                     if (map == null)
                         return null;
-                    else if (map.info.sdjkVersion != new Version())
+                    else if (map.info.sdjkVersion != default(Version))
                         return map;
                 }
 
