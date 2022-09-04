@@ -173,7 +173,7 @@ namespace SCKRM.Editor
                         string kernelPrefabPath = PathTool.Combine(SplashScreen.Data.kernelObjectPath, SplashScreen.Data.kernelObjectName) + ".prefab";
                         Kernel kernelPrefab = AssetDatabase.LoadAssetAtPath<Kernel>(kernelPrefabPath);
                         if (kernelPrefab == null)
-                            throw new NullObjectException(SplashScreen.Data.kernelObjectPath, SplashScreen.Data.kernelObjectName);
+                            throw new NullFolderObjectException(SplashScreen.Data.kernelObjectPath, SplashScreen.Data.kernelObjectName);
 
                         if (kernel == null)
                         {

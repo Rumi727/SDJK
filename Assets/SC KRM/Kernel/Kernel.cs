@@ -14,7 +14,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 10, 9);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 11, 1);
 
 
 
@@ -251,7 +251,7 @@ Build: const true"
         /// Build: const true
         /// </summary>
         [WikiDescription(
-        @"Editor: ![ThreadManager.isMainThread](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Threads.ThreadManager#ismainthread) || ([Application.isPlaying](https://docs.unity3d.com/ScriptReference/Application-isPlaying.html) && ![UnityEditor.EditorApplication.isPaused](https://docs.unity3d.com/ScriptReference/EditorApplication-isPaused.html))
+@"Editor: ![ThreadManager.isMainThread](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Threads.ThreadManager#ismainthread) || ([Application.isPlaying](https://docs.unity3d.com/ScriptReference/Application-isPlaying.html) && ![UnityEditor.EditorApplication.isPaused](https://docs.unity3d.com/ScriptReference/EditorApplication-isPaused.html))
 Build: const true"
 )]
         public static bool isPlayingAndNotPaused => !ThreadManager.isMainThread || (Application.isPlaying && !UnityEditor.EditorApplication.isPaused);
@@ -484,25 +484,25 @@ Build: const true"
 
 
     [WikiDescription("No object in folder\n폴더에 오브젝트가 없습니다")]
-    public class NullObjectException : Exception
+    public class NullFolderObjectException : Exception
     {
         /// <summary>
         /// No object in folder
         /// 폴더에 오브젝트가 없습니다
         /// </summary>
-        public NullObjectException() : base("No object in folder\n폴더에 오브젝트가 없습니다") { }
+        public NullFolderObjectException() : base("No object in folder\n폴더에 오브젝트가 없습니다") { }
 
         /// <summary>
         /// No object in {objectPath} folder
         /// {objectPath} 폴더에 오브젝트가 없습니다
         /// </summary>
-        public NullObjectException(string objectPath) : base($"No object in {objectPath} folder\n{objectPath} 폴더에 오브젝트가 없습니다") { }
+        public NullFolderObjectException(string objectPath) : base($"No object in {objectPath} folder\n{objectPath} 폴더에 오브젝트가 없습니다") { }
 
         /// <summary>
         /// Object {objectName} does not exist in {objectPath} folder
         /// {objectPath} 폴더에 {objectName} 오브젝트가 없습니다
         /// </summary>
-        public NullObjectException(string objectPath, string objectName) : base($"Object {objectName} does not exist in {objectPath} folder\n{objectPath} 폴더에 {objectName} 오브젝트가 없습니다") { }
+        public NullFolderObjectException(string objectPath, string objectName) : base($"Object {objectName} does not exist in {objectPath} folder\n{objectPath} 폴더에 {objectName} 오브젝트가 없습니다") { }
     }
 
     [WikiDescription("No object in resource folder\n리소스 폴더에 오브젝트가 없습니다")]
