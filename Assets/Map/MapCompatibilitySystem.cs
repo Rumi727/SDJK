@@ -474,7 +474,7 @@ namespace SDJK
 
 
                         map.info.sckrmVersion = Kernel.sckrmVersion;
-                        map.info.sdjkVersion = new Version(Application.version);
+                        map.info.sdjkVersion = new Version(Kernel.version);
 
 
 
