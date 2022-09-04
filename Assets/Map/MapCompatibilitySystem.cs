@@ -61,6 +61,7 @@ namespace SDJK
                             sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
 
                         sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
+                        sdjk.globalEffect.videoColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
                         sdjk.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
                         sdjk.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
@@ -458,6 +459,7 @@ namespace SDJK
 
                         map.info.videoBackgroundFile = oldMap.VideoBackground;
                         map.info.videoBackgroundNightFile = oldMap.VideoBackgroundNight;
+                        map.globalEffect.videoColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
 
                         map.info.videoOffset = oldMap.VideoOffset;
 
