@@ -5,11 +5,9 @@ using SCKRM.Json;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-
 using Version = SCKRM.Version;
 
 namespace SDJK
@@ -231,6 +229,8 @@ namespace SDJK
 
                     #region Actions
                     float lastBpm = adofai.settings.bpm;
+                    ADOFAI.RepeatEvents repeatEvents = new ADOFAI.RepeatEvents();
+                    int tempIndex = 0;
                     for (int i = 0; i < adofai.actions.Length; i++)
                     {
                         JObject action = adofai.actions[i];
@@ -239,13 +239,25 @@ namespace SDJK
                         double beat = allBeat[index.Clamp(0, allBeat.Count - 1)];
                         float duration = 0;
                         float angleOffset = 0;
+                        string eventTag = "";
                         EasingFunction.Ease ease = EasingFunction.Ease.Linear;
 
-                        #region Effect
+                        if (tempIndex != index)
+                        {
+                            repeatEvents.Invoke();
+                            repeatEvents = new ADOFAI.RepeatEvents();
+
+                            tempIndex = index;
+                        }
+
+                        #region Default Effect
                         if (action.ContainsKey("duration"))
                             duration = action["duration"].Value<float>();
                         if (action.ContainsKey("angleOffset"))
+                        {
                             angleOffset = action["angleOffset"].Value<float>();
+                            beat += angleOffset.Reapeat(360) / 180;
+                        }
                         if (action.ContainsKey("ease"))
                         {
                             string easeString = action["ease"].Value<string>();
@@ -315,9 +327,20 @@ namespace SDJK
                             else if (easeString == "OutSine")
                                 ease = EasingFunction.Ease.EaseOutSine;
                         }
+                        if (action.ContainsKey("eventTag"))
+                            eventTag = action["eventTag"].Value<string>();
                         #endregion
 
-                        if (eventType == "SetSpeed")
+                        ADOFAI.Effect effect = new ADOFAI.Effect(beat, eventTag, null, false);
+
+                        #region Effect
+                        if (eventType == "RepeatEvents")
+                        {
+                            repeatEvents.repetitions = action["repetitions"].Value<int>();
+                            repeatEvents.interval = action["interval"].Value<float>();
+                            repeatEvents.tag = action["tag"].Value<string>();
+                        }
+                        else if (eventType == "SetSpeed")
                         {
                             float bpm;
                             if (action["speedType"] != null)
@@ -325,20 +348,21 @@ namespace SDJK
                                 if (action["speedType"].Value<string>() == "Bpm")
                                 {
                                     bpm = action["beatsPerMinute"].Value<float>();
-                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
+                                    effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
                                 }
                                 else
                                 {
                                     bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                    sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
+                                    effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
                                 }
                             }
                             else
                             {
                                 bpm = action["beatsPerMinute"].Value<float>();
-                                sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
+                                effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
                             }
 
+                            effect.isTileEffect = true;
                             lastBpm = bpm;
                         }
                         else if (eventType == "MoveCamera")
@@ -346,19 +370,19 @@ namespace SDJK
                             if (action.ContainsKey("position"))
                             {
                                 float[] pos = action["position"].Values<float>().ToArray();
-                                sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(pos[0], pos[1], -14), duration, ease, false));
+                                effect.action += (double beat) => sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(pos[0], pos[1], -14), duration, ease, false));
                             }
 
                             if (action.ContainsKey("rotation"))
                             {
                                 float rotation = action["rotation"].Value<float>();
-                                sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(0, 0, rotation), duration, ease, false));
+                                effect.action += (double beat) => sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(0, 0, rotation), duration, ease, false));
                             }
 
                             if (action.ContainsKey("zoom"))
                             {
                                 double zoom = action["zoom"].Value<float>() * 0.01;
-                                sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(beat, zoom, duration, ease, false));
+                                effect.action += (double beat) => sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(beat, zoom, duration, ease, false));
                             }
                         }
                         else if (eventType == "CustomBackground")
@@ -366,15 +390,15 @@ namespace SDJK
                             if (action.ContainsKey("imageColor"))
                             {
                                 if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
-                                    sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, color, 0, EasingFunction.Ease.Linear, false));
+                                    effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, color, 0, EasingFunction.Ease.Linear, false));
                                 else
-                                    sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                                    effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, JColor.one, 0, EasingFunction.Ease.Linear, false));
                             }
 
                             if (action.ContainsKey("bgImage"))
                             {
                                 string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
-                                sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(beat, new BackgroundEffect(background, ""), false));
+                                effect.action += (double beat) => sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(beat, new BackgroundEffect(background, ""), false));
                             }
                         }
                         else if (eventType == "Flash")
@@ -387,23 +411,31 @@ namespace SDJK
                                     startColor.a *= action.Value<float>("startOpacity") * 0.01f;
                                     endColor.a *= action.Value<float>("endOpacity") * 0.01f;
 
-                                    BeatValuePairAni<JColor> start = new BeatValuePairAni<JColor>(beat, startColor, 0, EasingFunction.Ease.Linear, false);
-                                    BeatValuePairAni<JColor> end = new BeatValuePairAni<JColor>(beat, endColor, duration, EasingFunction.Ease.Linear, false);
+                                    effect.action += (double beat) =>
+                                    {
+                                        BeatValuePairAni<JColor> start = new BeatValuePairAni<JColor>(beat, startColor, 0, EasingFunction.Ease.Linear, false);
+                                        BeatValuePairAni<JColor> end = new BeatValuePairAni<JColor>(beat, endColor, duration, EasingFunction.Ease.Linear, false);
 
-                                    if (plane == "Foreground")
-                                    {
-                                        sdjk.globalEffect.fieldFlash.Add(start);
-                                        sdjk.globalEffect.fieldFlash.Add(end);
-                                    }
-                                    else
-                                    {
-                                        sdjk.globalEffect.backgroundFlash.Add(start);
-                                        sdjk.globalEffect.backgroundFlash.Add(end);
-                                    }
+                                        if (plane == "Foreground")
+                                        {
+                                            sdjk.globalEffect.fieldFlash.Add(start);
+                                            sdjk.globalEffect.fieldFlash.Add(end);
+                                        }
+                                        else
+                                        {
+                                            sdjk.globalEffect.backgroundFlash.Add(start);
+                                            sdjk.globalEffect.backgroundFlash.Add(end);
+                                        }
+                                    };
                                 }
                             }
                         }
+                        #endregion
+
+                        repeatEvents.events.Add(effect);
                     }
+
+                    repeatEvents.Invoke();
                     #endregion
 
                     return sdjk;
@@ -991,6 +1023,55 @@ namespace SDJK
                 public float[] position = new float[] { 0, 0 };
                 public float rotation = 0;
                 public float zoom = 100;
+            }
+
+            public class RepeatEvents
+            {
+                public int repetitions = 0;
+                public float interval = 0;
+                public string tag = "";
+
+                public readonly List<Effect> events = new List<Effect>();
+
+                public void Invoke()
+                {
+                    for (int i = 0; i <= repetitions; i++)
+                    {
+                        for (int j = 0; j < events.Count; j++)
+                        {
+                            Effect adofaiEvent = events[j];
+
+                            if (!adofaiEvent.isTileEffect && tag == adofaiEvent.eventTag)
+                                adofaiEvent.Invoke(interval * i);
+                            else if (i == 0)
+                                adofaiEvent.Invoke(0);
+                        }
+                    }
+                }
+            }
+
+            public struct Effect
+            {
+                public double beat;
+                public string eventTag;
+
+                public EventsAction action;
+
+                public bool isTileEffect;
+
+                public Effect(double beat, string eventTag, EventsAction events, bool isTileEffect)
+                {
+                    this.beat = beat;
+                    this.eventTag = eventTag;
+
+                    this.action = events;
+
+                    this.isTileEffect = isTileEffect;
+                }
+
+                public void Invoke(double offset) => action?.Invoke(beat + offset);
+
+                public delegate void EventsAction(double beat);
             }
         }
     }
