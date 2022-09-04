@@ -12,7 +12,7 @@ using Version = SCKRM.Version;
 
 namespace SDJK
 {
-    internal static class MapCompatibilitySystem
+    public static class MapCompatibilitySystem
     {
         public static string[] compatibleMapExtensions { get; } = new string[] { "sdjk", "adofai" };
 
