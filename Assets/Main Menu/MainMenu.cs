@@ -5,6 +5,7 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.StatusBar;
 using SDJK.Map;
+using SuperBlur;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace SDJK
         [SerializeField, NotNull] RectTransform barLayout;
         [SerializeField, NotNull] HorizontalLayout barLayoutHorizontalLayout;
         [SerializeField, NotNull] CanvasGroup mapSelectScreen;
+        [SerializeField, NotNull] SuperBlur.SuperBlur superBulr;
 
 
 
@@ -181,6 +183,8 @@ namespace SDJK
                     }
                 }
             }
+
+            superBulr.interpolation = mapSelectScreen.alpha;
 
             bool DefaultLogoAni(Vector2 anchoredPosition, Vector2 sizeDelta)
             {
