@@ -42,9 +42,20 @@ namespace SDJK.MapSelectScreen
         void Update()
         {
             if ((MainMenu.currentScreenMode == ScreenMode.mapPackSelect && !isMapList) || (MainMenu.currentScreenMode == ScreenMode.mapSelect && isMapList))
+            {
                 rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
+
+                if (!content.gameObject.activeSelf)
+                    content.gameObject.SetActive(true);
+            }
             else
-                rectTransform.anchoredPosition = rectTransform.anchoredPosition.MoveTowards(new Vector2(rectTransform.rect.width, 0), 100 * Kernel.fpsUnscaledDeltaTime);
+            {
+                Rect rect = rectTransform.rect;
+                rectTransform.anchoredPosition = rectTransform.anchoredPosition.MoveTowards(new Vector2(rect.width, 0), 100 * Kernel.fpsUnscaledDeltaTime);
+
+                if (content.gameObject.activeSelf && rectTransform.anchoredPosition.x >= rect.width)
+                    content.gameObject.SetActive(false);
+            }
 
             if (lastMap != MapManager.selectedMap)
             {
