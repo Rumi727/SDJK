@@ -1035,16 +1035,20 @@ namespace SDJK
 
                 public void Invoke()
                 {
-                    for (int i = 0; i <= repetitions; i++)
+                    for (int i = 0; i < events.Count; i++)
+                    {
+                        Effect adofaiEvent = events[i];
+                        adofaiEvent.Invoke(0);
+                    }
+
+                    for (int i = 0; i < repetitions; i++)
                     {
                         for (int j = 0; j < events.Count; j++)
                         {
                             Effect adofaiEvent = events[j];
 
                             if (!adofaiEvent.isTileEffect && tag == adofaiEvent.eventTag)
-                                adofaiEvent.Invoke(interval * i);
-                            else if (i == 0)
-                                adofaiEvent.Invoke(0);
+                                adofaiEvent.Invoke(interval * (i + 1));
                         }
                     }
                 }
