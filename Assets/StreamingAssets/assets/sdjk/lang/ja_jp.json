@@ -14,5 +14,10 @@
 	
 	"map_select_screen.by_map":"%value%さんのマップ",
 	
+	"options.main_menu.title": "メインメニュー",
+	
+	"options.main_menu.logoVisualizerShow": "ロゴスペクトルの有効化",
+	"options.main_menu.logoVisualizerShow.info": "ロゴのスペクトルを有効にします",
+	
 	"notice.running_task.map_list_refresh.name":"マップリストを更新中..."
 }

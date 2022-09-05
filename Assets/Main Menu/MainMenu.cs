@@ -1,6 +1,8 @@
+using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Input;
+using SCKRM.SaveLoad;
 using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.StatusBar;
@@ -16,6 +18,12 @@ namespace SDJK
 {
     public sealed class MainMenu : Manager<MainMenu>
     {
+        [GeneralSaveLoad]
+        public class SaveData
+        {
+            [JsonProperty] public static bool logoVisualizerShow { get; set; } = true;
+        }
+
         public static ScreenMode currentScreenMode { get; private set; } = ScreenMode.esc;
 
 
@@ -28,6 +36,7 @@ namespace SDJK
         [SerializeField, NotNull] HorizontalLayout barLayoutHorizontalLayout;
         [SerializeField, NotNull] CanvasGroup mapSelectScreen;
         [SerializeField, NotNull] SuperBlur.SuperBlur superBulr;
+        [SerializeField, NotNull] GameObject logoVisualizer;
 
 
 
@@ -185,6 +194,9 @@ namespace SDJK
             }
 
             superBulr.interpolation = mapSelectScreen.alpha;
+
+            if (logoVisualizer.activeSelf != SaveData.logoVisualizerShow)
+                logoVisualizer.SetActive(SaveData.logoVisualizerShow);
 
             bool DefaultLogoAni(Vector2 anchoredPosition, Vector2 sizeDelta)
             {

@@ -14,5 +14,10 @@
 	
 	"map_select_screen.by_map":"%value%'s map",
 	
+	"options.main_menu.title": "Main menu",
+	
+	"options.main_menu.logoVisualizerShow": "Activate Logo Spectrum",
+	"options.main_menu.logoVisualizerShow.info": "Activate the spectrum of the logo",
+	
 	"notice.running_task.map_list_refresh.name":"Refreshing map list..."
 }
