@@ -245,6 +245,12 @@ namespace SDJK
                 BGMManager.bgm.soundPlayer.onAudioFilterReadEvent += VisualizerUpdate;
                 tempSoundPlayer = BGMManager.bgm.soundPlayer;
             }
+
+            for (int i = 0; i < bars.Length; i++)
+            {
+                VisualizerBar visualizerBar = bars[i];
+                visualizerBar.SizeUpdate();
+            }
         }
 
         protected override void OnDisable()
