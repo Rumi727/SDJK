@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.FileDialog;
 using SCKRM.Json;
@@ -11,7 +12,7 @@ namespace SDJK
 {
     public static class MapLoader
     {
-        public static MapPack MapPackLoad(string packfolderPath)
+        public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask)
         {
             string[] packPaths = DirectoryTool.GetFiles(packfolderPath, new ExtensionFilter(MapCompatibilitySystem.compatibleMapExtensions).ToSearchPatterns());
             if (packPaths == null || packPaths.Length <= 0)
@@ -23,6 +24,9 @@ namespace SDJK
                 Map.Map map = MapLoad<Map.Map>(packPaths[i].Replace("\\", "/"));
                 if (map != null)
                     pack.maps.Add(map);
+
+                if (await UniTask.NextFrame(asyncTask.cancel).SuppressCancellationThrow())
+                    return null;
             }
 
             return pack;

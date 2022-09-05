@@ -17,9 +17,9 @@ using UnityEngine;
 
 namespace SDJK.Map
 {
-    public sealed class MapManager : Manager<MapManager>
+    public static class MapManager
     {
-        public static List<MapPack> currentMapPacks { get; } = new List<MapPack>();
+        public static List<MapPack> currentMapPacks { get; private set; } = new List<MapPack>();
 
 
         public static int selectedMapPackIndex
@@ -84,17 +84,8 @@ namespace SDJK.Map
 
 
 
-        async UniTaskVoid Awake()
-        {
-            if (SingletonCheck(this))
-            {
-                if (await UniTask.WaitUntil(() => InitialLoadManager.isInitialLoadEnd, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                    return;
-
-                MapListLoad();
-                //ResourceManager.audioResetEnd += MapListLoad;
-            }
-        }
+        [Awaken]
+        public static void Awaken() => ResourceManager.resourceRefreshEvent += MapListLoad;
 
         //void OnApplicationFocus(bool focus) => MapListLoad();
 
@@ -102,38 +93,66 @@ namespace SDJK.Map
 
 
 
-        public static void MapListLoad()
+        static bool isMapListRefreshing = false;
+        public static async UniTask MapListLoad()
         {
-            currentMapPacks.Clear();
-
-            string mapFolderPath = PathTool.Combine(Kernel.persistentDataPath, "Map");
-            if (!Directory.Exists(mapFolderPath))
-                Directory.CreateDirectory(mapFolderPath);
-            
-            string[] mapPackPaths = Directory.GetDirectories(mapFolderPath);
-            if (mapPackPaths == null || mapPackPaths.Length <= 0)
+            if (isMapListRefreshing)
                 return;
 
-            for (int i = 0; i < mapPackPaths.Length; i++)
-            {
-                MapPack sdjkMapPack = MapLoader.MapPackLoad(mapPackPaths[i].Replace("\\", "/"));
-                if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
-                    currentMapPacks.Add(sdjkMapPack);
-            }
+            isMapListRefreshing = true;
 
-            if (currentMapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= currentMapPacks.Count))
-                selectedMapPackIndex = UnityEngine.Random.Range(0, currentMapPacks.Count);
-            else
+            try
             {
-                int mapIndex = selectedMapIndex;
-                selectedMapPackIndex = selectedMapPackIndex;
-                if (selectedMapIndex < selectedMapPack.maps.Count)
-                    selectedMapIndex = mapIndex;
+                Debug.Log("MapManager: Refreshing map list...");
+
+                AsyncTask asyncTask = new AsyncTask("notice.running_task.map_list_refresh.name", "");
+                if (ResourceManager.isResourceRefesh)
+                    ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
+
+                List<MapPack> mapPacks = new List<MapPack>();
+                string mapFolderPath = PathTool.Combine(Kernel.persistentDataPath, "Map");
+                if (!Directory.Exists(mapFolderPath))
+                    Directory.CreateDirectory(mapFolderPath);
+
+                string[] mapPackPaths = Directory.GetDirectories(mapFolderPath);
+                if (mapPackPaths == null || mapPackPaths.Length <= 0)
+                    return;
+
+                asyncTask.maxProgress = mapPackPaths.Length;
+
+                for (int i = 0; i < mapPackPaths.Length; i++)
+                {
+                    MapPack sdjkMapPack = await MapLoader.MapPackLoad(mapPackPaths[i].Replace("\\", "/"), asyncTask);
+                    if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
+                        mapPacks.Add(sdjkMapPack);
+
+                    if (asyncTask.isCanceled)
+                        return;
+
+                    asyncTask.progress++;
+                }
+
+                currentMapPacks = mapPacks;
+
+                if (mapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= mapPacks.Count))
+                    selectedMapPackIndex = UnityEngine.Random.Range(0, mapPacks.Count);
                 else
-                    selectedMapIndex = 0;
-            }
+                {
+                    int mapIndex = selectedMapIndex;
+                    selectedMapPackIndex = selectedMapPackIndex;
+                    if (selectedMapIndex < selectedMapPack.maps.Count)
+                        selectedMapIndex = mapIndex;
+                    else
+                        selectedMapIndex = 0;
+                }
 
-            mapLoadingEnd?.Invoke();
+                if (InitialLoadManager.isInitialLoadEnd)
+                    mapLoadingEnd?.Invoke();
+            }
+            finally
+            {
+                isMapListRefreshing = false;
+            }
         }
     }
 }

@@ -12,5 +12,7 @@
 	"map_manager.play_music": "음악 재생",
 	"map_manager.pause_music": "음악 일시정지",
 	
-	"map_select_screen.by_map":"%value%님의 맵"
+	"map_select_screen.by_map":"%value%님의 맵",
+	
+	"notice.running_task.map_list_refresh.name":"맵 리스트를 새로고치는 중..."
 }
