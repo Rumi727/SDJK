@@ -147,12 +147,52 @@ namespace SCKRM.Resource
 
 
 
+        [WikiDescription("리소스를 새로고칠 때 발생하는 이벤트 입니다\n이 이벤트에 커스텀 리소스 메소드를 추가하는 방식으로 사용할 수 있습니다")]
+        public static event Func<UniTask> resourceRefreshEvent;
         public static event Action audioResetEnd;
 
 
 
         public static AsyncTask resourceRefreshAsyncTask = null;
         public static AsyncTask resourceRefreshDetailedAsyncTask = null;
+
+        [Awaken]
+        static void Awaken()
+        {
+            resourceRefreshEvent += async () =>
+            {
+                Debug.Log("ResourceManager: Waiting for pack textures to set...");
+                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_pack_textures.name", "", false, true);
+
+                await SetPackTextures();
+            };
+
+            resourceRefreshEvent += async () =>
+            {
+                Debug.Log("ResourceManager: Waiting for sprite to set...");
+                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_sprite.name", "", false, true);
+
+                await SetSprite();
+            };
+
+            resourceRefreshEvent += async () =>
+            {
+                Debug.Log("ResourceManager: Waiting for language to set...");
+                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_language.name", "", false, true);
+
+                await UniTask.RunOnThreadPool(() => SetLanguage());
+
+                isInitialLoadLanguageEnd = true;
+            };
+
+            resourceRefreshEvent += async () =>
+            {
+                Debug.Log("ResourceManager: Waiting for audio to set...");
+                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_audio.name", "", false, true);
+
+                await SetAudio();
+            };
+        }
 
         /// <summary>
         /// 리소스 새로고침 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
@@ -178,70 +218,31 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
             isResourceRefesh = true;
 
+            Delegate[] delegates = resourceRefreshEvent.GetInvocationList();
+
             resourceRefreshAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.name", "", false, true);
             resourceRefreshAsyncTask.progress = 0;
-            resourceRefreshAsyncTask.maxProgress = 4;
+            resourceRefreshAsyncTask.maxProgress = delegates.Length;
 
             try
             {
                 Debug.Log("ResourceManager: Resource refresh start!");
-                Debug.Log("ResourceManager: Waiting for pack textures to set...");
-                
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_pack_textures.name", "", false, true);
 
-                await SetPackTextures();
+                for (int i = 0; i < delegates.Length; i++)
+                {
+                    await ((Func<UniTask>)delegates[i]).Invoke();
 
-                resourceRefreshAsyncTask.progress = 1;
+                    if (resourceRefreshDetailedAsyncTask != null)
+                    {
+                        resourceRefreshDetailedAsyncTask.Remove(true);
+                        resourceRefreshDetailedAsyncTask = null;
+                    }
 
-                resourceRefreshDetailedAsyncTask.Remove(true);
-                resourceRefreshDetailedAsyncTask = null;
+                    resourceRefreshAsyncTask.progress++;
 
-                if (!Kernel.isPlaying)
-                    return;
-
-                Debug.Log("ResourceManager: Waiting for sprite to set...");
-
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_sprite.name", "", false, true);
-
-                await SetSprite();
-
-                resourceRefreshAsyncTask.progress = 2;
-
-                resourceRefreshDetailedAsyncTask.Remove(true);
-                resourceRefreshDetailedAsyncTask = null;
-
-                if (!Kernel.isPlaying)
-                    return;
-
-                Debug.Log("ResourceManager: Waiting for language to set...");
-
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_language.name", "", false, true);
-
-                await SetLanguage();
-
-                isInitialLoadLanguageEnd = true;
-
-                resourceRefreshAsyncTask.progress = 3;
-
-                resourceRefreshDetailedAsyncTask.Remove(true);
-                resourceRefreshDetailedAsyncTask = null;
-
-                if (!Kernel.isPlaying)
-                    return;
-
-                Debug.Log("ResourceManager: Waiting for audio to set...");
-
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_audio.name", "", false, true);
-
-                await SetAudio();
-
-                resourceRefreshAsyncTask.progress = 4;
-
-                resourceRefreshDetailedAsyncTask.Remove(true);
-                resourceRefreshDetailedAsyncTask = null;
-
-                if (!Kernel.isPlaying)
-                    return;
+                    if (!Kernel.isPlaying)
+                        return;
+                }
 
                 Debug.Log("ResourceManager: Resource refresh finished!");
             }
@@ -716,7 +717,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
         }
 
         /// <exception cref="NotPlayModeMethodException"></exception>
-        static async UniTask SetLanguage()
+        static void SetLanguage()
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeMethodException(nameof(SetLanguage));
@@ -760,9 +761,6 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                             else if (!allLanguages[nameSpace][language.language].ContainsKey(languageDictionary.Key))
                                 allLanguages[nameSpace][language.language].Add(languageDictionary.Key, languageDictionary.Value);
                         }
-
-                        if (await UniTask.DelayFrame(1, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                            return;
                     }
                 }
             }

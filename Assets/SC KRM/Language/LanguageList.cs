@@ -21,6 +21,8 @@ namespace SCKRM.Language.UI
         {
             InitialLoadManager.initialLoadEnd += ListRefresh;
             Kernel.allRefreshEnd += ListRefresh;
+
+            ListRefresh();
         }
 
         protected override void OnDestroy()

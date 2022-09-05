@@ -1729,7 +1729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.725006, y: 0}
+  m_AnchoredPosition: {x: 3.7250023, y: 0}
   m_SizeDelta: {x: -65.09, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1144388624651245907
@@ -9671,6 +9671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _kernelCanvas: {fileID: 7456958521831504988}
+  _kernelCanvasBackground: {fileID: 4134112406136330298}
   _kernelSideBarRectTransform: {fileID: 3659320026519382118}
   _exceptionText: {fileID: 9142599726430442164, guid: e0fec902278adb84e8476993ddd37876, type: 3}
 --- !u!1 &1810643910591369940
@@ -24366,7 +24367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.0249939, y: 0}
+  m_AnchoredPosition: {x: 1.0250006, y: 0}
   m_SizeDelta: {x: -59.690002, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6685516747554249455

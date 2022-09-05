@@ -2,11 +2,13 @@ using Newtonsoft.Json;
 using SCKRM.Input;
 using SCKRM.Json;
 using SCKRM.SaveLoad;
+using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
 using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SCKRM.UI
 {
@@ -31,9 +33,10 @@ namespace SCKRM.UI
         [WikiDescription("현재 GUI 크기")] public static float currentGuiSize { get; private set; } = 1;
         public static float scaleAccordingToScreenSize { get; private set; } = 1;
 
-        [SerializeField] Canvas _kernelCanvas; public Canvas kernelCanvas => _kernelCanvas;
-        [SerializeField] RectTransform _kernelSideBarRectTransform; public RectTransform kernelCanvasUI => _kernelSideBarRectTransform;
-        [SerializeField] TMP_Text _exceptionText; public TMP_Text exceptionText => _exceptionText;
+        [SerializeField, NotNull] Canvas _kernelCanvas; public Canvas kernelCanvas => _kernelCanvas;
+        [SerializeField, NotNull] Graphic _kernelCanvasBackground; public Graphic kernelCanvasBackground => _kernelCanvasBackground;
+        [SerializeField, NotNull] RectTransform _kernelSideBarRectTransform; public RectTransform kernelCanvasUI => _kernelSideBarRectTransform;
+        [SerializeField, NotNull] TMP_Text _exceptionText; public TMP_Text exceptionText => _exceptionText;
 
 
 
@@ -66,7 +69,7 @@ namespace SCKRM.UI
                     homeEvent.Invoke();
             }
 
-
+            kernelCanvasBackground.raycastTarget = highPriorityBackEventList.Count > 0;
 
             kernelCanvasUI.offsetMin = StatusBarManager.cropedRect.min;
             kernelCanvasUI.offsetMax = StatusBarManager.cropedRect.max;
