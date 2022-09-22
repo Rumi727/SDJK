@@ -89,21 +89,35 @@ namespace SDJK.MapSelectScreen
             {
                 for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
                 {
-                    MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack", _content).monoBehaviour;
-                    mapPackListMapPack.ConfigureCell(this, MapManager.currentMapPacks[i], i, null, 0).Forget();
+                    MapPack mapPack = MapManager.currentMapPacks[i];
+                    for (int j = 0; j < mapPack.maps.Count; j++)
+                    {
+                        Map.Map map = mapPack.maps[j];
+                        if (map.info.mode == GameModeManager.selectedGameMode.gameModeName)
+                        {
+                            MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack", _content).monoBehaviour;
+                            mapPackListMapPack.ConfigureCell(this, mapPack, i, null, 0).Forget();
 
-                    mapSelectScreenMapPacks.Add(mapPackListMapPack);
+                            mapSelectScreenMapPacks.Add(mapPackListMapPack);
 
-                    if (await UniTask.NextFrame(AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                        return;
+                            if (await UniTask.NextFrame(AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                                return;
+
+                            break;
+                        }
+                    }
                 }
             }
             else
             {
                 for (int i = 0; i < MapManager.selectedMapPack.maps.Count; i++)
                 {
+                    Map.Map map = MapManager.selectedMapPack.maps[i];
+                    if (map.info.mode == GameModeManager.selectedGameMode.gameModeName)
+                        continue;
+
                     MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map", _content).monoBehaviour;
-                    mapPackListMapPack.ConfigureCell(this, null, 0, MapManager.selectedMapPack.maps[i], i).Forget();
+                    mapPackListMapPack.ConfigureCell(this, null, 0, map, i).Forget();
 
                     mapSelectScreenMapPacks.Add(mapPackListMapPack);
 
