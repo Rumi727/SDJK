@@ -77,7 +77,7 @@ namespace SCKRM.Renderer
             if (!Kernel.isPlaying && UnityEditor.Selection.activeObject != null)
             {
                 if (UnityEditor.Selection.activeGameObject.GetComponentInParent<CustomAllRenderer>())
-                    
+
             }
 #endif
         }*/
@@ -191,11 +191,8 @@ namespace SCKRM.Renderer
         {
             string nameSpace = ResourceManager.GetNameSpace(value, out value);
 
-            MatchCollection matches = Regex.Matches(value, ":");
-            int count = matches.Count;
-
             int spriteIndex = 0;
-            if (count >= 2 && !int.TryParse(ResourceManager.GetNameSpace(value, out value), out spriteIndex))
+            if (value.Contains(':') && !int.TryParse(ResourceManager.GetNameSpace(value, out value), out spriteIndex))
                 spriteIndex = -1;
 
             string type = ResourceManager.GetTextureType(value, out value);

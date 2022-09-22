@@ -369,7 +369,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                             if (textureNames.Contains(texture.name))
                                 continue;
-                            
+
                             if (!nameSpace_type_textureNames.ContainsKey(nameSpace) || !nameSpace_type_textureNames[nameSpace].ContainsKey(type))
                             {
                                 fileName_texturePaths.Add(texture.name, path);
@@ -387,7 +387,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                                 }
                             }
                         }
-                        
+
                         if (!packTextureTypePaths.ContainsKey(nameSpace))
                         {
                             packTextureTypePaths.Add(nameSpace, new Dictionary<string, string>());
@@ -471,7 +471,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                             height -= 10;
                         }
                     }
-                    
+
                     /*allTextureRects*/
                     TextureMetaData textureMetaData = JsonManager.JsonRead<TextureMetaData>(packTextureTypePaths[nameSpace.Key][type.Key] + ".json", true);
                     if (textureMetaData == null)
@@ -479,7 +479,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                     Texture2D background = new Texture2D(width, height);
                     Dictionary<string, Rect> fileName_rect = new Dictionary<string, Rect>();
-                    
+
                     Rect[] rects = background.PackTextures(textures2, 10, int.MaxValue);
                     background.filterMode = textureMetaData.filterMode;
 
@@ -572,7 +572,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                             spriteMetaDatas[i].rect = new JRect(rect.x + spriteMetaData.rect.x, rect.y + spriteMetaData.rect.y, rect.width - (rect.width - spriteMetaData.rect.width), rect.height - (rect.height - spriteMetaData.rect.height));
                         }
                         Sprite[] sprites = GetSprites(background, spriteMetaDatas);
-                        
+
                         if (!allTextureSprites.ContainsKey(nameSpace.Key))
                         {
                             allTextureSprites.Add(nameSpace.Key, new Dictionary<string, Dictionary<string, Sprite[]>>());
@@ -631,7 +631,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                     string nameSpace = nameSpaces[j];
                     string soundFolderPath = PathTool.Combine(resourcePack, soundPath.Replace("%NameSpace%", nameSpace));
                     string nbsFolderPath = PathTool.Combine(resourcePack, nbsPath.Replace("%NameSpace%", nameSpace));
-                    
+
                     (bool success, bool cancel) = await TryGetSoundData(soundFolderPath, allSounds, soundMetaDataCreateFunc);
                     if (cancel)
                         return;
@@ -660,7 +660,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                         string soundPath = PathTool.Combine(nbsFolderPath, nbsMetaData.path);
                         if (!File.Exists(soundPath + ".nbs"))
                             return null;
-                        
+
                         NBSFile nbsFile = NBSManager.ReadNBSFile(soundPath + ".nbs");
                         if (nbsFile != null)
                         {
@@ -1223,7 +1223,7 @@ Import image files as Texture2D type"
                 exists = FileExtensionExists(path, out path, textureExtension);
             else
                 exists = File.Exists(path);
-            
+
             if (exists)
             {
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
@@ -1344,11 +1344,17 @@ Various formats are supported. Among them, there are formats supported by SC KRM
 
             if (exists)
             {
+#if (UNITY_STANDALONE_LINUX && !UNITY_EDITOR) || UNITY_EDITOR_LINUX
+                byte[] textureBytes = File.ReadAllBytes(path);
+#else
                 using UnityWebRequest www = UnityWebRequest.Get(path);
                 await www.SendWebRequest();
 
                 if (www.result != UnityWebRequest.Result.Success)
                     Debug.LogError(www.error);
+
+                byte[] textureBytes = www.downloadHandler.data;
+#endif
 
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
                 texture.filterMode = filterMode;
@@ -1358,7 +1364,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
                 loaderSettings.generateMipmap = mipmapUse;
                 loaderSettings.logException = true;
 
-                if (!await AsyncImageLoader.LoadImageAsync(texture, www.downloadHandler.data, loaderSettings))
+                if (!await AsyncImageLoader.LoadImageAsync(texture, textureBytes, loaderSettings))
                     return null;
 
                 if (compressionType == TextureMetaData.CompressionType.normal)
@@ -1453,7 +1459,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
 
             string path = PathTool.Combine(resourcePackPath, texturePath.Replace("%NameSpace%", nameSpace));
             string allPath = PathTool.Combine(path, type, name);
-            
+
             TextureMetaData textureMetaData = JsonManager.JsonRead<TextureMetaData>(PathTool.Combine(path, type) + ".json", true);
             if (textureMetaData == null)
                 textureMetaData = new TextureMetaData();
@@ -1588,8 +1594,11 @@ Import text file as string type"
 @"오디오 파일을 오디오 클립으로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
 Import audio files as audio clips (Since the Unity API is used, we need to run it on the main thread)"
 )]
+#pragma warning disable CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
         public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false)
+#pragma warning restore CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
         {
+#if !((UNITY_STANDALONE_LINUX && !UNITY_EDITOR) || UNITY_EDITOR_LINUX)
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException(nameof(GetAudio));
 
@@ -1598,8 +1607,8 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
 
             if (pathExtensionUse)
                 path = PathTool.GetPathWithExtension(path);
-                
-            
+
+
             AudioClip audioClip = await getSound(".ogg", AudioType.OGGVORBIS);
             if (audioClip == null) audioClip = await getSound(".mp3", AudioType.MPEG);
             if (audioClip == null) audioClip = await getSound(".mp2", AudioType.MPEG);
@@ -1633,6 +1642,9 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
 
                 return null;
             }
+#else
+            return null;
+#endif
         }
         #endregion
 

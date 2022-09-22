@@ -84,7 +84,9 @@ namespace SCKRM.Splash
                     return;
 
                 canvasGroup.alpha = 1;
-                AudioSource.PlayClipAtPoint(bow, Vector3.zero);
+
+                if (bow != null)
+                    AudioSource.PlayClipAtPoint(bow, Vector3.zero);
 
                 //C# 던지기
                 while (!((CS.localPosition.x >= -75 && CS.localPosition.x <= 75 && CS.localPosition.y >= -75 && CS.localPosition.y <= 75) || (xFlip && (CS.localPosition.x <= -500 || CS.localPosition.y <= -300)) || (!xFlip && (CS.localPosition.x >= 500 || CS.localPosition.y <= -300))))
@@ -105,7 +107,8 @@ namespace SCKRM.Splash
                 text.rectTransform.anchoredPosition = new Vector3(0, -13);
                 text.text = showText;
 
-                AudioSource.PlayClipAtPoint(drawmap, Vector3.zero);
+                if (drawmap != null)
+                    AudioSource.PlayClipAtPoint(drawmap, Vector3.zero);
 
                 //페이드 아웃
                 {

@@ -246,7 +246,6 @@ namespace SCKRM.KnownFolder
         Windows
     }
 
-#if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
     //https://gitlab.com/Syroot/KnownFolders/-/blob/master/src/Syroot.KnownFolders/KnownFolderType.cs
     static class KnownFolderTypeExtensions
     {
@@ -265,5 +264,4 @@ namespace SCKRM.KnownFolder
 
         internal KnownFolderGuidAttribute(string guid) => Guid = new Guid(guid);
     }
-#endif
 }

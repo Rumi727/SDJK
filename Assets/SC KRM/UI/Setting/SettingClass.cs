@@ -166,25 +166,23 @@ namespace SCKRM.UI.Setting
         {
             if (propertyInfo != null)
             {
-                if (variableType == VariableType.Float)
-                    return ((float)propertyInfo.GetValue(type)).Round(roundingDigits);
-                else if (variableType == VariableType.Double)
-                    return ((double)propertyInfo.GetValue(type)).Round(roundingDigits);
-                else if (variableType == VariableType.Decimal)
-                    return ((decimal)propertyInfo.GetValue(type)).Round(roundingDigits);
-                else
-                    return propertyInfo.GetValue(type);
+                return variableType switch
+                {
+                    VariableType.Float => ((float)propertyInfo.GetValue(type)).Round(roundingDigits),
+                    VariableType.Double => ((double)propertyInfo.GetValue(type)).Round(roundingDigits),
+                    VariableType.Decimal => ((decimal)propertyInfo.GetValue(type)).Round(roundingDigits),
+                    _ => propertyInfo.GetValue(type)
+                };
             }
             else if (fieldInfo != null)
             {
-                if (variableType == VariableType.Float)
-                    return ((float)fieldInfo.GetValue(type)).Round(roundingDigits);
-                else if (variableType == VariableType.Double)
-                    return ((double)fieldInfo.GetValue(type)).Round(roundingDigits);
-                else if (variableType == VariableType.Decimal)
-                    return ((decimal)fieldInfo.GetValue(type)).Round(roundingDigits);
-                else
-                    return fieldInfo.GetValue(type);
+                return variableType switch
+                {
+                    VariableType.Float => ((float)fieldInfo.GetValue(type)).Round(roundingDigits),
+                    VariableType.Double => ((double)fieldInfo.GetValue(type)).Round(roundingDigits),
+                    VariableType.Decimal => ((decimal)fieldInfo.GetValue(type)).Round(roundingDigits),
+                    _ => fieldInfo.GetValue(type)
+                };
             }
 
             return null;
@@ -194,65 +192,71 @@ namespace SCKRM.UI.Setting
         {
             if (propertyInfo != null)
             {
-                if (variableType == VariableType.Char)
-                    return int.Parse(((char)propertyInfo.GetValue(type)).ToString());
-                else if (variableType == VariableType.String)
-                    return int.Parse((string)propertyInfo.GetValue(type));
-                else if (variableType == VariableType.Bool)
-                    return (bool)propertyInfo.GetValue(type) ? 1 : 0;
-                else if (variableType == VariableType.Byte)
-                    return (byte)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Sbyte)
-                    return (sbyte)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Short)
-                    return (short)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Int)
-                    return (int)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Long)
-                    return (int)(long)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Ushort)
-                    return (ushort)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Uint)
-                    return (int)(uint)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Ulong)
-                    return (int)(ulong)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Float)
-                    return (int)(float)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Double)
-                    return (int)(double)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Decimal)
-                    return (int)(decimal)propertyInfo.GetValue(type);
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        return int.Parse(((char)propertyInfo.GetValue(type)).ToString());
+                    case VariableType.String:
+                        return int.Parse((string)propertyInfo.GetValue(type));
+                    case VariableType.Bool:
+                        return (bool)propertyInfo.GetValue(type) ? 1 : 0;
+                    case VariableType.Byte:
+                        return (byte)propertyInfo.GetValue(type);
+                    case VariableType.Sbyte:
+                        return (sbyte)propertyInfo.GetValue(type);
+                    case VariableType.Short:
+                        return (short)propertyInfo.GetValue(type);
+                    case VariableType.Int:
+                        return (int)propertyInfo.GetValue(type);
+                    case VariableType.Long:
+                        return (int)(long)propertyInfo.GetValue(type);
+                    case VariableType.Ushort:
+                        return (ushort)propertyInfo.GetValue(type);
+                    case VariableType.Uint:
+                        return (int)(uint)propertyInfo.GetValue(type);
+                    case VariableType.Ulong:
+                        return (int)(ulong)propertyInfo.GetValue(type);
+                    case VariableType.Float:
+                        return (int)(float)propertyInfo.GetValue(type);
+                    case VariableType.Double:
+                        return (int)(double)propertyInfo.GetValue(type);
+                    case VariableType.Decimal:
+                        return (int)(decimal)propertyInfo.GetValue(type);
+                }
             }
             else if (fieldInfo != null)
             {
-                if (variableType == VariableType.Char)
-                    return int.Parse(((char)fieldInfo.GetValue(type)).ToString());
-                if (variableType == VariableType.String)
-                    return int.Parse((string)fieldInfo.GetValue(type));
-                else if (variableType == VariableType.Bool)
-                    return (bool)fieldInfo.GetValue(type) ? 1 : 0;
-                else if (variableType == VariableType.Byte)
-                    return (byte)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Sbyte)
-                    return (sbyte)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Short)
-                    return (short)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Int)
-                    return (int)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Long)
-                    return (int)(long)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Ushort)
-                    return (ushort)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Uint)
-                    return (int)(uint)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Ulong)
-                    return (int)(ulong)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Float)
-                    return (int)(float)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Double)
-                    return (int)(double)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Decimal)
-                    return (int)(decimal)fieldInfo.GetValue(type);
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        return int.Parse(((char)fieldInfo.GetValue(type)).ToString());
+                    case VariableType.String:
+                        return int.Parse((string)fieldInfo.GetValue(type));
+                    case VariableType.Bool:
+                        return (bool)fieldInfo.GetValue(type) ? 1 : 0;
+                    case VariableType.Byte:
+                        return (byte)fieldInfo.GetValue(type);
+                    case VariableType.Sbyte:
+                        return (sbyte)fieldInfo.GetValue(type);
+                    case VariableType.Short:
+                        return (short)fieldInfo.GetValue(type);
+                    case VariableType.Int:
+                        return (int)fieldInfo.GetValue(type);
+                    case VariableType.Long:
+                        return (int)(long)fieldInfo.GetValue(type);
+                    case VariableType.Ushort:
+                        return (ushort)fieldInfo.GetValue(type);
+                    case VariableType.Uint:
+                        return (int)(uint)fieldInfo.GetValue(type);
+                    case VariableType.Ulong:
+                        return (int)(ulong)fieldInfo.GetValue(type);
+                    case VariableType.Float:
+                        return (int)(float)fieldInfo.GetValue(type);
+                    case VariableType.Double:
+                        return (int)(double)fieldInfo.GetValue(type);
+                    case VariableType.Decimal:
+                        return (int)(decimal)fieldInfo.GetValue(type);
+                }
             }
 
             return 0;
@@ -262,65 +266,71 @@ namespace SCKRM.UI.Setting
         {
             if (propertyInfo != null)
             {
-                if (variableType == VariableType.Char)
-                    return float.Parse(((char)propertyInfo.GetValue(type)).ToString());
-                else if (variableType == VariableType.String)
-                    return float.Parse((string)propertyInfo.GetValue(type));
-                else if (variableType == VariableType.Bool)
-                    return (bool)propertyInfo.GetValue(type) ? 1 : 0;
-                else if (variableType == VariableType.Byte)
-                    return (byte)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Sbyte)
-                    return (sbyte)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Short)
-                    return (short)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Int)
-                    return (int)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Long)
-                    return (long)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Ushort)
-                    return (ushort)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Uint)
-                    return (uint)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Ulong)
-                    return (ulong)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Float)
-                    return (float)propertyInfo.GetValue(type);
-                else if (variableType == VariableType.Double)
-                    return (float)((double)propertyInfo.GetValue(type)).Round(roundingDigits);
-                else if (variableType == VariableType.Decimal)
-                    return (float)((decimal)propertyInfo.GetValue(type)).Round(roundingDigits);
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        return float.Parse(((char)propertyInfo.GetValue(type)).ToString());
+                    case VariableType.String:
+                        return float.Parse((string)propertyInfo.GetValue(type));
+                    case VariableType.Bool:
+                        return (bool)propertyInfo.GetValue(type) ? 1 : 0;
+                    case VariableType.Byte:
+                        return (byte)propertyInfo.GetValue(type);
+                    case VariableType.Sbyte:
+                        return (sbyte)propertyInfo.GetValue(type);
+                    case VariableType.Short:
+                        return (short)propertyInfo.GetValue(type);
+                    case VariableType.Int:
+                        return (int)propertyInfo.GetValue(type);
+                    case VariableType.Long:
+                        return (long)propertyInfo.GetValue(type);
+                    case VariableType.Ushort:
+                        return (ushort)propertyInfo.GetValue(type);
+                    case VariableType.Uint:
+                        return (uint)propertyInfo.GetValue(type);
+                    case VariableType.Ulong:
+                        return (ulong)propertyInfo.GetValue(type);
+                    case VariableType.Float:
+                        return (float)propertyInfo.GetValue(type);
+                    case VariableType.Double:
+                        return (float)((double)propertyInfo.GetValue(type)).Round(roundingDigits);
+                    case VariableType.Decimal:
+                        return (float)((decimal)propertyInfo.GetValue(type)).Round(roundingDigits);
+                }
             }
             else if (fieldInfo != null)
             {
-                if (variableType == VariableType.Char)
-                    return float.Parse(((char)fieldInfo.GetValue(type)).ToString());
-                if (variableType == VariableType.String)
-                    return float.Parse((string)fieldInfo.GetValue(type));
-                else if (variableType == VariableType.Bool)
-                    return (bool)fieldInfo.GetValue(type) ? 1 : 0;
-                else if (variableType == VariableType.Byte)
-                    return (byte)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Sbyte)
-                    return (sbyte)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Short)
-                    return (short)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Int)
-                    return (int)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Long)
-                    return (long)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Ushort)
-                    return (ushort)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Uint)
-                    return (uint)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Ulong)
-                    return (ulong)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Float)
-                    return (float)fieldInfo.GetValue(type);
-                else if (variableType == VariableType.Double)
-                    return (float)((double)fieldInfo.GetValue(type)).Round(roundingDigits);
-                else if (variableType == VariableType.Decimal)
-                    return (float)((decimal)fieldInfo.GetValue(type)).Round(roundingDigits);
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        return float.Parse(((char)fieldInfo.GetValue(type)).ToString());
+                    case VariableType.String:
+                        return float.Parse((string)fieldInfo.GetValue(type));
+                    case VariableType.Bool:
+                        return (bool)fieldInfo.GetValue(type) ? 1 : 0;
+                    case VariableType.Byte:
+                        return (byte)fieldInfo.GetValue(type);
+                    case VariableType.Sbyte:
+                        return (sbyte)fieldInfo.GetValue(type);
+                    case VariableType.Short:
+                        return (short)fieldInfo.GetValue(type);
+                    case VariableType.Int:
+                        return (int)fieldInfo.GetValue(type);
+                    case VariableType.Long:
+                        return (long)fieldInfo.GetValue(type);
+                    case VariableType.Ushort:
+                        return (ushort)fieldInfo.GetValue(type);
+                    case VariableType.Uint:
+                        return (uint)fieldInfo.GetValue(type);
+                    case VariableType.Ulong:
+                        return (ulong)fieldInfo.GetValue(type);
+                    case VariableType.Float:
+                        return (float)fieldInfo.GetValue(type);
+                    case VariableType.Double:
+                        return (float)((double)fieldInfo.GetValue(type)).Round(roundingDigits);
+                    case VariableType.Decimal:
+                        return (float)((decimal)fieldInfo.GetValue(type)).Round(roundingDigits);
+                }
             }
 
             return 0;
@@ -330,25 +340,39 @@ namespace SCKRM.UI.Setting
         {
             if (propertyInfo != null)
             {
-                if (variableType == VariableType.Float)
-                    propertyInfo.SetValue(type, ((float)value).Round(roundingDigits));
-                else if (variableType == VariableType.Double)
-                    propertyInfo.SetValue(type, ((double)value).Round(roundingDigits));
-                else if (variableType == VariableType.Decimal)
-                    propertyInfo.SetValue(type, ((decimal)value).Round(roundingDigits));
-                else
-                    propertyInfo.SetValue(type, value);
+                switch (variableType)
+                {
+                    case VariableType.Float:
+                        propertyInfo.SetValue(type, ((float)value).Round(roundingDigits));
+                        break;
+                    case VariableType.Double:
+                        propertyInfo.SetValue(type, ((double)value).Round(roundingDigits));
+                        break;
+                    case VariableType.Decimal:
+                        propertyInfo.SetValue(type, ((decimal)value).Round(roundingDigits));
+                        break;
+                    default:
+                        propertyInfo.SetValue(type, value);
+                        break;
+                }
             }
             else if (fieldInfo != null)
             {
-                if (variableType == VariableType.Float)
-                    fieldInfo.SetValue(type, ((float)value).Round(roundingDigits));
-                else if (variableType == VariableType.Double)
-                    fieldInfo.SetValue(type, ((double)value).Round(roundingDigits));
-                else if (variableType == VariableType.Decimal)
-                    fieldInfo.SetValue(type, ((decimal)value).Round(roundingDigits));
-                else
-                    fieldInfo.SetValue(type, value);
+                switch (variableType)
+                {
+                    case VariableType.Float:
+                        fieldInfo.SetValue(type, ((float)value).Round(roundingDigits));
+                        break;
+                    case VariableType.Double:
+                        fieldInfo.SetValue(type, ((double)value).Round(roundingDigits));
+                        break;
+                    case VariableType.Decimal:
+                        fieldInfo.SetValue(type, ((decimal)value).Round(roundingDigits));
+                        break;
+                    default:
+                        fieldInfo.SetValue(type, value);
+                        break;
+                }
             }
         }
 
@@ -359,61 +383,91 @@ namespace SCKRM.UI.Setting
 
             if (propertyInfo != null)
             {
-                if (variableType == VariableType.Char)
-                    throw new ArgumentException();
-                else if (variableType == VariableType.String)
-                    propertyInfo.SetValue(type, value.ToString());
-                else if (variableType == VariableType.Byte)
-                    propertyInfo.SetValue(type, (byte)value);
-                else if (variableType == VariableType.Sbyte)
-                    propertyInfo.SetValue(type, (sbyte)value);
-                else if (variableType == VariableType.Short)
-                    propertyInfo.SetValue(type, (short)value);
-                else if (variableType == VariableType.Int)
-                    propertyInfo.SetValue(type, (int)value);
-                else if (variableType == VariableType.Long)
-                    propertyInfo.SetValue(type, (long)value);
-                else if (variableType == VariableType.Ushort)
-                    propertyInfo.SetValue(type, (ushort)value);
-                else if (variableType == VariableType.Uint)
-                    propertyInfo.SetValue(type, (uint)value);
-                else if (variableType == VariableType.Ulong)
-                    propertyInfo.SetValue(type, (ulong)value);
-                else if (variableType == VariableType.Float)
-                    propertyInfo.SetValue(type, value);
-                else if (variableType == VariableType.Double)
-                    propertyInfo.SetValue(type, (double)value);
-                else if (variableType == VariableType.Decimal)
-                    propertyInfo.SetValue(type, (decimal)value);
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        throw new ArgumentException();
+                    case VariableType.String:
+                        propertyInfo.SetValue(type, value.ToString());
+                        break;
+                    case VariableType.Byte:
+                        propertyInfo.SetValue(type, (byte)value);
+                        break;
+                    case VariableType.Sbyte:
+                        propertyInfo.SetValue(type, (sbyte)value);
+                        break;
+                    case VariableType.Short:
+                        propertyInfo.SetValue(type, (short)value);
+                        break;
+                    case VariableType.Int:
+                        propertyInfo.SetValue(type, (int)value);
+                        break;
+                    case VariableType.Long:
+                        propertyInfo.SetValue(type, (long)value);
+                        break;
+                    case VariableType.Ushort:
+                        propertyInfo.SetValue(type, (ushort)value);
+                        break;
+                    case VariableType.Uint:
+                        propertyInfo.SetValue(type, (uint)value);
+                        break;
+                    case VariableType.Ulong:
+                        propertyInfo.SetValue(type, (ulong)value);
+                        break;
+                    case VariableType.Float:
+                        propertyInfo.SetValue(type, value);
+                        break;
+                    case VariableType.Double:
+                        propertyInfo.SetValue(type, (double)value);
+                        break;
+                    case VariableType.Decimal:
+                        propertyInfo.SetValue(type, (decimal)value);
+                        break;
+                }
             }
             else if (fieldInfo != null)
             {
-                if (variableType == VariableType.Char)
-                    throw new ArgumentException();
-                else if (variableType == VariableType.String)
-                    fieldInfo.SetValue(type, value.ToString());
-                else if (variableType == VariableType.Byte)
-                    fieldInfo.SetValue(type, (byte)value);
-                else if (variableType == VariableType.Sbyte)
-                    fieldInfo.SetValue(type, (sbyte)value);
-                else if (variableType == VariableType.Short)
-                    fieldInfo.SetValue(type, (short)value);
-                else if (variableType == VariableType.Int)
-                    fieldInfo.SetValue(type, (int)value);
-                else if (variableType == VariableType.Long)
-                    fieldInfo.SetValue(type, (long)value);
-                else if (variableType == VariableType.Ushort)
-                    fieldInfo.SetValue(type, (ushort)value);
-                else if (variableType == VariableType.Uint)
-                    fieldInfo.SetValue(type, (uint)value);
-                else if (variableType == VariableType.Ulong)
-                    fieldInfo.SetValue(type, (ulong)value);
-                else if (variableType == VariableType.Float)
-                    fieldInfo.SetValue(type, value);
-                else if (variableType == VariableType.Double)
-                    fieldInfo.SetValue(type, (double)value);
-                else if (variableType == VariableType.Decimal)
-                    fieldInfo.SetValue(type, (decimal)value);
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        throw new ArgumentException();
+                    case VariableType.String:
+                        fieldInfo.SetValue(type, value.ToString());
+                        break;
+                    case VariableType.Byte:
+                        fieldInfo.SetValue(type, (byte)value);
+                        break;
+                    case VariableType.Sbyte:
+                        fieldInfo.SetValue(type, (sbyte)value);
+                        break;
+                    case VariableType.Short:
+                        fieldInfo.SetValue(type, (short)value);
+                        break;
+                    case VariableType.Int:
+                        fieldInfo.SetValue(type, (int)value);
+                        break;
+                    case VariableType.Long:
+                        fieldInfo.SetValue(type, (long)value);
+                        break;
+                    case VariableType.Ushort:
+                        fieldInfo.SetValue(type, (ushort)value);
+                        break;
+                    case VariableType.Uint:
+                        fieldInfo.SetValue(type, (uint)value);
+                        break;
+                    case VariableType.Ulong:
+                        fieldInfo.SetValue(type, (ulong)value);
+                        break;
+                    case VariableType.Float:
+                        fieldInfo.SetValue(type, value);
+                        break;
+                    case VariableType.Double:
+                        fieldInfo.SetValue(type, (double)value);
+                        break;
+                    case VariableType.Decimal:
+                        fieldInfo.SetValue(type, (decimal)value);
+                        break;
+                }
             }
         }
 
@@ -423,71 +477,99 @@ namespace SCKRM.UI.Setting
             {
                 if (propertyInfo != null)
                 {
-                    if (variableType == VariableType.Char)
+                    switch (variableType)
                     {
-                        if (value.Length > 0)
-                            propertyInfo.SetValue(type, value[0]);
-                        else
-                            propertyInfo.SetValue(type, char.MinValue);
+                        case VariableType.Char:
+                            if (value.Length > 0)
+                                propertyInfo.SetValue(type, value[0]);
+                            else
+                                propertyInfo.SetValue(type, char.MinValue);
+                            break;
+                        case VariableType.String:
+                            propertyInfo.SetValue(type, value);
+                            break;
+                        case VariableType.Byte:
+                            propertyInfo.SetValue(type, byte.Parse(value));
+                            break;
+                        case VariableType.Sbyte:
+                            propertyInfo.SetValue(type, sbyte.Parse(value));
+                            break;
+                        case VariableType.Short:
+                            propertyInfo.SetValue(type, short.Parse(value));
+                            break;
+                        case VariableType.Int:
+                            propertyInfo.SetValue(type, int.Parse(value));
+                            break;
+                        case VariableType.Long:
+                            propertyInfo.SetValue(type, long.Parse(value));
+                            break;
+                        case VariableType.Ushort:
+                            propertyInfo.SetValue(type, ushort.Parse(value));
+                            break;
+                        case VariableType.Uint:
+                            propertyInfo.SetValue(type, uint.Parse(value));
+                            break;
+                        case VariableType.Ulong:
+                            propertyInfo.SetValue(type, ulong.Parse(value));
+                            break;
+                        case VariableType.Float:
+                            propertyInfo.SetValue(type, float.Parse(value).Round(roundingDigits));
+                            break;
+                        case VariableType.Double:
+                            propertyInfo.SetValue(type, double.Parse(value).Round(roundingDigits));
+                            break;
+                        case VariableType.Decimal:
+                            propertyInfo.SetValue(type, decimal.Parse(value).Round(roundingDigits));
+                            break;
                     }
-                    else if (variableType == VariableType.String)
-                        propertyInfo.SetValue(type, value);
-                    else if (variableType == VariableType.Byte)
-                        propertyInfo.SetValue(type, byte.Parse(value));
-                    else if (variableType == VariableType.Sbyte)
-                        propertyInfo.SetValue(type, sbyte.Parse(value));
-                    else if (variableType == VariableType.Short)
-                        propertyInfo.SetValue(type, short.Parse(value));
-                    else if (variableType == VariableType.Int)
-                        propertyInfo.SetValue(type, int.Parse(value));
-                    else if (variableType == VariableType.Long)
-                        propertyInfo.SetValue(type, long.Parse(value));
-                    else if (variableType == VariableType.Ushort)
-                        propertyInfo.SetValue(type, ushort.Parse(value));
-                    else if (variableType == VariableType.Uint)
-                        propertyInfo.SetValue(type, uint.Parse(value));
-                    else if (variableType == VariableType.Ulong)
-                        propertyInfo.SetValue(type, ulong.Parse(value));
-                    else if (variableType == VariableType.Float)
-                        propertyInfo.SetValue(type, float.Parse(value).Round(roundingDigits));
-                    else if (variableType == VariableType.Double)
-                        propertyInfo.SetValue(type, double.Parse(value).Round(roundingDigits));
-                    else if (variableType == VariableType.Decimal)
-                        propertyInfo.SetValue(type, decimal.Parse(value).Round(roundingDigits));
                 }
                 else if (fieldInfo != null)
                 {
-                    if (variableType == VariableType.Char)
+                    switch (variableType)
                     {
-                        if (value.Length > 0)
-                            fieldInfo.SetValue(type, value[0]);
-                        else
-                            fieldInfo.SetValue(type, char.MinValue);
+                        case VariableType.Char:
+                            if (value.Length > 0)
+                                fieldInfo.SetValue(type, value[0]);
+                            else
+                                fieldInfo.SetValue(type, char.MinValue);
+                            break;
+                        case VariableType.String:
+                            fieldInfo.SetValue(type, value);
+                            break;
+                        case VariableType.Byte:
+                            fieldInfo.SetValue(type, byte.Parse(value));
+                            break;
+                        case VariableType.Sbyte:
+                            fieldInfo.SetValue(type, sbyte.Parse(value));
+                            break;
+                        case VariableType.Short:
+                            fieldInfo.SetValue(type, short.Parse(value));
+                            break;
+                        case VariableType.Int:
+                            fieldInfo.SetValue(type, int.Parse(value));
+                            break;
+                        case VariableType.Long:
+                            fieldInfo.SetValue(type, long.Parse(value));
+                            break;
+                        case VariableType.Ushort:
+                            fieldInfo.SetValue(type, ushort.Parse(value));
+                            break;
+                        case VariableType.Uint:
+                            fieldInfo.SetValue(type, uint.Parse(value));
+                            break;
+                        case VariableType.Ulong:
+                            fieldInfo.SetValue(type, ulong.Parse(value));
+                            break;
+                        case VariableType.Float:
+                            fieldInfo.SetValue(type, float.Parse(value).Round(roundingDigits));
+                            break;
+                        case VariableType.Double:
+                            fieldInfo.SetValue(type, double.Parse(value).Round(roundingDigits));
+                            break;
+                        case VariableType.Decimal:
+                            fieldInfo.SetValue(type, decimal.Parse(value).Round(roundingDigits));
+                            break;
                     }
-                    else if (variableType == VariableType.String)
-                        fieldInfo.SetValue(type, value);
-                    else if (variableType == VariableType.Byte)
-                        fieldInfo.SetValue(type, byte.Parse(value));
-                    else if (variableType == VariableType.Sbyte)
-                        fieldInfo.SetValue(type, sbyte.Parse(value));
-                    else if (variableType == VariableType.Short)
-                        fieldInfo.SetValue(type, short.Parse(value));
-                    else if (variableType == VariableType.Int)
-                        fieldInfo.SetValue(type, int.Parse(value));
-                    else if (variableType == VariableType.Long)
-                        fieldInfo.SetValue(type, long.Parse(value));
-                    else if (variableType == VariableType.Ushort)
-                        fieldInfo.SetValue(type, ushort.Parse(value));
-                    else if (variableType == VariableType.Uint)
-                        fieldInfo.SetValue(type, uint.Parse(value));
-                    else if (variableType == VariableType.Ulong)
-                        fieldInfo.SetValue(type, ulong.Parse(value));
-                    else if (variableType == VariableType.Float)
-                        fieldInfo.SetValue(type, float.Parse(value).Round(roundingDigits));
-                    else if (variableType == VariableType.Double)
-                        fieldInfo.SetValue(type, double.Parse(value).Round(roundingDigits));
-                    else if (variableType == VariableType.Decimal)
-                        fieldInfo.SetValue(type, decimal.Parse(value).Round(roundingDigits));
                 }
             }
             catch (Exception e)
