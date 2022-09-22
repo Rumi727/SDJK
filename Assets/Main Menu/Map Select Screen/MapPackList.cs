@@ -113,7 +113,7 @@ namespace SDJK.MapSelectScreen
                 for (int i = 0; i < MapManager.selectedMapPack.maps.Count; i++)
                 {
                     Map.Map map = MapManager.selectedMapPack.maps[i];
-                    if (map.info.mode == GameModeManager.selectedGameMode.gameModeName)
+                    if (map.info.mode != GameModeManager.selectedGameMode.gameModeName)
                         continue;
 
                     MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map", _content).monoBehaviour;
