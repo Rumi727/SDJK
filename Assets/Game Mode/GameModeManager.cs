@@ -31,8 +31,6 @@ namespace SDJK
                             if (interfaceType == typeof(IGameMode))
                             {
                                 gameModeList.Add((IGameMode)Activator.CreateInstance(type));
-                                gameModeList[0].GameStart("asdf");
-
                                 break;
                             }
                         }

@@ -11,7 +11,7 @@ namespace SDJK
 
         public void GameStart(string mapFilePath)
         {
-            Debug.Log(mapFilePath);
+
         }
     }
 }
