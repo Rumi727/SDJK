@@ -478,7 +478,7 @@ namespace SDJK
 
 
 
-                        map.info.mode = "sdjk";
+                        map.info.mode = typeof(SDJKGameMode).FullName;
 
 
 
