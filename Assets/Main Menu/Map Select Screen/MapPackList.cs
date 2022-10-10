@@ -93,7 +93,7 @@ namespace SDJK.MapSelectScreen
                     for (int j = 0; j < mapPack.maps.Count; j++)
                     {
                         Map.Map map = mapPack.maps[j];
-                        if (map.info.mode == GameModeManager.selectedGameMode.gameModeName)
+                        if (GameModeManager.selectedGameMode.IsCompatibleMode(map.info.mode))
                         {
                             MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack", _content).monoBehaviour;
                             mapPackListMapPack.ConfigureCell(this, mapPack, i, null, 0).Forget();
@@ -113,7 +113,7 @@ namespace SDJK.MapSelectScreen
                 for (int i = 0; i < MapManager.selectedMapPack.maps.Count; i++)
                 {
                     Map.Map map = MapManager.selectedMapPack.maps[i];
-                    if (map.info.mode != GameModeManager.selectedGameMode.gameModeName)
+                    if (!GameModeManager.selectedGameMode.IsCompatibleMode(map.info.mode))
                         continue;
 
                     MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map", _content).monoBehaviour;

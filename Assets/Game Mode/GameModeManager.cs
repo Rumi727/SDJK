@@ -40,6 +40,30 @@ namespace SDJK
 
             selectedGameMode = gameModeList[0];
         }
+
+        /// <summary>
+        /// 현제 선택된 모드랑 호환되는 모드인지 확인합니다
+        /// </summary>
+        /// <param name="gameMode"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        [WikiDescription("현제 선택된 모드랑 호환되는 모드인지 확인합니다")]
+        public static bool IsCompatibleMode(this IGameMode gameMode, string mode)
+        {
+            if (selectedGameMode.gameModeName == mode)
+                return true;
+
+            if (gameMode.compatibleMode == null)
+                return false;
+
+            for (int i = 0; i < gameMode.compatibleMode.Length; i++)
+            {
+                if (selectedGameMode.gameModeName == gameMode.compatibleMode[i])
+                    return true;
+            }
+
+            return false;
+        }
     }
 
     /// <summary>

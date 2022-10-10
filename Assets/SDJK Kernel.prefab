@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7990897212964001428}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5577700822031444097
 MonoBehaviour:
@@ -1904,6 +1904,10 @@ PrefabInstance:
     - target: {fileID: 2032806992658022111, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042099568081726642, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2059093572717550963, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3972,6 +3976,14 @@ PrefabInstance:
     - target: {fileID: 7608059000737233138, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7667138166815186603, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
+      propertyPath: applicationId
+      value: 842028936590655528
+      objectReference: {fileID: 0}
+    - target: {fileID: 7667138166815186603, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
+      propertyPath: presence.largeImageKey
+      value: sdjk_logo
       objectReference: {fileID: 0}
     - target: {fileID: 7703300766769126172, guid: 8b8992fd40d91564899ed537de4e3b1f, type: 3}
       propertyPath: m_SizeDelta.x

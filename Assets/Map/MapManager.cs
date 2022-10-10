@@ -33,7 +33,7 @@ namespace SDJK.Map
         }
         static int _selectedMapPackIndex = 0;
 
-        public static MapPack selectedMapPack 
+        public static MapPack selectedMapPack
         {
             get => _selectedMapPack;
             set
@@ -61,7 +61,7 @@ namespace SDJK.Map
         }
         public static int _selectedMapIndex = 0;
 
-        public static Map selectedMap 
+        public static Map selectedMap
         {
             get => _selectedMap;
             set
