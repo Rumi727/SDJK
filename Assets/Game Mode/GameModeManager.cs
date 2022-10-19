@@ -50,7 +50,7 @@ namespace SDJK
         [WikiDescription("현제 선택된 모드랑 호환되는 모드인지 확인합니다")]
         public static bool IsCompatibleMode(this IGameMode gameMode, string mode)
         {
-            if (selectedGameMode.gameModeName == mode)
+            if (selectedGameMode.name == mode)
                 return true;
 
             if (gameMode.compatibleMode == null)
@@ -58,7 +58,7 @@ namespace SDJK
 
             for (int i = 0; i < gameMode.compatibleMode.Length; i++)
             {
-                if (selectedGameMode.gameModeName == gameMode.compatibleMode[i])
+                if (selectedGameMode.name == gameMode.compatibleMode[i])
                     return true;
             }
 
@@ -72,9 +72,21 @@ namespace SDJK
     [WikiDescription("이 인터페이스를 상속하면 SDJK가 게임 모드를 자동으로 감지합니다")]
     public interface IGameMode
     {
-        public string gameModeName { get; }
+        public string name { get; }
         public string[] compatibleMode { get; }
 
         public void GameStart(string mapFilePath);
+    }
+
+    /// <summary>
+    /// <see cref="IGameMode"/> 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다
+    /// </summary>
+    [WikiDescription("IGameMode 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
+    public abstract class GameMode : IGameMode
+    {
+        public string name => GetType().Name;
+        public abstract string[] compatibleMode { get; }
+
+        public abstract void GameStart(string mapFilePath);
     }
 }
