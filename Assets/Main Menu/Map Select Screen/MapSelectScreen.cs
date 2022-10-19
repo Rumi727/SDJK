@@ -15,15 +15,15 @@ namespace SDJK.MapSelectScreen
     {
         [SerializeField, NotNull] CanvasScaler canvasScaler;
 
-        float upTimer = 0;
+        /*float upTimer = 0;
         float upTimer2 = 0;
         float downTimer = 0;
-        float downTimer2 = 0;
+        float downTimer2 = 0;*/
         void Update()
         {
             canvasScaler.referenceResolution = new Vector2((ScreenManager.width / UIManager.currentGuiSize).Clamp(1920), (ScreenManager.height / UIManager.currentGuiSize).Clamp(1080));
 
-            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
+            /*if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
             {
                 bool up = ReapeatInput(KeyCode.UpArrow, ref upTimer, ref upTimer2);
                 bool down = ReapeatInput(KeyCode.DownArrow, ref downTimer, ref downTimer2);
@@ -106,7 +106,7 @@ namespace SDJK.MapSelectScreen
                     else
                         MapManager.selectedMapPackIndex++;
                 }
-            }
+            }*/
         }
     }
 }
