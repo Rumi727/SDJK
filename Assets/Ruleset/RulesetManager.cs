@@ -13,7 +13,7 @@ namespace SDJK.Ruleset
         public static IRuleset selectedRuleset { get; private set; } = null;
 
         [Awaken]
-        public static void GameModeListRefresh()
+        public static void RulesetListRefresh()
         {
             Assembly[] assemblys = AppDomain.CurrentDomain.GetAssemblies();
             for (int assemblysIndex = 0; assemblysIndex < assemblys.Length; assemblysIndex++)
