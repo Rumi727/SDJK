@@ -22,7 +22,7 @@ namespace SDJK.Map
         /// <returns>
         /// 맵 인스턴스
         /// </returns>
-        public delegate object MapLoaderFunc(Type type, string mapFilePath, string extension);
+        public delegate Map MapLoaderFunc(Type type, string mapFilePath, string extension);
         public static event MapLoaderFunc mapLoaderFunc;
         public static List<string> extensionToLoad { get; } = new List<string>();
 
