@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace SDJK
+namespace SDJK.RuleSet
 {
-    public static class GameModeManager
+    public static class RulesetManager
     {
-        public static List<IGameMode> gameModeList { get; } = new List<IGameMode>();
-        public static IGameMode selectedGameMode { get; private set; } = null;
+        public static List<IRuleset> ruleSetList { get; } = new List<IRuleset>();
+        public static IRuleset selectedRuleset { get; private set; } = null;
 
         [Awaken]
         public static void GameModeListRefresh()
@@ -28,9 +28,9 @@ namespace SDJK
                         for (int interfaceIndex = 0; interfaceIndex < interfaces.Length; interfaceIndex++)
                         {
                             Type interfaceType = interfaces[interfaceIndex];
-                            if (interfaceType == typeof(IGameMode))
+                            if (interfaceType == typeof(IRuleset))
                             {
-                                gameModeList.Add((IGameMode)Activator.CreateInstance(type));
+                                ruleSetList.Add((IRuleset)Activator.CreateInstance(type));
                                 break;
                             }
                         }
@@ -38,27 +38,27 @@ namespace SDJK
                 }
             }
 
-            selectedGameMode = gameModeList[0];
+            selectedRuleset = ruleSetList[0];
         }
 
         /// <summary>
-        /// 현제 선택된 모드랑 호환되는 모드인지 확인합니다
+        /// 현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다
         /// </summary>
-        /// <param name="gameMode"></param>
+        /// <param name="ruleset"></param>
         /// <param name="mode"></param>
         /// <returns></returns>
-        [WikiDescription("현제 선택된 모드랑 호환되는 모드인지 확인합니다")]
-        public static bool IsCompatibleMode(this IGameMode gameMode, string mode)
+        [WikiDescription("현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다")]
+        public static bool IsCompatibleRuleset(this IRuleset ruleset, string mode)
         {
-            if (selectedGameMode.name == mode)
+            if (selectedRuleset.name == mode)
                 return true;
 
-            if (gameMode.compatibleMode == null)
+            if (ruleset.compatibleRuleset == null)
                 return false;
 
-            for (int i = 0; i < gameMode.compatibleMode.Length; i++)
+            for (int i = 0; i < ruleset.compatibleRuleset.Length; i++)
             {
-                if (selectedGameMode.name == gameMode.compatibleMode[i])
+                if (selectedRuleset.name == ruleset.compatibleRuleset[i])
                     return true;
             }
 
@@ -67,25 +67,25 @@ namespace SDJK
     }
 
     /// <summary>
-    /// 이 인터페이스를 상속하면 SDJK가 게임 모드를 자동으로 감지합니다
+    /// 이 인터페이스를 상속하면 SDJK가 규칙 집합을 자동으로 감지합니다
     /// </summary>
-    [WikiDescription("이 인터페이스를 상속하면 SDJK가 게임 모드를 자동으로 감지합니다")]
-    public interface IGameMode
+    [WikiDescription("이 인터페이스를 상속하면 SDJK가 규칙 집합을 자동으로 감지합니다")]
+    public interface IRuleset
     {
         public string name { get; }
-        public string[] compatibleMode { get; }
+        public string[] compatibleRuleset { get; }
 
         public void GameStart(string mapFilePath);
     }
 
     /// <summary>
-    /// <see cref="IGameMode"/> 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다
+    /// <see cref="IRuleset"/> 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다
     /// </summary>
-    [WikiDescription("IGameMode 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
-    public abstract class GameMode : IGameMode
+    [WikiDescription("IRuleSet 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
+    public abstract class Ruleset : IRuleset
     {
         public string name => GetType().Name;
-        public abstract string[] compatibleMode { get; }
+        public virtual string[] compatibleRuleset => null;
 
         public abstract void GameStart(string mapFilePath);
     }

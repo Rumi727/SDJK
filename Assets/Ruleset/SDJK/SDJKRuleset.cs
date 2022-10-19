@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDJK
+namespace SDJK.RuleSet
 {
-    public sealed class SDJKGameMode : GameMode
+    public sealed class SDJKRuleset : Ruleset
     {
-        public override string[] compatibleMode => null;
-
         public override void GameStart(string mapFilePath)
         {
 

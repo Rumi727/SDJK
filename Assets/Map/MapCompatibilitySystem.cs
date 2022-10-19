@@ -3,6 +3,7 @@ using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SDJK.Map;
+using SDJK.RuleSet;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -478,7 +479,7 @@ namespace SDJK
 
 
 
-                        map.info.mode = typeof(SDJKGameMode).FullName;
+                        map.info.mode = typeof(SDJKRuleset).FullName;
 
 
 
