@@ -84,7 +84,7 @@ namespace SDJK.RuleSet
     [WikiDescription("IRuleSet 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
     public abstract class Ruleset : IRuleset
     {
-        public string name => GetType().Name;
+        public string name => GetType().FullName;
         public virtual string[] compatibleRuleset => null;
 
         public abstract void GameStart(string mapFilePath);
