@@ -1,8 +1,10 @@
+using Newtonsoft.Json.Schema;
 using SCKRM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Permissions;
 using UnityEngine;
 
 namespace SDJK.Ruleset
@@ -10,7 +12,22 @@ namespace SDJK.Ruleset
     public static class RulesetManager
     {
         public static List<IRuleset> rulesetList { get; } = new List<IRuleset>();
+
         public static IRuleset selectedRuleset { get; private set; } = null;
+        public static int selectedRulesetIndex
+        {
+            get => _selectedRulesetIndex;
+            set
+            {
+                selectedRuleset = rulesetList[value];
+                _selectedRulesetIndex = value;
+
+                isRulesetChanged.Invoke();
+            }
+        }
+        static int _selectedRulesetIndex;
+
+        public static event Action isRulesetChanged;
 
         [Awaken]
         public static void RulesetListRefresh()
@@ -63,6 +80,16 @@ namespace SDJK.Ruleset
             }
 
             return false;
+        }
+
+        public static void GameStart(string mapFilePath)
+        {
+            for (int i = 0; i < rulesetList.Count; i++)
+            {
+                IRuleset ruleset = rulesetList[i];
+                if (ruleset == selectedRuleset)
+                    ruleset.GameStart(mapFilePath);
+            }
         }
     }
 
