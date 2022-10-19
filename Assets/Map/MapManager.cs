@@ -21,7 +21,6 @@ namespace SDJK.Map
     {
         public static List<MapPack> currentMapPacks { get; private set; } = new List<MapPack>();
 
-
         public static int selectedMapPackIndex
         {
             get => _selectedMapPackIndex;

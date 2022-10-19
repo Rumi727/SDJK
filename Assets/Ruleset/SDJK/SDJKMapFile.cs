@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDJK
+namespace SDJK.Ruleset.SDJK
 {
     public class SDJKMapFile : Map.Map
     {
