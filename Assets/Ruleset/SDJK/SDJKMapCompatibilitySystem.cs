@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.SDJK
         {
             MapCompatibilitySystem.globalMapCompatibilityAction += (Type type, string mapFilePath, string extension) =>
             {
-                if (extension == ".sdjk" && type == typeof(Map.Map) || type == typeof(SDJKMapFile))
+                if (extension == ".sdjk" && (type == typeof(Map.Map) || type == typeof(SDJKMapFile)))
                 {
                     {
                         SDJKMapFile map = JsonManager.JsonRead<SDJKMapFile>(mapFilePath, true);

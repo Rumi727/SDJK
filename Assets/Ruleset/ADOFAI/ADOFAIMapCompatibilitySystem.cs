@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.ADOFAI
         {
             MapCompatibilitySystem.globalMapCompatibilityAction += (Type type, string mapFilePath, string extension) =>
             {
-                if (extension == ".adofai" && type == typeof(Map.Map) || type == typeof(ADOFAIMapFile))
+                if (extension == ".adofai" && (type == typeof(Map.Map) || type == typeof(ADOFAIMapFile)))
                 {
                     try
                     {
