@@ -29,7 +29,7 @@ namespace SDJK.Ruleset
 
         public static event Action isRulesetChanged;
 
-        [Awaken]
+        [Starten]
         public static void RulesetListRefresh()
         {
             Assembly[] assemblys = AppDomain.CurrentDomain.GetAssemblies();
