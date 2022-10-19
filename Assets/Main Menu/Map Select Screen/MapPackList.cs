@@ -7,6 +7,7 @@ using SDJK.Map;
 using SDJK.Ruleset;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -32,7 +33,9 @@ namespace SDJK.MapSelectScreen
 
         protected override void Awake()
         {
+            RulesetManager.isRulesetChanged += ReloadData;
             MapManager.mapLoadingEnd += ReloadData;
+
             ReloadData();
         }
 
@@ -79,8 +82,14 @@ namespace SDJK.MapSelectScreen
 
 
         List<MapPackListMapPack> mapSelectScreenMapPacks = new List<MapPackListMapPack>();
+        CancellationTokenSource cancelSource = new CancellationTokenSource();
         async void ReloadData()
         {
+            //중간에 다시 메소드가 실행될 수 있으므로 캔슬 토큰을 만듭니다
+            cancelSource.Cancel();
+            cancelSource = new CancellationTokenSource();
+            CancellationToken token = cancelSource.Token;
+
             for (int i = 0; i < mapSelectScreenMapPacks.Count; i++)
                 mapSelectScreenMapPacks[i].Remove();
 
@@ -101,7 +110,7 @@ namespace SDJK.MapSelectScreen
 
                             mapSelectScreenMapPacks.Add(mapPackListMapPack);
 
-                            if (await UniTask.NextFrame(AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                            if (await UniTask.NextFrame(token).SuppressCancellationThrow())
                                 return;
 
                             break;
@@ -122,7 +131,7 @@ namespace SDJK.MapSelectScreen
 
                     mapSelectScreenMapPacks.Add(mapPackListMapPack);
 
-                    if (await UniTask.NextFrame(AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                    if (await UniTask.NextFrame(token).SuppressCancellationThrow())
                         return;
                 }
             }
