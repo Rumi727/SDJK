@@ -7,6 +7,7 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.StatusBar;
 using SDJK.Map;
+using SDJK.Ruleset;
 using SuperBlur;
 using System;
 using System.Collections;
@@ -248,6 +249,8 @@ namespace SDJK
                 MapPackSelect();
             else if (currentScreenMode == ScreenMode.mapPackSelect)
                 MapSelect();
+            else if (currentScreenMode == ScreenMode.mapSelect)
+                RulesetManager.GameStart(MapManager.selectedMap.mapFilePath);
         }
 
         public static void Esc()
