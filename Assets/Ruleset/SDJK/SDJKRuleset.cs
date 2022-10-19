@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDJK.RuleSet
+namespace SDJK.Ruleset
 {
     public sealed class SDJKRuleset : Ruleset
     {

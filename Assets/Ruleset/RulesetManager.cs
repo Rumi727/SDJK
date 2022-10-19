@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace SDJK.RuleSet
+namespace SDJK.Ruleset
 {
     public static class RulesetManager
     {

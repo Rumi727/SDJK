@@ -3,7 +3,7 @@ using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SDJK.Map;
-using SDJK.RuleSet;
+using SDJK.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.IO;

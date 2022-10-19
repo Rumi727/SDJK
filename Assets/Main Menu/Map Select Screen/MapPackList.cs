@@ -4,7 +4,7 @@ using SCKRM.Object;
 using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SDJK.Map;
-using SDJK.RuleSet;
+using SDJK.Ruleset;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
