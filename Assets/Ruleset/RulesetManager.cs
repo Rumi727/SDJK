@@ -22,7 +22,7 @@ namespace SDJK.RuleSet
                 for (int typesIndex = 0; typesIndex < types.Length; typesIndex++)
                 {
                     Type type = types[typesIndex];
-                    if (type.IsPublic && type.IsClass && !type.IsSpecialName)
+                    if (type.IsPublic && type.IsClass && !type.IsAbstract && !type.IsSpecialName)
                     {
                         Type[] interfaces = type.GetInterfaces();
                         for (int interfaceIndex = 0; interfaceIndex < interfaces.Length; interfaceIndex++)
