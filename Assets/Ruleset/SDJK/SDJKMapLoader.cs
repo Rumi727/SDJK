@@ -8,12 +8,13 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    static class SDJKMapCompatibilitySystem
+    static class SDJKLoader
     {
         [Awaken]
         static void Awaken()
         {
-            MapCompatibilitySystem.globalMapCompatibilityAction += (Type type, string mapFilePath, string extension) =>
+            MapLoader.extensionToLoad.Add("sdjk");
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
                 if (extension == ".sdjk" && (type == typeof(Map.Map) || type == typeof(SDJKMapFile)))
                 {

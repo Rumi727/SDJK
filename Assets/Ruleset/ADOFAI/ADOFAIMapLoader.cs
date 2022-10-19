@@ -16,7 +16,8 @@ namespace SDJK.Ruleset.ADOFAI
         [Awaken]
         static void Awaken()
         {
-            MapCompatibilitySystem.globalMapCompatibilityAction += (Type type, string mapFilePath, string extension) =>
+            MapLoader.extensionToLoad.Add("adofai");
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
                 if (extension == ".adofai" && (type == typeof(Map.Map) || type == typeof(ADOFAIMapFile)))
                 {

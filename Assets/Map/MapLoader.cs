@@ -3,6 +3,7 @@ using SCKRM;
 using SCKRM.FileDialog;
 using SCKRM.Json;
 using SDJK.Map;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -12,9 +13,22 @@ namespace SDJK.Map
 {
     public static class MapLoader
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="type">맵의 타입</param>
+        /// <param name="mapFilePath">맵 파일의 경로</param>
+        /// <param name="extension">맵 파일의 확장자</param>
+        /// <returns>
+        /// 맵 인스턴스
+        /// </returns>
+        public delegate object MapLoaderFunc(Type type, string mapFilePath, string extension);
+        public static event MapLoaderFunc mapLoaderFunc;
+        public static List<string> extensionToLoad { get; } = new List<string>();
+
         public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask)
         {
-            string[] packPaths = DirectoryTool.GetFiles(packfolderPath, new ExtensionFilter(MapCompatibilitySystem.compatibleMapExtensions).ToSearchPatterns());
+            string[] packPaths = DirectoryTool.GetFiles(packfolderPath, new ExtensionFilter(extensionToLoad.ToArray()).ToSearchPatterns());
             if (packPaths == null || packPaths.Length <= 0)
                 return null;
 
@@ -34,14 +48,23 @@ namespace SDJK.Map
 
         public static T MapLoad<T>(string mapFilePath) where T : Map, new()
         {
-            T sdjkMap = MapCompatibilitySystem.GlobalMapCompatibility<T>(mapFilePath);
-            if (sdjkMap == null)
-                return null;
+            Delegate[] delegates = mapLoaderFunc.GetInvocationList();
+            for (int i = 0; i < delegates.Length; i++)
+            {
+                MapLoaderFunc action = (MapLoaderFunc)delegates[i];
+                object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath));
+                if (map != null)
+                {
+                    T sdjkMap = (T)map;
 
-            sdjkMap.mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
-            sdjkMap.mapFilePath = mapFilePath;
+                    sdjkMap.mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
+                    sdjkMap.mapFilePath = mapFilePath;
 
-            return sdjkMap;
+                    return sdjkMap;
+                }
+            }
+
+            return null;
         }
     }
 }
