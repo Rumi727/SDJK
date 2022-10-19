@@ -9,7 +9,7 @@ namespace SDJK.RuleSet
 {
     public static class RulesetManager
     {
-        public static List<IRuleset> ruleSetList { get; } = new List<IRuleset>();
+        public static List<IRuleset> rulesetList { get; } = new List<IRuleset>();
         public static IRuleset selectedRuleset { get; private set; } = null;
 
         [Awaken]
@@ -30,7 +30,7 @@ namespace SDJK.RuleSet
                             Type interfaceType = interfaces[interfaceIndex];
                             if (interfaceType == typeof(IRuleset))
                             {
-                                ruleSetList.Add((IRuleset)Activator.CreateInstance(type));
+                                rulesetList.Add((IRuleset)Activator.CreateInstance(type));
                                 break;
                             }
                         }
@@ -38,7 +38,7 @@ namespace SDJK.RuleSet
                 }
             }
 
-            selectedRuleset = ruleSetList[0];
+            selectedRuleset = rulesetList[0];
         }
 
         /// <summary>
