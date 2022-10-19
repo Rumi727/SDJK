@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Schema;
 using SCKRM;
+using SCKRM.Renderer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace SDJK.Ruleset
         static int _selectedRulesetIndex;
 
         public static event Action isRulesetChanged;
+        public static event Action isRulesetRefresh;
 
         [Starten]
         public static void RulesetListRefresh()
@@ -56,6 +58,7 @@ namespace SDJK.Ruleset
             }
 
             selectedRuleset = rulesetList[0];
+            isRulesetRefresh.Invoke();
         }
 
         /// <summary>
@@ -100,6 +103,7 @@ namespace SDJK.Ruleset
     public interface IRuleset
     {
         public string name { get; }
+        public NameSpaceIndexTypePathPair icon { get; }
         public string[] compatibleRuleset { get; }
 
         public void GameStart(string mapFilePath);
@@ -112,6 +116,7 @@ namespace SDJK.Ruleset
     public abstract class Ruleset : IRuleset
     {
         public string name => GetType().FullName;
+        public abstract NameSpaceIndexTypePathPair icon { get; }
         public virtual string[] compatibleRuleset => null;
 
         public abstract void GameStart(string mapFilePath);

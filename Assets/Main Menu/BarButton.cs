@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 
 namespace SDJK
 {
-    public class BarButton : UI, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
+    public class BarButton : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
     {
         public float sizeOffset => _sizeOffset; [SerializeField] float _sizeOffset;
         public UnityEvent onClick => _onClick; [SerializeField] UnityEvent _onClick;

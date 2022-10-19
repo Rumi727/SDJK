@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace SDJK
 {
     [RequireComponent(typeof(Image))]
-    public class FlashEffect : UI
+    public class FlashEffect : SCKRM.UI.UI
     {
         [SerializeField] Image _image; public Image image => _image = this.GetComponentFieldSave(_image);
         [SerializeField] FlashOrder _flashOrder = FlashOrder.background; public FlashOrder flashOrder => _flashOrder;

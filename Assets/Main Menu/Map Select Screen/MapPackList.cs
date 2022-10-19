@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MapSelectScreen
 {
-    public class MapPackList : UI, IBeginDragHandler, IScrollHandler
+    public class MapPackList : SCKRM.UI.UI, IBeginDragHandler, IScrollHandler
     {
         public bool contentPosLock { get; private set; }
         public float contentPosY { get; set; }

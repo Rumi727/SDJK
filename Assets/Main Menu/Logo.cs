@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace SDJK
 {
-    public sealed class Logo : UI, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+    public sealed class Logo : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         public Image image { get => _image = this.GetComponentFieldSave(_image); } [System.NonSerialized] Image _image;
 

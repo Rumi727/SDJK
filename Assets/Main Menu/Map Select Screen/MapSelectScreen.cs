@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MapSelectScreen
 {
-    public class MapSelectScreen : UI
+    public class MapSelectScreen : SCKRM.UI.UI
     {
         [SerializeField, NotNull] CanvasScaler canvasScaler;
 

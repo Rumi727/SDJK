@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace SDJK
 {
-    public class Visualizer : UI
+    public class Visualizer : SCKRM.UI.UI
     {
         [SerializeField, NotNull] VisualizerBar barPrefab;
         int barsLock = 0;

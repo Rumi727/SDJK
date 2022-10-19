@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK
 {
-    public class LogoVisualizer : UI
+    public class LogoVisualizer : SCKRM.UI.UI
     {
         [SerializeField] RectTransform logo;
 
