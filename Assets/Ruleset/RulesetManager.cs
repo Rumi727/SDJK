@@ -57,7 +57,7 @@ namespace SDJK.Ruleset
                 }
             }
 
-            selectedRuleset = rulesetList[0];
+            selectedRulesetIndex = 0;
             isRulesetRefresh?.Invoke();
         }
 

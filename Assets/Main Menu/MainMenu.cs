@@ -194,6 +194,34 @@ namespace SDJK
                 }
             }
 
+            if (currentScreenMode == ScreenMode.mapPackSelect || currentScreenMode == ScreenMode.mapSelect)
+            {
+                if (MapManager.currentRulesetMapCount <= 0)
+                    Normal();
+
+                if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                {
+                    if (currentScreenMode == ScreenMode.mapSelect)
+                    {
+                        MapManager.RulesetNextMap();
+
+                        if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                        {
+                            RandomMapPack();
+                            MapPackSelect();
+                        }
+                    }
+                    else if (currentScreenMode == ScreenMode.mapPackSelect)
+                        RandomMapPack();
+
+                    void RandomMapPack()
+                    {
+                        MapManager.selectedMapPackIndex = UnityEngine.Random.Range(0, MapManager.currentMapPacks.Count);
+                        MapManager.RulesetNextMapPack();
+                    }
+                }
+            }
+
             superBulr.interpolation = mapSelectScreen.alpha;
 
             if (logoVisualizer.activeSelf != SaveData.logoVisualizerShow)

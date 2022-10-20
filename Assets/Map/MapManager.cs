@@ -9,6 +9,7 @@ using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
+using SDJK.Ruleset;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace SDJK.Map
     public static class MapManager
     {
         public static List<MapPack> currentMapPacks { get; private set; } = new List<MapPack>();
+        public static int currentRulesetMapCount { get; private set; } = 0;
 
         public static int selectedMapPackIndex
         {
@@ -66,10 +68,18 @@ namespace SDJK.Map
             set
             {
                 selectedMapPack = null;
-
                 _selectedMap = value;
-                selectedMapInfo = value.info;
-                selectedMapEffect = value.globalEffect;
+
+                if (value != null)
+                {
+                    selectedMapInfo = value.info;
+                    selectedMapEffect = value.globalEffect;
+                }
+                else
+                {
+                    selectedMapInfo = null;
+                    selectedMapEffect = null;
+                }
             }
         }
         static Map _selectedMap = null;
@@ -84,13 +94,30 @@ namespace SDJK.Map
 
 
         [Awaken]
-        public static void Awaken() => ResourceManager.resourceRefreshEvent += MapListLoad;
+        public static void Awaken()
+        {
+            ResourceManager.resourceRefreshEvent += MapListLoad;
+            RulesetManager.isRulesetChanged += RulesetMapCountRefresh;
+        }
 
         //void OnApplicationFocus(bool focus) => MapListLoad();
 
         //void OnDestroy() => ResourceManager.audioResetEnd -= MapListLoad;
 
+        public static void RulesetMapCountRefresh()
+        {
+            currentRulesetMapCount = 0;
 
+            for (int i = 0; i < currentMapPacks.Count; i++)
+            {
+                MapPack mapPack = currentMapPacks[i];
+                for (int j = 0; j < mapPack.maps.Count; j++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(mapPack.maps[j].info.mode))
+                        currentRulesetMapCount++;
+                }
+            }
+        }
 
         static bool isMapListRefreshing = false;
         public static async UniTask MapListLoad()
@@ -153,5 +180,69 @@ namespace SDJK.Map
                 isMapListRefreshing = false;
             }
         }
+
+        #region 가독성 씹창난 맵 이동 코드
+        public static void RulesetBackMap()
+        {
+            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            {
+                if (MapManager.selectedMapIndex - 1 < 0)
+                    MapManager.selectedMapIndex = MapManager.selectedMapPack.maps.Count - 1;
+                else
+                    MapManager.selectedMapIndex--;
+
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                    break;
+            }
+        }
+
+        public static void RulesetNextMap()
+        {
+            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            {
+                if (MapManager.selectedMapIndex + 1 >= MapManager.selectedMapPack.maps.Count)
+                    MapManager.selectedMapIndex = 0;
+                else
+                    MapManager.selectedMapIndex++;
+
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                    break;
+            }
+        }
+
+        public static void RulesetBackMapPack()
+        {
+            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            {
+                if (MapManager.selectedMapPackIndex - 1 < 0)
+                    MapManager.selectedMapPackIndex = MapManager.currentMapPacks.Count - 1;
+                else
+                    MapManager.selectedMapPackIndex--;
+
+                for (int j = 0; j < MapManager.selectedMapPack.maps.Count; j++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.mode))
+                        return;
+                }
+            }
+        }
+
+        public static void RulesetNextMapPack()
+        {
+            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            {
+                if (MapManager.selectedMapPackIndex + 1 >= MapManager.currentMapPacks.Count)
+                    MapManager.selectedMapPackIndex = 0;
+                else
+                    MapManager.selectedMapPackIndex++;
+
+                for (int j = 0; j < MapManager.selectedMapPack.maps.Count; j++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.mode))
+                        return;
+                }
+            }
+        }
+        #endregion
     }
 }

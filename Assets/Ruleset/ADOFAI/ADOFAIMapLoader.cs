@@ -29,6 +29,8 @@ namespace SDJK.Ruleset.ADOFAI
                         if (adofai == null)
                             return null;
 
+                        sdjk.info.mode = typeof(ADOFAIRuleset).FullName;
+
                         #region Default Effect
                         {
                             sdjk.info.artist = adofai.settings.artist;

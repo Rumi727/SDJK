@@ -11,7 +11,7 @@ namespace SDJK.Ruleset.SDJK
 
         public override void GameStart(string mapFilePath)
         {
-
+            Debug.Log("asdf");
         }
     }
 }
