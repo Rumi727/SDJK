@@ -24,7 +24,7 @@ namespace SDJK
 
         bool pointer = false;
         float pointerSizeStart = 0;
-        float pointerSizeT = 0;
+        float pointerSizeT = 200;
         float pointerSize = 200;
         Vector3 rotation = Vector3.zero;
         double lastCurrentBeat1Beat = 0;
