@@ -106,7 +106,7 @@ namespace SDJK.MapSelectScreen
 
             while (true)
             {
-                if (IsDestroyed() || isRemoved)
+                if (Kernel.isPlaying || isRemoved || IsDestroyed())
                     return;
 
                 bool active = !IsOccluded();
