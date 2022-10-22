@@ -1,6 +1,7 @@
 {
   "nameSpaces": [
     "sc-krm",
+    "sc-krm-debug",
     "minecraft",
     "school-live",
     "sdjk"
