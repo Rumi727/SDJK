@@ -43,6 +43,7 @@ namespace SCKRM.Editor
 
             Space();
 
+            UseProperty("_disabledObjectIgnore", "비활성화 된 오브젝트 무시");
             UseProperty("_ignore", "무시");
         }
     }

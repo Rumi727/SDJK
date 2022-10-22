@@ -10,6 +10,10 @@ namespace SCKRM.UI.Layout
         public float spacing { get => _spacing; set => _spacing = value; }
 
 
+        [SerializeField] bool _disabledObjectIgnore = true;
+        public bool disabledObjectIgnore { get => _disabledObjectIgnore; set => _disabledObjectIgnore = value; }
+
+
         [SerializeField] RectTransform[] _ignore = new RectTransform[0];
         public RectTransform[] ignore { get => _ignore; set => _ignore = value; }
 

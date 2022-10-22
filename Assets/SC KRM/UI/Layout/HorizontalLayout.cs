@@ -57,7 +57,7 @@ namespace SCKRM.UI.Layout
                     childXPoses[i] = x;
                     continue;
                 }
-                else if (!childRectTransform.gameObject.activeInHierarchy)
+                else if (disabledObjectIgnore && !childRectTransform.gameObject.activeInHierarchy)
                 {
                     childXPoses[i] = x;
                     continue;

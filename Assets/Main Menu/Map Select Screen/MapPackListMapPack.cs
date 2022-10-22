@@ -84,7 +84,7 @@ namespace SDJK.MapSelectScreen
                 artist.text = selectedMap.info.author;
             }
 
-            if (await UniTask.WaitUntil(() => !isTextureLoading, PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
+            if (await UniTask.WaitUntil(() => !isTextureLoading && !IsOccluded(), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
                 return;
 
             isTextureLoading = true;
@@ -103,6 +103,23 @@ namespace SDJK.MapSelectScreen
             }
 
             isTextureLoading = false;
+
+            while (true)
+            {
+                if (isRemoved)
+                    return;
+
+                gameObject.SetActive(!IsOccluded());
+                await UniTask.NextFrame();
+            }
+        }
+
+        private bool IsOccluded()
+        {
+            bool top = mapPackList.rectTransformTool.worldCorners.topLeft.y < rectTransformTool.worldCorners.bottomLeft.y - 5;
+            bool bottom = mapPackList.rectTransformTool.worldCorners.bottomLeft.y > rectTransformTool.worldCorners.topLeft.y + 5;
+
+            return top || bottom;
         }
 
         public override bool Remove()
