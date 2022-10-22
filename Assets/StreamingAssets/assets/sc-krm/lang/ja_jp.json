@@ -273,5 +273,10 @@
 	
 	
 	
+	"scene_load.long_loading_time": "通常よりも少し時間がかかっていますが、間もなく準備が完了します",
+	"scene_load.long_loading_time_off": "プログラムのウィンドウを切らないでください",
+	
+	
+	
 	"subtitles.easter_egg_music_play": "イースターエッグ音楽が再生されました"
 }

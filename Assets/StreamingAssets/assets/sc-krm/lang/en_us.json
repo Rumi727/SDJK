@@ -273,5 +273,10 @@
 	
 	
 	
+	"scene_load.long_loading_time": "It's taking a bit longer than expected, but we'll get there as fast as we can",
+	"scene_load.long_loading_time_off": "Don't turn off your program's window",
+	
+	
+	
 	"subtitles.easter_egg_music_play": "Easter egg music is playing"
 }

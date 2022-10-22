@@ -229,9 +229,9 @@ namespace SCKRM
                     if (startedSceneIndex != 0)
                         SceneManager.LoadScene(startedSceneIndex);
                     else
-                        SceneManager.LoadScene(1);
+                        SceneManager.LoadScene(2);
 #else
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(2);
 #endif
 
                     //씬을 이동했으면 이벤트를 호출합니다
@@ -273,7 +273,7 @@ namespace SCKRM
             {
                 SceneManager.LoadScene(0);
                 await UniTask.NextFrame(PlayerLoopTiming.LastPostLateUpdate);
-                
+
                 //Background
                 Image image = UnityEngine.Object.Instantiate(Kernel.emptyRectTransform, UIManager.instance.kernelCanvas.transform).gameObject.AddComponent<Image>();
                 image.color = Color.black;

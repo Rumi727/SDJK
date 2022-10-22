@@ -13,6 +13,9 @@ namespace SCKRM.Splash
             [JsonProperty] public static string splashScreenPath { get; set; } = "Assets/SC KRM/Splash Screen";
             [JsonProperty] public static string splashScreenName { get; set; } = "Splash Screen";
 
+            [JsonProperty] public static string sceneLoadingScenePath { get; set; } = "Assets/SC KRM/Scene";
+            [JsonProperty] public static string sceneLoadingSceneName { get; set; } = "Scene Load Scene";
+
             [JsonProperty] public static string kernelObjectPath { get; set; } = "Assets/SC KRM";
             [JsonProperty] public static string kernelObjectName { get; set; } = "Kernel";
         }

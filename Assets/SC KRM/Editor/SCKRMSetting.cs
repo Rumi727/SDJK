@@ -99,31 +99,21 @@ namespace SCKRM.Editor
                     EditorSceneManager.SaveOpenScenes();
 
                     string splashScenePath = SceneManager.GetActiveScene().path;
-
-                    bool exists = false;
+                    string loadingScenePath = $"{PathTool.Combine(SplashScreen.Data.sceneLoadingScenePath, SplashScreen.Data.sceneLoadingSceneName)}.unity";
                     List<EditorBuildSettingsScene> buildScenes = EditorBuildSettings.scenes.ToList();
 
-                    if (buildScenes.Count > 0)
+                    for (int i = 0; i < buildScenes.Count; i++)
                     {
-                        if (!buildScenes[0].enabled)
-                            buildScenes.RemoveAt(0);
-
-                        for (int i = 0; i < buildScenes.Count; i++)
+                        EditorBuildSettingsScene scene = buildScenes[i];
+                        if (splashScenePath == scene.path || loadingScenePath == scene.path)
                         {
-                            EditorBuildSettingsScene scene = buildScenes[i];
-                            if (splashScenePath == scene.path)
-                            {
-                                if (i != 0)
-                                    buildScenes.Move(i, 0);
-
-                                exists = true;
-                                break;
-                            }
+                            buildScenes.RemoveAt(i);
+                            i--;
                         }
                     }
 
-                    if (!exists)
-                        buildScenes.Insert(0, new EditorBuildSettingsScene() { path = splashScenePath, enabled = true });
+                    buildScenes.Insert(0, new EditorBuildSettingsScene() { path = splashScenePath, enabled = true });
+                    buildScenes.Insert(1, new EditorBuildSettingsScene() { path = loadingScenePath, enabled = true });
 
                     EditorBuildSettings.scenes = buildScenes.ToArray();
                     EditorSceneManager.OpenScene(activeScenePath);

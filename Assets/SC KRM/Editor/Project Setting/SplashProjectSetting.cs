@@ -53,18 +53,21 @@ namespace SCKRM.Editor
             SplashScreen.Data.splashScreenPath = path;
             SplashScreen.Data.splashScreenName = name;
 
-            if (isChanged)
-                SCKRMSetting.SceneListChanged(false);
+            path = SplashScreen.Data.sceneLoadingScenePath;
+            name = SplashScreen.Data.sceneLoadingSceneName;
+            ObjectField<SceneAsset>("씬을 불러올때 사용할 씬", ".unity", ref path, ref name, out bool isChanged2);
+            SplashScreen.Data.sceneLoadingScenePath = path;
+            SplashScreen.Data.sceneLoadingSceneName = name;
 
             EditorGUILayout.Space();
 
             path = SplashScreen.Data.kernelObjectPath;
             name = SplashScreen.Data.kernelObjectName;
-            ObjectField<Kernel>("사용 될 커널 프리팹", ".prefab", ref path, ref name, out isChanged);
+            ObjectField<Kernel>("사용 될 커널 프리팹", ".prefab", ref path, ref name, out bool isChanged3);
             SplashScreen.Data.kernelObjectPath = path;
             SplashScreen.Data.kernelObjectName = name;
 
-            if (isChanged)
+            if (isChanged || isChanged2 || isChanged3)
                 SCKRMSetting.SceneListChanged(false);
 
             EditorGUILayout.Space();

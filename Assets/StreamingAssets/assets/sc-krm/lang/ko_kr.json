@@ -280,6 +280,11 @@
 	"command.all_text_rerender": "모든 텍스트 렌더러를 새로 고쳤습니다",
 	
 	
+	
+	"scene_load.long_loading_time": "예상보다 오래 걸리고 있지만 가능한 빨리 마치겠습니다",
+	"scene_load.long_loading_time_off": "프로그램의 창을 끄지 마세요",
+	
+	
 
 	"subtitles.easter_egg_music_play": "이스터에그 음악이 재생됨"
 }

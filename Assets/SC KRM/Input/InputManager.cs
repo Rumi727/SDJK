@@ -83,6 +83,11 @@ namespace SCKRM.Input
         /// </summary>
         [WikiDescription("강제 인풋 락")]
         public static bool forceInputLock { get; set; } = false;
+        /// <summary>
+        /// 씬 인풋 락
+        /// </summary>
+        [WikiDescription("씬 인풋 락")]
+        public static bool sceneInputLock { get; [Obsolete("It is managed by the SceneLoadManager class. Please do not touch it.")] internal set; } = false;
 
 
 
@@ -681,7 +686,9 @@ Checks input locks. Returns true if any of the locks except the input lock to ig
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
 
-            if (!inputLockDeny.Contains("input") && isInputFieldFocused)
+            if (sceneInputLock)
+                return true;
+            else if (!inputLockDeny.Contains("input") && isInputFieldFocused)
                 return true;
             else if (!inputLockDeny.Contains("force") && forceInputLock)
                 return true;
