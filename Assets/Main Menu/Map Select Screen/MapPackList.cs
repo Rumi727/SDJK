@@ -97,6 +97,7 @@ namespace SDJK.MapSelectScreen
 
             if (!isMapList)
             {
+                int loopCount = 0;
                 for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
                 {
                     MapPack mapPack = MapManager.currentMapPacks[i];
@@ -110,9 +111,15 @@ namespace SDJK.MapSelectScreen
 
                             mapSelectScreenMapPacks.Add(mapPackListMapPack);
 
-                            if (await UniTask.NextFrame(token).SuppressCancellationThrow())
-                                return;
+                            if (loopCount >= 10)
+                            {
+                                if (await UniTask.NextFrame(token).SuppressCancellationThrow())
+                                    return;
 
+                                loopCount = 0;
+                            }
+
+                            loopCount++;
                             break;
                         }
                     }
@@ -120,6 +127,7 @@ namespace SDJK.MapSelectScreen
             }
             else
             {
+                int loopCount = 0;
                 for (int i = 0; i < MapManager.selectedMapPack.maps.Count; i++)
                 {
                     Map.Map map = MapManager.selectedMapPack.maps[i];
@@ -131,8 +139,15 @@ namespace SDJK.MapSelectScreen
 
                     mapSelectScreenMapPacks.Add(mapPackListMapPack);
 
-                    if (await UniTask.NextFrame(token).SuppressCancellationThrow())
-                        return;
+                    if (loopCount >= 10)
+                    {
+                        if (await UniTask.NextFrame(token).SuppressCancellationThrow() && loopCount >= 10)
+                            return;
+
+                        loopCount = 0;
+                    }
+
+                    loopCount++;
                 }
             }
         }
