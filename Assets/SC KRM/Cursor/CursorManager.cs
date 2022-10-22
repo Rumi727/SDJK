@@ -298,7 +298,7 @@ namespace SCKRM.Cursor
             POINT point = new POINT() { X = x, Y = y };
             ClientToScreen(WindowManager.currentHandle, ref point);
 
-            return new Vector2Int(point.X, point.Y); 
+            return new Vector2Int(point.X, point.Y);
 #else
             throw new NotSupportedException();
 #endif

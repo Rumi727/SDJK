@@ -6,7 +6,7 @@ namespace SCKRM.UI.Layout
 {
     public abstract class LayoutChild : UIAniLayout
     {
-        [SerializeField, Min(0)] float _spacing;
+        [SerializeField] float _spacing;
         public float spacing { get => _spacing; set => _spacing = value; }
 
 

@@ -216,7 +216,7 @@ namespace SCKRM.Editor
                         UnityEngine.Camera camera = cameras[i];
                         CameraSetting cameraSetting = camera.GetComponent<CameraSetting>();
                         if (camera.GetComponent<CameraSetting>() == null)
-                            AddComponentCompatibleWithPrefab<CanvasSetting>(camera.gameObject, ref sceneDirty);
+                            AddComponentCompatibleWithPrefab<CameraSetting>(camera.gameObject, ref sceneDirty);
                         else if (!cameraSetting.enabled)
                             DestroyComponentCompatibleWithPrefab(cameraSetting, ref sceneDirty);
                     }

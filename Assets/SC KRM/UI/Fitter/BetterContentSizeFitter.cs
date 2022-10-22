@@ -13,7 +13,7 @@ namespace SCKRM.UI
 
 
 
-        [SerializeField, Min(0)] Vector2 _offset = Vector2.zero; public Vector2 offset { get => _offset; set => _offset = value; }
+        [SerializeField] Vector2 _offset = Vector2.zero; public Vector2 offset { get => _offset; set => _offset = value; }
 
         [SerializeField, Min(0)] Vector2 _minSize = Vector2.zero; public Vector2 min { get => _minSize; set => _minSize = value; }
         [SerializeField, Min(0)] Vector2 _maxSize = Vector2.zero; public Vector2 max { get => _maxSize; set => _maxSize = value; }
