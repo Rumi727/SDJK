@@ -106,10 +106,13 @@ namespace SDJK.MapSelectScreen
 
             while (true)
             {
-                if (isRemoved)
+                if (IsDestroyed() || isRemoved)
                     return;
 
-                gameObject.SetActive(!IsOccluded());
+                bool active = !IsOccluded();
+                if (active != gameObject.activeSelf)
+                    gameObject.SetActive(active);
+
                 await UniTask.NextFrame();
             }
         }
