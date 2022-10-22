@@ -90,7 +90,10 @@ namespace SDJK.MapSelectScreen
             isTextureLoading = true;
 
             if (background.sprite != null)
+            {
+                Destroy(background.sprite.texture);
                 Destroy(background.sprite);
+            }
 
             if (selectedMap.globalEffect.background.Count > 0)
             {
