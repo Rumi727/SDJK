@@ -152,7 +152,7 @@ namespace SCKRM.Editor
                         SaveLoadManager.Load(splashProjectSetting, Kernel.projectSettingPath);
                     }
 
-                    Scene activeScene = SceneManager.GetActiveScene();
+                    UnityEngine.SceneManagement.Scene activeScene = SceneManager.GetActiveScene();
                     PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
                     hierarchyChangedEnable = false;
 

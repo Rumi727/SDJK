@@ -105,7 +105,7 @@ namespace SCKRM
                 //에디터에선 스플래시 씬에서 시작하지 않기 때문에
                 //시작한 씬의 인덱스를 구하고
                 //인덱스가 0번이 아니면 스플래시 씬을 로딩합니다
-                Scene scene = SceneManager.GetActiveScene();
+                UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
                 int startedSceneIndex = scene.buildIndex;
                 if (startedSceneIndex != 0)
                 {
@@ -220,7 +220,7 @@ namespace SCKRM
                     StatusBarManager.allowStatusBarShow = true;
 
                     //씬이 바뀌었을때 렌더러를 재 렌더링해야하기때문에 이벤트를 걸어줍니다
-                    SceneManager.sceneLoaded += (Scene scene, LoadSceneMode loadSceneMode) => RendererManager.AllRerender();
+                    SceneManager.sceneLoaded += (UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadSceneMode) => RendererManager.AllRerender();
 
                     //GC를 호출합니다
                     GC.Collect();

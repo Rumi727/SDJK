@@ -49,13 +49,13 @@ namespace SCKRM.Editor
 
             string path = SplashScreen.Data.splashScreenPath;
             string name = SplashScreen.Data.splashScreenName;
-            ObjectField<SceneAsset>("재생 할 스플래시 씬", ".unity", ref path, ref name, out bool isChanged);
+            CustomInspectorEditor.FileObjectField<SceneAsset>("재생 할 스플래시 씬", ".unity", ref path, ref name, out bool isChanged);
             SplashScreen.Data.splashScreenPath = path;
             SplashScreen.Data.splashScreenName = name;
 
             path = SplashScreen.Data.sceneLoadingScenePath;
             name = SplashScreen.Data.sceneLoadingSceneName;
-            ObjectField<SceneAsset>("씬을 불러올때 사용할 씬", ".unity", ref path, ref name, out bool isChanged2);
+            CustomInspectorEditor.FileObjectField<SceneAsset>("씬을 불러올때 사용할 씬", ".unity", ref path, ref name, out bool isChanged2);
             SplashScreen.Data.sceneLoadingScenePath = path;
             SplashScreen.Data.sceneLoadingSceneName = name;
 
@@ -63,7 +63,7 @@ namespace SCKRM.Editor
 
             path = SplashScreen.Data.kernelObjectPath;
             name = SplashScreen.Data.kernelObjectName;
-            ObjectField<Kernel>("사용 될 커널 프리팹", ".prefab", ref path, ref name, out bool isChanged3);
+            CustomInspectorEditor.FileObjectField<Kernel>("사용 될 커널 프리팹", ".prefab", ref path, ref name, out bool isChanged3);
             SplashScreen.Data.kernelObjectPath = path;
             SplashScreen.Data.kernelObjectName = name;
 
@@ -73,29 +73,6 @@ namespace SCKRM.Editor
             EditorGUILayout.Space();
 
             VirtualMachineDetector.Data.vmBan = EditorGUILayout.Toggle("가상머신 밴", VirtualMachineDetector.Data.vmBan);
-
-
-            static void ObjectField<T>(string label, string extension, ref string path, ref string name, out bool isChanged) where T : UnityEngine.Object
-            {
-                T oldAssets = AssetDatabase.LoadAssetAtPath<T>(PathTool.Combine(path, name) + extension);
-                T assets = (T)EditorGUILayout.ObjectField(label, oldAssets, typeof(T), false);
-
-                {
-                    string allAssetPath = AssetDatabase.GetAssetPath(assets);
-                    if (allAssetPath != "")
-                    {
-                        string assetPath = allAssetPath.Substring(0, allAssetPath.LastIndexOf("/"));
-                        string assetName = allAssetPath.Remove(0, allAssetPath.LastIndexOf("/") + 1);
-                        assetName = assetName.Substring(0, assetName.Length - extension.Length);
-
-                        path = assetPath;
-                        name = assetName;
-                    }
-                }
-
-                EditorGUILayout.LabelField($"경로: {PathTool.Combine(path, name) + extension}");
-                isChanged = oldAssets != assets;
-            }
 
             //플레이 모드가 아니면 변경한 리스트의 데이터를 잃어버리지 않게 파일로 저장
             if (GUI.changed && !Kernel.isPlaying)
