@@ -8,6 +8,7 @@ namespace SCKRM.UI.SideBar
     {
         public static List<SideBarAni> showedSideBars { get; } = new List<SideBarAni>();
         public static bool isSideBarShow => showedSideBars.Count > 0;
+        public static bool sideBarForceHide { get; set; } = false;
 
         public static void AllHide()
         {

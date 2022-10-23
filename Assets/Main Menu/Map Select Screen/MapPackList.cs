@@ -5,6 +5,7 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SDJK.Map;
 using SDJK.Ruleset;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -77,9 +78,11 @@ namespace SDJK.MapSelectScreen
                 content.anchoredPosition = content.anchoredPosition.Lerp(new Vector2(0, contentPosY), 0.2f * Kernel.fpsUnscaledDeltaTime);
         }
 
-        protected override void OnDestroy() => MapManager.mapLoadingEnd -= ReloadData;
-
-
+        protected override void OnDestroy()
+        {
+            RulesetManager.isRulesetChanged -= ReloadData;
+            MapManager.mapLoadingEnd -= ReloadData;
+        }
 
         List<MapPackListMapPack> mapSelectScreenMapPacks = new List<MapPackListMapPack>();
         CancellationTokenSource cancelSource = new CancellationTokenSource();
@@ -91,7 +94,10 @@ namespace SDJK.MapSelectScreen
             CancellationToken token = cancelSource.Token;
 
             for (int i = 0; i < mapSelectScreenMapPacks.Count; i++)
-                mapSelectScreenMapPacks[i].Remove();
+            {
+                if (mapSelectScreenMapPacks[i] != null)
+                    mapSelectScreenMapPacks[i].Remove();
+            }
 
             mapSelectScreenMapPacks.Clear();
 

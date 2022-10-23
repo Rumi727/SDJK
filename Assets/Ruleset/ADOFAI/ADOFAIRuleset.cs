@@ -11,7 +11,7 @@ namespace SDJK.Ruleset.ADOFAI
 
         public override void GameStart(string mapFilePath)
         {
-            Debug.Log("asdf2");
+
         }
     }
 }

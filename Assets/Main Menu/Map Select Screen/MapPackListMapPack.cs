@@ -84,7 +84,10 @@ namespace SDJK.MapSelectScreen
                 artist.text = selectedMap.info.author;
             }
 
-            if (await UniTask.WaitUntil(() => !isTextureLoading && !IsOccluded(), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
+            if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
+                return;
+
+            if (!Kernel.isPlaying || isRemoved || IsDestroyed())
                 return;
 
             isTextureLoading = true;
@@ -145,6 +148,15 @@ namespace SDJK.MapSelectScreen
             artist.text = "";
 
             return true;
+        }
+
+        protected override void OnDestroy()
+        {
+            if (background.sprite != null)
+            {
+                Destroy(background.sprite.texture);
+                Destroy(background.sprite);
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData)

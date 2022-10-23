@@ -1,12 +1,17 @@
 using Newtonsoft.Json.Schema;
 using SCKRM;
 using SCKRM.Renderer;
+using SCKRM.Sound;
+using SCKRM.UI;
+using SCKRM.UI.SideBar;
+using SCKRM.UI.StatusBar;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Security.Permissions;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace SDJK.Ruleset
 {
@@ -87,6 +92,15 @@ namespace SDJK.Ruleset
 
         public static void GameStart(string mapFilePath)
         {
+            StatusBarManager.statusBarForceHide = true;
+            SideBarManager.sideBarForceHide = true;
+
+            EventSystem.current.SetSelectedGameObject(null);
+            SideBarManager.AllHide();
+
+            UIManager.BackEventAllRemove();
+            SoundManager.StopSoundAll(true);
+
             for (int i = 0; i < rulesetList.Count; i++)
             {
                 IRuleset ruleset = rulesetList[i];

@@ -7,11 +7,14 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Splash Screen/Splash Screen.unity
-    guid: 00000000000000000000000000000000
+    guid: ea07ebb5b227a43458480e4b27e7b797
   - enabled: 1
     path: Assets/SC KRM/Scene/Scene Load Scene.unity
-    guid: 00000000000000000000000000000000
+    guid: b441d857a8ede334eb9e9d6106fa9f41
   - enabled: 1
     path: Assets/Main Menu/Main Menu.unity
     guid: 7c90965796c48d04fa73d80cf84e444c
+  - enabled: 1
+    path: Assets/Ruleset/SDJK/SDJK.unity
+    guid: 20ca9ee1b43ca7b47b0da025e6b966ac
   m_configObjects: {}

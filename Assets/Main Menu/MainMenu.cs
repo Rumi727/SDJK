@@ -1,10 +1,14 @@
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Input;
 using SCKRM.SaveLoad;
+using SCKRM.Scene;
+using SCKRM.Sound;
 using SCKRM.UI;
 using SCKRM.UI.Layout;
+using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
 using SDJK.Map;
 using SDJK.Ruleset;
@@ -13,6 +17,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace SDJK
@@ -345,6 +350,24 @@ namespace SDJK
 #else
             Application.Quit();
 #endif
+        }
+
+        public static async UniTaskVoid MainMenuLoad()
+        {
+            StatusBarManager.statusBarForceHide = false;
+            SideBarManager.sideBarForceHide = false;
+
+            EventSystem.current.SetSelectedGameObject(null);
+            SideBarManager.AllHide();
+
+            UIManager.BackEventAllRemove();
+            SoundManager.StopSoundAll(true);
+
+            SceneManager.LoadScene(2).Forget();
+
+            await UniTask.WaitUntil(() => instance != null);
+
+            MapSelect();
         }
     }
 

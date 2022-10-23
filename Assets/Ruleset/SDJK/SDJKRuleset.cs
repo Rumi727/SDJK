@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using SCKRM.Renderer;
+using SCKRM.Scene;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +13,7 @@ namespace SDJK.Ruleset.SDJK
 
         public override void GameStart(string mapFilePath)
         {
-            Debug.Log("asdf");
+            SceneManager.LoadScene(3).Forget();
         }
     }
 }

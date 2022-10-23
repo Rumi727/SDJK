@@ -104,5 +104,13 @@ namespace SCKRM.UI
             else
                 backEventList.Remove(action);
         }
+
+        public static void BackEventAllRemove(bool highPriority = false)
+        {
+            if (highPriority)
+                highPriorityBackEventList.Clear();
+            else
+                backEventList.Clear();
+        }
     }
 }

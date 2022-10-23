@@ -76,6 +76,9 @@ namespace SCKRM.UI.SideBar
         [WikiDescription("사이드 바를 활성화 합니다")]
         public void Show()
         {
+            if (SideBarManager.sideBarForceHide)
+                return;
+
             isShow = true;
             showEvent.Invoke();
         }
