@@ -7,7 +7,9 @@ namespace SDJK.Effect
 {
     public sealed class EffectManager : MonoBehaviour
     {
+        public Map.MapPack selectedMapPack { get; set; }
         public Map.Map selectedMap { get; set; }
+
         public ISoundPlayer soundPlayer { get; set; }
 
         [SerializeField] List<Effect> _effects = new List<Effect>(); public List<Effect> effects => _effects;
