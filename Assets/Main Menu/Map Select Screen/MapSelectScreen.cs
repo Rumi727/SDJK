@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK.MapSelectScreen
+namespace SDJK.MainMenu.MapSelectScreen
 {
     public class MapSelectScreen : SCKRM.UI.UI
     {

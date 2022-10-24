@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     public class ADOFAIMapTest : MonoBehaviour
     {

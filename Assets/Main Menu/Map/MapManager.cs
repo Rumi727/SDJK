@@ -9,6 +9,7 @@ using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
+using SDJK.Map;
 using SDJK.Ruleset;
 using System;
 using System.Collections;
@@ -16,7 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace SDJK.Map
+namespace SDJK.MainMenu
 {
     public static class MapManager
     {
@@ -62,7 +63,7 @@ namespace SDJK.Map
         }
         public static int _selectedMapIndex = 0;
 
-        public static Map selectedMap
+        public static Map.Map selectedMap
         {
             get => _selectedMap;
             set
@@ -82,7 +83,7 @@ namespace SDJK.Map
                 }
             }
         }
-        static Map _selectedMap = null;
+        static Map.Map _selectedMap = null;
 
         public static MapInfo selectedMapInfo { get; private set; } = null;
         public static MapGlobalEffect selectedMapEffect { get; private set; } = null;

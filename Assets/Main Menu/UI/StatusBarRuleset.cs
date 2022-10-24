@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDJK.UI
+namespace SDJK.MainMenu.UI
 {
     public class StatusBarRuleset : ObjectPooling
     {

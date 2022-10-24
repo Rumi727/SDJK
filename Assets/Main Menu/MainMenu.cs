@@ -20,7 +20,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     public sealed class MainMenu : Manager<MainMenu>
     {

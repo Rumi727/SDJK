@@ -58,7 +58,7 @@ namespace SDJK.Ruleset.SDJK
 
 
 
-                        map.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(double.MinValue, new BackgroundEffect(oldMap.Background, oldMap.BackgroundNight), false));
+                        map.globalEffect.background.Add(new BeatValuePair<BackgroundEffectPair>(double.MinValue, new BackgroundEffectPair(oldMap.Background, oldMap.BackgroundNight), false));
                         map.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
 
                         map.info.videoBackgroundFile = oldMap.VideoBackground;

@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace SDJK.MapSelectScreen
+namespace SDJK.MainMenu.MapSelectScreen
 {
     public class MapPackList : SCKRM.UI.UI, IBeginDragHandler, IScrollHandler
     {

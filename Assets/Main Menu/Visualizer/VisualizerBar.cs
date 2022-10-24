@@ -5,7 +5,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     public class VisualizerBar : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace SDJK
         /// <summary>
         /// Thread-Safe
         /// </summary>
-        public float size 
+        public float size
         {
             get
             {

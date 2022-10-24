@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     public sealed class BGM : ObjectPooling
     {

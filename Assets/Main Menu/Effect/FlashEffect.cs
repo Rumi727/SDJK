@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     [RequireComponent(typeof(Image))]
     public class FlashEffect : SCKRM.UI.UI

@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     public class BarButton : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
     {

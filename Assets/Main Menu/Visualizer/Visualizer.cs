@@ -9,7 +9,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK
+namespace SDJK.MainMenu
 {
     public class Visualizer : SCKRM.UI.UI
     {

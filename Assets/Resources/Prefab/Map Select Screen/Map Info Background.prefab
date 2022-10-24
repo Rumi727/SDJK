@@ -67,15 +67,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1174958582390905573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11be4f42c893b440a4380ee60d284d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 097bf6966ced6094dbc1452362bf194d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 0}
-  _image: {fileID: 0}
-  _canvasGroup: {fileID: 0}
+  _image: {fileID: 978618387941541928}
+  _canvasGroup: {fileID: 5314454185515033005}
 --- !u!222 &1174958582390905568
 CanvasRenderer:
   m_ObjectHideFlags: 0

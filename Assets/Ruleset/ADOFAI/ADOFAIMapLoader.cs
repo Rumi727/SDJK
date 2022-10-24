@@ -53,7 +53,7 @@ namespace SDJK.Ruleset.ADOFAI
                                     sdjk.info.difficultyLabel = "ADOFAI";
                             }
 
-                            sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(double.MinValue, new BackgroundEffect(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""), false));
+                            sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffectPair>(double.MinValue, new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""), false));
 
                             if (ColorUtility.TryParseHtmlString("#" + adofai.settings.bgImageColor, out Color color))
                                 sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, color, 0, EasingFunction.Ease.Linear, false));
@@ -400,7 +400,7 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (action.ContainsKey("bgImage"))
                                 {
                                     string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
-                                    effect.action += (double beat) => sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffect>(beat, new BackgroundEffect(background, ""), false));
+                                    effect.action += (double beat) => sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffectPair>(beat, new BackgroundEffectPair(background, ""), false));
                                 }
                             }
                             else if (eventType == "Flash")
