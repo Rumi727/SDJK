@@ -25,7 +25,7 @@ namespace SDJK
             transform.SetSiblingIndex(0);
         }
 
-        bool refreshed = true;
+        bool refreshed = false;
         public void Refresh(Map.Map map)
         {
             if (refreshed)
@@ -101,8 +101,14 @@ namespace SDJK
                 string texturePath = PathTool.Combine(map.mapFilePathParent, background);
                 Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
+                if (isRemoved)
+                    return;
+
                 string nightTexturePath = PathTool.Combine(map.mapFilePathParent, backgroundNight);
                 Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
+
+                if (isRemoved)
+                    return;
 
                 if (texture != null && !loadedSprites.ContainsKey(background))
                     loadedSprites.Add(background, ResourceManager.GetSprite(texture));
@@ -130,13 +136,18 @@ namespace SDJK
             canvasGroup.alpha = 0;
             refreshed = false;
             map = null;
+            isTextureLoading = false;
 
             TextureDestroy().Forget();
 
             return true;
         }
 
-        protected override void OnDestroy() => TextureDestroy().Forget();
+        protected override void OnDestroy()
+        {
+            if (Kernel.isPlaying)
+                TextureDestroy().Forget();
+        }
 
         async UniTaskVoid TextureDestroy()
         {

@@ -44,7 +44,7 @@ namespace SDJK
             transform.SetSiblingIndex(0);
         }
 
-        bool refreshed = true;
+        bool refreshed = false;
         public void Refresh(Map.Map map, ISoundPlayer soundPlayer)
         {
             if (refreshed)
