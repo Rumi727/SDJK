@@ -15,10 +15,12 @@ namespace SDJK.MainMenu
         {
             if (MapManager.selectedMap != null && BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && lastMap != MapManager.selectedMap)
             {
+                effectManager.selectedMapPack = MapManager.selectedMapPack;
                 effectManager.selectedMap = MapManager.selectedMap;
-                effectManager.soundPlayer = BGMManager.bgm.soundPlayer;
-                effectManager.AllRefresh(false);
 
+                effectManager.soundPlayer = BGMManager.bgm.soundPlayer;
+
+                effectManager.AllRefresh(false);
                 lastMap = MapManager.selectedMap;
             }
         }
