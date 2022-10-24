@@ -1,4 +1,5 @@
 using SCKRM.Object;
+using SDJK.Map;
 using UnityEngine;
 
 namespace SDJK.Effect
@@ -8,6 +9,7 @@ namespace SDJK.Effect
         [SerializeField] string _prefab = "video_effect.video"; public string prefab { get => _prefab; set => _prefab = value; }
         public VideoEffectPrefab video { get; private set; } = null;
 
+        MapPack lastMapPack;
         string lastVideoBackgroundFile;
         string lastVideoBackgroundNightFile;
         double lastVideoOffset;
@@ -16,7 +18,7 @@ namespace SDJK.Effect
             if (video != null && !video.isRemoved)
                 video.PadeOut().Forget();
 
-            if (force || (lastVideoBackgroundFile != map.info.videoBackgroundFile || lastVideoBackgroundNightFile != map.info.videoBackgroundNightFile || lastVideoOffset != map.info.videoOffset))
+            if (force || lastMapPack != mapPack || lastVideoBackgroundFile != map.info.videoBackgroundFile || lastVideoBackgroundNightFile != map.info.videoBackgroundNightFile || lastVideoOffset != map.info.videoOffset)
             {
                 video = (VideoEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
                 video.Refresh(effectManager.selectedMap, effectManager.soundPlayer);
@@ -24,6 +26,7 @@ namespace SDJK.Effect
                 lastVideoBackgroundFile = map.info.videoBackgroundFile;
                 lastVideoBackgroundNightFile = map.info.videoBackgroundNightFile;
                 lastVideoOffset = map.info.videoOffset;
+                lastMapPack = mapPack;
             }
         }
     }
