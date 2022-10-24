@@ -77,7 +77,7 @@ namespace SDJK.Map
 
 
 
-        public BeatValuePairList<BackgroundEffect> background { get; } = new();
+        public BeatValuePairList<BackgroundEffectPair> background { get; } = new();
         public BeatValuePairAniListColor backgroundColor { get; } = new();
 
         public BeatValuePairAniListColor videoColor { get; } = new();
@@ -266,12 +266,12 @@ namespace SDJK.Map
 
 
     #region Effect
-    public struct BackgroundEffect
+    public struct BackgroundEffectPair
     {
         public string backgroundFile { get; set; }
         public string backgroundNightFile { get; }
 
-        public BackgroundEffect(string backgroundFile, string backgroundNightFile)
+        public BackgroundEffectPair(string backgroundFile, string backgroundNightFile)
         {
             this.backgroundFile = backgroundFile;
             this.backgroundNightFile = backgroundNightFile;
