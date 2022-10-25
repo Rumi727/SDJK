@@ -155,8 +155,11 @@ namespace SDJK
 
             foreach (var item in loadedSprites)
             {
-                Destroy(item.Value.texture);
-                Destroy(item.Value);
+                if (item.Value != null)
+                {
+                    Destroy(item.Value.texture);
+                    Destroy(item.Value);
+                }
             }
 
             loadedSprites.Clear();
