@@ -315,9 +315,8 @@ GameObject:
   - component: {fileID: 1408405981619606514}
   - component: {fileID: 1408405981619606515}
   - component: {fileID: 1408405981619606476}
-  - component: {fileID: 1408405981619606478}
-  - component: {fileID: 1408405981619606479}
   - component: {fileID: 1408405981619606473}
+  - component: {fileID: 1408405981619606478}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -405,6 +404,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _customSetting: 0
+--- !u!114 &1408405981619606473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408405981619606512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9df68362172be4b9a768e1e449b5ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectManager: {fileID: 1408405982577623746}
 --- !u!114 &1408405981619606478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,32 +437,6 @@ MonoBehaviour:
   gammaCorrection: 0
   blurMaterial: {fileID: 2100000, guid: ca5655510040b5a45a64ec1d05e1589b, type: 2}
   UIMaterial: {fileID: 2100000, guid: 46067e32f418d064e9065596b5f299f4, type: 2}
---- !u!114 &1408405981619606479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408405981619606512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46210cf7833c51546958244ac089b06e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitSoundPlay: 1
---- !u!114 &1408405981619606473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408405981619606512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb9df68362172be4b9a768e1e449b5ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _effectManager: {fileID: 1408405982577623746}
 --- !u!1 &1408405981756989888
 GameObject:
   m_ObjectHideFlags: 0
