@@ -111,6 +111,10 @@ namespace SCKRM.Rhythm
             double soundTime = (double)time - offset - bpmOffsetTime;
             double bpmDivide60 = bpm / 60d;
 
+            SoundPlayer realSoundPlayer = soundPlayer as SoundPlayer;
+            if (SoundManager.Data.useTempo && !ReferenceEquals(realSoundPlayer, null) && realSoundPlayer.customSoundData.isBGM)
+                soundTime -= 0.1;
+
             currentBeat = (soundTime * bpmDivide60) + bpmOffsetBeat;
             currentBeatSound = ((soundTime - SaveData.soundOffset) * bpmDivide60) + bpmOffsetBeat;
             currentBeatScreen = ((soundTime - SaveData.screenOffset) * bpmDivide60) + bpmOffsetBeat;
