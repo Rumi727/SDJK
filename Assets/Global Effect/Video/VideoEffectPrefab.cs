@@ -62,10 +62,6 @@ namespace SDJK
             {
                 offset = map.info.videoOffset;
 
-                SoundPlayer realSoundPlayer = soundPlayer as SoundPlayer;
-                if (SoundManager.Data.useTempo && !ReferenceEquals(realSoundPlayer, null) && realSoundPlayer.customSoundData.isBGM)
-                    offset -= 0.1;
-
                 videoPlayer.url = fullPath;
                 videoPlayer.time = RhythmManager.time + offset;
 
