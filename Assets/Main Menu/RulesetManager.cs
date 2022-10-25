@@ -14,7 +14,7 @@ using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace SDJK.Ruleset
+namespace SDJK.MainMenu.Ruleset
 {
     public static class RulesetManager
     {
