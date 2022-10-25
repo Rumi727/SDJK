@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Schema;
 using SCKRM;
 using SCKRM.Renderer;
+using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
 using SCKRM.UI.SideBar;
@@ -99,6 +100,8 @@ namespace SDJK.Ruleset
             SideBarManager.AllHide();
 
             UIManager.BackEventAllRemove();
+
+            RhythmManager.Stop();
             SoundManager.StopSoundAll(true);
 
             for (int i = 0; i < rulesetList.Count; i++)
