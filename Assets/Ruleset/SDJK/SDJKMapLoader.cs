@@ -22,7 +22,7 @@ namespace SDJK.Ruleset.SDJK
                         SDJKMapFile map = JsonManager.JsonRead<SDJKMapFile>(mapFilePath, true);
                         if (map == null)
                             return null;
-                        else if (map.info.sdjkVersion != default(SCKRM.Version))
+                        else if (map.info.sdjkVersion != default)
                         {
                             if (map.info.mode == typeof(SDJKRuleset).FullName)
                                 return map;
@@ -95,105 +95,24 @@ namespace SDJK.Ruleset.SDJK
                         #endregion
 
                         #region Beat
+                        NoteAdd(oldMap.CapsLock, oldMap.HoldCapsLock);
+                        NoteAdd(oldMap.A, oldMap.HoldA);
+                        NoteAdd(oldMap.S, oldMap.HoldS);
+                        NoteAdd(oldMap.D, oldMap.HoldD);
+                        NoteAdd(oldMap.J, oldMap.HoldJ);
+                        NoteAdd(oldMap.K, oldMap.HoldK);
+                        NoteAdd(oldMap.L, oldMap.HoldL);
+                        NoteAdd(oldMap.Semicolon, oldMap.HoldSemicolon);
+
+                        void NoteAdd(List<double> list, List<double> holdList)
                         {
                             List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.CapsLock.Count; i++)
+                            for (int i = 0; i < list.Count; i++)
                             {
-                                if (oldMap.HoldCapsLock.Count != oldMap.CapsLock.Count)
-                                    notes.Add(new Note(oldMap.CapsLock[i] - 1, 0));
+                                if (holdList.Count != holdList.Count)
+                                    notes.Add(new Note(list[i] - 1, 0));
                                 else
-                                    notes.Add(new Note(oldMap.CapsLock[i] - 1, oldMap.HoldCapsLock[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.A.Count; i++)
-                            {
-                                if (oldMap.HoldA.Count != oldMap.A.Count)
-                                    notes.Add(new Note(oldMap.A[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.A[i] - 1, oldMap.HoldA[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.S.Count; i++)
-                            {
-                                if (oldMap.HoldS.Count != oldMap.S.Count)
-                                    notes.Add(new Note(oldMap.S[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.S[i] - 1, oldMap.HoldS[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.D.Count; i++)
-                            {
-                                if (oldMap.HoldD.Count != oldMap.D.Count)
-                                    notes.Add(new Note(oldMap.D[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.D[i] - 1, oldMap.HoldD[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.J.Count; i++)
-                            {
-                                if (oldMap.HoldJ.Count != oldMap.J.Count)
-                                    notes.Add(new Note(oldMap.J[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.J[i] - 1, oldMap.HoldJ[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.K.Count; i++)
-                            {
-                                if (oldMap.HoldK.Count != oldMap.K.Count)
-                                    notes.Add(new Note(oldMap.K[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.K[i] - 1, oldMap.HoldK[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.L.Count; i++)
-                            {
-                                if (oldMap.HoldL.Count != oldMap.L.Count)
-                                    notes.Add(new Note(oldMap.L[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.L[i] - 1, oldMap.HoldL[i] - 1));
-                            }
-
-                            map.notes.Add(notes);
-                        }
-
-                        {
-                            List<Note> notes = new List<Note>();
-                            for (int i = 0; i < oldMap.Semicolon.Count; i++)
-                            {
-                                if (oldMap.HoldSemicolon.Count != oldMap.Semicolon.Count)
-                                    notes.Add(new Note(oldMap.Semicolon[i] - 1, 0));
-                                else
-                                    notes.Add(new Note(oldMap.Semicolon[i] - 1, oldMap.HoldSemicolon[i] - 1));
+                                    notes.Add(new Note(list[i] - 1, list[i] - 1));
                             }
 
                             map.notes.Add(notes);
