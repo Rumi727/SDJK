@@ -4,6 +4,7 @@ using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
+using SDJK.Effect;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -23,6 +24,10 @@ namespace SDJK
 
         public RenderTexture renderTexture { get; private set; } = null;
 
+        public EffectManager effectManager { get; private set; } = null;
+        public Map.Map map => effectManager.selectedMap;
+        public ISoundPlayer soundPlayer => effectManager.soundPlayer;
+
 
 
         protected override void Awake()
@@ -33,7 +38,6 @@ namespace SDJK
             videoPlayer.targetTexture = renderTexture;
         }
 
-        Map.Map map;
         public override void OnCreate()
         {
             base.OnCreate();
@@ -45,7 +49,7 @@ namespace SDJK
         }
 
         bool refreshed = false;
-        public void Refresh(Map.Map map, ISoundPlayer soundPlayer)
+        public void Refresh(EffectManager effectManager)
         {
             if (refreshed)
             {
@@ -54,8 +58,7 @@ namespace SDJK
             }
 
             refreshed = true;
-            this.map = map;
-            this.soundPlayer = soundPlayer;
+            this.effectManager = effectManager;
 
             string videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
             if (ResourceManager.FileExtensionExists(videoPath, out string fullPath, ResourceManager.videoExtension))
@@ -76,7 +79,6 @@ namespace SDJK
 
         double offset = 0;
         bool isPlaying = false;
-        ISoundPlayer soundPlayer = null;
         void Update()
         {
             if (isPlaying && !videoPlayer.isPlaying && !videoPlayer.isPaused)

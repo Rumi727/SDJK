@@ -21,7 +21,7 @@ namespace SDJK.Effect
             if (force || lastMapPack != mapPack || lastVideoBackgroundFile != map.info.videoBackgroundFile || lastVideoBackgroundNightFile != map.info.videoBackgroundNightFile || lastVideoOffset != map.info.videoOffset)
             {
                 video = (VideoEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
-                video.Refresh(effectManager.selectedMap, effectManager.soundPlayer);
+                video.Refresh(effectManager);
 
                 lastVideoBackgroundFile = map.info.videoBackgroundFile;
                 lastVideoBackgroundNightFile = map.info.videoBackgroundNightFile;

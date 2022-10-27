@@ -21,7 +21,7 @@ namespace SDJK.Effect
             if (force || BackgroundCheck() || lastMapPack != mapPack)
             {
                 background = (BackgroundEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
-                background.Refresh(map);
+                background.Refresh(effectManager);
 
                 lastBackgrounds.CopyTo(map.globalEffect.background.ToArray());
                 lastMapPack = mapPack;

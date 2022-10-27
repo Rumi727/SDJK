@@ -3,6 +3,7 @@ using SCKRM;
 using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.UI;
+using SDJK.Effect;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace SDJK
 
         public bool padeOut { get; set; } = false;
 
+        public EffectManager effectManager { get; private set; } = null;
+        public Map.Map map => effectManager.selectedMap;
+
         public override void OnCreate()
         {
             base.OnCreate();
@@ -26,7 +30,7 @@ namespace SDJK
         }
 
         bool refreshed = false;
-        public void Refresh(Map.Map map)
+        public void Refresh(EffectManager effectManager)
         {
             if (refreshed)
             {
@@ -36,11 +40,10 @@ namespace SDJK
 
             refreshed = true;
 
-            this.map = map;
+            this.effectManager = effectManager;
             TextureLoad().Forget();
         }
 
-        Map.Map map;
         string tempTexturePath = "";
         Dictionary<string, Sprite> loadedSprites = new Dictionary<string, Sprite>();
         void Update()
@@ -135,7 +138,7 @@ namespace SDJK
             image.color = Color.black;
             canvasGroup.alpha = 0;
             refreshed = false;
-            map = null;
+            effectManager = null;
             isTextureLoading = false;
 
             TextureDestroy().Forget();
