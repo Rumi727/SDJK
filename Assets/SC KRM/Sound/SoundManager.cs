@@ -253,7 +253,7 @@ namespace SCKRM.Sound
                     }
                 }
             }
-            
+
             if (key == null)
                 key = "";
             if (nameSpace == null)
@@ -681,7 +681,7 @@ namespace SCKRM.Sound
                 throw new NotInitialLoadEndMethodException(nameof(StopSoundAll));
 
             int stopCount = 0;
-            for (int i = 0; i < soundList.Count; i++)
+            for (int i = 0; i < nbsList.Count; i++)
             {
                 NBSPlayer nbsObject = nbsList[i];
                 if (bgm && nbsObject.soundData.isBGM)
