@@ -365,7 +365,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 2.1474836e+9
-  field of view: 60
+  field of view: 59.5
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -684,10 +684,6 @@ MonoBehaviour:
   _effects:
   - {fileID: 1408405981388133531}
   - {fileID: 1408405981375181737}
-  - {fileID: 1408405981619606473}
-  - {fileID: 1408405981756989890}
-  - {fileID: 1408405982740322236}
-  - {fileID: 1408405982685339279}
 --- !u!1 &1408405982685339277
 GameObject:
   m_ObjectHideFlags: 0
