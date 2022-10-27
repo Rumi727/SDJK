@@ -106,6 +106,9 @@ namespace SDJK.Ruleset.SDJK
 
                         void NoteAdd(List<double> list, List<double> holdList)
                         {
+                            if (list.Count <= 0)
+                                return;
+
                             List<Note> notes = new List<Note>();
                             for (int i = 0; i < list.Count; i++)
                             {
