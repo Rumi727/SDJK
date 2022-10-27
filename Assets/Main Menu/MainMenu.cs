@@ -361,7 +361,9 @@ namespace SDJK.MainMenu
             SideBarManager.AllHide();
 
             UIManager.BackEventAllRemove();
+
             SoundManager.StopSoundAll(true);
+            SoundManager.StopNBSAll(true);
 
             SceneManager.LoadScene(2).Forget();
 

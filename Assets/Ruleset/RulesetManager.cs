@@ -103,6 +103,7 @@ namespace SDJK.Ruleset
 
             RhythmManager.Stop();
             SoundManager.StopSoundAll(true);
+            SoundManager.StopNBSAll(true);
 
             for (int i = 0; i < rulesetList.Count; i++)
             {
