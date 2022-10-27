@@ -2,8 +2,9 @@
     "name": "ADOFAI Ruleset",
     "rootNamespace": "",
     "references": [
+        "GUID:9c1f978837ad80d49ae31d1cd963a280",
         "GUID:42ec50f206125f04894d9168eeb43a0f",
-        "GUID:9c1f978837ad80d49ae31d1cd963a280"
+        "GUID:62f2571728c803c47a54745cd9300d6d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
