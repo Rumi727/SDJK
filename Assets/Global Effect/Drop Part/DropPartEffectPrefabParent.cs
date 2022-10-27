@@ -27,7 +27,7 @@ namespace SDJK
             offsetCurrentBeatReapeat = offsetCurrentBeat.Reapeat(dropPartEffect.count.Ceil());
 
             if (offsetCurrentBeatReapeat < lastCurrentBeatReapeat)
-                dropPart = RhythmManager.dropPart;
+                dropPart = RhythmManager.dropPart || dropPartEffect.forceShow;
 
             lastCurrentBeatReapeat = offsetCurrentBeatReapeat;
         }
