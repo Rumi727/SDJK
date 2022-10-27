@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public class SDJKMapFile : Map.Map
+    public sealed class SDJKMapFile : Map.Map
     {
+        public SDJKMapEffect effect { get; } = new SDJKMapEffect();
+
         /// <summary>
         /// notes[play_field_index][note_index] = note
         /// </summary>
@@ -22,5 +24,10 @@ namespace SDJK.Ruleset.SDJK
             this.beat = beat;
             this.length = length;
         }
+    }
+
+    public sealed class SDJKMapEffect
+    {
+
     }
 }

@@ -54,6 +54,114 @@
     ],
     "map_manager.pause_music": [
       274
+    ],
+    "ruleset.sdjk.1.0": [
+      32
+    ],
+    "ruleset.sdjk.2.0": [
+      100
+    ],
+    "ruleset.sdjk.2.1": [
+      106
+    ],
+    "ruleset.sdjk.3.0": [
+      100
+    ],
+    "ruleset.sdjk.3.1": [
+      32
+    ],
+    "ruleset.sdjk.3.2": [
+      106
+    ],
+    "ruleset.sdjk.4.0": [
+      115
+    ],
+    "ruleset.sdjk.4.1": [
+      100
+    ],
+    "ruleset.sdjk.4.2": [
+      106
+    ],
+    "ruleset.sdjk.4.3": [
+      107
+    ],
+    "ruleset.sdjk.5.0": [
+      115
+    ],
+    "ruleset.sdjk.5.1": [
+      100
+    ],
+    "ruleset.sdjk.5.2": [
+      32
+    ],
+    "ruleset.sdjk.5.3": [
+      106
+    ],
+    "ruleset.sdjk.5.4": [
+      107
+    ],
+    "ruleset.sdjk.6.0": [
+      97
+    ],
+    "ruleset.sdjk.6.1": [
+      115
+    ],
+    "ruleset.sdjk.6.2": [
+      100
+    ],
+    "ruleset.sdjk.6.3": [
+      106
+    ],
+    "ruleset.sdjk.6.4": [
+      107
+    ],
+    "ruleset.sdjk.6.5": [
+      108
+    ],
+    "ruleset.sdjk.7.0": [
+      97
+    ],
+    "ruleset.sdjk.7.1": [
+      115
+    ],
+    "ruleset.sdjk.7.2": [
+      100
+    ],
+    "ruleset.sdjk.7.3": [
+      32
+    ],
+    "ruleset.sdjk.7.4": [
+      106
+    ],
+    "ruleset.sdjk.7.5": [
+      107
+    ],
+    "ruleset.sdjk.7.6": [
+      108
+    ],
+    "ruleset.sdjk.8.0": [
+      301
+    ],
+    "ruleset.sdjk.8.1": [
+      97
+    ],
+    "ruleset.sdjk.8.2": [
+      115
+    ],
+    "ruleset.sdjk.8.3": [
+      100
+    ],
+    "ruleset.sdjk.8.4": [
+      106
+    ],
+    "ruleset.sdjk.8.5": [
+      107
+    ],
+    "ruleset.sdjk.8.6": [
+      108
+    ],
+    "ruleset.sdjk.8.7": [
+      59
     ]
   },
   "inputLockList": {

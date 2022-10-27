@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using SCKRM.Renderer;
 using SCKRM.Scene;
+using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,13 @@ namespace SDJK.Ruleset.SDJK
     {
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
 
-        public override void GameStart(string mapFilePath)
+        public override async void GameStart(string mapFilePath)
         {
-            SceneManager.LoadScene(3).Forget();
+            await SceneManager.LoadScene(3);
+            await UniTask.NextFrame();
+
+            SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath);
+            Object.FindObjectOfType<SDJKManager>().Refresh(map);
         }
     }
 }
