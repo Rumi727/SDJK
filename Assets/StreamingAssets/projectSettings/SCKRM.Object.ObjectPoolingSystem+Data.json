@@ -23,6 +23,7 @@
     "drop_part_effect.left_main_menu": "Prefab/Main Menu/Effect/Drop Part Effect Prefab Left Main Menu",
     "drop_part_effect.right_main_menu": "Prefab/Main Menu/Effect/Drop Part Effect Prefab Right Main Menu",
     "ruleset.sdjk.play_field": "Prefab/Ruleset/SDJK/Play Field",
-    "ruleset.sdjk.play_field.bar": "Prefab/Ruleset/SDJK/Bar"
+    "ruleset.sdjk.play_field.bar": "Prefab/Ruleset/SDJK/Bar",
+    "ruleset.sdjk.play_field.bar.note": "Prefab/Ruleset/SDJK/Note"
   }
 }
