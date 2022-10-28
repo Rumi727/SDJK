@@ -15,12 +15,12 @@ namespace SDJK.Ruleset.SDJK.Map
     public struct NoteFile
     {
         public double beat;
-        public double length;
+        public double holdLength;
 
         public NoteFile(double beat, double length)
         {
             this.beat = beat;
-            this.length = length;
+            this.holdLength = length;
         }
     }
 
