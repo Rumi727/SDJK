@@ -113,6 +113,7 @@ namespace SCKRM.Rhythm
         }
 
         public virtual void Add(double beat = double.MinValue) => Add(new TPair() { beat = beat, value = defaultValue });
+        public virtual void Add(TValue value) => Add(new TPair() { beat = double.MinValue, value = value });
         public virtual void Add(double beat, TValue value) => Add(new TPair() { beat = beat, value = value });
     }
     #endregion
