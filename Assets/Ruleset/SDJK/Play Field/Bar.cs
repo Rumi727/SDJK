@@ -17,24 +17,32 @@ namespace SDJK.Ruleset.SDJK
         public const float barWidthWithoutBoardHalf = 1.125f;
         public const float barBoardWidth = 0.25f;
 
-        public const float barTopWithoutBoard = 7.75f;
-        public const float barBottomWithoutKeyAndBoard = -5.5f;
+        public const float barBottomKeyHeight = 2.5f;
+        public const float barBottomKeyHeightHalf = 1.25f;
 
         [SerializeField] BarEffect _barEffect; public BarEffect barEffect => _barEffect;
         [SerializeField] Transform _notes; public Transform notes => _notes;
         [SerializeField] TMP_Text _keyText; public TMP_Text keyText => _keyText;
 
+        public PlayField playField { get; private set; }
+
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
         public EffectManager effectManager { get; private set; }
 
         public int barIndex { get; private set; }
+        public double noteDistance { get; private set; }
 
         public override void OnCreate() => barEffect.effectManager = effectManager;
 
-        void Update() => notes.localPosition = new Vector3(0, (float)-RhythmManager.currentBeatScreen + barBottomWithoutKeyAndBoard);
-
-        public void Refresh(EffectManager effectManager, int barIndex)
+        void Update()
         {
+            noteDistance = map.effect.globalNoteDistance.GetValue(RhythmManager.currentBeatScreen);
+            notes.localPosition = new Vector3(0, (float)((-RhythmManager.currentBeatScreen * noteDistance) + (barBottomKeyHeight - (playField.fieldHeight * 0.5f))));
+        }
+
+        public void Refresh(PlayField playField, EffectManager effectManager, int barIndex)
+        {
+            this.playField = playField;
             this.effectManager = effectManager;
             this.barIndex = barIndex;
 

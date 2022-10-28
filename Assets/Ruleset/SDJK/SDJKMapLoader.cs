@@ -183,6 +183,15 @@ namespace SDJK.Ruleset.SDJK.Map
                             var effect = oldMap.Effect.JudgmentSizeEffect[i];
                             map.globalEffect.judgmentSize.Add(effect.Beat - 1, 0, effect.Value);
                         }
+
+                        {
+                            var fieldHeight = new BeatValuePairAniListDouble(map.effect.fieldHeight.defaultValue);
+                            fieldHeight.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
+
+                            map.effect.fieldHeight.Add(fieldHeight);
+                        }
+
+                        map.effect.globalNoteDistance.Add(double.MinValue, 0, oldMap.Effect.BeatYPos);
                         #endregion
 
                         return map;
