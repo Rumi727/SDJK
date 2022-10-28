@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using SDJK.Ruleset.SDJK.Map;
 
 namespace SDJK.Ruleset.SDJK.Effect
 {

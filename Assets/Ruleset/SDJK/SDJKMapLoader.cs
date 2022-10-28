@@ -5,8 +5,9 @@ using SDJK.Map;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using MapFile = SDJK.Map.Map;
 
-namespace SDJK.Ruleset.SDJK
+namespace SDJK.Ruleset.SDJK.Map
 {
     static class SDJKLoader
     {
@@ -16,7 +17,7 @@ namespace SDJK.Ruleset.SDJK
             MapLoader.extensionToLoad.Add("sdjk");
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
-                if (extension == ".sdjk" && (type == typeof(Map.Map) || type == typeof(SDJKMapFile)))
+                if (extension == ".sdjk" && (type == typeof(MapFile) || type == typeof(SDJKMapFile)))
                 {
                     {
                         SDJKMapFile map = JsonManager.JsonRead<SDJKMapFile>(mapFilePath, true);

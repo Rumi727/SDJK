@@ -1,5 +1,6 @@
 using SCKRM.Object;
 using SDJK.Effect;
+using SDJK.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using UnityEngine;
 
