@@ -15,7 +15,7 @@ namespace SDJK.MainMenu
     {
         public Image image { get => _image = this.GetComponentFieldSave(_image); } [System.NonSerialized] Image _image;
 
-        BeatValuePairAniListFloat beatScaleAni = new BeatValuePairAniListFloat() { new BeatValuePairAni<float>(0, 0.95f, 0, EasingFunction.Ease.Linear), new BeatValuePairAni<float>(0, 1, 0.9, EasingFunction.Ease.EaseOutSine), new BeatValuePairAni<float>(0.9, 0.95f, 0.1, EasingFunction.Ease.Linear) };
+        BeatValuePairAniListFloat beatScaleAni = new BeatValuePairAniListFloat(0) { new BeatValuePairAni<float>(0, 0.95f, 0, EasingFunction.Ease.Linear), new BeatValuePairAni<float>(0, 1, 0.9, EasingFunction.Ease.EaseOutSine), new BeatValuePairAni<float>(0.9, 0.95f, 0.1, EasingFunction.Ease.Linear) };
         bool pointer = false;
         bool click = false;
         float beatScale = 1;

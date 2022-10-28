@@ -12,7 +12,7 @@ namespace SDJK.Effect
         public BackgroundEffectPrefab background { get; private set; } = null;
 
         MapPack lastMapPack;
-        BeatValuePairList<BackgroundEffectPair> lastBackgrounds = new BeatValuePairList<BackgroundEffectPair>();
+        BeatValuePairList<BackgroundEffectPair> lastBackgrounds = new BeatValuePairList<BackgroundEffectPair>(default);
         public override void Refresh(bool force = false)
         {
             if (background != null && !background.isRemoved)

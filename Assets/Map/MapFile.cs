@@ -72,54 +72,62 @@ namespace SDJK.Map
 
     public sealed class MapGlobalEffect
     {
-        public SCKRM.Rhythm.BeatValuePairList<double> bpm { get; } = new();
-        public SCKRM.Rhythm.BeatValuePairList<bool> dropPart { get; } = new();
+        public SCKRM.Rhythm.BeatValuePairList<double> bpm { get; } = new(100);
+        public SCKRM.Rhythm.BeatValuePairList<bool> dropPart { get; } = new(false);
 
 
 
-        public BeatValuePairList<BackgroundEffectPair> background { get; } = new();
-        public BeatValuePairAniListColor backgroundColor { get; } = new();
+        public BeatValuePairList<BackgroundEffectPair> background { get; } = new(default);
+        public BeatValuePairAniListColor backgroundColor { get; } = new(Color.white);
 
-        public BeatValuePairAniListColor videoColor { get; } = new();
-
-
-
-        public BeatValuePairAniListDouble cameraZoom { get; } = new();
-        public BeatValuePairAniListVector3 cameraPos { get; } = new();
-        public BeatValuePairAniListVector3 cameraRotation { get; } = new();
-
-        public BeatValuePairAniListColor backgroundFlash { get; } = new();
-        public BeatValuePairAniListColor fieldFlash { get; } = new();
-        public BeatValuePairAniListColor uiFlash { get; } = new();
+        public BeatValuePairAniListColor videoColor { get; } = new(Color.white);
 
 
 
-        public SCKRM.Rhythm.BeatValuePairAniListDouble pitch { get; } = new();
-        public SCKRM.Rhythm.BeatValuePairAniListDouble tempo { get; } = new();
+        public BeatValuePairAniListDouble cameraZoom { get; } = new(1);
+        public BeatValuePairAniListVector3 cameraPos { get; } = new(default);
+        public BeatValuePairAniListVector3 cameraRotation { get; } = new(default);
 
-        public BeatValuePairAniListDouble volume { get; } = new();
-
-
-
-        public SCKRM.Rhythm.BeatValuePairAniListDouble hpAddValue { get; } = new();
-        public SCKRM.Rhythm.BeatValuePairAniListDouble hpMissValue { get; } = new();
-        public SCKRM.Rhythm.BeatValuePairAniListDouble hpRemoveValue { get; } = new();
+        public BeatValuePairAniListColor backgroundFlash { get; } = new(default);
+        public BeatValuePairAniListColor fieldFlash { get; } = new(default);
+        public BeatValuePairAniListColor uiFlash { get; } = new(default);
 
 
 
-        public SCKRM.Rhythm.BeatValuePairAniListDouble judgmentSize { get; } = new();
+        public SCKRM.Rhythm.BeatValuePairAniListDouble pitch { get; } = new(1);
+        public SCKRM.Rhythm.BeatValuePairAniListDouble tempo { get; } = new(1);
+
+        public BeatValuePairAniListDouble volume { get; } = new(1);
+
+
+
+        public SCKRM.Rhythm.BeatValuePairAniListDouble hpAddValue { get; } = new(1);
+        public SCKRM.Rhythm.BeatValuePairAniListDouble hpMissValue { get; } = new(1);
+        public SCKRM.Rhythm.BeatValuePairAniListDouble hpRemoveValue { get; } = new(1);
+
+
+
+        public SCKRM.Rhythm.BeatValuePairAniListDouble judgmentSize { get; } = new(1);
     }
 
 
 
-    public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>> { }
-    public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>> { }
+    public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
+    {
+        public BeatValuePairList(T defaultValue) : base(defaultValue) { }
+    }
+    public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>>
+    {
+        public BeatValuePairAniList(T defaultValue) : base(defaultValue) { }
+    }
 
 
 
     #region Built-in effect class
     public class BeatValuePairAniListFloat : BeatValuePairAniList<float>
     {
+        public BeatValuePairAniListFloat(float defaultValue) : base(defaultValue) { }
+
         public override float GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static float ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<float> previousBeatValuePair, IBeatValuePairAni<float> beatValuePair)
@@ -128,6 +136,8 @@ namespace SDJK.Map
 
     public class BeatValuePairAniListDouble : BeatValuePairAniList<double>
     {
+        public BeatValuePairAniListDouble(double defaultValue) : base(defaultValue) { }
+
         public override double GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static double ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<double> previousBeatValuePair, IBeatValuePairAni<double> beatValuePair)
@@ -136,6 +146,8 @@ namespace SDJK.Map
 
     public class BeatValuePairAniListVector2 : BeatValuePairAniList<JVector2>
     {
+        public BeatValuePairAniListVector2(JVector2 defaultValue) : base(defaultValue) { }
+
         public override JVector2 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JVector2 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector2> previousBeatValuePair, IBeatValuePairAni<JVector2> beatValuePair)
@@ -151,6 +163,8 @@ namespace SDJK.Map
 
     public class BeatValuePairAniListVector3 : BeatValuePairAniList<JVector3>
     {
+        public BeatValuePairAniListVector3(JVector3 defaultValue) : base(defaultValue) { }
+
         public override JVector3 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JVector3 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector3> previousBeatValuePair, IBeatValuePairAni<JVector3> beatValuePair)
@@ -167,6 +181,8 @@ namespace SDJK.Map
 
     public class BeatValuePairAniListVector4 : BeatValuePairAniList<JVector4>
     {
+        public BeatValuePairAniListVector4(JVector4 defaultValue) : base(defaultValue) { }
+
         public override JVector4 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JVector4 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector4> previousBeatValuePair, IBeatValuePairAni<JVector4> beatValuePair)
@@ -184,6 +200,8 @@ namespace SDJK.Map
 
     public class BeatValuePairAniListColor : BeatValuePairAniList<JColor>
     {
+        public BeatValuePairAniListColor(JColor defaultValue) : base(defaultValue) { }
+
         public override JColor GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JColor ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor> previousBeatValuePair, IBeatValuePairAni<JColor> beatValuePair)
@@ -201,6 +219,8 @@ namespace SDJK.Map
 
     public class BeatValuePairAniListRect : BeatValuePairAniList<JRect>
     {
+        public BeatValuePairAniListRect(JRect defaultValue) : base(defaultValue) { }
+
         public override JRect GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JRect ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JRect> previousBeatValuePair, IBeatValuePairAni<JRect> beatValuePair)
