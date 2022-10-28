@@ -58,12 +58,12 @@ namespace SDJK.Ruleset.SDJK.Map
 
 
 
-                        map.globalEffect.background.Add(new BeatValuePair<BackgroundEffectPair>(double.MinValue, new BackgroundEffectPair(oldMap.Background, oldMap.BackgroundNight), false));
-                        map.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                        map.globalEffect.background.Add(new BackgroundEffectPair(oldMap.Background, oldMap.BackgroundNight));
+                        map.globalEffect.backgroundColor.Add(JColor.one);
 
                         map.info.videoBackgroundFile = oldMap.VideoBackground;
                         map.info.videoBackgroundNightFile = oldMap.VideoBackgroundNight;
-                        map.globalEffect.videoColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                        map.globalEffect.videoColor.Add(JColor.one);
 
                         map.info.videoOffset = oldMap.VideoOffset;
 
@@ -123,65 +123,65 @@ namespace SDJK.Ruleset.SDJK.Map
                         #endregion
 
                         #region Effect
-                        map.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(double.MinValue, oldMap.Effect.BPM));
+                        map.globalEffect.bpm.Add(double.MinValue, oldMap.Effect.BPM);
                         for (int i = 0; i < oldMap.Effect.BPMEffect.Count; i++)
                         {
                             var effect = oldMap.Effect.BPMEffect[i];
-                            map.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(effect.Beat - 1, effect.Value));
+                            map.globalEffect.bpm.Add(effect.Beat - 1, effect.Value);
                         }
 
-                        map.globalEffect.dropPart.Add(new SCKRM.Rhythm.BeatValuePair<bool>(double.MinValue, oldMap.Effect.DropPart));
+                        map.globalEffect.dropPart.Add(oldMap.Effect.DropPart);
                         for (int i = 0; i < oldMap.Effect.DropPartEffect.Count; i++)
                         {
                             var effect = oldMap.Effect.DropPartEffect[i];
-                            map.globalEffect.dropPart.Add(new SCKRM.Rhythm.BeatValuePair<bool>(effect.Beat - 1, effect.Value));
+                            map.globalEffect.dropPart.Add(effect.Beat - 1, effect.Value);
                         }
 
-                        map.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Camera.CameraZoom, 0, EasingFunction.Ease.Linear, false));
-                        map.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, oldMap.Effect.Camera.CameraPos, 0, EasingFunction.Ease.Linear, false));
-                        map.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, oldMap.Effect.Camera.CameraRotation, 0, EasingFunction.Ease.Linear, false));
+                        map.globalEffect.cameraZoom.Add(double.MinValue, 0, oldMap.Effect.Camera.CameraZoom);
+                        map.globalEffect.cameraPos.Add(oldMap.Effect.Camera.CameraPos);
+                        map.globalEffect.cameraRotation.Add(oldMap.Effect.Camera.CameraRotation);
 
-                        map.globalEffect.pitch.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Pitch, 0, EasingFunction.Ease.Linear));
-                        map.globalEffect.tempo.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 1, 0, EasingFunction.Ease.Linear));
+                        map.globalEffect.pitch.Add(double.MinValue, 0, oldMap.Effect.Pitch);
+                        map.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
-                        map.globalEffect.volume.Add(new BeatValuePairAni<double>(double.MinValue, oldMap.Effect.Volume * 2, 0, EasingFunction.Ease.Linear, false));
+                        map.globalEffect.volume.Add(double.MinValue, 0, oldMap.Effect.Volume * 2);
 
-                        map.globalEffect.hpAddValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPAddValue, 0, EasingFunction.Ease.Linear));
+                        map.globalEffect.hpAddValue.Add(double.MinValue, 0, oldMap.Effect.HPAddValue);
                         for (int i = 0; i < oldMap.Effect.HPAddValueEffect.Count; i++)
                         {
                             var effect = oldMap.Effect.HPAddValueEffect[i];
-                            map.globalEffect.hpAddValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
+                            map.globalEffect.hpAddValue.Add(effect.Beat - 1, 0, effect.Value);
                         }
 
-                        map.globalEffect.hpMissValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
+                        map.globalEffect.hpMissValue.Add(double.MinValue, 0, oldMap.Effect.HPRemoveValue);
                         for (int i = 0; i < oldMap.Effect.HPRemoveValueEffect.Count; i++)
                         {
                             var effect = oldMap.Effect.HPRemoveValueEffect[i];
-                            map.globalEffect.hpMissValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
+                            map.globalEffect.hpMissValue.Add(effect.Beat - 1, 0, effect.Value);
                         }
 
                         {
                             var effect = oldMap.Effect.HPRemove;
                             if (effect)
-                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
+                                map.globalEffect.hpRemoveValue.Add(double.MinValue, 0, oldMap.Effect.HPRemoveValue);
                             else
-                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 0, 0, EasingFunction.Ease.Linear));
+                                map.globalEffect.hpRemoveValue.Add(double.MinValue, 0, 0);
                         }
 
                         for (int i = 0; i < oldMap.Effect.HPRemoveEffect.Count; i++)
                         {
                             var effect = oldMap.Effect.HPRemoveEffect[i];
                             if (effect.Value)
-                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, oldMap.Effect.HPRemoveValue, 0, EasingFunction.Ease.Linear));
+                                map.globalEffect.hpRemoveValue.Add(effect.Beat - 1, 0, oldMap.Effect.HPRemoveValue);
                             else
-                                map.globalEffect.hpRemoveValue.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, 0, 0, EasingFunction.Ease.Linear));
+                                map.globalEffect.hpRemoveValue.Add(effect.Beat - 1, 0, 0);
                         }
 
-                        map.globalEffect.judgmentSize.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, oldMap.Effect.JudgmentSize, 0, EasingFunction.Ease.Linear));
+                        map.globalEffect.judgmentSize.Add(double.MinValue, 0, oldMap.Effect.JudgmentSize);
                         for (int i = 0; i < oldMap.Effect.JudgmentSizeEffect.Count; i++)
                         {
                             var effect = oldMap.Effect.JudgmentSizeEffect[i];
-                            map.globalEffect.judgmentSize.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(effect.Beat - 1, effect.Value, 0, EasingFunction.Ease.Linear));
+                            map.globalEffect.judgmentSize.Add(effect.Beat - 1, 0, effect.Value);
                         }
                         #endregion
 

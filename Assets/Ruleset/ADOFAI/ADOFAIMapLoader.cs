@@ -53,32 +53,32 @@ namespace SDJK.Ruleset.ADOFAI
                                     sdjk.info.difficultyLabel = "ADOFAI";
                             }
 
-                            sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffectPair>(double.MinValue, new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""), false));
+                            sdjk.globalEffect.background.Add(new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""));
 
                             if (ColorUtility.TryParseHtmlString("#" + adofai.settings.bgImageColor, out Color color))
-                                sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, color, 0, EasingFunction.Ease.Linear, false));
+                                sdjk.globalEffect.backgroundColor.Add(color);
                             else
-                                sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                                sdjk.globalEffect.backgroundColor.Add(JColor.one);
 
                             sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
-                            sdjk.globalEffect.videoColor.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                            sdjk.globalEffect.videoColor.Add(JColor.one);
                             sdjk.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
                             sdjk.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
 
-                            sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(double.MinValue, adofai.settings.bpm));
-                            sdjk.globalEffect.volume.Add(new BeatValuePairAni<double>(double.MinValue, adofai.settings.volume * 0.02, 0, EasingFunction.Ease.Linear, false));
+                            sdjk.globalEffect.bpm.Add(double.MinValue, adofai.settings.bpm);
+                            sdjk.globalEffect.volume.Add(double.MinValue, 0, adofai.settings.volume * 0.02);
                             sdjk.info.songOffset = adofai.settings.offset * 0.001f;
-                            sdjk.globalEffect.pitch.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, adofai.settings.pitch * 0.01, 0, EasingFunction.Ease.Linear));
-                            sdjk.globalEffect.tempo.Add(new SCKRM.Rhythm.BeatValuePairAni<double>(double.MinValue, 1, 0, EasingFunction.Ease.Linear));
+                            sdjk.globalEffect.pitch.Add(double.MinValue, 0, adofai.settings.pitch * 0.01);
+                            sdjk.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
-                            sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14), 0, EasingFunction.Ease.Linear, false));
-                            sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(double.MinValue, new Vector3(0, 0, adofai.settings.rotation), 0, EasingFunction.Ease.Linear, false));
-                            sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(double.MinValue, adofai.settings.zoom * 0.01, 0, EasingFunction.Ease.Linear, false));
+                            sdjk.globalEffect.cameraPos.Add(new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14));
+                            sdjk.globalEffect.cameraRotation.Add(new Vector3(0, 0, adofai.settings.rotation));
+                            sdjk.globalEffect.cameraZoom.Add(double.MinValue, 0, adofai.settings.zoom * 0.01);
 
-                            sdjk.globalEffect.backgroundFlash.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.zero, 0, EasingFunction.Ease.Linear, false));
-                            sdjk.globalEffect.fieldFlash.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.zero, 0, EasingFunction.Ease.Linear, false));
-                            sdjk.globalEffect.uiFlash.Add(new BeatValuePairAni<JColor>(double.MinValue, JColor.zero, 0, EasingFunction.Ease.Linear, false));
+                            sdjk.globalEffect.backgroundFlash.Add(JColor.zero);
+                            sdjk.globalEffect.fieldFlash.Add(JColor.zero);
+                            sdjk.globalEffect.uiFlash.Add(JColor.zero);
                         }
                         #endregion
 
@@ -372,19 +372,19 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (action.ContainsKey("position"))
                                 {
                                     float[] pos = action["position"].Values<float>().ToArray();
-                                    effect.action += (double beat) => sdjk.globalEffect.cameraPos.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(pos[0], pos[1], -14), duration, ease, false));
+                                    effect.action += (double beat) => sdjk.globalEffect.cameraPos.Add(beat, duration, new JVector3(pos[0], pos[1], -14), ease);
                                 }
 
                                 if (action.ContainsKey("rotation"))
                                 {
                                     float rotation = action["rotation"].Value<float>();
-                                    effect.action += (double beat) => sdjk.globalEffect.cameraRotation.Add(new BeatValuePairAni<JVector3>(beat, new JVector3(0, 0, rotation), duration, ease, false));
+                                    effect.action += (double beat) => sdjk.globalEffect.cameraRotation.Add(beat, duration, new JVector3(0, 0, rotation), ease);
                                 }
 
                                 if (action.ContainsKey("zoom"))
                                 {
                                     double zoom = action["zoom"].Value<float>() * 0.01;
-                                    effect.action += (double beat) => sdjk.globalEffect.cameraZoom.Add(new BeatValuePairAni<double>(beat, zoom, duration, ease, false));
+                                    effect.action += (double beat) => sdjk.globalEffect.cameraZoom.Add(beat, duration, zoom, ease);
                                 }
                             }
                             else if (eventType == "CustomBackground")
@@ -392,15 +392,15 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (action.ContainsKey("imageColor"))
                                 {
                                     if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
-                                        effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, color, 0, EasingFunction.Ease.Linear, false));
+                                        effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(beat, 0, color, EasingFunction.Ease.Linear);
                                     else
-                                        effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(new BeatValuePairAni<JColor>(beat, JColor.one, 0, EasingFunction.Ease.Linear, false));
+                                        effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(beat, 0, JColor.one, EasingFunction.Ease.Linear);
                                 }
 
                                 if (action.ContainsKey("bgImage"))
                                 {
                                     string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
-                                    effect.action += (double beat) => sdjk.globalEffect.background.Add(new BeatValuePair<BackgroundEffectPair>(beat, new BackgroundEffectPair(background, ""), false));
+                                    effect.action += (double beat) => sdjk.globalEffect.background.Add(beat, new BackgroundEffectPair(background, ""));
                                 }
                             }
                             else if (eventType == "Flash")
