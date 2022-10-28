@@ -43,7 +43,7 @@ namespace SCKRM.UI
         static List<Action> backEventList { get; } = new List<Action>();
         static List<Action> highPriorityBackEventList { get; } = new List<Action>();
 
-        public static event Action homeEvent = delegate { };
+        public static event Action homeEvent;
 
 
 
@@ -66,7 +66,7 @@ namespace SCKRM.UI
                 if (InputManager.GetKey("gui.back", InputType.Down, InputManager.inputLockDenyAllForceInput))
                     BackEventInvoke();
                 else if (InputManager.GetKey("gui.home", InputType.Down, InputManager.inputLockDenyAll))
-                    homeEvent.Invoke();
+                    homeEvent?.Invoke();
             }
 
             kernelCanvasBackground.raycastTarget = highPriorityBackEventList.Count > 0;
@@ -85,7 +85,7 @@ namespace SCKRM.UI
         }
 
         [WikiDescription("홈 이벤트")]
-        public static void HomeEventInvoke() => homeEvent.Invoke();
+        public static void HomeEventInvoke() => homeEvent?.Invoke();
 
         [WikiDescription("뒤로가기 이벤트 추가")]
         public static void BackEventAdd(Action action, bool highPriority = false)

@@ -1,14 +1,22 @@
 using SCKRM.Easing;
 using SCKRM.Json;
+using System;
 using System.Collections.Generic;
 
 namespace SCKRM.Rhythm
 {
     #region Beat Value Pair List
-    public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>> { }
-
-    public class BeatValuePairList<TValue, TPair> : List<TPair> where TPair : IBeatValuePair<TValue>
+    public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
     {
+        public BeatValuePairList(T defaultValue) : base(defaultValue) { }
+    }
+
+    public class BeatValuePairList<TValue, TPair> : List<TPair> where TPair : IBeatValuePair<TValue>, new()
+    {
+        public BeatValuePairList(TValue defaultValue) => this.defaultValue = defaultValue;
+
+        public TValue defaultValue { get; } = default;
+
         public TValue GetValue() => GetValue(RhythmManager.currentBeat, out _, out _);
         public TValue GetValue(double currentBeat) => GetValue(currentBeat, out _, out _);
 
@@ -31,7 +39,7 @@ namespace SCKRM.Rhythm
             if (Count <= 0)
             {
                 beat = 0;
-                value = default;
+                value = defaultValue;
             }
             else if (Count <= 1 || this[0].beat >= currentBeat)
             {
@@ -55,17 +63,77 @@ namespace SCKRM.Rhythm
 
             return value;
         }
+
+        public void FindValue(Predicate<TPair> match) => FindValue(RhythmManager.currentBeat, match, out _, out _);
+        public void FindValue(double currentBeat, Predicate<TPair> match) => FindValue(currentBeat, match, out _, out _);
+
+        public virtual void FindValue(double currentBeat, Predicate<TPair> match, out double beat, out int index)
+        {
+            if (Count <= 0)
+            {
+                beat = 0;
+                index = 0;
+
+                return;
+            }
+
+            TPair firstPair = this[0];
+            bool firstPairMatch = match(firstPair);
+            if ((Count <= 1 && firstPairMatch) || (firstPair.beat >= currentBeat && firstPairMatch))
+            {
+                beat = this[0].beat;
+                index = 0;
+
+                return;
+            }
+            else
+            {
+                TPair lastPair = firstPair;
+                int lastIndex = 0;
+                for (int i = 0; i < Count; i++)
+                {
+                    TPair pair = this[i];
+                    if (pair.beat >= currentBeat && match(lastPair))
+                    {
+                        beat = lastPair.beat;
+                        index = lastIndex - 1;
+
+                        return;
+                    }
+
+                    lastPair = pair;
+                    lastIndex = i;
+                }
+
+                beat = 0;
+                index = 0;
+
+                return;
+            }
+        }
+
+        public virtual void Add(double beat = double.MinValue) => Add(new TPair() { beat = beat, value = defaultValue });
+        public virtual void Add(double beat, TValue value) => Add(new TPair() { beat = beat, value = value });
     }
     #endregion
 
     #region Beat Value Pair Ani List
-    public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>> { }
-
-    public abstract class BeatValuePairAniList<TValue, TPair> : BeatValuePairList<TValue, TPair> where TPair : IBeatValuePairAni<TValue>
+    public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>>
     {
+        public BeatValuePairAniList(T defaultValue) : base(defaultValue) { }
+    }
+
+    public abstract class BeatValuePairAniList<TValue, TPair> : BeatValuePairList<TValue, TPair> where TPair : IBeatValuePairAni<TValue>, new()
+    {
+        public BeatValuePairAniList(TValue defaultValue) : base(defaultValue) { }
+
+
+
         public delegate TValue GetValueFunc(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<TValue> previousBeatValuePair, IBeatValuePairAni<TValue> beatValuePair);
 
         public override abstract TValue GetValue(double currentBeat, out double beat, out bool isValueChanged);
+
+
 
         TValue tempValue = default;
         protected TValue GetValueInternal(double currentBeat, out double beat, out bool isValueChanged, GetValueFunc func)
@@ -74,7 +142,7 @@ namespace SCKRM.Rhythm
             if (Count <= 0)
             {
                 beat = 0;
-                value = default;
+                value = defaultValue;
             }
             else if (Count <= 1 || this[0].beat >= currentBeat)
             {
@@ -108,6 +176,9 @@ namespace SCKRM.Rhythm
 
             return value;
         }
+
+        public virtual void Add(double beat = double.MinValue, double length = 0) => Add(new TPair() { beat = beat, length = length, value = defaultValue });
+        public virtual void Add(double beat, double length, TValue value, EasingFunction.Ease easingFunction = EasingFunction.Ease.Linear) => Add(new TPair() { beat = beat, length = length, value = value, easingFunction = easingFunction });
     }
     #endregion
 
@@ -116,6 +187,8 @@ namespace SCKRM.Rhythm
     #region Built-in effect class
     public class BeatValuePairAniListFloat : BeatValuePairAniList<float>
     {
+        public BeatValuePairAniListFloat(float defaultValue) : base(defaultValue) { }
+
         public override float GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static float ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<float> previousBeatValuePair, IBeatValuePairAni<float> beatValuePair)
@@ -124,6 +197,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListDouble : BeatValuePairAniList<double>
     {
+        public BeatValuePairAniListDouble(double defaultValue) : base(defaultValue) { }
+
         public override double GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static double ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<double> previousBeatValuePair, IBeatValuePairAni<double> beatValuePair)
@@ -132,6 +207,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListVector2 : BeatValuePairAniList<JVector2>
     {
+        public BeatValuePairAniListVector2(JVector2 defaultValue) : base(defaultValue) { }
+
         public override JVector2 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JVector2 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector2> previousBeatValuePair, IBeatValuePairAni<JVector2> beatValuePair)
@@ -147,6 +224,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListVector3 : BeatValuePairAniList<JVector3>
     {
+        public BeatValuePairAniListVector3(JVector3 defaultValue) : base(defaultValue) { }
+
         public override JVector3 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JVector3 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector3> previousBeatValuePair, IBeatValuePairAni<JVector3> beatValuePair)
@@ -163,6 +242,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListVector4 : BeatValuePairAniList<JVector4>
     {
+        public BeatValuePairAniListVector4(JVector4 defaultValue) : base(defaultValue) { }
+
         public override JVector4 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JVector4 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector4> previousBeatValuePair, IBeatValuePairAni<JVector4> beatValuePair)
@@ -180,6 +261,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListColor : BeatValuePairAniList<JColor>
     {
+        public BeatValuePairAniListColor(JColor defaultValue) : base(defaultValue) { }
+
         public override JColor GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JColor ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor> previousBeatValuePair, IBeatValuePairAni<JColor> beatValuePair)
@@ -197,6 +280,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListColor32 : BeatValuePairAniList<JColor32>
     {
+        public BeatValuePairAniListColor32(JColor32 defaultValue) : base(defaultValue) { }
+
         public override JColor32 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JColor32 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor32> previousBeatValuePair, IBeatValuePairAni<JColor32> beatValuePair)
@@ -214,6 +299,8 @@ namespace SCKRM.Rhythm
 
     public class BeatValuePairAniListRect : BeatValuePairAniList<JRect>
     {
+        public BeatValuePairAniListRect(JRect defaultValue) : base(defaultValue) { }
+
         public override JRect GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
 
         static JRect ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JRect> previousBeatValuePair, IBeatValuePairAni<JRect> beatValuePair)
