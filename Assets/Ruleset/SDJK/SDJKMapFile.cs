@@ -9,15 +9,15 @@ namespace SDJK.Ruleset.SDJK.Map
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>
-        public List<List<Note>> notes { get; set; } = new List<List<Note>>();
+        public List<List<NoteFile>> notes { get; set; } = new List<List<NoteFile>>();
     }
 
-    public struct Note
+    public struct NoteFile
     {
         public double beat;
         public double length;
 
-        public Note(double beat, double length)
+        public NoteFile(double beat, double length)
         {
             this.beat = beat;
             this.length = length;

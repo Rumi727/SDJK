@@ -110,13 +110,13 @@ namespace SDJK.Ruleset.SDJK.Map
                             if (list.Count <= 0)
                                 return;
 
-                            List<Note> notes = new List<Note>();
+                            List<NoteFile> notes = new List<NoteFile>();
                             for (int i = 0; i < list.Count; i++)
                             {
                                 if (holdList.Count != holdList.Count)
-                                    notes.Add(new Note(list[i] - 1, 0));
+                                    notes.Add(new NoteFile(list[i] - 1, 0));
                                 else
-                                    notes.Add(new Note(list[i] - 1, list[i] - 1));
+                                    notes.Add(new NoteFile(list[i] - 1, list[i] - 1));
                             }
 
                             map.notes.Add(notes);
