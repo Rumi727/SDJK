@@ -78,9 +78,9 @@ namespace SDJK.Map
 
 
         public BeatValuePairList<BackgroundEffectPair> background { get; } = new(default);
-        public BeatValuePairAniListColor backgroundColor { get; } = new(Color.white);
+        public BeatValuePairAniListColor backgroundColor { get; } = new(JColor.one);
 
-        public BeatValuePairAniListColor videoColor { get; } = new(Color.white);
+        public BeatValuePairAniListColor videoColor { get; } = new(JColor.one);
 
 
 
@@ -115,10 +115,17 @@ namespace SDJK.Map
     public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
     {
         public BeatValuePairList(T defaultValue) : base(defaultValue) { }
+
+        public virtual void Add(double beat, bool disturbance) => Add(new BeatValuePair<T>() { beat = beat, value = defaultValue, disturbance = disturbance });
+        public virtual void Add(T value, bool disturbance) => Add(new BeatValuePair<T>() { beat = double.MinValue, value = value, disturbance = disturbance });
+        public virtual void Add(double beat, T value, bool disturbance) => Add(new BeatValuePair<T>() { beat = beat, value = value, disturbance = disturbance });
     }
     public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>>
     {
         public BeatValuePairAniList(T defaultValue) : base(defaultValue) { }
+
+        public virtual void Add(double beat, double length, bool disturbance) => Add(new BeatValuePairAni<T>() { beat = beat, length = length, value = defaultValue, disturbance = disturbance });
+        public virtual void Add(double beat, double length, T value, EasingFunction.Ease easingFunction, bool disturbance) => Add(new BeatValuePairAni<T>() { beat = beat, length = length, value = value, easingFunction = easingFunction, disturbance = disturbance });
     }
 
 
