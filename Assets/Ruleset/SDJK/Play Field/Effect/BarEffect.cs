@@ -20,7 +20,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             float x = -Bar.barWidthWithoutBoardHalf * (map.notes.Count - 1);
             x += Bar.barWidthWithoutBoard * index;
 
-            transform.position = new Vector3(x, 0);
+            transform.localPosition = new Vector3(x, 0);
         }
     }
 }
