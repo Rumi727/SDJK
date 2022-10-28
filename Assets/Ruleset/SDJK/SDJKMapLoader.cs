@@ -5,7 +5,6 @@ using SDJK.Map;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using MapFile = SDJK.Map.Map;
 
 namespace SDJK.Ruleset.SDJK.Map
 {

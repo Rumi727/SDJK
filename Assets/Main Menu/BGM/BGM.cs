@@ -24,7 +24,7 @@ namespace SDJK.MainMenu
 
 
         AudioClip audioClip;
-        Map.Map map;
+        Map.MapFile map;
         public override async void OnCreate()
         {
             base.OnCreate();

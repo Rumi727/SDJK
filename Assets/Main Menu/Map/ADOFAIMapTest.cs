@@ -15,7 +15,7 @@ namespace SDJK.MainMenu
         double tempValue = -1;
         void Update()
         {
-            Map.Map map = MapManager.selectedMap;
+            Map.MapFile map = MapManager.selectedMap;
             if (map == null)
                 return;
 

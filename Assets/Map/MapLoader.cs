@@ -22,7 +22,7 @@ namespace SDJK.Map
         /// <returns>
         /// 맵 인스턴스
         /// </returns>
-        public delegate Map MapLoaderFunc(Type type, string mapFilePath, string extension);
+        public delegate MapFile MapLoaderFunc(Type type, string mapFilePath, string extension);
         public static event MapLoaderFunc mapLoaderFunc;
         public static List<string> extensionToLoad { get; } = new List<string>();
 
@@ -35,7 +35,7 @@ namespace SDJK.Map
             MapPack pack = new MapPack();
             for (int i = 0; i < packPaths.Length; i++)
             {
-                Map map = MapLoad<Map>(packPaths[i].Replace("\\", "/"));
+                MapFile map = MapLoad<MapFile>(packPaths[i].Replace("\\", "/"));
                 if (map != null)
                     pack.maps.Add(map);
 
@@ -46,7 +46,7 @@ namespace SDJK.Map
             return pack;
         }
 
-        public static T MapLoad<T>(string mapFilePath) where T : Map, new()
+        public static T MapLoad<T>(string mapFilePath) where T : MapFile, new()
         {
             Delegate[] delegates = mapLoaderFunc.GetInvocationList();
             for (int i = 0; i < delegates.Length; i++)

@@ -10,7 +10,7 @@ namespace SDJK.MainMenu
     {
         [SerializeField] EffectManager effectManager;
 
-        Map.Map lastMap;
+        Map.MapFile lastMap;
         void Update()
         {
             if (MapManager.selectedMap != null && BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && lastMap != MapManager.selectedMap)

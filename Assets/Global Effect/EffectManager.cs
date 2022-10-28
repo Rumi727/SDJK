@@ -7,7 +7,7 @@ namespace SDJK.Effect
     public sealed class EffectManager : MonoBehaviour
     {
         public Map.MapPack selectedMapPack { get; set; }
-        public Map.Map selectedMap { get; set; }
+        public Map.MapFile selectedMap { get; set; }
 
         public ISoundPlayer soundPlayer { get; set; }
 

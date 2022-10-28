@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SDJK.Ruleset.SDJK.Map
 {
-    public sealed class SDJKMapFile : global::SDJK.Map.Map
+    public sealed class SDJKMapFile : global::SDJK.Map.MapFile
     {
         public SDJKMapEffect effect { get; } = new SDJKMapEffect();
 

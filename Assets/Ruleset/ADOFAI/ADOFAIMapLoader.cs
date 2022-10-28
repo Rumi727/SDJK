@@ -19,7 +19,7 @@ namespace SDJK.Ruleset.ADOFAI
             MapLoader.extensionToLoad.Add("adofai");
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
-                if (extension == ".adofai" && (type == typeof(Map.Map) || type == typeof(ADOFAIMapFile)))
+                if (extension == ".adofai" && (type == typeof(Map.MapFile) || type == typeof(ADOFAIMapFile)))
                 {
                     try
                     {

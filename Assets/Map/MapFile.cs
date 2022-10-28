@@ -11,10 +11,10 @@ namespace SDJK.Map
 {
     public sealed class MapPack
     {
-        public List<Map> maps { get; } = new List<Map>();
+        public List<MapFile> maps { get; } = new List<MapFile>();
     }
 
-    public class Map
+    public class MapFile
     {
         public MapInfo info { get; } = new MapInfo();
         public MapGlobalEffect globalEffect { get; } = new MapGlobalEffect();

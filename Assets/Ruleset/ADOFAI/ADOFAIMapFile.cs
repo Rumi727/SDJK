@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SDJK
 {
-    public class ADOFAIMapFile : Map.Map
+    public class ADOFAIMapFile : Map.MapFile
     {
 
     }

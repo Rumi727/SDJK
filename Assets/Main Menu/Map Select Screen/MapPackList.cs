@@ -42,7 +42,7 @@ namespace SDJK.MainMenu.MapSelectScreen
 
         protected override void OnEnable() => rectTransform.anchoredPosition = new Vector2(rectTransform.rect.width, 0);
 
-        Map.Map lastMap;
+        Map.MapFile lastMap;
         MapPack lastMapPack;
         void Update()
         {
@@ -109,7 +109,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     MapPack mapPack = MapManager.currentMapPacks[i];
                     for (int j = 0; j < mapPack.maps.Count; j++)
                     {
-                        Map.Map map = mapPack.maps[j];
+                        Map.MapFile map = mapPack.maps[j];
                         if (RulesetManager.selectedRuleset.IsCompatibleRuleset(map.info.mode))
                         {
                             MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack", _content).monoBehaviour;
@@ -136,7 +136,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                 int loopCount = 0;
                 for (int i = 0; i < MapManager.selectedMapPack.maps.Count; i++)
                 {
-                    Map.Map map = MapManager.selectedMapPack.maps[i];
+                    Map.MapFile map = MapManager.selectedMapPack.maps[i];
                     if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(map.info.mode))
                         continue;
 

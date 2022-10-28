@@ -25,7 +25,7 @@ namespace SDJK
         public RenderTexture renderTexture { get; private set; } = null;
 
         public EffectManager effectManager { get; private set; } = null;
-        public Map.Map map => effectManager.selectedMap;
+        public Map.MapFile map => effectManager.selectedMap;
         public ISoundPlayer soundPlayer => effectManager.soundPlayer;
 
 

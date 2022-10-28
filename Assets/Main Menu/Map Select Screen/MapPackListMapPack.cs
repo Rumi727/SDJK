@@ -34,7 +34,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         MapPackList mapPackList;
         MapPack mapPack;
         int mapPackIndex;
-        Map.Map map;
+        Map.MapFile map;
         int mapIndex;
         void Update()
         {
@@ -57,7 +57,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         }
 
         CancellationTokenSource cancelSource = new CancellationTokenSource();
-        public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, Map.Map map, int mapIndex)
+        public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, Map.MapFile map, int mapIndex)
         {
             this.mapPackList = mapPackList;
             this.mapPack = mapPack;
@@ -65,7 +65,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             this.map = map;
             this.mapIndex = mapIndex;
 
-            Map.Map selectedMap;
+            Map.MapFile selectedMap;
             if (!isMap)
                 selectedMap = mapPack.maps[0];
             else
