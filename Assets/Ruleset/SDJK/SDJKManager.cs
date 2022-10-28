@@ -3,6 +3,7 @@ using SCKRM;
 using SCKRM.NBS;
 using SCKRM.Object;
 using SCKRM.Resource;
+using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
 using SDJK.Effect;
@@ -71,6 +72,7 @@ namespace SDJK.Ruleset.SDJK
             }
 
             effectManager.soundPlayer = soundPlayer;
+            RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.dropPart, soundPlayer);
         }
     }
 }
