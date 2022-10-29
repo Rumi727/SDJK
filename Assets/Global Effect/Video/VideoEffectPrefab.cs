@@ -118,7 +118,7 @@ namespace SDJK
 
                 if (soundPlayer != null)
                 {
-                    if (RhythmManager.time + offset < videoPlayer.length)
+                    if (RhythmManager.time + offset < videoPlayer.length - 0.1f)
                     {
                         double dis = (soundPlayer.time + offset) - videoPlayer.time;
                         float speed = soundPlayer.speed * Kernel.gameSpeed;
