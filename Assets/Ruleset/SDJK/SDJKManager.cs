@@ -28,7 +28,11 @@ namespace SDJK.Ruleset.SDJK
         void Update()
         {
             if (soundPlayer != null)
+            {
+                soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue();
+                soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue();
                 soundPlayer.volume = (float)map.globalEffect.volume.GetValue();
+            }
         }
 
         void OnDestroy()
