@@ -113,9 +113,14 @@ namespace SDJK.Ruleset.SDJK.Map
                             for (int i = 0; i < list.Count; i++)
                             {
                                 if (list.Count != holdList.Count)
-                                    notes.Add(new NoteFile(list[i] - 1, 0));
+                                    notes.Add(new NoteFile(list[i] - 1, 0, NoteTypeFile.normal));
                                 else
-                                    notes.Add(new NoteFile(list[i] - 1, holdList[i]));
+                                {
+                                    if (holdList[i] >= -1 && holdList[i] < 0)
+                                        notes.Add(new NoteFile(list[i] - 1, 0, NoteTypeFile.instantDeath));
+                                    else
+                                        notes.Add(new NoteFile(list[i] - 1, holdList[i], NoteTypeFile.normal));
+                                }
                             }
 
                             map.notes.Add(notes);
@@ -123,42 +128,60 @@ namespace SDJK.Ruleset.SDJK.Map
                         #endregion
 
                         #region Effect
-                        map.globalEffect.bpm.Add(double.MinValue, oldMap.Effect.BPM);
-                        for (int i = 0; i < oldMap.Effect.BPMEffect.Count; i++)
+                        void EffectAdd<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, SCKRM.Rhythm.BeatValuePairList<T> list)
                         {
-                            var effect = oldMap.Effect.BPMEffect[i];
-                            map.globalEffect.bpm.Add(effect.Beat - 1, effect.Value);
+                            list.Add(double.MinValue, defaultValue);
+                            for (int i = 0; i < oldList.Count; i++)
+                            {
+                                var effect = oldList[i];
+                                list.Add(effect.Beat - 1, effect.Value);
+                            }
                         }
 
-                        map.globalEffect.dropPart.Add(oldMap.Effect.DropPart);
-                        for (int i = 0; i < oldMap.Effect.DropPartEffect.Count; i++)
+                        void EffectAdd2<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, BeatValuePairAniList<T> list)
                         {
-                            var effect = oldMap.Effect.DropPartEffect[i];
-                            map.globalEffect.dropPart.Add(effect.Beat - 1, effect.Value);
+                            list.Add(double.MinValue, defaultValue);
+                            for (int i = 0; i < oldList.Count; i++)
+                            {
+                                var effect = oldList[i];
+                                list.Add(effect.Beat - 1, effect.Value);
+                            }
                         }
 
-                        map.globalEffect.cameraZoom.Add(double.MinValue, 0, oldMap.Effect.Camera.CameraZoom);
-                        map.globalEffect.cameraPos.Add(oldMap.Effect.Camera.CameraPos);
-                        map.globalEffect.cameraRotation.Add(oldMap.Effect.Camera.CameraRotation);
+                        void EffectAdd3<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, SCKRM.Rhythm.BeatValuePairAniList<T> list)
+                        {
+                            list.Add(double.MinValue, defaultValue);
+                            for (int i = 0; i < oldList.Count; i++)
+                            {
+                                var effect = oldList[i];
+                                list.Add(effect.Beat - 1, effect.Value);
+                            }
+                        }
 
-                        map.globalEffect.pitch.Add(double.MinValue, 0, oldMap.Effect.Pitch);
+                        void EffectAdd4(JVector3 defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JVector3>> oldList, BeatValuePairAniList<JVector3> list)
+                        {
+                            list.Add(double.MinValue, defaultValue);
+                            for (int i = 0; i < oldList.Count; i++)
+                            {
+                                var effect = oldList[i];
+                                list.Add(effect.Beat - 1, effect.Value);
+                            }
+                        }
+
+                        EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
+                        EffectAdd(oldMap.Effect.DropPart, oldMap.Effect.DropPartEffect, map.globalEffect.dropPart);
+
+                        EffectAdd2(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
+                        EffectAdd4(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
+                        EffectAdd4(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
+
+                        EffectAdd3(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.pitch);
                         map.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
-                        map.globalEffect.volume.Add(double.MinValue, 0, oldMap.Effect.Volume * 2);
+                        EffectAdd2(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
 
-                        map.globalEffect.hpAddValue.Add(double.MinValue, 0, oldMap.Effect.HPAddValue);
-                        for (int i = 0; i < oldMap.Effect.HPAddValueEffect.Count; i++)
-                        {
-                            var effect = oldMap.Effect.HPAddValueEffect[i];
-                            map.globalEffect.hpAddValue.Add(effect.Beat - 1, 0, effect.Value);
-                        }
-
-                        map.globalEffect.hpMissValue.Add(double.MinValue, 0, oldMap.Effect.HPRemoveValue);
-                        for (int i = 0; i < oldMap.Effect.HPRemoveValueEffect.Count; i++)
-                        {
-                            var effect = oldMap.Effect.HPRemoveValueEffect[i];
-                            map.globalEffect.hpMissValue.Add(effect.Beat - 1, 0, effect.Value);
-                        }
+                        EffectAdd3(oldMap.Effect.HPAddValue, oldMap.Effect.HPAddValueEffect, map.globalEffect.hpAddValue);
+                        EffectAdd3(oldMap.Effect.HPRemoveValue, oldMap.Effect.HPRemoveValueEffect, map.globalEffect.hpMissValue);
 
                         {
                             var effect = oldMap.Effect.HPRemove;
@@ -177,21 +200,29 @@ namespace SDJK.Ruleset.SDJK.Map
                                 map.globalEffect.hpRemoveValue.Add(effect.Beat - 1, 0, 0);
                         }
 
-                        map.globalEffect.judgmentSize.Add(double.MinValue, 0, oldMap.Effect.JudgmentSize);
-                        for (int i = 0; i < oldMap.Effect.JudgmentSizeEffect.Count; i++)
-                        {
-                            var effect = oldMap.Effect.JudgmentSizeEffect[i];
-                            map.globalEffect.judgmentSize.Add(effect.Beat - 1, 0, effect.Value);
-                        }
+                        EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);
 
                         {
+                            var fieldPos = new BeatValuePairAniListVector3(map.effect.fieldPos.defaultValue);
+                            var fieldRotation = new BeatValuePairAniListVector3(map.effect.fieldRotation.defaultValue);
                             var fieldHeight = new BeatValuePairAniListDouble(map.effect.fieldHeight.defaultValue);
-                            fieldHeight.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
 
+                            map.effect.fieldPos.Add(fieldPos);
+                            map.effect.fieldRotation.Add(fieldRotation);
                             map.effect.fieldHeight.Add(fieldHeight);
+
+                            EffectAdd4(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldPos);
+                            EffectAdd4(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldRotation);
+
+                            fieldHeight.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
+                            for (int i = 0; i < oldMap.Effect.Camera.UiZoomEffect.Count; i++)
+                            {
+                                var effect = oldMap.Effect.Camera.UiZoomEffect[i];
+                                fieldHeight.Add(effect.Beat, 0, effect.Value * 16);
+                            }
                         }
 
-                        map.effect.globalNoteDistance.Add(double.MinValue, 0, oldMap.Effect.BeatYPos);
+                        EffectAdd2(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);
                         #endregion
 
                         return map;

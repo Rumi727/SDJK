@@ -10,8 +10,11 @@ namespace SDJK.Ruleset.SDJK
         public Bar bar { get; private set; }
         public int barIndex => bar.barIndex;
 
-        public double beat { get; private set; }
-        public double holdLength { get; private set; }
+        public NoteFile noteFile { get; private set; }
+
+        public double beat => noteFile.beat;
+        public double holdLength => noteFile.holdLength;
+        public NoteTypeFile type => noteFile.type;
 
         public SDJKMapFile map => bar.map;
         public EffectManager effectManager => bar.effectManager;
@@ -28,13 +31,13 @@ namespace SDJK.Ruleset.SDJK
                 PosUpdate();
         }
 
-        public void Refresh(Bar bar, double beat, double holdLength)
+        public void Refresh(Bar bar, NoteFile noteFile)
         {
             this.bar = bar;
-            this.beat = beat;
-            this.holdLength = holdLength;
+            this.noteFile = noteFile;
 
             PosUpdate();
+            ColorUpdate();
         }
 
         void PosUpdate()
@@ -47,14 +50,21 @@ namespace SDJK.Ruleset.SDJK
             holdNote.localScale = new Vector3(1, holdY * noteDis, 1);
         }
 
+        void ColorUpdate()
+        {
+            if (type == NoteTypeFile.normal)
+                spriteRenderer.color = Color.green;
+            else if (type == NoteTypeFile.instantDeath)
+                spriteRenderer.color = Color.red;
+        }
+
         public override bool Remove()
         {
             if (!base.Remove())
                 return false;
 
             bar = null;
-            beat = 0;
-            holdLength = 0;
+            noteFile = default;
 
             transform.localPosition = Vector3.zero;
             holdNote.localScale = new Vector3(1, 0, 1);

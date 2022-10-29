@@ -20,11 +20,21 @@ namespace SDJK.Ruleset.SDJK.Map
         public double beat;
         public double holdLength;
 
-        public NoteFile(double beat, double holdLength)
+        public NoteTypeFile type;
+
+        public NoteFile(double beat, double holdLength, NoteTypeFile type)
         {
             this.beat = beat;
             this.holdLength = holdLength;
+
+            this.type = type;
         }
+    }
+
+    public enum NoteTypeFile
+    {
+        normal,
+        instantDeath
     }
 
     public sealed class SDJKMapEffect
