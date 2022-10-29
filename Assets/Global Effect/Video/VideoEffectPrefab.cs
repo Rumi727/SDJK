@@ -118,30 +118,35 @@ namespace SDJK
 
                 if (soundPlayer != null)
                 {
-                    double dis = (soundPlayer.time + offset) - videoPlayer.time;
-                    float speed = soundPlayer.speed * Kernel.gameSpeed;
-                    videoPlayer.playbackSpeed = speed;
-
-                    if (dis.Abs() < 1)
+                    if (RhythmManager.time + offset < videoPlayer.length)
                     {
-                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                        double dis = (soundPlayer.time + offset) - videoPlayer.time;
+                        float speed = soundPlayer.speed * Kernel.gameSpeed;
+                        videoPlayer.playbackSpeed = speed;
 
-                        if (dis >= 0.06)
-                            videoPlayer.playbackSpeed = speed * 4;
+                        if (dis.Abs() < 1)
+                        {
+                            canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-                        if (dis <= -0.06)
-                            videoPlayer.playbackSpeed = speed * 0.25f;
+                            if (dis >= 0.06)
+                                videoPlayer.playbackSpeed = speed * 4;
+
+                            if (dis <= -0.06)
+                                videoPlayer.playbackSpeed = speed * 0.25f;
+                        }
+                        else
+                            videoPlayer.time = RhythmManager.time + offset;
+
+                        if (videoPlayer.isPaused != soundPlayer.isPaused)
+                        {
+                            if (RhythmManager.soundPlayer.isPaused)
+                                videoPlayer.Pause();
+                            else
+                                videoPlayer.Play();
+                        }
                     }
                     else
-                        videoPlayer.time = RhythmManager.time + offset;
-
-                    if (videoPlayer.isPaused != soundPlayer.isPaused)
-                    {
-                        if (RhythmManager.soundPlayer.isPaused)
-                            videoPlayer.Pause();
-                        else
-                            videoPlayer.Play();
-                    }
+                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
                 }
             }
         }
