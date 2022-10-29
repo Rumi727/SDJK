@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.SDJK
         public EffectManager effectManager { get; private set; }
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
 
-        void Update() => fieldEffectFile.height.GetValue(RhythmManager.currentBeatScreen);
+        void Update() => fieldHeight = fieldEffectFile.height.GetValue(RhythmManager.currentBeatScreen);
 
         List<Bar> createdBars = new List<Bar>();
         public void Refresh(int fieldIndex, EffectManager effectManager)
