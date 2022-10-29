@@ -5,6 +5,7 @@ using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
 using SDJK.Effect;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -60,8 +61,27 @@ namespace SDJK
             refreshed = true;
             this.effectManager = effectManager;
 
-            string videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
-            if (ResourceManager.FileExtensionExists(videoPath, out string fullPath, ResourceManager.videoExtension))
+            DateTime now = DateTime.Now;
+            string videoPath;
+            string fullPath;
+            if (now.Hour >= 0 && now.Hour < 4)
+            {
+                videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundNightFile);
+                if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
+                {
+                    videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
+                    if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
+                        videoPath = "";
+                }
+            }
+            else
+            {
+                videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
+                if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
+                    videoPath = "";
+            }
+
+            if (videoPath != "")
             {
                 offset = map.info.videoOffset;
 
