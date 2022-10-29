@@ -51,10 +51,15 @@ namespace SDJK.MainMenu
 
         void Refresh()
         {
+            float lastTime = 0;
             if (bgm != null && !bgm.isRemoved)
+            {
                 bgm.padeOut = true;
+                lastTime = bgm.soundPlayer.time;
+            }
 
             bgm = (BGM)ObjectPoolingSystem.ObjectCreate("bgm_manager.bgm", transform, false).monoBehaviour;
+            bgm.Refresh(tempSDJKMapPack, lastTime).Forget();
 
             tempSDJKMapPack = MapManager.selectedMapPack;
             tempSDJKMap = MapManager.selectedMap;

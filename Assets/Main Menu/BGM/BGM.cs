@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.NBS;
 using SCKRM.Object;
@@ -24,11 +25,9 @@ namespace SDJK.MainMenu
 
 
         AudioClip audioClip;
-        Map.MapFile map;
-        public override async void OnCreate()
+        MapFile map;
+        public async UniTaskVoid Refresh(MapPack lastMapPack, float lastTime)
         {
-            base.OnCreate();
-
             map = MapManager.selectedMap;
             string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
@@ -41,7 +40,12 @@ namespace SDJK.MainMenu
                 soundPlayer.looped += Looped;
 
                 if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    soundPlayer.time = (float)map.info.mainMenuStartTime;
+                {
+                    if (lastMapPack != MapManager.selectedMapPack)
+                        soundPlayer.time = (float)map.info.mainMenuStartTime;
+                    else
+                        soundPlayer.time = lastTime.Clamp(0, soundPlayer.length - 0.01f);
+                }
 
                 isLoaded = true;
             }
@@ -55,7 +59,12 @@ namespace SDJK.MainMenu
                 soundPlayer.looped += Looped;
 
                 if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    soundPlayer.time = (float)map.info.mainMenuStartTime;
+                {
+                    if (lastMapPack != MapManager.selectedMapPack)
+                        soundPlayer.time = (float)map.info.mainMenuStartTime;
+                    else
+                        soundPlayer.time = lastTime.Clamp(0, soundPlayer.length - 0.01f);
+                }
 
                 isLoaded = true;
             }
@@ -96,7 +105,7 @@ namespace SDJK.MainMenu
 
         void Looped()
         {
-            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect)
+            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
                 soundPlayer.time = (float)map.info.mainMenuStartTime;
         }
 
