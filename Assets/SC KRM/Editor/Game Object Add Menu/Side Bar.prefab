@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 5616702830817717175}
+  _graphic: {fileID: 7246006892573038874}
 --- !u!222 &4761178424889957288
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2524317877674474387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Color: {r: 0.05, g: 0.05, b: 0.05, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -208,9 +208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 5616702830817717175}
+  _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 7246006892573038874}
   _lerp: 1
   _lerpValue: 0.2
+  _awakeNoAni: 0
   _showControlKey: 
   _inputLockName: 
   _showEvent:
@@ -459,10 +461,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 925716286425922685}
+  _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
+  _awakeNoAni: 0
   _spacing: 6
+  _disabledObjectIgnore: 1
   _ignore: []
   _allLerp: 0
   _onlyPos: 0
