@@ -45,7 +45,7 @@ namespace SDJK.Ruleset.SDJK
             effectManager.selectedMap = map;
             effectManager.AllRefresh();
 
-            for (int i = 0; i < map.fieldCount; i++)
+            for (int i = 0; i < map.effect.fieldEffect.Count; i++)
             {
                 PlayField playField = (PlayField)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field", transform).monoBehaviour;
                 playField.Refresh(i, effectManager);

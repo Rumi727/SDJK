@@ -29,6 +29,7 @@ namespace SDJK.Ruleset.SDJK
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
         public EffectManager effectManager { get; private set; }
 
+        public BarEffectFile barEffectFile { get; private set; }
         public int barIndex { get; private set; }
         public double noteDistance { get; private set; }
 
@@ -36,7 +37,10 @@ namespace SDJK.Ruleset.SDJK
 
         void Update()
         {
-            noteDistance = map.effect.globalNoteDistance.GetValue(RhythmManager.currentBeatScreen);
+            double globalNoteDistance = map.effect.globalNoteDistance.GetValue(RhythmManager.currentBeatScreen);
+            double localNoteDistance = barEffectFile.noteDistance.GetValue(RhythmManager.currentBeatScreen);
+
+            noteDistance = globalNoteDistance * localNoteDistance;
             notes.localPosition = new Vector3(0, (float)((-RhythmManager.currentBeatScreen * noteDistance) + (barBottomKeyHeight - (playField.fieldHeight * 0.5f))));
         }
 
@@ -45,6 +49,8 @@ namespace SDJK.Ruleset.SDJK
             this.playField = playField;
             this.effectManager = effectManager;
             this.barIndex = barIndex;
+
+            barEffectFile = playField.fieldEffectFile.barEffect[barIndex];
 
             const string inputKeyOr = "ruleset.sdjk.{0}.{1}";
             string inputKey = inputKeyOr.Replace("{0}", map.notes.Count.ToString()).Replace("{1}", barIndex.ToString());

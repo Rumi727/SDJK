@@ -127,6 +127,16 @@ namespace SDJK.Ruleset.SDJK.Map
                         }
                         #endregion
 
+                        #region Field, Bar Effect
+                        {
+                            FieldEffectFile fieldEffect = new FieldEffectFile();
+                            for (int i = 0; i < map.notes.Count; i++)
+                                fieldEffect.barEffect.Add(new BarEffectFile());
+
+                            map.effect.fieldEffect.Add(fieldEffect);
+                        }
+                        #endregion
+
                         #region Effect
                         void EffectAdd<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, SCKRM.Rhythm.BeatValuePairList<T> list)
                         {
@@ -203,22 +213,15 @@ namespace SDJK.Ruleset.SDJK.Map
                         EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);
 
                         {
-                            var fieldPos = new BeatValuePairAniListVector3(map.effect.fieldPos.defaultValue);
-                            var fieldRotation = new BeatValuePairAniListVector3(map.effect.fieldRotation.defaultValue);
-                            var fieldHeight = new BeatValuePairAniListDouble(map.effect.fieldHeight.defaultValue);
+                            FieldEffectFile fieldEffect = map.effect.fieldEffect[0];
+                            EffectAdd4(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
+                            EffectAdd4(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
 
-                            map.effect.fieldPos.Add(fieldPos);
-                            map.effect.fieldRotation.Add(fieldRotation);
-                            map.effect.fieldHeight.Add(fieldHeight);
-
-                            EffectAdd4(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldPos);
-                            EffectAdd4(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldRotation);
-
-                            fieldHeight.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
+                            fieldEffect.height.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
                             for (int i = 0; i < oldMap.Effect.Camera.UiZoomEffect.Count; i++)
                             {
                                 var effect = oldMap.Effect.Camera.UiZoomEffect[i];
-                                fieldHeight.Add(effect.Beat, 0, effect.Value * 16);
+                                fieldEffect.height.Add(effect.Beat, 0, effect.Value * 16);
                             }
                         }
 

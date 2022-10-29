@@ -11,8 +11,7 @@ namespace SDJK.Ruleset.SDJK.Map
         /// </summary>
         public List<List<NoteFile>> notes { get; } = new List<List<NoteFile>>();
 
-        public int fieldCount { get; set; } = 1;
-        public SDJKMapEffect effect { get; } = new SDJKMapEffect();
+        public SDJKMapEffectFile effect { get; } = new SDJKMapEffectFile();
     }
 
     public struct NoteFile
@@ -37,25 +36,28 @@ namespace SDJK.Ruleset.SDJK.Map
         instantDeath
     }
 
-    public sealed class SDJKMapEffect
+    public sealed class SDJKMapEffectFile
     {
-        public FieldEffect<BeatValuePairAniListVector3, JVector3> fieldPos { get; } = new(JVector3.zero);
-        public FieldEffect<BeatValuePairAniListVector3, JVector3> fieldRotation { get; } = new(JVector3.zero);
-        public FieldEffect<BeatValuePairAniListDouble, double> fieldHeight { get; } = new(16);
-
-        public BarEffect<BeatValuePairAniListDouble, double> localNoteDistance { get; } = new(8);
+        public List<FieldEffectFile> fieldEffect { get; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; } = new(8);
     }
 
-    public class FieldEffect<TList, TListValue> : List<TList>
+    public sealed class FieldEffectFile
     {
-        public TListValue defaultValue { get; }
-        public FieldEffect(TListValue defaultValue) => this.defaultValue = defaultValue;
+        public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
+
+        public BeatValuePairAniListDouble height { get; } = new(16);
+
+        public List<BarEffectFile> barEffect { get; } = new();
     }
 
-    public class BarEffect<TList, TListValue> : FieldEffect<List<TList>, TListValue>
+    public sealed class BarEffectFile
     {
-        public BarEffect(TListValue defaultValue) : base(defaultValue) { }
+        public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
+
+        public BeatValuePairAniListDouble noteDistance { get; } = new(1);
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6551652745783064627}
   - component: {fileID: -6348261715850634152}
+  - component: {fileID: 1323729146812124827}
   m_Layer: 0
   m_Name: Play Field
   m_TagString: Untagged
@@ -46,6 +47,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bars: {fileID: 6551652746031255352}
+--- !u!114 &1323729146812124827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551652745783064624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21fdb1a2f3d5d4b9fd184e271db68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectManager: {fileID: 0}
+  playField: {fileID: -6348261715850634152}
 --- !u!1 &6551652746031255353
 GameObject:
   m_ObjectHideFlags: 0
