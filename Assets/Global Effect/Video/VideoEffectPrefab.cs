@@ -146,7 +146,12 @@ namespace SDJK
                         }
                     }
                     else
+                    {
+                        if (!videoPlayer.isPaused)
+                            videoPlayer.Pause();
+
                         canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                    }
                 }
             }
         }
