@@ -7,6 +7,7 @@ using SDJK.Effect;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,6 +71,10 @@ namespace SDJK
                         if (texturePath != tempTexturePath)
                         {
                             tempTexturePath = texturePath;
+
+                            textureChangeCancelSource.Cancel();
+                            textureChangeCancelSource = new CancellationTokenSource();
+
                             TextureChange(texturePath).Forget();
                         }
                     }
@@ -122,9 +127,10 @@ namespace SDJK
             isTextureLoading = false;
         }
 
+        CancellationTokenSource textureChangeCancelSource = new CancellationTokenSource();
         async UniTaskVoid TextureChange(string texturePath)
         {
-            await UniTask.WaitUntil(() => loadedSprites.ContainsKey(texturePath));
+            await UniTask.WaitUntil(() => loadedSprites.ContainsKey(texturePath), PlayerLoopTiming.Update, textureChangeCancelSource.Token);
             image.sprite = loadedSprites[texturePath];
         }
 
