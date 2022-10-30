@@ -183,7 +183,7 @@ namespace SDJK.Ruleset.SDJK.Map
                             if (lerp >= 1)
                                 return 0;
                             else
-                                return 1 / lerp * (60 / map.globalEffect.bpm.GetValue(beat));
+                                return (0.1 / lerp) * (map.globalEffect.bpm.GetValue(beat) / 60);
                         }
 
                         EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
