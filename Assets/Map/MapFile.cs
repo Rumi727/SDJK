@@ -138,9 +138,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListFloat(float defaultValue) : base(defaultValue) { }
 
-        public override float GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static float ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<float> previousBeatValuePair, IBeatValuePairAni<float> beatValuePair)
+        public override float ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<float> previousBeatValuePair, IBeatValuePairAni<float> beatValuePair)
             => (float)easingFunction.Invoke(previousBeatValuePair.value, beatValuePair.value, t);
     }
 
@@ -148,9 +146,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListDouble(double defaultValue) : base(defaultValue) { }
 
-        public override double GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static double ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<double> previousBeatValuePair, IBeatValuePairAni<double> beatValuePair)
+        public override double ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<double> previousBeatValuePair, IBeatValuePairAni<double> beatValuePair)
             => easingFunction.Invoke(previousBeatValuePair.value, beatValuePair.value, t);
     }
 
@@ -158,9 +154,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListVector2(JVector2 defaultValue) : base(defaultValue) { }
 
-        public override JVector2 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static JVector2 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector2> previousBeatValuePair, IBeatValuePairAni<JVector2> beatValuePair)
+        public override JVector2 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector2> previousBeatValuePair, IBeatValuePairAni<JVector2> beatValuePair)
         {
             JVector2 pre = previousBeatValuePair.value;
             JVector2 value = beatValuePair.value;
@@ -175,9 +169,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListVector3(JVector3 defaultValue) : base(defaultValue) { }
 
-        public override JVector3 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static JVector3 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector3> previousBeatValuePair, IBeatValuePairAni<JVector3> beatValuePair)
+        public override JVector3 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector3> previousBeatValuePair, IBeatValuePairAni<JVector3> beatValuePair)
         {
             JVector3 pre = previousBeatValuePair.value;
             JVector3 value = beatValuePair.value;
@@ -193,9 +185,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListVector4(JVector4 defaultValue) : base(defaultValue) { }
 
-        public override JVector4 GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static JVector4 ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector4> previousBeatValuePair, IBeatValuePairAni<JVector4> beatValuePair)
+        public override JVector4 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector4> previousBeatValuePair, IBeatValuePairAni<JVector4> beatValuePair)
         {
             JVector4 pre = previousBeatValuePair.value;
             JVector4 value = beatValuePair.value;
@@ -212,9 +202,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListColor(JColor defaultValue) : base(defaultValue) { }
 
-        public override JColor GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static JColor ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor> previousBeatValuePair, IBeatValuePairAni<JColor> beatValuePair)
+        public override JColor ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor> previousBeatValuePair, IBeatValuePairAni<JColor> beatValuePair)
         {
             JColor pre = previousBeatValuePair.value;
             JColor value = beatValuePair.value;
@@ -231,9 +219,7 @@ namespace SDJK.Map
     {
         public BeatValuePairAniListRect(JRect defaultValue) : base(defaultValue) { }
 
-        public override JRect GetValue(double currentBeat, out double beat, out bool isValueChanged) => GetValueInternal(currentBeat, out beat, out isValueChanged, ValueCalculate);
-
-        static JRect ValueCalculate(double currentBeat, double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JRect> previousBeatValuePair, IBeatValuePairAni<JRect> beatValuePair)
+        public override JRect ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JRect> previousBeatValuePair, IBeatValuePairAni<JRect> beatValuePair)
         {
             JRect pre = previousBeatValuePair.value;
             JRect value = beatValuePair.value;
