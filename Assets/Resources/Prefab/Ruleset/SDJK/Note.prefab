@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 1024028801367911718}
   - component: {fileID: 3538876862012429750}
   - component: {fileID: 2539432471969247502}
+  - component: {fileID: 5046559768761843685}
   m_Layer: 0
   m_Name: Note
   m_TagString: Untagged
@@ -220,6 +221,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579df97c2cae7fd448d74d1a3842f13d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 1024028801367911718}
-  _holdNote: {fileID: 7345809823669653971}
-  _holdNoteSpriteRenderer: {fileID: 826739127012859120}
+--- !u!114 &5046559768761843685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8589586867891242023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6abdc5aa18ff83a478aac902b3fe3cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectManager: {fileID: 0}
+  note: {fileID: 2539432471969247502}
+  holdNote: {fileID: 7345809823669653971}
+  spriteRenderer: {fileID: 1024028801367911718}
+  holdNoteSpriteRenderer: {fileID: 826739127012859120}

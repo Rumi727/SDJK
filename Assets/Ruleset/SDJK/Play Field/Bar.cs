@@ -20,7 +20,6 @@ namespace SDJK.Ruleset.SDJK
         public const float barBottomKeyHeight = 2.5f;
         public const float barBottomKeyHeightHalf = 1.25f;
 
-        [SerializeField] BarEffect _barEffect; public BarEffect barEffect => _barEffect;
         [SerializeField] Transform _notes; public Transform notes => _notes;
         [SerializeField] TMP_Text _keyText; public TMP_Text keyText => _keyText;
 
@@ -32,8 +31,6 @@ namespace SDJK.Ruleset.SDJK
         public BarEffectFile barEffectFile { get; private set; }
         public int barIndex { get; private set; }
         public double noteDistance { get; private set; }
-
-        public override void OnCreate() => barEffect.effectManager = effectManager;
 
         void Update()
         {
