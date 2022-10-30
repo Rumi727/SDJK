@@ -137,7 +137,7 @@ namespace SDJK.Ruleset.SDJK.Map
                         }
                         #endregion
 
-                        #region Effect
+                        #region Effect Method
                         void EffectAdd<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, SCKRM.Rhythm.BeatValuePairList<T> list)
                         {
                             list.Add(double.MinValue, defaultValue);
@@ -185,7 +185,9 @@ namespace SDJK.Ruleset.SDJK.Map
                             else
                                 return (0.1 / lerp) * (map.globalEffect.bpm.GetValue(beat) / 60);
                         }
+                        #endregion
 
+                        #region Effect
                         EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
                         EffectAdd(oldMap.Effect.DropPart, oldMap.Effect.DropPartEffect, map.globalEffect.dropPart);
 
@@ -234,6 +236,75 @@ namespace SDJK.Ruleset.SDJK.Map
                         }
 
                         EffectAdd2(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);
+                        #endregion
+
+                        #region Effect Stacking Trick Method
+                        void EffectStackingTrick<T>(BeatValuePairAniList<T> list)
+                        {
+                            for (int i = 1; i < list.Count - 1; i++)
+                            {
+                                var previousEffect = list[i - 1];
+                                var effect = list[i];
+                                var nextEffect = list[i + 1];
+
+                                if (effect.beat + effect.length > nextEffect.beat && (nextEffect.beat - effect.beat) / effect.length < 0.25)
+                                {
+                                    double t = ((nextEffect.beat - effect.beat) / effect.length).Clamp01();
+                                    T calculatedValue = list.ValueCalculate(t, EasingFunction.GetEasingFunction(effect.easingFunction), previousEffect, effect);
+
+                                    var modifyedEffect = list[i];
+                                    modifyedEffect.length = nextEffect.beat - effect.beat;
+                                    modifyedEffect.value = calculatedValue;
+                                    modifyedEffect.easingFunction = EasingFunction.Ease.Linear;
+
+                                    list[i] = modifyedEffect;
+                                }
+                            }
+                        }
+
+                        void EffectStackingTrick2<T>(SCKRM.Rhythm.BeatValuePairAniList<T> list)
+                        {
+                            for (int i = 1; i < list.Count - 1; i++)
+                            {
+                                var previousEffect = list[i - 1];
+                                var effect = list[i];
+                                var nextEffect = list[i + 1];
+
+                                if (effect.beat + effect.length > nextEffect.beat && (nextEffect.beat - effect.beat) / effect.length < 0.25)
+                                {
+                                    double t = ((nextEffect.beat - effect.beat) / effect.length).Clamp01();
+                                    T calculatedValue = list.ValueCalculate(t, EasingFunction.GetEasingFunction(effect.easingFunction), previousEffect, effect);
+
+                                    var modifyedEffect = list[i];
+                                    modifyedEffect.length = nextEffect.beat - effect.beat;
+                                    modifyedEffect.value = calculatedValue;
+                                    modifyedEffect.easingFunction = EasingFunction.Ease.Linear;
+
+                                    list[i] = modifyedEffect;
+                                }
+                            }
+                        }
+                        #endregion
+
+                        #region Effect Stacking Trick
+                        EffectStackingTrick(map.globalEffect.cameraZoom);
+                        EffectStackingTrick(map.globalEffect.cameraPos);
+                        EffectStackingTrick(map.globalEffect.cameraRotation);
+
+                        EffectStackingTrick2(map.globalEffect.pitch);
+                        EffectStackingTrick(map.globalEffect.volume);
+
+                        EffectStackingTrick2(map.globalEffect.hpAddValue);
+                        EffectStackingTrick2(map.globalEffect.hpRemoveValue);
+                        EffectStackingTrick2(map.globalEffect.hpMissValue);
+
+                        EffectStackingTrick2(map.globalEffect.judgmentSize);
+
+                        EffectStackingTrick(map.effect.fieldEffect[0].pos);
+                        EffectStackingTrick(map.effect.fieldEffect[0].rotation);
+                        EffectStackingTrick(map.effect.fieldEffect[0].height);
+
+                        EffectStackingTrick(map.effect.globalNoteDistance);
                         #endregion
 
                         return map;
