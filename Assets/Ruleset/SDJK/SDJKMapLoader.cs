@@ -154,7 +154,7 @@ namespace SDJK.Ruleset.SDJK.Map
                             for (int i = 0; i < oldList.Count; i++)
                             {
                                 var effect = oldList[i];
-                                list.Add(effect.Beat - 1, effect.Value);
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat), effect.Value, EasingFunction.Ease.EaseOutExpo);
                             }
                         }
 
@@ -164,7 +164,7 @@ namespace SDJK.Ruleset.SDJK.Map
                             for (int i = 0; i < oldList.Count; i++)
                             {
                                 var effect = oldList[i];
-                                list.Add(effect.Beat - 1, effect.Value);
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat), effect.Value, EasingFunction.Ease.EaseOutExpo);
                             }
                         }
 
@@ -174,8 +174,16 @@ namespace SDJK.Ruleset.SDJK.Map
                             for (int i = 0; i < oldList.Count; i++)
                             {
                                 var effect = oldList[i];
-                                list.Add(effect.Beat - 1, effect.Value);
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat), effect.Value, EasingFunction.Ease.EaseOutExpo);
                             }
+                        }
+
+                        double LerpToBeat(double lerp, double beat)
+                        {
+                            if (lerp >= 1)
+                                return 0;
+                            else
+                                return 1 / lerp * (60 / map.globalEffect.bpm.GetValue(beat));
                         }
 
                         EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
