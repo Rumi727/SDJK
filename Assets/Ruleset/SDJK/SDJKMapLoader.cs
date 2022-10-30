@@ -233,6 +233,59 @@ namespace SDJK.Ruleset.SDJK.Map
                                 var effect = oldMap.Effect.Camera.UiZoomEffect[i];
                                 fieldEffect.height.Add(effect.Beat, LerpToBeat(effect.Lerp, effect.Beat), effect.Value * 16);
                             }
+
+                            List<BarEffectFile> barEffect = fieldEffect.barEffect;
+                            bool capsLock = true;
+                            bool a = true;
+                            bool s = true;
+                            bool d = true;
+                            bool j = true;
+                            bool k = true;
+                            bool l = true;
+                            bool semiccolon = true;
+                            for (int i = 0; i < map.notes.Count; i++)
+                            {
+                                if (oldMap.CapsLock.Count > 0 && capsLock)
+                                {
+                                    EffectAdd4(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
+                                    capsLock = false;
+                                }
+                                else if (oldMap.A.Count > 0 && a)
+                                {
+                                    EffectAdd4(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
+                                    a = false;
+                                }
+                                else if (oldMap.S.Count > 0 && s)
+                                {
+                                    EffectAdd4(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
+                                    s = false;
+                                }
+                                else if (oldMap.J.Count > 0 && d)
+                                {
+                                    EffectAdd4(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
+                                    d = false;
+                                }
+                                else if (oldMap.J.Count > 0 && j)
+                                {
+                                    EffectAdd4(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
+                                    j = false;
+                                }
+                                else if (oldMap.K.Count > 0 && k)
+                                {
+                                    EffectAdd4(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
+                                    k = false;
+                                }
+                                else if (oldMap.L.Count > 0 && l)
+                                {
+                                    EffectAdd4(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
+                                    l = false;
+                                }
+                                else if (oldMap.Semicolon.Count > 0 && semiccolon)
+                                {
+                                    EffectAdd4(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
+                                    semiccolon = false;
+                                }
+                            }
                         }
 
                         EffectAdd2(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);

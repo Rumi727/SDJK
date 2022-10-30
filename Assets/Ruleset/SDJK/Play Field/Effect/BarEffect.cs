@@ -1,3 +1,4 @@
+using SCKRM.Rhythm;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             float x = -Bar.barWidthWithoutBoardHalf * (map.notes.Count - 1);
             x += Bar.barWidthWithoutBoard * index;
 
-            transform.localPosition = new Vector3(x, 0);
+            transform.localPosition = new Vector3(x, 0) + bar.barEffectFile.pos.GetValue(RhythmManager.currentBeatScreen);
 
             backgroundSpriteRenderer.size = new Vector2(Bar.barWidth, (float)playField.fieldHeight);
             spriteRenderer.size = new Vector2(Bar.barWidth, (float)playField.fieldHeight);
