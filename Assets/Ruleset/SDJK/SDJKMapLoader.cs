@@ -231,7 +231,7 @@ namespace SDJK.Ruleset.SDJK.Map
                             for (int i = 0; i < oldMap.Effect.Camera.UiZoomEffect.Count; i++)
                             {
                                 var effect = oldMap.Effect.Camera.UiZoomEffect[i];
-                                fieldEffect.height.Add(effect.Beat, LerpToBeat(effect.Lerp, effect.Beat), effect.Value * 16);
+                                fieldEffect.height.Add(effect.Beat, LerpToBeat(effect.Lerp, effect.Beat), effect.Value * 16, EasingFunction.Ease.EaseOutExpo);
                             }
 
                             List<BarEffectFile> barEffect = fieldEffect.barEffect;
