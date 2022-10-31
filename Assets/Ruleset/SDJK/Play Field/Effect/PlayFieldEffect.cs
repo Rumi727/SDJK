@@ -19,11 +19,18 @@ namespace SDJK.Ruleset.SDJK.Effect
             if (effectManager == null)
                 effectManager = playField.effectManager;
 
+            PosUpdate();
+            SizeUpdate();
+        }
+
+        void PosUpdate()
+        {
             transform.localPosition = fieldEffectFile.pos.GetValue(RhythmManager.currentBeatScreen);
             transform.localEulerAngles = fieldEffectFile.rotation.GetValue(RhythmManager.currentBeatScreen);
+        }
 
-
-
+        void SizeUpdate()
+        {
             Camera camera = Camera.main;
             float screenY;
             if (camera.orthographic)

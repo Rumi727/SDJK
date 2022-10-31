@@ -308,7 +308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc0390e9072700498a6343f3b51dc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _barEffect: {fileID: 8144850358887932616}
   _notes: {fileID: 2841449137490851935}
   _keyText: {fileID: 2214126686501816910}
 --- !u!114 &8144850358887932616
@@ -326,6 +325,8 @@ MonoBehaviour:
   _effectManager: {fileID: 0}
   spriteRenderer: {fileID: 2214126686961155398}
   backgroundSpriteRenderer: {fileID: 2970247674788580505}
+  keySpriteRenderer: {fileID: 2214126687765201577}
+  keyText: {fileID: 2214126686501816910}
   bar: {fileID: -6815611435304675268}
   key: {fileID: 2214126687765201583}
 --- !u!1 &2214126687765201582

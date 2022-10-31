@@ -38,7 +38,25 @@ namespace SDJK.Ruleset.SDJK
             double localNoteDistance = barEffectFile.noteDistance.GetValue(RhythmManager.currentBeatScreen);
 
             noteDistance = globalNoteDistance * localNoteDistance;
-            notes.localPosition = new Vector3(0, (float)((-RhythmManager.currentBeatScreen * noteDistance) + (barBottomKeyHeight - (playField.fieldHeight * 0.5f))));
+            NotesPosUpdate();
+        }
+
+        void NotesPosUpdate()
+        {
+            double y;
+            bool noteStop = barEffectFile.noteStop.GetValue(RhythmManager.currentBeatScreen, out double beat, out _);
+            double noteOffset = barEffectFile.noteOffset.GetValue(RhythmManager.currentBeatScreen);
+
+            if (!noteStop)
+                y = -RhythmManager.currentBeatScreen;
+            else
+                y = -beat;
+
+            y *= noteDistance;
+            y += barBottomKeyHeight - (playField.fieldHeight * 0.5f);
+            y -= noteOffset;
+
+            notes.localPosition = new Vector3(0, (float)y);
         }
 
         public void Refresh(PlayField playField, EffectManager effectManager, int barIndex)

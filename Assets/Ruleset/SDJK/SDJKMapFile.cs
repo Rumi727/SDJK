@@ -58,6 +58,12 @@ namespace SDJK.Ruleset.SDJK.Map
         public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
         public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
 
+        public BeatValuePairAniListColor color { get; } = new(JColor.one);
+        public BeatValuePairAniListColor noteColor { get; } = new(new JColor(0, 1, 0));
+
         public BeatValuePairAniListDouble noteDistance { get; } = new(1);
+
+        public BeatValuePairList<bool> noteStop { get; } = new(false);
+        public BeatValuePairAniListDouble noteOffset { get; } = new(0);
     }
 }

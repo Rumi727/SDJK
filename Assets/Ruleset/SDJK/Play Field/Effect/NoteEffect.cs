@@ -1,3 +1,4 @@
+using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Ruleset.SDJK.Map;
 using System.Collections;
@@ -42,7 +43,7 @@ namespace SDJK.Ruleset.SDJK
 
         void ColorUpdate()
         {
-            Color color = Color.green;
+            Color color = bar.barEffectFile.noteColor.GetValue(RhythmManager.currentBeatSound);
             if (type == NoteTypeFile.instantDeath)
                 color = Color.red;
 

@@ -148,33 +148,53 @@ namespace SDJK.Ruleset.SDJK.Map
                             }
                         }
 
-                        void EffectAdd2<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, BeatValuePairAniList<T> list)
+                        void EffectAdd2<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, BeatValuePairList<T> list)
                         {
                             list.Add(double.MinValue, defaultValue);
                             for (int i = 0; i < oldList.Count; i++)
                             {
                                 var effect = oldList[i];
-                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                                list.Add(effect.Beat - 1, effect.Value);
                             }
                         }
 
-                        void EffectAdd3<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, SCKRM.Rhythm.BeatValuePairAniList<T> list)
+                        void EffectAdd3<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, BeatValuePairAniList<T> list)
                         {
                             list.Add(double.MinValue, defaultValue);
                             for (int i = 0; i < oldList.Count; i++)
                             {
                                 var effect = oldList[i];
-                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
                             }
                         }
 
-                        void EffectAdd4(JVector3 defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JVector3>> oldList, BeatValuePairAniList<JVector3> list)
+                        void EffectAdd4<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, SCKRM.Rhythm.BeatValuePairAniList<T> list)
                         {
                             list.Add(double.MinValue, defaultValue);
                             for (int i = 0; i < oldList.Count; i++)
                             {
                                 var effect = oldList[i];
-                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                            }
+                        }
+
+                        void EffectAdd5(JVector3 defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JVector3>> oldList, BeatValuePairAniList<JVector3> list)
+                        {
+                            list.Add(double.MinValue, defaultValue);
+                            for (int i = 0; i < oldList.Count; i++)
+                            {
+                                var effect = oldList[i];
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                            }
+                        }
+
+                        void EffectAdd6(JColor defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JColor>> oldList, BeatValuePairAniList<JColor> list)
+                        {
+                            list.Add(double.MinValue, defaultValue);
+                            for (int i = 0; i < oldList.Count; i++)
+                            {
+                                var effect = oldList[i];
+                                list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
                             }
                         }
 
@@ -191,17 +211,17 @@ namespace SDJK.Ruleset.SDJK.Map
                         EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
                         EffectAdd(oldMap.Effect.DropPart, oldMap.Effect.DropPartEffect, map.globalEffect.dropPart);
 
-                        EffectAdd2(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
-                        EffectAdd4(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
-                        EffectAdd4(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
+                        EffectAdd3(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
+                        EffectAdd5(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
+                        EffectAdd5(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
 
-                        EffectAdd3(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.pitch);
+                        EffectAdd4(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.pitch);
                         map.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
-                        EffectAdd2(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
+                        EffectAdd3(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
 
-                        EffectAdd3(oldMap.Effect.HPAddValue, oldMap.Effect.HPAddValueEffect, map.globalEffect.hpAddValue);
-                        EffectAdd3(oldMap.Effect.HPRemoveValue, oldMap.Effect.HPRemoveValueEffect, map.globalEffect.hpMissValue);
+                        EffectAdd4(oldMap.Effect.HPAddValue, oldMap.Effect.HPAddValueEffect, map.globalEffect.hpAddValue);
+                        EffectAdd4(oldMap.Effect.HPRemoveValue, oldMap.Effect.HPRemoveValueEffect, map.globalEffect.hpMissValue);
 
                         {
                             var effect = oldMap.Effect.HPRemove;
@@ -220,75 +240,105 @@ namespace SDJK.Ruleset.SDJK.Map
                                 map.globalEffect.hpRemoveValue.Add(effect.Beat - 1, 0, 0);
                         }
 
-                        EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);
+                        EffectAdd4(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);
 
                         {
                             FieldEffectFile fieldEffect = map.effect.fieldEffect[0];
-                            EffectAdd4(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
-                            EffectAdd4(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
+                            EffectAdd5(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
+                            EffectAdd5(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
 
                             fieldEffect.height.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
                             for (int i = 0; i < oldMap.Effect.Camera.UiZoomEffect.Count; i++)
                             {
                                 var effect = oldMap.Effect.Camera.UiZoomEffect[i];
-                                fieldEffect.height.Add(effect.Beat, LerpToBeat(effect.Lerp, effect.Beat), effect.Value * 16, EasingFunction.Ease.EaseOutExpo);
+                                fieldEffect.height.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value * 16, EasingFunction.Ease.EaseOutExpo);
                             }
 
-                            List<BarEffectFile> barEffect = fieldEffect.barEffect;
-                            bool capsLock = true;
-                            bool a = true;
-                            bool s = true;
-                            bool d = true;
-                            bool j = true;
-                            bool k = true;
-                            bool l = true;
-                            bool semiccolon = true;
+                            {
+                                List<BarEffectFile> barEffect = fieldEffect.barEffect;
+                                bool capsLock = true;
+                                bool a = true;
+                                bool s = true;
+                                bool d = true;
+                                bool j = true;
+                                bool k = true;
+                                bool l = true;
+                                bool semiccolon = true;
+                                for (int i = 0; i < map.notes.Count; i++)
+                                {
+                                    if (oldMap.CapsLock.Count > 0 && capsLock)
+                                    {
+                                        EffectAdd5(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
+                                        capsLock = false;
+                                    }
+                                    else if (oldMap.A.Count > 0 && a)
+                                    {
+                                        EffectAdd5(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
+                                        a = false;
+                                    }
+                                    else if (oldMap.S.Count > 0 && s)
+                                    {
+                                        EffectAdd5(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
+                                        s = false;
+                                    }
+                                    else if (oldMap.J.Count > 0 && d)
+                                    {
+                                        EffectAdd5(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
+                                        d = false;
+                                    }
+                                    else if (oldMap.J.Count > 0 && j)
+                                    {
+                                        EffectAdd5(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
+                                        j = false;
+                                    }
+                                    else if (oldMap.K.Count > 0 && k)
+                                    {
+                                        EffectAdd5(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
+                                        k = false;
+                                    }
+                                    else if (oldMap.L.Count > 0 && l)
+                                    {
+                                        EffectAdd5(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
+                                        l = false;
+                                    }
+                                    else if (oldMap.Semicolon.Count > 0 && semiccolon)
+                                    {
+                                        EffectAdd5(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
+                                        semiccolon = false;
+                                    }
+                                }
+                            }
+
                             for (int i = 0; i < map.notes.Count; i++)
                             {
-                                if (oldMap.CapsLock.Count > 0 && capsLock)
+                                BarEffectFile barEffect = fieldEffect.barEffect[i];
+
+                                EffectAdd6(oldMap.Effect.BarColor, oldMap.Effect.BarColorEffect, barEffect.color);
+                                EffectAdd6(oldMap.Effect.NoteColor, oldMap.Effect.NoteColorEffect, barEffect.noteColor);
+
+                                barEffect.noteOffset.Add(double.MinValue, 0, 0);
+                                double previousValue = 0;
+                                for (int j = 0; j < oldMap.Effect.NoteOffsetEffect.Count; j++)
                                 {
-                                    EffectAdd4(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
-                                    capsLock = false;
+                                    var effect = oldMap.Effect.NoteOffsetEffect[j];
+                                    if (effect.Add)
+                                    {
+                                        barEffect.noteOffset.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), previousValue + effect.Value.y, EasingFunction.Ease.EaseOutExpo);
+                                        previousValue = previousValue + effect.Value.y;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log(effect.Value.y);
+                                        barEffect.noteOffset.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value.y, EasingFunction.Ease.EaseOutExpo);
+                                        previousValue = effect.Value.y;
+                                    }
                                 }
-                                else if (oldMap.A.Count > 0 && a)
-                                {
-                                    EffectAdd4(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
-                                    a = false;
-                                }
-                                else if (oldMap.S.Count > 0 && s)
-                                {
-                                    EffectAdd4(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
-                                    s = false;
-                                }
-                                else if (oldMap.J.Count > 0 && d)
-                                {
-                                    EffectAdd4(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
-                                    d = false;
-                                }
-                                else if (oldMap.J.Count > 0 && j)
-                                {
-                                    EffectAdd4(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
-                                    j = false;
-                                }
-                                else if (oldMap.K.Count > 0 && k)
-                                {
-                                    EffectAdd4(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
-                                    k = false;
-                                }
-                                else if (oldMap.L.Count > 0 && l)
-                                {
-                                    EffectAdd4(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
-                                    l = false;
-                                }
-                                else if (oldMap.Semicolon.Count > 0 && semiccolon)
-                                {
-                                    EffectAdd4(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
-                                    semiccolon = false;
-                                }
+
+                                EffectAdd2(oldMap.Effect.NoteStop, oldMap.Effect.NoteStopEffect, fieldEffect.barEffect[i].noteStop);
                             }
                         }
 
-                        EffectAdd2(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);
+                        EffectAdd3(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);
                         #endregion
 
                         #region Effect Stacking Trick Method
