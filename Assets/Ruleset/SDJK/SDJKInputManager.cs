@@ -1,3 +1,4 @@
+using SCKRM;
 using SCKRM.Input;
 using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Map;
@@ -5,10 +6,14 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class SDJKInputManager : MonoBehaviour
+    public sealed class SDJKInputManager : Manager<SDJKInputManager>
     {
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
+
+
+
+        public void Refresh() => SingletonCheck(this);
 
 
 

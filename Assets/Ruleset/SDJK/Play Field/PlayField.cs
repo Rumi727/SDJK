@@ -15,16 +15,15 @@ namespace SDJK.Ruleset.SDJK
         public int fieldIndex { get; private set; } = 0;
         public double fieldHeight { get; private set; } = 16;
 
-        public EffectManager effectManager { get; private set; }
+        public EffectManager effectManager => SDJKManager.instance.effectManager;
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
 
         void Update() => fieldHeight = fieldEffectFile.height.GetValue(RhythmManager.currentBeatScreen);
 
         List<Bar> createdBars = new List<Bar>();
-        public void Refresh(int fieldIndex, EffectManager effectManager)
+        public void Refresh(int fieldIndex)
         {
             this.fieldIndex = fieldIndex;
-            this.effectManager = effectManager;
 
             fieldEffectFile = map.effect.fieldEffect[fieldIndex];
 
@@ -32,7 +31,7 @@ namespace SDJK.Ruleset.SDJK
             for (int i = 0; i < map.notes.Count; i++)
             {
                 Bar bar = (Bar)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field.bar", bars).monoBehaviour;
-                bar.Refresh(this, effectManager, i);
+                bar.Refresh(this, i);
 
                 createdBars.Add(bar);
             }

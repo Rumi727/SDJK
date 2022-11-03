@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 100744809}
   - component: {fileID: 100744810}
-  - component: {fileID: 100744811}
   m_Layer: 0
   m_Name: SDJK Manager
   m_TagString: Untagged
@@ -169,19 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 1657977506}
---- !u!114 &100744811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100744808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46210cf7833c51546958244ac089b06e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitSoundPlay: 1
 --- !u!1 &777097534
 GameObject:
   m_ObjectHideFlags: 0

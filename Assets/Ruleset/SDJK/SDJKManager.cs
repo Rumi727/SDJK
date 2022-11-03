@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class SDJKManager : MonoBehaviour
+    public sealed class SDJKManager : Manager<SDJKManager>
     {
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
 
@@ -45,17 +45,20 @@ namespace SDJK.Ruleset.SDJK
 
         public void Refresh(SDJKMapFile map)
         {
-            this.map = map;
-            effectManager.selectedMap = map;
-            effectManager.AllRefresh();
-
-            for (int i = 0; i < map.effect.fieldEffect.Count; i++)
+            if (SingletonCheck(this))
             {
-                PlayField playField = (PlayField)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field", transform).monoBehaviour;
-                playField.Refresh(i, effectManager);
-            }
+                this.map = map;
+                effectManager.selectedMap = map;
+                effectManager.AllRefresh();
 
-            BGMPlay().Forget();
+                for (int i = 0; i < map.effect.fieldEffect.Count; i++)
+                {
+                    PlayField playField = (PlayField)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field", transform).monoBehaviour;
+                    playField.Refresh(i);
+                }
+
+                BGMPlay().Forget();
+            }
         }
 
         async UniTaskVoid BGMPlay()

@@ -328,7 +328,6 @@ namespace SDJK.Ruleset.SDJK.Map
                                     }
                                     else
                                     {
-                                        Debug.Log(effect.Value.y);
                                         barEffect.noteOffset.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value.y, EasingFunction.Ease.EaseOutExpo);
                                         previousValue = effect.Value.y;
                                     }

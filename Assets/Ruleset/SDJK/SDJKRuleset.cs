@@ -20,6 +20,7 @@ namespace SDJK.Ruleset.SDJK
 
             SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath);
             Object.FindObjectOfType<SDJKManager>().Refresh(map);
+            Object.FindObjectOfType<SDJKInputManager>().Refresh();
         }
     }
 }

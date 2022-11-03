@@ -17,7 +17,7 @@ namespace SDJK.Ruleset.SDJK
         public NoteTypeFile type => noteFile.type;
 
         public SDJKMapFile map => bar.map;
-        public EffectManager effectManager => bar.effectManager;
+        public EffectManager effectManager => SDJKManager.instance.effectManager;
 
         public void Refresh(Bar bar, NoteFile noteFile)
         {

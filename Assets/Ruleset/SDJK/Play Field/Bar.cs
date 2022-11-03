@@ -26,7 +26,7 @@ namespace SDJK.Ruleset.SDJK
         public PlayField playField { get; private set; }
 
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
-        public EffectManager effectManager { get; private set; }
+        public EffectManager effectManager => SDJKManager.instance.effectManager;
 
         public BarEffectFile barEffectFile { get; private set; }
         public int barIndex { get; private set; }
@@ -59,10 +59,9 @@ namespace SDJK.Ruleset.SDJK
             notes.localPosition = new Vector3(0, (float)y);
         }
 
-        public void Refresh(PlayField playField, EffectManager effectManager, int barIndex)
+        public void Refresh(PlayField playField, int barIndex)
         {
             this.playField = playField;
-            this.effectManager = effectManager;
             this.barIndex = barIndex;
 
             barEffectFile = playField.fieldEffectFile.barEffect[barIndex];
@@ -108,7 +107,6 @@ namespace SDJK.Ruleset.SDJK
             if (!base.Remove())
                 return false;
 
-            effectManager = null;
             keyText.text = "";
 
             NoteAllRemove();
