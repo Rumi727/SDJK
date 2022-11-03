@@ -5,7 +5,7 @@ using SDJK.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDJK.Ruleset.SDJK
+namespace SDJK.Ruleset.SDJK.Input
 {
     public sealed class SDJKInputManager : Manager<SDJKInputManager>
     {

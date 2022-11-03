@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using SCKRM.Renderer;
 using SCKRM.Scene;
 using SDJK.Map;
+using SDJK.Ruleset.SDJK.Input;
 using SDJK.Ruleset.SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;

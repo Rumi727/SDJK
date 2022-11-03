@@ -1,4 +1,5 @@
 using SCKRM.Rhythm;
+using SDJK.Ruleset.SDJK.Input;
 using TMPro;
 using UnityEngine;
 
