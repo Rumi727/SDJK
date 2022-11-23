@@ -3,6 +3,7 @@ using SCKRM.Renderer;
 using SCKRM.Scene;
 using SDJK.Map;
 using SDJK.Ruleset.SDJK.Input;
+using SDJK.Ruleset.SDJK.Judgement;
 using SDJK.Ruleset.SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace SDJK.Ruleset.SDJK
             SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath);
             Object.FindObjectOfType<SDJKManager>().Refresh(map);
             Object.FindObjectOfType<SDJKInputManager>().Refresh();
+            Object.FindObjectOfType<SDJKJudgementManager>().Refresh();
         }
     }
 }

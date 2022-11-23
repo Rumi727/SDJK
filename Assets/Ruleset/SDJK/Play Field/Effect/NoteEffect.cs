@@ -1,5 +1,7 @@
+using SCKRM;
 using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Effect;
+using SDJK.Ruleset.SDJK.Judgement;
 using SDJK.Ruleset.SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,18 +29,38 @@ namespace SDJK.Ruleset.SDJK
             if (effectManager == null)
                 effectManager = note.effectManager;
 
-            PosUpdate();
+            if (PosUpdate())
+                return;
+
             ColorUpdate();
         }
 
-        void PosUpdate()
+        bool PosUpdate()
         {
             float y = (float)beat;
-            float holdY = (float)holdLength;
+            float holdYPos = 0;
+            float holdYSize = (float)holdLength;
             float noteDis = (float)bar.noteDistance;
 
+            double lastJudgementBeat = SDJKJudgementManager.instance.lastJudgementBeat[bar.barIndex];
+            if (beat + holdLength <= lastJudgementBeat)
+            {
+                note.Remove();
+                return true;
+            }
+            else if (beat <= lastJudgementBeat)
+            {
+                float cutY = (float)(RhythmManager.currentBeatScreen - beat);
+
+                y += cutY;
+                holdYSize -= cutY;
+            }
+
             transform.localPosition = new Vector3(0, y * noteDis, 0);
-            holdNote.localScale = new Vector3(1, holdY * noteDis, 1);
+            holdNote.localPosition = new Vector3(0, holdYPos * noteDis, 0);
+            holdNote.localScale = new Vector3(1, (holdYSize * noteDis).Clamp(0), 1);
+
+            return false;
         }
 
         void ColorUpdate()
