@@ -1,8 +1,4 @@
 using SCKRM;
-using SDJK.Ruleset;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace SDJK.Ruleset
 {
