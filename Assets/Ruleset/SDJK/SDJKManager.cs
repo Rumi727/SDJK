@@ -18,6 +18,7 @@ namespace SDJK.Ruleset.SDJK
     {
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
 
+        public SDJKRuleset ruleset { get; private set; }
         public SDJKMapFile map { get; private set; }
 
         public ISoundPlayer soundPlayer { get; private set; }
@@ -43,10 +44,11 @@ namespace SDJK.Ruleset.SDJK
                 Destroy(bgmClip);
         }
 
-        public void Refresh(SDJKMapFile map)
+        public void Refresh(SDJKMapFile map, SDJKRuleset ruleset)
         {
             if (SingletonCheck(this))
             {
+                this.ruleset = ruleset;
                 this.map = map;
                 effectManager.selectedMap = map;
                 effectManager.AllRefresh();
