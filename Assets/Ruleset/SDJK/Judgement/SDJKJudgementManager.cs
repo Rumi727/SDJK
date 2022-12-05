@@ -77,7 +77,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     double bpmDivide60 = RhythmManager.bpm / 60d;
 
                     bool input = inputManager.GetKey(keyIndex, InputType.Down);
-                    double disSecond = getDis(currentNote.beat);
+                    double disSecond = getDisSecond(currentNote.beat);
 
                     for (int i = 0; (disSecond >= 0.1f || input) && (i < notes.Count); i++)
                     {
@@ -93,7 +93,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             NextNote();
                         }
 
-                        disSecond = getDis(currentNote.beat);
+                        disSecond = getDisSecond(currentNote.beat);
                         input = false;
                     }
 
@@ -108,7 +108,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     }
 
 
-                    double getDis(double beat) => ((currentBeat - beat) / bpmDivide60).Clamp(double.MinValue, 0.1f);
+                    double getDisSecond(double beat) => ((currentBeat - beat) / bpmDivide60).Clamp(double.MinValue, 0.1f);
                 }
             }
 
