@@ -21,7 +21,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
         /// <summary>
         /// lastJudgementBeat[keyIndex]
         /// </summary>
-        public List<double> lastJudgementBeat = new List<double>();
+        public List<double> lastJudgementBeat { get; } = new List<double>();
 
         List<JudgementObject> judgements = new List<JudgementObject>();
         public void Refresh()
