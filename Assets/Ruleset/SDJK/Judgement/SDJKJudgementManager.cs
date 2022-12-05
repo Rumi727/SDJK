@@ -17,11 +17,19 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
+        public int combo { get; private set; }
 
         /// <summary>
         /// lastJudgementBeat[keyIndex]
         /// </summary>
         public List<double> lastJudgementBeat { get; } = new List<double>();
+
+
+
+        public event JudgementAction judgementAction;
+        public delegate void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData);
+
+
 
         List<JudgementObject> judgements = new List<JudgementObject>();
         public void Refresh()
@@ -85,14 +93,22 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     for (int i = 0; (disSecond >= missSecond || input) && (i < notes.Count); i++)
                     {
-                        if (Judgement(currentNote.beat, disSecond, false))
+                        if (Judgement(currentNote.beat, disSecond, false, out JudgementMetaData metaData))
                         {
-                            if (currentNote.holdLength > 0)
+                            bool isMiss = metaData.nameKey == SDJKRuleset.miss;
+                            if (!isMiss)
                             {
-                                isHold = true;
-                                currentHoldBeat = currentNote.beat + currentNote.holdLength;
-                                currentHoldNote = currentNote;
+                                if (currentNote.holdLength > 0)
+                                {
+                                    isHold = true;
+                                    currentHoldBeat = currentNote.beat + currentNote.holdLength;
+                                    currentHoldNote = currentNote;
+                                }
+
+                                instance.combo++;
                             }
+
+                            instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
 
                             NextNote();
                         }
@@ -107,7 +123,13 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         if (holdDisSecond >= missSecond || !inputManager.GetKey(keyIndex, InputType.Alway))
                         {
                             isHold = false;
-                            Judgement(currentHoldBeat, holdDisSecond, true);
+                            Judgement(currentHoldBeat, holdDisSecond, true, out JudgementMetaData metaData);
+
+                            bool isMiss = metaData.nameKey == SDJKRuleset.miss;
+                            if (!isMiss)
+                                instance.combo++;
+
+                            instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                         }
                     }
 
@@ -117,13 +139,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
             }
 
-            bool Judgement(double beat, double disSecond, bool forceFastMiss)
+            bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
             {
-                if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out JudgementMetaData metaData))
+                if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                 {
                     Debug.Log(disSecond);
                     Debug.Log(metaData.nameKey);
                     instance.lastJudgementBeat[keyIndex] = beat;
+                    
                     return true;
                 }
 
