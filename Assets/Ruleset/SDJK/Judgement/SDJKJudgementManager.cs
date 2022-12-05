@@ -96,17 +96,21 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         if (Judgement(currentNote.beat, disSecond, false, out JudgementMetaData metaData))
                         {
                             bool isMiss = metaData.nameKey == SDJKRuleset.miss;
-                            if (!isMiss)
+                            if (currentNote.holdLength > 0)
                             {
-                                if (currentNote.holdLength > 0)
+                                if (!isMiss)
                                 {
                                     isHold = true;
+
                                     currentHoldBeat = currentNote.beat + currentNote.holdLength;
                                     currentHoldNote = currentNote;
                                 }
-
-                                instance.combo++;
+                                else
+                                    instance.lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
                             }
+
+                            if (!isMiss)
+                                instance.combo++;
 
                             instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
 
