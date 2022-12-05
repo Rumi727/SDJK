@@ -124,6 +124,12 @@ namespace SDJK.Ruleset
         public NameSpaceIndexTypePathPair icon { get; }
         public string[] compatibleRuleset { get; }
 
+        /// <summary>
+        /// 판정이 작은순 부터 큰순으로 리스트를 만들어야합니다
+        /// </summary>
+        public JudgementMetaData[] judgementMetaDatas { get; }
+        public JudgementMetaData missJudgementMetaData { get; }
+
         public void GameStart(string mapFilePath);
     }
 
@@ -137,6 +143,21 @@ namespace SDJK.Ruleset
         public abstract NameSpaceIndexTypePathPair icon { get; }
         public virtual string[] compatibleRuleset => null;
 
+        public abstract JudgementMetaData[] judgementMetaDatas { get; }
+        public abstract JudgementMetaData missJudgementMetaData { get; }
+
         public abstract void GameStart(string mapFilePath);
+    }
+
+    public struct JudgementMetaData
+    {
+        public string nameKey;
+        public double sizeSecond;
+
+        public JudgementMetaData(string nameKey, double sizeSecond)
+        {
+            this.nameKey = nameKey;
+            this.sizeSecond = sizeSecond;
+        }
     }
 }
