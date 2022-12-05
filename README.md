@@ -20,7 +20,7 @@ TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 �
 블랙리스트에 등록될려면 적어도 테러 정돈 해야 등록될 정도로 매우 빡빡하며 등록된 사람들 전부 대부분의 사람들이 납득 가능한 이유가 있습니다
 
 ## 사용된 패키지와 DLL, 오픈 소스
-- [SC KRM](https://github.com/SimsimhanChobo/SC-KRM)
+- [SC KRM 1.0](https://github.com/SimsimhanChobo/SC-KRM-1.0)
 - [UI Soft Mask](https://github.com/mob-sakai/SoftMaskForUGUI)
 - [Super Blur](https://github.com/PavelDoGreat/Super-Blur)
 
