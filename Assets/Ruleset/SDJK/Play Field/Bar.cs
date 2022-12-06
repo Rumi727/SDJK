@@ -22,6 +22,7 @@ namespace SDJK.Ruleset.SDJK
 
         [SerializeField] Transform _notes; public Transform notes => _notes;
         [SerializeField] TMP_Text _keyText; public TMP_Text keyText => _keyText;
+        [SerializeField] Transform _spriteMask; public Transform spriteMask => _spriteMask;
 
         public PlayField playField { get; private set; }
 
@@ -57,6 +58,7 @@ namespace SDJK.Ruleset.SDJK
             y -= noteOffset;
 
             notes.localPosition = new Vector3(0, (float)y);
+            spriteMask.localPosition = -notes.localPosition;
         }
 
         public void Refresh(PlayField playField, int barIndex)

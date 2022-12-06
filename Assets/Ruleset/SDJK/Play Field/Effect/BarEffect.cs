@@ -16,6 +16,7 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] Bar bar;
         [SerializeField] Transform key;
         [SerializeField] int sortingOrder = 1000;
+        [SerializeField] Transform spriteMask;
 
         PlayField playField => bar.playField;
         SDJKInputManager inputManager => SDJKInputManager.instance;
@@ -50,10 +51,12 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         void SizeUpdate()
         {
-            backgroundSpriteRenderer.size = new Vector2(Bar.barWidth, (float)playField.fieldHeight);
-            spriteRenderer.size = new Vector2(Bar.barWidth, (float)playField.fieldHeight);
+            float fieldHeight = (float)playField.fieldHeight;
+            backgroundSpriteRenderer.size = new Vector2(Bar.barWidth, fieldHeight);
+            spriteRenderer.size = new Vector2(Bar.barWidth, fieldHeight);
+            spriteMask.localScale = new Vector3(spriteMask.localScale.x, fieldHeight, spriteMask.localScale.z);
 
-            key.localPosition = new Vector3(0, (float)(-(playField.fieldHeight * 0.5f) + Bar.barBottomKeyHeightHalf));
+            key.localPosition = new Vector3(0, -(fieldHeight * 0.5f) + Bar.barBottomKeyHeightHalf);
         }
 
         Color inputColor = Color.white;
