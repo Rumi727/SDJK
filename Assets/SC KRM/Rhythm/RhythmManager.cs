@@ -150,7 +150,11 @@ namespace SCKRM.Rhythm
         [WikiDescription("리듬 재생")]
         public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> dropPartList, ISoundPlayer soundPlayer)
         {
-            currentBeat = 0;
+            currentBeat = double.MinValue;
+            currentBeat1Beat = 0;
+            currentBeatScreen = double.MinValue;
+            currentBeatSound = double.MinValue;
+
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
 
@@ -168,7 +172,11 @@ namespace SCKRM.Rhythm
         [WikiDescription("리듬 정지")]
         public static void Stop()
         {
-            currentBeat = 0;
+            currentBeat = double.MinValue;
+            currentBeat1Beat = 0;
+            currentBeatScreen = double.MinValue;
+            currentBeatSound = double.MinValue;
+
             bpmOffsetBeat = 0;
             bpmOffsetTime = 0;
 
