@@ -46,6 +46,7 @@ namespace SDJK.Ruleset.SDJK.UI
             if (!graphic.enabled)
                 graphic.enabled = true;
 
+            string lastPath = image.path;
             switch (metaData.nameKey)
             {
                 case SDJKRuleset.sick:
@@ -68,8 +69,10 @@ namespace SDJK.Ruleset.SDJK.UI
                     break;
             }
 
-            image.Refresh();
-            delayText.text = (disSecond * 1000).RoundToInt() + delayTextSuffix;
+            if (lastPath != image.path)
+                image.Refresh();
+
+            delayText.text = (disSecond * 1000).Round(2) + delayTextSuffix;
 
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, defaultY);
             yVelocity = jumpValue;
