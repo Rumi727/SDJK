@@ -109,11 +109,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
                                     instance.lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
                             }
 
-                            if (!isMiss)
-                                instance.combo++;
-
-                            instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
-
                             NextNote();
                         }
 
@@ -128,12 +123,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         {
                             isHold = false;
                             Judgement(currentHoldBeat, holdDisSecond, true, out JudgementMetaData metaData);
-
-                            bool isMiss = metaData.nameKey == SDJKRuleset.miss;
-                            if (!isMiss)
-                                instance.combo++;
-
-                            instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                         }
                     }
 
@@ -147,10 +136,15 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                 {
-                    Debug.Log(disSecond);
-                    Debug.Log(metaData.nameKey);
                     instance.lastJudgementBeat[keyIndex] = beat;
-                    
+
+                    bool isMiss = metaData.nameKey == SDJKRuleset.miss;
+                    if (!isMiss)
+                        instance.combo++;
+                    else
+                        instance.combo = 0;
+
+                    instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                     return true;
                 }
 
