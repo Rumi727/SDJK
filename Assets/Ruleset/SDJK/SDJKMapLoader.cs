@@ -252,6 +252,7 @@ namespace SDJK.Ruleset.SDJK.Map
                             {
                                 var effect = oldMap.Effect.Camera.UiZoomEffect[i];
                                 fieldEffect.height.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value * 16, EasingFunction.Ease.EaseOutExpo);
+                                map.globalEffect.uiSize.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), 1 / effect.Value, EasingFunction.Ease.EaseOutExpo);
                             }
 
                             {

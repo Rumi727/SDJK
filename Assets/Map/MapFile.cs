@@ -94,6 +94,10 @@ namespace SDJK.Map
 
 
 
+        public BeatValuePairAniListDouble uiSize { get; } = new(1);
+
+
+
         public SCKRM.Rhythm.BeatValuePairAniListDouble pitch { get; } = new(1);
         public SCKRM.Rhythm.BeatValuePairAniListDouble tempo { get; } = new(1);
 
