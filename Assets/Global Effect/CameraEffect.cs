@@ -10,7 +10,7 @@ namespace SDJK.Effect
         public const float defaultDistance = 14;
         public override void Refresh(bool force = false) { }
 
-        void Update()
+        protected override void RealUpdate()
         {
             if (map == null)
             {

@@ -24,7 +24,7 @@ namespace SDJK.Ruleset.SDJK.Effect
         public override void Refresh(bool force = false) { }
 
         bool isKeyEnable = false;
-        void Update()
+        protected override void RealUpdate()
         {
             if (effectManager == null)
                 effectManager = bar.effectManager;

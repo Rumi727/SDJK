@@ -17,7 +17,7 @@ namespace SDJK.Effect
         public override void Refresh(bool force = false) { }
 
         int lastCount = -1;
-        void Update()
+        protected override void RealUpdate()
         {
             if (lastCount != count.CeilToInt())
             {

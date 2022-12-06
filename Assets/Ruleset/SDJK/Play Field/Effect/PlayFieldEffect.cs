@@ -14,8 +14,11 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         public override void Refresh(bool force = false) { }
 
-        void Update()
+        protected override void RealUpdate()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             if (effectManager == null)
                 effectManager = playField.effectManager;
 

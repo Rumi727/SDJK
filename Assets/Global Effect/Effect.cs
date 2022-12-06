@@ -1,3 +1,4 @@
+using SCKRM.Rhythm;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,5 +13,15 @@ namespace SDJK.Effect
         public virtual Map.MapFile map => effectManager.selectedMap;
 
         public abstract void Refresh(bool force = false);
+
+        void Update()
+        {
+            if (!RhythmManager.isPlaying)
+                return;
+
+            RealUpdate();
+        }
+
+        protected virtual void RealUpdate() { }
     }
 }

@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Renderer;
+using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Judgement;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,9 @@ namespace SDJK.Ruleset.SDJK.UI
         float yVelocity = 0;
         void Update()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             if (rectTransform.anchoredPosition.y + yVelocity <= defaultY)
             {
                 rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, defaultY);

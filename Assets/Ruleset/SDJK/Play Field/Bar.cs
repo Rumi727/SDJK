@@ -35,6 +35,9 @@ namespace SDJK.Ruleset.SDJK
 
         void Update()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             double globalNoteDistance = map.effect.globalNoteDistance.GetValue(RhythmManager.currentBeatScreen);
             double localNoteDistance = barEffectFile.noteDistance.GetValue(RhythmManager.currentBeatScreen);
 

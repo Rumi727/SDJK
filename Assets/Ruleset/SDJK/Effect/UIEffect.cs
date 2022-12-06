@@ -13,7 +13,7 @@ namespace SDJK.Ruleset.SDJK
 
         public override void Refresh(bool force = false) { }
 
-        void Update()
+        protected override void RealUpdate()
         {
             if (map == null)
                 return;

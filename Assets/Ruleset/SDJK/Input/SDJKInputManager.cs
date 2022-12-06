@@ -1,5 +1,6 @@
 using SCKRM;
 using SCKRM.Input;
+using SCKRM.Rhythm;
 using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Map;
 using System.Collections.Generic;
@@ -33,6 +34,9 @@ namespace SDJK.Ruleset.SDJK.Input
 
         void Update()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             if (instance != null)
             {
                 for (int i = 0; i < map.notes.Count; i++)

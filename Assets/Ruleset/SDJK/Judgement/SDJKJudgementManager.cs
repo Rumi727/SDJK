@@ -48,6 +48,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
         void Update()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             if (instance != null)
             {
                 for (int i = 0; i < judgements.Count; i++)
