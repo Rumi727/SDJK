@@ -28,6 +28,9 @@ namespace SDJK.Ruleset.SDJK
 
         void Update()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             if (soundPlayer != null)
             {
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue();
