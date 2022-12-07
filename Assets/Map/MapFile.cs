@@ -98,20 +98,20 @@ namespace SDJK.Map
 
 
 
-        public SCKRM.Rhythm.BeatValuePairAniListDouble pitch { get; } = new(1);
-        public SCKRM.Rhythm.BeatValuePairAniListDouble tempo { get; } = new(1);
+        public BeatValuePairAniListDouble pitch { get; } = new(1);
+        public BeatValuePairAniListDouble tempo { get; } = new(1);
 
         public BeatValuePairAniListDouble volume { get; } = new(1);
 
 
 
-        public SCKRM.Rhythm.BeatValuePairAniListDouble hpAddValue { get; } = new(1);
-        public SCKRM.Rhythm.BeatValuePairAniListDouble hpMissValue { get; } = new(1);
-        public SCKRM.Rhythm.BeatValuePairAniListDouble hpRemoveValue { get; } = new(1);
+        public BeatValuePairAniListDouble hpAddValue { get; } = new(1);
+        public BeatValuePairAniListDouble hpMissValue { get; } = new(1);
+        public BeatValuePairAniListDouble hpRemoveValue { get; } = new(1);
 
 
 
-        public SCKRM.Rhythm.BeatValuePairAniListDouble judgmentSize { get; } = new(1);
+        public BeatValuePairAniListDouble judgmentSize { get; } = new(1);
     }
 
 
