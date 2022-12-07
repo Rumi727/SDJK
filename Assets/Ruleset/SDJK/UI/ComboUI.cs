@@ -9,17 +9,9 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.UI
 {
-    public sealed class ComboUI : SCKRM.UI.UI
+    public sealed class ComboUI : SDJKUI
     {
         [SerializeField] TMP_Text text;
-
-        protected override async void Awake()
-        {
-            if (await UniTask.WaitUntil(() => SDJKJudgementManager.instance != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
-                return;
-
-            SDJKJudgementManager.instance.judgementAction += JudgementAction;
-        }
 
         float timer = 0;
         bool gray = false;
@@ -47,7 +39,7 @@ namespace SDJK.Ruleset.SDJK.UI
             }
         }
 
-        void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData)
+        protected override void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData)
         {
             int combo = SDJKJudgementManager.instance.combo;
             if (combo <= 0)

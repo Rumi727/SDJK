@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.UI
 {
-    public class JudgementUI : SCKRM.UI.UI
+    public class JudgementUI : SDJKUI
     {
         [SerializeField] CustomImageRenderer image;
         [SerializeField] TMP_Text delayText;
@@ -18,14 +18,6 @@ namespace SDJK.Ruleset.SDJK.UI
         [SerializeField] float jumpValue;
         [SerializeField] float gravityValue;
         [SerializeField] float defaultY;
-
-        protected override async void Awake()
-        {
-            if (await UniTask.WaitUntil(() => SDJKJudgementManager.instance != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
-                return;
-
-            SDJKJudgementManager.instance.judgementAction += JudgementAction;
-        }
 
         float yVelocity = 0;
         void Update()
@@ -45,7 +37,7 @@ namespace SDJK.Ruleset.SDJK.UI
             }
         }
 
-        void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData)
+        protected override void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData)
         {
             if (!graphic.enabled)
                 graphic.enabled = true;
