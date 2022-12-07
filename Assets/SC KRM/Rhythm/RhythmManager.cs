@@ -36,6 +36,10 @@ namespace SCKRM.Rhythm
 
 
         [WikiDescription("현재 BPM")] public static double bpm { get; private set; }
+
+        [WikiDescription("현재 BPM 델타타임")] public static float bpmDeltaTime { get; private set; }
+        [WikiDescription("현재 스케일 되지 않은 BPM 델타타임")] public static float bpmUnscaledDeltaTime { get; private set; }
+
         [WikiDescription("현재 BPM FPS 델타타임")] public static float bpmFpsDeltaTime { get; private set; }
         [WikiDescription("현재 스케일 되지 않은 BPM FPS 델타타임")] public static float bpmUnscaledFpsDeltaTime { get; private set; }
 
@@ -83,8 +87,11 @@ namespace SCKRM.Rhythm
                     }
 
                     {
-                        bpmFpsDeltaTime = (float)(bpm * 0.01f * Kernel.fpsDeltaTime * soundPlayer.speed);
-                        bpmUnscaledFpsDeltaTime = (float)(bpm * 0.01f * Kernel.fpsUnscaledDeltaTime * soundPlayer.speed);
+                        bpmDeltaTime = (float)(bpm / 60 * Kernel.deltaTime * soundPlayer.speed);
+                        bpmUnscaledDeltaTime = (float)(bpm / 60 * Kernel.unscaledDeltaTime * soundPlayer.speed);
+
+                        bpmFpsDeltaTime = bpmDeltaTime * VideoManager.Data.standardFPS;
+                        bpmUnscaledFpsDeltaTime = bpmUnscaledDeltaTime * VideoManager.Data.standardFPS;
                     }
 
                     dropPart = dropPartList.GetValue();
