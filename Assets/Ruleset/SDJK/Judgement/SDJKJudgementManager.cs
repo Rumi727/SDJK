@@ -17,7 +17,21 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
+
+
+
         public int combo { get; private set; }
+
+        public double health 
+        { 
+            get => _health; 
+            private set => _health = value.Clamp(0, maxHealth); 
+        }
+        private double _health = maxHealth;
+
+        public const double maxHealth = 100;
+
+
 
         /// <summary>
         /// lastJudgementBeat[keyIndex]
@@ -55,6 +69,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 for (int i = 0; i < judgements.Count; i++)
                     judgements[i].Update();
+
+                if (RhythmManager.currentBeat >= 0)
+                    instance.health -= map.effect.hpRemoveValue.GetValue() * RhythmManager.bpmDeltaTime;
             }
         }
 
@@ -143,9 +160,15 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     bool isMiss = metaData.nameKey == SDJKRuleset.miss;
                     if (!isMiss)
+                    {
                         instance.combo++;
+                        instance.health += map.effect.hpAddValue.GetValue();
+                    }
                     else
+                    {
                         instance.combo = 0;
+                        instance.health -= map.effect.hpMissValue.GetValue();
+                    }
 
                     instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                     return true;
