@@ -20,6 +20,10 @@ namespace SDJK.Ruleset.SDJK.Map
                 {
                     {
                         SDJKMapFile map = JsonManager.JsonRead<SDJKMapFile>(mapFilePath, true);
+
+                        FixOverlappingNoteAndMinusHold(map);
+                        FixOverlappingAutoNotes(map);
+
                         if (map == null)
                             return null;
                         else if (map.info.sdjkVersion != default)
@@ -377,6 +381,9 @@ namespace SDJK.Ruleset.SDJK.Map
                         EffectStackingTrick(map.effect.globalNoteDistance);
                         #endregion
 
+                        FixOverlappingNoteAndMinusHold(map);
+                        FixOverlappingAutoNotes(map);
+
                         return map;
                     }
                     catch (Exception e)
@@ -384,6 +391,85 @@ namespace SDJK.Ruleset.SDJK.Map
                         Debug.LogException(e);
                         return null;
                     }
+
+                    void FixOverlappingNoteAndMinusHold(SDJKMapFile map)
+                    {
+                        for (int i = 0; i < map.notes.Count; i++)
+                        {
+                            List<NoteFile> notes = map.notes[i];
+
+                            bool holdNoteStart = false;
+                            double holdNoteEndBeat = 0;
+
+                            for (int j = 0; j < notes.Count; j++)
+                            {
+                                NoteFile note = notes[j];
+
+                                //노트 겹침 방지
+                                if (!holdNoteStart)
+                                {
+                                    if (note.holdLength <= 0)
+                                        continue;
+                                    else
+                                    {
+                                        holdNoteStart = true;
+                                        holdNoteEndBeat = note.beat + note.holdLength;
+                                    }
+                                }
+                                else
+                                {
+                                    if (note.beat < holdNoteEndBeat)
+                                        note.type = NoteTypeFile.auto;
+                                    else
+                                        holdNoteStart = false;
+                                }
+
+                                //마이너스 홀드 방지
+                                note.holdLength = note.holdLength.Clamp(0);
+                                notes[j] = note;
+                            }
+                        }
+                    }
+
+                    void FixOverlappingAutoNotes(SDJKMapFile map)
+                    {
+                        for (int i = 0; i < map.notes.Count; i++)
+                        {
+                            List<NoteFile> notes = map.notes[i];
+
+                            bool holdNoteStart = false;
+                            double holdNoteEndBeat = 0;
+
+                            for (int j = 0; j < notes.Count; j++)
+                            {
+                                NoteFile note = notes[j];
+                                if (note.type != NoteTypeFile.auto)
+                                    continue;
+
+                                if (!holdNoteStart)
+                                {
+                                    if (note.holdLength <= 0)
+                                        continue;
+                                    else
+                                    {
+                                        holdNoteStart = true;
+                                        holdNoteEndBeat = note.beat + note.holdLength;
+                                    }
+                                }
+                                else
+                                {
+                                    if (note.beat < holdNoteEndBeat)
+                                    {
+                                        if (note.holdLength > 0)
+                                            notes.RemoveAt(j);
+                                    }
+                                    else
+                                        holdNoteStart = false;
+                                }
+                            }
+                        }
+                    }
+
                 }
                 else
                     return null;

@@ -45,7 +45,12 @@ namespace SDJK.Ruleset.SDJK
             float holdYSize = (float)holdLength;
             float noteDis = (float)bar.noteDistance;
 
-            double lastJudgementBeat = SDJKJudgementManager.instance.lastJudgementBeat[bar.barIndex];
+            double lastJudgementBeat;
+            if (type == NoteTypeFile.auto)
+                lastJudgementBeat = SDJKJudgementManager.instance.lastAutoJudgementBeat[bar.barIndex];
+            else
+                lastJudgementBeat = SDJKJudgementManager.instance.lastJudgementBeat[bar.barIndex];
+
             if (beat + holdLength <= lastJudgementBeat)
             {
                 note.Remove();
@@ -71,6 +76,8 @@ namespace SDJK.Ruleset.SDJK
             Color color = bar.barEffectFile.noteColor.GetValue(RhythmManager.currentBeatSound);
             if (type == NoteTypeFile.instantDeath)
                 color = Color.red;
+            else if (type == NoteTypeFile.auto)
+                color.a *= 0.5f;
 
             spriteRenderer.color = color;
             holdNoteSpriteRenderer.color = color;

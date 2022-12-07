@@ -37,6 +37,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
         /// lastJudgementBeat[keyIndex]
         /// </summary>
         public List<double> lastJudgementBeat { get; } = new List<double>();
+        public List<double> lastAutoJudgementBeat { get; } = new List<double>();
 
 
 
@@ -50,12 +51,18 @@ namespace SDJK.Ruleset.SDJK.Judgement
         {
             if (SingletonCheck(this))
             {
-                lastJudgementBeat.Clear();
                 judgements.Clear();
+
+                lastJudgementBeat.Clear();
+                lastAutoJudgementBeat.Clear();
+
                 for (int i = 0; i < map.notes.Count; i++)
                 {
-                    judgements.Add(new JudgementObject(inputManager, map, i));
+                    judgements.Add(new JudgementObject(inputManager, map, i, lastJudgementBeat, false));
+                    judgements.Add(new JudgementObject(inputManager, map, i, lastAutoJudgementBeat, true));
+
                     lastJudgementBeat.Add(double.MinValue);
+                    lastAutoJudgementBeat.Add(double.MinValue);
                 }
             }
         }
@@ -77,11 +84,13 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
         class JudgementObject
         {
-            public JudgementObject(SDJKInputManager inputManager, SDJKMapFile map, int keyIndex)
+            public JudgementObject(SDJKInputManager inputManager, SDJKMapFile map, int keyIndex, List<double> lastJudgementBeat, bool autoNote)
             {
                 this.inputManager = inputManager;
                 this.map = map;
                 this.keyIndex = keyIndex;
+                this.lastJudgementBeat = lastJudgementBeat;
+                this.autoNote = autoNote;
 
                 List<NoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
@@ -92,41 +101,50 @@ namespace SDJK.Ruleset.SDJK.Judgement
             SDJKMapFile map;
             int keyIndex = 0;
 
+            bool autoNote;
             NoteFile currentNote;
             int currentNoteIndex = 0;
-            NoteFile currentHoldNote;
             double currentHoldBeat = 0;
             bool isHold = false;
+
+            /// <summary>
+            /// lastJudgementBeat[keyIndex]
+            /// </summary>
+            List<double> lastJudgementBeat;
 
             public void Update()
             {
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
                 List<NoteFile> notes = map.notes[keyIndex];
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
+
+                double currentBeat = RhythmManager.currentBeatSound;
+                double bpmDivide60 = RhythmManager.bpm / 60d;
+
                 if (currentNoteIndex < notes.Count)
                 {
-                    double currentBeat = RhythmManager.currentBeatSound;
-                    double bpmDivide60 = RhythmManager.bpm / 60d;
-
-                    bool input = inputManager.GetKey(keyIndex, InputType.Down);
+                    bool input;
                     double disSecond = getDisSecond(currentNote.beat);
 
-                    for (int i = 0; (disSecond >= missSecond || input) && (i < notes.Count); i++)
+                    if (autoNote)
+                        input = currentBeat >= currentNote.beat;
+                    else
+                        input = inputManager.GetKey(keyIndex, InputType.Down);
+
+                    for (int i = 0; (disSecond >= missSecond || input) && i < notes.Count; i++)
                     {
                         if (Judgement(currentNote.beat, disSecond, false, out JudgementMetaData metaData))
                         {
                             bool isMiss = metaData.nameKey == SDJKRuleset.miss;
                             if (currentNote.holdLength > 0)
                             {
-                                if (!isMiss)
+                                if (!isMiss) //미스가 아닐경우 홀드 노트 진행
                                 {
                                     isHold = true;
-
                                     currentHoldBeat = currentNote.beat + currentNote.holdLength;
-                                    currentHoldNote = currentNote;
                                 }
-                                else
-                                    instance.lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
+                                else //미스 일경우 홀드 노트 패스
+                                    lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
                             }
 
                             NextNote();
@@ -136,27 +154,36 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         input = false;
                     }
 
-                    if (isHold)
-                    {
-                        double holdDisSecond = ((currentBeat - currentHoldBeat) / bpmDivide60).Clamp(double.MinValue, missSecond);
-                        if (holdDisSecond >= missSecond || !inputManager.GetKey(keyIndex, InputType.Alway))
-                        {
-                            isHold = false;
-                            Judgement(currentHoldBeat, holdDisSecond, true, out JudgementMetaData metaData);
-                        }
-                    }
-
-
                     //beat 인자랑 currentBeat 변수간의 거리를 계산하고, 계산된 결과를 초로 변환하여 반환합니다
                     double getDisSecond(double beat) => ((currentBeat - beat) / bpmDivide60).Clamp(double.MinValue, missSecond);
+                }
+
+                if (isHold)
+                {
+                    double holdDisSecond = ((currentBeat - currentHoldBeat) / bpmDivide60).Clamp(double.MinValue, missSecond);
+                    bool holdInput;
+
+                    if (autoNote)
+                        holdInput = currentBeat <= currentHoldBeat;
+                    else
+                        holdInput = inputManager.GetKey(keyIndex, InputType.Alway);
+
+                    if (holdDisSecond >= missSecond || !holdInput)
+                    {
+                        isHold = false;
+                        Judgement(currentHoldBeat, holdDisSecond, true, out _);
+                    }
                 }
             }
 
             bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
             {
+                if (autoNote)
+                    disSecond = 0;
+
                 if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                 {
-                    instance.lastJudgementBeat[keyIndex] = beat;
+                    lastJudgementBeat[keyIndex] = beat;
 
                     bool isMiss = metaData.nameKey == SDJKRuleset.miss;
                     if (!isMiss)
@@ -189,8 +216,16 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     {
                         currentNote = notes[currentNoteIndex];
 
-                        if (currentNote.type != NoteTypeFile.instantDeath)
-                            break;
+                        if (autoNote)
+                        {
+                            if (currentNote.type == NoteTypeFile.auto)
+                                break;
+                        }
+                        else
+                        {
+                            if (currentNote.type != NoteTypeFile.instantDeath && currentNote.type != NoteTypeFile.auto)
+                                break;
+                        }
                     }
                 }
             }

@@ -33,7 +33,8 @@ namespace SDJK.Ruleset.SDJK.Map
     public enum NoteTypeFile
     {
         normal,
-        instantDeath
+        instantDeath,
+        auto
     }
 
     public sealed class SDJKMapEffectFile
