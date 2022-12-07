@@ -210,7 +210,7 @@ namespace SDJK.Ruleset.SDJK.Map
 
                         EffectAdd3(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
 
-                        EffectAdd3(oldMap.Effect.HPAddValue, oldMap.Effect.HPAddValueEffect, map.globalEffect.hpAddValue);
+                        /*EffectAdd3(oldMap.Effect.HPAddValue, oldMap.Effect.HPAddValueEffect, map.globalEffect.hpAddValue);
                         EffectAdd3(oldMap.Effect.HPRemoveValue, oldMap.Effect.HPRemoveValueEffect, map.globalEffect.hpMissValue);
 
                         {
@@ -230,7 +230,7 @@ namespace SDJK.Ruleset.SDJK.Map
                                 map.globalEffect.hpRemoveValue.Add(effect.Beat - 1, 0, 0);
                         }
 
-                        EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);
+                        EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);*/
 
                         {
                             FieldEffectFile fieldEffect = map.effect.fieldEffect[0];
@@ -364,9 +364,9 @@ namespace SDJK.Ruleset.SDJK.Map
                         EffectStackingTrick(map.globalEffect.pitch);
                         EffectStackingTrick(map.globalEffect.volume);
 
-                        EffectStackingTrick(map.globalEffect.hpAddValue);
+                        /*EffectStackingTrick(map.globalEffect.hpAddValue);
                         EffectStackingTrick(map.globalEffect.hpRemoveValue);
-                        EffectStackingTrick(map.globalEffect.hpMissValue);
+                        EffectStackingTrick(map.globalEffect.hpMissValue);*/
 
                         EffectStackingTrick(map.globalEffect.judgmentSize);
 
