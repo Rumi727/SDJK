@@ -38,6 +38,10 @@ namespace SDJK.Ruleset.SDJK.Map
 
     public sealed class SDJKMapEffectFile
     {
+        public BeatValuePairAniListDouble hpAddValue { get; } = new(1);
+        public BeatValuePairAniListDouble hpMissValue { get; } = new(1);
+        public BeatValuePairAniListDouble hpRemoveValue { get; } = new(1);
+
         public List<FieldEffectFile> fieldEffect { get; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; } = new(8);
