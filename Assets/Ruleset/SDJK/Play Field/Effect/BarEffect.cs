@@ -17,6 +17,7 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] Transform key;
         [SerializeField] int sortingOrder = 1000;
         [SerializeField] Transform spriteMask;
+        [SerializeField] BoxCollider boxCollider;
 
         PlayField playField => bar.playField;
         SDJKInputManager inputManager => SDJKInputManager.instance;
@@ -55,6 +56,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             backgroundSpriteRenderer.size = new Vector2(Bar.barWidth, fieldHeight);
             spriteRenderer.size = new Vector2(Bar.barWidth, fieldHeight);
             spriteMask.localScale = new Vector3(spriteMask.localScale.x, fieldHeight, spriteMask.localScale.z);
+            boxCollider.size = new Vector3(Bar.barWidth, fieldHeight, 1);
 
             key.localPosition = new Vector3(0, -(fieldHeight * 0.5f) + Bar.barBottomKeyHeightHalf);
         }
