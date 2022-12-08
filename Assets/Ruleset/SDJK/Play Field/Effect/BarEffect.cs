@@ -66,7 +66,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             if (isKeyEnable)
                 inputColor = new Color(0.2f, 0.2f, 0.2f);
 
-            Color color = inputColor * bar.barEffectFile.color.GetValue(RhythmManager.currentBeatSound);
+            Color color = inputColor * bar.barEffectFile.color.GetValue(RhythmManager.currentBeatScreen);
 
             spriteRenderer.color = color;
             keySpriteRenderer.color = color;
