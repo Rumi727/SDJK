@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Effect
 {
-    public sealed class DropPartEffect : Effect
+    public class DropPartEffect : Effect
     {
         [SerializeField] string _leftPrefab = "drop_part_effect.left"; public string leftPrefab => _leftPrefab;
         [SerializeField] string _rightPrefab = "drop_part_effect.right"; public string rightPrefab => _rightPrefab;
