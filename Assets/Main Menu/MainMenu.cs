@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Input;
+using SCKRM.Rhythm;
 using SCKRM.SaveLoad;
 using SCKRM.Scene;
 using SCKRM.Sound;
@@ -362,10 +363,14 @@ namespace SDJK.MainMenu
 
             UIManager.BackEventAllRemove();
 
+            RhythmManager.Stop();
+
             SoundManager.StopSoundAll(true);
             SoundManager.StopNBSAll(true);
 
             SceneManager.LoadScene(2).Forget();
+
+            Kernel.gameSpeed = 1;
 
             await UniTask.WaitUntil(() => instance != null);
 
