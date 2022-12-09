@@ -23,11 +23,14 @@ namespace SCKRM.Sound
             set
             {
                 float lastTime = audioSource.time;
-                audioSource.time = value;
-                tempTime = audioSource.time;
 
                 if (lastTime != value)
+                {
+                    audioSource.time = value;
+                    tempTime = audioSource.time;
+
                     _timeChanged?.Invoke();
+                }
             }
         }
         [WikiDescription("현재 실제 시간")] public override float realTime { get => time / speed; set => time = value * speed; }
@@ -41,8 +44,11 @@ namespace SCKRM.Sound
             get => base.loop;
             set
             {
-                base.loop = value;
-                audioSource.loop = value;
+                if (base.loop != value)
+                {
+                    base.loop = value;
+                    audioSource.loop = value;
+                }
             }
         }
 
@@ -58,10 +64,13 @@ namespace SCKRM.Sound
             get => _isPaused;
             set
             {
-                if (value)
-                    audioSource.Pause();
-                else
-                    audioSource.UnPause();
+                if (_isPaused != value)
+                {
+                    if (value)
+                        audioSource.Pause();
+                    else
+                        audioSource.UnPause();
+                }
 
                 _isPaused = value;
             }
@@ -75,10 +84,13 @@ namespace SCKRM.Sound
             get => base.pitch;
             set
             {
-                base.pitch = value;
+                if (base.pitch != value)
+                {
+                    base.pitch = value;
 
-                SetTempoAndPitch();
-                SetVolume();
+                    SetTempoAndPitch();
+                    SetVolume();
+                }
             }
         }
         [WikiDescription("템포")]
@@ -87,10 +99,13 @@ namespace SCKRM.Sound
             get => base.tempo;
             set
             {
-                base.tempo = value;
+                if (base.tempo != value)
+                {
+                    base.tempo = value;
 
-                SetTempoAndPitch();
-                SetVolume();
+                    SetTempoAndPitch();
+                    SetVolume();
+                }
             }
         }
 
