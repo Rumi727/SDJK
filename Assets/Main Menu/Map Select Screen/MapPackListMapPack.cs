@@ -92,20 +92,29 @@ namespace SDJK.MainMenu.MapSelectScreen
 
             isTextureLoading = true;
 
-            if (background.sprite != null)
+            try
             {
-                Destroy(background.sprite.texture);
-                Destroy(background.sprite);
-            }
+                if (background.sprite != null)
+                {
+                    Destroy(background.sprite.texture);
+                    Destroy(background.sprite);
+                }
 
-            if (selectedMap.globalEffect.background.Count > 0)
+                if (selectedMap.globalEffect.background.Count > 0)
+                {
+                    string texturePath = selectedMap.globalEffect.background[0].value.backgroundFile;
+                    texturePath = PathTool.Combine(selectedMap.mapFilePathParent, texturePath);
+                    background.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
+                }
+            }
+            catch (System.Exception e)
             {
-                string texturePath = selectedMap.globalEffect.background[0].value.backgroundFile;
-                texturePath = PathTool.Combine(selectedMap.mapFilePathParent, texturePath);
-                background.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
+                Debug.LogException(e);
             }
-
-            isTextureLoading = false;
+            finally
+            {
+                isTextureLoading = false;
+            }
 
             while (true)
             {
