@@ -1,11 +1,14 @@
 using ExtendedNumerics;
+using Mono.Cecil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -2417,6 +2420,457 @@ namespace SCKRM
 
             if (list.Count() > 0)
                 return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
+
+            return 0;
+        }
+        #endregion
+
+        #region Close Value
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        public static sbyte CloseValue<T>(this IEnumerable<T> list, sbyte target, Func<T, sbyte> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                sbyte val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    sbyte currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static byte CloseValue<T>(this IEnumerable<T> list, byte target, Func<T, byte> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                byte val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    byte currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static short CloseValue<T>(this IEnumerable<T> list, short target, Func<T, short> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                short val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    short currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static ushort CloseValue<T>(this IEnumerable<T> list, ushort target, Func<T, ushort> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                ushort val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    ushort currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static int CloseValue<T>(this IEnumerable<T> list, int target, Func<T, int> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                int val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    int currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static uint CloseValue<T>(this IEnumerable<T> list, uint target, Func<T, uint> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                uint val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    uint currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static long CloseValue<T>(this IEnumerable<T> list, long target, Func<T, long> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                long val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    long currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static ulong CloseValue<T>(this IEnumerable<T> list, ulong target, Func<T, ulong> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                ulong val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    ulong currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static float CloseValue<T>(this IEnumerable<T> list, float target, Func<T, float> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                float val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    float currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static double CloseValue<T>(this IEnumerable<T> list, double target, Func<T, double> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                double val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    double currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static decimal CloseValue<T>(this IEnumerable<T> list, decimal target, Func<T, decimal> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                decimal val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    decimal currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static BigInteger CloseValue<T>(this IEnumerable<T> list, BigInteger target, Func<T, BigInteger> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                BigInteger val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    BigInteger currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static BigDecimal CloseValue<T>(this IEnumerable<T> list, BigDecimal target, Func<T, BigDecimal> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                BigDecimal val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    BigDecimal currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static nint CloseValue<T>(this IEnumerable<T> list, nint target, Func<T, nint> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                nint val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    nint currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 가장 가까운 수를 찾습니다
+        /// </summary>
+        /// <param name="list">리스트</param>
+        /// <param name="target">기준</param>
+        /// <param name="getNumberFunc">리스트에서 숫자를 가져올 함수</param>
+        /// <returns></returns>
+        [WikiIgnore]
+        public static nuint CloseValue<T>(this IEnumerable<T> list, nuint target, Func<T, nuint> getNumberFunc)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (list.Count() > 0)
+            {
+                using IEnumerator<T> enumerator = list.GetEnumerator();
+                nuint val = getNumberFunc(enumerator.Current);
+
+                while (enumerator.MoveNext())
+                {
+                    nuint currentNumber = getNumberFunc(enumerator.Current);
+                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                }
+
+                return val;
+            }
 
             return 0;
         }
