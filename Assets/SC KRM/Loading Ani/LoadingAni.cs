@@ -42,7 +42,7 @@ namespace SCKRM.Loading
             if (progress < maxProgress)
             {
                 if (startAni)
-                    aniImage.anchorMax = aniImage.anchorMax.Lerp(Vector2.one, LoadingAniManager.Data.aniLerp * Kernel.fpsDeltaTime);
+                    aniImage.anchorMax = aniImage.anchorMax.Lerp(Vector2.one, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledDeltaTime);
                 else
                     aniImage.anchorMax = Vector2.one;
 
@@ -60,7 +60,7 @@ namespace SCKRM.Loading
 
                     if (timer >= LoadingAniManager.Data.longLoadingTime)
                     {
-                        alpha = alpha.MoveTowards(1, 0.01f * Kernel.fpsDeltaTime);
+                        alpha = alpha.MoveTowards(1, 0.01f * Kernel.fpsUnscaledDeltaTime);
                         canvasGroup.alpha = alpha;
 
                         isLongLoadingAniEnd = false;
@@ -84,7 +84,7 @@ namespace SCKRM.Loading
                     isLoadingEnd = true;
                 }
 
-                alpha = alpha.MoveTowards(-0.1f, 0.01f * Kernel.fpsDeltaTime);
+                alpha = alpha.MoveTowards(-0.1f, 0.01f * Kernel.fpsUnscaledDeltaTime);
                 canvasGroup.alpha = alpha;
 
                 progressBar.progress = maxProgress;
@@ -94,7 +94,7 @@ namespace SCKRM.Loading
                     isLongLoadingAniEnd = true;
 
                     if (endAni)
-                        aniImage.anchorMin = aniImage.anchorMin.Lerp(Vector2.right, LoadingAniManager.Data.aniLerp * Kernel.fpsDeltaTime);
+                        aniImage.anchorMin = aniImage.anchorMin.Lerp(Vector2.right, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledDeltaTime);
                     else
                         aniImage.anchorMin = Vector2.right;
 
