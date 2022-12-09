@@ -39,7 +39,7 @@ namespace SCKRM.Loading
         {
             progressBar.maxProgress = maxProgress;
 
-            if (progress < maxProgress)
+            if (!isStartAniEnd || progress < maxProgress)
             {
                 if (startAni)
                     aniImage.anchorMax = aniImage.anchorMax.Lerp(Vector2.one, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledDeltaTime);
