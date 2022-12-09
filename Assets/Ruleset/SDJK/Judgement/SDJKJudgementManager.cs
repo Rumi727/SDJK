@@ -7,7 +7,6 @@ using SDJK.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -78,7 +77,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     judgements[i].Update();
 
                 if (RhythmManager.currentBeat >= 0)
-                    instance.health -= map.effect.hpRemoveValue.GetValue() * RhythmManager.bpmDeltaTime;
+                    instance.health -= map.globalEffect.hpRemoveValue.GetValue() * RhythmManager.bpmDeltaTime;
             }
         }
 
@@ -189,12 +188,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (!isMiss)
                     {
                         instance.combo++;
-                        instance.health += map.effect.hpAddValue.GetValue();
+                        instance.health += map.globalEffect.hpAddValue.GetValue();
                     }
                     else
                     {
                         instance.combo = 0;
-                        instance.health -= map.effect.hpMissValue.GetValue();
+                        instance.health -= map.globalEffect.hpMissValue.GetValue();
                     }
 
                     instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
