@@ -133,6 +133,8 @@ namespace SDJK.Ruleset
             RhythmManager.Stop();
             SoundManager.StopSoundAll(true);
             SoundManager.StopNBSAll(true);
+
+            Kernel.gameSpeed = 1;
         }
     }
 
