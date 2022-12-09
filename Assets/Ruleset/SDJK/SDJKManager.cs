@@ -68,12 +68,9 @@ namespace SDJK.Ruleset.SDJK
 
         public void Restart()
         {
-            RhythmManager.Stop();
+            if (bgmClip != null)
+                Destroy(bgmClip);
 
-            SoundManager.StopSoundAll(true);
-            SoundManager.StopNBSAll(true);
-
-            Destroy(bgmClip);
             ruleset.GameStart(map.mapFilePath);
         }
 
