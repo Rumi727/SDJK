@@ -2,10 +2,12 @@ using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
 using SDJK.Effect;
+using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Ruleset.SDJK.Input;
 using SDJK.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management.Instrumentation;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Judgement
@@ -15,6 +17,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] SDJKManager _sdjkManager; public SDJKManager sdjkManager => _sdjkManager;
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
+        [SerializeField] SDJKGameOverManager _gameOverManager; public SDJKGameOverManager gameOverManager => _gameOverManager;
+
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
 
 
@@ -73,8 +77,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             if (instance != null)
             {
-                for (int i = 0; i < judgements.Count; i++)
-                    judgements[i].Update();
+                //게임 오버 상태에선 판정하면 안됩니다
+                if (!gameOverManager.isGameOver)
+                {
+                    for (int i = 0; i < judgements.Count; i++)
+                        judgements[i].Update();
+                }
 
                 if (RhythmManager.currentBeat >= 0)
                     instance.health -= map.globalEffect.hpRemoveValue.GetValue() * RhythmManager.bpmDeltaTime;
@@ -91,6 +99,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 this.lastJudgementBeat = lastJudgementBeat;
                 this.autoNote = autoNote;
 
+                NextNote();
+
                 List<NoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
@@ -102,7 +112,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             bool autoNote;
             NoteFile currentNote;
-            int currentNoteIndex = 0;
+            int currentNoteIndex = -1;
             double currentHoldBeat = 0;
             bool isHold = false;
 
@@ -123,7 +133,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (currentNoteIndex < notes.Count)
                 {
                     bool input;
-                    double disSecond = getDisSecond(currentNote.beat);
+                    double disSecond = getDisSecond(currentNote.beat, true);
 
                     if (autoNote)
                         input = currentBeat >= currentNote.beat;
@@ -149,12 +159,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             NextNote();
                         }
 
-                        disSecond = getDisSecond(currentNote.beat);
+                        disSecond = getDisSecond(currentNote.beat, true);
                         input = false;
                     }
-
-                    //beat 인자랑 currentBeat 변수간의 거리를 계산하고, 계산된 결과를 초로 변환하여 반환합니다
-                    double getDisSecond(double beat) => ((currentBeat - beat) / bpmDivide60).Clamp(double.MinValue, missSecond);
                 }
 
                 if (isHold)
@@ -173,34 +180,61 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         Judgement(currentHoldBeat, holdDisSecond, true, out _);
                     }
                 }
-            }
 
-            bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
-            {
-                if (autoNote)
-                    disSecond = 0;
-
-                if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
+                bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
                 {
-                    lastJudgementBeat[keyIndex] = beat;
+                    if (autoNote)
+                        disSecond = 0;
 
-                    bool isMiss = metaData.nameKey == SDJKRuleset.miss;
-                    if (!isMiss)
+                    if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                     {
-                        instance.combo++;
-                        instance.health += map.globalEffect.hpAddValue.GetValue();
+                        lastJudgementBeat[keyIndex] = beat;
+
+                        bool isMiss = metaData.nameKey == SDJKRuleset.miss;
+                        if (!isMiss)
+                        {
+                            instance.combo++;
+                            instance.health += map.globalEffect.hpAddValue.GetValue();
+                        }
+                        else
+                        {
+                            instance.combo = 0;
+                            instance.health -= map.globalEffect.hpMissValue.GetValue();
+                        }
+
+                        if (instance.health <= 0)
+                            instance.gameOverManager.GameOver();
+
+                        instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
+                        return true;
                     }
-                    else
+                    else //노트를 치지 않았을때
                     {
-                        instance.combo = 0;
-                        instance.health -= map.globalEffect.hpMissValue.GetValue();
+                        //가장 가까운 즉사 노트 감지
+                        double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == NoteTypeFile.instantDeath);
+                        double dis = getDisSecond(instantDeathNoteBeat, false);
+                        
+                        if (dis.Abs() <= missSecond)
+                        {
+                            instance.health = 0;
+                            instance.gameOverManager.GameOver();
+
+                            instance.judgementAction?.Invoke(dis, true, ruleset.missJudgementMetaData);
+                        }
                     }
 
-                    instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
-                    return true;
+                    return false;
                 }
 
-                return false;
+                //beat 인자랑 currentBeat 변수간의 거리를 계산하고, 계산된 결과를 초로 변환하여 반환합니다
+                double getDisSecond(double beat, bool maxClamp)
+                {
+                    double value = ((currentBeat - beat) / bpmDivide60);
+                    if (maxClamp)
+                        return value.Clamp(double.MinValue, missSecond);
+                    else
+                        return value;
+                }
             }
 
             void NextNote()

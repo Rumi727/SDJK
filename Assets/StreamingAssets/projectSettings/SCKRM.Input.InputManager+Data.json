@@ -171,6 +171,8 @@
     "log.command": false,
     "settingbar": false,
     "volumecontrol": false,
-    "controlbar": false
+    "controlbar": false,
+    "ruleset.sdjk.pause": false,
+    "ruleset.sdjk.gameover": false
   }
 }
