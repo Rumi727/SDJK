@@ -93,18 +93,6 @@ namespace SDJK.Ruleset
 
         public static void GameStart(string mapFilePath)
         {
-            StatusBarManager.statusBarForceHide = true;
-            SideBarManager.sideBarForceHide = true;
-
-            EventSystem.current.SetSelectedGameObject(null);
-            SideBarManager.AllHide();
-
-            UIManager.BackEventAllRemove();
-
-            RhythmManager.Stop();
-            SoundManager.StopSoundAll(true);
-            SoundManager.StopNBSAll(true);
-
             for (int i = 0; i < rulesetList.Count; i++)
             {
                 IRuleset ruleset = rulesetList[i];
@@ -131,6 +119,21 @@ namespace SDJK.Ruleset
         public JudgementMetaData missJudgementMetaData { get; }
 
         public void GameStart(string mapFilePath);
+
+        public static void GameStartDefaultMethod()
+        {
+            StatusBarManager.statusBarForceHide = true;
+            SideBarManager.sideBarForceHide = true;
+
+            EventSystem.current.SetSelectedGameObject(null);
+            SideBarManager.AllHide();
+
+            UIManager.BackEventAllRemove();
+
+            RhythmManager.Stop();
+            SoundManager.StopSoundAll(true);
+            SoundManager.StopNBSAll(true);
+        }
     }
 
     /// <summary>
@@ -146,7 +149,11 @@ namespace SDJK.Ruleset
         public abstract JudgementMetaData[] judgementMetaDatas { get; }
         public abstract JudgementMetaData missJudgementMetaData { get; }
 
-        public abstract void GameStart(string mapFilePath);
+        /// <summary>
+        /// Please put base.GameStart() when overriding
+        /// </summary>
+        /// <param name="mapFilePath"></param>
+        public virtual void GameStart(string mapFilePath) => IRuleset.GameStartDefaultMethod();
     }
 
     public struct JudgementMetaData

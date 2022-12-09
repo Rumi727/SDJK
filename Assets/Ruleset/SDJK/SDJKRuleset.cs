@@ -34,6 +34,8 @@ namespace SDJK.Ruleset.SDJK
 
         public override async void GameStart(string mapFilePath)
         {
+            base.GameStart(mapFilePath);
+
             await SceneManager.LoadScene(3);
             await UniTask.NextFrame();
 

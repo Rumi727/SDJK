@@ -11,9 +11,6 @@ namespace SDJK.Ruleset.ADOFAI
         public override JudgementMetaData[] judgementMetaDatas => null;
         public override JudgementMetaData missJudgementMetaData { get; }
 
-        public override void GameStart(string mapFilePath)
-        {
-
-        }
+        public override void GameStart(string mapFilePath) { }
     }
 }
