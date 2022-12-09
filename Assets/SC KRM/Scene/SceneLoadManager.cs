@@ -27,7 +27,7 @@ namespace SCKRM.Scene
             LoadingAni loadingAni = LoadingAniManager.LoadingStart();
             loadingAni.maxProgress = 1;
 
-            await UniTask.WaitUntil(() => loadingAni.isStartAniEnd);
+            await UniTask.WaitUntil(() => loadingAni.isStartAniEnd || loadingAni.isRemoved);
 
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
             await UniTask.NextFrame();
