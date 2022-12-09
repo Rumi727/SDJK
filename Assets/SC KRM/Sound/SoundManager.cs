@@ -66,6 +66,18 @@ namespace SCKRM.Sound
 
         void Awake() => SingletonCheck(this);
 
+        float lastGameSpeed = Kernel.gameSpeed;
+        void Update()
+        {
+            if (Kernel.gameSpeed != lastGameSpeed)
+            {
+                for (int i = 0; i < soundList.Count; i++)
+                    soundList[i].RefreshTempoAndPitch();
+
+                lastGameSpeed = Kernel.gameSpeed;
+            }
+        }
+
         /// <summary>
         /// It should only run on the main thread
         /// </summary>

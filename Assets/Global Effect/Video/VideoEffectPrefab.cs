@@ -103,7 +103,9 @@ namespace SDJK
         {
             if (isPlaying && !videoPlayer.isPlaying && !videoPlayer.isPaused)
             {
-                PadeOut().Forget();
+                if (!isPadeOut)
+                    PadeOut().Forget();
+
                 return;
             }
 
@@ -139,7 +141,7 @@ namespace SDJK
 
                         if (videoPlayer.isPaused != soundPlayer.isPaused)
                         {
-                            if (RhythmManager.soundPlayer.isPaused)
+                            if (soundPlayer.isPaused)
                                 videoPlayer.Pause();
                             else
                                 videoPlayer.Play();

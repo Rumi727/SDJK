@@ -88,8 +88,8 @@ namespace SCKRM.Sound
                 {
                     base.pitch = value;
 
-                    SetTempoAndPitch();
-                    SetVolume();
+                    RefreshTempoAndPitch();
+                    RefreshVolume();
                 }
             }
         }
@@ -103,8 +103,8 @@ namespace SCKRM.Sound
                 {
                     base.tempo = value;
 
-                    SetTempoAndPitch();
-                    SetVolume();
+                    RefreshTempoAndPitch();
+                    RefreshVolume();
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace SCKRM.Sound
             set
             {
                 base.volume = value;
-                SetVolume();
+                RefreshVolume();
             }
         }
 
@@ -319,8 +319,8 @@ namespace SCKRM.Sound
                 else
                     audioSource.outputAudioMixerGroup = null;
 
-                SetTempoAndPitch();
-                SetVolume();
+                RefreshTempoAndPitch();
+                RefreshVolume();
 
                 audioSource.Play();
             }
@@ -341,7 +341,7 @@ namespace SCKRM.Sound
             }
         }
 
-        void SetTempoAndPitch()
+        public void RefreshTempoAndPitch()
         {
             if (soundData == null || metaData == null)
             {
@@ -372,7 +372,7 @@ namespace SCKRM.Sound
             }
         }
 
-        void SetVolume()
+        public void RefreshVolume()
         {
             if (soundData == null)
             {
