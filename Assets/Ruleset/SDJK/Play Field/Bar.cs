@@ -32,6 +32,8 @@ namespace SDJK.Ruleset.SDJK
         public int barIndex { get; private set; }
         public double noteDistance { get; private set; }
 
+        List<Note> createdNotes = new List<Note>();
+
         void Update()
         {
             if (!RhythmManager.isPlaying)
@@ -42,8 +44,9 @@ namespace SDJK.Ruleset.SDJK
             double localNoteDistance = barEffectFile.noteDistance.GetValue(currentBeat);
 
             noteDistance = globalNoteDistance * localNoteDistance;
+
             NotesPosUpdate();
-            NoteHide();
+            NoteHideUpdate();
         }
 
         void NotesPosUpdate()
@@ -66,6 +69,28 @@ namespace SDJK.Ruleset.SDJK
             spriteMask.localPosition = -notes.localPosition;
         }
 
+        void NoteHideUpdate()
+        {
+            double currentBeatKeyHeight = barBottomKeyHeight / noteDistance;
+            for (int i = 0; i < createdNotes.Count; i++)
+            {
+                Note note = createdNotes[i];
+                if (note == null || note.isRemoved)
+                {
+                    createdNotes.RemoveAt(i);
+                    continue;
+                }
+
+                double currentBeat = RhythmManager.currentBeatScreen;
+
+                bool top = (note.beat - currentBeat) * noteDistance <= (playField.fieldHeight - barBottomKeyHeight);
+                bool bottom = note.beat + note.holdLength + currentBeatKeyHeight >= currentBeat;
+
+                if ((top && bottom) != note.gameObject.activeSelf)
+                    note.gameObject.SetActive(top && bottom);
+            }
+        }
+
         public void Refresh(PlayField playField, int barIndex)
         {
             this.playField = playField;
@@ -82,7 +107,6 @@ namespace SDJK.Ruleset.SDJK
             NoteRefresh();
         }
 
-        List<Note> createdNotes = new List<Note>();
         void NoteAllRemove()
         {
             for (int i = 0; i < createdNotes.Count; i++)
@@ -106,22 +130,6 @@ namespace SDJK.Ruleset.SDJK
                     note.Refresh(this, noteFile);
                     createdNotes.Add(note);
                 }
-            }
-        }
-
-        void NoteHide()
-        {
-            double currentBeatKeyHeight = barBottomKeyHeight / noteDistance;
-            for (int i = 0; i < createdNotes.Count; i++)
-            {
-                Note note = createdNotes[i];
-                double currentBeat = RhythmManager.currentBeatScreen;
-
-                bool top = (note.beat - currentBeat) * noteDistance <= (playField.fieldHeight - barBottomKeyHeight);
-                bool bottom = note.beat + note.holdLength + currentBeatKeyHeight >= currentBeat;
-                
-                if ((top && bottom) != note.gameObject.activeSelf)
-                    note.gameObject.SetActive(top && bottom);
             }
         }
 
