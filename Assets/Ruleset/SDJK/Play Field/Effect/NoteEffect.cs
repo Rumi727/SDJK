@@ -26,9 +26,6 @@ namespace SDJK.Ruleset.SDJK
 
         protected override void RealUpdate()
         {
-            if (!RhythmManager.isPlaying)
-                return;
-
             if (effectManager == null)
                 effectManager = note.effectManager;
 
