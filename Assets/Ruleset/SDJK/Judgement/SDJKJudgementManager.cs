@@ -136,7 +136,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     double disSecond = getDisSecond(currentNote.beat, true);
 
                     if (autoNote)
+                    {
                         input = currentBeat >= currentNote.beat;
+                        disSecond = 0;
+                    }
                     else
                         input = inputManager.GetKey(keyIndex, InputType.Down);
 
@@ -170,7 +173,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     bool holdInput;
 
                     if (autoNote)
+                    {
                         holdInput = currentBeat <= currentHoldBeat;
+                        holdDisSecond = 0;
+                    }
                     else
                         holdInput = inputManager.GetKey(keyIndex, InputType.Alway);
 
@@ -183,9 +189,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
                 {
-                    if (autoNote)
-                        disSecond = 0;
-
                     if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                     {
                         lastJudgementBeat[keyIndex] = beat;
