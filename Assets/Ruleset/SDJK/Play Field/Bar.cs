@@ -127,7 +127,7 @@ namespace SDJK.Ruleset.SDJK
                     NoteFile noteFile = noteFiles[i];
                     Note note = (Note)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field.bar.note", notes).monoBehaviour;
 
-                    note.Refresh(this, noteFile);
+                    note.Refresh(this, noteFile, i);
                     createdNotes.Add(note);
                 }
             }

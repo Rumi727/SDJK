@@ -16,13 +16,17 @@ namespace SDJK.Ruleset.SDJK
         public double holdLength => noteFile.holdLength;
         public NoteTypeFile type => noteFile.type;
 
+        public int index { get; private set; }
+
         public SDJKMapFile map => bar.map;
         public EffectManager effectManager => SDJKManager.instance.effectManager;
 
-        public void Refresh(Bar bar, NoteFile noteFile)
+        public void Refresh(Bar bar, NoteFile noteFile, int index)
         {
             this.bar = bar;
             this.noteFile = noteFile;
+
+            this.index = index;
         }
 
         public override bool Remove()

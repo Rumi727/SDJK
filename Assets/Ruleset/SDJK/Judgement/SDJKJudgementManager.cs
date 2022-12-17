@@ -37,9 +37,21 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
         /// <summary>
+        /// lastJudgementIndex[keyIndex]
+        /// </summary>
+        public List<int> lastJudgementIndex { get; } = new List<int>();
+        /// <summary>
+        /// lastAutoJudgementIndex[keyIndex]
+        /// </summary>
+        public List<int> lastAutoJudgementIndex { get; } = new List<int>();
+
+        /// <summary>
         /// lastJudgementBeat[keyIndex]
         /// </summary>
         public List<double> lastJudgementBeat { get; } = new List<double>();
+        /// <summary>
+        /// lastAutoJudgementBeat[keyIndex]
+        /// </summary>
         public List<double> lastAutoJudgementBeat { get; } = new List<double>();
 
 
@@ -56,13 +68,19 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 judgements.Clear();
 
+                lastJudgementIndex.Clear();
+                lastAutoJudgementIndex.Clear();
+
                 lastJudgementBeat.Clear();
                 lastAutoJudgementBeat.Clear();
 
                 for (int i = 0; i < map.notes.Count; i++)
                 {
-                    judgements.Add(new JudgementObject(inputManager, map, i, lastJudgementBeat, false));
-                    judgements.Add(new JudgementObject(inputManager, map, i, lastAutoJudgementBeat, true));
+                    judgements.Add(new JudgementObject(inputManager, map, i, lastJudgementIndex, lastJudgementBeat, false));
+                    judgements.Add(new JudgementObject(inputManager, map, i, lastAutoJudgementIndex, lastAutoJudgementBeat, true));
+
+                    lastJudgementIndex.Add(int.MinValue);
+                    lastAutoJudgementIndex.Add(int.MinValue);
 
                     lastJudgementBeat.Add(double.MinValue);
                     lastAutoJudgementBeat.Add(double.MinValue);
@@ -91,11 +109,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
         class JudgementObject
         {
-            public JudgementObject(SDJKInputManager inputManager, SDJKMapFile map, int keyIndex, List<double> lastJudgementBeat, bool autoNote)
+            public JudgementObject(SDJKInputManager inputManager, SDJKMapFile map, int keyIndex, List<int> lastJudgementIndex, List<double> lastJudgementBeat, bool autoNote)
             {
                 this.inputManager = inputManager;
                 this.map = map;
                 this.keyIndex = keyIndex;
+                this.lastJudgementIndex = lastJudgementIndex;
                 this.lastJudgementBeat = lastJudgementBeat;
                 this.autoNote = autoNote;
 
@@ -119,6 +138,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             /// <summary>
             /// lastJudgementBeat[keyIndex]
             /// </summary>
+            List<int> lastJudgementIndex;
             List<double> lastJudgementBeat;
 
             public void Update()
@@ -143,7 +163,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         input = inputManager.GetKey(keyIndex, InputType.Down);
 
-                    for (int i = 0; (disSecond >= missSecond || input) && i < notes.Count; i++)
+                    for (int i = currentNoteIndex; (disSecond >= missSecond || input) && i < notes.Count; i++)
                     {
                         if (Judgement(currentNote.beat, disSecond, false, out JudgementMetaData metaData))
                         {
@@ -159,6 +179,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                                     lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
                             }
 
+                            lastJudgementIndex[keyIndex] = currentNoteIndex;
                             NextNote();
                         }
 

@@ -22,6 +22,8 @@ namespace SDJK.Ruleset.SDJK
         double holdLength => note.holdLength;
         NoteTypeFile type => note.type;
 
+        int index => note.index;
+
         public override void Refresh(bool force = false) { }
 
         protected override void RealUpdate()
@@ -42,23 +44,33 @@ namespace SDJK.Ruleset.SDJK
             float holdYSize = (float)holdLength;
             float noteDis = (float)bar.noteDistance;
 
+            int lastJudgementIndex;
             double lastJudgementBeat;
             if (type == NoteTypeFile.auto)
+            {
+                lastJudgementIndex = SDJKJudgementManager.instance.lastAutoJudgementIndex[bar.barIndex];
                 lastJudgementBeat = SDJKJudgementManager.instance.lastAutoJudgementBeat[bar.barIndex];
-            else
-                lastJudgementBeat = SDJKJudgementManager.instance.lastJudgementBeat[bar.barIndex];
-
-            if (beat + holdLength <= lastJudgementBeat)
-            {
-                note.Remove();
-                return true;
             }
-            else if (beat <= lastJudgementBeat)
+            else
             {
-                float cutY = (float)(RhythmManager.currentBeatScreen - beat);
+                lastJudgementIndex = SDJKJudgementManager.instance.lastJudgementIndex[bar.barIndex];
+                lastJudgementBeat = SDJKJudgementManager.instance.lastJudgementBeat[bar.barIndex];
+            }
 
-                y += cutY;
-                holdYSize -= cutY;
+            if (index <= lastJudgementIndex)
+            {
+                if (beat + holdLength <= lastJudgementBeat)
+                {
+                    note.Remove();
+                    return true;
+                }
+                else if (beat <= lastJudgementBeat)
+                {
+                    float cutY = (float)(RhythmManager.currentBeatScreen - beat);
+
+                    y += cutY;
+                    holdYSize -= cutY;
+                }
             }
 
             transform.localPosition = new Vector3(0, y * noteDis, 0);
