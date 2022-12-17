@@ -31,7 +31,7 @@ namespace SDJK.Ruleset.SDJK.Effect
                 effectManager = bar.effectManager;
 
             isKeyEnable = inputManager.GetKey(bar.barIndex, InputType.Alway);
-            if (inputManager.GetKey(bar.barIndex, InputType.Down))
+            if (isKeyEnable)
                 transform.SetAsLastSibling();
 
             PosUpdate();
