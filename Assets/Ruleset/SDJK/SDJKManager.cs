@@ -83,7 +83,7 @@ namespace SDJK.Ruleset.SDJK
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, bgmClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
-                soundPlayer = SoundManager.PlaySound(soundData, 1, true);
+                soundPlayer = SoundManager.PlaySound(soundData);
             }
             else if (File.Exists(path + ".nbs"))
             {
@@ -91,7 +91,7 @@ namespace SDJK.Ruleset.SDJK
                 NBSMetaData nbsMetaData = ResourceManager.CreateNBSMetaData(1, 1, nbsFile);
                 SoundData<NBSMetaData> soundData = ResourceManager.CreateSoundData("", true, nbsMetaData);
 
-                soundPlayer = SoundManager.PlayNBS(soundData, 1, true);
+                soundPlayer = SoundManager.PlayNBS(soundData);
             }
 
             effectManager.soundPlayer = soundPlayer;
