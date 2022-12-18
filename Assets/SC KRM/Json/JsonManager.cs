@@ -34,6 +34,8 @@ namespace SCKRM.Json
                 catch (Exception e)
                 {
                     Debug.LogException(e);
+                    Debug.LogError("Path: " + path);
+
                     return default;
                 }
             }

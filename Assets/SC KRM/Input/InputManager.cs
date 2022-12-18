@@ -143,13 +143,13 @@ namespace SCKRM.Input
         static bool TryInputCheck(string key, Func<KeyCode, bool> func)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetKey));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetKey));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetKey));
+                throw new NotInitialLoadEndMethodException();
 
             if (controlSettingList.TryGetValue(key, out List<KeyCode> list))
             {
@@ -177,13 +177,13 @@ namespace SCKRM.Input
         static bool InputCheck(string key, Func<KeyCode, bool> func)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetKey));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetKey));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetKey));
+                throw new NotInitialLoadEndMethodException();
 
             List<KeyCode> list = controlSettingList[key];
             if (list == null)
@@ -253,13 +253,13 @@ Returns true while the user holds down the key identified by the key KeyCode enu
         public static bool GetKey(KeyCode keyCode, InputType inputType = InputType.Down, params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetKey));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetKey));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetKey));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -323,13 +323,13 @@ Returns true while the user is holding down the key identified by the dictionary
         public static bool TryGetKey(string key, InputType inputType = InputType.Down, params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetKey));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetKey));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetKey));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -395,13 +395,13 @@ Returns true while the user is holding down the key identified by the dictionary
         public static bool GetKey(string key, InputType inputType = InputType.Down, params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetKey));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetKey));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetKey));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -450,14 +450,14 @@ Returns true while the user is holding down the key identified by the dictionary
         public static Vector2 GetMouseDelta(bool ignoreMouseSensitivity = false, params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetMouseDelta));
+                throw new NotMainThreadMethodException();
 
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetMouseDelta));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetMouseDelta));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -519,14 +519,14 @@ Returns whether the given mouse button is held down"
         public static bool GetMouseButton(int button, InputType inputType = InputType.Down, params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetMouseButton));
+                throw new NotMainThreadMethodException();
 
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetMouseButton));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetMouseButton));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -566,14 +566,14 @@ The current mouse delta"
         public static Vector2 GetMouseScrollDelta(params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetMouseScrollDelta));
+                throw new NotMainThreadMethodException();
 
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetMouseScrollDelta));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetMouseScrollDelta));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -605,14 +605,14 @@ Returns true the first frame the user hits any key or mouse button"
         public static bool GetAnyKeyDown(params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetAnyKeyDown));
+                throw new NotMainThreadMethodException();
 
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetAnyKeyDown));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetAnyKeyDown));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -639,14 +639,14 @@ Is any key or mouse button currently held down?"
         public static bool GetAnyKey(params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetAnyKey));
+                throw new NotMainThreadMethodException();
 
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(GetAnyKey));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(GetAnyKey));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -675,14 +675,14 @@ Checks input locks. Returns true if any of the locks except the input lock to ig
         public static bool InputLockCheck(params string[] inputLockDeny)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(InputLockCheck));
+                throw new NotMainThreadMethodException();
 
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(InputLockCheck));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(InputLockCheck));
+                throw new NotInitialLoadEndMethodException();
 
             if (inputLockDeny == null)
                 inputLockDeny = new string[0];
@@ -724,13 +724,13 @@ Checks input locks. Returns true if any of the locks except the input lock to ig
         public static void SetInputLock(string key, bool value)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SetInputLock));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SetInputLock));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SetInputLock));
+                throw new NotInitialLoadEndMethodException();
 
             Data.inputLockList[key] = value;
         }
@@ -753,13 +753,13 @@ Checks input locks. Returns true if any of the locks except the input lock to ig
         public static void TrySetInputLock(string key, bool value)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SetInputLock));
+                throw new NotMainThreadMethodException();
 #if UNITY_EDITOR
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SetInputLock));
+                throw new NotPlayModeMethodException();
 #endif
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SetInputLock));
+                throw new NotInitialLoadEndMethodException();
 
             if (Data.inputLockList.ContainsKey(key))
                 Data.inputLockList[key] = value;

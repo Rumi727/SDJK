@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ namespace SCKRM.UI
     [AddComponentMenu("SC KRM/UI/Size Fitter/Better Content Size Fitter")]
     public sealed class BetterContentSizeFitter : UI, ILayoutSelfController
     {
+        [SerializeField] RectTransform _target; public RectTransform target { get => _target; set => _target = value; }
+
         [SerializeField] bool _xSize = false; public bool xSize { get => _xSize; set => _xSize = value; }
         [SerializeField] bool _ySize = false; public bool ySize { get => _ySize; set => _ySize = value; }
 
@@ -36,6 +39,10 @@ namespace SCKRM.UI
 
         public void HandleSelfFittingAlongAxis(int axis)
         {
+            RectTransform target = this.target;
+            if (target == null)
+                target = rectTransform;
+
             if (axis == 0)
             {
                 if (!xSize)
@@ -44,7 +51,7 @@ namespace SCKRM.UI
                 if (!Kernel.isPlaying)
                     tracker.Add(this, rectTransform, DrivenTransformProperties.SizeDeltaX);
 
-                float size = LayoutUtility.GetPreferredSize(rectTransform, axis);
+                float size = LayoutUtility.GetPreferredSize(target, axis);
                 if (max.x <= 0)
                     size = size.Clamp(min.x);
                 else
@@ -60,7 +67,7 @@ namespace SCKRM.UI
                 if (!Kernel.isPlaying)
                     tracker.Add(this, rectTransform, DrivenTransformProperties.SizeDeltaY);
 
-                float size = LayoutUtility.GetPreferredSize(rectTransform, axis);
+                float size = LayoutUtility.GetPreferredSize(target, axis);
                 if (max.y <= 0)
                     size = size.Clamp(min.y);
                 else

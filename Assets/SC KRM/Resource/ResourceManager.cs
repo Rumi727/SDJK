@@ -29,7 +29,8 @@ namespace SCKRM.Resource
         public sealed class SaveData
         {
             static List<string> _resourcePacks = new List<string>() { Kernel.streamingAssetsPath };
-            [JsonProperty] public static List<string> resourcePacks
+            [JsonProperty]
+            public static List<string> resourcePacks
             {
                 get
                 {
@@ -161,7 +162,7 @@ namespace SCKRM.Resource
         {
             resourceRefreshEvent += async () =>
             {
-                Debug.Log("ResourceManager: Waiting for pack textures to set...");
+                Debug.ForceLog("Waiting for pack textures to set...", nameof(ResourceManager));
                 resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_pack_textures.name", "", false, true);
 
                 await SetPackTextures();
@@ -169,7 +170,7 @@ namespace SCKRM.Resource
 
             resourceRefreshEvent += async () =>
             {
-                Debug.Log("ResourceManager: Waiting for sprite to set...");
+                Debug.ForceLog("Waiting for sprite to set...", nameof(ResourceManager));
                 resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_sprite.name", "", false, true);
 
                 await SetSprite();
@@ -177,7 +178,7 @@ namespace SCKRM.Resource
 
             resourceRefreshEvent += async () =>
             {
-                Debug.Log("ResourceManager: Waiting for language to set...");
+                Debug.ForceLog("Waiting for language to set...", nameof(ResourceManager));
                 resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_language.name", "", false, true);
 
                 await UniTask.RunOnThreadPool(() => SetLanguage());
@@ -187,7 +188,7 @@ namespace SCKRM.Resource
 
             resourceRefreshEvent += async () =>
             {
-                Debug.Log("ResourceManager: Waiting for audio to set...");
+                Debug.ForceLog("Waiting for audio to set...", nameof(ResourceManager));
                 resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_audio.name", "", false, true);
 
                 await SetAudio();
@@ -208,9 +209,9 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
         public static async UniTask ResourceRefresh(bool garbageRemoval)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(ResourceRefresh));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(ResourceRefresh));
+                throw new NotPlayModeMethodException();
             if (isResourceRefesh)
                 return;
 
@@ -226,7 +227,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
             try
             {
-                Debug.Log("ResourceManager: Resource refresh start!");
+                Debug.ForceLog("Resource refresh start!", nameof(ResourceManager));
 
                 for (int i = 0; i < delegates.Length; i++)
                 {
@@ -244,12 +245,12 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                         return;
                 }
 
-                Debug.Log("ResourceManager: Resource refresh finished!");
+                Debug.ForceLog("Resource refresh finished!", nameof(ResourceManager));
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
-                Debug.LogError("ResourceManager: Resource refresh failed");
+                Debug.ForceLogError("Resource refresh failed", nameof(ResourceManager));
 
                 if (!InitialLoadManager.isInitialLoadEnd)
                     throw;
@@ -278,9 +279,9 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
         static async UniTask SetPackTextures()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SetPackTextures));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SetPackTextures));
+                throw new NotPlayModeMethodException();
 
             foreach (var item in packTextures)
                 foreach (var item2 in item.Value)
@@ -316,8 +317,8 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                     catch (Exception e)
                     {
                         Debug.LogException(e);
-                        Debug.LogError($"Exception occurred while trying to find the type of resource pack texture");
-                        Debug.LogError($"Texture type path where the exception occurred: {resourcePackTexturePath}");
+                        Debug.ForceLogError($"Exception occurred while trying to find the type of resource pack texture", nameof(ResourceManager));
+                        Debug.ForceLogError($"Texture type path where the exception occurred: {resourcePackTexturePath}", nameof(ResourceManager));
 
                         continue;
                     }
@@ -346,8 +347,8 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                             catch (Exception e)
                             {
                                 Debug.LogException(e);
-                                Debug.LogError($"An exception occurred while locating the texture file in the resource pack texture type folder.");
-                                Debug.LogError($"Texture path where the exception occurred: {typePath}");
+                                Debug.ForceLogError($"An exception occurred while locating the texture file in the resource pack texture type folder.", nameof(ResourceManager));
+                                Debug.ForceLogError($"Texture path where the exception occurred: {typePath}", nameof(ResourceManager));
 
                                 continue;
                             }
@@ -445,8 +446,10 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
             foreach (var nameSpace in nameSpace_type_textures)
             {
-                /*allTextureRects*/ Dictionary<string, Dictionary<string, Rect>> type_fileName = new Dictionary<string, Dictionary<string, Rect>>();
-                /*allTextures*/ Dictionary<string, Texture2D> type_texture = new Dictionary<string, Texture2D>();
+                /*allTextureRects*/
+                Dictionary<string, Dictionary<string, Rect>> type_fileName = new Dictionary<string, Dictionary<string, Rect>>();
+                /*allTextures*/
+                Dictionary<string, Texture2D> type_texture = new Dictionary<string, Texture2D>();
                 foreach (var type in nameSpace.Value)
                 {
                     if (!Kernel.isPlaying)
@@ -506,8 +509,10 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                     resourceRefreshDetailedAsyncTask.progress++;
                 }
-                /*allTextureRects*/ packTextureRects.Add(nameSpace.Key, type_fileName);
-                /*allTextures*/ packTextures.Add(nameSpace.Key, type_texture);
+                /*allTextureRects*/
+                packTextureRects.Add(nameSpace.Key, type_fileName);
+                /*allTextures*/
+                packTextures.Add(nameSpace.Key, type_texture);
             }
 
             isInitialLoadPackTexturesEnd = true;
@@ -524,11 +529,11 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
         static async UniTask SetSprite()
         {
             if (!isInitialLoadPackTexturesEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SetSprite));
+                throw new NotInitialLoadEndMethodException();
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SetSprite));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SetSprite));
+                throw new NotPlayModeMethodException();
 
             foreach (var item in allTextureSprites)
                 foreach (var item2 in item.Value)
@@ -608,9 +613,9 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
         static async UniTask SetAudio()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SetAudio));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SetAudio));
+                throw new NotPlayModeMethodException();
 
             foreach (var item in allSounds)
             {
@@ -720,7 +725,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
         static void SetLanguage()
         {
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SetLanguage));
+                throw new NotPlayModeMethodException();
 
             allLanguages.Clear();
 
@@ -779,7 +784,7 @@ delete garbage"
         public static void GarbageRemoval()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SetAudio));
+                throw new NotMainThreadMethodException();
 
             for (int i = 0; i < garbages.Count; i++)
                 UnityEngine.Object.DestroyImmediate(garbages[i]);
@@ -852,7 +857,7 @@ Finds the path of the merged texture and returns it"
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadPackTexturesEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchTexturePath));
+                throw new NotInitialLoadEndMethodException();
 
             if (type == null)
                 type = "";
@@ -885,16 +890,16 @@ Finds the path of the merged texture and returns it"
         /// <returns></returns>
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
-[WikiDescription(
-@"합쳐진 텍스쳐를 반환합니다
+        [WikiDescription(
+        @"합쳐진 텍스쳐를 반환합니다
 Returns the merged texture"
-)]
+        )]
         public static Texture2D SearchPackTexture(string type, string nameSpace = "")
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadPackTexturesEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchPackTexture));
+                throw new NotInitialLoadEndMethodException();
 
             if (type == null)
                 type = "";
@@ -938,7 +943,7 @@ Returns a Rect of the merged texture."
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadPackTexturesEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchTextureRect));
+                throw new NotInitialLoadEndMethodException();
 
             if (type == null)
                 type = "";
@@ -982,7 +987,7 @@ Returns a Rect of the merged texture."
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadSpriteEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchSprites));
+                throw new NotInitialLoadEndMethodException();
 
             if (type == null)
                 type = "";
@@ -1029,7 +1034,7 @@ It can be executed even if it is not in the initial loading and play mode"
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadLanguageEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchLanguage));
+                throw new NotInitialLoadEndMethodException();
 
             if (key == null)
                 key = "";
@@ -1079,7 +1084,7 @@ Finds and returns sound data from resource packs"
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadAudioEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchSoundData));
+                throw new NotInitialLoadEndMethodException();
 
             if (key == null)
                 key = "";
@@ -1121,7 +1126,7 @@ Finds and returns sound data from resource packs"
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!isInitialLoadAudioEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SearchNBSData));
+                throw new NotInitialLoadEndMethodException();
 
             if (key == null)
                 key = "";
@@ -1213,7 +1218,8 @@ Import image files as Texture2D type"
         /// 텍스쳐 포맷 (png, jpg 파일에서만 작동)
         /// </param>
         /// <returns></returns>
-        [WikiIgnore] public static Texture2D GetTexture(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
+        [WikiIgnore]
+        public static Texture2D GetTexture(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (path == null)
                 path = "";
@@ -1331,7 +1337,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
         public static async UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetAudio));
+                throw new NotMainThreadMethodException();
 
             if (path == null)
                 path = "";
@@ -1394,7 +1400,7 @@ Convert texture to sprite (Since the Unity API is used, we need to run it on the
         public static Sprite GetSprite(Texture2D texture, SpriteMetaData spriteMetaData = null)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetSprite));
+                throw new NotMainThreadMethodException();
 
             if (texture == null)
                 return null;
@@ -1443,7 +1449,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         public static Sprite[] GetSprites(string resourcePackPath, string type, string name, string nameSpace = "", TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetSprites));
+                throw new NotMainThreadMethodException();
 
             if (resourcePackPath == null || resourcePackPath == "")
                 return null;
@@ -1484,10 +1490,11 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        [WikiIgnore] public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
+        [WikiIgnore]
+        public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetSprites));
+                throw new NotMainThreadMethodException();
 
             if (path == null)
                 path = "";
@@ -1510,10 +1517,11 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        [WikiIgnore] public static Sprite[] GetSprites(Texture2D texture, params SpriteMetaData[] spriteMetaDatas)
+        [WikiIgnore]
+        public static Sprite[] GetSprites(Texture2D texture, params SpriteMetaData[] spriteMetaDatas)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetSprites));
+                throw new NotMainThreadMethodException();
 
             if (texture == null)
                 return null;
@@ -1600,7 +1608,7 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
         {
 #if !((UNITY_STANDALONE_LINUX && !UNITY_EDITOR) || UNITY_EDITOR_LINUX)
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(GetAudio));
+                throw new NotMainThreadMethodException();
 
             if (path == null)
                 path = "";
@@ -1610,16 +1618,26 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
 
 
             AudioClip audioClip = await getSound(".ogg", AudioType.OGGVORBIS);
-            if (audioClip == null) audioClip = await getSound(".mp3", AudioType.MPEG);
-            if (audioClip == null) audioClip = await getSound(".mp2", AudioType.MPEG);
-            if (audioClip == null) audioClip = await getSound(".wav", AudioType.WAV);
-            if (audioClip == null) audioClip = await getSound(".aif", AudioType.AIFF);
-            if (audioClip == null) audioClip = await getSound(".xm", AudioType.XM);
-            if (audioClip == null) audioClip = await getSound(".mod", AudioType.MOD);
-            if (audioClip == null) audioClip = await getSound(".it", AudioType.IT);
-            if (audioClip == null) audioClip = await getSound(".vag", AudioType.VAG);
-            if (audioClip == null) audioClip = await getSound(".xma", AudioType.XMA);
-            if (audioClip == null) audioClip = await getSound(".s3m", AudioType.S3M);
+            if (audioClip == null)
+                audioClip = await getSound(".mp3", AudioType.MPEG);
+            if (audioClip == null)
+                audioClip = await getSound(".mp2", AudioType.MPEG);
+            if (audioClip == null)
+                audioClip = await getSound(".wav", AudioType.WAV);
+            if (audioClip == null)
+                audioClip = await getSound(".aif", AudioType.AIFF);
+            if (audioClip == null)
+                audioClip = await getSound(".xm", AudioType.XM);
+            if (audioClip == null)
+                audioClip = await getSound(".mod", AudioType.MOD);
+            if (audioClip == null)
+                audioClip = await getSound(".it", AudioType.IT);
+            if (audioClip == null)
+                audioClip = await getSound(".vag", AudioType.VAG);
+            if (audioClip == null)
+                audioClip = await getSound(".xma", AudioType.XMA);
+            if (audioClip == null)
+                audioClip = await getSound(".s3m", AudioType.S3M);
 
             return audioClip;
 
@@ -2049,7 +2067,7 @@ Gets the average color of a texture (Since the Unity API is used, we need to run
         public static Color AverageColorFromTexture(Texture2D texture, int x, int y, int width, int height)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(AverageColorFromTexture));
+                throw new NotMainThreadMethodException();
 
             Color[] textureColors = texture.GetPixels(x, y, width, height);
 
@@ -2099,7 +2117,7 @@ Gets the average color of a texture (Since the Unity API is used, we need to run
         public static Texture2D TextureFromColor(Color color, int width, int height, FilterMode filterMode = FilterMode.Point)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(TextureFromColor));
+                throw new NotMainThreadMethodException();
 
             if (color == null)
                 color = Color.white;
@@ -2136,7 +2154,7 @@ Gets the average color of a texture (Since the Unity API is used, we need to run
         public static Texture2D TextureFromColor(Color color, Texture2D alpha)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(TextureFromColor));
+                throw new NotMainThreadMethodException();
 
             if (color == null)
                 color = Color.white;
@@ -2185,7 +2203,7 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         public static Sprite SpriteFromColor(Color color, int width = 1, int height = 1, FilterMode filterMode = FilterMode.Point, SpriteMetaData spriteMetaData = null)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SpriteFromColor));
+                throw new NotMainThreadMethodException();
 
             if (color == null)
                 color = Color.white;
@@ -2223,10 +2241,11 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         /// </param>
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
-        [WikiIgnore] public static Sprite SpriteFromColor(Color color, Texture2D alpha, SpriteMetaData spriteMetaData = null)
+        [WikiIgnore]
+        public static Sprite SpriteFromColor(Color color, Texture2D alpha, SpriteMetaData spriteMetaData = null)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SpriteFromColor));
+                throw new NotMainThreadMethodException();
 
             if (color == null)
                 color = Color.white;

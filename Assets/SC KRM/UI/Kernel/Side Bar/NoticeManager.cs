@@ -71,11 +71,11 @@ namespace SCKRM.UI.SideBar
         static void notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info, Type type)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(Notice));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(Notice));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(Notice));
+                throw new NotInitialLoadEndMethodException();
 
             if (noticeList.Count >= 10)
                 FirstRemove();

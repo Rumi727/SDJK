@@ -95,7 +95,7 @@ namespace SCKRM.FileDialog
 
 
         static CancellationTokenSource _showMethodCancelTokenSource = new CancellationTokenSource();
-        static CancellationTokenSource showMethodCancelTokenSource => _showMethodCancelTokenSource; 
+        static CancellationTokenSource showMethodCancelTokenSource => _showMethodCancelTokenSource;
         static CancellationToken showMethodCancelToken => showMethodCancelTokenSource.Token;
 
         static bool cancelButIsSuccess = false;
@@ -195,7 +195,8 @@ namespace SCKRM.FileDialog
         /// <param name="undoAllow">
         /// 언도 허용
         /// </param>
-        [WikiIgnore] public static void ScreenRefresh(string path, bool undoAllow)
+        [WikiIgnore]
+        public static void ScreenRefresh(string path, bool undoAllow)
         {
             path = PathTool.ReplaceInvalidPathChars(path).Replace("\\", "/");
             currentPath = path;
@@ -296,7 +297,7 @@ namespace SCKRM.FileDialog
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(ShowFolderOpen));
+                throw new NotInitialLoadEndMethodException();
 
             await UniTask.WaitUntil(() => instance != null);
 
@@ -328,7 +329,7 @@ namespace SCKRM.FileDialog
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(ShowFileOpen));
+                throw new NotInitialLoadEndMethodException();
 
             await UniTask.WaitUntil(() => instance != null);
 
@@ -357,7 +358,7 @@ namespace SCKRM.FileDialog
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(ShowFileSave));
+                throw new NotInitialLoadEndMethodException();
 
             await UniTask.WaitUntil(() => instance != null);
 

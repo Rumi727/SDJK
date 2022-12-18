@@ -11,10 +11,14 @@ namespace SCKRM.Editor
         {
             base.OnInspectorGUI();
 
+            UseProperty("_target");
+
+            Space();
+
             UseProperty("_xSize", "X 크기 변경");
             UseProperty("_ySize", "Y 크기 변경");
 
-            EditorGUILayout.Space();
+            Space();
 
             UseProperty("_offset");
             UseProperty("_minSize");

@@ -27,7 +27,8 @@ namespace SCKRM.Sound
         [GeneralSaveLoad]
         public sealed class SaveData
         {
-            static int _mainVolume = 100; [JsonProperty] public static int mainVolume
+            static int _mainVolume = 100; [JsonProperty]
+            public static int mainVolume
             {
                 get => _mainVolume.Clamp(0, 200);
                 set
@@ -85,11 +86,11 @@ namespace SCKRM.Sound
         public static void SoundRefresh()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(SoundRefresh));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(SoundRefresh));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(SoundRefresh));
+                throw new NotInitialLoadEndMethodException();
 
 
 
@@ -247,11 +248,11 @@ namespace SCKRM.Sound
         static SoundPlayer playSound(string key, string nameSpace, SoundData<SoundMetaData> soundData, float volume, bool loop, float pitch, float tempo, float panStereo, bool spatial, float minDistance, float maxDistance, Transform parent, float x, float y, float z)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(PlaySound));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(PlaySound));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(PlaySound));
+                throw new NotInitialLoadEndMethodException();
 
             if (soundList.Count >= maxSoundCount)
             {
@@ -318,11 +319,11 @@ namespace SCKRM.Sound
         public static int StopSound(string key, string nameSpace = "", bool all = true)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(StopSound));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(StopSound));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(StopSound));
+                throw new NotInitialLoadEndMethodException();
 
             if (key == null)
                 key = "";
@@ -358,11 +359,11 @@ namespace SCKRM.Sound
         public static int StopSoundAll()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(StopSoundAll));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(StopSoundAll));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(StopSoundAll));
+                throw new NotInitialLoadEndMethodException();
 
             int stopCount = 0;
             for (int i = 0; i < soundList.Count; i++)
@@ -385,11 +386,11 @@ namespace SCKRM.Sound
         public static int StopSoundAll(bool bgm)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(StopSoundAll));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(StopSoundAll));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(StopSoundAll));
+                throw new NotInitialLoadEndMethodException();
 
             int stopCount = 0;
             for (int i = 0; i < soundList.Count; i++)
@@ -558,11 +559,11 @@ namespace SCKRM.Sound
         static NBSPlayer playNBS(string key, string nameSpace, SoundData<NBSMetaData> nbsData, float volume, bool loop, float pitch, float tempo, float panStereo, bool spatial, float minDistance, float maxDistance, Transform parent, float x, float y, float z)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(PlayNBS));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(PlayNBS));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(PlayNBS));
+                throw new NotInitialLoadEndMethodException();
 
             if (nbsList.Count >= maxNBSCount)
             {
@@ -617,11 +618,11 @@ namespace SCKRM.Sound
         public static int StopNBS(string key, string nameSpace = "", bool all = true)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(StopNBS));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(StopNBS));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(StopNBS));
+                throw new NotInitialLoadEndMethodException();
 
             if (key == null)
                 key = "";
@@ -659,11 +660,11 @@ namespace SCKRM.Sound
         public static int StopNBSAll()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(StopNBSAll));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(StopNBSAll));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(StopNBSAll));
+                throw new NotInitialLoadEndMethodException();
 
             int stopCount = 0;
             for (int i = 0; i < nbsList.Count; i++)
@@ -686,11 +687,11 @@ namespace SCKRM.Sound
         public static int StopNBSAll(bool bgm)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(StopSoundAll));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(StopSoundAll));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(StopSoundAll));
+                throw new NotInitialLoadEndMethodException();
 
             int stopCount = 0;
             for (int i = 0; i < nbsList.Count; i++)

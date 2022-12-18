@@ -49,6 +49,9 @@ namespace SCKRM.Object
                 return false;
 
             ObjectPoolingSystem.ObjectRemove(objectPooling.objectKey, ui, objectPooling);
+            if (!Kernel.isPlaying)
+                return false;
+
             ui.name = objectPooling.objectKey;
 
             ui.rectTransform.anchoredPosition = Vector3.zero;

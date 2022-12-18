@@ -17,7 +17,7 @@ namespace SCKRM.UI
         [SerializeField] bool _worldRenderMode; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
         [SerializeField] float _planeDistance; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
 
-        [NonSerialized] Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentFieldSave(_canvas, ComponentTool.GetComponentMode.destroyIfNull);
+
 
         [SerializeField, HideInInspector] RectTransform safeScreen;
 

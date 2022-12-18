@@ -90,7 +90,7 @@ namespace SCKRM
                     Thread.Sleep(1);
 
                 _cancelEvent += value;
-                
+
                 Interlocked.Decrement(ref cancelEventLock);
             }
             remove
@@ -121,7 +121,7 @@ namespace SCKRM
         public virtual bool Remove(bool force)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(Remove));
+                throw new NotMainThreadMethodException();
 
             if (!isCanceled && (!cantCancel || force))
             {

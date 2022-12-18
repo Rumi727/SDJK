@@ -30,6 +30,8 @@ namespace SCKRM.Sound
         [WikiDescription("곡의 길이")] float length { get; }
         [WikiDescription("곡의 실제 길이")] float realLength { get; }
 
+        [WikiDescription("루프 가능 여부")] bool loop { get; set; }
+
 
 
         event Action timeChanged;
@@ -189,6 +191,10 @@ namespace SCKRM.Sound
             if (!base.Remove())
                 return false;
 
+            _looped = null;
+            _timeChanged = null;
+            _onAudioFilterReadEvent = null;
+
             key = "";
             nameSpace = "";
 
@@ -198,14 +204,10 @@ namespace SCKRM.Sound
 
             loop = false;
 
-
-            _looped = null;
-            _timeChanged = null;
-
             isLooped = false;
             isPaused = false;
 
-            
+
             pitch = 1;
             tempo = 1;
 
@@ -222,7 +224,6 @@ namespace SCKRM.Sound
             spatial = false;
             localPosition = Vector3.zero;
 
-            _onAudioFilterReadEvent = null;
             return true;
         }
     }

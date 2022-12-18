@@ -44,14 +44,14 @@ namespace DiscordPresence
 
         public void RequestRespondYes()
         {
-            Debug.Log("Discord: responding yes to Ask to Join request");
+            Debug.Log("responding yes to Ask to Join request", "Discord");
             DiscordRpc.Respond(joinRequest.userId, DiscordRpc.Reply.Yes);
             hasResponded.Invoke();
         }
 
         public void RequestRespondNo()
         {
-            Debug.Log("Discord: responding no to Ask to Join request");
+            Debug.Log("responding no to Ask to Join request", "Discord");
             DiscordRpc.Respond(joinRequest.userId, DiscordRpc.Reply.No);
             hasResponded.Invoke();
         }
@@ -60,7 +60,7 @@ namespace DiscordPresence
         public void ReadyCallback()
         {
             ++callbackCalls;
-            Debug.Log("Discord: ready");
+            Debug.ForceLog("ready", "Discord");
             onConnect.Invoke();
             UpdatePresence(null);
         }
@@ -68,34 +68,34 @@ namespace DiscordPresence
         public void DisconnectedCallback(int errorCode, string message)
         {
             ++callbackCalls;
-            Debug.Log(string.Format("Discord: disconnect {0}: {1}", errorCode, message));
+            Debug.Log(string.Format("disconnect {0}: {1}", errorCode, message), "Discord");
             onDisconnect.Invoke();
         }
 
         public void ErrorCallback(int errorCode, string message)
         {
             ++callbackCalls;
-            Debug.Log(string.Format("Discord: error {0}: {1}", errorCode, message));
+            Debug.Log(string.Format("error {0}: {1}", errorCode, message), "Discord");
         }
 
         public void JoinCallback(string secret)
         {
             ++callbackCalls;
-            Debug.Log(string.Format("Discord: join ({0})", secret));
+            Debug.Log(string.Format("join ({0})", secret), "Discord");
             onJoin.Invoke(secret);
         }
 
         public void SpectateCallback(string secret)
         {
             ++callbackCalls;
-            Debug.Log(string.Format("Discord: spectate ({0})", secret));
+            Debug.Log(string.Format("spectate ({0})", secret), "Discord");
             onSpectate.Invoke(secret);
         }
 
         public void RequestCallback(ref DiscordRpc.JoinRequest request)
         {
             ++callbackCalls;
-            Debug.Log(string.Format("Discord: join request {0}#{1}: {2}", request.username, request.discriminator, request.userId));
+            Debug.Log(string.Format("join request {0}#{1}: {2}", request.username, request.discriminator, request.userId), "Discord");
             joinRequest = request;
             onJoinRequest.Invoke(request);
         }
@@ -122,7 +122,7 @@ namespace DiscordPresence
 
         public virtual void OnEnable()
         {
-            Debug.Log("Discord: init");
+            Debug.ForceLog("init", "Discord");
             callbackCalls = 0;
 
             handlers = new DiscordRpc.EventHandlers();
@@ -137,14 +137,14 @@ namespace DiscordPresence
 
         public virtual void OnDisable()
         {
-            Debug.Log("Discord: shutdown");
+            Debug.ForceLog("shutdown", "Discord");
             DiscordRpc.Shutdown();
         }
-#endregion
+        #endregion
 
-#region Update Presence Method
-        public static void UpdatePresence(string detail, string state = null, long start = -1, long end = -1, string largeKey = null,string largeText = null, 
-            string smallKey = null, string smallText = null, string partyId = null, int size = -1, int max = -1, string match = null, string join = null, 
+        #region Update Presence Method
+        public static void UpdatePresence(string detail, string state = null, long start = -1, long end = -1, string largeKey = null, string largeText = null,
+            string smallKey = null, string smallText = null, string partyId = null, int size = -1, int max = -1, string match = null, string join = null,
             string spectate = null/*, bool instance*/)
         {
             instance.presence.details = detail ?? instance.presence.details;
@@ -189,6 +189,6 @@ namespace DiscordPresence
             ClearPresence();
             DiscordRpc.UpdatePresence(instance.presence);
         }
-#endregion
+        #endregion
     }
 }

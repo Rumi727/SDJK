@@ -47,10 +47,10 @@ namespace SCKRM
 
                 //이 함수는 어떠한 경우에도 메인스레드가 아닌 스레드에서 실행되면 안됩니다
                 if (!ThreadManager.isMainThread)
-                    throw new NotMainThreadMethodException(nameof(InitialLoad));
+                    throw new NotMainThreadMethodException();
                 //이 함수는 어떠한 경우에도 앱이 플레이중이 아닐때 실행되면 안됩니다
                 if (!Kernel.isPlaying)
-                    throw new NotPlayModeMethodException(nameof(InitialLoad));
+                    throw new NotPlayModeMethodException();
 #if UNITY_EDITOR
                 if (UnityEditor.EditorSettings.enterPlayModeOptionsEnabled && UnityEditor.EditorSettings.enterPlayModeOptions.HasFlag(UnityEditor.EnterPlayModeOptions.DisableDomainReload))
                 {
@@ -137,7 +137,7 @@ namespace SCKRM
                     _ = Kernel.unityVersion;
                 }
 
-                Debug.Log("Kernel: Waiting for settings to load...");
+                Debug.Log("Waiting for settings to load...", nameof(InitialLoadManager));
                 {
                     //세이브 데이터의 기본값과 변수들을 다른 스레드에서 로딩합니다
                     if (await UniTask.RunOnThreadPool(Initialize, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
@@ -170,7 +170,7 @@ namespace SCKRM
                 //가상머신 밴이 활성화되어있을때 가상 머신일 경우 프로그램을 강제종료 합니다
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
                 if (VirtualMachineDetector.Data.vmBan && (VirtualMachineDetector.HardwareDetection() || VirtualMachineDetector.ProcessDetection() || VirtualMachineDetector.FileDetection()))
-                    ApplicationForceQuit(nameof(InitialLoadManager), "Virtual machines are prohibited");
+                    ApplicationForceQuit("Virtual machines are prohibited");
 #endif
 
                 //Awake, OnEnable 함수의 작동이 끝날때까지 기다립니다
@@ -181,7 +181,7 @@ namespace SCKRM
 
                 {
                     //리소스를 로딩합니다
-                    Debug.Log("Kernel: Waiting for resource to load...");
+                    Debug.ForceLog("Waiting for resource to load...", nameof(InitialLoadManager));
                     await ResourceManager.ResourceRefresh(true);
 
 #if UNITY_EDITOR
@@ -195,7 +195,7 @@ namespace SCKRM
                     isInitialLoadEnd = true;
                     initialLoadEnd?.Invoke();
 
-                    Debug.Log("Kernel: Initial loading finished!");
+                    Debug.ForceLog("Initial loading finished!", nameof(InitialLoadManager));
                 }
 
                 StartenManager.AllStartableMethodAwaken();
@@ -247,23 +247,24 @@ namespace SCKRM
 
                 if (!isInitialLoadEnd)
                 {
-                    Debug.LogError("Kernel: Initial loading failed");
+                    Debug.ForceLogError("Initial loading failed");
 
                     if (isInitialLoadStart)
-                        ApplicationForceQuit(nameof(InitialLoadManager), "Initial loading failed\n\n" + e.GetType().Name + ": " + e.Message + "\n\n" + e.StackTrace.Substring(5));
+                        ApplicationForceQuit("Initial loading failed\n\n" + e.GetType().Name + ": " + e.Message + "\n\n" + e.StackTrace.Substring(5));
                 }
             }
         }
 
         [WikiDescription("프로그램의 강제 종료 여부")] public static bool isForceQuit { get; private set; }
         [WikiDescription("프로그램을 강제 종료하지만 로그는 띄워야할때 사용하는 메소드 입니다")]
-        public static async void ApplicationForceQuit(string typeName, string message)
+        public static async void ApplicationForceQuit(string message)
         {
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(ApplicationForceQuit));
+                throw new NotPlayModeMethodException();
             else if (isForceQuit)
                 return;
 
+            string typeName = Debug.NameOfCallingClass();
             isForceQuit = true;
 
             await UniTask.WaitUntil(() => UIManager.instance != null);

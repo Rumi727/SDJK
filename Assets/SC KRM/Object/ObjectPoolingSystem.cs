@@ -51,13 +51,13 @@ namespace SCKRM.Object
         public static void ObjectAdd(string objectKey, MonoBehaviour monoBehaviour)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(ObjectAdvanceCreate));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(ObjectAdvanceCreate));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(ObjectAdvanceCreate));
+                throw new NotInitialLoadEndMethodException();
             if (instance == null)
-                throw new NullScriptMethodException(nameof(ObjectPoolingSystem), nameof(ObjectRemove));
+                throw new NullScriptMethodException(nameof(ObjectPoolingSystem));
             if (monoBehaviour == null)
                 throw new NullReferenceException(nameof(monoBehaviour));
 
@@ -86,13 +86,13 @@ namespace SCKRM.Object
         public static (MonoBehaviour monoBehaviour, IObjectPooling objectPooling) ObjectCreate(string objectKey, Transform parent = null, bool autoRefresh = true)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(ObjectCreate));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(ObjectCreate));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(ObjectCreate));
+                throw new NotInitialLoadEndMethodException();
             if (instance == null)
-                throw new NullScriptMethodException(nameof(ObjectPoolingSystem), nameof(ObjectCreate));
+                throw new NullScriptMethodException(nameof(ObjectPoolingSystem));
 
             if (objectList.objectKey.Contains(objectKey))
             {
@@ -102,7 +102,7 @@ namespace SCKRM.Object
                 monoBehaviour.gameObject.SetActive(true);
 
                 objectPooling.objectKey = objectKey;
-                
+
                 {
                     int i = objectList.objectKey.IndexOf(objectKey);
                     objectList.objectKey.RemoveAt(i);
@@ -156,13 +156,13 @@ namespace SCKRM.Object
         public static bool ObjectRemove(string objectKey, MonoBehaviour monoBehaviour, IObjectPooling objectPooling)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(ObjectRemove));
+                throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
-                throw new NotPlayModeMethodException(nameof(ObjectRemove));
+                throw new NotPlayModeMethodException();
             if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException(nameof(ObjectCreate));
+                throw new NotInitialLoadEndMethodException();
             if (instance == null)
-                throw new NullScriptMethodException(nameof(ObjectPoolingSystem), nameof(ObjectRemove));
+                throw new NullScriptMethodException(nameof(ObjectRemove));
             if (monoBehaviour == null)
                 throw new NullReferenceException(nameof(monoBehaviour));
             if (objectPooling == null)

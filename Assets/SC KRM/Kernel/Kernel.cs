@@ -7,6 +7,7 @@ using System;
 using UnityEngine;
 using SCKRM.Input;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace SCKRM
 {
@@ -14,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 11, 9);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 12, 0);
 
 
 
@@ -406,10 +407,10 @@ Build: const true"
         public static async UniTaskVoid AllRefresh()
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException(nameof(AllRefresh));
+                throw new NotMainThreadMethodException();
 
             if (!isPlaying)
-                throw new NotPlayModeMethodException(nameof(AllRefresh));
+                throw new NotPlayModeMethodException();
 
             allRefreshStart?.Invoke();
 
@@ -433,16 +434,10 @@ Build: const true"
     public class NotPlayModeMethodException : Exception
     {
         /// <summary>
-        /// It is not possible to use this function when not in play mode.
-        /// 플레이 모드가 아닐때 이 함수를 사용하는건 불가능합니다.
+        /// It is not possible to use {method} methods when not in play mode.
+        /// 플레이 모드가 아닐때 {method} 메소드를 사용하는건 불가능합니다.
         /// </summary>
-        public NotPlayModeMethodException() : base("It is not possible to use this function when not in play mode.\n플레이 모드가 아닐때 이 함수를 사용하는건 불가능합니다") { }
-
-        /// <summary>
-        /// It is not possible to use {method} functions when not in play mode.
-        /// 플레이 모드가 아닐때 이 함수를 사용하는건 불가능합니다.
-        /// </summary>
-        public NotPlayModeMethodException(string method) : base($"It is not possible to use {method} functions when not in play mode.\n플레이 모드가 아닐때 {method} 함수를 사용하는건 불가능합니다") { }
+        public NotPlayModeMethodException([CallerMemberName] string method = "") : base($"It is not possible to use {method} functions when not in play mode.\n플레이 모드가 아닐때 {method} 함수를 사용하는건 불가능합니다") { }
     }
 
 
@@ -457,8 +452,8 @@ Build: const true"
         public NotPlayModePropertyException() : base("It is not possible to use this property when not in play mode.\n플레이 모드가 아닐때 이 프로퍼티를 사용하는건 불가능합니다") { }
 
         /// <summary>
-        /// It is not possible to use {method} property when not in play mode.
-        /// 플레이 모드가 아닐때 이 프로퍼티를 사용하는건 불가능합니다.
+        /// It is not possible to use {property} propertys when not in play mode.
+        /// 플레이 모드가 아닐때 {property} 프로퍼티를 사용하는건 불가능합니다.
         /// </summary>
         public NotPlayModePropertyException(string property) : base($"It is not possible to use {property} propertys when not in play mode.\n플레이 모드가 아닐때 {property} 프로퍼티를 사용하는건 불가능합니다") { }
     }
@@ -469,16 +464,10 @@ Build: const true"
     public class NotInitialLoadEndMethodException : Exception
     {
         /// <summary>
-        /// Initial loading was not finished, but I tried to use a function that needs loading
-        /// 초기 로딩이 안끝났는데 로딩이 필요한 함수를 사용하려 했습니다
-        /// </summary>
-        public NotInitialLoadEndMethodException() : base("Initial loading was not finished, but I tried to use a function that needs loading\n초기 로딩이 안끝났는데 로딩이 필요한 함수를 사용하려 했습니다") { }
-
-        /// <summary>
         /// Initial loading was not finished, but I tried to use a {method} function that needs loading
         /// 초기 로딩이 안끝났는데 로딩이 필요한 {method} 함수를 사용하려 했습니다
         /// </summary>
-        public NotInitialLoadEndMethodException(string method) : base($"Initial loading was not finished, but I tried to use a {method} function that needs loading\n초기 로딩이 안끝났는데 로딩이 필요한 {method} 함수를 사용하려 했습니다") { }
+        public NotInitialLoadEndMethodException([CallerMemberName] string method = "") : base($"Initial loading was not finished, but I tried to use a {method} function that needs loading\n초기 로딩이 안끝났는데 로딩이 필요한 {method} 함수를 사용하려 했습니다") { }
     }
 
 
@@ -486,18 +475,6 @@ Build: const true"
     [WikiDescription("No object in folder\n폴더에 오브젝트가 없습니다")]
     public class NullFolderObjectException : Exception
     {
-        /// <summary>
-        /// No object in folder
-        /// 폴더에 오브젝트가 없습니다
-        /// </summary>
-        public NullFolderObjectException() : base("No object in folder\n폴더에 오브젝트가 없습니다") { }
-
-        /// <summary>
-        /// No object in {objectPath} folder
-        /// {objectPath} 폴더에 오브젝트가 없습니다
-        /// </summary>
-        public NullFolderObjectException(string objectPath) : base($"No object in {objectPath} folder\n{objectPath} 폴더에 오브젝트가 없습니다") { }
-
         /// <summary>
         /// Object {objectName} does not exist in {objectPath} folder
         /// {objectPath} 폴더에 {objectName} 오브젝트가 없습니다
@@ -509,12 +486,6 @@ Build: const true"
     public class NullResourceObjectException : Exception
     {
         /// <summary>
-        /// No object in resource folder
-        /// 리소스 폴더에 오브젝트가 없습니다
-        /// </summary>
-        public NullResourceObjectException() : base("No object in resource folder\n리소스 폴더에 오브젝트가 없습니다") { }
-
-        /// <summary>
         /// Object {objectName} does not exist in resource folder
         /// 리소스 폴더에 {objectName} 오브젝트가 없습니다
         /// </summary>
@@ -524,12 +495,6 @@ Build: const true"
     [WikiDescription("no scene\n씬이 없습니다")]
     public class NullSceneException : Exception
     {
-        /// <summary>
-        /// no scene
-        /// 씬이 없습니다
-        /// </summary>
-        public NullSceneException() : base("no scene\n씬이 없습니다") { }
-
         /// <summary>
         /// {sceneName} no scene
         /// {sceneName} 씬이 없습니다
@@ -541,21 +506,9 @@ Build: const true"
     public class NullScriptMethodException : Exception
     {
         /// <summary>
-        /// Failed to execute function because script does not exist
-        /// 스크립트가 없어서 함수를 실행하지 못했습니다
-        /// </summary>
-        public NullScriptMethodException() : base("Failed to execute function because script does not exist\n스크립트가 없어서 함수를 실행하지 못했습니다") { }
-
-        /// <summary>
-        /// Failed to execute function because script asdf does not exist
-        /// {script} 스크립트가 없어서 함수를 실행하지 못했습니다
-        /// </summary>
-        public NullScriptMethodException(string scriptName) : base($"Failed to execute function because script {scriptName} does not exist\n{scriptName} 스크립트가 없어서 함수를 실행하지 못했습니다") { }
-
-        /// <summary>
         /// Failed to execute {methodName} function because script {scriptName} does not exist
         /// {script} 스크립트가 없어서 {method} 함수를 실행하지 못했습니다
         /// </summary>
-        public NullScriptMethodException(string scriptName, string methodName) : base($"Failed to execute {methodName} function because script {scriptName} does not exist\n{scriptName} 스크립트가 없어서 {methodName} 함수를 실행하지 못했습니다") { }
+        public NullScriptMethodException(string scriptName, [CallerMemberName] string methodName = "") : base($"Failed to execute {methodName} function because script {scriptName} does not exist\n{scriptName} 스크립트가 없어서 {methodName} 함수를 실행하지 못했습니다") { }
     }
 }
