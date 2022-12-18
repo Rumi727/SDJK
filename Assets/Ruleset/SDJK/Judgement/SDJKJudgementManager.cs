@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
+using SCKRM.Sound;
 using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Ruleset.SDJK.Input;
@@ -163,6 +164,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         input = inputManager.GetKey(keyIndex, InputType.Down);
 
+                    if (input)
+                        HitsoundPlay();
+
                     for (int i = currentNoteIndex; (disSecond >= missSecond || input) && i < notes.Count; i++)
                     {
                         if (Judgement(currentNote.beat, disSecond, false, out JudgementMetaData metaData))
@@ -205,6 +209,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     {
                         isHold = false;
                         Judgement(currentHoldBeat, holdDisSecond, true, out _);
+
+                        HitsoundPlay();
                     }
                 }
 
@@ -259,6 +265,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         return value;
                 }
+
+                void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
             }
 
             void NextNote()
