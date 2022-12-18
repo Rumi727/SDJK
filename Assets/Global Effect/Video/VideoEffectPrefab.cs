@@ -118,42 +118,39 @@ namespace SDJK
 
                 rawImage.color = map.globalEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
 
-                if (soundPlayer != null)
+                if (RhythmManager.time + offset < videoPlayer.length - 0.1f)
                 {
-                    if (RhythmManager.time + offset < videoPlayer.length - 0.1f)
+                    double dis = (RhythmManager.time + offset) - videoPlayer.time;
+                    float speed = (float)(RhythmManager.currentSpeed * Kernel.gameSpeed);
+                    videoPlayer.playbackSpeed = speed;
+
+                    if (dis.Abs() < 1)
                     {
-                        double dis = (soundPlayer.time + offset) - videoPlayer.time;
-                        float speed = soundPlayer.speed * Kernel.gameSpeed;
-                        videoPlayer.playbackSpeed = speed;
+                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-                        if (dis.Abs() < 1)
-                        {
-                            canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                        if (dis >= 0.06)
+                            videoPlayer.playbackSpeed = speed * 4;
 
-                            if (dis >= 0.06)
-                                videoPlayer.playbackSpeed = speed * 4;
-
-                            if (dis <= -0.06)
-                                videoPlayer.playbackSpeed = speed * 0.25f;
-                        }
-                        else
-                            videoPlayer.time = RhythmManager.time + offset;
-
-                        if (videoPlayer.isPaused != soundPlayer.isPaused)
-                        {
-                            if (soundPlayer.isPaused)
-                                videoPlayer.Pause();
-                            else
-                                videoPlayer.Play();
-                        }
+                        if (dis <= -0.06)
+                            videoPlayer.playbackSpeed = speed * 0.25f;
                     }
                     else
-                    {
-                        if (!videoPlayer.isPaused)
-                            videoPlayer.Pause();
+                        videoPlayer.time = RhythmManager.time + offset;
 
-                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                    if (videoPlayer.isPaused != soundPlayer.isPaused)
+                    {
+                        if (soundPlayer.isPaused)
+                            videoPlayer.Pause();
+                        else
+                            videoPlayer.Play();
                     }
+                }
+                else
+                {
+                    if (!videoPlayer.isPaused)
+                        videoPlayer.Pause();
+
+                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
                 }
             }
         }
