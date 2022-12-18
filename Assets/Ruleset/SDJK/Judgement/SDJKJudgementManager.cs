@@ -153,7 +153,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (currentNoteIndex < notes.Count)
                 {
                     bool input;
-                    double disSecond = getDisSecond(currentNote.beat, true);
+                    double disSecond = GetDisSecond(currentNote.beat, true);
 
                     if (autoNote)
                     {
@@ -183,14 +183,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             NextNote();
                         }
 
-                        disSecond = getDisSecond(currentNote.beat, true);
+                        disSecond = GetDisSecond(currentNote.beat, true);
                         input = false;
                     }
                 }
 
                 if (isHold)
                 {
-                    double holdDisSecond = ((currentBeat - currentHoldBeat) / bpmDivide60).Clamp(double.MinValue, missSecond);
+                    double holdDisSecond = GetDisSecond(currentHoldBeat, true);
                     bool holdInput;
 
                     if (autoNote)
@@ -236,7 +236,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     {
                         //가장 가까운 즉사 노트 감지
                         double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == NoteTypeFile.instantDeath);
-                        double dis = getDisSecond(instantDeathNoteBeat, false);
+                        double dis = GetDisSecond(instantDeathNoteBeat, false);
                         
                         if (dis.Abs() <= missSecond)
                         {
@@ -251,9 +251,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
 
                 //beat 인자랑 currentBeat 변수간의 거리를 계산하고, 계산된 결과를 초로 변환하여 반환합니다
-                double getDisSecond(double beat, bool maxClamp)
+                double GetDisSecond(double beat, bool maxClamp)
                 {
-                    double value = ((currentBeat - beat) / bpmDivide60);
+                    double value = (currentBeat - beat) / bpmDivide60 / (RhythmManager.currentSpeed * Kernel.gameSpeed);
                     if (maxClamp)
                         return value.Clamp(double.MinValue, missSecond);
                     else
