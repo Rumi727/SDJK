@@ -13,6 +13,8 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] SDJKManager _manager; public SDJKManager manager => _manager;
         [SerializeField] float speed = 0;
 
+        [SerializeField] bool _invincibility; public bool invincibility { get => _invincibility; set => _invincibility = value; }
+
         public bool isGameOver { get; private set; } = false;
 
         void Awake() => SingletonCheck(this);
@@ -33,6 +35,9 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         public void GameOver()
         {
+            if (invincibility)
+                return;
+
             isGameOver = true;
             InputManager.SetInputLock("ruleset.sdjk.gameover", true);
         }
