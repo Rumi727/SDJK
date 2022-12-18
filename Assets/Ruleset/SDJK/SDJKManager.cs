@@ -62,7 +62,7 @@ namespace SDJK.Ruleset.SDJK
                     playField.Refresh(i);
                 }
 
-                RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.dropPart, null, 1);
+                RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.dropPart, null, 3);
                 BGMPlay().Forget();
             }
         }
