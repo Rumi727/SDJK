@@ -130,7 +130,7 @@ namespace SDJK.MainMenu
 
             try
             {
-                Debug.Log("MapManager: Refreshing map list...");
+                Debug.ForceLog("Refreshing map list...", nameof(MapManager));
 
                 AsyncTask asyncTask = new AsyncTask("notice.running_task.map_list_refresh.name", "");
                 if (ResourceManager.isResourceRefesh)
