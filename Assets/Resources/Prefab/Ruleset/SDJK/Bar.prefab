@@ -336,6 +336,7 @@ MonoBehaviour:
   sortingOrder: 1000
   spriteMask: {fileID: 6255959249335233482}
   boxCollider: {fileID: 2718304284608112839}
+  backgroundAlpha: 0.8
 --- !u!54 &2612711432825133903
 Rigidbody:
   m_ObjectHideFlags: 0

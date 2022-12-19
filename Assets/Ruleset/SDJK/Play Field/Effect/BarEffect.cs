@@ -18,6 +18,7 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] int sortingOrder = 1000;
         [SerializeField] Transform spriteMask;
         [SerializeField] BoxCollider boxCollider;
+        [SerializeField] float backgroundAlpha = 0.8f;
 
         PlayField playField => bar.playField;
         SDJKInputManager inputManager => SDJKInputManager.instance;
@@ -70,6 +71,7 @@ namespace SDJK.Ruleset.SDJK.Effect
 
             Color color = inputColor * bar.barEffectFile.color.GetValue(RhythmManager.currentBeatScreen);
 
+            backgroundSpriteRenderer.color = new Color(0, 0, 0, color.a * backgroundAlpha);
             spriteRenderer.color = color;
             keySpriteRenderer.color = color;
             keyText.color = color;
