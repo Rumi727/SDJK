@@ -5,8 +5,6 @@ using SDJK.Map;
 using SDJK.Ruleset.SDJK.Input;
 using SDJK.Ruleset.SDJK.Judgement;
 using SDJK.Ruleset.SDJK.Map;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
@@ -22,6 +20,7 @@ namespace SDJK.Ruleset.SDJK
             new JudgementMetaData(early, 0.16, 0.5, true)
         };
         public override JudgementMetaData missJudgementMetaData { get; } = new JudgementMetaData(miss, double.MaxValue, 1, true);
+        public JudgementMetaData instantDeathJudgementMetaData { get; } = new JudgementMetaData(instantDeath, double.MaxValue, double.MaxValue, true);
 
         public const string sick = "ruleset.sdjk.sick";
         public const string perfect = "ruleset.sdjk.perfect";
@@ -29,6 +28,7 @@ namespace SDJK.Ruleset.SDJK
         public const string good = "ruleset.sdjk.good";
         public const string early = "ruleset.sdjk.early";
         public const string miss = "ruleset.sdjk.miss";
+        public const string instantDeath = "ruleset.sdjk.instantDeath";
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
 

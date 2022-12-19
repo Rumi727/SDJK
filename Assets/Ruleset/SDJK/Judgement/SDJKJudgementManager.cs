@@ -249,7 +249,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             instance.health = 0;
                             instance.gameOverManager.GameOver();
 
-                            instance.judgementAction?.Invoke(dis, true, ruleset.missJudgementMetaData);
+                            instance.judgementAction?.Invoke(dis, true, ruleset.instantDeathJudgementMetaData);
                         }
                     }
 
