@@ -599,6 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aaff26ed4f42dc4488adb270a47edeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
@@ -709,6 +710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 100744810}
   speed: 0.015625
+  _invincibility: 1
 --- !u!1 &1650278055
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,6 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eab931cc4640dd42bc0a77b4e7880c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
@@ -1000,6 +1003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80878873c0b26984e95c5338a1297994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 1835024279}
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 1835024281}
   _rectTransformTool: {fileID: 0}
@@ -1267,6 +1271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3fe761ec077204fb5f47e623b844b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
