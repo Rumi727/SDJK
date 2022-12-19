@@ -14,7 +14,7 @@ namespace SDJK.Ruleset.SDJK.UI
 
         void Update()
         {
-            if (!RhythmManager.isPlaying)
+            if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
                 return;
 
             valueImage.anchorMax = new Vector2(1, (float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth));
