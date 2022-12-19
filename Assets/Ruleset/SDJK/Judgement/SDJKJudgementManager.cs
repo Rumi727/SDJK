@@ -245,6 +245,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         
                         if (dis.Abs() <= missSecond)
                         {
+                            instance.combo = 0;
                             instance.health = 0;
                             instance.gameOverManager.GameOver();
 
