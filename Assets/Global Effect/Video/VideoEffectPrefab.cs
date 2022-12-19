@@ -118,28 +118,32 @@ namespace SDJK
 
                 rawImage.color = map.globalEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
 
-                if (RhythmManager.time + offset < videoPlayer.length - 0.1f)
+                double time = RhythmManager.time + offset;
+                if (time < videoPlayer.length - 0.1f)
                 {
-                    double dis = (RhythmManager.time + offset) - videoPlayer.time;
+                    double dis = time - videoPlayer.time;
                     float speed = (float)(RhythmManager.currentSpeed * Kernel.gameSpeed);
                     videoPlayer.playbackSpeed = speed;
 
-                    if (dis.Abs() < 1)
+                    if (time >= 0)
                     {
-                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                        if (dis.Abs() < 1)
+                        {
+                            canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-                        if (dis >= 0.06)
-                            videoPlayer.playbackSpeed = speed * 4;
+                            if (dis >= 0.06)
+                                videoPlayer.playbackSpeed = speed * 4;
 
-                        if (dis <= -0.06)
-                            videoPlayer.playbackSpeed = speed * 0.25f;
+                            if (dis <= -0.06)
+                                videoPlayer.playbackSpeed = speed * 0.25f;
+                        }
+                        else
+                            videoPlayer.time = time;
                     }
-                    else
-                        videoPlayer.time = RhythmManager.time + offset;
 
-                    if (videoPlayer.isPaused != soundPlayer.isPaused)
+                    if (videoPlayer.isPaused != (soundPlayer.isPaused && RhythmManager.time >= 0))
                     {
-                        if (soundPlayer.isPaused)
+                        if (soundPlayer.isPaused && RhythmManager.time >= 0)
                             videoPlayer.Pause();
                         else
                             videoPlayer.Play();
