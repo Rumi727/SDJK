@@ -43,6 +43,28 @@ namespace SDJK.Ruleset.SDJK
             Object.FindObjectOfType<SDJKManager>().Refresh(map, this);
             Object.FindObjectOfType<SDJKInputManager>().Refresh();
             Object.FindObjectOfType<SDJKJudgementManager>().Refresh();
+
+            //나중에 다시 필요할 수도...
+            /*System.Collections.Generic.List<BeatValuePairAni<double>> beats = new System.Collections.Generic.List<BeatValuePairAni<double>>();
+            for (int i = 0; i < 350; i++)
+            {
+                if (map.globalEffect.dropPart.GetValue(i + 1) || (i >= 192 && i <= 224))
+                {
+                    BeatValuePairAni<double> asdf = new BeatValuePairAni<double>() { beat = i, length = 0, value = 0.97f, easingFunction = SCKRM.Easing.EasingFunction.Ease.Linear };
+                    map.globalEffect.cameraZoom.Add(asdf);
+                    beats.Add(asdf);
+                }
+            }
+
+            map.globalEffect.cameraZoom.Sort((a, b) => a.beat.CompareTo(b.beat));
+
+            for (int i = 0; i < beats.Count; i++)
+            {
+                BeatValuePairAni<double> asdf = new BeatValuePairAni<double>() { beat = beats[i].beat, length = 1, value = 1, easingFunction = SCKRM.Easing.EasingFunction.Ease.EaseOutExpo };
+                map.globalEffect.cameraZoom.Insert(map.globalEffect.cameraZoom.IndexOf(beats[i]) + 1, asdf);
+            }
+
+            System.IO.File.WriteAllText(mapFilePath, SCKRM.Json.JsonManager.ObjectToJson(map));*/
         }
     }
 }
