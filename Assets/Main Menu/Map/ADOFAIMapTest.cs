@@ -42,7 +42,7 @@ namespace SDJK.MainMenu
                 }
 
                 if (!tempValue.Equals(value))
-                    SoundManager.PlaySound("hitsound.kick", "sdjk", 2);
+                    SoundManager.PlaySound("hitsound.normal", "sdjk", 2);
 
                 tempValue = value;
             }
