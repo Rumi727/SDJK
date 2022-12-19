@@ -97,9 +97,7 @@ namespace SCKRM.Rhythm
                         soundPlayer = null;
                 }
 
-                double plusValue = Kernel.deltaTime * currentSpeed;
-                _time += plusValue;
-
+                double timePlusValue = Kernel.deltaTime * currentSpeed;
                 if (soundPlayer != null && soundPlayer.isActived)
                 {
                     double sync = soundPlayer.time - time;
@@ -114,6 +112,8 @@ namespace SCKRM.Rhythm
 
                         soundPlayer.isPaused = true;
                         isStart = true;
+
+                        _time += timePlusValue;
                     }
                     else if (time > soundPlayer.length - MathTool.epsilonFloatWithAccuracy)
                     {
@@ -124,6 +124,8 @@ namespace SCKRM.Rhythm
                             soundPlayer.isPaused = true;
                             isEnd = true;
                         }
+
+                        _time += timePlusValue;
                     }
                     else if (sync.Abs() >= 0.015625f)
                     {
@@ -133,11 +135,10 @@ namespace SCKRM.Rhythm
                             Debug.Log("Slow sync correction");
                         }
                         else
-                        {
-                            _time -= plusValue;
                             Debug.Log("Fast sync correction");
-                        }
                     }
+                    else if (!soundPlayer.isPaused)
+                        _time += timePlusValue;
 
                     if (isStart && time >= 0)
                     {
@@ -150,6 +151,8 @@ namespace SCKRM.Rhythm
                         isEnd = false;
                     }
                 }
+                else
+                    _time += timePlusValue;
 
                 SetCurrentBeat();
 
