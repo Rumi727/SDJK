@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Schema;
 using SCKRM;
 using SCKRM.Renderer;
 using SCKRM.Rhythm;
@@ -7,11 +6,8 @@ using SCKRM.UI;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Security.Permissions;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace SDJK.Ruleset
@@ -158,7 +154,7 @@ namespace SDJK.Ruleset
         public virtual void GameStart(string mapFilePath) => IRuleset.GameStartDefaultMethod();
     }
 
-    public struct JudgementMetaData
+    public struct JudgementMetaData : IEquatable<JudgementMetaData>
     {
         public string nameKey;
         public double sizeSecond;
@@ -174,5 +170,20 @@ namespace SDJK.Ruleset
             this.hpMultiplier = hpMultiplier;
             this.missHp = missHp;
         }
+
+        public static bool operator ==(JudgementMetaData left, JudgementMetaData right) => left.Equals(right);
+        public static bool operator !=(JudgementMetaData left, JudgementMetaData right) => !left.Equals(right);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is JudgementMetaData)
+                return ((JudgementMetaData)obj).Equals(this);
+            else
+                return false;
+        }
+
+        public bool Equals(JudgementMetaData other) => nameKey.Equals(other.nameKey);
+
+        public override int GetHashCode() => nameKey.GetHashCode();
     }
 }
