@@ -19,10 +19,11 @@ namespace SCKRM.Editor
         void render()
         {
             if (RhythmManager.isPlaying)
-            {
                 EditorGUILayout.LabelField("플레이 중");
-                CustomInspectorEditor.DrawLine();
-            }
+            else
+                EditorGUILayout.LabelField("플레이 중 아님");
+
+            CustomInspectorEditor.DrawLine();
 
             EditorGUILayout.LabelField("현재 시간 - " + RhythmManager.time);
 
@@ -42,10 +43,11 @@ namespace SCKRM.Editor
             CustomInspectorEditor.DrawLine();
 
             if (RhythmManager.dropPart)
-            {
-                EditorGUILayout.LabelField("드롭파트");
-                CustomInspectorEditor.DrawLine();
-            }
+                EditorGUILayout.LabelField("드롭파트 O");
+            else
+                EditorGUILayout.LabelField("드롭파트 X");
+
+            CustomInspectorEditor.DrawLine();
 
             EditorGUILayout.LabelField("BPM - " + RhythmManager.bpm);
 
