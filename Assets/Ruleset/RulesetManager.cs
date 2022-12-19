@@ -163,10 +163,16 @@ namespace SDJK.Ruleset
         public string nameKey;
         public double sizeSecond;
 
-        public JudgementMetaData(string nameKey, double sizeSecond)
+        public double hpMultiplier;
+        public bool missHp;
+
+        public JudgementMetaData(string nameKey, double sizeSecond, double hpMultiplier = 1, bool missHp = false)
         {
             this.nameKey = nameKey;
             this.sizeSecond = sizeSecond;
+
+            this.hpMultiplier = hpMultiplier;
+            this.missHp = missHp;
         }
     }
 }

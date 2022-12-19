@@ -219,18 +219,17 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                     {
                         lastJudgementBeat[keyIndex] = beat;
-
                         bool isMiss = metaData.nameKey == SDJKRuleset.miss;
+
                         if (!isMiss)
-                        {
                             instance.combo++;
-                            instance.health += map.globalEffect.hpAddValue.GetValue();
-                        }
                         else
-                        {
                             instance.combo = 0;
-                            instance.health -= map.globalEffect.hpMissValue.GetValue();
-                        }
+
+                        if (isMiss || metaData.missHp)
+                            instance.health -= map.globalEffect.hpMissValue.GetValue() * metaData.hpMultiplier;
+                        else
+                            instance.health += map.globalEffect.hpAddValue.GetValue() * metaData.hpMultiplier;
 
                         if (instance.health <= 0)
                             instance.gameOverManager.GameOver();

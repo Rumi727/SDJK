@@ -17,11 +17,11 @@ namespace SDJK.Ruleset.SDJK
         {
             new JudgementMetaData(sick, 0.01f),
             new JudgementMetaData(perfect, 0.02f),
-            new JudgementMetaData(great, 0.04f),
-            new JudgementMetaData(good, 0.08f),
-            new JudgementMetaData(early, 0.16f)
+            new JudgementMetaData(great, 0.04f, 0.75f),
+            new JudgementMetaData(good, 0.08f, 0.5f),
+            new JudgementMetaData(early, 0.16f, 0.5f, true)
         };
-        public override JudgementMetaData missJudgementMetaData { get; } = new JudgementMetaData(miss, double.MaxValue);
+        public override JudgementMetaData missJudgementMetaData { get; } = new JudgementMetaData(miss, double.MaxValue, 1, true);
 
         public const string sick = "ruleset.sdjk.sick";
         public const string perfect = "ruleset.sdjk.perfect";
