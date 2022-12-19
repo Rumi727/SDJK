@@ -7,21 +7,12 @@ namespace SCKRM.Editor
     [CustomEditor(typeof(SoundManager))]
     public class SoundManagerEditor : CustomInspectorEditor
     {
-        SoundManager editor;
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            editor = (SoundManager)target;
-        }
+        static SCKRMWindowTabSound window = new();
 
         public override void OnInspectorGUI()
         {
-            if (SCKRMWindowEditor.instance != null)
-            {
-                SCKRMWindowEditor.instance.Audio(300);
-                DrawLine();
-            }
+            SCKRMWindowTabSound.Render(window, 300);
+            DrawLine();
 
             EditorGUILayout.HelpBox("오디오 믹서 그룹을 넣어주세요", MessageType.None);
             UseProperty("_audioMixerGroup");

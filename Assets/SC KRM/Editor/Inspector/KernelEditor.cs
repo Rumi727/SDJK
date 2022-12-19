@@ -6,6 +6,7 @@ namespace SCKRM.Editor
     [CustomEditor(typeof(Kernel), true)]
     public class KernelEditor : CustomInspectorEditor
     {
-        public override void OnInspectorGUI() => SCKRMWindowEditor.Default();
+        static SCKRMWindowTabDefault window = new();
+        public override void OnInspectorGUI() => SCKRMWindowTabDefault.Render(window);
     }
 }

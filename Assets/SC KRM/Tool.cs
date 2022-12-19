@@ -591,6 +591,59 @@ namespace SCKRM
         }
         #endregion
 
+        #region Distance
+        public static byte Distance(this byte a, byte b) => (byte)(a - b).Abs();
+
+        [WikiIgnore] public static sbyte Distance(this sbyte a, sbyte b) => (sbyte)(a - b).Abs();
+
+        [WikiIgnore] public static short Distance(this short a, short b) => (short)(a - b).Abs();
+
+        [WikiIgnore] public static ushort Distance(this ushort a, ushort b) => (ushort)(a - b).Abs();
+
+        [WikiIgnore] public static int Distance(this int a, int b) => (a - b).Abs();
+
+        [WikiIgnore]
+        public static uint Distance(this uint a, uint b)
+        {
+            if (b > a)
+                return b - a;
+            else
+                return a - b;
+        }
+
+        [WikiIgnore] public static long Distance(this long a, long b) => (a - b).Abs();
+
+        [WikiIgnore]
+        public static ulong Distance(this ulong a, ulong b)
+        {
+            if (b > a)
+                return b - a;
+            else
+                return a - b;
+        }
+
+        [WikiIgnore] public static float Distance(this float a, float b) => (a - b).Abs();
+
+        [WikiIgnore] public static double Distance(this double a, double b) => (a - b).Abs();
+
+        [WikiIgnore] public static decimal Distance(this long a, decimal b) => (a - b).Abs();
+
+        [WikiIgnore] public static BigInteger Distance(this BigInteger a, BigInteger b) => (a - b).Abs();
+
+        [WikiIgnore] public static BigDecimal Distance(this BigDecimal a, BigDecimal b) => (a - b).Abs();
+
+        [WikiIgnore] public static nint Distance(this nint a, nint b) => (a - b).Abs();
+
+        [WikiIgnore]
+        public static nuint Distance(this nuint a, nuint b)
+        {
+            if (b > a)
+                return b - a;
+            else
+                return a - b;
+        }
+        #endregion
+
         #region Reapeat
         public static sbyte Reapeat(this sbyte t, sbyte length) => (sbyte)(t - (t / length) * length).Clamp(0, length);
         [WikiIgnore] public static byte Reapeat(this byte t, byte length) => (byte)(t - (t / length) * length).Clamp(0, length);

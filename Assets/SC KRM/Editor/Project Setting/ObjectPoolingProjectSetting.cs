@@ -50,10 +50,7 @@ namespace SCKRM.Editor
             {
                 EditorGUILayout.Space();
 
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("안전 삭제 모드 (삭제 할 리스트가 빈 값이 아니면 삭제 금지)", GUILayout.Width(330));
-                deleteSafety = EditorGUILayout.Toggle(deleteSafety);
-                EditorGUILayout.EndHorizontal();
+                CustomInspectorEditor.DeleteSafety(ref deleteSafety);
 
                 EditorGUILayout.Space();
             }

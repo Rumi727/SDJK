@@ -319,5 +319,13 @@ namespace SCKRM.Editor
             EditorGUILayout.LabelField($"경로: {PathTool.Combine(path, name) + extension}");
             isChanged = oldAssets != assets;
         }
+
+        public static void DeleteSafety(ref bool value)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("안전 삭제 모드 (삭제 할 리스트가 빈 값이 아니면 삭제 금지)", GUILayout.Width(330));
+            value = EditorGUILayout.Toggle(value);
+            EditorGUILayout.EndHorizontal();
+        }
     }
 }
