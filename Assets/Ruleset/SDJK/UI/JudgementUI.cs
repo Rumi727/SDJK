@@ -63,6 +63,9 @@ namespace SDJK.Ruleset.SDJK.UI
                 case SDJKRuleset.miss:
                     image.path = "miss";
                     break;
+                case SDJKRuleset.instantDeath:
+                    image.path = "death";
+                    break;
             }
 
             if (lastPath != image.path)
