@@ -226,5 +226,12 @@ namespace SCKRM.Sound
 
             return true;
         }
+
+        public virtual void OnDestroy()
+        {
+            _looped = null;
+            _timeChanged = null;
+            _onAudioFilterReadEvent = null;
+        }
     }
 }
