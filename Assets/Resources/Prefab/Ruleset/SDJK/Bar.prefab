@@ -710,7 +710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062456432287279204}
   - component: {fileID: 7409718968753226057}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Drop Part Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

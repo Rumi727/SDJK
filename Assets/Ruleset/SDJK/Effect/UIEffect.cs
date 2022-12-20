@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.SDJK
             if (map == null)
                 return;
 
-            canvas.scaleFactor = (float)map.globalEffect.uiSize.GetValue(RhythmManager.currentBeatScreen) * (ScreenManager.height / 720f);
+            canvas.scaleFactor = (float)map.globalEffect.uiSize.GetValue(RhythmManager.currentBeatScreen) * (canvas.pixelRect.height / 720f);
         }
     }
 }

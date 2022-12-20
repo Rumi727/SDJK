@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 134048259647972014}
   - component: {fileID: 7597983266089402887}
   - component: {fileID: 7912025574714308563}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Video
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d1149e58f11a7448368848c459576c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
@@ -136,7 +137,7 @@ GameObject:
   - component: {fileID: 3352827940158938525}
   - component: {fileID: 5120385154579889633}
   - component: {fileID: 7666195117202146692}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8720633094104087590}
   - component: {fileID: 8067135040249578094}
   - component: {fileID: 8116664283062213597}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Drop Part Effect Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

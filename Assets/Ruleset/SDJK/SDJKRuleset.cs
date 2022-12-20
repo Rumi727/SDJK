@@ -32,17 +32,17 @@ namespace SDJK.Ruleset.SDJK
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
 
-        public override async void GameStart(string mapFilePath)
+        public override async void GameStart(string mapFilePath, bool isEditor)
         {
-            base.GameStart(mapFilePath);
+            base.GameStart(mapFilePath, isEditor);
 
             await SceneManager.LoadScene(3);
             await UniTask.NextFrame();
 
             SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath);
-            Object.FindObjectOfType<SDJKManager>().Refresh(map, this);
-            Object.FindObjectOfType<SDJKInputManager>().Refresh();
-            Object.FindObjectOfType<SDJKJudgementManager>().Refresh();
+            Object.FindObjectOfType<SDJKManager>(true).Refresh(map, this, isEditor);
+            Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
+            Object.FindObjectOfType<SDJKJudgementManager>(true).Refresh();
 
             //나중에 다시 필요할 수도...
             /*System.Collections.Generic.List<BeatValuePairAni<double>> beats = new System.Collections.Generic.List<BeatValuePairAni<double>>();

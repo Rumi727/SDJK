@@ -87,14 +87,19 @@ namespace SDJK.Ruleset
             return false;
         }
 
-        public static void GameStart(string mapFilePath)
+        public static IRuleset GameStart(string mapFilePath, bool isEditor)
         {
             for (int i = 0; i < rulesetList.Count; i++)
             {
                 IRuleset ruleset = rulesetList[i];
                 if (ruleset == selectedRuleset)
-                    ruleset.GameStart(mapFilePath);
+                {
+                    ruleset.GameStart(mapFilePath, isEditor);
+                    return ruleset;
+                }
             }
+
+            return null;
         }
     }
 
@@ -114,7 +119,7 @@ namespace SDJK.Ruleset
         public JudgementMetaData[] judgementMetaDatas { get; }
         public JudgementMetaData missJudgementMetaData { get; }
 
-        public void GameStart(string mapFilePath);
+        public void GameStart(string mapFilePath, bool isEditor);
 
         public static void GameStartDefaultMethod()
         {
@@ -151,7 +156,7 @@ namespace SDJK.Ruleset
         /// Please put base.GameStart() when overriding
         /// </summary>
         /// <param name="mapFilePath"></param>
-        public virtual void GameStart(string mapFilePath) => IRuleset.GameStartDefaultMethod();
+        public virtual void GameStart(string mapFilePath, bool isEditor) => IRuleset.GameStartDefaultMethod();
     }
 
     public struct JudgementMetaData : IEquatable<JudgementMetaData>

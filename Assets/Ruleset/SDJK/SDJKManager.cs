@@ -24,6 +24,8 @@ namespace SDJK.Ruleset.SDJK
         public ISoundPlayer soundPlayer { get; private set; }
         public AudioClip bgmClip { get; private set; }
 
+        public bool isEditor { get; private set; }
+
         void Awake() => UIManager.BackEventAdd(MainMenuLoad.Load);
 
         void Update()
@@ -47,10 +49,12 @@ namespace SDJK.Ruleset.SDJK
                 Destroy(bgmClip);
         }
 
-        public void Refresh(SDJKMapFile map, SDJKRuleset ruleset)
+        public void Refresh(SDJKMapFile map, SDJKRuleset ruleset, bool isEditor)
         {
             if (SingletonCheck(this))
             {
+                this.isEditor = isEditor;
+
                 this.ruleset = ruleset;
                 this.map = map;
                 effectManager.selectedMap = map;
@@ -72,7 +76,7 @@ namespace SDJK.Ruleset.SDJK
             if (bgmClip != null)
                 Destroy(bgmClip);
 
-            ruleset.GameStart(map.mapFilePath);
+            ruleset.GameStart(map.mapFilePath, isEditor);
         }
 
         async UniTaskVoid BGMPlay()
@@ -80,7 +84,7 @@ namespace SDJK.Ruleset.SDJK
             string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
-                bgmClip = await ResourceManager.GetAudio(fullPath, true, true);
+                bgmClip = await ResourceManager.GetAudio(fullPath, true, false);
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, bgmClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
