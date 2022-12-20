@@ -137,7 +137,7 @@ namespace SCKRM
                     _ = Kernel.unityVersion;
                 }
 
-                Debug.Log("Waiting for settings to load...", nameof(InitialLoadManager));
+                Debug.ForceLog("Waiting for settings to load...", nameof(InitialLoadManager));
                 {
                     //세이브 데이터의 기본값과 변수들을 다른 스레드에서 로딩합니다
                     if (await UniTask.RunOnThreadPool(Initialize, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())

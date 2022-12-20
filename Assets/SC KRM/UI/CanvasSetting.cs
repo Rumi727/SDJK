@@ -139,8 +139,15 @@ namespace SCKRM.UI
                 Transform childtransform = transform.GetChild(i);
                 if (childtransform != safeScreen)
                 {
+#if UNITY_EDITOR
+                    {
+                        PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType(childtransform.gameObject);
+                        if (prefabAssetType == PrefabAssetType.NotAPrefab)
+                            childtransform.SetParent(safeScreen);
+                    }
+#else
                     childtransform.SetParent(safeScreen);
-
+#endif
                     i--;
                     childCount--;
                 }
@@ -162,18 +169,25 @@ namespace SCKRM.UI
                     {
                         PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType(childtransform.gameObject);
                         if (prefabAssetType == PrefabAssetType.NotAPrefab)
-                            childtransform.SetParent(safeScreen);
+                            childtransform.SetParent(transform);
                     }
 #else
-                    childtransform.SetParent(safeScreen);
+                    childtransform.SetParent(transform);
 #endif
-
                     i--;
                     childCount--;
                 }
             }
 
+#if UNITY_EDITOR
+            {
+                PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType(safeScreen.gameObject);
+                if (prefabAssetType == PrefabAssetType.NotAPrefab)
+                    DestroyImmediate(safeScreen.gameObject);
+            }
+#else
             DestroyImmediate(safeScreen.gameObject);
+#endif
         }
 
         void WorldRenderCamera()
