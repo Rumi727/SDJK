@@ -18,6 +18,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] SDJKGameOverManager _gameOverManager; public SDJKGameOverManager gameOverManager => _gameOverManager;
+        [SerializeField] bool auto = false;
 
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
 
@@ -155,7 +156,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     bool input;
                     double disSecond = GetDisSecond(currentNote.beat, true);
 
-                    if (autoNote)
+                    if (autoNote || instance.auto)
                     {
                         input = currentBeat >= currentNote.beat;
                         disSecond = 0;
@@ -196,7 +197,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     double holdDisSecond = GetDisSecond(currentHoldBeat, true);
                     bool holdInput;
 
-                    if (autoNote)
+                    if (autoNote || instance.auto)
                     {
                         holdInput = currentBeat <= currentHoldBeat;
                         holdDisSecond = 0;
