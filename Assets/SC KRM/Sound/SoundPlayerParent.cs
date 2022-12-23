@@ -137,7 +137,7 @@ namespace SCKRM.Sound
         /// <summary>
         /// Thread-Safe (onAudioFilterReadEvent += () => { onAudioFilterReadEvent += () => { }; }; Do not add more methods to this event from inside this event method like this. This causes deadlock)
         /// </summary>
-        public event OnAudioFilterReadAction onAudioFilterReadEvent
+        public virtual event OnAudioFilterReadAction onAudioFilterReadEvent
         {
             add
             {
@@ -159,7 +159,7 @@ namespace SCKRM.Sound
             }
         }
 
-        protected void OnAudioFilterReadInvoke(float[] data, int channels)
+        protected virtual void OnAudioFilterReadInvoke(float[] data, int channels)
         {
             while (Interlocked.CompareExchange(ref onAudioFilterReadEventLock, 1, 0) != 0)
                 Thread.Sleep(1);

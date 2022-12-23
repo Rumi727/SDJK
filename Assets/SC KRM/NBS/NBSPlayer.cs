@@ -2,6 +2,7 @@ using K4.Threading;
 using SCKRM.Resource;
 using SCKRM.Sound;
 using SCKRM.Threads;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -127,6 +128,16 @@ namespace SCKRM.NBS
             }
         }
 
+        /// <summary>
+        /// Although this event is called on the main thread due to the nature of the implementation, it is thread safe.
+        /// But it's read-only so you can't insert DPS chains and it converts to mono.
+        /// </summary>
+        [WikiDescription(
+@"Although this event is called on the main thread due to the nature of the implementation, it is thread safe.
+But it's read-only so you can't insert DPS chains and it converts to mono."
+)]
+        public override event OnAudioFilterReadAction onAudioFilterReadEvent { add => base.onAudioFilterReadEvent += value; remove => base.onAudioFilterReadEvent -= value; }
+
         void Update()
         {
             transform.localPosition = localPosition;
@@ -165,6 +176,8 @@ namespace SCKRM.NBS
                     if (soundPlayerAllow)
                         SoundPlay();
                 }
+
+                GetAudioDataToMonoAndInvoke();
             }
         }
 
@@ -309,10 +322,13 @@ namespace SCKRM.NBS
                         else if (nbsNoteMetaData.instrument == 15)
                             blockType += "pling";
 
+                        SoundPlayer soundPlayer;
                         if (spatial)
-                            SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, pitch * this.pitch * metaData.pitch / Kernel.gameSpeed, 1, panStereo + this.panStereo, minDistance, maxDistance, transform);
+                            soundPlayer = SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, pitch * this.pitch * metaData.pitch / Kernel.gameSpeed, 1, panStereo + this.panStereo, minDistance, maxDistance, transform);
                         else
-                            SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, pitch * this.pitch * metaData.pitch / Kernel.gameSpeed, 1, panStereo + this.panStereo);
+                            soundPlayer = SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, pitch * this.pitch * metaData.pitch / Kernel.gameSpeed, 1, panStereo + this.panStereo);
+
+                        allPlayingSounds.Add(soundPlayer);
                     }
 
                     _index++;
@@ -376,7 +392,43 @@ namespace SCKRM.NBS
             }
         }
 
+        List<SoundPlayer> allPlayingSounds = new List<SoundPlayer>();
+        float[] audioDatas = new float[0];
+        float[] tempDatas = new float[0];
+        void GetAudioDataToMonoAndInvoke()
+        {
+            AudioSettings.GetDSPBufferSize(out int bufferLength, out _);
 
+            if (tempDatas.Length != bufferLength)
+                tempDatas = new float[bufferLength];
+            if (audioDatas.Length != bufferLength)
+                audioDatas = new float[bufferLength];
+
+            for (int i = 0; i < audioDatas.Length; i++)
+                audioDatas[i] = 0;
+
+            for (int i = 0; i < allPlayingSounds.Count; i++)
+            {
+                SoundPlayer soundPlayer = allPlayingSounds[i];
+                if (soundPlayer == null || soundPlayer.isRemoved)
+                {
+                    allPlayingSounds.RemoveAt(i);
+                    i--;
+
+                    continue;
+                }
+
+                for (int j = 0; j < soundPlayer.metaData.audioClip.channels; j++)
+                {
+                    soundPlayer.audioSource.GetOutputData(tempDatas, j);
+
+                    for (int k = 0; k < tempDatas.Length; k++)
+                        audioDatas[k] += tempDatas[k];
+                }
+            }
+
+            OnAudioFilterReadInvoke(audioDatas, 0);
+        }
 
         [WikiDescription("플레이어 삭제")]
         public override bool Remove()
