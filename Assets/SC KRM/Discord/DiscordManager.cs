@@ -1,8 +1,6 @@
 using DiscordPresence;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Diagnostics;
 
 namespace SCKRM.Discord
 {
@@ -14,6 +12,7 @@ namespace SCKRM.Discord
 
         void Awake() => SingletonCheck(this);
 
+#if UNITY_STANDALONE
         static float timer = 0;
         void Update()
         {
@@ -25,8 +24,10 @@ namespace SCKRM.Discord
             else
                 timer += Kernel.unscaledDeltaTime;
         }
+#endif
 
         static Action updateAction;
+        [Conditional("UNITY_STANDALONE")]
         public static void UpdatePresence(string detail, string state = null, long start = -1, long end = -1, string largeKey = null, string largeText = null,
             string smallKey = null, string smallText = null, string partyId = null, int size = -1, int max = -1, string match = null, string join = null,
             string spectate = null)

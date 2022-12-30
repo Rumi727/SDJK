@@ -16,6 +16,11 @@ using UnityEngine;
 using UnityEngine.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if (UNITY_ANDROID || ENABLE_ANDROID_SUPPORT) && !UNITY_EDITOR
+using System.IO;
+using UnityEngine.Networking;
+using SCKRM.Compress;
+#endif
 
 [assembly: InternalsVisibleTo("SC-KRM-Editor")]
 
@@ -68,30 +73,6 @@ namespace SCKRM
                 }
 #endif
 
-#if UNITY_ANDROID || UNITY_WEBGL
-                bool warningDisable = true;
-                if (warningDisable)
-                {
-#if UNITY_EDITOR
-                    GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(true);
-                    int length = gameObjects.Length;
-                    for (int i = 0; i < length; i++)
-                    {
-                        GameObject gameObject = gameObjects[i];
-                        if (gameObject != null && UnityEditor.PrefabUtility.GetPrefabInstanceStatus(gameObject) == UnityEditor.PrefabInstanceStatus.NotAPrefab)
-                            UnityEngine.Object.DestroyImmediate(gameObject);
-                    }
-
-                    UnityEditor.EditorApplication.isPlaying = false;
-#endif
-#if UNITY_ANDROID
-                    throw new NotSupportedException("SC KRM은 <b>아직까진</b> 안드로이드를 지원하지 않습니다\nSC KRM does not support Android <b>yet</b>");
-#elif UNITY_WEBGL
-                    throw new NotSupportedException("SC KRM은 WebGL을 지원하지 않습니다\nSC KRM does not support WebGL");
-#endif
-                }
-#endif
-
                 //UniTask를 초기화 합니다
                 PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
                 PlayerLoopHelper.Initialize(ref loop);
@@ -136,6 +117,47 @@ namespace SCKRM
                     _ = Kernel.version;
                     _ = Kernel.unityVersion;
                 }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+                //CS0162 접근할 수 없는 코드 경고를 비활성화 하기 위해 변수로 우회합니다
+                bool warningDisable = true;
+                if (warningDisable)
+                    throw new NotSupportedException("SC KRM은 WebGL을 지원하지 않습니다\nSC KRM does not support WebGL");
+#elif (UNITY_ANDROID || ENABLE_ANDROID_SUPPORT) && !UNITY_EDITOR
+                if (!Directory.Exists(PathTool.Combine(Kernel.streamingAssetsPath, "assets")))
+                {
+                    if (Directory.Exists(Kernel.streamingAssetsPath))
+                    {
+                        Directory.Delete(Kernel.streamingAssetsPath, true);
+                        Directory.CreateDirectory(Kernel.streamingAssetsPath);
+                    }
+
+                    string zipPath = PathTool.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
+
+                    Debug.Log(nameof(zipPath) + ": " + zipPath, nameof(InitialLoadManager));
+                    Debug.Log(nameof(Kernel.streamingAssetsPath) + ": " + Kernel.streamingAssetsPath, nameof(InitialLoadManager));
+
+                    using (UnityWebRequest webRequest = UnityWebRequest.Get(PathTool.Combine(Application.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip")))
+                    {
+                        await webRequest.SendWebRequest();
+
+                        if (webRequest.result != UnityWebRequest.Result.Success)
+                            Debug.LogError(webRequest.error);
+
+                        await File.WriteAllBytesAsync(zipPath, webRequest.downloadHandler.data);
+                    }
+
+                    CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "");
+                    ThreadMetaData metaData = ThreadManager.Create(x => CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "", x));
+                    ResourceManager.resourceRefreshDetailedAsyncTask = metaData;
+
+                    if (await UniTask.WaitUntil(() => metaData.progress >= metaData.maxProgress, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                        return;
+
+                    ResourceManager.resourceRefreshDetailedAsyncTask = null;
+                    File.Delete(zipPath);
+                }
+#endif
 
                 Debug.ForceLog("Waiting for settings to load...", nameof(InitialLoadManager));
                 {
@@ -247,7 +269,7 @@ namespace SCKRM
 
                 if (!isInitialLoadEnd)
                 {
-                    Debug.ForceLogError("Initial loading failed");
+                    Debug.ForceLogError("Initial loading failed", nameof(InitialLoadManager));
 
                     if (isInitialLoadStart)
                         ApplicationForceQuit("Initial loading failed\n\n" + e.GetType().Name + ": " + e.Message + "\n\n" + e.StackTrace.Substring(5));

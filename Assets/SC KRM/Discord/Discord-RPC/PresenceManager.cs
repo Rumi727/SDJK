@@ -118,10 +118,16 @@ namespace DiscordPresence
 #endif
         }
 
-        public virtual void Update() => DiscordRpc.RunCallbacks();
+        public virtual void Update()
+        {
+#if UNITY_STANDALONE || UNITY_EDITOR
+            DiscordRpc.RunCallbacks();
+#endif
+        }
 
         public virtual void OnEnable()
         {
+#if UNITY_STANDALONE || UNITY_EDITOR
             Debug.ForceLog("init", "Discord");
             callbackCalls = 0;
 
@@ -133,12 +139,15 @@ namespace DiscordPresence
             handlers.spectateCallback += SpectateCallback;
             handlers.requestCallback += RequestCallback;
             DiscordRpc.Initialize(applicationId, ref handlers, true, optionalSteamId);
+#endif
         }
 
         public virtual void OnDisable()
         {
+#if UNITY_STANDALONE || UNITY_EDITOR
             Debug.ForceLog("shutdown", "Discord");
             DiscordRpc.Shutdown();
+#endif
         }
         #endregion
 

@@ -40,6 +40,11 @@ namespace SCKRM.Splash
                 canvasGroup.alpha = 0;
                 progressBarCanvasGroup.alpha = 0;
 
+                if (await UniTask.WaitUntil(() => InitialLoadManager.isSettingLoadEnd, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                    return;
+                else if (!SplashScreen.isAniPlaying)
+                    return;
+
                 bow = await ResourceManager.GetAudio(PathTool.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", "minecraft"), "random/bow"));
                 drawmap = await ResourceManager.GetAudio(PathTool.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", "minecraft"), "ui/cartography_table/drawmap") + Random.Range(1, 4));
 

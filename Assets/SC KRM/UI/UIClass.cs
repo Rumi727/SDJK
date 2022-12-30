@@ -17,7 +17,7 @@ namespace SCKRM.UI
 
     public class UI : UIBehaviour, IUI
     {
-        [SerializeField] Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas);
+        [SerializeField] Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
 
         [SerializeField] RectTransform _parentRectTransform; public RectTransform parentRectTransform
         {

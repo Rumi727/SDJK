@@ -15,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 12, 2);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 13, 0);
 
 
 
@@ -51,7 +51,33 @@ namespace SCKRM
         /// Application.streamingAssetsPath
         /// </summary>
         [WikiDescription("[Application.streamingAssetsPath](https://docs.unity3d.com/ScriptReference/Application-streamingAssetsPath.html)")]
-        public static string streamingAssetsPath { get; } = Application.streamingAssetsPath;
+        public static string streamingAssetsPath
+        {
+            get
+            {
+#if (UNITY_ANDROID || ENABLE_ANDROID_SUPPORT) && !UNITY_EDITOR
+                if (_streamingAssetsPath != "")
+                    return _streamingAssetsPath;
+                else
+                {
+                    _streamingAssetsPath = PathTool.Combine(persistentDataPath, streamingAssetsFolderName);
+
+                    if (!Directory.Exists(_streamingAssetsPath))
+                        Directory.CreateDirectory(_streamingAssetsPath);
+
+                    return _streamingAssetsPath;
+                }
+#else
+                if (_streamingAssetsPath != "")
+                    return _streamingAssetsPath;
+                else
+                    return _streamingAssetsPath = Application.streamingAssetsPath;;
+#endif
+            }
+        }
+        static string _streamingAssetsPath = "";
+
+        public const string streamingAssetsFolderName = "StreamingAssets";
 
         /// <summary>
         /// Application.persistentDataPath
@@ -86,7 +112,7 @@ namespace SCKRM
         static string _temporaryCachePath = "";
 
         /// <summary>
-        /// Kernel.persistentDataPath + "/Save Data"
+        /// PathTool.Combine(Kernel.persistentDataPath, "Save Data")
         /// </summary>
         [WikiDescription("[Kernel.persistentDataPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#persistentdatapath) + \"/Save Data\"")]
         public static string saveDataPath
@@ -97,7 +123,7 @@ namespace SCKRM
                     return _saveDataPath;
                 else
                 {
-                    _saveDataPath = persistentDataPath + "/Save Data";
+                    _saveDataPath = PathTool.Combine(persistentDataPath, "Save Data");
 
                     if (!Directory.Exists(_saveDataPath))
                         Directory.CreateDirectory(_saveDataPath);
@@ -109,7 +135,7 @@ namespace SCKRM
         static string _saveDataPath = "";
 
         /// <summary>
-        /// Kernel.persistentDataPath + "/Resource Pack"
+        /// PathTool.Combine(Kernel.persistentDataPath, "Resource Pack")
         /// </summary>
         [WikiDescription("[Kernel.persistentDataPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#persistentdatapath) + \"/Resource Pack\"")]
         public static string resourcePackPath
@@ -120,7 +146,7 @@ namespace SCKRM
                     return _resourcePackPath;
                 else
                 {
-                    _resourcePackPath = persistentDataPath + "/Resource Pack";
+                    _resourcePackPath = PathTool.Combine(persistentDataPath, "Resource Pack");
 
                     if (!Directory.Exists(_resourcePackPath))
                         Directory.CreateDirectory(_resourcePackPath);
@@ -132,10 +158,10 @@ namespace SCKRM
         static string _resourcePackPath = "";
 
         /// <summary>
-        /// Kernel.streamingAssetsPath + "/projectSettings"
+        /// PathTool.Combine(Kernel.streamingAssetsPath, "projectSettings")
         /// </summary>
         [WikiDescription("[Kernel.streamingAssetsPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#streamingAssetsPath) + \"/projectSettings\"")]
-        public static string projectSettingPath { get; } = streamingAssetsPath + "/projectSettings";
+        public static string projectSettingPath { get; } = PathTool.Combine(streamingAssetsPath, "projectSettings");
 
 
 
