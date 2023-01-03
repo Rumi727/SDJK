@@ -1522,14 +1522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27cd4c68d000a6940bfdd8844548b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
-  effectManager: {fileID: 1657977506}
-  y: 0
-  heightOffset: 0
 --- !u!1 &1301358733
 GameObject:
   m_ObjectHideFlags: 0
