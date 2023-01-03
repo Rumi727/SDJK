@@ -20,23 +20,25 @@ namespace SDJK.Ruleset.SDJK.UI
             if (!RhythmManager.isPlaying)
                 return;
 
-            timer += Kernel.deltaTime;
-
             if (timer >= 0.1f)
             {
                 if (gray)
                 {
                     text.color = Color.white;
                     gray = false;
+
+                    timer = 0;
                 }
-                else
+                else if (RhythmManager.yukiMode)
                 {
                     text.color = Color.gray;
                     gray = true;
-                }
 
-                timer = 0;
+                    timer = 0;
+                }
             }
+            else
+                timer += Kernel.deltaTime;
         }
 
         protected override void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData)
