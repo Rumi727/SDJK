@@ -42,10 +42,10 @@ namespace SCKRM.Editor
 
             CustomInspectorEditor.DrawLine();
 
-            if (RhythmManager.dropPart)
-                EditorGUILayout.LabelField("드롭파트 O");
+            if (RhythmManager.yukiMode)
+                EditorGUILayout.LabelField("유키 모드 O");
             else
-                EditorGUILayout.LabelField("드롭파트 X");
+                EditorGUILayout.LabelField("유키 모드 X");
 
             CustomInspectorEditor.DrawLine();
 

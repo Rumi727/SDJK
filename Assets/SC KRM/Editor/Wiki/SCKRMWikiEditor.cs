@@ -14,7 +14,7 @@ namespace SCKRM.Editor
     {
         string selectedAssemblyName = "SC-KRM";
         string selectedNameSpace = "SCKRM";
-        string selectedGithubWikiSite = "https://github.com/SimsimhanChobo/SC-KRM/wiki";
+        string selectedGithubWikiSite = "https://github.com/SimsimhanChobo/SC-KRM-1.0/wiki";
         const string unityWikiSite = "https://docs.unity3d.com/ScriptReference/";
         void OnGUI()
         {

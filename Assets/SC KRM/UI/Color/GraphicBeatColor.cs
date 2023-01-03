@@ -9,12 +9,12 @@ namespace SCKRM.UI
         [SerializeField] float _alpha = 1;
         public float alpha { get => _alpha; set => _alpha = value; }
 
-        [SerializeField] bool _dropPartMode = false;
-        public bool dropPartMode => _dropPartMode;
+        [SerializeField] bool _yukiModeMode = false;
+        public bool yukiModeMode => _yukiModeMode;
 
         void Update()
         {
-            if (RhythmManager.isPlaying && ((RhythmManager.dropPart && dropPartMode) || !dropPartMode))
+            if (RhythmManager.isPlaying && ((RhythmManager.yukiMode && yukiModeMode) || !yukiModeMode))
                 graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alpha.Lerp(0f, (float)RhythmManager.currentBeat1Beat));
             else
                 graphic.color = graphic.color.MoveTowards(new Color(graphic.color.r, graphic.color.g, graphic.color.b, 0), 0.025f * Kernel.fpsUnscaledDeltaTime);

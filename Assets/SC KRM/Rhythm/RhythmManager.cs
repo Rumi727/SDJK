@@ -20,7 +20,7 @@ namespace SCKRM.Rhythm
         [WikiDescription("현재 사운드 플레이어")] public static ISoundPlayer soundPlayer { get; private set; }
         [WikiDescription("현재 BPM 리스트")] public static BeatValuePairList<double> bpmList { get; private set; }
         [WikiDescription("현재 오프셋")] public static double offset { get; private set; }
-        [WikiDescription("현재 드롭파트 리스트")] public static BeatValuePairList<bool> dropPartList { get; private set; }
+        [WikiDescription("현재 유키 모드 리스트")] public static BeatValuePairList<bool> yukiModeList { get; private set; }
 
 
 
@@ -28,7 +28,7 @@ namespace SCKRM.Rhythm
 
 
 
-        [WikiDescription("현재 드롭파트인지 여부")] public static bool dropPart { get; set; } = false;
+        [WikiDescription("현재 유키 모드인지 여부")] public static bool yukiMode { get; set; } = false;
 
 
 
@@ -71,7 +71,7 @@ namespace SCKRM.Rhythm
 
 
         [Obsolete("Use currentBeat1Beat instead")] public static event Action oneBeat;
-        [Obsolete("Use currentBeat1Beat instead")] public static event Action oneBeatDropPart;
+        [Obsolete("Use currentBeat1Beat instead")] public static event Action oneBeatYukiMode;
 
 
 
@@ -174,13 +174,13 @@ namespace SCKRM.Rhythm
                     bpmUnscaledFpsDeltaTime = bpmUnscaledDeltaTime * VideoManager.Data.standardFPS;
                 }
 
-                dropPart = dropPartList.GetValue();
+                yukiMode = yukiModeList.GetValue();
 
                 if (tempCurrentBeat != (int)currentBeat && currentBeat >= 0)
                 {
                     oneBeat?.Invoke();
-                    if (dropPart)
-                        oneBeatDropPart?.Invoke();
+                    if (yukiMode)
+                        oneBeatYukiMode?.Invoke();
 
                     tempCurrentBeat = (int)currentBeat;
                 }
@@ -188,7 +188,7 @@ namespace SCKRM.Rhythm
                 /*Debug.Log("time: " + time);
                 Debug.Log("currentBeat: " + currentBeat);
                 Debug.Log("bpm: " + bpm);
-                Debug.Log("dropPart: " + dropPart);*/
+                Debug.Log("yukiMode: " + yukiMode);*/
             }
         }
 
@@ -240,8 +240,10 @@ namespace SCKRM.Rhythm
         }
 
         [WikiDescription("리듬 재생")]
-        public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> dropPartList, ISoundPlayer soundPlayer = null, double startDelay = 0)
+        public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> yukiModeList, ISoundPlayer soundPlayer = null, double startDelay = 0)
         {
+            Debug.Log("Play");
+
             _time = -(startDelay - offset).Clamp(0);
 
             currentBeat = double.MinValue;
@@ -254,7 +256,7 @@ namespace SCKRM.Rhythm
 
             RhythmManager.bpmList = bpmList;
             RhythmManager.offset = offset;
-            RhythmManager.dropPartList = dropPartList;
+            RhythmManager.yukiModeList = yukiModeList;
             RhythmManager.soundPlayer = soundPlayer;
 
             if (RhythmManager.soundPlayer != null)
@@ -268,13 +270,13 @@ namespace SCKRM.Rhythm
             isEnd = false;
 
             FixBPM();
-
-            Debug.Log("Play");
         }
 
         [WikiDescription("리듬 정지")]
         public static void Stop()
         {
+            Debug.Log("Stop");
+
             _time = 0;
 
             currentBeat = double.MinValue;
@@ -293,20 +295,20 @@ namespace SCKRM.Rhythm
 
             bpmList = null;
             offset = 0;
-            dropPartList = null;
+            yukiModeList = null;
             soundPlayer = null;
 
             isPlaying = false;
             isStart = false;
             isEnd = false;
-
-            Debug.Log("Stop");
         }
 
         public static void SoundPlayerChange(ISoundPlayer soundPlayer)
         {
             if (!isPlaying)
                 return;
+
+            Debug.Log("Sound Player Changed");
 
             if (RhythmManager.soundPlayer != null)
             {
@@ -321,8 +323,6 @@ namespace SCKRM.Rhythm
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
                 RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
             }
-
-            Debug.Log("Sound Player Changed");
         }
 
         static bool timeChangedEventLock = false;
@@ -331,14 +331,16 @@ namespace SCKRM.Rhythm
             if (timeChangedEventLock)
                 return;
 
+            Debug.Log("Sound Player Time Changed");
+
             _time = soundPlayer.time;
             FixBPM();
-
-            Debug.Log("Sound Player Time Changed");
         }
 
         static void FixBPM()
         {
+            Debug.Log("Fix BPM");
+
             for (int i = 0; i < bpmList.Count; i++)
             {
                 {
@@ -359,7 +361,6 @@ namespace SCKRM.Rhythm
             }
 
             SetCurrentBeat();
-            Debug.Log("Fix BPM");
         }
     }
 }

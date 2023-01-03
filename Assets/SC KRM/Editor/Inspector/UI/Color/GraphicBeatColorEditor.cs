@@ -17,7 +17,7 @@ namespace SCKRM.Editor
             if (Kernel.isPlaying)
                 GUI.enabled = false;
 
-            UseProperty("_dropPartMode");
+            UseProperty("_yukiModeMode");
 
             GUI.enabled = true;
         }
