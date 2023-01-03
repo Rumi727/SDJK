@@ -133,7 +133,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             bool autoNote;
             NoteFile currentNote;
             int currentNoteIndex = -1;
-            double currentHoldBeat = 0;
+            double currentHoldNoteBeat = 0;
             bool isHold = false;
 
             /// <summary>
@@ -146,6 +146,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
                 List<NoteFile> notes = map.notes[keyIndex];
+                SCKRM.Rhythm.BeatValuePairList<bool> yukiModes = map.globalEffect.yukiMode;
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double currentBeat = RhythmManager.currentBeatSound;
@@ -155,6 +156,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 {
                     bool input;
                     double disSecond = GetDisSecond(currentNote.beat, true);
+
+                    int comboMultiplier = 1;
+                    /*if (yukiModes.GetValue(currentNote.beat))
+                        comboMultiplier *= 2;*/
 
                     if (autoNote || instance.auto)
                     {
@@ -169,7 +174,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     for (int i = currentNoteIndex; (disSecond >= missSecond || input) && i < notes.Count; i++)
                     {
-                        if (Judgement(currentNote.beat, disSecond, false, out JudgementMetaData metaData))
+                        if (Judgement(currentNote.beat, disSecond, false, comboMultiplier, out JudgementMetaData metaData))
                         {
                             bool isMiss = metaData.nameKey == SDJKRuleset.miss;
                             if (currentNote.holdLength > 0)
@@ -177,7 +182,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                                 if (!isMiss) //미스가 아닐경우 홀드 노트 진행
                                 {
                                     isHold = true;
-                                    currentHoldBeat = currentNote.beat + currentNote.holdLength;
+                                    currentHoldNoteBeat = currentNote.beat + currentNote.holdLength;
                                 }
                                 else //미스 일경우 홀드 노트 패스
                                     lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
@@ -194,12 +199,16 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 if (isHold)
                 {
-                    double holdDisSecond = GetDisSecond(currentHoldBeat, true);
+                    double holdDisSecond = GetDisSecond(currentHoldNoteBeat, true);
                     bool holdInput;
+
+                    int comboMultiplier = 1;
+                    /*if (yukiModes.GetValue(currentHoldNoteBeat))
+                        comboMultiplier *= 2;*/
 
                     if (autoNote || instance.auto)
                     {
-                        holdInput = currentBeat <= currentHoldBeat;
+                        holdInput = currentBeat <= currentHoldNoteBeat;
                         holdDisSecond = 0;
                     }
                     else
@@ -208,13 +217,13 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (holdDisSecond >= missSecond || !holdInput)
                     {
                         isHold = false;
-                        Judgement(currentHoldBeat, holdDisSecond, true, out _);
+                        Judgement(currentHoldNoteBeat, holdDisSecond, true, comboMultiplier, out _);
 
                         HitsoundPlay();
                     }
                 }
 
-                bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
+                bool Judgement(double beat, double disSecond, bool forceFastMiss, int comboMultiplier, out JudgementMetaData metaData)
                 {
                     if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                     {
@@ -222,7 +231,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         bool isMiss = metaData.nameKey == SDJKRuleset.miss;
 
                         if (!isMiss)
-                            instance.combo++;
+                            instance.combo += comboMultiplier;
                         else
                             instance.combo = 0;
 
