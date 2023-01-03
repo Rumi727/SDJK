@@ -745,8 +745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 0}
-  _leftPrefab: ruleset.sdjk.drop_part_effect
-  _rightPrefab: ruleset.sdjk.drop_part_effect
+  _leftPrefab: ruleset.sdjk.yuki_mode_effect
+  _rightPrefab: ruleset.sdjk.yuki_mode_effect
   _count: 1.8
   _width: 2.5
   _forceShow: 0

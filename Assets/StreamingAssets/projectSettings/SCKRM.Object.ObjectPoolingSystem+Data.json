@@ -18,11 +18,11 @@
     "map_select_screen.map_pack": "Prefab/Main Menu/Map Select Screen/Map Pack",
     "map_select_screen.map": "Prefab/Main Menu/Map Select Screen/Map",
     "status_bar_rulesets_ruleset": "Prefab/Main Menu/UI/Ruleset",
-    "drop_part_effect.left_main_menu": "Prefab/Main Menu/Effect/Drop Part Effect Prefab Left Main Menu",
-    "drop_part_effect.right_main_menu": "Prefab/Main Menu/Effect/Drop Part Effect Prefab Right Main Menu",
+    "yuki_mode_effect.left_main_menu": "Prefab/Main Menu/Effect/Yuki Mode Effect Prefab Left Main Menu",
+    "yuki_mode_effect.right_main_menu": "Prefab/Main Menu/Effect/Yuki Mode Effect Prefab Right Main Menu",
     "ruleset.sdjk.play_field": "Prefab/Ruleset/SDJK/Play Field",
     "ruleset.sdjk.play_field.bar": "Prefab/Ruleset/SDJK/Bar",
     "ruleset.sdjk.play_field.bar.note": "Prefab/Ruleset/SDJK/Note",
-    "ruleset.sdjk.drop_part_effect": "Prefab/Ruleset/SDJK/Drop Part Effect Prefab"
+    "ruleset.sdjk.yuki_mode_effect": "Prefab/Ruleset/SDJK/Yuki Mode Effect Prefab"
   }
 }

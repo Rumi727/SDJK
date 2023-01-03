@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8035336152448544537}
   - component: {fileID: 3718357834827893265}
   m_Layer: 5
-  m_Name: Drop Part Effect Prefab Right Main Menu
+  m_Name: Yuki Mode Effect Prefab Right Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

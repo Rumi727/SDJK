@@ -7,8 +7,8 @@ namespace SDJK.Effect
 {
     public class YukiModeEffect : Effect
     {
-        [SerializeField] string _leftPrefab = "drop_part_effect.left"; public string leftPrefab => _leftPrefab;
-        [SerializeField] string _rightPrefab = "drop_part_effect.right"; public string rightPrefab => _rightPrefab;
+        [SerializeField] string _leftPrefab = "yuki_mode_effect.left"; public string leftPrefab => _leftPrefab;
+        [SerializeField] string _rightPrefab = "yuki_mode_effect.right"; public string rightPrefab => _rightPrefab;
 
         [SerializeField, Min(1)] float _count = 3; public float count => _count;
         [SerializeField, Min(0)] float _width = 10; public float width => _width;
