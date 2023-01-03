@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097bf6966ced6094dbc1452362bf194d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
