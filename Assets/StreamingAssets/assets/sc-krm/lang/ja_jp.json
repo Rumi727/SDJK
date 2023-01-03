@@ -278,5 +278,13 @@
 	
 	
 	
+	"ntp.thread.name": "NTPサーバー時間",
+	"ntp.thread.info.start": "NTPサーバーから時間を取得しています...",
+	"ntp.thread.info.end": "NTPサーバーから時間を取得しました",
+	"ntp.thread.info.error": "NTPサーバーから時間を取得できませんでした",
+	"ntp.thread.info.no_internet": "インターネット接続を待っています",
+	
+	
+	
 	"subtitles.easter_egg_music_play": "イースターエッグ音楽が再生されました"
 }

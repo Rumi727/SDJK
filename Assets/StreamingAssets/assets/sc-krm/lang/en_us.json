@@ -278,5 +278,13 @@
 	
 	
 	
+	"ntp.thread.name": "NTP server time",
+	"ntp.thread.info.start": "Getting time from NTP server...",
+	"ntp.thread.info.end": "Got time from NTP server",
+	"ntp.thread.info.error": "Failed to get time from NTP server",
+	"ntp.thread.info.no_internet": "Waiting for internet connection",
+	
+	
+	
 	"subtitles.easter_egg_music_play": "Easter egg music is playing"
 }

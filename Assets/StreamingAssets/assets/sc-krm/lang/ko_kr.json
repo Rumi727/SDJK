@@ -143,7 +143,7 @@
 	"notice.running_task": "실행중인 작업",
 	"notice.running_task.cancel_all": "모두 취소",
 	
-
+	
 	
 	"notice.running_task.resource_pack_refresh.name": "리소스팩 새로고침",
 	"notice.running_task.resource_pack_refresh.set_pack_textures.name": "리소스팩 새로고침 (텍스쳐 합치기)",
@@ -285,6 +285,14 @@
 	"scene_load.long_loading_time_off": "프로그램의 창을 끄지 마세요",
 	
 	
-
+	
+	"ntp.thread.name": "NTP 서버 시간",
+	"ntp.thread.info.start": "NTP 서버에서 시간을 가져오는 중입니다...",
+	"ntp.thread.info.end": "NTP 서버에서 시간을 가져왔습니다",
+	"ntp.thread.info.error": "NTP 서버에서 시간을 가져오는 데 실패했습니다",
+	"ntp.thread.info.no_internet": "인터넷 연결을 기다리고 있습니다",
+	
+	
+	
 	"subtitles.easter_egg_music_play": "이스터에그 음악이 재생됨"
 }

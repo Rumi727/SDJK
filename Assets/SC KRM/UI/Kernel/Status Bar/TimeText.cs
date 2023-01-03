@@ -1,4 +1,5 @@
 using SCKRM.Language;
+using SCKRM.NTP;
 using SCKRM.Resource;
 using System;
 using System.Globalization;
@@ -35,7 +36,7 @@ namespace SCKRM.UI.StatusBar
 
         void Update()
         {
-            DateTime dateTime = DateTime.Now;
+            DateTime dateTime = NTPDateTime.now;
             if ((dateTime.Second != tempSecond && StatusBarManager.SaveData.toggleSeconds) || dateTime.Minute != tempMinute || StatusBarManager.SaveData.twentyFourHourSystem != tempTwentyFourHourSystem || StatusBarManager.SaveData.toggleSeconds != tempToggleSeconds)
             {
                 dateTimeFormatInfo.AMDesignator = am;
@@ -49,7 +50,7 @@ namespace SCKRM.UI.StatusBar
                 if (StatusBarManager.SaveData.toggleSeconds)
                     time = time.Replace("mm", "mm:ss");
 
-                text.text = DateTime.Now.ToString(time, dateTimeFormatInfo);
+                text.text = dateTime.ToString(time, dateTimeFormatInfo);
 
                 tempSecond = dateTime.Second;
                 tempMinute = dateTime.Minute;

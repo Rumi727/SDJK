@@ -55,6 +55,7 @@ namespace SCKRM.UI.SideBar
         [System.NonSerialized] string tempName = "";
         [System.NonSerialized] string tempInfo = "";
         [System.NonSerialized] bool pointer = false;
+        [System.NonSerialized] bool lastLoop = true;
         void Update()
         {
             if (asyncTask == null || asyncTaskIndex >= AsyncTaskManager.asyncTasks.Count)
@@ -63,7 +64,7 @@ namespace SCKRM.UI.SideBar
                 progressBar.progress = 1;
                 progressBar.maxProgress = 1;
 
-                if (progressBar.fillShow.anchorMax.x >= 0.99f)
+                if (progressBar.fillShow.anchorMax.x >= 0.99f || lastLoop)
                     Remove();
 
                 return;
@@ -84,6 +85,8 @@ namespace SCKRM.UI.SideBar
                 removeButtonCanvasGroup.alpha = 0;
                 removeButtonCanvasGroup.interactable = false;
             }
+
+            lastLoop = asyncTask.loop;
 
             if (!asyncTask.loop)
             {

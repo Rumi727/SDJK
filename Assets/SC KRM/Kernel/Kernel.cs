@@ -15,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 13, 0);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 13, 1);
 
 
 
@@ -242,6 +242,14 @@ namespace SCKRM
 
 
         /// <summary>
+        /// Application.internetReachability
+        /// </summary>
+        [WikiDescription("[Application.internetReachability](https://docs.unity3d.com/ScriptReference/Application-internetReachability.html)")]
+        public static NetworkReachability internetReachability { get; private set; } = NetworkReachability.NotReachable;
+
+
+
+        /// <summary>
         /// 게임의 전체 속도를 결정 합니다
         /// </summary>
         [WikiDescription("게임의 전체 속도를 결정 합니다")]
@@ -395,6 +403,8 @@ Build: const true"
             Time.fixedDeltaTime = fixedDeltaTime;
 
             fps = 1f / deltaTime;
+
+            internetReachability = Application.internetReachability;
         }
 
         void OnApplicationQuit()

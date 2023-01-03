@@ -27,7 +27,7 @@ namespace SCKRM.Discord
 #endif
 
         static Action updateAction;
-        [Conditional("UNITY_STANDALONE")]
+        [Conditional("UNITY_EDITOR"), Conditional("UNITY_STANDALONE")]
         public static void UpdatePresence(string detail, string state = null, long start = -1, long end = -1, string largeKey = null, string largeText = null,
             string smallKey = null, string smallText = null, string partyId = null, int size = -1, int max = -1, string match = null, string join = null,
             string spectate = null)
