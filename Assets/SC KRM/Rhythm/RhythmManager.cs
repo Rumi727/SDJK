@@ -258,7 +258,10 @@ namespace SCKRM.Rhythm
             RhythmManager.soundPlayer = soundPlayer;
 
             if (RhythmManager.soundPlayer != null)
+            {
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
+                RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
+            }
 
             isPlaying = true;
             isStart = false;
@@ -283,7 +286,10 @@ namespace SCKRM.Rhythm
             bpmOffsetTime = 0;
 
             if (soundPlayer != null)
+            {
                 soundPlayer.timeChanged -= SoundPlayerTimeChange;
+                soundPlayer.looped -= SoundPlayerTimeChange;
+            }
 
             bpmList = null;
             offset = 0;
@@ -303,12 +309,18 @@ namespace SCKRM.Rhythm
                 return;
 
             if (RhythmManager.soundPlayer != null)
+            {
                 RhythmManager.soundPlayer.timeChanged -= SoundPlayerTimeChange;
+                RhythmManager.soundPlayer.looped -= SoundPlayerTimeChange;
+            }
 
             RhythmManager.soundPlayer = soundPlayer;
 
             if (RhythmManager.soundPlayer != null)
+            {
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
+                RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
+            }
 
             Debug.Log("Sound Player Changed");
         }
