@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.FileDialog;
 using SCKRM.Json;
@@ -66,5 +67,17 @@ namespace SDJK.Map
 
             return null;
         }
+
+        /*static void MapCompatibilityPatch(JObject jObjectMap, MapFile map)
+        {
+            {
+                JToken token = jObjectMap.SelectToken("globalEffect.dropPart");
+                if (token != null)
+                {
+                    map.globalEffect.yukiMode.Clear();
+                    map.globalEffect.yukiMode.AddRange(token.ToObject<SCKRM.Rhythm.BeatValuePairList<bool>>());
+                }
+            }
+        }*/
     }
 }
