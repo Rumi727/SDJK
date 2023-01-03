@@ -1,10 +1,11 @@
+using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Version = SCKRM.Version;
 
 namespace SDJK.Ruleset.SDJK.Map
 {
@@ -18,12 +19,17 @@ namespace SDJK.Ruleset.SDJK.Map
             {
                 if (extension == ".sdjk" && (type == typeof(MapFile) || type == typeof(SDJKMapFile)))
                 {
-                    SDJKMapFile map = JsonManager.JsonRead<SDJKMapFile>(mapFilePath, true);
+                    JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
 
-                    if (map == null)
-                        return null;
-                    else if (map.info.sdjkVersion != default)
+                    if (OldSDJKMapDistinction(jObjectMap))
+                        return OldSDJKMapLoad(jObjectMap);
+                    else
                     {
+                        SDJKMapFile map = jObjectMap.ToObject<SDJKMapFile>();
+
+                        if (map == null)
+                            return null;
+
                         if (map.info.mode == typeof(SDJKRuleset).FullName)
                         {
                             FixOverlappingNoteAndMinusHold(map);
@@ -31,23 +37,32 @@ namespace SDJK.Ruleset.SDJK.Map
 
                             return map;
                         }
-
-                        return null;
                     }
-                    else
-                        return OldSDJKMapLoad(mapFilePath);
                 }
-                else
-                    return null;
+
+                return null;
             };
         }
 
-        static SDJKMapFile OldSDJKMapLoad(string mapFilePath)
+        static bool OldSDJKMapDistinction(JObject jObjectMap) =>
+            jObjectMap.ContainsKey("A") &&
+            jObjectMap.ContainsKey("S") &&
+            jObjectMap.ContainsKey("D") &&
+            jObjectMap.ContainsKey("J") &&
+            jObjectMap.ContainsKey("K") &&
+            jObjectMap.ContainsKey("L") &&
+            jObjectMap.ContainsKey("AllBeat") &&
+            jObjectMap.ContainsKey("Effect");
+
+        static SDJKMapFile OldSDJKMapLoad(JObject jObjectMap)
         {
             try
             {
                 SDJKMapFile map = new SDJKMapFile();
-                OldSDJK oldMap = JsonManager.JsonRead<OldSDJK>(mapFilePath, true);
+                OldSDJK oldMap = jObjectMap.ToObject<OldSDJK>();
+
+                if (oldMap == null)
+                    return null;
 
                 #region Default Effect
                 for (int i = 0; i < oldMap.AllBeat.Count; i++)
