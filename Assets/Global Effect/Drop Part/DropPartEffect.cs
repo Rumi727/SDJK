@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Effect
 {
-    public class DropPartEffect : Effect
+    public class YukiModeEffect : Effect
     {
         [SerializeField] string _leftPrefab = "drop_part_effect.left"; public string leftPrefab => _leftPrefab;
         [SerializeField] string _rightPrefab = "drop_part_effect.right"; public string rightPrefab => _rightPrefab;
@@ -26,7 +26,7 @@ namespace SDJK.Effect
             }
         }
 
-        List<DropPartEffectPrefabParent> prefabs = new List<DropPartEffectPrefabParent>();
+        List<YukiModeEffectPrefabParent> prefabs = new List<YukiModeEffectPrefabParent>();
         void PrefabRefresh()
         {
             for (int i = 0; i < prefabs.Count; i++)
@@ -34,8 +34,8 @@ namespace SDJK.Effect
 
             for (int i = 0; i < count.Ceil(); i++)
             {
-                DropPartEffectPrefabParent left = (DropPartEffectPrefabParent)ObjectPoolingSystem.ObjectCreate(leftPrefab, transform).monoBehaviour;
-                DropPartEffectPrefabParent right = (DropPartEffectPrefabParent)ObjectPoolingSystem.ObjectCreate(rightPrefab, transform).monoBehaviour;
+                YukiModeEffectPrefabParent left = (YukiModeEffectPrefabParent)ObjectPoolingSystem.ObjectCreate(leftPrefab, transform).monoBehaviour;
+                YukiModeEffectPrefabParent right = (YukiModeEffectPrefabParent)ObjectPoolingSystem.ObjectCreate(rightPrefab, transform).monoBehaviour;
 
                 left.Refresh(this, i, true);
                 right.Refresh(this, i, false);

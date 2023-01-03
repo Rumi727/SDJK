@@ -42,7 +42,7 @@ namespace SDJK.MainMenu
                 if ((tempSDJKMap2 != MapManager.selectedMap || !RhythmManager.isPlaying) && bgm != null && bgm.soundPlayer != null)
                 {
                     RhythmManager.Stop();
-                    RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.dropPart, bgm.soundPlayer);
+                    RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.yukiMode, bgm.soundPlayer);
 
                     tempSDJKMap2 = MapManager.selectedMap;
                 }

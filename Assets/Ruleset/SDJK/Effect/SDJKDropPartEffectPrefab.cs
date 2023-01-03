@@ -7,22 +7,22 @@ using UnityEngine.UI;
 
 namespace SDJK.Ruleset.SDJK.Effect
 {
-    public class SDJKDropPartEffectPrefab: DropPartEffectPrefabParent
+    public class SDJKYukiModeEffectPrefab: YukiModeEffectPrefabParent
     {
         [SerializeField] SpriteRenderer spriteRenderer;
-        SDJKDropPartEffect sdjkDropPartEffect;
+        SDJKYukiModeEffect sdjkYukiModeEffect;
 
         protected override void Update()
         {
             base.Update();
 
-            if (dropPartEffect == null)
+            if (yukiModeEffect == null)
                 return;
 
-            if (sdjkDropPartEffect == null)
-                sdjkDropPartEffect = (SDJKDropPartEffect)dropPartEffect;
+            if (sdjkYukiModeEffect == null)
+                sdjkYukiModeEffect = (SDJKYukiModeEffect)yukiModeEffect;
 
-            Bar bar = sdjkDropPartEffect.bar;
+            Bar bar = sdjkYukiModeEffect.bar;
             Vector3 dir;
             if (isLeft)
                 dir = Vector3.left;
@@ -30,15 +30,15 @@ namespace SDJK.Ruleset.SDJK.Effect
                 dir = Vector3.right;
 
             Vector3 parentPos = transform.parent.position;
-            if (dropPart && !Physics.Raycast(parentPos, dir, dropPartEffect.width + Bar.barWidthWithoutBoardHalf))
+            if (yukiMode && !Physics.Raycast(parentPos, dir, yukiModeEffect.width + Bar.barWidthWithoutBoardHalf))
             {
                 Color color = bar.barEffectFile.color.GetValue(RhythmManager.currentBeatScreen);
-                double div = offsetCurrentBeatReapeat / dropPartEffect.count;
+                double div = offsetCurrentBeatReapeat / yukiModeEffect.count;
 
                 if (isLeft)
-                    transform.localPosition = new Vector2(-(float)(dropPartEffect.width * (float)div) - Bar.barWidthWithoutBoardHalf, 0);
+                    transform.localPosition = new Vector2(-(float)(yukiModeEffect.width * (float)div) - Bar.barWidthWithoutBoardHalf, 0);
                 else
-                    transform.localPosition = new Vector2((float)(dropPartEffect.width * (float)div) + Bar.barWidthWithoutBoardHalf, 0);
+                    transform.localPosition = new Vector2((float)(yukiModeEffect.width * (float)div) + Bar.barWidthWithoutBoardHalf, 0);
 
                 spriteRenderer.size = new Vector2(Bar.barBoardWidth, (float)bar.playField.fieldHeight);
                 spriteRenderer.color = new Color(color.r, color.g, color.b, (float)(1 - div));

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MainMenu.Effect
 {
-    public class DropPartEffectPrefabMainMenu : DropPartEffectPrefabParent, IUI
+    public class YukiModeEffectPrefabMainMenu : YukiModeEffectPrefabParent, IUI
     {
         #region UI
         [SerializeField] RectTransform _parentRectTransform; public RectTransform parentRectTransform
@@ -42,17 +42,17 @@ namespace SDJK.MainMenu.Effect
         {
             base.Update();
 
-            if (dropPartEffect == null)
+            if (yukiModeEffect == null)
                 return;
 
-            if (dropPart)
+            if (yukiMode)
             {
-                double div = offsetCurrentBeatReapeat / dropPartEffect.count;
+                double div = offsetCurrentBeatReapeat / yukiModeEffect.count;
 
                 if (isLeft)
-                    rectTransform.anchoredPosition = new Vector2(-(float)(dropPartEffect.width * (float)div), 0);
+                    rectTransform.anchoredPosition = new Vector2(-(float)(yukiModeEffect.width * (float)div), 0);
                 else
-                    rectTransform.anchoredPosition = new Vector2((float)(dropPartEffect.width * (float)div), 0);
+                    rectTransform.anchoredPosition = new Vector2((float)(yukiModeEffect.width * (float)div), 0);
 
                 rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 0);
                 graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, (float)(1 - div));

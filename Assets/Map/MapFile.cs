@@ -73,7 +73,7 @@ namespace SDJK.Map
     public sealed class MapGlobalEffect
     {
         public SCKRM.Rhythm.BeatValuePairList<double> bpm { get; } = new(100);
-        public SCKRM.Rhythm.BeatValuePairList<bool> dropPart { get; } = new(false);
+        public SCKRM.Rhythm.BeatValuePairList<bool> yukiMode { get; } = new(false);
 
 
 

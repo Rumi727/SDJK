@@ -48,7 +48,7 @@ namespace SDJK.Ruleset.SDJK
             /*System.Collections.Generic.List<BeatValuePairAni<double>> beats = new System.Collections.Generic.List<BeatValuePairAni<double>>();
             for (int i = 0; i < 350; i++)
             {
-                if (map.globalEffect.dropPart.GetValue(i + 1) || (i >= 192 && i <= 224))
+                if (map.globalEffect.yukiMode.GetValue(i + 1) || (i >= 192 && i <= 224))
                 {
                     BeatValuePairAni<double> asdf = new BeatValuePairAni<double>() { beat = i, length = 0, value = 0.97f, easingFunction = SCKRM.Easing.EasingFunction.Ease.Linear };
                     map.globalEffect.cameraZoom.Add(asdf);

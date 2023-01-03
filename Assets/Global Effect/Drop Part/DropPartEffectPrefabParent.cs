@@ -5,14 +5,14 @@ using SDJK.Effect;
 
 namespace SDJK
 {
-    public abstract class DropPartEffectPrefabParent : ObjectPooling
+    public abstract class YukiModeEffectPrefabParent : ObjectPooling
     {
-        public DropPartEffect dropPartEffect { get; private set; }
+        public YukiModeEffect yukiModeEffect { get; private set; }
 
         public int indexOffset { get; private set; }
         public bool isLeft { get; private set; }
 
-        public bool dropPart { get; private set; } = false;
+        public bool yukiMode { get; private set; } = false;
 
         public double offsetCurrentBeat { get; private set; } = 0;
         public double offsetCurrentBeatReapeat { get; private set; } = 0;
@@ -20,21 +20,21 @@ namespace SDJK
         double lastCurrentBeatReapeat = 0;
         protected virtual void Update()
         {
-            if (dropPartEffect == null)
+            if (yukiModeEffect == null)
                 return;
 
             offsetCurrentBeat = RhythmManager.currentBeat - indexOffset;
-            offsetCurrentBeatReapeat = offsetCurrentBeat.Reapeat(dropPartEffect.count.Ceil());
+            offsetCurrentBeatReapeat = offsetCurrentBeat.Reapeat(yukiModeEffect.count.Ceil());
 
             if (offsetCurrentBeatReapeat < lastCurrentBeatReapeat)
-                dropPart = RhythmManager.dropPart || dropPartEffect.forceShow;
+                yukiMode = RhythmManager.yukiMode || yukiModeEffect.forceShow;
 
             lastCurrentBeatReapeat = offsetCurrentBeatReapeat;
         }
 
-        public void Refresh(DropPartEffect dropPartEffect, int indexOffset, bool isLeft)
+        public void Refresh(YukiModeEffect yukiModeEffect, int indexOffset, bool isLeft)
         {
-            this.dropPartEffect = dropPartEffect;
+            this.yukiModeEffect = yukiModeEffect;
 
             this.indexOffset = indexOffset;
             this.isLeft = isLeft;
@@ -45,12 +45,12 @@ namespace SDJK
             if (!base.Remove())
                 return false;
 
-            dropPartEffect = null;
+            yukiModeEffect = null;
 
             indexOffset = 0;
             isLeft = false;
 
-            dropPart = false;
+            yukiMode = false;
 
             offsetCurrentBeat = 0;
             offsetCurrentBeatReapeat = 0;

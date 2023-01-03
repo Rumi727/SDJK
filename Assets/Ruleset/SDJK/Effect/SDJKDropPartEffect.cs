@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Effect
 {
-    public class SDJKDropPartEffect : DropPartEffect
+    public class SDJKYukiModeEffect : YukiModeEffect
     {
         [SerializeField] Bar _bar; public Bar bar => _bar;
 
