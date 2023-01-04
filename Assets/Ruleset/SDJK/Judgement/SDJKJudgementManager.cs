@@ -150,7 +150,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
                 List<NoteFile> notes = map.notes[keyIndex];
-                SCKRM.Rhythm.BeatValuePairList<bool> yukiModes = map.globalEffect.yukiMode;
+                //SCKRM.Rhythm.BeatValuePairList<bool> yukiModes = map.globalEffect.yukiMode;
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double currentBeat = RhythmManager.currentBeatSound;
