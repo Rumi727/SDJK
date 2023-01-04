@@ -101,6 +101,8 @@ namespace SDJK.Ruleset
 
             return null;
         }
+
+        public static IRuleset FindRuleset(string name) => rulesetList.Find(x => x.name == name);
     }
 
     /// <summary>

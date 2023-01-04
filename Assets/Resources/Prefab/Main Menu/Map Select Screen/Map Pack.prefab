@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1322257676591220371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3946438051095062918}
+  - component: {fileID: 2797916336249338086}
+  m_Layer: 5
+  m_Name: Ruleset List
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3946438051095062918
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322257676591220371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2416322189939809887}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -20, y: -84.84}
+  m_SizeDelta: {x: -76, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &2797916336249338086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322257676591220371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a272de5206b45204ea2dfe6e2f7ac3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentRectTransform: {fileID: 0}
+  _rectTransform: {fileID: 3946438051095062918}
+  _graphic: {fileID: 0}
 --- !u!1 &2416322189155291005
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,13 +257,14 @@ RectTransform:
   - {fileID: 6771531570862354359}
   - {fileID: 2416322190844784861}
   - {fileID: 2416322189155291004}
+  - {fileID: 3946438051095062918}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 90.84}
+  m_SizeDelta: {x: 0, y: 94.84}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &3684948657640193229
 MonoBehaviour:
@@ -294,10 +347,13 @@ MonoBehaviour:
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 0}
+  verticalLayout: {fileID: 4617106503645142556}
   outline: {fileID: 2512105676647686057}
   background: {fileID: 2416322190213699761}
   songName: {fileID: 2416322190844784860}
   artist: {fileID: 2416322189155291007}
+  rulesetIcon: {fileID: 0}
+  rulesetIconRectTransform: {fileID: 0}
   isMap: 0
 --- !u!114 &4617106503645142556
 MonoBehaviour:
@@ -374,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding: {x: -5, y: -5, z: -5, w: -5}
-  m_Softness: {x: 10, y: 10}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &2416322190213699756
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,7 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 10, y: 10}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &7704890014507351672
 GameObject:
   m_ObjectHideFlags: 0

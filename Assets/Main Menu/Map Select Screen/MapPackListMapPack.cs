@@ -1,8 +1,11 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
+using SCKRM.Renderer;
 using SCKRM.Resource;
 using SCKRM.UI;
+using SCKRM.UI.Layout;
 using SDJK.Map;
+using SDJK.Ruleset;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,10 +20,13 @@ namespace SDJK.MainMenu.MapSelectScreen
     {
         public static bool isTextureLoading { get; private set; } = false;
 
+        [SerializeField, NotNull] VerticalLayout verticalLayout;
         [SerializeField, NotNull] Image outline;
         [SerializeField, NotNull] Image background;
         [SerializeField, NotNull] TMP_Text songName;
         [SerializeField, NotNull] TMP_Text artist;
+        [SerializeField] CustomImageRenderer rulesetIcon;
+        [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
 
         public override void OnCreate()
@@ -38,6 +44,9 @@ namespace SDJK.MainMenu.MapSelectScreen
         int mapIndex;
         void Update()
         {
+            if (isMap)
+                verticalLayout.padding.left = (int)(rulesetIconRectTransform.anchoredPosition.x * 2 + rulesetIconRectTransform.rect.width);
+
             if ((mapPack == MapManager.selectedMapPack && MainMenu.currentScreenMode == ScreenMode.mapPackSelect && !isMap) || (map == MapManager.selectedMap && MainMenu.currentScreenMode == ScreenMode.mapSelect && isMap))
             {
                 outline.color = outline.color.MoveTowards(Color.white, 0.1f * Kernel.fpsUnscaledDeltaTime);
@@ -82,6 +91,9 @@ namespace SDJK.MainMenu.MapSelectScreen
             {
                 songName.text = selectedMap.info.difficultyLabel;
                 artist.text = selectedMap.info.author;
+
+                rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.mode).icon;
+                rulesetIcon.Refresh();
             }
 
             if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
