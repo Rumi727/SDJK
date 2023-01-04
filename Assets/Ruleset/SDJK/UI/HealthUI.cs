@@ -19,7 +19,7 @@ namespace SDJK.Ruleset.SDJK.UI
             if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
                 return;
 
-            value = value.Lerp((float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth), lerpAniValue);
+            value = value.Lerp((float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth), lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             valueImage.anchorMax = new Vector2(1, value);
         }
     }
