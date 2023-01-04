@@ -33,7 +33,6 @@ namespace SDJK.Ruleset.SDJK.Map
                         if (map.info.mode == typeof(SDJKRuleset).FullName)
                         {
                             FixMap(map);
-                            FixOverlappingAutoNotes(map);
                             FixAllJudgmentBeat(map);
 
                             return map;
@@ -407,7 +406,6 @@ namespace SDJK.Ruleset.SDJK.Map
                 #endregion
 
                 FixMap(map);
-                FixOverlappingAutoNotes(map);
                 FixAllJudgmentBeat(map);
 
                 return map;
@@ -460,7 +458,7 @@ namespace SDJK.Ruleset.SDJK.Map
             }
         }
 
-        static void FixOverlappingAutoNotes(SDJKMapFile map)
+        /*static void FixOverlappingAutoNotes(SDJKMapFile map)
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
@@ -497,7 +495,7 @@ namespace SDJK.Ruleset.SDJK.Map
                     }
                 }
             }
-        }
+        }*/
 
         static void FixAllJudgmentBeat(SDJKMapFile map)
         {
