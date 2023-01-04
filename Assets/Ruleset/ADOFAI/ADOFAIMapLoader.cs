@@ -444,7 +444,7 @@ namespace SDJK.Ruleset.ADOFAI
                     }
                     catch (Exception e)
                     {
-                        Debug.Log(mapFilePath);
+                        Debug.ForceLog(mapFilePath);
                         Debug.LogException(e);
                         return null;
                     }
