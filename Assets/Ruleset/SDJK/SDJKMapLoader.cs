@@ -68,7 +68,7 @@ namespace SDJK.Ruleset.SDJK.Map
                 for (int i = 0; i < oldMap.AllBeat.Count; i++)
                 {
                     if (i < oldMap.AllBeat.Count - 1)
-                        map.allBeat.Add(oldMap.AllBeat[i] - 1);
+                        map.allJudgmentBeat.Add(oldMap.AllBeat[i] - 1);
                 }
 
 

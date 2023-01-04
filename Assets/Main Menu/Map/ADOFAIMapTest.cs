@@ -22,23 +22,23 @@ namespace SDJK.MainMenu
             if (hitSoundPlay)
             {
                 double value;
-                if (map.allBeat.Count <= 0)
+                if (map.allJudgmentBeat.Count <= 0)
                 {
                     value = -1;
                     tempValue = -1;
                 }
-                else if (map.allBeat.Count <= 1 || map.allBeat[0] >= RhythmManager.currentBeat)
+                else if (map.allJudgmentBeat.Count <= 1 || map.allJudgmentBeat[0] >= RhythmManager.currentBeat)
                 {
                     value = -1;
                     tempValue = -1;
                 }
                 else
                 {
-                    int findIndex = map.allBeat.FindIndex(x => x >= RhythmManager.currentBeat);
+                    int findIndex = map.allJudgmentBeat.FindIndex(x => x >= RhythmManager.currentBeat);
                     if (findIndex < 0)
-                        findIndex = map.allBeat.Count;
+                        findIndex = map.allJudgmentBeat.Count;
 
-                    value = map.allBeat[findIndex - 1];
+                    value = map.allJudgmentBeat[findIndex - 1];
                 }
 
                 if (!tempValue.Equals(value))

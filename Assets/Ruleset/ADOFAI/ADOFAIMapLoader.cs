@@ -220,7 +220,7 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (lastBeat == beat && !midspin)
                                     beat += 2;
 
-                                sdjk.allBeat.Add(beat);
+                                sdjk.allJudgmentBeat.Add(beat);
                                 allBeat.Add(beat);
 
                                 lastAngle = angle;
