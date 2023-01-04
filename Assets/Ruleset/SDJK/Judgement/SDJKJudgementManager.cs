@@ -25,6 +25,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
         public int combo { get; private set; }
+        public double score { get; private set; }
+        public const double scoreMultiplier = 10000000;
 
         public double health 
         { 
@@ -63,6 +65,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
         List<JudgementObject> judgements = new List<JudgementObject>();
+        List<HoldJudgementObject> holdJudgements = new List<HoldJudgementObject>();
         public void Refresh()
         {
             if (SingletonCheck(this))
@@ -101,6 +104,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 {
                     for (int i = 0; i < judgements.Count; i++)
                         judgements[i].Update();
+
+                    for (int i = 0; i < holdJudgements.Count; i++)
+                        holdJudgements[i].Update();
                 }
 
                 if (RhythmManager.currentBeat >= 0)
@@ -133,8 +139,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
             bool autoNote;
             NoteFile currentNote;
             int currentNoteIndex = -1;
-            double currentHoldNoteBeat = 0;
-            bool isHold = false;
 
             /// <summary>
             /// lastJudgementBeat[keyIndex]
@@ -150,21 +154,16 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double currentBeat = RhythmManager.currentBeatSound;
-                double bpmDivide60 = RhythmManager.bpm / 60d;
 
                 if (currentNoteIndex < notes.Count)
                 {
                     bool input;
-                    double disSecond = GetDisSecond(currentNote.beat, true);
-
-                    int comboMultiplier = 1;
-                    /*if (yukiModes.GetValue(currentNote.beat))
-                        comboMultiplier *= 2;*/
+                    SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond);
 
                     if (autoNote || instance.auto)
                     {
                         input = currentBeat >= currentNote.beat;
-                        disSecond = 0;
+                        judgementDisSecond = 0;
                     }
                     else
                         input = inputManager.GetKey(keyIndex, InputType.Down);
@@ -172,110 +171,112 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (input)
                         HitsoundPlay();
 
-                    for (int i = currentNoteIndex; (disSecond >= missSecond || input) && i < notes.Count; i++)
+                    for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
                     {
-                        if (Judgement(currentNote.beat, disSecond, false, comboMultiplier, out JudgementMetaData metaData))
+                        if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData))
                         {
                             bool isMiss = metaData.nameKey == SDJKRuleset.miss;
                             if (currentNote.holdLength > 0)
                             {
+                                double holdBeat = currentNote.beat + currentNote.holdLength;
+
                                 if (!isMiss) //미스가 아닐경우 홀드 노트 진행
                                 {
-                                    isHold = true;
-                                    currentHoldNoteBeat = currentNote.beat + currentNote.holdLength;
+                                    HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, keyIndex, autoNote, holdBeat);
+                                    instance.holdJudgements.Add(holdJudgementObject);
+
+                                    holdJudgementObject.Update();
                                 }
                                 else //미스 일경우 홀드 노트 패스
-                                    lastJudgementBeat[keyIndex] = currentNote.beat + currentNote.holdLength;
+                                    lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(holdBeat);
                             }
 
                             lastJudgementIndex[keyIndex] = currentNoteIndex;
                             NextNote();
                         }
 
-                        disSecond = GetDisSecond(currentNote.beat, true);
+                        SetDisSecond(currentNote.beat, true, out realDisSecond, out judgementDisSecond);
                         input = false;
                     }
                 }
+            }
 
-                if (isHold)
+            public void SetDisSecond(double beat, bool maxClamp, out double realDisSecond, out double judgementDisSecond)
+            {
+                realDisSecond = GetDisSecond(beat, maxClamp);
+                judgementDisSecond = realDisSecond;
+
+                if (autoNote || instance.auto)
+                    judgementDisSecond = 0;
+            }
+
+            public bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
+            {
+                SDJKRuleset ruleset = instance.sdjkManager.ruleset;
+                List<NoteFile> notes = map.notes[keyIndex];
+                double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
+
+                double currentBeat = RhythmManager.currentBeatSound;
+                double bpmDivide60 = RhythmManager.bpm / 60d;
+
+                if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                 {
-                    double holdDisSecond = GetDisSecond(currentHoldNoteBeat, true);
-                    bool holdInput;
+                    lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(beat);
+                    bool isMiss = metaData.nameKey == SDJKRuleset.miss;
 
-                    int comboMultiplier = 1;
-                    /*if (yukiModes.GetValue(currentHoldNoteBeat))
-                        comboMultiplier *= 2;*/
-
-                    if (autoNote || instance.auto)
+                    if (!isMiss)
                     {
-                        holdInput = currentBeat <= currentHoldNoteBeat;
-                        holdDisSecond = 0;
+                        instance.combo += 1;
+                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count) * instance.combo * scoreMultiplier;
                     }
                     else
-                        holdInput = inputManager.GetKey(keyIndex, InputType.Alway);
+                        instance.combo = 0;
 
-                    if (holdDisSecond >= missSecond || !holdInput)
-                    {
-                        isHold = false;
-                        Judgement(currentHoldNoteBeat, holdDisSecond, true, comboMultiplier, out _);
-
-                        HitsoundPlay();
-                    }
-                }
-
-                bool Judgement(double beat, double disSecond, bool forceFastMiss, int comboMultiplier, out JudgementMetaData metaData)
-                {
-                    if (instance.sdjkManager.ruleset.Judgement(disSecond, forceFastMiss, out metaData))
-                    {
-                        lastJudgementBeat[keyIndex] = beat;
-                        bool isMiss = metaData.nameKey == SDJKRuleset.miss;
-
-                        if (!isMiss)
-                            instance.combo += comboMultiplier;
-                        else
-                            instance.combo = 0;
-
-                        if (isMiss || metaData.missHp)
-                            instance.health -= map.globalEffect.hpMissValue.GetValue() * metaData.hpMultiplier;
-                        else
-                            instance.health += map.globalEffect.hpAddValue.GetValue() * metaData.hpMultiplier;
-
-                        if (instance.health <= 0)
-                            instance.gameOverManager.GameOver();
-
-                        instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
-                        return true;
-                    }
-                    else //노트를 치지 않았을때
-                    {
-                        //가장 가까운 즉사 노트 감지
-                        double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == NoteTypeFile.instantDeath);
-                        double dis = GetDisSecond(instantDeathNoteBeat, false);
-                        
-                        if (dis.Abs() <= missSecond)
-                        {
-                            instance.combo = 0;
-                            instance.health = 0;
-                            instance.gameOverManager.GameOver();
-
-                            instance.judgementAction?.Invoke(dis, true, ruleset.instantDeathJudgementMetaData);
-                        }
-                    }
-
-                    return false;
-                }
-
-                //beat 인자랑 currentBeat 변수간의 거리를 계산하고, 계산된 결과를 초로 변환하여 반환합니다
-                double GetDisSecond(double beat, bool maxClamp)
-                {
-                    double value = (currentBeat - beat) / bpmDivide60 / (RhythmManager.currentSpeed * Kernel.gameSpeed);
-                    if (maxClamp)
-                        return value.Clamp(double.MinValue, missSecond);
+                    if (isMiss || metaData.missHp)
+                        instance.health -= map.globalEffect.hpMissValue.GetValue() * metaData.hpMultiplier;
                     else
-                        return value;
+                        instance.health += map.globalEffect.hpAddValue.GetValue() * metaData.hpMultiplier;
+
+                    if (instance.health <= 0)
+                        instance.gameOverManager.GameOver();
+
+                    instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
+                    return true;
+                }
+                else //노트를 치지 않았을때
+                {
+                    //가장 가까운 즉사 노트 감지
+                    double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == NoteTypeFile.instantDeath);
+                    double dis = GetDisSecond(instantDeathNoteBeat, false);
+
+                    if (dis.Abs() <= missSecond)
+                    {
+                        instance.combo = 0;
+                        instance.health = 0;
+                        instance.gameOverManager.GameOver();
+
+                        instance.judgementAction?.Invoke(dis, true, ruleset.instantDeathJudgementMetaData);
+                    }
                 }
 
-                void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+                return false;
+            }
+
+            public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+
+            public double GetDisSecond(double beat, bool maxClamp)
+            {
+                SDJKRuleset ruleset = instance.sdjkManager.ruleset;
+                double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
+
+                double currentBeat = RhythmManager.currentBeatSound;
+                double bpmDivide60 = RhythmManager.bpm / 60d;
+
+                double value = (currentBeat - beat) / bpmDivide60 / (RhythmManager.currentSpeed * Kernel.gameSpeed);
+                if (maxClamp)
+                    return value.Clamp(double.MinValue, missSecond);
+                else
+                    return value;
             }
 
             void NextNote()
@@ -301,6 +302,50 @@ namespace SDJK.Ruleset.SDJK.Judgement
                                 break;
                         }
                     }
+                }
+            }
+        }
+
+        class HoldJudgementObject
+        {
+            public HoldJudgementObject(JudgementObject judgementObject, SDJKInputManager inputManager, int keyIndex, bool autoNote, double currentHoldNoteBeat)
+            {
+                this.judgementObject = judgementObject;
+                this.inputManager = inputManager;
+                this.keyIndex = keyIndex;
+
+                this.autoNote = autoNote;
+                this.currentHoldNoteBeat = currentHoldNoteBeat;
+            }
+
+            JudgementObject judgementObject;
+            SDJKInputManager inputManager;
+            int keyIndex = 0;
+
+            bool autoNote;
+            double currentHoldNoteBeat;
+
+            public void Update()
+            {
+                SDJKRuleset ruleset = instance.sdjkManager.ruleset;
+                double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
+
+                double currentBeat = RhythmManager.currentBeatSound;
+
+                judgementObject.SetDisSecond(currentHoldNoteBeat, true, out double realDisSecond, out double judgementDisSecond);
+                bool input;
+
+                if (autoNote || instance.auto)
+                    input = currentBeat <= currentHoldNoteBeat;
+                else
+                    input = inputManager.GetKey(keyIndex, InputType.Alway);
+
+                if (realDisSecond >= missSecond || !input)
+                {
+                    judgementObject.Judgement(currentHoldNoteBeat, judgementDisSecond, true, out _);
+                    judgementObject.HitsoundPlay();
+
+                    instance.holdJudgements.Remove(this);
                 }
             }
         }
