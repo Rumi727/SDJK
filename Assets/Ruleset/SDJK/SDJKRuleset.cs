@@ -13,11 +13,11 @@ namespace SDJK.Ruleset.SDJK
     {
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
-            new JudgementMetaData(sick, 0.01),
-            new JudgementMetaData(perfect, 0.02),
-            new JudgementMetaData(great, 0.04, 0.75),
-            new JudgementMetaData(good, 0.08, 0.5),
-            new JudgementMetaData(early, 0.16, 0.5, true)
+            new JudgementMetaData(sick, 0.016),
+            new JudgementMetaData(perfect, 0.032, 0.75),
+            new JudgementMetaData(great, 0.064, 0.5),
+            new JudgementMetaData(good, 0.128, 0.25),
+            new JudgementMetaData(early, 0.256, 0.5, true)
         };
         public override JudgementMetaData missJudgementMetaData { get; } = new JudgementMetaData(miss, double.MaxValue, 1, true);
         public JudgementMetaData instantDeathJudgementMetaData { get; } = new JudgementMetaData(instantDeath, double.MaxValue, double.MaxValue, true);
