@@ -25,15 +25,22 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
         public int combo { get; private set; }
+
         public double score { get; private set; }
         public const double scoreMultiplier = 10000000;
+
+        /// <summary>
+        /// 0 ~ 1 (0에 가까울수록 정확함)
+        /// </summary>
+        public double accuracy { get; private set; } = 0;
+        public List<double> accuracys { get; } = new List<double>();
 
         public double health 
         { 
             get => _health; 
             private set => _health = value.Clamp(0, maxHealth); 
         }
-        private double _health = maxHealth;
+        double _health = maxHealth;
 
         public const double maxHealth = 100;
 
@@ -239,6 +246,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     if (instance.health <= 0)
                         instance.gameOverManager.GameOver();
+
+                    instance.accuracys.Add(disSecond.Abs().Clamp(0, missSecond) / missSecond);
+                    instance.accuracy = instance.accuracys.Average();
 
                     instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                     return true;

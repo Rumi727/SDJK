@@ -9,10 +9,11 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.UI
 {
-    public sealed class ScoreUI : SDJKUI
+    public sealed class AccuracyUI : SDJKUI
     {
         [SerializeField] TMP_Text text;
         [SerializeField] float lerpAniValue = 0.2f;
+        [SerializeField] string suffix = "%";
 
         double value = 0;
         void Update()
@@ -20,8 +21,8 @@ namespace SDJK.Ruleset.SDJK.UI
             if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
                 return;
 
-            value = value.Lerp(SDJKJudgementManager.instance.score, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
-            text.text = value.RoundToInt().ToString();
+            value = value.Lerp(SDJKJudgementManager.instance.accuracy, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            text.text = 100d.Lerp(0d, value).Round(2).ToString() + suffix;
         }
     }
 }
