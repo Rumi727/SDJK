@@ -34,6 +34,7 @@ namespace SDJK.Ruleset.SDJK.Map
                         {
                             FixMap(map);
                             FixOverlappingAutoNotes(map);
+                            FixAllJudgmentBeat(map);
 
                             return map;
                         }
@@ -407,6 +408,7 @@ namespace SDJK.Ruleset.SDJK.Map
 
                 FixMap(map);
                 FixOverlappingAutoNotes(map);
+                FixAllJudgmentBeat(map);
 
                 return map;
             }
@@ -437,9 +439,7 @@ namespace SDJK.Ruleset.SDJK.Map
                     //노트 겹침 방지
                     if (!holdNoteStart)
                     {
-                        if (note.holdLength <= 0)
-                            continue;
-                        else
+                        if (note.holdLength > 0)
                         {
                             holdNoteStart = true;
                             holdNoteEndBeat = note.beat + note.holdLength;
@@ -456,15 +456,8 @@ namespace SDJK.Ruleset.SDJK.Map
                     //마이너스 홀드 방지
                     note.holdLength = note.holdLength.Clamp(0);
                     notes[j] = note;
-
-                    //모든 판정 비트에 노트 추가
-                    map.allJudgmentBeat.Add(note.beat);
-                    if (note.holdLength > 0)
-                        map.allJudgmentBeat.Add(note.beat + note.holdLength);
                 }
             }
-
-            map.allJudgmentBeat.Sort();
         }
 
         static void FixOverlappingAutoNotes(SDJKMapFile map)
@@ -504,6 +497,31 @@ namespace SDJK.Ruleset.SDJK.Map
                     }
                 }
             }
+        }
+
+        static void FixAllJudgmentBeat(SDJKMapFile map)
+        {
+            map.allJudgmentBeat.Clear();
+
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<NoteFile> notes = map.notes[i];
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    NoteFile note = notes[j];
+
+                    //모든 판정 비트에 노트 추가
+                    if (note.type != NoteTypeFile.instantDeath)
+                    {
+                        map.allJudgmentBeat.Add(note.beat);
+                        if (note.holdLength > 0)
+                            map.allJudgmentBeat.Add(note.beat + note.holdLength);
+                    }
+                }
+            }
+
+            map.allJudgmentBeat.Sort();
         }
 
         class OldSDJK
