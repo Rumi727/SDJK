@@ -187,7 +187,7 @@ namespace SDJK.Ruleset
                 return false;
         }
 
-        public bool Equals(JudgementMetaData other) => nameKey.Equals(other.nameKey);
+        public bool Equals(JudgementMetaData other) => nameKey == other.nameKey;
 
         public override int GetHashCode() => nameKey.GetHashCode();
     }
