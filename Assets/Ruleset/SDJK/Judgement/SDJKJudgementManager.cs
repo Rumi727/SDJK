@@ -168,10 +168,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond);
 
                     if (autoNote || instance.auto)
-                    {
                         input = currentBeat >= currentNote.beat;
-                        judgementDisSecond = 0;
-                    }
                     else
                         input = inputManager.GetKey(keyIndex, InputType.Down);
 
