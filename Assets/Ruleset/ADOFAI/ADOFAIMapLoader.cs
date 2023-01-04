@@ -531,12 +531,12 @@ namespace SDJK.Ruleset.ADOFAI
 
                 public bool isTileEffect;
 
-                public Effect(double beat, string eventTag, EventsAction events, bool isTileEffect)
+                public Effect(double beat, string eventTag, EventsAction action, bool isTileEffect)
                 {
                     this.beat = beat;
                     this.eventTag = eventTag;
 
-                    this.action = events;
+                    this.action = action;
 
                     this.isTileEffect = isTileEffect;
                 }
