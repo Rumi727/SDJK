@@ -22,7 +22,5 @@ namespace SDJK.Ruleset.SDJK.UI
             value = value.Lerp((float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth), lerpAniValue);
             valueImage.anchorMax = new Vector2(1, value);
         }
-
-        protected override void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData) { }
     }
 }
