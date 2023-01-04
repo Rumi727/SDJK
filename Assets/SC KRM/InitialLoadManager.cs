@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SCKRM.Input;
 using SCKRM.ProjectSetting;
 using SCKRM.Renderer;
 using SCKRM.Resource;
 using SCKRM.SaveLoad;
+using SCKRM.Sound;
 using SCKRM.Splash;
 using SCKRM.Threads;
 using SCKRM.UI;
@@ -195,6 +197,19 @@ namespace SCKRM
                     ApplicationForceQuit("Virtual machines are prohibited");
 #endif
 
+                //오디오 레이턴시를 수정합니다
+                AudioConfiguration audioConfiguration = AudioSettings.GetConfiguration();
+                if (SoundManager.SaveData.fixAudioLatency && audioConfiguration.dspBufferSize != 256)
+                {
+                    audioConfiguration.dspBufferSize = 256;
+                    AudioSettings.Reset(audioConfiguration);
+                }
+                else if (!SoundManager.SaveData.fixAudioLatency && audioConfiguration.dspBufferSize != 1024)
+                {
+                    audioConfiguration.dspBufferSize = 1024;
+                    AudioSettings.Reset(audioConfiguration);
+                }
+
                 //Awake, OnEnable 함수의 작동이 끝날때까지 기다립니다
                 if (await UniTask.NextFrame(PlayerLoopTiming.LastTimeUpdate, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                     return;
@@ -230,7 +245,7 @@ namespace SCKRM
 #endif
                     {
                         //씬 애니메이션이 끝날때까지 기다립니다
-                        Debug.Log("Kernel: Waiting for scene animation...");
+                        Debug.ForceLog("Kernel: Waiting for scene animation...", nameof(InitialLoadManager));
                         if (await UniTask.WaitUntil(() => !SplashScreen.isAniPlaying, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                             return;
                     }

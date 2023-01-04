@@ -10,7 +10,7 @@ using UnityEngine;
 namespace SCKRM.SaveLoad
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class SaveLoadAttribute : Attribute
+    public abstract class SaveLoadAttribute : Attribute
     {
 
     }

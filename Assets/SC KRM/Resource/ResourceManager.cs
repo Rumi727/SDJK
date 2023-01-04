@@ -773,7 +773,10 @@ delete garbage"
         }
 
         [WikiDescription("오디오를 리셋합니다")]
-        public static async UniTaskVoid AudioReset()
+        public static UniTask AudioReset() => AudioReset(AudioSettings.GetConfiguration());
+
+        [WikiIgnore]
+        public static async UniTask AudioReset(AudioConfiguration audioConfiguration)
         {
             if (isAudioReset)
                 return;
@@ -784,7 +787,10 @@ delete garbage"
             for (int i = 0; i < SoundManager.soundList.Count; i++)
                 playersTime.Add(SoundManager.soundList[i].time);
 
-            AudioSettings.Reset(AudioSettings.GetConfiguration());
+            AudioSettings.Reset(audioConfiguration);
+
+            //볼륨을 재설정 합니다
+            SoundManager.SaveData.mainVolume = SoundManager.SaveData.mainVolume;
 
             AsyncTask asyncTask = new AsyncTask("notice.running_task.audio_refresh.name", "", false, true);
             resourceRefreshAsyncTask = asyncTask;

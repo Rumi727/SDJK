@@ -2185,20 +2185,20 @@ namespace SCKRM
 
         #region Arithmetic Sequence Sum
         public static byte ArithmeticSequenceSum(this byte start, byte end) => (byte)((start.Distance(end) + 1) * (start + end) / 2);
-        public static sbyte ArithmeticSequenceSum(this sbyte start, sbyte end) => (sbyte)((start.Distance(end) + 1) * (start + end) / 2);
-        public static short ArithmeticSequenceSum(this short start, short end) => (short)((start.Distance(end) + 1) * (start + end) / 2);
-        public static ushort ArithmeticSequenceSum(this ushort start, ushort end) => (ushort)((start.Distance(end) + 1) * (start + end) / 2);
-        public static int ArithmeticSequenceSum(this int start, int end) => (start.Distance(end) + 1) * (start + end) / 2;
-        public static uint ArithmeticSequenceSum(this uint start, uint end) => (start.Distance(end) + 1) * (start + end) / 2;
-        public static long ArithmeticSequenceSum(this long start, long end) => (start.Distance(end) + 1) * (start + end) / 2;
-        public static ulong ArithmeticSequenceSum(this ulong start, ulong end) => (start.Distance(end) + 1) * (start + end) / 2;
-        public static float ArithmeticSequenceSum(this float start, float end) => (start.Distance(end) + 1) * (start + end) * 0.5f;
-        public static double ArithmeticSequenceSum(this double start, double end) => (start.Distance(end) + 1) * (start + end) * 0.5;
-        public static decimal ArithmeticSequenceSum(this decimal start, decimal end) => (start.Distance(end) + 1) * (start + end) * 0.5m;
-        public static BigInteger ArithmeticSequenceSum(this BigInteger start, BigInteger end) => (start.Distance(end) + 1) * (start + end) / 2;
-        public static BigDecimal ArithmeticSequenceSum(this BigDecimal start, BigDecimal end) => (start.Distance(end) + 1) * (start + end) * 0.5;
-        public static nint ArithmeticSequenceSum(this nint start, nint end) => (start.Distance(end) + 1) * (start + end) / 2;
-        public static nuint ArithmeticSequenceSum(this nuint start, nuint end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static sbyte ArithmeticSequenceSum(this sbyte start, sbyte end) => (sbyte)((start.Distance(end) + 1) * (start + end) / 2);
+        [WikiIgnore] public static short ArithmeticSequenceSum(this short start, short end) => (short)((start.Distance(end) + 1) * (start + end) / 2);
+        [WikiIgnore] public static ushort ArithmeticSequenceSum(this ushort start, ushort end) => (ushort)((start.Distance(end) + 1) * (start + end) / 2);
+        [WikiIgnore] public static int ArithmeticSequenceSum(this int start, int end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static uint ArithmeticSequenceSum(this uint start, uint end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static long ArithmeticSequenceSum(this long start, long end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static ulong ArithmeticSequenceSum(this ulong start, ulong end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static float ArithmeticSequenceSum(this float start, float end) => (start.Distance(end) + 1) * (start + end) * 0.5f;
+        [WikiIgnore] public static double ArithmeticSequenceSum(this double start, double end) => (start.Distance(end) + 1) * (start + end) * 0.5;
+        [WikiIgnore] public static decimal ArithmeticSequenceSum(this decimal start, decimal end) => (start.Distance(end) + 1) * (start + end) * 0.5m;
+        [WikiIgnore] public static BigInteger ArithmeticSequenceSum(this BigInteger start, BigInteger end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static BigDecimal ArithmeticSequenceSum(this BigDecimal start, BigDecimal end) => (start.Distance(end) + 1) * (start + end) * 0.5;
+        [WikiIgnore] public static nint ArithmeticSequenceSum(this nint start, nint end) => (start.Distance(end) + 1) * (start + end) / 2;
+        [WikiIgnore] public static nuint ArithmeticSequenceSum(this nuint start, nuint end) => (start.Distance(end) + 1) * (start + end) / 2;
         #endregion
     }
 
@@ -5069,7 +5069,7 @@ namespace SCKRM
                         return TimeSpan.FromSeconds(second).ToString(@"s");
                 }
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Debug.LogException(e);
                 return "--:--";

@@ -28,17 +28,6 @@ namespace SCKRM.Editor
 
 
 
-        public override void OnActivate(string searchContext, VisualElement rootElement)
-        {
-            if (!Kernel.isPlaying)
-            {
-                if (audioProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(SoundManager.Data), out audioProjectSetting);
-
-                SaveLoadManager.Load(audioProjectSetting, Kernel.projectSettingPath);
-            }
-        }
-
         bool deleteSafety = true;
         string nameSpace = "";
         Vector2 scrollPos = Vector2.zero;
@@ -50,17 +39,6 @@ namespace SCKRM.Editor
             //GUI
             {
                 EditorGUILayout.LabelField("오디오 설정", EditorStyles.boldLabel);
-
-                {
-                    if (Kernel.isPlaying)
-                        GUI.enabled = false;
-
-                    SoundManager.Data.useTempo = EditorGUILayout.Toggle("템포 기능 사용", SoundManager.Data.useTempo);
-                }
-
-                GUI.enabled = true;
-
-                CustomInspectorEditor.DrawLine();
 
                 CustomInspectorEditor.DeleteSafety(ref deleteSafety);
 
@@ -356,7 +334,7 @@ namespace SCKRM.Editor
                                             }
                                         }
 
-                                        if (soundData.Value.isBGM && SoundManager.Data.useTempo)
+                                        if (soundData.Value.isBGM && SoundManager.useTempo)
                                         {
                                             GUILayout.Label("피치", GUILayout.ExpandWidth(false));
                                             pitch = EditorGUILayout.FloatField(pitch, GUILayout.Width(30)).Clamp(soundMetaData.tempo.Abs() * 0.5f, soundMetaData.tempo.Abs() * 2f);

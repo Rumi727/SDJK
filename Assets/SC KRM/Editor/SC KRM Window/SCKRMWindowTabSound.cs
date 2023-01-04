@@ -68,7 +68,7 @@ namespace SCKRM.Editor
                         GUILayout.Label("피치", GUILayout.ExpandWidth(false));
                         audioPitch = EditorGUILayout.Slider(audioPitch, -3, 3);
 
-                        if (SoundManager.Data.useTempo)
+                        if (SoundManager.useTempo)
                         {
                             GUILayout.Label("템포", GUILayout.ExpandWidth(false));
                             audioTempo = EditorGUILayout.Slider(audioTempo, -3, 3);
@@ -125,7 +125,7 @@ namespace SCKRM.Editor
                     EditorGUILayout.Space();
 
                     if (GUILayout.Button("오디오 리셋", GUILayout.ExpandWidth(false)))
-                        ResourceManager.AudioReset().Forget();
+                        ResourceManager.AudioReset();
 
                     bool audioPlay = GUILayout.Button("오디오 재생", GUILayout.ExpandWidth(false));
                     if (GUILayout.Button("오디오 정지", GUILayout.ExpandWidth(false)))

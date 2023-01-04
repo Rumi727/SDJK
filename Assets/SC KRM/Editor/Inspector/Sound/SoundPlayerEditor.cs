@@ -49,7 +49,7 @@ namespace SCKRM.Editor
                 if (soundObject.metaData.stream)
                     minPitch = 0;
 
-                if (soundObject.soundData.isBGM && SoundManager.Data.useTempo)
+                if (soundObject.soundData.isBGM && SoundManager.useTempo)
                 {
                     GUILayout.Label("피치", GUILayout.ExpandWidth(false));
                     soundObject.pitch = EditorGUILayout.Slider(soundObject.pitch, soundObject.tempo.Abs() * 0.5f, soundObject.tempo.Abs() * 2f);

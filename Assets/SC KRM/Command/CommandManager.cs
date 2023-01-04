@@ -259,7 +259,7 @@ namespace SCKRM.Command
                             .Executes(x =>
                             {
                                 string text = Arguments.GetString(x, "text");
-                                Debug.Log(text);
+                                Debug.ForceLog(text, nameof(CommandManager));
 
                                 x.Source.lastCommandResult = new CommandResult(true, text, text.Length, text);
                                 return text.Length;

@@ -114,14 +114,14 @@ namespace SCKRM.Sound
         {
             get
             {
-                if (soundData != null && soundData.isBGM && SoundManager.Data.useTempo)
+                if (soundData != null && soundData.isBGM && SoundManager.useTempo)
                     return tempo;
                 else
                     return pitch;
             }
             set
             {
-                if (soundData != null && soundData.isBGM && SoundManager.Data.useTempo)
+                if (soundData != null && soundData.isBGM && SoundManager.useTempo)
                     tempo = value;
                 else
                     pitch = value;
@@ -135,7 +135,7 @@ namespace SCKRM.Sound
                 if (metaData == null)
                     return 0;
 
-                if (soundData != null && soundData.isBGM && SoundManager.Data.useTempo)
+                if (soundData != null && soundData.isBGM && SoundManager.useTempo)
                     return tempo * metaData.tempo;
                 else
                     return pitch * metaData.pitch;
@@ -314,7 +314,7 @@ namespace SCKRM.Sound
                 metaData = soundData.sounds[Random.Range(0, soundData.sounds.Length)];
                 audioSource.clip = metaData.audioClip;
 
-                if (soundData.isBGM && SoundManager.Data.useTempo)
+                if (soundData.isBGM && SoundManager.useTempo)
                     audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
                 else
                     audioSource.outputAudioMixerGroup = null;
@@ -349,7 +349,7 @@ namespace SCKRM.Sound
                 return;
             }
 
-            if (soundData == null || soundData.isBGM && SoundManager.Data.useTempo)
+            if (soundData == null || soundData.isBGM && SoundManager.useTempo)
             {
                 if (metaData.stream)
                     base.tempo = base.tempo.Clamp(0);

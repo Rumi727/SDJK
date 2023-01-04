@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using K4.Threading;
 using Newtonsoft.Json;
 using SCKRM.NBS;
@@ -18,16 +19,10 @@ namespace SCKRM.Sound
     [AddComponentMenu("SC KRM/Sound/Sound Manager", 0)]
     public sealed class SoundManager : Manager<SoundManager>
     {
-        [ProjectSettingSaveLoad]
-        public sealed class Data
-        {
-            [JsonProperty] public static bool useTempo { get; set; }
-        }
-
         [GeneralSaveLoad]
         public sealed class SaveData
         {
-            static int _mainVolume = 100; [JsonProperty]
+            [JsonProperty]
             public static int mainVolume
             {
                 get => _mainVolume.Clamp(0, 200);
@@ -48,8 +43,56 @@ namespace SCKRM.Sound
                     }
                 }
             }
+            static int _mainVolume = 100;
             static int _bgmVolume = 100; [JsonProperty] public static int bgmVolume { get => _bgmVolume.Clamp(0, 200); set => _bgmVolume = value; }
             static int _soundVolume = 100; [JsonProperty] public static int soundVolume { get => _soundVolume.Clamp(0, 200); set => _soundVolume = value; }
+
+            [JsonProperty]
+            public static bool fixAudioLatency
+            {
+                get => _fixAudioLatency;
+                set
+                {
+                    if (fixAudioLatency == value || ResourceManager.isAudioReset)
+                        return;
+
+                    _fixAudioLatency = value;
+
+                    if (!InitialLoadManager.isInitialLoadEnd)
+                        return;
+
+                    if (ThreadManager.isMainThread)
+                        FixAudioLatencyChange();
+                    else
+                        K4UnityThreadDispatcher.Execute(FixAudioLatencyChange);
+
+                    void FixAudioLatencyChange()
+                    {
+                        AudioConfiguration audioConfiguration = AudioSettings.GetConfiguration();
+                        if (value)
+                            audioConfiguration.dspBufferSize = 256;
+                        else
+                            audioConfiguration.dspBufferSize = 1024;
+
+                        ResourceManager.AudioReset(audioConfiguration).Forget();
+                    }
+                }
+            }
+            static bool _fixAudioLatency = true;
+
+            [JsonProperty]
+            public static bool useTempo
+            {
+                get => _useTempo;
+                set
+                {
+                    _useTempo = value;
+
+                    if (!InitialLoadManager.isInitialLoadEnd)
+                        SoundManager.useTempo = value;
+                }
+            }
+            static bool _useTempo = true;
         }
 
         [SerializeField] AudioMixerGroup _audioMixerGroup;
@@ -62,6 +105,10 @@ namespace SCKRM.Sound
 
         public const int maxSoundCount = 256;
         public const int maxNBSCount = 16;
+
+
+
+        [WikiDescription("템포 기능을 사용 가능한지 여부")] public static bool useTempo { get; private set; }
 
 
 
@@ -105,7 +152,7 @@ namespace SCKRM.Sound
         /// </summary>
         [Obsolete("This method calls the ResourceManager.AudioReset method and exists for Unity events. Please don't use it in scripts", true)]
         [WikiIgnore]
-        public static void AudioReset() => ResourceManager.AudioReset().Forget();
+        public static void AudioReset() => ResourceManager.AudioReset();
 
         /// <summary>
         /// 소리를 재생합니다
