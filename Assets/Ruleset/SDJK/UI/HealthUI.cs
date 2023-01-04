@@ -10,14 +10,17 @@ namespace SDJK.Ruleset.SDJK.UI
 {
     public sealed class HealthUI : SDJKUI
     {
+        [SerializeField] float lerpAniValue = 0.125f;
         [SerializeField] RectTransform valueImage;
 
+        float value = 1;
         void Update()
         {
             if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
                 return;
 
-            valueImage.anchorMax = new Vector2(1, (float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth));
+            value = value.Lerp((float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth), lerpAniValue);
+            valueImage.anchorMax = new Vector2(1, value);
         }
 
         protected override void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData) { }
