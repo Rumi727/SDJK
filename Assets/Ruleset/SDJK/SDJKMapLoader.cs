@@ -32,7 +32,7 @@ namespace SDJK.Ruleset.SDJK.Map
 
                         if (map.info.mode == typeof(SDJKRuleset).FullName)
                         {
-                            FixOverlappingNoteAndMinusHold(map);
+                            FixMap(map);
                             FixOverlappingAutoNotes(map);
 
                             return map;
@@ -405,7 +405,7 @@ namespace SDJK.Ruleset.SDJK.Map
                 EffectStackingTrick(map.effect.globalNoteDistance);
                 #endregion
 
-                FixOverlappingNoteAndMinusHold(map);
+                FixMap(map);
                 FixOverlappingAutoNotes(map);
 
                 return map;
@@ -417,7 +417,11 @@ namespace SDJK.Ruleset.SDJK.Map
             }
         }
 
-        static void FixOverlappingNoteAndMinusHold(SDJKMapFile map)
+        /// <summary>
+        /// 노트 겹침 방지, 마이너스 홀드 방지, 모든 노트 수 계산
+        /// </summary>
+        /// <param name="map"></param>
+        static void FixMap(SDJKMapFile map)
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
@@ -452,8 +456,15 @@ namespace SDJK.Ruleset.SDJK.Map
                     //마이너스 홀드 방지
                     note.holdLength = note.holdLength.Clamp(0);
                     notes[j] = note;
+
+                    //모든 판정 비트에 노트 추가
+                    map.allJudgmentBeat.Add(note.beat);
+                    if (note.holdLength > 0)
+                        map.allJudgmentBeat.Add(note.beat + note.holdLength);
                 }
             }
+
+            map.allJudgmentBeat.Sort();
         }
 
         static void FixOverlappingAutoNotes(SDJKMapFile map)
