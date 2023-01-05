@@ -740,51 +740,48 @@ namespace SCKRM.Easing
 
         }
 
-        public delegate double Function(double s, double e, double v);
-
         /// <summary>
-        /// Returns the function associated to the easingFunction enum. This value returned should be cached as it allocates memory
-        /// to return.
+        /// Computed as a function linked to the easingFunction enum
         /// </summary>
         /// <param name="easingFunction">The enum associated with the easing function.</param>
         /// <returns>The easing function</returns>
-        public static Function GetEasingFunction(Ease easingFunction)
+        public static double EasingCalculate(double start, double end, double value, Ease easingFunction)
         {
             return easingFunction switch
             {
-                Ease.EaseInQuad => EaseInQuad,
-                Ease.EaseOutQuad => EaseOutQuad,
-                Ease.EaseInOutQuad => EaseInOutQuad,
-                Ease.EaseInCubic => EaseInCubic,
-                Ease.EaseOutCubic => EaseOutCubic,
-                Ease.EaseInOutCubic => EaseInOutCubic,
-                Ease.EaseInQuart => EaseInQuart,
-                Ease.EaseOutQuart => EaseOutQuart,
-                Ease.EaseInOutQuart => EaseInOutQuart,
-                Ease.EaseInQuint => EaseInQuint,
-                Ease.EaseOutQuint => EaseOutQuint,
-                Ease.EaseInOutQuint => EaseInOutQuint,
-                Ease.EaseInSine => EaseInSine,
-                Ease.EaseOutSine => EaseOutSine,
-                Ease.EaseInOutSine => EaseInOutSine,
-                Ease.EaseInExpo => EaseInExpo,
-                Ease.EaseOutExpo => EaseOutExpo,
-                Ease.EaseInOutExpo => EaseInOutExpo,
-                Ease.EaseInCirc => EaseInCirc,
-                Ease.EaseOutCirc => EaseOutCirc,
-                Ease.EaseInOutCirc => EaseInOutCirc,
-                Ease.Linear => Linear,
-                Ease.Spring => Spring,
-                Ease.EaseInBounce => EaseInBounce,
-                Ease.EaseOutBounce => EaseOutBounce,
-                Ease.EaseInOutBounce => EaseInOutBounce,
-                Ease.EaseInBack => EaseInBack,
-                Ease.EaseOutBack => EaseOutBack,
-                Ease.EaseInOutBack => EaseInOutBack,
-                Ease.EaseInElastic => EaseInElastic,
-                Ease.EaseOutElastic => EaseOutElastic,
-                Ease.EaseInOutElastic => EaseInOutElastic,
-                _ => null
+                Ease.EaseInQuad => EaseInQuad(start, end, value),
+                Ease.EaseOutQuad => EaseOutQuad(start, end, value),
+                Ease.EaseInOutQuad => EaseInOutQuad(start, end, value),
+                Ease.EaseInCubic => EaseInCubic(start, end, value),
+                Ease.EaseOutCubic => EaseOutCubic(start, end, value),
+                Ease.EaseInOutCubic => EaseInOutCubic(start, end, value),
+                Ease.EaseInQuart => EaseInQuart(start, end, value),
+                Ease.EaseOutQuart => EaseOutQuart(start, end, value),
+                Ease.EaseInOutQuart => EaseInOutQuart(start, end, value),
+                Ease.EaseInQuint => EaseInQuint(start, end, value),
+                Ease.EaseOutQuint => EaseOutQuint(start, end, value),
+                Ease.EaseInOutQuint => EaseInOutQuint(start, end, value),
+                Ease.EaseInSine => EaseInSine(start, end, value),
+                Ease.EaseOutSine => EaseOutSine(start, end, value),
+                Ease.EaseInOutSine => EaseInOutSine(start, end, value),
+                Ease.EaseInExpo => EaseInExpo(start, end, value),
+                Ease.EaseOutExpo => EaseOutExpo(start, end, value),
+                Ease.EaseInOutExpo => EaseInOutExpo(start, end, value),
+                Ease.EaseInCirc => EaseInCirc(start, end, value),
+                Ease.EaseOutCirc => EaseOutCirc(start, end, value),
+                Ease.EaseInOutCirc => EaseInOutCirc(start, end, value),
+                Ease.Linear => Linear(start, end, value),
+                Ease.Spring => Spring(start, end, value),
+                Ease.EaseInBounce => EaseInBounce(start, end, value),
+                Ease.EaseOutBounce => EaseOutBounce(start, end, value),
+                Ease.EaseInOutBounce => EaseInOutBounce(start, end, value),
+                Ease.EaseInBack => EaseInBack(start, end, value),
+                Ease.EaseOutBack => EaseOutBack(start, end, value),
+                Ease.EaseInOutBack => EaseInOutBack(start, end, value),
+                Ease.EaseInElastic => EaseInElastic(start, end, value),
+                Ease.EaseOutElastic => EaseOutElastic(start, end, value),
+                Ease.EaseInOutElastic => EaseInOutElastic(start, end, value),
+                _ => 0
             };
         }
 
@@ -794,43 +791,43 @@ namespace SCKRM.Easing
         /// </summary>
         /// <param name="easingFunction"></param>
         /// <returns>The derivative function</returns>
-        public static Function GetEasingFunctionDerivative(Ease easingFunction)
+        public static double EasingDerivativeCalculate(double start, double end, double value, Ease easingFunction)
         {
             return easingFunction switch
             {
-                Ease.EaseInQuad => EaseInQuadD,
-                Ease.EaseOutQuad => EaseOutQuadD,
-                Ease.EaseInOutQuad => EaseInOutQuadD,
-                Ease.EaseInCubic => EaseInCubicD,
-                Ease.EaseOutCubic => EaseOutCubicD,
-                Ease.EaseInOutCubic => EaseInOutCubicD,
-                Ease.EaseInQuart => EaseInQuartD,
-                Ease.EaseOutQuart => EaseOutQuartD,
-                Ease.EaseInOutQuart => EaseInOutQuartD,
-                Ease.EaseInQuint => EaseInQuintD,
-                Ease.EaseOutQuint => EaseOutQuintD,
-                Ease.EaseInOutQuint => EaseInOutQuintD,
-                Ease.EaseInSine => EaseInSineD,
-                Ease.EaseOutSine => EaseOutSineD,
-                Ease.EaseInOutSine => EaseInOutSineD,
-                Ease.EaseInExpo => EaseInExpoD,
-                Ease.EaseOutExpo => EaseOutExpoD,
-                Ease.EaseInOutExpo => EaseInOutExpoD,
-                Ease.EaseInCirc => EaseInCircD,
-                Ease.EaseOutCirc => EaseOutCircD,
-                Ease.EaseInOutCirc => EaseInOutCircD,
-                Ease.Linear => LinearD,
-                Ease.Spring => SpringD,
-                Ease.EaseInBounce => EaseInBounceD,
-                Ease.EaseOutBounce => EaseOutBounceD,
-                Ease.EaseInOutBounce => EaseInOutBounceD,
-                Ease.EaseInBack => EaseInBackD,
-                Ease.EaseOutBack => EaseOutBackD,
-                Ease.EaseInOutBack => EaseInOutBackD,
-                Ease.EaseInElastic => EaseInElasticD,
-                Ease.EaseOutElastic => EaseOutElasticD,
-                Ease.EaseInOutElastic => EaseInOutElasticD,
-                _ => null
+                Ease.EaseInQuad => EaseInQuadD(start, end, value),
+                Ease.EaseOutQuad => EaseOutQuadD(start, end, value),
+                Ease.EaseInOutQuad => EaseInOutQuadD(start, end, value),
+                Ease.EaseInCubic => EaseInCubicD(start, end, value),
+                Ease.EaseOutCubic => EaseOutCubicD(start, end, value),
+                Ease.EaseInOutCubic => EaseInOutCubicD(start, end, value),
+                Ease.EaseInQuart => EaseInQuartD(start, end, value),
+                Ease.EaseOutQuart => EaseOutQuartD(start, end, value),
+                Ease.EaseInOutQuart => EaseInOutQuartD(start, end, value),
+                Ease.EaseInQuint => EaseInQuintD(start, end, value),
+                Ease.EaseOutQuint => EaseOutQuintD(start, end, value),
+                Ease.EaseInOutQuint => EaseInOutQuintD(start, end, value),
+                Ease.EaseInSine => EaseInSineD(start, end, value),
+                Ease.EaseOutSine => EaseOutSineD(start, end, value),
+                Ease.EaseInOutSine => EaseInOutSineD(start, end, value),
+                Ease.EaseInExpo => EaseInExpoD(start, end, value),
+                Ease.EaseOutExpo => EaseOutExpoD(start, end, value),
+                Ease.EaseInOutExpo => EaseInOutExpoD(start, end, value),
+                Ease.EaseInCirc => EaseInCircD(start, end, value),
+                Ease.EaseOutCirc => EaseOutCircD(start, end, value),
+                Ease.EaseInOutCirc => EaseInOutCircD(start, end, value),
+                Ease.Linear => LinearD(start, end, value),
+                Ease.Spring => SpringD(start, end, value),
+                Ease.EaseInBounce => EaseInBounceD(start, end, value),
+                Ease.EaseOutBounce => EaseOutBounceD(start, end, value),
+                Ease.EaseInOutBounce => EaseInOutBounceD(start, end, value),
+                Ease.EaseInBack => EaseInBackD(start, end, value),
+                Ease.EaseOutBack => EaseOutBackD(start, end, value),
+                Ease.EaseInOutBack => EaseInOutBackD(start, end, value),
+                Ease.EaseInElastic => EaseInElasticD(start, end, value),
+                Ease.EaseOutElastic => EaseOutElasticD(start, end, value),
+                Ease.EaseInOutElastic => EaseInOutElasticD(start, end, value),
+                _ => 0
             };
         }
     }

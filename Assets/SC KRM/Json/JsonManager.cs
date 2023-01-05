@@ -93,6 +93,7 @@ namespace SCKRM.Json
         public float y;
 
         public static JVector2 zero { get; } = new JVector2();
+        public static JVector2 one { get; } = new JVector2(1);
 
         public JVector2(Vector2 value) : this(value.x, value.y)
         {
@@ -128,6 +129,7 @@ namespace SCKRM.Json
         public float z;
 
         public static JVector3 zero { get; } = new JVector3();
+        public static JVector3 one { get; } = new JVector3(1);
 
         public JVector3(Vector3 value) : this(value.x, value.y, value.z)
         {
@@ -170,6 +172,7 @@ namespace SCKRM.Json
         public float w;
 
         public static JVector4 zero { get; } = new JVector4();
+        public static JVector4 one { get; } = new JVector4(1);
 
         public JVector4(Vector4 value) : this(value.x, value.y, value.z, value.w)
         {
@@ -220,6 +223,7 @@ namespace SCKRM.Json
         public float height;
 
         public static JRect zero { get; } = new JRect();
+        public static JRect one { get; } = new JRect(1);
 
         public JRect(Rect value) : this(value.x, value.y, value.width, value.height)
         {

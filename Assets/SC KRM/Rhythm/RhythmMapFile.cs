@@ -48,7 +48,16 @@ namespace SCKRM.Rhythm
             }
             else
             {
-                int findIndex = FindIndex(x => x.beat >= currentBeat);
+                int findIndex = -1;
+                for (int i = 0; i < Count; i++)
+                {
+                    if (this[i].beat >= currentBeat)
+                    {
+                        findIndex = i;
+                        break;
+                    }
+                }
+
                 if (findIndex < 0)
                     findIndex = Count;
 
@@ -146,7 +155,16 @@ namespace SCKRM.Rhythm
             }
             else
             {
-                int findIndex = FindIndex(x => x.beat >= currentBeat);
+                int findIndex = -1;
+                for (int i = 0; i < Count; i++)
+                {
+                    if (this[i].beat >= currentBeat)
+                    {
+                        findIndex = i;
+                        break;
+                    }
+                }
+                
                 if (findIndex < 0)
                     findIndex = Count;
 
@@ -162,7 +180,7 @@ namespace SCKRM.Rhythm
                     TPair previousBeatValuePair = this[index - 1];
                     double t = ((currentBeat - beatValuePair.beat) / beatValuePair.length).Clamp01();
 
-                    value = ValueCalculate(t, EasingFunction.GetEasingFunction(beatValuePair.easingFunction), previousBeatValuePair, beatValuePair);
+                    value = ValueCalculate(t, beatValuePair.easingFunction, previousBeatValuePair, beatValuePair);
                 }
             }
 
@@ -172,7 +190,7 @@ namespace SCKRM.Rhythm
             return value;
         }
 
-        public abstract TValue ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<TValue> previousBeatValuePair, IBeatValuePairAni<TValue> beatValuePair);
+        public abstract TValue ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<TValue> previousBeatValuePair, IBeatValuePairAni<TValue> beatValuePair);
 
 
 
@@ -188,28 +206,28 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairAniListFloat(float defaultValue) : base(defaultValue) { }
 
-        public override float ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<float> previousBeatValuePair, IBeatValuePairAni<float> beatValuePair)
-            => (float)easingFunction.Invoke(previousBeatValuePair.value, beatValuePair.value, t);
+        public override float ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<float> previousBeatValuePair, IBeatValuePairAni<float> beatValuePair)
+            => (float)EasingFunction.EasingCalculate(previousBeatValuePair.value, beatValuePair.value, t, easingFunction);
     }
 
     public class BeatValuePairAniListDouble : BeatValuePairAniList<double>
     {
         public BeatValuePairAniListDouble(double defaultValue) : base(defaultValue) { }
 
-        public override double ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<double> previousBeatValuePair, IBeatValuePairAni<double> beatValuePair)
-            => easingFunction.Invoke(previousBeatValuePair.value, beatValuePair.value, t);
+        public override double ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<double> previousBeatValuePair, IBeatValuePairAni<double> beatValuePair)
+            => EasingFunction.EasingCalculate(previousBeatValuePair.value, beatValuePair.value, t, easingFunction);
     }
 
     public class BeatValuePairAniListVector2 : BeatValuePairAniList<JVector2>
     {
         public BeatValuePairAniListVector2(JVector2 defaultValue) : base(defaultValue) { }
 
-        public override JVector2 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector2> previousBeatValuePair, IBeatValuePairAni<JVector2> beatValuePair)
+        public override JVector2 ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<JVector2> previousBeatValuePair, IBeatValuePairAni<JVector2> beatValuePair)
         {
             JVector2 pre = previousBeatValuePair.value;
             JVector2 value = beatValuePair.value;
-            float x = (float)easingFunction.Invoke(pre.x, value.x, t);
-            float y = (float)easingFunction.Invoke(pre.y, value.y, t);
+            float x = (float)EasingFunction.EasingCalculate(pre.x, value.x, t, easingFunction);
+            float y = (float)EasingFunction.EasingCalculate(pre.y, value.y, t, easingFunction);
 
             return new JVector2(x, y);
         }
@@ -219,13 +237,13 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairAniListVector3(JVector3 defaultValue) : base(defaultValue) { }
 
-        public override JVector3 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector3> previousBeatValuePair, IBeatValuePairAni<JVector3> beatValuePair)
+        public override JVector3 ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<JVector3> previousBeatValuePair, IBeatValuePairAni<JVector3> beatValuePair)
         {
             JVector3 pre = previousBeatValuePair.value;
             JVector3 value = beatValuePair.value;
-            float x = (float)easingFunction.Invoke(pre.x, value.x, t);
-            float y = (float)easingFunction.Invoke(pre.y, value.y, t);
-            float z = (float)easingFunction.Invoke(pre.z, value.z, t);
+            float x = (float)EasingFunction.EasingCalculate(pre.x, value.x, t, easingFunction);
+            float y = (float)EasingFunction.EasingCalculate(pre.y, value.y, t, easingFunction);
+            float z = (float)EasingFunction.EasingCalculate(pre.z, value.z, t, easingFunction);
 
             return new JVector3(x, y, z);
         }
@@ -235,14 +253,14 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairAniListVector4(JVector4 defaultValue) : base(defaultValue) { }
 
-        public override JVector4 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JVector4> previousBeatValuePair, IBeatValuePairAni<JVector4> beatValuePair)
+        public override JVector4 ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<JVector4> previousBeatValuePair, IBeatValuePairAni<JVector4> beatValuePair)
         {
             JVector4 pre = previousBeatValuePair.value;
             JVector4 value = beatValuePair.value;
-            float x = (float)easingFunction.Invoke(pre.x, value.x, t);
-            float y = (float)easingFunction.Invoke(pre.y, value.y, t);
-            float z = (float)easingFunction.Invoke(pre.z, value.z, t);
-            float w = (float)easingFunction.Invoke(pre.w, value.w, t);
+            float x = (float)EasingFunction.EasingCalculate(pre.x, value.x, t, easingFunction);
+            float y = (float)EasingFunction.EasingCalculate(pre.y, value.y, t, easingFunction);
+            float z = (float)EasingFunction.EasingCalculate(pre.z, value.z, t, easingFunction);
+            float w = (float)EasingFunction.EasingCalculate(pre.w, value.w, t, easingFunction);
 
             return new JVector4(x, y, z, w);
         }
@@ -252,14 +270,14 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairAniListColor(JColor defaultValue) : base(defaultValue) { }
 
-        public override JColor ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor> previousBeatValuePair, IBeatValuePairAni<JColor> beatValuePair)
+        public override JColor ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<JColor> previousBeatValuePair, IBeatValuePairAni<JColor> beatValuePair)
         {
             JColor pre = previousBeatValuePair.value;
             JColor value = beatValuePair.value;
-            float r = (float)easingFunction.Invoke(pre.r, value.r, t);
-            float g = (float)easingFunction.Invoke(pre.g, value.g, t);
-            float b = (float)easingFunction.Invoke(pre.b, value.b, t);
-            float a = (float)easingFunction.Invoke(pre.a, value.a, t);
+            float r = (float)EasingFunction.EasingCalculate(pre.r, value.r, t, easingFunction);
+            float g = (float)EasingFunction.EasingCalculate(pre.g, value.g, t, easingFunction);
+            float b = (float)EasingFunction.EasingCalculate(pre.b, value.b, t, easingFunction);
+            float a = (float)EasingFunction.EasingCalculate(pre.a, value.a, t, easingFunction);
 
             return new JColor(r, g, b, a);
         }
@@ -269,14 +287,14 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairAniListColor32(JColor32 defaultValue) : base(defaultValue) { }
 
-        public override JColor32 ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JColor32> previousBeatValuePair, IBeatValuePairAni<JColor32> beatValuePair)
+        public override JColor32 ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<JColor32> previousBeatValuePair, IBeatValuePairAni<JColor32> beatValuePair)
         {
             JColor32 pre = previousBeatValuePair.value;
             JColor32 value = beatValuePair.value;
-            byte r = (byte)easingFunction.Invoke(pre.r, value.r, t);
-            byte g = (byte)easingFunction.Invoke(pre.g, value.g, t);
-            byte b = (byte)easingFunction.Invoke(pre.b, value.b, t);
-            byte a = (byte)easingFunction.Invoke(pre.a, value.a, t);
+            byte r = (byte)EasingFunction.EasingCalculate(pre.r, value.r, t, easingFunction);
+            byte g = (byte)EasingFunction.EasingCalculate(pre.g, value.g, t, easingFunction);
+            byte b = (byte)EasingFunction.EasingCalculate(pre.b, value.b, t, easingFunction);
+            byte a = (byte)EasingFunction.EasingCalculate(pre.a, value.a, t, easingFunction);
 
             return new JColor32(r, g, b, a);
         }
@@ -286,14 +304,14 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairAniListRect(JRect defaultValue) : base(defaultValue) { }
 
-        public override JRect ValueCalculate(double t, EasingFunction.Function easingFunction, IBeatValuePairAni<JRect> previousBeatValuePair, IBeatValuePairAni<JRect> beatValuePair)
+        public override JRect ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<JRect> previousBeatValuePair, IBeatValuePairAni<JRect> beatValuePair)
         {
             JRect pre = previousBeatValuePair.value;
             JRect value = beatValuePair.value;
-            float r = (float)easingFunction.Invoke(pre.x, value.x, t);
-            float g = (float)easingFunction.Invoke(pre.y, value.y, t);
-            float b = (float)easingFunction.Invoke(pre.width, value.width, t);
-            float a = (float)easingFunction.Invoke(pre.height, value.height, t);
+            float r = (float)EasingFunction.EasingCalculate(pre.x, value.x, t, easingFunction);
+            float g = (float)EasingFunction.EasingCalculate(pre.y, value.y, t, easingFunction);
+            float b = (float)EasingFunction.EasingCalculate(pre.width, value.width, t, easingFunction);
+            float a = (float)EasingFunction.EasingCalculate(pre.height, value.height, t, easingFunction);
 
             return new JRect(r, g, b, a);
         }
@@ -307,6 +325,8 @@ namespace SCKRM.Rhythm
     {
         double beat { get; set; }
         TValue value { get; set; }
+
+        bool disturbance { get; set; }
     }
 
     public interface IBeatValuePairAni<TValue> : IBeatValuePair<TValue>
@@ -322,10 +342,14 @@ namespace SCKRM.Rhythm
         public double beat { get; set; }
         public TValue value { get; set; }
 
-        public BeatValuePair(double beat, TValue value)
+        public bool disturbance { get; set; }
+
+        public BeatValuePair(double beat, TValue value, bool disturbance = false)
         {
             this.beat = beat;
             this.value = value;
+
+            this.disturbance = disturbance;
         }
     }
 
@@ -337,13 +361,17 @@ namespace SCKRM.Rhythm
         public double length { get; set; }
         public EasingFunction.Ease easingFunction { get; set; }
 
-        public BeatValuePairAni(double beat, TValue value, double length, EasingFunction.Ease easingFunction)
+        public bool disturbance { get; set; }
+
+        public BeatValuePairAni(double beat, TValue value, double length, EasingFunction.Ease easingFunction = EasingFunction.Ease.Linear, bool disturbance = false)
         {
             this.beat = beat;
             this.value = value;
 
             this.length = length;
             this.easingFunction = easingFunction;
+
+            this.disturbance = disturbance;
         }
     }
     #endregion
