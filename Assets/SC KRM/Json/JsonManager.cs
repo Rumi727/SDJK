@@ -1,3 +1,4 @@
+using Microsoft.JScript;
 using Newtonsoft.Json;
 using SCKRM.Resource;
 using System;
@@ -87,7 +88,7 @@ namespace SCKRM.Json
         [WikiIgnore] public static string ObjectToJson(params object[] value) => JsonConvert.SerializeObject(value, Formatting.Indented);
     }
 
-    public struct JVector2
+    public struct JVector2 : IEquatable<JVector2>
     {
         public float x;
         public float y;
@@ -120,9 +121,10 @@ namespace SCKRM.Json
         public static implicit operator Vector4(JVector2 value) => new Vector4(value.x, value.y);
 
         public override string ToString() => $"(x: {x}, y: {y})";
+        public bool Equals(JVector2 other) => x == other.x && y == other.y;
     }
 
-    public struct JVector3
+    public struct JVector3 : IEquatable<JVector3>
     {
         public float x;
         public float y;
@@ -163,8 +165,9 @@ namespace SCKRM.Json
         public static implicit operator Vector4(JVector3 value) => new Vector4(value.x, value.y, value.z);
 
         public override string ToString() => $"({x}, {y}, {z})";
+        public bool Equals(JVector3 other) => x == other.x && y == other.y && z == other.z;
     }
-    public struct JVector4
+    public struct JVector4 : IEquatable<JVector4>
     {
         public float x;
         public float y;
@@ -213,9 +216,10 @@ namespace SCKRM.Json
         public static implicit operator Vector4(JVector4 value) => new Vector4(value.x, value.y, value.z, value.w);
 
         public override string ToString() => $"({x}, {y}, {z}, {w})";
+        public bool Equals(JVector4 other) => x == other.x && y == other.y && z == other.z && w == other.w;
     }
 
-    public struct JRect
+    public struct JRect : IEquatable<JRect>
     {
         public float x;
         public float y;
@@ -269,9 +273,10 @@ namespace SCKRM.Json
         public static implicit operator Rect(JRect value) => new Rect() { x = value.x, y = value.y, width = value.width, height = value.height };
 
         public override string ToString() => $"(x:{x}, y:{y}, width:{width}, height:{height})";
+        public bool Equals(JRect other) => x == other.x && y == other.y && width == other.width && height == other.height;
     }
 
-    public struct JColor
+    public struct JColor : IEquatable<JColor>
     {
         public float r;
         public float g;
@@ -330,9 +335,10 @@ namespace SCKRM.Json
         public static implicit operator Color(JColor value) => new Color(value.r, value.g, value.b, value.a);
 
         public override string ToString() => $"(r:{r}, g:{g}, b:{b}, a:{a})";
+        public bool Equals(JColor other) => r == other.r && g == other.g && b == other.b && a == other.a;
     }
 
-    public struct JColor32
+    public struct JColor32 : IEquatable<JColor32>
     {
         public byte r;
         public byte g;
@@ -395,5 +401,6 @@ namespace SCKRM.Json
         public static implicit operator JColor(JColor32 value) => new JColor(value);
 
         public override string ToString() => $"(r:{r}, g:{g}, b:{b}, a:{a})";
+        public bool Equals(JColor32 other) => r == other.r && g == other.g && b == other.b && a == other.a;
     }
 }

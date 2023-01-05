@@ -82,6 +82,7 @@ namespace SCKRM.Rhythm
         static int tempCurrentBeat = 0;
         static bool isStart = false;
         static bool isEnd = false;
+        static double lastBPM = 0;
         void Update()
         {
             if (isPlaying)
@@ -157,12 +158,14 @@ namespace SCKRM.Rhythm
                 SetCurrentBeat();
 
                 {
-                    bpm = bpmList.GetValue(currentBeat, out double beat, out bool isValueChanged);
+                    bpm = bpmList.GetValue(currentBeat, out double beat);
 
-                    if (isValueChanged)
+                    if (lastBPM != bpm)
                     {
                         BPMChange(bpm, beat);
                         SetCurrentBeat();
+
+                        lastBPM = bpm;
                     }
                 }
 

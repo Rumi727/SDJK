@@ -17,19 +17,17 @@ namespace SCKRM.Rhythm
 
         public TValue defaultValue { get; } = default;
 
-        public TValue GetValue() => GetValue(RhythmManager.currentBeat, out _, out _);
-        public TValue GetValue(double currentBeat) => GetValue(currentBeat, out _, out _);
+        public TValue GetValue() => GetValue(RhythmManager.currentBeat, out _);
+        public TValue GetValue(double currentBeat) => GetValue(currentBeat, out _);
 
         TValue tempValue = default;
         double tempBeat = 0;
         double? tempCurrentBeat = null;
-        public virtual TValue GetValue(double currentBeat, out double beat, out bool isValueChanged)
+        public virtual TValue GetValue(double currentBeat, out double beat)
         {
             if (tempCurrentBeat != null && (double)tempCurrentBeat == currentBeat)
             {
                 beat = tempBeat;
-                isValueChanged = false;
-
                 return tempValue;
             }
 
@@ -66,7 +64,7 @@ namespace SCKRM.Rhythm
                 value = beatValuePair.value;
             }
 
-            isValueChanged = !tempValue.Equals(value);
+            //isValueChanged = !((IEquatable<TValue>)tempValue).Equals(value);
             tempValue = value;
             tempBeat = beat;
 
@@ -140,7 +138,7 @@ namespace SCKRM.Rhythm
 
 
         TValue tempValue = default;
-        public override TValue GetValue(double currentBeat, out double beat, out bool isValueChanged)
+        public override TValue GetValue(double currentBeat, out double beat)
         {
             TValue value;
             if (Count <= 0)
@@ -184,7 +182,7 @@ namespace SCKRM.Rhythm
                 }
             }
 
-            isValueChanged = !tempValue.Equals(value);
+            //isValueChanged = !((IEquatable<TValue>)tempValue).Equals(value);
             tempValue = value;
 
             return value;
