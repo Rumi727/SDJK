@@ -46,7 +46,6 @@ namespace SDJK.Ruleset.SDJK
             double localNoteDistance = barEffectFile.noteDistance.GetValue(currentBeat);
 
             noteDistance = globalNoteDistance * fieldNoteDistance * localNoteDistance;
-
             NotePosAndHideUpdate();
         }
 
