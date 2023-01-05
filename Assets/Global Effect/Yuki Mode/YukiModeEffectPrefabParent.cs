@@ -23,7 +23,7 @@ namespace SDJK
             if (yukiModeEffect == null)
                 return;
 
-            offsetCurrentBeat = RhythmManager.currentBeat - indexOffset;
+            offsetCurrentBeat = RhythmManager.currentBeatScreen - indexOffset;
             offsetCurrentBeatReapeat = offsetCurrentBeat.Reapeat(yukiModeEffect.count.Ceil());
 
             if (offsetCurrentBeatReapeat < lastCurrentBeatReapeat)

@@ -27,14 +27,14 @@ namespace SDJK.MainMenu
                     value = -1;
                     tempValue = -1;
                 }
-                else if (map.allJudgmentBeat.Count <= 1 || map.allJudgmentBeat[0] >= RhythmManager.currentBeat)
+                else if (map.allJudgmentBeat.Count <= 1 || map.allJudgmentBeat[0] >= RhythmManager.currentBeatSound)
                 {
                     value = -1;
                     tempValue = -1;
                 }
                 else
                 {
-                    int findIndex = map.allJudgmentBeat.FindIndex(x => x >= RhythmManager.currentBeat);
+                    int findIndex = map.allJudgmentBeat.FindIndex(x => x >= RhythmManager.currentBeatSound);
                     if (findIndex < 0)
                         findIndex = map.allJudgmentBeat.Count;
 

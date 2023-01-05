@@ -50,10 +50,10 @@ namespace SDJK.MainMenu
                 icon.anchoredPosition = new Vector2(icon.anchoredPosition.x, sin * 10);
 
                 int currentBeat;
-                if (RhythmManager.currentBeat < 0)
-                    currentBeat = (int)RhythmManager.currentBeat + 1;
+                if (RhythmManager.currentBeatScreen < 0)
+                    currentBeat = (int)RhythmManager.currentBeatScreen + 1;
                 else
-                    currentBeat = (int)RhythmManager.currentBeat;
+                    currentBeat = (int)RhythmManager.currentBeatScreen;
 
                 if (currentBeat % 2 == 0)
                     rotation = rotation.MoveTowards(new Vector3(0, 0, 10), RhythmManager.bpmFpsDeltaTime);

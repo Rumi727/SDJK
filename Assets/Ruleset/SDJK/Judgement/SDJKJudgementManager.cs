@@ -116,7 +116,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         holdJudgements[i].Update();
                 }
 
-                if (RhythmManager.currentBeat >= 0)
+                if (RhythmManager.currentBeatSound >= 0)
                     instance.health -= map.globalEffect.hpRemoveValue.GetValue() * RhythmManager.bpmDeltaTime;
             }
         }
