@@ -1,4 +1,3 @@
-using Microsoft.JScript;
 using Newtonsoft.Json;
 using SCKRM.Resource;
 using System;
