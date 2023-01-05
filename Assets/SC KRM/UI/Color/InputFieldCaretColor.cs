@@ -45,7 +45,7 @@ namespace SCKRM.UI
             if (RhythmManager.isPlaying)
             {
                 inputField.caretBlinkRate = 0;
-                inputField.caretColor = defaultCaretColor.Lerp(new Color(defaultCaretColor.r, defaultCaretColor.g, defaultCaretColor.b, 0.3f), (float)RhythmManager.currentBeat1Beat);
+                inputField.caretColor = defaultCaretColor.Lerp(new Color(defaultCaretColor.r, defaultCaretColor.g, defaultCaretColor.b, 0.3f), (float)RhythmManager.currentBeatScreen1Beat);
             }
             else
             {

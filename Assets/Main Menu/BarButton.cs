@@ -41,12 +41,12 @@ namespace SDJK.MainMenu
 
             rectTransform.sizeDelta = new Vector2(pointerSize, 0);
 
-            if (pointerAniLock && lastCurrentBeat1Beat > RhythmManager.currentBeat1Beat)
+            if (pointerAniLock && lastCurrentBeat1Beat > RhythmManager.currentBeatScreen1Beat)
                 pointerAniLock = false;
 
             if (pointer && !pointerAniLock)
             {
-                float sin = (float)Math.Sin(RhythmManager.currentBeat1Beat * Mathf.PI).Abs();
+                float sin = (float)Math.Sin(RhythmManager.currentBeatScreen1Beat * Mathf.PI).Abs();
                 icon.anchoredPosition = new Vector2(icon.anchoredPosition.x, sin * 10);
 
                 int currentBeat;
@@ -72,7 +72,7 @@ namespace SDJK.MainMenu
                 pointerAniLock = true;
             }
 
-            lastCurrentBeat1Beat = RhythmManager.currentBeat1Beat;
+            lastCurrentBeat1Beat = RhythmManager.currentBeatScreen1Beat;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

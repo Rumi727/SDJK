@@ -63,7 +63,7 @@ namespace SCKRM.Rhythm
         [WikiDescription("현재 비트")] public static double currentBeat { get; private set; }
         [WikiDescription("현재 사운드 비트")] public static double currentBeatSound { get; private set; }
         [WikiDescription("현재 스크린 비트")] public static double currentBeatScreen { get; private set; }
-        [WikiDescription("현재 1 비트")] public static double currentBeat1Beat { get; private set; }
+        [WikiDescription("현재 1 스크린 비트")] public static double currentBeatScreen1Beat { get; private set; }
 
         public static double bpmOffsetBeat { get; private set; }
         public static double bpmOffsetTime { get; private set; }
@@ -204,7 +204,7 @@ namespace SCKRM.Rhythm
             currentBeatSound = ((soundTime - SaveData.soundOffset) * bpmDivide60) + bpmOffsetBeat;
             currentBeatScreen = ((soundTime - SaveData.screenOffset) * bpmDivide60) + bpmOffsetBeat;
 
-            currentBeat1Beat = currentBeat.Reapeat(1);
+            currentBeatScreen1Beat = currentBeatScreen.Reapeat(1);
         }
 
         static void BPMChange(double bpm, double offsetBeat)
@@ -250,7 +250,7 @@ namespace SCKRM.Rhythm
             _time = -(startDelay - offset).Clamp(0);
 
             currentBeat = double.MinValue;
-            currentBeat1Beat = 0;
+            currentBeatScreen1Beat = 0;
             currentBeatScreen = double.MinValue;
             currentBeatSound = double.MinValue;
 
@@ -283,7 +283,7 @@ namespace SCKRM.Rhythm
             _time = 0;
 
             currentBeat = double.MinValue;
-            currentBeat1Beat = 0;
+            currentBeatScreen1Beat = 0;
             currentBeatScreen = double.MinValue;
             currentBeatSound = double.MinValue;
 
