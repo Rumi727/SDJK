@@ -1,3 +1,4 @@
+using SCKRM;
 using SCKRM.Input;
 using SCKRM.Object;
 using SCKRM.Rhythm;
@@ -46,49 +47,42 @@ namespace SDJK.Ruleset.SDJK
 
             noteDistance = globalNoteDistance * fieldNoteDistance * localNoteDistance;
 
-            NotesPosUpdate();
-            NoteHideUpdate();
+            NotePosAndHideUpdate();
         }
 
-        void NotesPosUpdate()
+        void NotePosAndHideUpdate()
         {
-            double currentBeat = RhythmManager.currentBeatScreen;
-            double y;
-            bool noteStop = barEffectFile.noteStop.GetValue(currentBeat, out double beat, out _);
-            double noteOffset = barEffectFile.noteOffset.GetValue(currentBeat);
-
-            if (!noteStop)
-                y = -currentBeat;
-            else
-                y = -beat;
-
-            y *= noteDistance;
-            y += barBottomKeyHeight - (playField.fieldHeight * 0.5f);
-            y -= noteOffset;
-
-            notes.localPosition = new Vector3(0, (float)y);
-            spriteMask.localPosition = -notes.localPosition;
-        }
-
-        void NoteHideUpdate()
-        {
-            double currentBeatKeyHeight = barBottomKeyHeight / noteDistance;
             for (int i = 0; i < createdNotes.Count; i++)
             {
                 Note note = createdNotes[i];
                 if (note == null || note.isRemoved)
                 {
                     createdNotes.RemoveAt(i);
+                    i--;
+
                     continue;
                 }
 
-                double currentBeat = RhythmManager.currentBeatScreen;
+                double y = note.GetYPos(note.GetNoteDis(), out double holdYSize, out bool allowRemove);
+                if (allowRemove)
+                {
+                    note.Remove();
+                    createdNotes.RemoveAt(i);
+                    i--;
 
-                bool top = (note.beat - currentBeat) * noteDistance <= (playField.fieldHeight - barBottomKeyHeight);
-                bool bottom = note.beat + note.holdLength + currentBeatKeyHeight >= currentBeat;
+                    continue;
+                }
+
+                double fieldHeight = playField.fieldHeight * 0.5;
+                bool top = y <= fieldHeight - barBottomKeyHeight;
+                bool bottom = y + holdYSize.Max(Note.noteYSize) >= -fieldHeight - barBottomKeyHeight;
+                bool active = top && bottom;
 
                 if ((top && bottom) != note.gameObject.activeSelf)
                     note.gameObject.SetActive(top && bottom);
+
+                if (active)
+                    note.PosAndHoldScaleUpdate(y, holdYSize);
             }
         }
 

@@ -42,6 +42,10 @@ namespace SDJK.Ruleset.SDJK.Map
         public List<FieldEffectFile> fieldEffect { get; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; } = new(8);
+        /// <summary>
+        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
+        /// </summary>
+        public BeatValuePairList<double> globalNoteSpeed { get; } = new(1);
     }
 
     public sealed class FieldEffectFile
@@ -55,6 +59,10 @@ namespace SDJK.Ruleset.SDJK.Map
         public List<BarEffectFile> barEffect { get; } = new();
 
         public BeatValuePairAniListDouble noteDistance { get; } = new(1);
+        /// <summary>
+        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
+        /// </summary>
+        public BeatValuePairList<double> noteSpeed { get; } = new(1);
     }
 
     public sealed class BarEffectFile
@@ -67,6 +75,10 @@ namespace SDJK.Ruleset.SDJK.Map
         public BeatValuePairAniListColor noteColor { get; } = new(new JColor(0, 1, 0));
 
         public BeatValuePairAniListDouble noteDistance { get; } = new(1);
+        /// <summary>
+        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
+        /// </summary>
+        public BeatValuePairList<double> noteSpeed { get; } = new(1);
 
         public BeatValuePairList<bool> noteStop { get; } = new(false);
         public BeatValuePairAniListDouble noteOffset { get; } = new(0);
