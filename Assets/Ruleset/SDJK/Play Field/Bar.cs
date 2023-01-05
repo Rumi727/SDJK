@@ -41,9 +41,10 @@ namespace SDJK.Ruleset.SDJK
 
             double currentBeat = RhythmManager.currentBeatScreen;
             double globalNoteDistance = map.effect.globalNoteDistance.GetValue(currentBeat);
+            double fieldNoteDistance = playField.fieldEffectFile.noteDistance.GetValue(currentBeat);
             double localNoteDistance = barEffectFile.noteDistance.GetValue(currentBeat);
 
-            noteDistance = globalNoteDistance * localNoteDistance;
+            noteDistance = globalNoteDistance * fieldNoteDistance * localNoteDistance;
 
             NotesPosUpdate();
             NoteHideUpdate();

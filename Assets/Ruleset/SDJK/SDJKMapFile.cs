@@ -53,6 +53,8 @@ namespace SDJK.Ruleset.SDJK.Map
         public BeatValuePairAniListDouble height { get; } = new(16);
 
         public List<BarEffectFile> barEffect { get; } = new();
+
+        public BeatValuePairAniListDouble noteDistance { get; } = new(1);
     }
 
     public sealed class BarEffectFile
