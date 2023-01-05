@@ -61,6 +61,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             boxCollider.size = new Vector3(Bar.barWidth, fieldHeight, 1);
 
             key.localPosition = new Vector3(0, -(fieldHeight * 0.5f) + Bar.barBottomKeyHeightHalf);
+            transform.localScale = bar.barEffectFile.scale.GetValue(RhythmManager.currentBeatScreen);
         }
 
         Color inputColor = Color.white;

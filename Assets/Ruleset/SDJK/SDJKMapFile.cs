@@ -47,6 +47,7 @@ namespace SDJK.Ruleset.SDJK.Map
     public sealed class FieldEffectFile
     {
         public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 scale { get; } = new(new JVector3(1));
         public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
 
         public BeatValuePairAniListDouble height { get; } = new(16);
@@ -57,6 +58,7 @@ namespace SDJK.Ruleset.SDJK.Map
     public sealed class BarEffectFile
     {
         public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 scale { get; } = new(new JVector3(1));
         public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
 
         public BeatValuePairAniListColor color { get; } = new(JColor.one);

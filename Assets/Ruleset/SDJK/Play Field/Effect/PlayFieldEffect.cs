@@ -39,7 +39,9 @@ namespace SDJK.Ruleset.SDJK.Effect
                 screenY = Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad) * 2.0f * CameraEffect.defaultDistance;
 
             float scale = (float)(screenY / playField.fieldHeight);
-            transform.localScale = new Vector3(scale, scale, scale);
+            Vector3 effectScale = (Vector3)fieldEffectFile.scale.GetValue(RhythmManager.currentBeatScreen);
+
+            transform.localScale = new Vector3(scale * effectScale.x, scale * effectScale.y, scale * effectScale.z);
         }
     }
 }
