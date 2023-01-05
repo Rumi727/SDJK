@@ -137,7 +137,6 @@ namespace SCKRM.Rhythm
 
 
 
-        TValue tempValue = default;
         public override TValue GetValue(double currentBeat, out double beat)
         {
             TValue value;
@@ -181,9 +180,6 @@ namespace SCKRM.Rhythm
                     value = ValueCalculate(t, beatValuePair.easingFunction, previousBeatValuePair, beatValuePair);
                 }
             }
-
-            //isValueChanged = !((IEquatable<TValue>)tempValue).Equals(value);
-            tempValue = value;
 
             return value;
         }
