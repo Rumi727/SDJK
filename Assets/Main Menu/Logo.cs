@@ -27,6 +27,7 @@ namespace SDJK.MainMenu
         protected override void Awake() => image.alphaHitTestMinimumThreshold = 0.5f;
 
         int lastCurrentBeat = 0;
+        double lastBPMOffsetBeat = 0;
         void Update()
         {
             beatScale = beatScaleAni.GetValue(RhythmManager.currentBeat1Beat);
@@ -50,23 +51,19 @@ namespace SDJK.MainMenu
 
             transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
 
-            int currentBeat;
-            if (RhythmManager.currentBeat < 0)
-                currentBeat = (int)RhythmManager.currentBeat + 1;
-            else
-                currentBeat = (int)RhythmManager.currentBeat;
-
-            if (lastCurrentBeat != currentBeat)
+            int currentBeat = (int)(RhythmManager.currentBeatSound - RhythmManager.bpmOffsetBeat).Reapeat(4);
+            if (lastCurrentBeat != currentBeat || lastBPMOffsetBeat != RhythmManager.bpmOffsetBeat)
             {
                 if (pointer)
                 {
-                    if ((int)RhythmManager.currentBeat.Reapeat(4) == 0)
+                    if (currentBeat == 0)
                         SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.35f);
 
                     SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
                 }
 
                 lastCurrentBeat = currentBeat;
+                lastBPMOffsetBeat = RhythmManager.bpmOffsetBeat;
             }
         }
 
