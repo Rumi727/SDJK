@@ -49,6 +49,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             x += Bar.barWidthWithoutBoard * index;
 
             transform.localPosition = new Vector3(x, 0) + bar.barEffectFile.pos.GetValue(RhythmManager.currentBeatScreen);
+            transform.localEulerAngles = bar.barEffectFile.rotation.GetValue(RhythmManager.currentBeatScreen);
         }
 
         void SizeUpdate()
