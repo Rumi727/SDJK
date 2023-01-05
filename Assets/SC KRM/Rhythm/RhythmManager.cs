@@ -65,8 +65,8 @@ namespace SCKRM.Rhythm
         [WikiDescription("현재 스크린 비트")] public static double currentBeatScreen { get; private set; }
         [WikiDescription("현재 1 비트")] public static double currentBeat1Beat { get; private set; }
 
-        static double bpmOffsetBeat;
-        static double bpmOffsetTime;
+        public static double bpmOffsetBeat { get; private set; }
+        public static double bpmOffsetTime { get; private set; }
 
 
 
