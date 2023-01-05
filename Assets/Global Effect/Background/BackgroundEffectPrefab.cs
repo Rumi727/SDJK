@@ -22,7 +22,7 @@ namespace SDJK
         public bool padeOut { get; set; } = false;
 
         public EffectManager effectManager { get; private set; } = null;
-        public Map.MapFile map => effectManager.selectedMap;
+        public MapFile map => effectManager.selectedMap;
 
         public override void OnCreate()
         {

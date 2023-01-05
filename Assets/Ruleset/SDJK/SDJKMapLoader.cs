@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
+using SCKRM.Rhythm;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
@@ -166,7 +167,7 @@ namespace SDJK.Ruleset.SDJK.Map
                 #endregion
 
                 #region Effect Method
-                void EffectAdd<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, SCKRM.Rhythm.BeatValuePairList<T> list)
+                void EffectAdd<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, BeatValuePairList<T> list)
                 {
                     list.Add(double.MinValue, defaultValue);
                     for (int i = 0; i < oldList.Count; i++)
@@ -176,17 +177,7 @@ namespace SDJK.Ruleset.SDJK.Map
                     }
                 }
 
-                void EffectAdd2<T>(T defaultValue, List<OldSDJK.EffectValue<T>> oldList, BeatValuePairList<T> list)
-                {
-                    list.Add(double.MinValue, defaultValue);
-                    for (int i = 0; i < oldList.Count; i++)
-                    {
-                        var effect = oldList[i];
-                        list.Add(effect.Beat - 1, effect.Value);
-                    }
-                }
-
-                void EffectAdd3<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, BeatValuePairAniList<T> list)
+                void EffectAdd2<T>(T defaultValue, List<OldSDJK.EffectValueLerp<T>> oldList, BeatValuePairAniList<T> list)
                 {
                     list.Add(double.MinValue, defaultValue);
                     for (int i = 0; i < oldList.Count; i++)
@@ -196,7 +187,7 @@ namespace SDJK.Ruleset.SDJK.Map
                     }
                 }
 
-                void EffectAdd4(JVector3 defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JVector3>> oldList, BeatValuePairAniList<JVector3> list)
+                void EffectAdd3(JVector3 defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JVector3>> oldList, BeatValuePairAniList<JVector3> list)
                 {
                     list.Add(double.MinValue, defaultValue);
                     for (int i = 0; i < oldList.Count; i++)
@@ -206,7 +197,7 @@ namespace SDJK.Ruleset.SDJK.Map
                     }
                 }
 
-                void EffectAdd5(JColor defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JColor>> oldList, BeatValuePairAniList<JColor> list)
+                void EffectAdd4(JColor defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JColor>> oldList, BeatValuePairAniList<JColor> list)
                 {
                     list.Add(double.MinValue, defaultValue);
                     for (int i = 0; i < oldList.Count; i++)
@@ -229,14 +220,14 @@ namespace SDJK.Ruleset.SDJK.Map
                 EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
                 EffectAdd(oldMap.Effect.DropPart, oldMap.Effect.DropPartEffect, map.globalEffect.yukiMode);
 
-                EffectAdd3(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
-                EffectAdd4(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
-                EffectAdd4(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
+                EffectAdd2(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
+                EffectAdd3(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
+                EffectAdd3(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
 
-                EffectAdd3(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.pitch);
+                EffectAdd2(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.pitch);
                 map.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
-                EffectAdd3(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
+                EffectAdd2(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
 
                 /*EffectAdd3(oldMap.Effect.HPAddValue, oldMap.Effect.HPAddValueEffect, map.globalEffect.hpAddValue);
                 EffectAdd3(oldMap.Effect.HPRemoveValue, oldMap.Effect.HPRemoveValueEffect, map.globalEffect.hpMissValue);
@@ -262,8 +253,8 @@ namespace SDJK.Ruleset.SDJK.Map
 
                 {
                     FieldEffectFile fieldEffect = map.effect.fieldEffect[0];
-                    EffectAdd4(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
-                    EffectAdd4(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
+                    EffectAdd3(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
+                    EffectAdd3(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
 
                     fieldEffect.height.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
                     for (int i = 0; i < oldMap.Effect.Camera.UiZoomEffect.Count; i++)
@@ -287,42 +278,42 @@ namespace SDJK.Ruleset.SDJK.Map
                         {
                             if (oldMap.CapsLock.Count > 0 && capsLock)
                             {
-                                EffectAdd4(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
                                 capsLock = false;
                             }
                             else if (oldMap.A.Count > 0 && a)
                             {
-                                EffectAdd4(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
                                 a = false;
                             }
                             else if (oldMap.S.Count > 0 && s)
                             {
-                                EffectAdd4(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
                                 s = false;
                             }
                             else if (oldMap.J.Count > 0 && d)
                             {
-                                EffectAdd4(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
                                 d = false;
                             }
                             else if (oldMap.J.Count > 0 && j)
                             {
-                                EffectAdd4(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
                                 j = false;
                             }
                             else if (oldMap.K.Count > 0 && k)
                             {
-                                EffectAdd4(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
                                 k = false;
                             }
                             else if (oldMap.L.Count > 0 && l)
                             {
-                                EffectAdd4(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
                                 l = false;
                             }
                             else if (oldMap.Semicolon.Count > 0 && semiccolon)
                             {
-                                EffectAdd4(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
+                                EffectAdd3(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
                                 semiccolon = false;
                             }
                         }
@@ -332,8 +323,8 @@ namespace SDJK.Ruleset.SDJK.Map
                     {
                         BarEffectFile barEffect = fieldEffect.barEffect[i];
 
-                        EffectAdd5(oldMap.Effect.BarColor, oldMap.Effect.BarColorEffect, barEffect.color);
-                        EffectAdd5(oldMap.Effect.NoteColor, oldMap.Effect.NoteColorEffect, barEffect.noteColor);
+                        EffectAdd4(oldMap.Effect.BarColor, oldMap.Effect.BarColorEffect, barEffect.color);
+                        EffectAdd4(oldMap.Effect.NoteColor, oldMap.Effect.NoteColorEffect, barEffect.noteColor);
 
                         barEffect.noteOffset.Add(double.MinValue, 0, 0);
                         double previousValue = 0;
@@ -352,11 +343,11 @@ namespace SDJK.Ruleset.SDJK.Map
                             }
                         }
 
-                        EffectAdd2(oldMap.Effect.NoteStop, oldMap.Effect.NoteStopEffect, fieldEffect.barEffect[i].noteStop);
+                        EffectAdd(oldMap.Effect.NoteStop, oldMap.Effect.NoteStopEffect, fieldEffect.barEffect[i].noteStop);
                     }
                 }
 
-                EffectAdd3(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);
+                EffectAdd2(oldMap.Effect.BeatYPos, oldMap.Effect.BeatYPosEffect, map.effect.globalNoteDistance);
                 #endregion
 
                 #region Effect Stacking Trick Method
@@ -371,7 +362,7 @@ namespace SDJK.Ruleset.SDJK.Map
                         if (effect.beat + effect.length > nextEffect.beat && (nextEffect.beat - effect.beat) / effect.length < 0.25)
                         {
                             double t = ((nextEffect.beat - effect.beat) / effect.length).Clamp01();
-                            T calculatedValue = list.ValueCalculate(t, EasingFunction.GetEasingFunction(effect.easingFunction), previousEffect, effect);
+                            T calculatedValue = list.ValueCalculate(t, effect.easingFunction, previousEffect, effect);
 
                             var modifyedEffect = list[i];
                             modifyedEffect.length = nextEffect.beat - effect.beat;

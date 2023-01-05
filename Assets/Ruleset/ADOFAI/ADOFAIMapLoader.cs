@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
+using SCKRM.Rhythm;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace SDJK.Ruleset.ADOFAI
             MapLoader.extensionToLoad.Add("adofai");
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
-                if (extension == ".adofai" && (type == typeof(Map.MapFile) || type == typeof(ADOFAIMapFile)))
+                if (extension == ".adofai" && (type == typeof(MapFile) || type == typeof(ADOFAIMapFile)))
                 {
                     try
                     {
@@ -350,18 +351,18 @@ namespace SDJK.Ruleset.ADOFAI
                                     if (action["speedType"].Value<string>() == "Bpm")
                                     {
                                         bpm = action["beatsPerMinute"].Value<float>();
-                                        effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
+                                        effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
                                     }
                                     else
                                     {
                                         bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                        effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
+                                        effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
                                     }
                                 }
                                 else
                                 {
                                     bpm = action["beatsPerMinute"].Value<float>();
-                                    effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new SCKRM.Rhythm.BeatValuePair<double>(beat, bpm));
+                                    effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
                                 }
 
                                 effect.isTileEffect = true;

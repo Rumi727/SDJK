@@ -1,4 +1,5 @@
 using SCKRM.Object;
+using SCKRM.Rhythm;
 using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
