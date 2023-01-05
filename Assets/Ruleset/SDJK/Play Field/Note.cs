@@ -74,7 +74,7 @@ namespace SDJK.Ruleset.SDJK
             }
 
             double currentBeat = RhythmManager.currentBeatScreen;
-            bool noteStop = bar.barEffectFile.noteStop.GetValue(currentBeat, out double noteStopBeat, out _);
+            bool noteStop = bar.barEffectFile.noteStop.GetValue(currentBeat, out double noteStopBeat);
             double noteOffset = bar.barEffectFile.noteOffset.GetValue(currentBeat);
 
             if (!noteStop)
