@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.ADOFAI
 {
-    static class ADOFAIMapCompatibilitySystem
+    static class ADOFAIMapLoader
     {
         [Awaken]
         static void Awaken()
@@ -24,62 +24,62 @@ namespace SDJK.Ruleset.ADOFAI
                 {
                     try
                     {
-                        ADOFAIMapFile sdjk = new ADOFAIMapFile();
+                        ADOFAIMapFile adofaiMap = new ADOFAIMapFile();
                         List<double> allBeat = new List<double>();
                         ADOFAI adofai = JsonManager.JsonRead<ADOFAI>(mapFilePath, true);
                         if (adofai == null)
                             return null;
 
-                        sdjk.info.mode = typeof(ADOFAIRuleset).FullName;
+                        adofaiMap.info.mode = typeof(ADOFAIRuleset).FullName;
 
                         #region Default Effect
                         {
-                            sdjk.info.artist = adofai.settings.artist;
-                            sdjk.info.songName = adofai.settings.song;
-                            sdjk.info.author = adofai.settings.author;
+                            adofaiMap.info.artist = adofai.settings.artist;
+                            adofaiMap.info.songName = adofai.settings.song;
+                            adofaiMap.info.author = adofai.settings.author;
 
-                            sdjk.info.mainMenuStartTime = adofai.settings.previewSongStart;
+                            adofaiMap.info.mainMenuStartTime = adofai.settings.previewSongStart;
 
                             {
                                 int difficulty = adofai.settings.difficulty;
                                 if (difficulty >= 1 && difficulty <= 3)
-                                    sdjk.info.difficultyLabel = "Easy (ADOFAI)";
+                                    adofaiMap.info.difficultyLabel = "Easy (ADOFAI)";
                                 else if (difficulty >= 4 && difficulty <= 6)
-                                    sdjk.info.difficultyLabel = "Normal (ADOFAI)";
+                                    adofaiMap.info.difficultyLabel = "Normal (ADOFAI)";
                                 else if (difficulty >= 7 && difficulty <= 9)
-                                    sdjk.info.difficultyLabel = "Hard (ADOFAI)";
+                                    adofaiMap.info.difficultyLabel = "Hard (ADOFAI)";
                                 else if (difficulty >= 10)
-                                    sdjk.info.difficultyLabel = "Insane (ADOFAI)";
+                                    adofaiMap.info.difficultyLabel = "Insane (ADOFAI)";
                                 else
-                                    sdjk.info.difficultyLabel = "ADOFAI";
+                                    adofaiMap.info.difficultyLabel = "ADOFAI";
                             }
 
-                            sdjk.globalEffect.background.Add(new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""));
+                            adofaiMap.globalEffect.background.Add(new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""));
 
                             if (ColorUtility.TryParseHtmlString("#" + adofai.settings.bgImageColor, out Color color))
-                                sdjk.globalEffect.backgroundColor.Add(color);
+                                adofaiMap.globalEffect.backgroundColor.Add(color);
                             else
-                                sdjk.globalEffect.backgroundColor.Add(JColor.one);
+                                adofaiMap.globalEffect.backgroundColor.Add(JColor.one);
 
-                            sdjk.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
-                            sdjk.globalEffect.videoColor.Add(JColor.one);
-                            sdjk.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
+                            adofaiMap.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
+                            adofaiMap.globalEffect.videoColor.Add(JColor.one);
+                            adofaiMap.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
-                            sdjk.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
+                            adofaiMap.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
 
-                            sdjk.globalEffect.bpm.Add(double.MinValue, adofai.settings.bpm);
-                            sdjk.globalEffect.volume.Add(double.MinValue, 0, adofai.settings.volume * 0.02);
-                            sdjk.info.songOffset = adofai.settings.offset * 0.001f;
-                            sdjk.globalEffect.pitch.Add(double.MinValue, 0, adofai.settings.pitch * 0.01);
-                            sdjk.globalEffect.tempo.Add(double.MinValue, 0, 1);
+                            adofaiMap.globalEffect.bpm.Add(double.MinValue, adofai.settings.bpm);
+                            adofaiMap.globalEffect.volume.Add(double.MinValue, 0, adofai.settings.volume * 0.02);
+                            adofaiMap.info.songOffset = adofai.settings.offset * 0.001f;
+                            adofaiMap.globalEffect.pitch.Add(double.MinValue, 0, adofai.settings.pitch * 0.01);
+                            adofaiMap.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
-                            sdjk.globalEffect.cameraPos.Add(new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14));
-                            sdjk.globalEffect.cameraRotation.Add(new Vector3(0, 0, adofai.settings.rotation));
-                            sdjk.globalEffect.cameraZoom.Add(double.MinValue, 0, adofai.settings.zoom * 0.01);
+                            adofaiMap.globalEffect.cameraPos.Add(new Vector3(adofai.settings.position[0], adofai.settings.position[1], -14));
+                            adofaiMap.globalEffect.cameraRotation.Add(new Vector3(0, 0, adofai.settings.rotation));
+                            adofaiMap.globalEffect.cameraZoom.Add(double.MinValue, 0, adofai.settings.zoom * 0.01);
 
-                            sdjk.globalEffect.backgroundFlash.Add(JColor.zero);
-                            sdjk.globalEffect.fieldFlash.Add(JColor.zero);
-                            sdjk.globalEffect.uiFlash.Add(JColor.zero);
+                            adofaiMap.globalEffect.backgroundFlash.Add(JColor.zero);
+                            adofaiMap.globalEffect.fieldFlash.Add(JColor.zero);
+                            adofaiMap.globalEffect.uiFlash.Add(JColor.zero);
                         }
                         #endregion
 
@@ -221,7 +221,7 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (lastBeat == beat && !midspin)
                                     beat += 2;
 
-                                sdjk.allJudgmentBeat.Add(beat);
+                                adofaiMap.allJudgmentBeat.Add(beat);
                                 allBeat.Add(beat);
 
                                 lastAngle = angle;
@@ -351,18 +351,18 @@ namespace SDJK.Ruleset.ADOFAI
                                     if (action["speedType"].Value<string>() == "Bpm")
                                     {
                                         bpm = action["beatsPerMinute"].Value<float>();
-                                        effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
+                                        effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
                                     }
                                     else
                                     {
                                         bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                        effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
+                                        effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
                                     }
                                 }
                                 else
                                 {
                                     bpm = action["beatsPerMinute"].Value<float>();
-                                    effect.action += (double beat) => sdjk.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
+                                    effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
                                 }
 
                                 effect.isTileEffect = true;
@@ -373,19 +373,19 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (action.ContainsKey("position"))
                                 {
                                     float[] pos = action["position"].Values<float>().ToArray();
-                                    effect.action += (double beat) => sdjk.globalEffect.cameraPos.Add(beat, duration, new JVector3(pos[0], pos[1], -14), ease);
+                                    effect.action += (double beat) => adofaiMap.globalEffect.cameraPos.Add(beat, duration, new JVector3(pos[0], pos[1], -14), ease);
                                 }
 
                                 if (action.ContainsKey("rotation"))
                                 {
                                     float rotation = action["rotation"].Value<float>();
-                                    effect.action += (double beat) => sdjk.globalEffect.cameraRotation.Add(beat, duration, new JVector3(0, 0, rotation), ease);
+                                    effect.action += (double beat) => adofaiMap.globalEffect.cameraRotation.Add(beat, duration, new JVector3(0, 0, rotation), ease);
                                 }
 
                                 if (action.ContainsKey("zoom"))
                                 {
                                     double zoom = action["zoom"].Value<float>() * 0.01;
-                                    effect.action += (double beat) => sdjk.globalEffect.cameraZoom.Add(beat, duration, zoom, ease);
+                                    effect.action += (double beat) => adofaiMap.globalEffect.cameraZoom.Add(beat, duration, zoom, ease);
                                 }
                             }
                             else if (eventType == "CustomBackground")
@@ -393,15 +393,15 @@ namespace SDJK.Ruleset.ADOFAI
                                 if (action.ContainsKey("imageColor"))
                                 {
                                     if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
-                                        effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(beat, 0, color, EasingFunction.Ease.Linear);
+                                        effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, color, EasingFunction.Ease.Linear);
                                     else
-                                        effect.action += (double beat) => sdjk.globalEffect.backgroundColor.Add(beat, 0, JColor.one, EasingFunction.Ease.Linear);
+                                        effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, JColor.one, EasingFunction.Ease.Linear);
                                 }
 
                                 if (action.ContainsKey("bgImage"))
                                 {
                                     string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
-                                    effect.action += (double beat) => sdjk.globalEffect.background.Add(beat, new BackgroundEffectPair(background, ""));
+                                    effect.action += (double beat) => adofaiMap.globalEffect.background.Add(beat, new BackgroundEffectPair(background, ""));
                                 }
                             }
                             else if (eventType == "Flash")
@@ -421,13 +421,13 @@ namespace SDJK.Ruleset.ADOFAI
 
                                             if (plane == "Foreground")
                                             {
-                                                sdjk.globalEffect.fieldFlash.Add(start);
-                                                sdjk.globalEffect.fieldFlash.Add(end);
+                                                adofaiMap.globalEffect.fieldFlash.Add(start);
+                                                adofaiMap.globalEffect.fieldFlash.Add(end);
                                             }
                                             else
                                             {
-                                                sdjk.globalEffect.backgroundFlash.Add(start);
-                                                sdjk.globalEffect.backgroundFlash.Add(end);
+                                                adofaiMap.globalEffect.backgroundFlash.Add(start);
+                                                adofaiMap.globalEffect.backgroundFlash.Add(end);
                                             }
                                         };
                                     }
@@ -441,7 +441,7 @@ namespace SDJK.Ruleset.ADOFAI
                         repeatEvents.Invoke();
                         #endregion
 
-                        return sdjk;
+                        return adofaiMap;
                     }
                     catch (Exception e)
                     {

@@ -1,7 +1,6 @@
+using Cysharp.Threading.Tasks;
 using SCKRM.Renderer;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using SCKRM.UI.Overlay.MessageBox;
 
 namespace SDJK.Ruleset.ADOFAI
 {
@@ -11,6 +10,6 @@ namespace SDJK.Ruleset.ADOFAI
         public override JudgementMetaData[] judgementMetaDatas => null;
         public override JudgementMetaData missJudgementMetaData { get; }
 
-        public override void GameStart(string mapFilePath, bool isEditor) { }
+        public override void GameStart(string mapFilePath, bool isEditor) => MessageBoxManager.Show("sc-krm:gui.ok", 0, "sdjk:ruleset.adofai.unplayable", "sc-krm:0:gui/icon/exclamation_mark").Forget();
     }
 }
