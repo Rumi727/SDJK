@@ -24,7 +24,7 @@ TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 �
 - [UI Soft Mask](https://github.com/mob-sakai/SoftMaskForUGUI)
 - [Super Blur](https://github.com/PavelDoGreat/Super-Blur)
 
-제가 멍청해서 빼먹은 출처가 있을 수 있습니다...
+제가 멍청해서 빼먹은 출처가 있을 수 있습니다...  
 만약 그럴 경우, 이슈에 올려주세요
 
 ## 사용한 아이콘
