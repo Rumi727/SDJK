@@ -30,7 +30,7 @@ namespace SDJK.MainMenu
         double lastBPMOffsetBeat = 0;
         void Update()
         {
-            beatScale = beatScaleAni.GetValue(RhythmManager.currentBeat1Beat);
+            beatScale = beatScaleAni.GetValue((RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Reapeat(1));
 
             {
                 if (pointerScaleT < 1)
