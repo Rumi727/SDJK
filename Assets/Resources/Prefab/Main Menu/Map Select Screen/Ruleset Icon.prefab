@@ -87,7 +87,7 @@ MonoBehaviour:
   _rectTransform: {fileID: 0}
   _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 0}
-  _iconGraphic: {fileID: 385002512507294695}
+  _canvasGroup: {fileID: 7531830512348278198}
   _icon: {fileID: 4941023730935317624}
 --- !u!114 &5142785271467577042
 MonoBehaviour:
