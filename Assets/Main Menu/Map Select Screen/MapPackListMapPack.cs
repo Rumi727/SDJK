@@ -92,7 +92,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                 songName.text = selectedMap.info.difficultyLabel;
                 artist.text = selectedMap.info.author;
 
-                rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset).icon;
+                rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset)?.icon ?? "";
                 rulesetIcon.Refresh();
             }
 
