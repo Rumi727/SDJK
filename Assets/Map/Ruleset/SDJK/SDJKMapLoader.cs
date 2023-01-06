@@ -89,7 +89,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     int keyIndex = random.Next(0, notes.Count);
                     if (i > 0)
                     {
-                        if (lastKeyIndex == keyIndex && beat.Distance(adofaiMap.tiles[i - 1]) < 0.25f)
+                        if (lastKeyIndex == keyIndex && RhythmManager.BeatToSecond(beat.Distance(adofaiMap.tiles[i - 1]), bpm) < 0.25f)
                             keyIndex = (keyIndex + 1).Reapeat(notes.Count - 1);
                     }
                     lastKeyIndex = keyIndex;
