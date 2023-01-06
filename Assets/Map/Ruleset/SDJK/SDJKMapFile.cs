@@ -39,48 +39,48 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
     public sealed class SDJKMapEffectFile
     {
-        public List<FieldEffectFile> fieldEffect { get; set; } = new();
+        public List<FieldEffectFile> fieldEffect { get; } = new();
 
-        public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
+        public BeatValuePairAniListDouble globalNoteDistance { get; } = new(8);
         /// <summary>
         /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
         /// </summary>
-        public BeatValuePairList<double> globalNoteSpeed { get; set; } = new(1);
+        public BeatValuePairList<double> globalNoteSpeed { get; } = new(1);
     }
 
     public sealed class FieldEffectFile
     {
-        public BeatValuePairAniListVector3 pos { get; set; } = new(JVector3.zero);
-        public BeatValuePairAniListVector3 scale { get; set; } = new(new JVector3(1));
-        public BeatValuePairAniListVector3 rotation { get; set; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 scale { get; } = new(new JVector3(1));
+        public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
 
-        public BeatValuePairAniListDouble height { get; set; } = new(16);
+        public BeatValuePairAniListDouble height { get; } = new(16);
 
-        public List<BarEffectFile> barEffect { get; set; } = new();
+        public List<BarEffectFile> barEffect { get; } = new();
 
-        public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
+        public BeatValuePairAniListDouble noteDistance { get; } = new(1);
         /// <summary>
         /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
         /// </summary>
-        public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
+        public BeatValuePairList<double> noteSpeed { get; } = new(1);
     }
 
     public sealed class BarEffectFile
     {
-        public BeatValuePairAniListVector3 pos { get; set; } = new(JVector3.zero);
-        public BeatValuePairAniListVector3 scale { get; set; } = new(new JVector3(1));
-        public BeatValuePairAniListVector3 rotation { get; set; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 pos { get; } = new(JVector3.zero);
+        public BeatValuePairAniListVector3 scale { get; } = new(new JVector3(1));
+        public BeatValuePairAniListVector3 rotation { get; } = new(JVector3.zero);
 
-        public BeatValuePairAniListColor color { get; set; } = new(JColor.one);
-        public BeatValuePairAniListColor noteColor { get; set; } = new(new JColor(0, 1, 0));
+        public BeatValuePairAniListColor color { get; } = new(JColor.one);
+        public BeatValuePairAniListColor noteColor { get; } = new(new JColor(0, 1, 0));
 
-        public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
+        public BeatValuePairAniListDouble noteDistance { get; } = new(1);
         /// <summary>
         /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
         /// </summary>
-        public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
+        public BeatValuePairList<double> noteSpeed { get; } = new(1);
 
-        public BeatValuePairList<bool> noteStop { get; set; } = new(false);
-        public BeatValuePairAniListDouble noteOffset { get; set; } = new(0);
+        public BeatValuePairList<bool> noteStop { get; } = new(false);
+        public BeatValuePairAniListDouble noteOffset { get; } = new(0);
     }
 }
