@@ -107,9 +107,19 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             }
 
             sdjkMapFile.effect.fieldEffect.Add(new FieldEffectFile());
+            FieldEffectFile fieldEffect = sdjkMapFile.effect.fieldEffect[0];
 
             for (int i = 0; i < notes.Count; i++)
-                sdjkMapFile.effect.fieldEffect[0].barEffect.Add(new BarEffectFile());
+                fieldEffect.barEffect.Add(new BarEffectFile());
+
+            fieldEffect.height = sdjkMapFile.globalEffect.cameraZoom;
+            sdjkMapFile.globalEffect.cameraZoom = null;
+
+            for (int i = 0; i < fieldEffect.height.Count; i++)
+            {
+                BeatValuePairAni<double> effect = fieldEffect.height[i];
+                sdjkMapFile.globalEffect.uiSize.Add(effect.beat, effect.length, 16d / effect.value, effect.easingFunction);
+            }
 
             FixMap(sdjkMapFile);
             FixAllJudgmentBeat(sdjkMapFile);
