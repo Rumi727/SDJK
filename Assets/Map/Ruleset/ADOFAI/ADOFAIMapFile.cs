@@ -12,9 +12,9 @@ namespace SDJK.Map.Ruleset.ADOFAI
     public struct ADOFAIHoldFile
     {
         public int targetTileIndex { get; }
-        public double length { get; }
+        public int length { get; }
 
-        public ADOFAIHoldFile(int targetTileIndex, double length = 0)
+        public ADOFAIHoldFile(int targetTileIndex, int length = 0)
         {
             this.targetTileIndex = targetTileIndex;
             this.length = length;
