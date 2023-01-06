@@ -17,16 +17,16 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             MapLoader.extensionToLoad.Add("sdjk");
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
-                bool typeIsMapFile = type == typeof(MapFile);
-                if (extension == ".sdjk" && (typeIsMapFile || type == typeof(SDJKMapFile)))
+                bool typeIsSDJKMap = type == typeof(SDJKMapFile);
+                if (extension == ".sdjk" && (type == typeof(MapFile) || typeIsSDJKMap))
                     return MapLoad(mapFilePath);
-                if (extension == ".adofai" && (typeIsMapFile || type == typeof(ADOFAIMapFile)))
-                {
-                    SDJKMapFile sdjkMapFile = new SDJKMapFile();
-                    ADOFAIMapFile adofaiMap = ADOFAIMapLoader.MapLoad(mapFilePath);
 
-                    sdjkMapFile.info = adofaiMap.info;
-                    sdjkMapFile.globalEffect = adofaiMap.globalEffect;
+                //Ruleset 호환성
+                if (typeIsSDJKMap)
+                {
+                    //ADOFAI
+                    if (extension == ".adofai")
+                        return ADOFAIMapLoad(mapFilePath);
                 }
 
                 return null;
@@ -56,6 +56,65 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             }
 
             return null;
+        }
+
+        public static SDJKMapFile ADOFAIMapLoad(string mapFilePath)
+        {
+            SDJKMapFile sdjkMapFile = new SDJKMapFile();
+            ADOFAIMapFile adofaiMap = ADOFAIMapLoader.MapLoad(mapFilePath);
+
+            #region Global Info Copy
+            sdjkMapFile.info = adofaiMap.info;
+            sdjkMapFile.globalEffect = adofaiMap.globalEffect;
+            #endregion
+
+            sdjkMapFile.info.ResetRandomSeed(mapFilePath);
+
+            Random random = new Random(sdjkMapFile.info.randomSeed);
+            List<List<SDJKNoteFile>> notes = sdjkMapFile.notes;
+
+            for (int i = 0; i < 4; i++)
+                sdjkMapFile.notes.Add(new List<SDJKNoteFile>());
+
+            {
+                bool lastIsHold = false;
+                int lastKeyIndex = -1;
+                for (int i = 0; i < adofaiMap.tiles.Count; i++)
+                {
+                    double beat = adofaiMap.tiles[i];
+                    double bpm = adofaiMap.globalEffect.bpm.GetValue(beat);
+                    bool isHold = adofaiMap.holds.FindIndex(x => x.targetTileIndex == i) >= 0;
+
+                    //키 인덱스
+                    int keyIndex = random.Next(0, notes.Count);
+                    if (i > 0)
+                    {
+                        if (lastKeyIndex == keyIndex && beat.Distance(adofaiMap.tiles[i - 1]) < 0.25f)
+                            keyIndex = (keyIndex + 1).Reapeat(notes.Count - 1);
+                    }
+                    lastKeyIndex = keyIndex;
+
+                    //홀드
+                    double holdBeat = 0;
+                    if (isHold && i < adofaiMap.tiles.Count - 1)
+                        holdBeat = adofaiMap.tiles[i + 1] - beat;
+
+                    if (!lastIsHold || isHold)
+                        notes[keyIndex].Add(new SDJKNoteFile(beat, holdBeat, SDJKNoteTypeFile.normal));
+
+                    lastIsHold = isHold;
+                }
+            }
+
+            sdjkMapFile.effect.fieldEffect.Add(new FieldEffectFile());
+
+            for (int i = 0; i < notes.Count; i++)
+                sdjkMapFile.effect.fieldEffect[0].barEffect.Add(new BarEffectFile());
+
+            FixMap(sdjkMapFile);
+            FixAllJudgmentBeat(sdjkMapFile);
+
+            return sdjkMapFile;
         }
 
         static bool OldSDJKMapDistinction(JObject jObjectMap) =>
@@ -151,17 +210,17 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     if (list.Count <= 0)
                         return;
 
-                    List<NoteFile> notes = new List<NoteFile>();
+                    List<SDJKNoteFile> notes = new List<SDJKNoteFile>();
                     for (int i = 0; i < list.Count; i++)
                     {
                         if (list.Count != holdList.Count)
-                            notes.Add(new NoteFile(list[i] - 1, 0, NoteTypeFile.normal));
+                            notes.Add(new SDJKNoteFile(list[i] - 1, 0, SDJKNoteTypeFile.normal));
                         else
                         {
                             if (holdList[i] >= -1 && holdList[i] < 0)
-                                notes.Add(new NoteFile(list[i] - 1, 0, NoteTypeFile.instantDeath));
+                                notes.Add(new SDJKNoteFile(list[i] - 1, 0, SDJKNoteTypeFile.instantDeath));
                             else
-                                notes.Add(new NoteFile(list[i] - 1, holdList[i], NoteTypeFile.normal));
+                                notes.Add(new SDJKNoteFile(list[i] - 1, holdList[i], SDJKNoteTypeFile.normal));
                         }
                     }
 
@@ -429,14 +488,14 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<NoteFile> notes = map.notes[i];
+                List<SDJKNoteFile> notes = map.notes[i];
 
                 bool holdNoteStart = false;
                 double holdNoteEndBeat = 0;
 
                 for (int j = 0; j < notes.Count; j++)
                 {
-                    NoteFile note = notes[j];
+                    SDJKNoteFile note = notes[j];
 
                     //노트 겹침 방지
                     if (!holdNoteStart)
@@ -450,7 +509,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     else
                     {
                         if (note.beat < holdNoteEndBeat)
-                            note.type = NoteTypeFile.auto;
+                            note.type = SDJKNoteTypeFile.auto;
                         else
                             holdNoteStart = false;
                     }
@@ -507,14 +566,14 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<NoteFile> notes = map.notes[i];
+                List<SDJKNoteFile> notes = map.notes[i];
 
                 for (int j = 0; j < notes.Count; j++)
                 {
-                    NoteFile note = notes[j];
+                    SDJKNoteFile note = notes[j];
 
                     //모든 판정 비트에 노트 추가
-                    if (note.type != NoteTypeFile.instantDeath)
+                    if (note.type != SDJKNoteTypeFile.instantDeath)
                     {
                         map.allJudgmentBeat.Add(note.beat);
                         if (note.holdLength > 0)

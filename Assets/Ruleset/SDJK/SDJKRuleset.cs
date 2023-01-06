@@ -12,6 +12,7 @@ namespace SDJK.Ruleset.SDJK
     public sealed class SDJKRuleset : Ruleset
     {
         public override string name => "sdjk";
+        public override string[] compatibleRuleset => new string[] { "adofai" };
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
