@@ -65,12 +65,12 @@ namespace SDJK.Ruleset
         }
 
         /// <summary>
-        /// 현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다
+        /// 선택한 규칙 집합이랑 호환되는 모드인지 확인합니다
         /// </summary>
         /// <param name="ruleset"></param>
         /// <param name="targetRulesetNames"></param>
         /// <returns></returns>
-        [WikiDescription("현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다")]
+        [WikiDescription("선택한 규칙 집합이랑 호환되는 모드인지 확인합니다")]
         public static bool IsCompatibleRuleset(this IRuleset ruleset, params string[] targetRulesetNames)
         {
             if (targetRulesetNames.Contains(ruleset.name))
