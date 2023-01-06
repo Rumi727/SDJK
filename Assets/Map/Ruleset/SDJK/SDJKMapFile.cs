@@ -9,9 +9,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>
-        public List<List<NoteFile>> notes { get; } = new List<List<NoteFile>>();
+        public List<List<NoteFile>> notes { get; set; } = new List<List<NoteFile>>();
 
-        public SDJKMapEffectFile effect { get; } = new SDJKMapEffectFile();
+        public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
     }
 
     public struct NoteFile

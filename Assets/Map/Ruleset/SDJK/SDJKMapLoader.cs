@@ -3,6 +3,7 @@ using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SCKRM.Rhythm;
+using SDJK.Map.Ruleset.ADOFAI;
 using System;
 using System.Collections.Generic;
 
@@ -16,8 +17,17 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             MapLoader.extensionToLoad.Add("sdjk");
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
-                if (extension == ".sdjk" && (type == typeof(MapFile) || type == typeof(SDJKMapFile)))
+                bool typeIsMapFile = type == typeof(MapFile);
+                if (extension == ".sdjk" && (typeIsMapFile || type == typeof(SDJKMapFile)))
                     return MapLoad(mapFilePath);
+                if (extension == ".adofai" && (typeIsMapFile || type == typeof(ADOFAIMapFile)))
+                {
+                    SDJKMapFile sdjkMapFile = new SDJKMapFile();
+                    ADOFAIMapFile adofaiMap = ADOFAIMapLoader.MapLoad(mapFilePath);
+
+                    sdjkMapFile.info = adofaiMap.info;
+                    sdjkMapFile.globalEffect = adofaiMap.globalEffect;
+                }
 
                 return null;
             };
