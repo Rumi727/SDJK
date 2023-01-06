@@ -36,7 +36,7 @@ namespace SDJK.Map
 
 
 
-        public string mode { get; set; } = "";
+        public string ruleset { get; set; } = "";
 
 
 

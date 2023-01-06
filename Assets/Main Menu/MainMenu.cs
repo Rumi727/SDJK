@@ -205,13 +205,13 @@ namespace SDJK.MainMenu
                 if (MapManager.currentRulesetMapCount <= 0)
                     Normal();
 
-                if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                 {
                     if (currentScreenMode == ScreenMode.mapSelect)
                     {
                         MapManager.RulesetNextMap();
 
-                        if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                        if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                         {
                             RandomMapPack();
                             MapPackSelect();

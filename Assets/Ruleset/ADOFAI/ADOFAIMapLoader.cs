@@ -30,7 +30,7 @@ namespace SDJK.Ruleset.ADOFAI
                         if (adofai == null)
                             return null;
 
-                        adofaiMap.info.mode = typeof(ADOFAIRuleset).FullName;
+                        adofaiMap.info.ruleset = typeof(ADOFAIRuleset).FullName;
 
                         #region Default Effect
                         {

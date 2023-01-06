@@ -110,7 +110,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     for (int j = 0; j < mapPack.maps.Count; j++)
                     {
                         Map.MapFile map = mapPack.maps[j];
-                        if (RulesetManager.selectedRuleset.IsCompatibleRuleset(map.info.mode))
+                        if (RulesetManager.selectedRuleset.IsCompatibleRuleset(map.info.ruleset))
                         {
                             MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack", _content).monoBehaviour;
                             mapPackListMapPack.ConfigureCell(this, mapPack, i, null, 0).Forget();
@@ -137,7 +137,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                 for (int i = 0; i < MapManager.selectedMapPack.maps.Count; i++)
                 {
                     Map.MapFile map = MapManager.selectedMapPack.maps[i];
-                    if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(map.info.mode))
+                    if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(map.info.ruleset))
                         continue;
 
                     MapPackListMapPack mapPackListMapPack = (MapPackListMapPack)ObjectPoolingSystem.ObjectCreate("map_select_screen.map", _content).monoBehaviour;

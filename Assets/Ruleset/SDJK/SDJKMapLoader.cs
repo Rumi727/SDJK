@@ -31,7 +31,7 @@ namespace SDJK.Ruleset.SDJK.Map
                         if (map == null)
                             return null;
 
-                        if (map.info.mode == typeof(SDJKRuleset).FullName)
+                        if (map.info.ruleset == typeof(SDJKRuleset).FullName)
                         {
                             FixMap(map);
                             FixAllJudgmentBeat(map);
@@ -79,7 +79,7 @@ namespace SDJK.Ruleset.SDJK.Map
 
 
 
-                map.info.mode = typeof(SDJKRuleset).FullName;
+                map.info.ruleset = typeof(SDJKRuleset).FullName;
 
 
 

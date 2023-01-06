@@ -114,7 +114,7 @@ namespace SDJK.MainMenu
                 MapPack mapPack = currentMapPacks[i];
                 for (int j = 0; j < mapPack.maps.Count; j++)
                 {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(mapPack.maps[j].info.mode))
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(mapPack.maps[j].info.ruleset))
                         currentRulesetMapCount++;
                 }
             }
@@ -192,7 +192,7 @@ namespace SDJK.MainMenu
                 else
                     MapManager.selectedMapIndex--;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                     break;
             }
         }
@@ -206,7 +206,7 @@ namespace SDJK.MainMenu
                 else
                     MapManager.selectedMapIndex++;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.mode))
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                     break;
             }
         }
@@ -222,7 +222,7 @@ namespace SDJK.MainMenu
 
                 for (int j = 0; j < MapManager.selectedMapPack.maps.Count; j++)
                 {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.mode))
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.ruleset))
                         return;
                 }
             }
@@ -239,7 +239,7 @@ namespace SDJK.MainMenu
 
                 for (int j = 0; j < MapManager.selectedMapPack.maps.Count; j++)
                 {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.mode))
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.ruleset))
                         return;
                 }
             }
