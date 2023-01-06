@@ -106,7 +106,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     string ruleset = mapPack.maps[i].info.ruleset;
                     MapPackListRulesetIcon icon = (MapPackListRulesetIcon)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack_ruleset_icon", rulesetList).monoBehaviour;
 
-                    if (!RulesetManager.FindRuleset(ruleset).IsCompatibleRuleset(RulesetManager.selectedRuleset.name))
+                    if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(ruleset))
                         icon.canvasGroup.alpha = 0.4f;
 
                     icon.icon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(ruleset)?.icon ?? "";
