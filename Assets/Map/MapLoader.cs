@@ -1,14 +1,10 @@
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.FileDialog;
-using SCKRM.Json;
-using SDJK.Map;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
+using Version = SCKRM.Version;
 
 namespace SDJK.Map
 {
@@ -60,6 +56,9 @@ namespace SDJK.Map
 
                     sdjkMap.mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
                     sdjkMap.mapFilePath = mapFilePath;
+
+                    sdjkMap.info.sckrmVersion = Kernel.sckrmVersion;
+                    sdjkMap.info.sdjkVersion = (Version)Kernel.version;
 
                     return sdjkMap;
                 }
