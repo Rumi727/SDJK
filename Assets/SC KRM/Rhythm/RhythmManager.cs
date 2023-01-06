@@ -131,12 +131,7 @@ namespace SCKRM.Rhythm
                     else if (sync.Abs() >= 0.015625f)
                     {
                         if (sync >= 0)
-                        {
                             _time = soundPlayer.time;
-                            Debug.Log("Slow sync correction");
-                        }
-                        else
-                            Debug.Log("Fast sync correction");
                     }
                     else if (!soundPlayer.isPaused)
                         _time += timePlusValue;
