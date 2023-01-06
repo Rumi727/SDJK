@@ -61,6 +61,10 @@
 	"options.sound.audio_reset": "오디오 리셋",
 	"options.sound.audio_reset.info": "유니티 오디오를 리셋합니다 (소리가 끊길 때만 사용하세요)\n(이 버튼을 여러번 눌러도 소리가 끊긴다면 오디오 대기 시간 수정을 꺼보세요)",
 	
+	"options.rhythm.title": "리듬",
+	"options.rhythm.screenOffset": "화면 오프셋",
+	"options.rhythm.soundOffset": "음악 오프셋",
+	
 	"options.video.title": "비디오",
 	"options.video.vSync": "수직 동기화",
 	"options.video.vSync.info": "그래픽 카드의 프레임 생성과 모니터의 프레임 출력 타이밍을 맞춥니다\n(편하게 모니터의 헤르츠로 프레임을 제한한다고 생각하시면 됩니다)",

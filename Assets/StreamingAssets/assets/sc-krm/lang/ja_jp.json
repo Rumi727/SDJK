@@ -61,6 +61,10 @@
 	"options.sound.audio_reset": "オーディオリセット",
 	"options.sound.audio_reset.info": "Unityオーディオをリセットします（音が途切れたときにのみ使用してください）",
 	
+	"options.rhythm.title": "リズム",
+	"options.rhythm.screenOffset": "画面オフセット",
+	"options.rhythm.soundOffset": "音楽オフセット",
+	
 	"options.video.title": "画面",
 	"options.video.vSync": "垂直同期",
 	"options.video.vSync.info": "グラフィックカードのフレーム生成とモニターのフレーム出力タイミングを合わせます\n（楽にモニターのヘルツでフレームを制限すると考えてください）",

@@ -226,7 +226,7 @@ namespace SCKRM
         #endregion
 
         #region Clamp
-        public static byte Clamp(this byte value, byte min, byte max = byte.MaxValue)
+        public static sbyte Clamp(this sbyte value, sbyte min, sbyte max = sbyte.MaxValue)
         {
             if (value < min)
                 return min;
@@ -237,7 +237,7 @@ namespace SCKRM
         }
 
         [WikiIgnore]
-        public static sbyte Clamp(this sbyte value, sbyte min, sbyte max = sbyte.MaxValue)
+        public static byte Clamp(this byte value, byte min, byte max = byte.MaxValue)
         {
             if (value < min)
                 return min;
@@ -434,20 +434,20 @@ namespace SCKRM
         #endregion
 
         #region Clamp01
-        public static byte Clamp01(this byte value)
+        public static sbyte Clamp01(this sbyte value)
         {
-            if (value > 1)
+            if (value < 0)
+                return 0;
+            else if (value > 1)
                 return 1;
             else
                 return value;
         }
 
         [WikiIgnore]
-        public static sbyte Clamp01(this sbyte value)
+        public static byte Clamp01(this byte value)
         {
-            if (value < 0)
-                return 0;
-            else if (value > 1)
+            if (value > 1)
                 return 1;
             else
                 return value;
@@ -592,9 +592,9 @@ namespace SCKRM
         #endregion
 
         #region Distance
-        public static byte Distance(this byte a, byte b) => (byte)(a - b).Abs();
+        public static sbyte Distance(this sbyte a, sbyte b) => (sbyte)(a - b).Abs();
 
-        [WikiIgnore] public static sbyte Distance(this sbyte a, sbyte b) => (sbyte)(a - b).Abs();
+        [WikiIgnore] public static byte Distance(this byte a, byte b) => (byte)(a - b).Abs();
 
         [WikiIgnore] public static short Distance(this short a, short b) => (short)(a - b).Abs();
 
@@ -645,56 +645,24 @@ namespace SCKRM
         #endregion
 
         #region Reapeat
-        public static sbyte Reapeat(this sbyte t, sbyte length) => (sbyte)(t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static byte Reapeat(this byte t, byte length) => (byte)(t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static short Reapeat(this short t, short length) => (short)(t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static ushort Reapeat(this ushort t, ushort length) => (ushort)(t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static int Reapeat(this int t, int length) => (t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static uint Reapeat(this uint t, uint length) => (t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static long Reapeat(this long t, long length) => (t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static ulong Reapeat(this ulong t, ulong length) => (t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static float Reapeat(this float t, float length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        [WikiIgnore] public static double Reapeat(this double t, double length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        [WikiIgnore] public static decimal Reapeat(this decimal t, decimal length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        [WikiIgnore] public static BigInteger Reapeat(this BigInteger t, BigInteger length) => (t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static BigDecimal Reapeat(this BigDecimal t, BigDecimal length) => (t - (t / length).Floor() * length).Clamp(0, length);
-        [WikiIgnore] public static nint Reapeat(this nint t, nint length) => (t - (t / length) * length).Clamp(0, length);
-        [WikiIgnore] public static nuint Reapeat(this nuint t, nuint length) => (t - (t / length) * length).Clamp(0, length);
+        public static sbyte Reapeat(this sbyte t, sbyte length) => (sbyte)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static byte Reapeat(this byte t, byte length) => (byte)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static short Reapeat(this short t, short length) => (short)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static ushort Reapeat(this ushort t, ushort length) => (ushort)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static int Reapeat(this int t, int length) => (t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static uint Reapeat(this uint t, uint length) => (t - ((uint)((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static long Reapeat(this long t, long length) => (t - ((long)((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static ulong Reapeat(this ulong t, ulong length) => (t - ((ulong)((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static float Reapeat(this float t, float length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static double Reapeat(this double t, double length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static decimal Reapeat(this decimal t, decimal length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static BigInteger Reapeat(this BigInteger t, BigInteger length) => (t - ((BigInteger)((BigDecimal)t / (BigDecimal)length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static BigDecimal Reapeat(this BigDecimal t, BigDecimal length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static nint Reapeat(this nint t, nint length) => (t - ((t / length) * length)).Clamp(0, length);
+        [WikiIgnore] public static nuint Reapeat(this nuint t, nuint length) => (t - ((t / length) * length)).Clamp(0, length);
         #endregion
 
         #region Lerp
-        public static byte Lerp(this byte current, byte target, byte t, bool unclamped = false)
-        {
-            if (!unclamped)
-                t = t.Clamp01();
-            return (byte)(((1 - t) * current) + (target * t));
-        }
-
-        [WikiIgnore]
-        public static byte Lerp(this byte current, byte target, float t, bool unclamped = false)
-        {
-            if (!unclamped)
-                t = t.Clamp01();
-            return (byte)(((1 - t) * current) + (target * t));
-        }
-
-        [WikiIgnore]
-        public static byte Lerp(this byte current, byte target, double t, bool unclamped = false)
-        {
-            if (!unclamped)
-                t = t.Clamp01();
-            return (byte)(((1 - t) * current) + (target * t));
-        }
-
-        [WikiIgnore]
-        public static byte Lerp(this byte current, byte target, decimal t, bool unclamped = false)
-        {
-            if (!unclamped)
-                t = t.Clamp01();
-            return (byte)(((1 - t) * current) + (target * t));
-        }
-
-        [WikiIgnore]
         public static sbyte Lerp(this sbyte current, sbyte target, sbyte t, bool unclamped = false)
         {
             if (!unclamped)
@@ -724,6 +692,38 @@ namespace SCKRM
             if (!unclamped)
                 t = t.Clamp01();
             return (sbyte)(((1 - t) * current) + (target * t));
+        }
+
+        [WikiIgnore]
+        public static byte Lerp(this byte current, byte target, byte t, bool unclamped = false)
+        {
+            if (!unclamped)
+                t = t.Clamp01();
+            return (byte)(((1 - t) * current) + (target * t));
+        }
+
+        [WikiIgnore]
+        public static byte Lerp(this byte current, byte target, float t, bool unclamped = false)
+        {
+            if (!unclamped)
+                t = t.Clamp01();
+            return (byte)(((1 - t) * current) + (target * t));
+        }
+
+        [WikiIgnore]
+        public static byte Lerp(this byte current, byte target, double t, bool unclamped = false)
+        {
+            if (!unclamped)
+                t = t.Clamp01();
+            return (byte)(((1 - t) * current) + (target * t));
+        }
+
+        [WikiIgnore]
+        public static byte Lerp(this byte current, byte target, decimal t, bool unclamped = false)
+        {
+            if (!unclamped)
+                t = t.Clamp01();
+            return (byte)(((1 - t) * current) + (target * t));
         }
 
         [WikiIgnore]
@@ -1011,7 +1011,7 @@ namespace SCKRM
         {
             if (!unclamped)
                 t = t.Clamp01();
-            return new Vector2(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t);
+            return new Vector2(current.x + ((target.x - current.x) * t), current.y + ((target.y - current.y) * t));
         }
 
         [WikiIgnore]
@@ -1019,7 +1019,7 @@ namespace SCKRM
         {
             if (!unclamped)
                 t = t.Clamp01();
-            return new Vector3(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t, current.z + (target.z - current.z) * t);
+            return new Vector3(current.x + ((target.x - current.x) * t), current.y + ((target.y - current.y) * t), current.z + ((target.z - current.z) * t));
         }
 
         [WikiIgnore]
@@ -1027,7 +1027,7 @@ namespace SCKRM
         {
             if (!unclamped)
                 t = t.Clamp01();
-            return new Vector4(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t, current.z + (target.z - current.z) * t, current.w + (target.w - current.w) * t);
+            return new Vector4(current.x + ((target.x - current.x) * t), current.y + ((target.y - current.y) * t), current.z + ((target.z - current.z) * t), current.w + ((target.w - current.w) * t));
         }
 
         [WikiIgnore]
@@ -1035,7 +1035,7 @@ namespace SCKRM
         {
             if (!unclamped)
                 t = t.Clamp01();
-            return new Rect(current.x + (target.x - current.x) * t, current.y + (target.y - current.y) * t, current.width + (target.width - current.width) * t, current.height + (target.height - current.height) * t);
+            return new Rect(current.x + ((target.x - current.x) * t), current.y + ((target.y - current.y) * t), current.width + ((target.width - current.width) * t), current.height + ((target.height - current.height) * t));
         }
 
         [WikiIgnore]
@@ -1045,13 +1045,22 @@ namespace SCKRM
                 t = t.Clamp01();
 
             if (alpha)
-                return new Color(current.r + (target.r - current.r) * t, current.g + (target.g - current.g) * t, current.b + (target.b - current.b) * t, current.a + (target.a - current.a) * t);
+                return new Color(current.r + ((target.r - current.r) * t), current.g + ((target.g - current.g) * t), current.b + ((target.b - current.b) * t), current.a + ((target.a - current.a) * t));
             else
-                return new Color(current.r + (target.r - current.r) * t, current.g + (target.g - current.g) * t, current.b + (target.b - current.b) * t, current.a);
+                return new Color(current.r + ((target.r - current.r) * t), current.g + ((target.g - current.g) * t), current.b + ((target.b - current.b) * t), current.a);
         }
         #endregion
 
         #region MoveTowards
+        public static sbyte MoveTowards(this sbyte current, sbyte target, sbyte maxDelta)
+        {
+            if ((target - current).Abs() <= maxDelta)
+                return target;
+
+            return (sbyte)(current + ((target - current).Sign() * maxDelta));
+        }
+
+        [WikiIgnore]
         public static byte MoveTowards(this byte current, byte target, byte maxDelta)
         {
             if ((target - current) <= maxDelta)
@@ -1061,21 +1070,12 @@ namespace SCKRM
         }
 
         [WikiIgnore]
-        public static sbyte MoveTowards(this sbyte current, sbyte target, sbyte maxDelta)
-        {
-            if ((target - current).Abs() <= maxDelta)
-                return target;
-
-            return (sbyte)(current + (target - current).Sign() * maxDelta);
-        }
-
-        [WikiIgnore]
         public static short MoveTowards(this short current, short target, short maxDelta)
         {
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return (short)(current + (target - current).Sign() * maxDelta);
+            return (short)(current + ((target - current).Sign() * maxDelta));
         }
 
         [WikiIgnore]
@@ -1093,7 +1093,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1111,7 +1111,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1129,7 +1129,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1138,7 +1138,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1147,7 +1147,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1156,7 +1156,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1165,7 +1165,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1174,7 +1174,7 @@ namespace SCKRM
             if ((target - current).Abs() <= maxDelta)
                 return target;
 
-            return current + (target - current).Sign() * maxDelta;
+            return current + ((target - current).Sign() * maxDelta);
         }
 
         [WikiIgnore]
@@ -1191,12 +1191,12 @@ namespace SCKRM
         {
             float num = target.x - current.x;
             float num2 = target.y - current.y;
-            float num3 = num * num + num2 * num2;
+            float num3 = (num * num) + (num2 * num2);
             if (num3 == 0f || (maxDistanceDelta >= 0f && num3 <= maxDistanceDelta * maxDistanceDelta))
                 return target;
 
             float num4 = (float)Math.Sqrt(num3);
-            return new Vector2(current.x + num / num4 * maxDistanceDelta, current.y + num2 / num4 * maxDistanceDelta);
+            return new Vector2(current.x + (num / num4 * maxDistanceDelta), current.y + (num2 / num4 * maxDistanceDelta));
         }
         [WikiIgnore]
         public static Vector3 MoveTowards(this Vector3 current, Vector3 target, float maxDistanceDelta)
@@ -1204,12 +1204,12 @@ namespace SCKRM
             float num = target.x - current.x;
             float num2 = target.y - current.y;
             float num3 = target.z - current.z;
-            float num4 = num * num + num2 * num2 + num3 * num3;
+            float num4 = (num * num) + (num2 * num2) + (num3 * num3);
             if (num4 == 0f || (maxDistanceDelta >= 0f && num4 <= maxDistanceDelta * maxDistanceDelta))
                 return target;
 
             float num5 = (float)Math.Sqrt(num4);
-            return new Vector3(current.x + num / num5 * maxDistanceDelta, current.y + num2 / num5 * maxDistanceDelta, current.z + num3 / num5 * maxDistanceDelta);
+            return new Vector3(current.x + (num / num5 * maxDistanceDelta), current.y + (num2 / num5 * maxDistanceDelta), current.z + (num3 / num5 * maxDistanceDelta));
         }
         [WikiIgnore]
         public static Vector4 MoveTowards(this Vector4 current, Vector4 target, float maxDistanceDelta)
@@ -1218,12 +1218,12 @@ namespace SCKRM
             float num2 = target.y - current.y;
             float num3 = target.z - current.z;
             float num4 = target.w - current.w;
-            float num5 = num * num + num2 * num2 + num3 * num3 + num4 * num4;
+            float num5 = (num * num) + (num2 * num2) + (num3 * num3) + (num4 * num4);
             if (num5 == 0f || (maxDistanceDelta >= 0f && num5 <= maxDistanceDelta * maxDistanceDelta))
                 return target;
 
             float num6 = (float)Math.Sqrt(num5);
-            return new Vector4(current.x + num / num6 * maxDistanceDelta, current.y + num2 / num6 * maxDistanceDelta, current.z + num3 / num6 * maxDistanceDelta, current.w + num4 / num6 * maxDistanceDelta);
+            return new Vector4(current.x + (num / num6 * maxDistanceDelta), current.y + (num2 / num6 * maxDistanceDelta), current.z + (num3 / num6 * maxDistanceDelta), current.w + (num4 / num6 * maxDistanceDelta));
         }
         [WikiIgnore]
         public static Rect MoveTowards(this Rect current, Rect target, float maxDistanceDelta)
@@ -1232,12 +1232,12 @@ namespace SCKRM
             float num2 = target.y - current.y;
             float num3 = target.width - current.width;
             float num4 = target.height - current.height;
-            float num5 = num * num + num2 * num2 + num3 * num3 + num4 * num4;
+            float num5 = (num * num) + (num2 * num2) + (num3 * num3) + (num4 * num4);
             if (num5 == 0f || (maxDistanceDelta >= 0f && num5 <= maxDistanceDelta * maxDistanceDelta))
                 return target;
 
             float num6 = (float)Math.Sqrt(num5);
-            return new Rect(current.x + num / num6 * maxDistanceDelta, current.y + num2 / num6 * maxDistanceDelta, current.width + num3 / num6 * maxDistanceDelta, current.height + num4 / num6 * maxDistanceDelta);
+            return new Rect(current.x + (num / num6 * maxDistanceDelta), current.y + (num2 / num6 * maxDistanceDelta), current.width + (num3 / num6 * maxDistanceDelta), current.height + (num4 / num6 * maxDistanceDelta));
         }
         [WikiIgnore]
         public static Color MoveTowards(this Color current, Color target, float maxDistanceDelta)
@@ -1246,12 +1246,12 @@ namespace SCKRM
             float num2 = target.g - current.g;
             float num3 = target.b - current.b;
             float num4 = target.a - current.a;
-            float num5 = num * num + num2 * num2 + num3 * num3 + num4 * num4;
+            float num5 = (num * num) + (num2 * num2) + (num3 * num3) + (num4 * num4);
             if (num5 == 0f || (maxDistanceDelta >= 0f && num5 <= maxDistanceDelta * maxDistanceDelta))
                 return target;
 
             float num6 = (float)Math.Sqrt(num5);
-            return new Color(current.r + num / num6 * maxDistanceDelta, current.g + num2 / num6 * maxDistanceDelta, current.b + num3 / num6 * maxDistanceDelta, current.a + num4 / num6 * maxDistanceDelta);
+            return new Color(current.r + (num / num6 * maxDistanceDelta), current.g + (num2 / num6 * maxDistanceDelta), current.b + (num3 / num6 * maxDistanceDelta), current.a + (num4 / num6 * maxDistanceDelta));
         }
         #endregion
 
@@ -2184,8 +2184,8 @@ namespace SCKRM
         #endregion
 
         #region Arithmetic Sequence Sum
-        public static byte ArithmeticSequenceSum(this byte start, byte end) => (byte)((start.Distance(end) + 1) * (start + end) / 2);
-        [WikiIgnore] public static sbyte ArithmeticSequenceSum(this sbyte start, sbyte end) => (sbyte)((start.Distance(end) + 1) * (start + end) / 2);
+        public static sbyte ArithmeticSequenceSum(this sbyte start, sbyte end) => (sbyte)((start.Distance(end) + 1) * (start + end) / 2);
+        [WikiIgnore] public static byte ArithmeticSequenceSum(this byte start, byte end) => (byte)((start.Distance(end) + 1) * (start + end) / 2);
         [WikiIgnore] public static short ArithmeticSequenceSum(this short start, short end) => (short)((start.Distance(end) + 1) * (start + end) / 2);
         [WikiIgnore] public static ushort ArithmeticSequenceSum(this ushort start, ushort end) => (ushort)((start.Distance(end) + 1) * (start + end) / 2);
         [WikiIgnore] public static int ArithmeticSequenceSum(this int start, int end) => (start.Distance(end) + 1) * (start + end) / 2;
@@ -2231,13 +2231,13 @@ namespace SCKRM
         /// <param name="list">리스트</param>
         /// <param name="target">기준</param>
         /// <returns></returns>
-        public static byte CloseValue(this IEnumerable<byte> list, byte target)
+        public static sbyte CloseValue(this IEnumerable<sbyte> list, sbyte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count() > 0)
-                return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
+                return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
 
             return 0;
         }
@@ -2249,13 +2249,13 @@ namespace SCKRM
         /// <param name="target">기준</param>
         /// <returns></returns>
         [WikiIgnore]
-        public static sbyte CloseValue(this IEnumerable<sbyte> list, sbyte target)
+        public static byte CloseValue(this IEnumerable<byte> list, byte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (list.Count() > 0)
-                return list.Aggregate((x, y) => (x - target).Abs() < (y - target).Abs() ? x : y);
+                return list.Aggregate((x, y) => (x - target) < (y - target) ? x : y);
 
             return 0;
         }
@@ -3614,7 +3614,7 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndex(this IList<byte> list, byte target)
+        public static int CloseValueIndex(this IList<sbyte> list, sbyte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -3632,7 +3632,7 @@ namespace SCKRM
         /// <param name="target"></param>
         /// <returns></returns>
         [WikiIgnore]
-        public static int CloseValueIndex(this IList<sbyte> list, sbyte target)
+        public static int CloseValueIndex(this IList<byte> list, byte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -3885,7 +3885,7 @@ namespace SCKRM
         /// <param name="list"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static int CloseValueIndexBinarySearch(this List<byte> list, byte target)
+        public static int CloseValueIndexBinarySearch(this List<sbyte> list, sbyte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -3903,7 +3903,7 @@ namespace SCKRM
         /// <param name="target"></param>
         /// <returns></returns>
         [WikiIgnore]
-        public static int CloseValueIndexBinarySearch(this List<sbyte> list, sbyte target)
+        public static int CloseValueIndexBinarySearch(this List<byte> list, byte target)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
@@ -5253,6 +5253,38 @@ namespace SCKRM
             none,
             addZeroLengthIfNull,
             destroyIfNull
+        }
+    }
+
+    public static class GuidTool
+    {
+        static byte[] maxGuidToBytes = new byte[16] { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
+
+        public static byte ToByte(this Guid value) => (byte)(value.ToBigInteger().Reapeat(byte.MaxValue));
+        public static ushort ToUInt16(this Guid value) => (ushort)(value.ToBigInteger().Reapeat(ushort.MaxValue));
+        public static uint ToUInt32(this Guid value) => (uint)(value.ToBigInteger().Reapeat(uint.MaxValue));
+        public static ulong ToUInt64(this Guid value) => (ulong)(value.ToBigInteger().Reapeat(ulong.MaxValue));
+        public static BigInteger ToBigInteger(this Guid value) => new BigInteger(value.ToByteArray());
+        public static BigDecimal ToBigDecimal(this Guid value) => new BigDecimal(value.ToBigInteger());
+
+        public static Guid ToGuid(this byte value) => new Guid(FixByteArrayLength(new byte[] { value }));
+        public static Guid ToGuid(this ushort value) => new Guid(FixByteArrayLength(BitConverter.GetBytes(value)));
+        public static Guid ToGuid(this uint value) => new Guid(FixByteArrayLength(BitConverter.GetBytes(value)));
+        public static Guid ToGuid(this ulong value) => new Guid(FixByteArrayLength(BitConverter.GetBytes(value)));
+        public static Guid ToGuid(this BigInteger value) => new Guid(FixByteArrayLength(value.ToByteArray(true)));
+
+        static byte[] FixByteArrayLength(byte[] array)
+        {
+            byte[] tempArray = new byte[16];
+            if (tempArray.Length == array.Length)
+                return array;
+            else if (tempArray.Length < array.Length)
+                return maxGuidToBytes;
+
+            for (int i = 0; i < array.Length; i++)
+                tempArray[tempArray.Length - array.Length + i] = array[i];
+
+            return tempArray;
         }
     }
 }

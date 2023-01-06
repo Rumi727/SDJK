@@ -161,7 +161,7 @@ namespace SCKRM.Rhythm
                         break;
                     }
                 }
-                
+
                 if (findIndex < 0)
                     findIndex = Count;
 

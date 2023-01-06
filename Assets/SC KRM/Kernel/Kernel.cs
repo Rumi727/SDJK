@@ -15,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : Manager<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 13, 6);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 13, 8);
 
 
 
@@ -402,7 +402,7 @@ Build: const true"
             fixedDeltaTime = 1f / VideoManager.Data.standardFPS;
             Time.fixedDeltaTime = fixedDeltaTime;
 
-            fps = 1f / deltaTime;
+            fps = 1f / unscaledDeltaTime;
 
             internetReachability = Application.internetReachability;
         }

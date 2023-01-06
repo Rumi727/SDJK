@@ -61,6 +61,10 @@
 	"options.sound.audio_reset": "Audio reset",
 	"options.sound.audio_reset.info": "Reset Unity Audio (Only use when sound is choppy)",
 	
+	"options.rhythm.title": "Rhythm",
+	"options.rhythm.screenOffset": "Screen Offset",
+	"options.rhythm.soundOffset": "BGM Offset",
+	
 	"options.video.title": "Video",
 	"options.video.vSync": "VSync",
 	"options.video.vSync.info": "Match the frame generation of the graphic card and the frame output timing of the monitor\n(You can think of it as limiting the frame rate to the monitor's hertz.)",
