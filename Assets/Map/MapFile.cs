@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using SCKRM;
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System;
@@ -28,7 +29,7 @@ namespace SDJK.Map
     public sealed class MapInfo
     {
         [Obsolete("Not implemented!", true), JsonIgnore] public Guid id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        /*[JsonIgnore]*/ public Guid randomSeed { get; set; } = Guid.NewGuid(); /*=> id;*/
+        /*[JsonIgnore]*/ public ulong randomSeed { get; set; } = Guid.NewGuid().ToUInt64(); //=> id.ToUInt64();
 
 
 
