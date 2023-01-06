@@ -1,11 +1,11 @@
 using Newtonsoft.Json;
-using SCKRM;
-using SCKRM.Easing;
 using SCKRM.Json;
-using SCKRM.NBS;
 using SCKRM.Rhythm;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+using Version = SCKRM.Version;
 
 namespace SDJK.Map
 {
@@ -27,7 +27,7 @@ namespace SDJK.Map
 
     public sealed class MapInfo
     {
-        [System.Obsolete("Not implemented!", true), JsonIgnore] public ulong id { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        [Obsolete("Not implemented!", true), JsonIgnore] public Guid id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
 
