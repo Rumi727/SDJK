@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using SCKRM;
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System;
@@ -29,7 +28,7 @@ namespace SDJK.Map
     public sealed class MapInfo
     {
         [Obsolete("Not implemented!", true), JsonIgnore] public Guid id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        /*[JsonIgnore]*/ public ulong randomSeed { get; set; } = Guid.NewGuid().ToUInt64(); //=> id.ToUInt64();
+        /*[JsonIgnore]*/ public int randomSeed { get; set; } //=> id.ToUInt64();
 
 
 
@@ -70,6 +69,16 @@ namespace SDJK.Map
 
 
         public string author { get; set; } = "";
+
+
+
+        public void ResetRandomSeed(string mapFilePath)
+        {
+            using System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            using System.IO.FileStream stream = System.IO.File.OpenRead(mapFilePath);
+
+            randomSeed = BitConverter.ToString(md5.ComputeHash(stream)).GetHashCode();
+        }
     }
 
     public sealed class MapGlobalEffect
