@@ -42,7 +42,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         MapPackList mapPackList;
         MapPack mapPack;
         int mapPackIndex;
-        Map.MapFile map;
+        MapFile map;
         int mapIndex;
         void Update()
         {
@@ -69,7 +69,7 @@ namespace SDJK.MainMenu.MapSelectScreen
 
         List<MapPackListRulesetIcon> mapPackListRulesetIcons = new List<MapPackListRulesetIcon>();
         CancellationTokenSource cancelSource = new CancellationTokenSource();
-        public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, Map.MapFile map, int mapIndex)
+        public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, MapFile map, int mapIndex)
         {
             this.mapPackList = mapPackList;
             this.mapPack = mapPack;
@@ -77,9 +77,19 @@ namespace SDJK.MainMenu.MapSelectScreen
             this.map = map;
             this.mapIndex = mapIndex;
 
-            Map.MapFile selectedMap;
+            MapFile selectedMap = null;
             if (!isMap)
-                selectedMap = mapPack.maps[0];
+            {
+                for (int i = 0; i < mapPack.maps.Count; i++)
+                {
+                    MapFile loopMap = mapPack.maps[i];
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(loopMap.info.ruleset))
+                    {
+                        selectedMap = loopMap;
+                        break;
+                    }
+                }
+            }
             else
                 selectedMap = map;
 
