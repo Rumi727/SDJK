@@ -42,7 +42,7 @@ namespace SCKRM.Editor
 
             CustomInspectorEditor.DrawLine();
 
-            if (RhythmManager.yukiMode)
+            if (RhythmManager.screenYukiMode)
                 EditorGUILayout.LabelField("유키 모드 O");
             else
                 EditorGUILayout.LabelField("유키 모드 X");

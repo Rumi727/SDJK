@@ -28,7 +28,7 @@ namespace SCKRM.Rhythm
 
 
 
-        [WikiDescription("현재 유키 모드인지 여부")] public static bool yukiMode { get; set; } = false;
+        [WikiDescription("현재 스크린 비트가 유키 모드인지 여부")] public static bool screenYukiMode { get; set; } = false;
 
 
 
@@ -177,12 +177,12 @@ namespace SCKRM.Rhythm
                     bpmUnscaledFpsDeltaTime = bpmUnscaledDeltaTime * VideoManager.Data.standardFPS;
                 }
 
-                yukiMode = yukiModeList.GetValue();
+                screenYukiMode = yukiModeList.GetValue(RhythmManager.currentBeatScreen);
 
                 if (tempCurrentBeat != (int)currentBeat && currentBeat >= 0)
                 {
                     oneBeat?.Invoke();
-                    if (yukiMode)
+                    if (screenYukiMode)
                         oneBeatYukiMode?.Invoke();
 
                     tempCurrentBeat = (int)currentBeat;
