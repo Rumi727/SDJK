@@ -360,5 +360,7 @@ namespace SCKRM.Rhythm
 
             SetCurrentBeat();
         }
+
+        public static double BeatToSecond(double beat, double bpm) => beat / (bpm / 60);
     }
 }
