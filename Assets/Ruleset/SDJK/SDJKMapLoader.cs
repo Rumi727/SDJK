@@ -409,7 +409,7 @@ namespace SDJK.Ruleset.SDJK.Map
         }
 
         /// <summary>
-        /// 노트 겹침 방지, 마이너스 홀드 방지, 모든 노트 수 계산
+        /// 노트 겹침 방지, 마이너스 홀드 방지
         /// </summary>
         /// <param name="map"></param>
         static void FixMap(SDJKMapFile map)
