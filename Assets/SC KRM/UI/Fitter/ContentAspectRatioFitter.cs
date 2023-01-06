@@ -37,12 +37,20 @@ namespace SCKRM.UI
 
 
 
+        [SerializeField] RectTransform _targetRectTransform; public RectTransform targetRectTransform => _targetRectTransform;
+
+
+
         protected override void Update()
         {
             base.Update();
 
-            float xSize = LayoutUtility.GetPreferredSize(rectTransform, 0);
-            float ySize = LayoutUtility.GetPreferredSize(rectTransform, 1);
+            RectTransform targetRectTransform = this.targetRectTransform;
+            if (targetRectTransform == null)
+                targetRectTransform = rectTransform;
+
+            float xSize = LayoutUtility.GetPreferredSize(targetRectTransform, 0);
+            float ySize = LayoutUtility.GetPreferredSize(targetRectTransform, 1);
 
             float aspectRatio = xSize / ySize;
             if (float.IsNormal(aspectRatio))

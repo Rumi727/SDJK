@@ -18,6 +18,8 @@ namespace SCKRM.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
+            UseProperty("_targetRectTransform", "대상");
             UseProperty("m_AspectMode");
 
             if (editor)
