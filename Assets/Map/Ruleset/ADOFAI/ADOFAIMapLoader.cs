@@ -110,7 +110,12 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         else if (eventType == "Pause")
                             pauseList.Add(index, action["duration"].Value<int>());
                         else if (eventType == "Hold")
-                            holdList.Add(index, action["duration"].Value<int>());
+                        {
+                            int duration = action["duration"].Value<int>();
+
+                            adofaiMap.holds.Add(new HoldFile(index - 1, duration * 2));
+                            holdList.Add(index, duration);
+                        }
                     }
                 }
                 #endregion
@@ -179,7 +184,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             else if (path == '!')
                                 angleData.Add(999);
                             else
-                                throw new NotSupportedException($"Unsupported patch data character '{path}'");
+                                throw new NotSupportedException($"Unsupported pathData character '{path}'");
 
                             previousAngle = angleData[i];
                         }
@@ -228,6 +233,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (lastBeat == beat && !midspin)
                             beat += 2;
 
+                        adofaiMap.tiles.Add(beat);
                         adofaiMap.allJudgmentBeat.Add(beat);
                         allBeat.Add(beat);
 
