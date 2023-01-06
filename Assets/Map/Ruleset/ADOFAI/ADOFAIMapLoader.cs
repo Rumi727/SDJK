@@ -113,7 +113,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         {
                             int duration = action["duration"].Value<int>();
 
-                            adofaiMap.holds.Add(new ADOFAIHoldFile(index - 1, duration * 2));
+                            adofaiMap.holds.Add(new ADOFAIHoldFile(index - 1, duration));
                             holdList.Add(index, duration);
                         }
                     }
