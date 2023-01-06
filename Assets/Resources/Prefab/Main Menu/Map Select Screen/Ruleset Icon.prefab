@@ -69,6 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef5dc0636485a40af27987f282bfd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _parentRectTransform: {fileID: 0}
+  _rectTransform: {fileID: 0}
+  _rectTransformTool: {fileID: 0}
+  _graphic: {fileID: 0}
+  _iconGraphic: {fileID: 385002512507294695}
   _icon: {fileID: 4941023730935317624}
 --- !u!114 &5142785271467577042
 MonoBehaviour:
