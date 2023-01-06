@@ -67,12 +67,12 @@ namespace SDJK.Ruleset
         /// 현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다
         /// </summary>
         /// <param name="ruleset"></param>
-        /// <param name="mode"></param>
+        /// <param name="targetRulesetName"></param>
         /// <returns></returns>
         [WikiDescription("현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다")]
-        public static bool IsCompatibleRuleset(this IRuleset ruleset, string mode)
+        public static bool IsCompatibleRuleset(this IRuleset ruleset, string targetRulesetName)
         {
-            if (selectedRuleset.name == mode)
+            if (ruleset.name == targetRulesetName)
                 return true;
 
             if (ruleset.compatibleRuleset == null)
@@ -80,7 +80,7 @@ namespace SDJK.Ruleset
 
             for (int i = 0; i < ruleset.compatibleRuleset.Length; i++)
             {
-                if (selectedRuleset.name == ruleset.compatibleRuleset[i])
+                if (targetRulesetName == ruleset.compatibleRuleset[i])
                     return true;
             }
 
