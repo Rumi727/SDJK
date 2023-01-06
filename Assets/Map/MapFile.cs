@@ -117,7 +117,7 @@ namespace SDJK.Map
 
 
 
-    #region Effect
+    #region Effect Class And Struct
     public struct BackgroundEffectPair
     {
         public string backgroundFile { get; set; }
