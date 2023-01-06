@@ -25,7 +25,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         [SerializeField, NotNull] Image background;
         [SerializeField, NotNull] TMP_Text songName;
         [SerializeField, NotNull] TMP_Text artist;
-        [SerializeField] CustomImageRenderer rulesetIcon;
+        [SerializeField] CustomAllSpriteRenderer rulesetIcon;
         [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
 
