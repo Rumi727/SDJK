@@ -207,18 +207,13 @@ namespace SDJK.MainMenu
 
                 if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                 {
-                    if (currentScreenMode == ScreenMode.mapSelect)
-                    {
-                        MapManager.RulesetNextMap();
+                    MapManager.RulesetNextMap();
 
-                        if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
-                        {
-                            RandomMapPack();
-                            MapPackSelect();
-                        }
-                    }
-                    else if (currentScreenMode == ScreenMode.mapPackSelect)
+                    if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
+                    {
                         RandomMapPack();
+                        MapPackSelect();
+                    }
 
                     void RandomMapPack()
                     {
