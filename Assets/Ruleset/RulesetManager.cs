@@ -7,6 +7,7 @@ using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine.EventSystems;
 
@@ -67,12 +68,12 @@ namespace SDJK.Ruleset
         /// 현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다
         /// </summary>
         /// <param name="ruleset"></param>
-        /// <param name="targetRulesetName"></param>
+        /// <param name="targetRulesetNames"></param>
         /// <returns></returns>
         [WikiDescription("현제 선택된 규칙 집합이랑 호환되는 모드인지 확인합니다")]
-        public static bool IsCompatibleRuleset(this IRuleset ruleset, string targetRulesetName)
+        public static bool IsCompatibleRuleset(this IRuleset ruleset, params string[] targetRulesetNames)
         {
-            if (ruleset.name == targetRulesetName)
+            if (targetRulesetNames.Contains(ruleset.name))
                 return true;
 
             if (ruleset.compatibleRuleset == null)
@@ -80,7 +81,7 @@ namespace SDJK.Ruleset
 
             for (int i = 0; i < ruleset.compatibleRuleset.Length; i++)
             {
-                if (targetRulesetName == ruleset.compatibleRuleset[i])
+                if (targetRulesetNames.Contains(ruleset.compatibleRuleset[i]))
                     return true;
             }
 
