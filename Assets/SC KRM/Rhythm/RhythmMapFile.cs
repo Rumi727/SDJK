@@ -119,9 +119,9 @@ namespace SCKRM.Rhythm
             }
         }
 
-        public virtual void Add(double beat = double.MinValue) => Add(new TPair() { beat = beat, value = defaultValue });
-        public virtual void Add(TValue value) => Add(new TPair() { beat = double.MinValue, value = value });
-        public virtual void Add(double beat, TValue value) => Add(new TPair() { beat = beat, value = value });
+        public virtual void Add(double beat = double.MinValue, bool disturbance = false) => Add(new TPair() { beat = beat, value = defaultValue, disturbance = disturbance });
+        public virtual void Add(TValue value, bool disturbance = false) => Add(new TPair() { beat = double.MinValue, value = value, disturbance = disturbance });
+        public virtual void Add(double beat, TValue value, bool disturbance = false) => Add(new TPair() { beat = beat, value = value, disturbance = disturbance });
     }
     #endregion
 
@@ -188,8 +188,8 @@ namespace SCKRM.Rhythm
 
 
 
-        public virtual void Add(double beat = double.MinValue, double length = 0) => Add(new TPair() { beat = beat, length = length, value = defaultValue });
-        public virtual void Add(double beat, double length, TValue value, EasingFunction.Ease easingFunction = EasingFunction.Ease.Linear) => Add(new TPair() { beat = beat, length = length, value = value, easingFunction = easingFunction });
+        public virtual void Add(double beat = double.MinValue, double length = 0, bool disturbance = false) => Add(new TPair() { beat = beat, length = length, value = defaultValue, disturbance = disturbance });
+        public virtual void Add(double beat, double length, TValue value, EasingFunction.Ease easingFunction = EasingFunction.Ease.Linear, bool disturbance = false) => Add(new TPair() { beat = beat, length = length, value = value, easingFunction = easingFunction, disturbance = disturbance });
     }
     #endregion
 
