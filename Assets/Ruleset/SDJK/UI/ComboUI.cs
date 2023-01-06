@@ -29,7 +29,7 @@ namespace SDJK.Ruleset.SDJK.UI
 
                     timer = 0;
                 }
-                else if (RhythmManager.yukiMode)
+                else if (RhythmManager.screenYukiMode)
                 {
                     text.color = Color.gray;
                     gray = true;
