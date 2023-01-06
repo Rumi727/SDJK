@@ -16,6 +16,7 @@
     "video_effect.video": "Prefab/Effect/Video",
     "map_select_screen.background": "Prefab/Main Menu/Map Select Screen/Map Info Background",
     "map_select_screen.map_pack": "Prefab/Main Menu/Map Select Screen/Map Pack",
+    "map_select_screen.map_pack_ruleset_icon": "Prefab/Main Menu/Map Select Screen/Ruleset Icon",
     "map_select_screen.map": "Prefab/Main Menu/Map Select Screen/Map",
     "status_bar_rulesets_ruleset": "Prefab/Main Menu/UI/Ruleset",
     "yuki_mode_effect.left_main_menu": "Prefab/Main Menu/Effect/Yuki Mode Effect Prefab Left Main Menu",

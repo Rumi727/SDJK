@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
+using SCKRM.Object;
 using SCKRM.Renderer;
 using SCKRM.Resource;
 using SCKRM.UI;
@@ -28,6 +29,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         [SerializeField] CustomAllSpriteRenderer rulesetIcon;
         [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
+        [SerializeField] Transform rulesetList;
 
         public override void OnCreate()
         {
@@ -65,6 +67,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             }
         }
 
+        List<MapPackListRulesetIcon> mapPackListRulesetIcons = new List<MapPackListRulesetIcon>();
         CancellationTokenSource cancelSource = new CancellationTokenSource();
         public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, Map.MapFile map, int mapIndex)
         {
@@ -86,12 +89,24 @@ namespace SDJK.MainMenu.MapSelectScreen
             {
                 songName.text = selectedMap.info.songName;
                 artist.text = selectedMap.info.artist;
+
+                //Ruleset 아이콘
+                for (int i = 0; i < mapPack.maps.Count; i++)
+                {
+                    MapPackListRulesetIcon icon = (MapPackListRulesetIcon)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack_ruleset_icon", rulesetList).monoBehaviour;
+
+                    icon.icon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(mapPack.maps[i].info.ruleset)?.icon ?? "";
+                    icon.icon.Refresh();
+
+                    mapPackListRulesetIcons.Add(icon);
+                }
             }
             else
             {
                 songName.text = selectedMap.info.difficultyLabel;
                 artist.text = selectedMap.info.author;
 
+                //Ruleset 아이콘
                 rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset)?.icon ?? "";
                 rulesetIcon.Refresh();
             }
@@ -157,6 +172,9 @@ namespace SDJK.MainMenu.MapSelectScreen
             cancelSource.Cancel();
             cancelSource.Dispose();
             cancelSource = new CancellationTokenSource();
+
+            for (int i = 0; i < mapPackListRulesetIcons.Count; i++)
+                mapPackListRulesetIcons[i].Remove();
 
             if (background.sprite != null)
             {
