@@ -332,8 +332,13 @@ namespace SDJK.Ruleset.SDJK.Judgement
             bool autoNote;
             double currentHoldNoteBeat;
 
+            bool isRemove = false;
+
             public void Update()
             {
+                if (isRemove)
+                    return;
+
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
@@ -353,6 +358,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     judgementObject.HitsoundPlay();
 
                     instance.holdJudgements.Remove(this);
+                    isRemove = true;
                 }
             }
         }
