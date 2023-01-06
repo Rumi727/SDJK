@@ -112,14 +112,13 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             for (int i = 0; i < notes.Count; i++)
                 fieldEffect.barEffect.Add(new BarEffectFile());
 
-            fieldEffect.height = sdjkMapFile.globalEffect.cameraZoom;
-            sdjkMapFile.globalEffect.cameraZoom = null;
-
-            for (int i = 0; i < fieldEffect.height.Count; i++)
+            for (int i = 0; i < sdjkMapFile.globalEffect.cameraZoom.Count; i++)
             {
-                BeatValuePairAni<double> effect = fieldEffect.height[i];
-                sdjkMapFile.globalEffect.uiSize.Add(effect.beat, effect.length, 16d / effect.value, effect.easingFunction);
+                BeatValuePairAni<double> effect = sdjkMapFile.globalEffect.cameraZoom[i];
+                fieldEffect.height.Add(effect.beat, effect.length, effect.value, effect.easingFunction, true);
             }
+
+            sdjkMapFile.globalEffect.cameraZoom.Clear();
 
             FixMap(sdjkMapFile);
             FixAllJudgmentBeat(sdjkMapFile);
@@ -255,7 +254,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     for (int i = 0; i < oldList.Count; i++)
                     {
                         var effect = oldList[i];
-                        list.Add(effect.Beat - 1, effect.Value);
+                        list.Add(effect.Beat - 1, effect.Value, effect.Disturbance);
                     }
                 }
 
@@ -265,7 +264,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     for (int i = 0; i < oldList.Count; i++)
                     {
                         var effect = oldList[i];
-                        list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                        list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo, effect.Disturbance);
                     }
                 }
 
@@ -275,7 +274,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     for (int i = 0; i < oldList.Count; i++)
                     {
                         var effect = oldList[i];
-                        list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                        list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo, effect.Disturbance);
                     }
                 }
 
@@ -285,7 +284,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     for (int i = 0; i < oldList.Count; i++)
                     {
                         var effect = oldList[i];
-                        list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo);
+                        list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), effect.Value, EasingFunction.Ease.EaseOutExpo, effect.Disturbance);
                     }
                 }
 

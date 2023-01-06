@@ -364,18 +364,18 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             if (action["speedType"].Value<string>() == "Bpm")
                             {
                                 bpm = action["beatsPerMinute"].Value<float>();
-                                effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
+                                effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(beat, bpm);
                             }
                             else
                             {
                                 bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
+                                effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(beat, bpm);
                             }
                         }
                         else
                         {
                             bpm = action["beatsPerMinute"].Value<float>();
-                            effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(new BeatValuePair<double>(beat, bpm));
+                            effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(beat, bpm);
                         }
 
                         effect.isTileEffect = true;
@@ -386,19 +386,19 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (action.ContainsKey("position"))
                         {
                             float[] pos = action["position"].Values<float>().ToArray();
-                            effect.action += (double beat) => adofaiMap.globalEffect.cameraPos.Add(beat, duration, new JVector3(pos[0], pos[1], -14), ease);
+                            effect.action += (double beat) => adofaiMap.globalEffect.cameraPos.Add(beat, duration, new JVector3(pos[0], pos[1], -14), ease, true);
                         }
 
                         if (action.ContainsKey("rotation"))
                         {
                             float rotation = action["rotation"].Value<float>();
-                            effect.action += (double beat) => adofaiMap.globalEffect.cameraRotation.Add(beat, duration, new JVector3(0, 0, rotation), ease);
+                            effect.action += (double beat) => adofaiMap.globalEffect.cameraRotation.Add(beat, duration, new JVector3(0, 0, rotation), ease, true);
                         }
 
                         if (action.ContainsKey("zoom"))
                         {
                             double zoom = action["zoom"].Value<float>() * 0.01;
-                            effect.action += (double beat) => adofaiMap.globalEffect.cameraZoom.Add(beat, duration, zoom, ease);
+                            effect.action += (double beat) => adofaiMap.globalEffect.cameraZoom.Add(beat, duration, zoom, ease, true);
                         }
                     }
                     else if (eventType == "CustomBackground")
@@ -406,9 +406,9 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (action.ContainsKey("imageColor"))
                         {
                             if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
-                                effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, color, EasingFunction.Ease.Linear);
+                                effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, color, EasingFunction.Ease.Linear, true);
                             else
-                                effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, JColor.one, EasingFunction.Ease.Linear);
+                                effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, JColor.one, EasingFunction.Ease.Linear, true);
                         }
 
                         if (action.ContainsKey("bgImage"))
@@ -429,8 +429,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                                 effect.action += (double beat) =>
                                 {
-                                    BeatValuePairAni<JColor> start = new BeatValuePairAni<JColor>(beat, startColor, 0, EasingFunction.Ease.Linear, false);
-                                    BeatValuePairAni<JColor> end = new BeatValuePairAni<JColor>(beat, endColor, duration, EasingFunction.Ease.Linear, false);
+                                    BeatValuePairAni<JColor> start = new BeatValuePairAni<JColor>(beat, startColor, 0, EasingFunction.Ease.Linear, true);
+                                    BeatValuePairAni<JColor> end = new BeatValuePairAni<JColor>(beat, endColor, duration, EasingFunction.Ease.Linear, true);
 
                                     if (plane == "Foreground")
                                     {
