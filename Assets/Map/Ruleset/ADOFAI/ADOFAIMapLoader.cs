@@ -21,9 +21,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
                 if (extension == ".adofai" && (type == typeof(MapFile) || type == typeof(ADOFAIMapFile)))
-                {
-                    
-                }
+                    return MapLoad(mapFilePath);
                 else
                     return null;
             };
