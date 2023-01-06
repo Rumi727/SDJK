@@ -129,7 +129,7 @@ namespace SDJK.MainMenu
                 padeOut = false;
 
                 if (audioClip != null)
-                    Destroy(audioClip);
+                    Destroy(audioClip, 1);
 
                 audioClip = null;
                 return true;

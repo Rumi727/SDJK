@@ -46,7 +46,7 @@ namespace SDJK.Ruleset.SDJK
             UIManager.BackEventRemove(MainMenuLoad.Load);
 
             if (bgmClip != null)
-                Destroy(bgmClip);
+                Destroy(bgmClip, 1);
         }
 
         public void Refresh(SDJKMapFile map, SDJKRuleset ruleset, bool isEditor)
@@ -74,7 +74,7 @@ namespace SDJK.Ruleset.SDJK
         public void Restart()
         {
             if (bgmClip != null)
-                Destroy(bgmClip);
+                Destroy(bgmClip, 1);
 
             ruleset.GameStart(map.mapFilePath, isEditor);
         }
