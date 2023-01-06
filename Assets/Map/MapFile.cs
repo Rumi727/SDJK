@@ -28,6 +28,7 @@ namespace SDJK.Map
     public sealed class MapInfo
     {
         [Obsolete("Not implemented!", true), JsonIgnore] public Guid id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /*[JsonIgnore]*/ public Guid randomSeed = Guid.NewGuid(); /*=> id;*/
 
 
 
