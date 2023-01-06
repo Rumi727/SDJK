@@ -115,7 +115,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             for (int i = 0; i < sdjkMapFile.globalEffect.cameraZoom.Count; i++)
             {
                 BeatValuePairAni<double> effect = sdjkMapFile.globalEffect.cameraZoom[i];
-                fieldEffect.height.Add(effect.beat, effect.length, effect.value, effect.easingFunction, true);
+                fieldEffect.height.Add(effect.beat, effect.length, effect.value * 16, effect.easingFunction, true);
+                sdjkMapFile.globalEffect.uiSize.Add(effect.beat, effect.length, 1 / effect.value, effect.easingFunction, true);
             }
 
             sdjkMapFile.globalEffect.cameraZoom.Clear();
