@@ -15,11 +15,11 @@ namespace SDJK.Ruleset.SDJK
         public Bar bar { get; private set; }
         public int barIndex => bar.barIndex;
 
-        public NoteFile noteFile { get; private set; }
+        public SDJKNoteFile noteFile { get; private set; }
 
         public double beat => noteFile.beat;
         public double holdLength => noteFile.holdLength;
-        public NoteTypeFile type => noteFile.type;
+        public SDJKNoteTypeFile type => noteFile.type;
 
         public int index { get; private set; }
 
@@ -46,7 +46,7 @@ namespace SDJK.Ruleset.SDJK
 
             int lastJudgementIndex;
             double lastJudgementBeat;
-            if (type == NoteTypeFile.auto)
+            if (type == SDJKNoteTypeFile.auto)
             {
                 lastJudgementIndex = SDJKJudgementManager.instance.lastAutoJudgementIndex[bar.barIndex];
                 lastJudgementBeat = SDJKJudgementManager.instance.lastAutoJudgementBeat[bar.barIndex];
@@ -98,7 +98,7 @@ namespace SDJK.Ruleset.SDJK
             holdNote.localScale = new Vector3(1, ((float)holdYSize).Clamp(0), 1);
         }
 
-        public void Refresh(Bar bar, NoteFile noteFile, int index)
+        public void Refresh(Bar bar, SDJKNoteFile noteFile, int index)
         {
             this.bar = bar;
             this.noteFile = noteFile;

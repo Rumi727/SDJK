@@ -115,10 +115,10 @@ namespace SDJK.Ruleset.SDJK
 
             if (map.notes.Count > barIndex)
             {
-                List<NoteFile> noteFiles = map.notes[barIndex];
+                List<SDJKNoteFile> noteFiles = map.notes[barIndex];
                 for (int i = 0; i < noteFiles.Count; i++)
                 {
-                    NoteFile noteFile = noteFiles[i];
+                    SDJKNoteFile noteFile = noteFiles[i];
                     Note note = (Note)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field.bar.note", notes).monoBehaviour;
 
                     note.Refresh(this, noteFile, i);

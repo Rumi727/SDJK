@@ -134,7 +134,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 NextNote();
 
-                List<NoteFile> notes = map.notes[keyIndex];
+                List<SDJKNoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
             }
@@ -144,7 +144,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             int keyIndex = 0;
 
             bool autoNote;
-            NoteFile currentNote;
+            SDJKNoteFile currentNote;
             int currentNoteIndex = -1;
 
             /// <summary>
@@ -156,7 +156,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             public void Update()
             {
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
-                List<NoteFile> notes = map.notes[keyIndex];
+                List<SDJKNoteFile> notes = map.notes[keyIndex];
                 //SCKRM.Rhythm.BeatValuePairList<bool> yukiModes = map.globalEffect.yukiMode;
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
@@ -217,7 +217,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             public bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
             {
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
-                List<NoteFile> notes = map.notes[keyIndex];
+                List<SDJKNoteFile> notes = map.notes[keyIndex];
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double currentBeat = RhythmManager.currentBeatSound;
@@ -253,7 +253,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 else //노트를 치지 않았을때
                 {
                     //가장 가까운 즉사 노트 감지
-                    double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == NoteTypeFile.instantDeath);
+                    double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == SDJKNoteTypeFile.instantDeath);
                     double dis = GetDisSecond(instantDeathNoteBeat, false);
 
                     if (dis.Abs() <= missSecond)
@@ -288,7 +288,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             void NextNote()
             {
-                List<NoteFile> notes = map.notes[keyIndex];
+                List<SDJKNoteFile> notes = map.notes[keyIndex];
 
                 for (int i = currentNoteIndex; i <= notes.Count; i++)
                 {
@@ -300,12 +300,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                         if (autoNote)
                         {
-                            if (currentNote.type == NoteTypeFile.auto)
+                            if (currentNote.type == SDJKNoteTypeFile.auto)
                                 break;
                         }
                         else
                         {
-                            if (currentNote.type != NoteTypeFile.instantDeath && currentNote.type != NoteTypeFile.auto)
+                            if (currentNote.type != SDJKNoteTypeFile.instantDeath && currentNote.type != SDJKNoteTypeFile.auto)
                                 break;
                         }
                     }

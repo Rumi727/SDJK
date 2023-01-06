@@ -13,7 +13,7 @@ namespace SDJK.Ruleset.SDJK
         [SerializeField] SpriteRenderer holdNoteSpriteRenderer;
 
         Bar bar => note.bar;
-        NoteTypeFile type => note.type;
+        SDJKNoteTypeFile type => note.type;
 
         public override void Refresh(bool force = false) { }
 
@@ -28,9 +28,9 @@ namespace SDJK.Ruleset.SDJK
         void ColorUpdate()
         {
             Color color = bar.barEffectFile.noteColor.GetValue(RhythmManager.currentBeatSound);
-            if (type == NoteTypeFile.instantDeath)
+            if (type == SDJKNoteTypeFile.instantDeath)
                 color = new Color(1, 0, 0, color.a);
-            else if (type == NoteTypeFile.auto)
+            else if (type == SDJKNoteTypeFile.auto)
                 color.a *= 0.5f;
 
             spriteRenderer.color = color;

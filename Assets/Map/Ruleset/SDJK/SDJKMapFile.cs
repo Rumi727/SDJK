@@ -9,19 +9,19 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>
-        public List<List<NoteFile>> notes { get; set; } = new List<List<NoteFile>>();
+        public List<List<SDJKNoteFile>> notes { get; set; } = new List<List<SDJKNoteFile>>();
 
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
     }
 
-    public struct NoteFile
+    public struct SDJKNoteFile
     {
         public double beat;
         public double holdLength;
 
-        public NoteTypeFile type;
+        public SDJKNoteTypeFile type;
 
-        public NoteFile(double beat, double holdLength, NoteTypeFile type)
+        public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type)
         {
             this.beat = beat;
             this.holdLength = holdLength;
@@ -30,7 +30,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         }
     }
 
-    public enum NoteTypeFile
+    public enum SDJKNoteTypeFile
     {
         normal,
         instantDeath,
