@@ -8,7 +8,7 @@ using SCKRM.Sound;
 using SCKRM.UI;
 using SDJK.Effect;
 using SDJK.MainMenu;
-using SDJK.Ruleset.SDJK.Map;
+using SDJK.Map.Ruleset.SDJK.Map;
 using System.IO;
 using UnityEngine;
 

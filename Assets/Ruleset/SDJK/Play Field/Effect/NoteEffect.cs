@@ -1,10 +1,6 @@
-using SCKRM;
 using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Effect;
-using SDJK.Ruleset.SDJK.Judgement;
-using SDJK.Ruleset.SDJK.Map;
-using System.Collections;
-using System.Collections.Generic;
+using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK

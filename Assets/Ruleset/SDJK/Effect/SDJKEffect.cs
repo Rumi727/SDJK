@@ -1,4 +1,4 @@
-using SDJK.Ruleset.SDJK.Map;
+using SDJK.Map.Ruleset.SDJK.Map;
 
 namespace SDJK.Ruleset.SDJK.Effect
 {

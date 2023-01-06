@@ -113,6 +113,7 @@ namespace SDJK.Ruleset
     public interface IRuleset
     {
         public string name { get; }
+
         public NameSpaceIndexTypePathPair icon { get; }
         public string[] compatibleRuleset { get; }
 
@@ -148,7 +149,8 @@ namespace SDJK.Ruleset
     [WikiDescription("IRuleSet 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
     public abstract class Ruleset : IRuleset
     {
-        public string name => GetType().FullName;
+        public abstract string name { get; }
+
         public abstract NameSpaceIndexTypePathPair icon { get; }
         public virtual string[] compatibleRuleset => null;
 

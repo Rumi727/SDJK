@@ -1,9 +1,8 @@
 using SCKRM.Json;
 using SCKRM.Rhythm;
-using SDJK.Map;
 using System.Collections.Generic;
 
-namespace SDJK.Ruleset.SDJK.Map
+namespace SDJK.Map.Ruleset.SDJK.Map
 {
     public sealed class SDJKMapFile : MapFile
     {

@@ -2,7 +2,7 @@ using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
 using SDJK.Effect;
-using SDJK.Ruleset.SDJK.Map;
+using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using UnityEngine;
 

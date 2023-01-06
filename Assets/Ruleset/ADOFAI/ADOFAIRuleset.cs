@@ -6,6 +6,8 @@ namespace SDJK.Ruleset.ADOFAI
 {
     public sealed class ADOFAIRuleset : Ruleset
     {
+        public override string name => "adofai";
+
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");
         public override JudgementMetaData[] judgementMetaDatas => null;
         public override JudgementMetaData missJudgementMetaData { get; }

@@ -3,7 +3,7 @@ using SCKRM.Object;
 using SCKRM.Rhythm;
 using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Judgement;
-using SDJK.Ruleset.SDJK.Map;
+using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK

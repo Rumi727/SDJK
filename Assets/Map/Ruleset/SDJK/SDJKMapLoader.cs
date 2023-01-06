@@ -3,14 +3,12 @@ using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SCKRM.Rhythm;
-using SDJK.Map;
 using System;
 using System.Collections.Generic;
-using Version = SCKRM.Version;
 
-namespace SDJK.Ruleset.SDJK.Map
+namespace SDJK.Map.Ruleset.SDJK.Map
 {
-    static class SDJKLoader
+    public static class SDJKLoader
     {
         [Awaken]
         static void Awaken()
@@ -19,30 +17,35 @@ namespace SDJK.Ruleset.SDJK.Map
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
             {
                 if (extension == ".sdjk" && (type == typeof(MapFile) || type == typeof(SDJKMapFile)))
-                {
-                    JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
-
-                    if (OldSDJKMapDistinction(jObjectMap))
-                        return OldSDJKMapLoad(jObjectMap);
-                    else
-                    {
-                        SDJKMapFile map = jObjectMap.ToObject<SDJKMapFile>();
-
-                        if (map == null)
-                            return null;
-
-                        if (map.info.ruleset == typeof(SDJKRuleset).FullName)
-                        {
-                            FixMap(map);
-                            FixAllJudgmentBeat(map);
-
-                            return map;
-                        }
-                    }
-                }
+                    return MapLoad(mapFilePath);
 
                 return null;
             };
+        }
+
+        public static SDJKMapFile MapLoad(string mapFilePath)
+        {
+            JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
+
+            if (OldSDJKMapDistinction(jObjectMap))
+                return OldSDJKMapLoad(jObjectMap);
+            else
+            {
+                SDJKMapFile map = jObjectMap.ToObject<SDJKMapFile>();
+
+                if (map == null)
+                    return null;
+
+                if (map.info.ruleset == "sdjk")
+                {
+                    FixMap(map);
+                    FixAllJudgmentBeat(map);
+
+                    return map;
+                }
+            }
+
+            return null;
         }
 
         static bool OldSDJKMapDistinction(JObject jObjectMap) =>
@@ -79,7 +82,7 @@ namespace SDJK.Ruleset.SDJK.Map
 
 
 
-                map.info.ruleset = typeof(SDJKRuleset).FullName;
+                map.info.ruleset = "sdjk";
 
 
 

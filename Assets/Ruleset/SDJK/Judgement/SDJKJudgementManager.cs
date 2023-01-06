@@ -5,7 +5,7 @@ using SCKRM.Sound;
 using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Ruleset.SDJK.Input;
-using SDJK.Ruleset.SDJK.Map;
+using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
