@@ -1,3 +1,4 @@
+using SCKRM;
 using SCKRM.Object;
 using SCKRM.Rhythm;
 using SDJK.Effect;
@@ -28,7 +29,7 @@ namespace SDJK.Ruleset.SDJK
             fieldEffectFile = map.effect.fieldEffect[fieldIndex];
 
             BarAllRemove();
-            for (int i = 0; i < map.notes.Count; i++)
+            for (int i = 0; i < fieldEffectFile.barEffect.Count.Min(map.notes.Count); i++)
             {
                 Bar bar = (Bar)ObjectPoolingSystem.ObjectCreate("ruleset.sdjk.play_field.bar", bars).monoBehaviour;
                 bar.Refresh(this, i);
