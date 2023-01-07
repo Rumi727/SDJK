@@ -6,6 +6,7 @@ using SCKRM.Rhythm;
 using SDJK.Map.Ruleset.ADOFAI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -79,22 +80,28 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             {
                 bool lastIsHold = false;
-                int lastKeyIndex = -1;
                 for (int i = 0; i < adofaiMap.tiles.Count; i++)
                 {
                     double beat = adofaiMap.tiles[i];
-                    double bpm = adofaiMap.globalEffect.bpm.GetValue(beat);
                     bool isHold = adofaiMap.holds.FindIndex(x => x.targetTileIndex == i) >= 0;
 
                     //키 인덱스
                     int keyIndex = random.Next(0, notes.Count);
-                    if (i > 0)
+
+                    //중복 방지
+                    for (int j = 0; j < notes.Count; j++)
                     {
-                        //중복 방지
-                        if (lastKeyIndex == keyIndex && RhythmManager.BeatToSecond(beat.Distance(adofaiMap.tiles[i - 1]), bpm) < 0.25f)
-                            keyIndex = (keyIndex + 1).Reapeat(notes.Count - 1);
+                        if (notes[keyIndex].Count <= 0)
+                            break;
+
+                        double lastBeat = notes[keyIndex].Last().beat;
+                        double lastBpm = adofaiMap.globalEffect.bpm.GetValue(lastBeat);
+
+                        if (RhythmManager.BeatToSecond(lastBeat.Distance(beat), lastBpm) >= 0.25f)
+                            break;
+
+                        keyIndex = (keyIndex + 1).Reapeat(notes.Count - 1);
                     }
-                    lastKeyIndex = keyIndex;
 
                     //홀드
                     double holdBeat = 0;
