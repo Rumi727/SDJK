@@ -49,7 +49,7 @@ namespace SCKRM.Rhythm
                 int findIndex = -1;
                 for (int i = 0; i < Count; i++)
                 {
-                    if (this[i].beat >= currentBeat)
+                    if (this[i].beat > currentBeat)
                     {
                         findIndex = i;
                         break;
@@ -100,7 +100,7 @@ namespace SCKRM.Rhythm
                 for (int i = 0; i < Count; i++)
                 {
                     TPair pair = this[i];
-                    if (pair.beat >= currentBeat && match(lastPair))
+                    if (pair.beat > currentBeat && match(lastPair))
                     {
                         beat = lastPair.beat;
                         index = lastIndex - 1;
@@ -155,7 +155,7 @@ namespace SCKRM.Rhythm
                 int findIndex = -1;
                 for (int i = 0; i < Count; i++)
                 {
-                    if (this[i].beat >= currentBeat)
+                    if (this[i].beat > currentBeat)
                     {
                         findIndex = i;
                         break;
