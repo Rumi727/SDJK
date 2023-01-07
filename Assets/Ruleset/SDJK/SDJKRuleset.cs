@@ -48,22 +48,53 @@ namespace SDJK.Ruleset.SDJK
             Object.FindObjectOfType<SDJKJudgementManager>(true).Refresh();
 
             //나중에 다시 필요할 수도...
-            /*System.Collections.Generic.List<BeatValuePairAni<double>> beats = new System.Collections.Generic.List<BeatValuePairAni<double>>();
-            for (int i = 0; i < 350; i++)
+            /*System.Collections.Generic.List<SCKRM.Rhythm.BeatValuePairAni<double>> beats = new System.Collections.Generic.List<SCKRM.Rhythm.BeatValuePairAni<double>>();
+            for (int i = 0; i < map.allJudgmentBeat[map.allJudgmentBeat.Count - 1]; i++)
             {
-                if (map.globalEffect.yukiMode.GetValue(i + 1) || (i >= 192 && i <= 224))
+                if (map.globalEffect.yukiMode.GetValue(i))
                 {
-                    BeatValuePairAni<double> asdf = new BeatValuePairAni<double>() { beat = i, length = 0, value = 0.97f, easingFunction = SCKRM.Easing.EasingFunction.Ease.Linear };
+                    SCKRM.Rhythm.BeatValuePairAni<double> asdf = new SCKRM.Rhythm.BeatValuePairAni<double>() { beat = i, length = 0, value = 0.98f, easingFunction = SCKRM.Easing.EasingFunction.Ease.Linear };
                     map.globalEffect.cameraZoom.Add(asdf);
                     beats.Add(asdf);
                 }
             }
 
+            for (int i = 0; i < map.effect.fieldEffect[0].barEffect.Count; i++)
+                map.effect.fieldEffect[0].barEffect[i].noteSpeed.Add(double.MinValue, 1);
+
+            for (double i = 0; i < map.allJudgmentBeat[map.allJudgmentBeat.Count - 1]; i += 0.125f)
+            {
+                if (map.globalEffect.yukiMode.GetValue(i))
+                {
+                    for (int j = 0; j < map.notes.Count; j++)
+                    {
+                        SDJKNoteFile? note = map.notes[j].Find(x => SCKRM.MathTool.Distance(x.beat, i) <= SCKRM.MathTool.epsilonFloatWithAccuracy);
+                        if (note != null)
+                        {
+                            SCKRM.Rhythm.BeatValuePairList<double> effect = map.effect.fieldEffect[0].barEffect[j].noteSpeed;
+                            if (note.Value.holdLength > 0)
+                            {
+                                effect.Add(i, 0.5, true);
+                                effect.Add(i + 0.125, 1, true);
+                            }
+                            else if (i >= 496 && i <= 560)
+                            {
+                                effect.Add(i, Random.Range(0.5f, 1.5f), true);
+                                effect.Add(i + 0.125, 1, true);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < map.effect.fieldEffect[0].barEffect.Count; i++)
+                map.effect.fieldEffect[0].barEffect[i].noteSpeed.Add(560, 1);
+
             map.globalEffect.cameraZoom.Sort((a, b) => a.beat.CompareTo(b.beat));
 
             for (int i = 0; i < beats.Count; i++)
             {
-                BeatValuePairAni<double> asdf = new BeatValuePairAni<double>() { beat = beats[i].beat, length = 1, value = 1, easingFunction = SCKRM.Easing.EasingFunction.Ease.EaseOutExpo };
+                SCKRM.Rhythm.BeatValuePairAni<double> asdf = new SCKRM.Rhythm.BeatValuePairAni<double>() { beat = beats[i].beat, length = 2, value = 1, easingFunction = SCKRM.Easing.EasingFunction.Ease.EaseOutExpo };
                 map.globalEffect.cameraZoom.Insert(map.globalEffect.cameraZoom.IndexOf(beats[i]) + 1, asdf);
             }
 
