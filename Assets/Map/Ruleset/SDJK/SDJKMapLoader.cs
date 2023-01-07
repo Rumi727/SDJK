@@ -68,6 +68,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             sdjkMapFile.globalEffect = adofaiMap.globalEffect;
             #endregion
 
+            #region Note
             sdjkMapFile.info.ResetRandomSeed(mapFilePath);
 
             Random random = new Random(sdjkMapFile.info.randomSeed);
@@ -89,6 +90,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     int keyIndex = random.Next(0, notes.Count);
                     if (i > 0)
                     {
+                        //중복 방지
                         if (lastKeyIndex == keyIndex && RhythmManager.BeatToSecond(beat.Distance(adofaiMap.tiles[i - 1]), bpm) < 0.25f)
                             keyIndex = (keyIndex + 1).Reapeat(notes.Count - 1);
                     }
@@ -105,7 +107,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     lastIsHold = isHold;
                 }
             }
+            #endregion
 
+            #region Camera Zoom Effect To Field Height And UI Size Effect
             sdjkMapFile.effect.fieldEffect.Add(new FieldEffectFile());
             FieldEffectFile fieldEffect = sdjkMapFile.effect.fieldEffect[0];
 
@@ -120,6 +124,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             }
 
             sdjkMapFile.globalEffect.cameraZoom.Clear();
+            #endregion
 
             FixMap(sdjkMapFile);
             FixAllJudgmentBeat(sdjkMapFile);
