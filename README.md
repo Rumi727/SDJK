@@ -7,7 +7,7 @@
 대부분의 UI는 [osu!lazer](https://github.com/ppy/osu)에서 영감을 받았습니다 ~~(라기엔 사실상 복사)~~  
 이 부분이 문제가 된다면 잔말 없이 바로 수정하갰습니다
 
-누가 얼불춤 로더에서 각도 -> 비트 제대로 되게 수정해줘요... ~~진짜 얼불춤 개망겜이네~~  
++ 누가 얼불춤 로더 좀 제대로 되게 수정해줘요... ~~진짜 얼불춤 개망겜이네~~  
 [(ADOFAIMapLoader.cs)](Assets/Map/Ruleset/ADOFAI/ADOFAIMapLoader.cs)
 
 ## 라이선스
