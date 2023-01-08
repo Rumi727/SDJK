@@ -16,7 +16,7 @@ TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 �
 
 위에 해당하지 않는다면, 파일에 작성되어있는 라이선스를 따르게 됩니다
 
-[TEAM Bucket 블랙리스트에 등록된 사용자 목록](https://docs.google.com/document/d/1diUFkd4drD_hroCqmRTYNVYzU_jpxQXsb45F-VvWekE/edit?usp=sharing)
+[TEAM Bucket 블랙리스트에 등록된 사용자 목록](https://docs.google.com/document/d/1A8kz4DJOdLEtf-kybrKnGR51XDNZVHmojCU86KaDgKg)
 
 이러한 라이선스가 [오픈 소스 정의](https://opensource.org/osd)와 일치하지 않다는것을 알고있습니다  
 하지만 상관 없습니다  
