@@ -8,7 +8,7 @@
 이 부분이 문제가 된다면 잔말 없이 바로 수정하갰습니다
 
 누가 얼불춤 로더에서 각도 -> 비트 제대로 되게 수정해줘요... ~~진짜 얼불춤 개망겜이네~~  
-[(ADOFAIMapReader.cs)](Assets/Map/Ruleset/ADOFAI/ADOFAIMapLoader.cs)
+[(ADOFAIMapLoader.cs)](Assets/Map/Ruleset/ADOFAI/ADOFAIMapLoader.cs)
 
 ## 라이선스
 TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 커밋 또는 릴리즈 등 제 모든 창작물을 이용, 변경 등을 할 수 없습니다 (2022-07-28 0:53 시간 이후의 만들어진 창작물만 해당)  
