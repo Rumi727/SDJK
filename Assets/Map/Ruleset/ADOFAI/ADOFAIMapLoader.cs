@@ -237,17 +237,9 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                         double offsetBeat;
                         if (!twirl)
-                        {
-                            offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180));
-                            if (offsetBeat != 0 && offsetBeat != 2)
-                                offsetBeat = offsetBeat.Reapeat(2);
-                        }
+                            offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180)).Reapeat(2);
                         else
-                        {
-                            offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180));
-                            if (offsetBeat != 0 && offsetBeat != 2)
-                                offsetBeat = offsetBeat.Reapeat(2);
-                        }
+                            offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180)).Reapeat(2);
 
                         beat += (offsetBeat + pause) + (hold * 2);
                         if (lastBeat == beat && !midspin)
