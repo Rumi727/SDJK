@@ -108,7 +108,19 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             twirlList.Add(index, twirl);
                         }
                         else if (eventType == "Pause")
-                            pauseList.Add(index, action["duration"].Value<int>());
+                        {
+                            if (pauseList.ContainsKey(index))
+                                pauseList[index] = pauseList[index] + action["duration"].Value<int>();
+                            else
+                                pauseList[index] = action["duration"].Value<int>();
+                        }
+                        else if (eventType == "FreeRoam")
+                        {
+                            if (pauseList.ContainsKey(index))
+                                pauseList[index] = pauseList[index] + (action["duration"].Value<double>() - 1);
+                            else
+                                pauseList[index] = action["duration"].Value<double>() - 1;
+                        }
                         else if (eventType == "Hold")
                         {
                             int duration = action["duration"].Value<int>();
