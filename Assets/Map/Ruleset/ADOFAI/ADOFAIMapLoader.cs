@@ -227,13 +227,13 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (!twirl)
                         {
                             offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180));
-                            if (offsetBeat != 2)
+                            if (offsetBeat == 0 || offsetBeat != 2)
                                 offsetBeat = offsetBeat.Reapeat(2);
                         }
                         else
                         {
                             offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180));
-                            if (offsetBeat != 2)
+                            if (offsetBeat == 0 || offsetBeat != 2)
                                 offsetBeat = offsetBeat.Reapeat(2);
                         }
 
