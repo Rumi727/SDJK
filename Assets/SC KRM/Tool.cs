@@ -662,6 +662,229 @@ namespace SCKRM
         [WikiIgnore] public static nuint Repeat(this nuint t, nuint length) => (t - ((t / length) * length)).Clamp(0, length);
         #endregion
 
+        #region Repeat While
+        public static sbyte RepeatWhile(this sbyte t, sbyte length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        public static byte RepeatWhile(this byte t, byte length)
+        {
+            while (t > length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static short RepeatWhile(this short t, short length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static ushort RepeatWhile(this ushort t, ushort length)
+        {
+            while (t > length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static int RepeatWhile(this int t, int length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static uint RepeatWhile(this uint t, uint length)
+        {
+            while (t > length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static long RepeatWhile(this long t, long length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static ulong RepeatWhile(this ulong t, ulong length)
+        {
+            while (t > length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static float RepeatWhile(this float t, float length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static double RepeatWhile(this double t, double length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static decimal RepeatWhile(this decimal t, decimal length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static BigInteger RepeatWhile(this BigInteger t, BigInteger length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static BigDecimal RepeatWhile(this BigDecimal t, BigDecimal length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static nint RepeatWhile(this nint t, nint length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static nuint RepeatWhile(this nuint t, nuint length)
+        {
+            if (t >= 0)
+            {
+                while (t > length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+        #endregion
+
         #region Lerp
         public static sbyte Lerp(this sbyte current, sbyte target, sbyte t, bool unclamped = false)
         {

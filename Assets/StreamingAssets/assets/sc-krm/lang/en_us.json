@@ -63,7 +63,7 @@
 	
 	"options.rhythm.title": "Rhythm",
 	"options.rhythm.screenOffset": "Screen Offset",
-	"options.rhythm.soundOffset": "BGM Offset",
+	"options.rhythm.soundOffset": "Sound Offset",
 	
 	"options.video.title": "Video",
 	"options.video.vSync": "VSync",
