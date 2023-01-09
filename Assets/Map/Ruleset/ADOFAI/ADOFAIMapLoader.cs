@@ -222,35 +222,47 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                         double beat = lastBeat;
                         double angle = adofai.angleData[i];
-                        bool midspin = false;
+                        double nextAngle = 0;
+                        if (i + 1 < adofai.angleData.Length)
+                            nextAngle = adofai.angleData[i + 1];
 
-                        if (angle == 999)
+                        bool midspin = false;
+                        double offsetBeat;
+                        if (angle >= 999)
                         {
                             midspin = true;
 
+                            //미드스핀 일경우 무조건 반대방향으로 회전하니 180도를 더하고 동타이니 오프셋 비트는 0이여야합니다
                             angle = (lastAngle + 180).Repeat(360);
-                            if (angle >= 360)
-                                angle = 0;
+                            offsetBeat = 0;
                         }
                         else
+                        {
                             angle = angle.Repeat(360);
 
-                        double offsetBeat;
-                        if (!twirl)
-                            offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180)).Repeat(2);
-                        else
-                            offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180)).Repeat(2);
+                            if (!twirl)
+                                offsetBeat = (1 + ((lastAngle - angle) / 180)).Repeat(2);
+                            else
+                                offsetBeat = (1 + ((angle - lastAngle) / 180)).Repeat(2);
+                        }
 
                         beat += (offsetBeat + pause) + (hold * 2);
-                        if (lastBeat == beat && !midspin)
+
+                        //미드스핀이 아닌데 오프셋 비트가 0일경우 한 바퀴 타일로 간주해야합니다
+                        if (offsetBeat <= 0 && !midspin)
                             beat += 2;
 
-                        adofaiMap.tiles.Add(beat);
-                        adofaiMap.allJudgmentBeat.Add(beat);
-                        allBeat.Add(beat);
+                        BeatAdd(beat, angle);
 
-                        lastAngle = angle;
-                        lastBeat = beat;
+                        void BeatAdd(double beat, double angle)
+                        {
+                            adofaiMap.tiles.Add(beat);
+                            adofaiMap.allJudgmentBeat.Add(beat);
+                            allBeat.Add(beat);
+
+                            lastAngle = angle;
+                            lastBeat = beat;
+                        }
                     }
                 }
                 #endregion
