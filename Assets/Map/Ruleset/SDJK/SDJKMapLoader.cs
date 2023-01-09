@@ -1,3 +1,4 @@
+using static MoreLinq.Extensions.MaxByExtension;
 using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.Easing;
@@ -74,6 +75,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             Random random = new Random(sdjkMapFile.info.randomSeed);
             List<List<SDJKNoteFile>> notes = sdjkMapFile.notes;
+            Dictionary<int, double> secondDistances = new Dictionary<int, double>();
 
             for (int i = 0; i < 4; i++)
                 sdjkMapFile.notes.Add(new List<SDJKNoteFile>());
@@ -89,18 +91,30 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     int keyIndex = random.Next(0, notes.Count);
 
                     //중복 방지
-                    for (int j = 0; j < notes.Count; j++)
                     {
-                        if (notes[keyIndex].Count <= 0)
-                            break;
+                        secondDistances.Clear();
 
-                        double lastBeat = notes[keyIndex].Last().beat;
-                        double lastBpm = adofaiMap.globalEffect.bpm.GetValue(lastBeat);
+                        for (int j = 0; j < notes.Count + 1; j++)
+                        {
+                            //만약 모든 키 인덱스가 조건에 만족하지 않았을경우, 최대한 먼 키 인덱스를 고르게 합니다
+                            if (j >= notes.Count)
+                            {
+                                keyIndex = secondDistances.MaxBy(x => x.Value).First().Key;
+                                break;
+                            }
+                            else if (notes[keyIndex].Count <= 0)
+                                break;
 
-                        if (RhythmManager.BeatToSecond(lastBeat.Distance(beat), lastBpm) >= 0.25f)
-                            break;
+                            double lastBeat = notes[keyIndex].Last().beat;
+                            double lastBpm = adofaiMap.globalEffect.bpm.GetValue(lastBeat);
+                            double secondDistance = RhythmManager.BeatToSecond(lastBeat.Distance(beat), lastBpm);
 
-                        keyIndex = (keyIndex + 1).Repeat(notes.Count - 1);
+                            if (secondDistance >= 0.25f)
+                                break;
+
+                            secondDistances[keyIndex] = secondDistance;
+                            keyIndex = (keyIndex + 1).Repeat(notes.Count - 1);
+                        }
                     }
 
                     //홀드
