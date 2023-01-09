@@ -100,7 +100,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         if (RhythmManager.BeatToSecond(lastBeat.Distance(beat), lastBpm) >= 0.25f)
                             break;
 
-                        keyIndex = (keyIndex + 1).Reapeat(notes.Count - 1);
+                        keyIndex = (keyIndex + 1).Repeat(notes.Count - 1);
                     }
 
                     //홀드

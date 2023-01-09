@@ -228,18 +228,18 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         {
                             midspin = true;
 
-                            angle = (lastAngle + 180).Reapeat(360);
+                            angle = (lastAngle + 180).Repeat(360);
                             if (angle >= 360)
                                 angle = 0;
                         }
                         else
-                            angle = angle.Reapeat(360);
+                            angle = angle.Repeat(360);
 
                         double offsetBeat;
                         if (!twirl)
-                            offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180)).Reapeat(2);
+                            offsetBeat = (1 + ((lastAngle - angle.Abs()) / 180)).Repeat(2);
                         else
-                            offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180)).Reapeat(2);
+                            offsetBeat = (1 + ((angle.Abs() - lastAngle) / 180)).Repeat(2);
 
                         beat += (offsetBeat + pause) + (hold * 2);
                         if (lastBeat == beat && !midspin)
@@ -284,7 +284,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                     if (action.ContainsKey("angleOffset"))
                     {
                         angleOffset = action["angleOffset"].Value<float>();
-                        beat += angleOffset.Reapeat(360) / 180;
+                        beat += angleOffset.Repeat(360) / 180;
                     }
                     if (action.ContainsKey("ease"))
                     {

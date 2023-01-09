@@ -30,7 +30,7 @@ namespace SDJK.MainMenu
         double lastBPMOffsetBeat = 0;
         void Update()
         {
-            beatScale = beatScaleAni.GetValue((RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Reapeat(1));
+            beatScale = beatScaleAni.GetValue((RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Repeat(1));
 
             {
                 if (pointerScaleT < 1)
@@ -51,7 +51,7 @@ namespace SDJK.MainMenu
 
             transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
 
-            int currentBeat = (int)(RhythmManager.currentBeatSound - RhythmManager.bpmOffsetBeat).Reapeat(4);
+            int currentBeat = (int)(RhythmManager.currentBeatSound - RhythmManager.bpmOffsetBeat).Repeat(4);
             if (lastCurrentBeat != currentBeat || lastBPMOffsetBeat != RhythmManager.bpmOffsetBeat)
             {
                 if (pointer)

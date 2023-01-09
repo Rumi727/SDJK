@@ -644,22 +644,22 @@ namespace SCKRM
         }
         #endregion
 
-        #region Reapeat
-        public static sbyte Reapeat(this sbyte t, sbyte length) => (sbyte)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static byte Reapeat(this byte t, byte length) => (byte)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static short Reapeat(this short t, short length) => (short)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static ushort Reapeat(this ushort t, ushort length) => (ushort)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static int Reapeat(this int t, int length) => (t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static uint Reapeat(this uint t, uint length) => (t - ((uint)((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static long Reapeat(this long t, long length) => (t - ((long)((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static ulong Reapeat(this ulong t, ulong length) => (t - ((ulong)((float)t / length).FloorToInt() * length)).Clamp(0, length);
-        [WikiIgnore] public static float Reapeat(this float t, float length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
-        [WikiIgnore] public static double Reapeat(this double t, double length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
-        [WikiIgnore] public static decimal Reapeat(this decimal t, decimal length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
-        [WikiIgnore] public static BigInteger Reapeat(this BigInteger t, BigInteger length) => (t - ((BigInteger)((BigDecimal)t / (BigDecimal)length).Floor() * length)).Clamp(0, length);
-        [WikiIgnore] public static BigDecimal Reapeat(this BigDecimal t, BigDecimal length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
-        [WikiIgnore] public static nint Reapeat(this nint t, nint length) => (t - ((t / length) * length)).Clamp(0, length);
-        [WikiIgnore] public static nuint Reapeat(this nuint t, nuint length) => (t - ((t / length) * length)).Clamp(0, length);
+        #region Repeat
+        public static sbyte Repeat(this sbyte t, sbyte length) => (sbyte)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static byte Repeat(this byte t, byte length) => (byte)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static short Repeat(this short t, short length) => (short)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static ushort Repeat(this ushort t, ushort length) => (ushort)(t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static int Repeat(this int t, int length) => (t - (((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static uint Repeat(this uint t, uint length) => (t - ((uint)((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static long Repeat(this long t, long length) => (t - ((long)((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static ulong Repeat(this ulong t, ulong length) => (t - ((ulong)((float)t / length).FloorToInt() * length)).Clamp(0, length);
+        [WikiIgnore] public static float Repeat(this float t, float length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static double Repeat(this double t, double length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static decimal Repeat(this decimal t, decimal length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static BigInteger Repeat(this BigInteger t, BigInteger length) => (t - ((BigInteger)((BigDecimal)t / (BigDecimal)length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static BigDecimal Repeat(this BigDecimal t, BigDecimal length) => (t - ((t / length).Floor() * length)).Clamp(0, length);
+        [WikiIgnore] public static nint Repeat(this nint t, nint length) => (t - ((t / length) * length)).Clamp(0, length);
+        [WikiIgnore] public static nuint Repeat(this nuint t, nuint length) => (t - ((t / length) * length)).Clamp(0, length);
         #endregion
 
         #region Lerp
@@ -5260,10 +5260,10 @@ namespace SCKRM
     {
         static byte[] maxGuidToBytes = new byte[16] { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
 
-        public static byte ToByte(this Guid value) => (byte)(value.ToBigInteger().Reapeat(byte.MaxValue));
-        public static ushort ToUInt16(this Guid value) => (ushort)(value.ToBigInteger().Reapeat(ushort.MaxValue));
-        public static uint ToUInt32(this Guid value) => (uint)(value.ToBigInteger().Reapeat(uint.MaxValue));
-        public static ulong ToUInt64(this Guid value) => (ulong)(value.ToBigInteger().Reapeat(ulong.MaxValue));
+        public static byte ToByte(this Guid value) => (byte)(value.ToBigInteger().Repeat(byte.MaxValue));
+        public static ushort ToUInt16(this Guid value) => (ushort)(value.ToBigInteger().Repeat(ushort.MaxValue));
+        public static uint ToUInt32(this Guid value) => (uint)(value.ToBigInteger().Repeat(uint.MaxValue));
+        public static ulong ToUInt64(this Guid value) => (ulong)(value.ToBigInteger().Repeat(ulong.MaxValue));
         public static BigInteger ToBigInteger(this Guid value) => new BigInteger(value.ToByteArray());
         public static BigDecimal ToBigDecimal(this Guid value) => new BigDecimal(value.ToBigInteger());
 
