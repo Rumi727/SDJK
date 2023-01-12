@@ -33,6 +33,12 @@ namespace SDJK.MainMenu
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
                 audioClip = await ResourceManager.GetAudio(fullPath, true, true);
+                if (!Kernel.isPlaying || this == null)
+                {
+                    AudioDestroy();
+                    return;
+                }
+
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
@@ -128,8 +134,7 @@ namespace SDJK.MainMenu
                 volumePade = 0;
                 padeOut = false;
 
-                if (audioClip != null)
-                    Destroy(audioClip, 1);
+                AudioDestroy();
 
                 audioClip = null;
                 return true;
@@ -138,7 +143,9 @@ namespace SDJK.MainMenu
             return false;
         }
 
-        void OnDestroy()
+        void OnDestroy() => AudioDestroy();
+
+        void AudioDestroy()
         {
             if (audioClip != null)
                 Destroy(audioClip, 1);

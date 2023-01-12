@@ -109,19 +109,30 @@ namespace SDJK
                 string texturePath = PathTool.Combine(map.mapFilePathParent, background);
                 Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
-                if (isRemoved)
+                if (texture != null && !loadedSprites.ContainsKey(background))
+                    loadedSprites.Add(background, ResourceManager.GetSprite(texture));
+
+                if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                {
+                    isTextureLoading = false;
+                    TextureDestroy().Forget();
+
                     return;
+                }
 
                 string nightTexturePath = PathTool.Combine(map.mapFilePathParent, backgroundNight);
                 Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
-                if (isRemoved)
-                    return;
-
-                if (texture != null && !loadedSprites.ContainsKey(background))
-                    loadedSprites.Add(background, ResourceManager.GetSprite(texture));
                 if (nightTexture != null && !loadedSprites.ContainsKey(backgroundNight))
                     loadedSprites.Add(backgroundNight, ResourceManager.GetSprite(nightTexture));
+
+                if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                {
+                    isTextureLoading = false;
+                    TextureDestroy().Forget();
+
+                    return;
+                }
             }
 
             isTextureLoading = false;
@@ -152,11 +163,7 @@ namespace SDJK
             return true;
         }
 
-        protected override void OnDestroy()
-        {
-            if (Kernel.isPlaying)
-                TextureDestroy().Forget();
-        }
+        protected override void OnDestroy() => TextureDestroy().Forget();
 
         async UniTaskVoid TextureDestroy()
         {

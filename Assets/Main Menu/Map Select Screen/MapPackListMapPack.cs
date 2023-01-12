@@ -93,8 +93,6 @@ namespace SDJK.MainMenu.MapSelectScreen
             else
                 selectedMap = map;
 
-            background.sprite = null;
-
             if (!isMap)
             {
                 songName.text = selectedMap.info.songName;
@@ -126,20 +124,22 @@ namespace SDJK.MainMenu.MapSelectScreen
             }
 
             if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
+            {
+                TextureDestroy();
                 return;
+            }
 
             if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+            {
+                TextureDestroy();
                 return;
+            }
 
             isTextureLoading = true;
 
             try
             {
-                if (background.sprite != null)
-                {
-                    Destroy(background.sprite.texture);
-                    Destroy(background.sprite);
-                }
+                TextureDestroy();
 
                 if (selectedMap.globalEffect.background.Count > 0)
                 {
@@ -148,7 +148,10 @@ namespace SDJK.MainMenu.MapSelectScreen
 
                     Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
                     if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                    {
+                        TextureDestroy();
                         return;
+                    }
 
                     background.sprite = ResourceManager.GetSprite(texture);
                 }
@@ -165,7 +168,10 @@ namespace SDJK.MainMenu.MapSelectScreen
             while (true)
             {
                 if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                {
+                    TextureDestroy();
                     return;
+                }
 
                 bool active = !IsOccluded();
                 if (active != gameObject.activeSelf)
@@ -174,6 +180,8 @@ namespace SDJK.MainMenu.MapSelectScreen
                 await UniTask.NextFrame();
             }
         }
+
+        protected override void OnDestroy() => TextureDestroy();
 
         private bool IsOccluded()
         {
@@ -195,26 +203,13 @@ namespace SDJK.MainMenu.MapSelectScreen
             for (int i = 0; i < mapPackListRulesetIcons.Count; i++)
                 mapPackListRulesetIcons[i].Remove();
 
-            if (background.sprite != null)
-            {
-                Destroy(background.sprite.texture);
-                Destroy(background.sprite);
-            }
+            TextureDestroy();
 
             background.sprite = null;
             songName.text = "";
             artist.text = "";
 
             return true;
-        }
-
-        protected override void OnDestroy()
-        {
-            if (background.sprite != null)
-            {
-                Destroy(background.sprite.texture);
-                Destroy(background.sprite);
-            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -232,6 +227,15 @@ namespace SDJK.MainMenu.MapSelectScreen
                     MapManager.selectedMapIndex = mapIndex;
                 else
                     MainMenu.NextScreen();
+            }
+        }
+
+        void TextureDestroy()
+        {
+            if (background.sprite != null)
+            {
+                Destroy(background.sprite.texture);
+                Destroy(background.sprite);
             }
         }
     }
