@@ -94,6 +94,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                 Dictionary<int, bool> twirlList = new Dictionary<int, bool>();
                 Dictionary<int, int> holdList = new Dictionary<int, int>();
                 Dictionary<int, double> pauseList = new Dictionary<int, double>();
+                Dictionary<int, double> multiPlanetList = new Dictionary<int, double>();
                 {
                     bool twirl = false;
                     for (int i = 0; i < adofai.actions.Length; i++)
@@ -105,7 +106,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (eventType == "Twirl")
                         {
                             twirl = !twirl;
-                            twirlList.Add(index, twirl);
+                            twirlList.TryAdd(index, twirl);
                         }
                         else if (eventType == "Pause")
                         {
@@ -125,8 +126,12 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         {
                             int duration = action["duration"].Value<int>();
 
-                            adofaiMap.holds.Add(new ADOFAIHoldFile(index - 1, duration));
-                            holdList.Add(index, duration);
+                            if (holdList.TryAdd(index, duration))
+                                adofaiMap.holds.Add(new ADOFAIHoldFile(index - 1, duration));
+                        }
+                        else if (eventType == "MultiPlanet")
+                        {
+                            multiPlanetList.TryAdd(index, 0);
                         }
                     }
                 }
