@@ -242,11 +242,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                         double beat = lastBeat;
                         double angle = adofai.angleData[i];
-                        double nextAngle = 0;
-                        if (i + 1 < adofai.angleData.Length)
-                            nextAngle = adofai.angleData[i + 1];
-
                         double offsetBeat;
+
                         if (angle >= 999)
                         {
                             //미드스핀 일경우 무조건 반대방향으로 회전하니 180도를 더하고 동타이니 오프셋 비트는 0이여야합니다
