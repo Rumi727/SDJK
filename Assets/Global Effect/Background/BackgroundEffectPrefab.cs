@@ -166,8 +166,16 @@ namespace SDJK
             {
                 if (item.Value != null)
                 {
-                    Destroy(item.Value.texture);
-                    Destroy(item.Value);
+                    if (Kernel.isPlaying)
+                    {
+                        Destroy(item.Value.texture);
+                        Destroy(item.Value);
+                    }
+                    else
+                    {
+                        DestroyImmediate(item.Value.texture);
+                        DestroyImmediate(item.Value);
+                    }
                 }
             }
 

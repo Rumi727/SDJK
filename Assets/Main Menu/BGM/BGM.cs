@@ -137,5 +137,11 @@ namespace SDJK.MainMenu
 
             return false;
         }
+
+        void OnDestroy()
+        {
+            if (audioClip != null)
+                Destroy(audioClip, 1);
+        }
     }
 }

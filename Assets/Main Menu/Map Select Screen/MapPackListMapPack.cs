@@ -145,7 +145,12 @@ namespace SDJK.MainMenu.MapSelectScreen
                 {
                     string texturePath = selectedMap.globalEffect.background[0].value.backgroundFile;
                     texturePath = PathTool.Combine(selectedMap.mapFilePathParent, texturePath);
-                    background.sprite = ResourceManager.GetSprite(await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none));
+
+                    Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
+                    if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                        return;
+
+                    background.sprite = ResourceManager.GetSprite(texture);
                 }
             }
             catch (System.Exception e)
