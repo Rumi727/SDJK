@@ -94,7 +94,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                 Dictionary<int, bool> twirlList = new Dictionary<int, bool>();
                 Dictionary<int, int> holdList = new Dictionary<int, int>();
                 Dictionary<int, double> pauseList = new Dictionary<int, double>();
-                Dictionary<int, double> multiPlanetList = new Dictionary<int, double>();
+                Dictionary<int, int> multiPlanetList = new Dictionary<int, int>();
                 {
                     bool twirl = false;
                     for (int i = 0; i < adofai.actions.Length; i++)
@@ -131,7 +131,12 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         }
                         else if (eventType == "MultiPlanet")
                         {
-                            multiPlanetList.TryAdd(index, 0);
+                            string planets = action["planets"].Value<string>();
+
+                            if (planets == "ThreePlanets")
+                                multiPlanetList.TryAdd(index, 3);
+                            else
+                                multiPlanetList.TryAdd(index, 2);
                         }
                     }
                 }
@@ -139,6 +144,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                 #region Beat
                 {
+                    #region Path Data
                     if (adofai.pathData.Length > 0)
                     {
                         float previousAngle = 0;
@@ -208,10 +214,12 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                         adofai.angleData = angleData.ToArray();
                     }
+                    #endregion
 
                     bool twirl = false;
                     double lastBeat = -1;
                     double lastAngle = 0;
+                    double lastMultiPlanet = 1;
                     for (int i = 0; i < adofai.angleData.Length; i++)
                     {
                         if (twirlList.TryGetValue(i, out bool outTwirl))
@@ -225,18 +233,22 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (holdList.TryGetValue(i, out int outHold))
                             hold = outHold;
 
+                        double multiPlanet = lastMultiPlanet;
+                        if (multiPlanetList.TryGetValue(i, out int outMultiPlanet))
+                        {
+                            multiPlanet = 2d / outMultiPlanet;
+                            lastMultiPlanet = multiPlanet;
+                        }
+
                         double beat = lastBeat;
                         double angle = adofai.angleData[i];
                         double nextAngle = 0;
                         if (i + 1 < adofai.angleData.Length)
                             nextAngle = adofai.angleData[i + 1];
 
-                        bool midspin = false;
                         double offsetBeat;
                         if (angle >= 999)
                         {
-                            midspin = true;
-
                             //미드스핀 일경우 무조건 반대방향으로 회전하니 180도를 더하고 동타이니 오프셋 비트는 0이여야합니다
                             angle = (lastAngle + 180).Repeat(360);
                             offsetBeat = 0;
@@ -245,17 +257,22 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         {
                             angle = angle.Repeat(360);
 
+                            double offsetAngle = 0;
                             if (!twirl)
-                                offsetBeat = (1 + ((lastAngle - angle) / 180)).Repeat(2);
+                                offsetAngle = lastAngle - angle;
                             else
-                                offsetBeat = (1 + ((angle - lastAngle) / 180)).Repeat(2);
+                                offsetAngle = angle - lastAngle;
+
+                            offsetBeat = (1 + (offsetAngle / (180d * multiPlanet)));
+                            offsetBeat *= multiPlanet;
+                            offsetBeat = offsetBeat.Repeat(2);
+
+                            //미드스핀이 아닌데 오프셋 비트가 0 이하 일 경우 한 바퀴를 더 기다려야합니다
+                            if (offsetBeat <= 0)
+                                offsetBeat += 2;
                         }
 
                         beat += (offsetBeat + pause) + (hold * 2);
-
-                        //미드스핀이 아닌데 오프셋 비트가 0일경우 한 바퀴 타일로 간주해야합니다
-                        if (offsetBeat <= 0 && !midspin)
-                            beat += 2;
 
                         BeatAdd(beat, angle);
 
