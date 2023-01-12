@@ -218,8 +218,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             twirl = outTwirl;
 
                         double pause = 0;
-                        if (pauseList.TryGetValue(i, out double outpause))
-                            pause = outpause;
+                        if (pauseList.TryGetValue(i, out double outPause))
+                            pause = outPause;
 
                         int hold = 0;
                         if (holdList.TryGetValue(i, out int outHold))
