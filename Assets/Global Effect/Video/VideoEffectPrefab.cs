@@ -131,10 +131,10 @@ namespace SDJK
                         {
                             canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
 
-                            if (dis >= 0.015625f)
+                            if (dis >= 0.015625)
                                 videoPlayer.playbackSpeed = speed * 4;
 
-                            if (dis <= -0.015625f)
+                            if (dis <= -0.015625)
                                 videoPlayer.playbackSpeed = speed * 0.25f;
                         }
                         else
