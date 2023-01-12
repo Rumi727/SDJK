@@ -141,7 +141,7 @@ namespace SDJK
                             videoPlayer.time = time;
                     }
 
-                    if (videoPlayer.isPaused != (soundPlayer.isPaused && RhythmManager.time >= 0))
+                    if (soundPlayer != null && videoPlayer.isPaused != (soundPlayer.isPaused && RhythmManager.time >= 0))
                     {
                         if (soundPlayer.isPaused && RhythmManager.time >= 0)
                             videoPlayer.Pause();
