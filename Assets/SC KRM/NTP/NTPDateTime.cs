@@ -181,6 +181,9 @@ namespace SCKRM.NTP
                         socket.Close();
                     }
 
+                    //컴퓨터가 계산을 하고 스레드를 대기탈때 오차가 발생하기 때문에 그 오차를 보정해줄 타이머를 하나 더 생성합니다
+                    Stopwatch timer = Stopwatch.StartNew();
+
                     const byte serverReplyTime = 40;
                     ulong intPart = BitConverter.ToUInt32(ntpData, serverReplyTime);
                     ulong fractPart = BitConverter.ToUInt32(ntpData, serverReplyTime + 4);
@@ -199,10 +202,12 @@ namespace SCKRM.NTP
 
                         try
                         {
-                            _lastSyncedServerDateTime = networkDateTime;
-                            _lastSyncedServerUTCDateTime = networkUTCDateTime;
+                            //아까 생성했던 타이머의 시간을 가져와서 NTP 시간에 더합니다
+                            TimeSpan elapsed = timer.Elapsed;
+                            _lastSyncedServerDateTime = networkDateTime + elapsed;
+                            _lastSyncedServerUTCDateTime = networkUTCDateTime + elapsed;
 
-                            timer.Restart();
+                            NTPDateTime.timer.Restart();
                         }
                         catch (Exception e)
                         {

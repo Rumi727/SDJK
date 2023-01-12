@@ -148,6 +148,11 @@ namespace SCKRM.Splash
                 }
 
                 SplashScreen.isAniPlaying = false;
+
+                if (bow != null)
+                    Destroy(bow);
+                if (drawmap)
+                    Destroy(drawmap);
             }
         }
 

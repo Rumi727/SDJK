@@ -22,12 +22,6 @@ namespace SCKRM.Editor
 
         public override void OnInspectorGUI()
         {
-            if (!Kernel.isPlaying)
-            {
-                EditorGUILayout.HelpBox("플레이 모드가 아닐경우, 씬의 용량을 줄이기 위해 이미지의 화질이 떨어질수 있습니다", MessageType.Warning);
-                DrawLine();
-            }
-
             EditorGUILayout.Space();
 
             editor.nameSpace = UsePropertyAndDrawNameSpace("_nameSpace", "네임스페이스", editor.nameSpace);

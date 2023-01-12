@@ -100,7 +100,7 @@ namespace SCKRM.Renderer
             }
             else
             {
-                Sprite[] sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace, TextureFormat.DXT1);
+                Sprite[] sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace);
                 if (sprites != null && sprites.Length > 0)
                     return sprites[index.Clamp(0, sprites.Length - 1)];
                 else

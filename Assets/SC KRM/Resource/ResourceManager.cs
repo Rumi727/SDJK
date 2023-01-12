@@ -150,7 +150,7 @@ namespace SCKRM.Resource
         /// Thread-Safe
         /// </summary>
         public static bool isResourceRefesh
-        { 
+        {
             get
             {
                 while (Interlocked.CompareExchange(ref isResourceRefeshLock, 1, 0) != 0)
@@ -581,7 +581,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                             spriteMetaDatas[i].rect = new JRect(rect.x + spriteMetaData.rect.x, rect.y + spriteMetaData.rect.y, rect.width - (rect.width - spriteMetaData.rect.width), rect.height - (rect.height - spriteMetaData.rect.height));
                         }
-                        Sprite[] sprites = GetSprites(background, spriteMetaDatas);
+                        Sprite[] sprites = GetSprites(background, HideFlags.DontSave, spriteMetaDatas);
 
                         allTextureSprites.TryAdd(nameSpace.Key, new Dictionary<string, Dictionary<string, Sprite[]>>());
                         allTextureSprites[nameSpace.Key].TryAdd(type.Key, new Dictionary<string, Sprite[]>());
@@ -1156,7 +1156,7 @@ Finds and returns sound data from resource packs"
 @"이미지 파일을 Texture2D 타입으로 가져옵니다
 Import image files as Texture2D type"
 )]
-        public static Texture2D GetTexture(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
+        public static Texture2D GetTexture(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!pathExtensionUse)
                 FileExtensionExists(path, out path, textureExtension);
@@ -1165,9 +1165,9 @@ Import image files as Texture2D type"
             if (textureMetaData == null)
             {
                 textureMetaData = new TextureMetaData();
-                return GetTexture(path, true, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
+                return GetTexture(path, true, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
             }
-            return GetTexture(path, true, FilterMode.Point, true, TextureMetaData.CompressionType.none, textureFormat);
+            return GetTexture(path, true, FilterMode.Point, true, TextureMetaData.CompressionType.none, textureFormat, hideFlags);
         }
 
         /// <summary>
@@ -1186,7 +1186,7 @@ Import image files as Texture2D type"
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
-        [WikiIgnore] public static Texture2D GetTexture(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32) => GetTexture(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
+        [WikiIgnore] public static Texture2D GetTexture(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave) => GetTexture(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
 
         /// <summary>
         /// 이미지 파일을 Texture2D 타입으로 가져옵니다
@@ -1205,7 +1205,7 @@ Import image files as Texture2D type"
         /// </param>
         /// <returns></returns>
         [WikiIgnore]
-        public static Texture2D GetTexture(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
+        public static Texture2D GetTexture(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (path == null)
                 path = "";
@@ -1221,6 +1221,7 @@ Import image files as Texture2D type"
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
                 texture.filterMode = filterMode;
                 texture.name = Path.GetFileNameWithoutExtension(path);
+                texture.hideFlags = hideFlags;
 
                 AsyncImageLoader.LoaderSettings loaderSettings = AsyncImageLoader.LoaderSettings.Default;
                 loaderSettings.generateMipmap = mipmapUse;
@@ -1267,7 +1268,7 @@ Import image files as Texture2D type"
 Asynchronously import an image file as a Texture2D type.
 Various formats are supported. Among them, there are formats supported by SC KRM and formats supported by Unity."
 )]
-        public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
+        public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!pathExtensionUse)
                 FileExtensionExists(path, out path, textureExtension);
@@ -1276,9 +1277,9 @@ Various formats are supported. Among them, there are formats supported by SC KRM
             if (textureMetaData == null)
             {
                 textureMetaData = new TextureMetaData();
-                return GetTextureAsync(path, true, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
+                return GetTextureAsync(path, true, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
             }
-            return GetTextureAsync(path, true, FilterMode.Point, true, TextureMetaData.CompressionType.none, textureFormat);
+            return GetTextureAsync(path, true, FilterMode.Point, true, TextureMetaData.CompressionType.none, textureFormat, hideFlags);
         }
 
         /// <summary>
@@ -1299,7 +1300,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
-        [WikiIgnore] public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32) => GetTextureAsync(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat);
+        [WikiIgnore] public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave) => GetTextureAsync(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
 
         /// <summary>
         /// 이미지 파일을 Texture2D 타입으로 비동기로 가져옵니다
@@ -1320,7 +1321,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
         /// </param>
         /// <returns></returns>
         [WikiIgnore]
-        public static async UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32)
+        public static async UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1356,8 +1357,12 @@ Various formats are supported. Among them, there are formats supported by SC KRM
                 loaderSettings.generateMipmap = mipmapUse;
                 loaderSettings.logException = true;
 
+                texture.hideFlags = HideFlags.DontUnloadUnusedAsset;
+
                 if (!await AsyncImageLoader.LoadImageAsync(texture, textureBytes, loaderSettings))
                     return null;
+
+                texture.hideFlags = hideFlags;
 
                 if (compressionType == TextureMetaData.CompressionType.normal)
                     texture.Compress(false);
@@ -1383,7 +1388,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
 @"텍스쳐를 스프라이트로 변환합니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
 Convert texture to sprite (Since the Unity API is used, we need to run it on the main thread)"
 )]
-        public static Sprite GetSprite(Texture2D texture, SpriteMetaData spriteMetaData = null)
+        public static Sprite GetSprite(Texture2D texture, SpriteMetaData spriteMetaData = null, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1392,13 +1397,23 @@ Convert texture to sprite (Since the Unity API is used, we need to run it on the
                 return null;
 
             if (spriteMetaData == null)
-                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100, 0, SpriteMeshType.FullRect, Vector4.zero);
+            {
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100, 0, SpriteMeshType.FullRect, Vector4.zero);
+                sprite.name = texture.name;
+                sprite.hideFlags = hideFlags;
+
+                return sprite;
+            }
             else
             {
                 spriteMetaData.RectMinMax(texture.width, texture.height);
                 spriteMetaData.PixelsPreUnitMinSet();
 
-                return Sprite.Create(texture, spriteMetaData.rect, spriteMetaData.pivot, spriteMetaData.pixelsPerUnit, 0, SpriteMeshType.FullRect, spriteMetaData.border);
+                Sprite sprite = Sprite.Create(texture, spriteMetaData.rect, spriteMetaData.pivot, spriteMetaData.pixelsPerUnit, 0, SpriteMeshType.FullRect, spriteMetaData.border);
+                sprite.name = texture.name;
+                sprite.hideFlags = hideFlags;
+
+                return sprite;
             }
         }
 
@@ -1432,7 +1447,7 @@ Convert texture to sprite (Since the Unity API is used, we need to run it on the
 @"이미지 파일을 스프라이트로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다.)
 Import image files as sprites (Since the Unity API is used, we need to run it on the main thread)"
 )]
-        public static Sprite[] GetSprites(string resourcePackPath, string type, string name, string nameSpace = "", TextureFormat textureFormat = TextureFormat.RGBA32)
+        public static Sprite[] GetSprites(string resourcePackPath, string type, string name, string nameSpace = "", TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1459,7 +1474,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
             Texture2D texture = GetTexture(allPath, false, textureMetaData, textureFormat);
             FileExtensionExists(allPath, out string allPath2, textureExtension);
             SpriteMetaData[] spriteMetaDatas = JsonManager.JsonRead<SpriteMetaData[]>(allPath2 + ".json", true);
-            return GetSprites(texture, spriteMetaDatas);
+            return GetSprites(texture, hideFlags, spriteMetaDatas);
         }
 
         /// <summary>
@@ -1477,7 +1492,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
         [WikiIgnore]
-        public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32)
+        public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1487,7 +1502,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
 
             Texture2D texture = GetTexture(path, pathExtensionUse, textureFormat);
             SpriteMetaData[] spriteMetaDatas = JsonManager.JsonRead<SpriteMetaData[]>(path + ".json", true);
-            return GetSprites(texture, spriteMetaDatas);
+            return GetSprites(texture, hideFlags, spriteMetaDatas);
         }
 
         /// <summary>
@@ -1504,7 +1519,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
         [WikiIgnore]
-        public static Sprite[] GetSprites(Texture2D texture, params SpriteMetaData[] spriteMetaDatas)
+        public static Sprite[] GetSprites(Texture2D texture, HideFlags hideFlags, params SpriteMetaData[] spriteMetaDatas)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1526,6 +1541,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
 
                 Sprite sprite = Sprite.Create(texture, spriteMetaData.rect, spriteMetaData.pivot, spriteMetaData.pixelsPerUnit, 0, SpriteMeshType.FullRect, spriteMetaData.border);
                 sprite.name = texture.name;
+                sprite.hideFlags = hideFlags;
 
                 sprites[i] = sprite;
             }
@@ -1589,7 +1605,7 @@ Import text file as string type"
 Import audio files as audio clips (Since the Unity API is used, we need to run it on the main thread)"
 )]
 #pragma warning disable CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
-        public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false)
+        public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false, HideFlags hideFlags = HideFlags.DontSave)
 #pragma warning restore CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
         {
 #if !((UNITY_STANDALONE_LINUX && !UNITY_EDITOR) || UNITY_EDITOR_LINUX)
@@ -1641,7 +1657,11 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
                     if (www.result != UnityWebRequest.Result.Success)
                         Debug.LogError(www.error);
 
-                    return DownloadHandlerAudioClip.GetContent(www);
+                    AudioClip audioClip = DownloadHandlerAudioClip.GetContent(www);
+                    audioClip.name = Path.GetFileNameWithoutExtension(path);
+                    audioClip.hideFlags = hideFlags;
+
+                    return audioClip;
                 }
 
                 return null;
