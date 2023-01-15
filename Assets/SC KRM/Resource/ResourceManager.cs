@@ -136,6 +136,7 @@ namespace SCKRM.Resource
 
 
 
+        public static List<UnityEngine.Object> allLoadedResources { get; } = new List<UnityEngine.Object>();
         static List<UnityEngine.Object> garbages = new List<UnityEngine.Object>();
 
 
@@ -769,7 +770,40 @@ delete garbage"
             for (int i = 0; i < garbages.Count; i++)
                 UnityEngine.Object.DestroyImmediate(garbages[i]);
 
+            for (int i = 0; i < allLoadedResources.Count; i++)
+            {
+                UnityEngine.Object resource = allLoadedResources[i];
+                if (resource == null)
+                {
+                    allLoadedResources.RemoveAt(i);
+                    i--;
+                }
+            }
+
             garbages.Clear();
+        }
+
+        [WikiDescription("모든 리소스를 삭제합니다")]
+        public static void AllDestroy()
+        {
+            GarbageRemoval();
+
+            List<Sprite> allLoadedSprite = allLoadedResources.OfType<Sprite>().ToList();
+            for (int i = 0; i < allLoadedSprite.Count; i++)
+            {
+                Sprite sprite = allLoadedSprite[i];
+                if (sprite != null)
+                    UnityEngine.Object.DestroyImmediate(sprite);
+            }
+
+            for (int i = 0; i < allLoadedResources.Count; i++)
+            {
+                UnityEngine.Object resource = allLoadedResources[i];
+                if (resource != null)
+                    UnityEngine.Object.DestroyImmediate(resource);
+            }
+
+            allLoadedResources.Clear();
         }
 
         [WikiDescription("오디오를 리셋합니다")]
@@ -1219,6 +1253,8 @@ Import image files as Texture2D type"
             if (exists)
             {
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
+                allLoadedResources.Add(texture);
+
                 texture.filterMode = filterMode;
                 texture.name = Path.GetFileNameWithoutExtension(path);
                 texture.hideFlags = hideFlags;
@@ -1343,6 +1379,9 @@ Various formats are supported. Among them, there are formats supported by SC KRM
                 using UnityWebRequest www = UnityWebRequest.Get(path.UrlPathPrefix());
                 await www.SendWebRequest();
 
+                if (!Kernel.isPlaying)
+                    return null;
+
                 if (www.result != UnityWebRequest.Result.Success)
                     Debug.LogError(www.error);
 
@@ -1350,6 +1389,8 @@ Various formats are supported. Among them, there are formats supported by SC KRM
 #endif
 
                 Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
+                allLoadedResources.Add(texture);
+
                 texture.filterMode = filterMode;
                 texture.name = Path.GetFileNameWithoutExtension(path);
 
@@ -1359,8 +1400,13 @@ Various formats are supported. Among them, there are formats supported by SC KRM
 
                 texture.hideFlags = HideFlags.DontUnloadUnusedAsset;
 
-                if (!await AsyncImageLoader.LoadImageAsync(texture, textureBytes, loaderSettings))
+                if (!await AsyncImageLoader.LoadImageAsync(texture, textureBytes, loaderSettings) || !Kernel.isPlaying)
+                {
+                    UnityEngine.Object.DestroyImmediate(texture);
                     return null;
+                }
+
+                allLoadedResources.Add(texture);
 
                 texture.hideFlags = hideFlags;
 
@@ -1402,6 +1448,8 @@ Convert texture to sprite (Since the Unity API is used, we need to run it on the
                 sprite.name = texture.name;
                 sprite.hideFlags = hideFlags;
 
+                allLoadedResources.Add(sprite);
+
                 return sprite;
             }
             else
@@ -1412,6 +1460,8 @@ Convert texture to sprite (Since the Unity API is used, we need to run it on the
                 Sprite sprite = Sprite.Create(texture, spriteMetaData.rect, spriteMetaData.pivot, spriteMetaData.pixelsPerUnit, 0, SpriteMeshType.FullRect, spriteMetaData.border);
                 sprite.name = texture.name;
                 sprite.hideFlags = hideFlags;
+
+                allLoadedResources.Add(sprite);
 
                 return sprite;
             }
@@ -1543,6 +1593,8 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
                 sprite.name = texture.name;
                 sprite.hideFlags = hideFlags;
 
+                allLoadedResources.Add(sprite);
+
                 sprites[i] = sprite;
             }
             return sprites;
@@ -1654,12 +1706,17 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
 
                     await www.SendWebRequest();
 
+                    if (!Kernel.isPlaying)
+                        return null;
+
                     if (www.result != UnityWebRequest.Result.Success)
                         Debug.LogError(www.error);
 
                     AudioClip audioClip = DownloadHandlerAudioClip.GetContent(www);
                     audioClip.name = Path.GetFileNameWithoutExtension(path);
                     audioClip.hideFlags = hideFlags;
+
+                    allLoadedResources.Add(audioClip);
 
                     return audioClip;
                 }

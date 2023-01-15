@@ -6,6 +6,7 @@ namespace SCKRM.UI.SideBar
     [RequireComponent(typeof(RectTransform))]
     public static class SideBarManager
     {
+        public static List<SideBarAni> allShowedSideBars { get; } = new List<SideBarAni>();
         public static List<SideBarAni> showedSideBars { get; } = new List<SideBarAni>();
         public static bool isSideBarShow => showedSideBars.Count > 0;
         public static bool sideBarForceHide { get; set; } = false;

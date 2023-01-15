@@ -129,8 +129,11 @@ namespace SCKRM.UI.SideBar
                         viewPort.gameObject.SetActive(true);
                         graphic.enabled = true;
 
-                        if (scrollBarParentRectTransform != null)
+                        if (scrollBarParentRectTransform != null && !scrollBarParentRectTransform.gameObject.activeSelf)
+                        {
                             scrollBarParentRectTransform.gameObject.SetActive(true);
+                            SideBarManager.allShowedSideBars.Add(this);
+                        }
                     }
                 }
                 else
@@ -144,8 +147,11 @@ namespace SCKRM.UI.SideBar
                                 viewPort.gameObject.SetActive(false);
                                 graphic.enabled = false;
 
-                                if (scrollBarParentRectTransform != null)
+                                if (scrollBarParentRectTransform != null && scrollBarParentRectTransform.gameObject.activeSelf)
+                                {
                                     scrollBarParentRectTransform.gameObject.SetActive(false);
+                                    SideBarManager.allShowedSideBars.Remove(this);
+                                }
                             }
 
                             return;
@@ -160,8 +166,11 @@ namespace SCKRM.UI.SideBar
                                 viewPort.gameObject.SetActive(false);
                                 graphic.enabled = false;
 
-                                if (scrollBarParentRectTransform != null)
+                                if (scrollBarParentRectTransform != null && scrollBarParentRectTransform.gameObject.activeSelf)
+                                {
                                     scrollBarParentRectTransform.gameObject.SetActive(false);
+                                    SideBarManager.allShowedSideBars.Remove(this);
+                                }
                             }
 
                             return;

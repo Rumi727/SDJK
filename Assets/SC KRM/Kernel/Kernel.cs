@@ -15,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : ManagerBase<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 15, 0);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 15, 1);
 
 
 
@@ -427,6 +427,8 @@ Build: const true"
                     }
                 }
             }
+
+            ResourceManager.AllDestroy();
 
             AsyncTaskManager.AllAsyncTaskCancel(false);
             ThreadManager.AllThreadRemove();

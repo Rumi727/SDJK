@@ -71,8 +71,8 @@ namespace SCKRM.UI
 
             kernelCanvasBackground.raycastTarget = highPriorityBackEventList.Count > 0;
 
-            kernelCanvasUI.offsetMin = StatusBarManager.cropedRect.min;
-            kernelCanvasUI.offsetMax = StatusBarManager.cropedRect.max;
+            kernelCanvasUI.offsetMin = new Vector2(0, StatusBarManager.cropedRect.min.y);
+            kernelCanvasUI.offsetMax = new Vector2(1, StatusBarManager.cropedRect.max.y);
         }
 
         [WikiDescription("뒤로가기 이벤트")]

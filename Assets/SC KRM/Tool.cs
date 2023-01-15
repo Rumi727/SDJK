@@ -431,6 +431,17 @@ namespace SCKRM
             else
                 return value;
         }
+
+        [WikiIgnore] public static Vector2 Clamp(this Vector2 value, Vector2 min) => new Vector2(value.x.Clamp(min.x), value.y.Clamp(min.y));
+        [WikiIgnore] public static Vector2 Clamp(this Vector2 value, Vector2 min, Vector2 max) => new Vector2(value.x.Clamp(min.x, max.x), value.y.Clamp(min.y, max.y));
+        [WikiIgnore] public static Vector3 Clamp(this Vector3 value, Vector3 min) => new Vector3(value.x.Clamp(min.x), value.y.Clamp(min.y), value.z.Clamp(min.z));
+        [WikiIgnore] public static Vector3 Clamp(this Vector3 value, Vector3 min, Vector3 max) => new Vector3(value.x.Clamp(min.x, max.x), value.y.Clamp(min.y, max.y), value.z.Clamp(min.z, max.z));
+        [WikiIgnore] public static Vector4 Clamp(this Vector4 value, Vector4 min) => new Vector4(value.x.Clamp(min.x), value.y.Clamp(min.y), value.z.Clamp(min.z), value.w.Clamp(min.w));
+        [WikiIgnore] public static Vector4 Clamp(this Vector4 value, Vector4 min, Vector4 max) => new Vector4(value.x.Clamp(min.x, max.x), value.y.Clamp(min.y, max.y), value.z.Clamp(min.z, max.z), value.w.Clamp(min.w, max.w));
+        [WikiIgnore] public static Rect Clamp(this Rect value, Rect min) => new Rect(value.x.Clamp(min.x), value.y.Clamp(min.y), value.width.Clamp(min.width), value.height.Clamp(min.height));
+        [WikiIgnore] public static Rect Clamp(this Rect value, Rect min, Rect max) => new Rect(value.x.Clamp(min.x, max.x), value.y.Clamp(min.y, max.y), value.width.Clamp(min.width, max.width), value.height.Clamp(min.height, max.height));
+        [WikiIgnore] public static Color Clamp(this Color value, Color min) => new Color(value.r.Clamp(min.r), value.g.Clamp(min.g), value.b.Clamp(min.b), value.a.Clamp(min.a));
+        [WikiIgnore] public static Color Clamp(this Color value, Color min, Color max) => new Color(value.r.Clamp(min.r, max.r), value.g.Clamp(min.g, max.g), value.b.Clamp(min.b, max.b), value.a.Clamp(min.a, max.a));
         #endregion
 
         #region Clamp01
@@ -589,6 +600,12 @@ namespace SCKRM
             else
                 return value;
         }
+
+        [WikiIgnore] public static Vector2 Clamp01(this Vector2 value) => new Vector2(value.x.Clamp01(), value.y.Clamp01());
+        [WikiIgnore] public static Vector3 Clamp01(this Vector3 value) => new Vector3(value.x.Clamp01(), value.y.Clamp01(), value.z.Clamp01());
+        [WikiIgnore] public static Vector4 Clamp01(this Vector4 value) => new Vector4(value.x.Clamp01(), value.y.Clamp01(), value.z.Clamp01(), value.w.Clamp01());
+        [WikiIgnore] public static Rect Clamp01(this Rect value) => new Rect(value.x.Clamp01(), value.y.Clamp01(), value.width.Clamp01(), value.height.Clamp01());
+        [WikiIgnore] public static Color Clamp01(this Color value) => new Color(value.r.Clamp01(), value.g.Clamp01(), value.b.Clamp01(), value.a.Clamp01());
         #endregion
 
         #region Distance

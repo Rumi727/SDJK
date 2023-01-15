@@ -236,6 +236,19 @@ namespace SCKRM.UI.StatusBar
                             rect.min = new Vector2(0, rectTransform.rect.size.y + rectTransform.anchoredPosition.y);
                         else
                             rect.max = new Vector2(0, -(rectTransform.rect.size.y - rectTransform.anchoredPosition.y));
+
+                        for (int i = 0; i < SideBarManager.allShowedSideBars.Count; i++)
+                        {
+                            SideBarAni sideBar = SideBarManager.allShowedSideBars[i];
+                            float x;
+
+                            if (sideBar.right)
+                                x = sideBar.rectTransform.anchoredPosition.x - sideBar.rectTransform.rect.width;
+                            else
+                                x = sideBar.rectTransform.anchoredPosition.x + sideBar.rectTransform.rect.width;
+
+                            rect.x += x * 0.125f;
+                        }
                     }
 
                     cropedRect = rect;
