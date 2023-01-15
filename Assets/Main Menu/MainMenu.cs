@@ -23,7 +23,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MainMenu
 {
-    public sealed class MainMenu : Manager<MainMenu>
+    public sealed class MainMenu : ManagerBase<MainMenu>
     {
         [GeneralSaveLoad]
         public class SaveData

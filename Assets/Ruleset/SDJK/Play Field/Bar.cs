@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class Bar : ObjectPooling
+    public sealed class Bar : ObjectPoolingBase
     {
         public const float barWidth = 2.5f;
         public const float barWidthWithoutBoard = 2.25f;

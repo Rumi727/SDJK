@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu
 {
-    public sealed class BGM : ObjectPooling
+    public sealed class BGM : ObjectPoolingBase
     {
         public ISoundPlayer soundPlayer { get; private set; }
 

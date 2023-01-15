@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Effect
 {
-    public sealed class SDJKGameOverManager : Manager<SDJKGameOverManager>
+    public sealed class SDJKGameOverManager : ManagerBase<SDJKGameOverManager>
     {
         [SerializeField] SDJKManager _manager; public SDJKManager manager => _manager;
         [SerializeField] float speed = 0;

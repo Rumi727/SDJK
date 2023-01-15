@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Input
 {
-    public sealed class SDJKInputManager : Manager<SDJKInputManager>
+    public sealed class SDJKInputManager : ManagerBase<SDJKInputManager>
     {
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;

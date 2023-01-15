@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
-    public sealed class SDJKJudgementManager : Manager<SDJKJudgementManager>
+    public sealed class SDJKJudgementManager : ManagerBase<SDJKJudgementManager>
     {
         [SerializeField] SDJKManager _sdjkManager; public SDJKManager sdjkManager => _sdjkManager;
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;

@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu
 {
-    public sealed class BGMManager : Manager<BGMManager>
+    public sealed class BGMManager : ManagerBase<BGMManager>
     {
         public static BGM bgm { get; private set; }
 

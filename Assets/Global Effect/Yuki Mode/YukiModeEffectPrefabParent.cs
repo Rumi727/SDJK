@@ -5,7 +5,7 @@ using SDJK.Effect;
 
 namespace SDJK
 {
-    public abstract class YukiModeEffectPrefabParent : ObjectPooling
+    public abstract class YukiModeEffectPrefabParent : ObjectPoolingBase
     {
         public YukiModeEffect yukiModeEffect { get; private set; }
 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class Note : ObjectPooling
+    public sealed class Note : ObjectPoolingBase
     {
         public const float noteYSize = 1;
 

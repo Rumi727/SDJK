@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class PlayField : ObjectPooling
+    public sealed class PlayField : ObjectPoolingBase
     {
         [SerializeField] Transform _bars; public Transform bars => _bars;
 

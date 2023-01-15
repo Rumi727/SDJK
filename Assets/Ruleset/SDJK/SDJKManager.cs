@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class SDJKManager : Manager<SDJKManager>
+    public sealed class SDJKManager : ManagerBase<SDJKManager>
     {
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
 
