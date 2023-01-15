@@ -36,10 +36,10 @@ namespace SDJK.Effect
 
             for (int i = 0; i < map.globalEffect.background.Count; i++)
             {
-                BackgroundEffectPair lastBackground = lastBackgrounds[i].value;
-                BackgroundEffectPair background = map.globalEffect.background[i].value;
+                BeatValuePair<BackgroundEffectPair> lastBackground = lastBackgrounds[i];
+                BeatValuePair<BackgroundEffectPair> background = map.globalEffect.background[i];
 
-                if (lastBackground.backgroundFile != background.backgroundFile || lastBackground.backgroundNightFile != background.backgroundNightFile)
+                if (lastBackground.Equals(background) || lastBackground.Equals(background))
                     return true;
             }
 
