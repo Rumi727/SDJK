@@ -234,8 +234,8 @@ namespace SDJK.MainMenu.MapSelectScreen
         {
             if (background.sprite != null)
             {
-                Destroy(background.sprite.texture);
-                Destroy(background.sprite);
+                DestroyImmediate(background.sprite.texture);
+                DestroyImmediate(background.sprite);
             }
         }
     }
