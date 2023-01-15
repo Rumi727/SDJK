@@ -133,7 +133,9 @@ namespace SCKRM.Rhythm
                         if (sync >= 0)
                         {
                             _time = soundPlayer.time;
-                            FixBPM();
+
+                            if (sync.Abs() >= 0.03125)
+                                FixBPM();
                         }
                     }
                     else if (!soundPlayer.isPaused)
