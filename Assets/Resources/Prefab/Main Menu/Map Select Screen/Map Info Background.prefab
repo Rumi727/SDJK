@@ -70,11 +70,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097bf6966ced6094dbc1452362bf194d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _image: {fileID: 978618387941541928}
   _canvasGroup: {fileID: 5314454185515033005}
 --- !u!222 &1174958582390905568
@@ -134,7 +129,7 @@ MonoBehaviour:
   _zoom: 1
   _effectGradient:
     serializedVersion: 2
-    key0: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key0: {r: 0.25, g: 0.25, b: 0.25, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -191,3 +186,4 @@ MonoBehaviour:
   _rectTransform: {fileID: 1174958582390905574}
   _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 978618387941541928}
+  _targetRectTransform: {fileID: 0}
