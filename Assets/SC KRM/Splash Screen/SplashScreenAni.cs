@@ -7,7 +7,7 @@ using TMPro;
 namespace SCKRM.Splash
 {
     [AddComponentMenu("SC KRM/Splash Screen/Splash Screen Ani")]
-    public sealed class SplashScreenAni : Manager<SplashScreenAni>
+    public sealed class SplashScreenAni : ManagerBase<SplashScreenAni>
     {
         [SerializeField] CanvasGroup progressBarCanvasGroup;
         [SerializeField] ProgressBar progressBar;

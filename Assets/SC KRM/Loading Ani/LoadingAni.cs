@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SCKRM.Loading
 {
-    public sealed class LoadingAni : ObjectPooling
+    public sealed class LoadingAni : ObjectPoolingBase
     {
         public float progress { get; set; } = 0;
         public float maxProgress { get; set; } = 1;

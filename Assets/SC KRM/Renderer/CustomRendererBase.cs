@@ -5,7 +5,7 @@ using System.Threading;
 namespace SCKRM.Renderer
 {
     [WikiDescription("모든 렌더러들의 부모")]
-    public abstract class CustomAllRenderer : MonoBehaviour, IRendererRefreshable, INameSpaceKey
+    public abstract class CustomRendererBase : MonoBehaviour, IRendererRefreshable, INameSpaceKey
     {
         /// <summary>
         /// 렌더링 할 파일의 네임스페이스 (Thread-safe)

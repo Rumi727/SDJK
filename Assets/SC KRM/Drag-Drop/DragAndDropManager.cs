@@ -20,7 +20,7 @@ namespace SCKRM.DragAndDrop
 {
     [WikiDescription("드래그 앤 드랍을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Drag And Drop/Drag And Drop Manager")]
-    public sealed class DragAndDropManager : Manager<DragAndDropManager>
+    public sealed class DragAndDropManager : ManagerBase<DragAndDropManager>
     {
 #if UNITY_EDITOR
         /// <summary>

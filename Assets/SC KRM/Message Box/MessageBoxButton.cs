@@ -9,7 +9,7 @@ namespace SCKRM.UI.Overlay.MessageBox
     public sealed class MessageBoxButton : UIObjectPooling
     {
         [SerializeField] Button _button; public Button button => _button;
-        [SerializeField] CustomAllTextRenderer _text; public CustomAllTextRenderer text => _text;
+        [SerializeField] CustomTextRendererBase _text; public CustomTextRendererBase text => _text;
 
         [WikiDescription("버튼의 인덱스")]
         public int index { get; set; }

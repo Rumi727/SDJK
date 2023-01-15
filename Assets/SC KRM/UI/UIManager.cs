@@ -14,7 +14,7 @@ namespace SCKRM.UI
 {
     [WikiDescription("UI를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/UI/UI Manager")]
-    public sealed class UIManager : Manager<UIManager>
+    public sealed class UIManager : ManagerBase<UIManager>
     {
         [GeneralSaveLoad]
         public sealed class SaveData

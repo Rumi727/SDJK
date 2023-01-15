@@ -19,14 +19,14 @@ namespace SCKRM.UI.SideBar
 
 
 
-        [SerializeField] CustomAllSpriteRenderer _icon;
-        public CustomAllSpriteRenderer icon => _icon;
+        [SerializeField] CustomSpriteRendererBase _icon;
+        public CustomSpriteRendererBase icon => _icon;
 
-        [SerializeField] CustomAllTextRenderer _nameText;
-        public CustomAllTextRenderer nameText => _nameText;
+        [SerializeField] CustomTextRendererBase _nameText;
+        public CustomTextRendererBase nameText => _nameText;
 
-        [SerializeField] CustomAllTextRenderer _infoText;
-        public CustomAllTextRenderer infoText => _infoText;
+        [SerializeField] CustomTextRendererBase _infoText;
+        public CustomTextRendererBase infoText => _infoText;
 
         bool pointer = false;
         void Update()

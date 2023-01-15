@@ -22,7 +22,7 @@ namespace SCKRM.FileDialog
 {
     [WikiDescription("파일 다이얼로그를 관리하는 클래스입니다")]
     [AddComponentMenu("SC KRM/File Dialog/File Dialog Manager")]
-    public sealed class FileDialogManager : Manager<FileDialogManager>, IUIOverlay
+    public sealed class FileDialogManager : ManagerBase<FileDialogManager>, IUIOverlay
     {
         /// <summary>
         /// 파일 선택 창이 열려있는지의 대한 여부입니다
@@ -114,7 +114,7 @@ namespace SCKRM.FileDialog
         [SerializeField] TMP_InputField fileDialogPath;
         [SerializeField] TMP_InputField fileDialogTitle;
         [SerializeField] UI.Dropdown fileDialogFilter;
-        [SerializeField] CustomAllTextRenderer fileDialogSaveOpenButtonText;
+        [SerializeField] CustomTextRendererBase fileDialogSaveOpenButtonText;
         [SerializeField] Button fileDialogSaveOpenButton;
 
         void Awake() => SingletonCheck(this);

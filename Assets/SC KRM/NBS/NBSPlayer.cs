@@ -10,7 +10,7 @@ namespace SCKRM.NBS
 {
     [WikiDescription("NBS를 플레이하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/NBS/NBS Player")]
-    public sealed class NBSPlayer : SoundPlayerParent<NBSMetaData>
+    public sealed class NBSPlayer : SoundPlayerBase<NBSMetaData>
     {
         [WikiDescription("NBS 파일을 가져옵니다")] public NBSFile nbsFile => metaData.nbsFile;
 

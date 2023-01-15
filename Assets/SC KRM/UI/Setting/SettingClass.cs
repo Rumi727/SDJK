@@ -26,7 +26,7 @@ namespace SCKRM.UI.Setting
 
         [SerializeField] CanvasGroup _resetButton; public CanvasGroup resetButton { get => _resetButton; set => _resetButton = value; }
         [SerializeField] RectTransform _nameText; public RectTransform nameText { get => _nameText; set => _nameText = value; }
-        [SerializeField] CustomAllTextRenderer _nameTextRenderer; public CustomAllTextRenderer nameTextRenderer { get => _nameTextRenderer; set => _nameTextRenderer = value; }
+        [SerializeField] CustomTextRendererBase _nameTextRenderer; public CustomTextRendererBase nameTextRenderer { get => _nameTextRenderer; set => _nameTextRenderer = value; }
 
 
 

@@ -183,7 +183,7 @@ namespace SCKRM.Editor
                 return;
             }
 
-            Sprite sprite = CustomAllSpriteRenderer.GetSprite(type, name, index, nameSpace);
+            Sprite sprite = CustomSpriteRendererBase.GetSprite(type, name, index, nameSpace);
             if (sprite == null)
                 return;
 

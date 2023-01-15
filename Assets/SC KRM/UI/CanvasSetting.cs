@@ -12,6 +12,12 @@ namespace SCKRM.UI
     [AddComponentMenu("SC KRM/UI/Canvas Setting")]
     public sealed class CanvasSetting : UI
     {
+        /// <summary>
+        /// 이 변수를 활성화 하면 에디터에서 씬 가시성이 항상 활성화 됩니다.
+        /// 이 프로퍼티는 런타임에 영향을 미치지 않습니다.
+        /// </summary>
+        public bool alwaysVisible { get => _alwaysVisible; set => _alwaysVisible = value; }
+        [SerializeField] bool _alwaysVisible;
         [SerializeField] bool _customSetting; public bool customSetting { get => _customSetting; set => _customSetting = value; }
         [SerializeField] bool _customGuiSize; public bool customGuiSize { get => _customGuiSize; set => _customGuiSize = value; }
         [SerializeField] bool _worldRenderMode; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }

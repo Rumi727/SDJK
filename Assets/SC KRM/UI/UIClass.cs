@@ -17,9 +17,9 @@ namespace SCKRM.UI
 
     public class UI : UIBehaviour, IUI
     {
-        [SerializeField] Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
+        Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
 
-        [SerializeField] RectTransform _parentRectTransform; public RectTransform parentRectTransform
+        RectTransform _parentRectTransform; public RectTransform parentRectTransform
         {
             get
             {
@@ -29,7 +29,7 @@ namespace SCKRM.UI
                 return _parentRectTransform;
             }
         }
-        [SerializeField] RectTransform _rectTransform; public RectTransform rectTransform
+        RectTransform _rectTransform; public RectTransform rectTransform
         {
             get
             {
@@ -43,9 +43,9 @@ namespace SCKRM.UI
                 return _rectTransform;
             }
         }
-        [SerializeField] RectTransformTool _rectTransformTool; public RectTransformTool rectTransformTool => _rectTransformTool = this.GetComponentFieldSave(_rectTransformTool);
+        RectTransformTool _rectTransformTool; public RectTransformTool rectTransformTool => _rectTransformTool = this.GetComponentFieldSave(_rectTransformTool);
 
-        [SerializeField] Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentTool.GetComponentMode.none);
+        Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentTool.GetComponentMode.none);
     }
 
     public class UIObjectPooling : UI, IObjectPooling

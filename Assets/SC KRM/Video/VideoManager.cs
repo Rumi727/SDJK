@@ -10,7 +10,7 @@ namespace SCKRM
 {
     [WikiDescription("비디오 품질을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Video/Video Manager")]
-    public sealed class VideoManager : Manager<VideoManager>
+    public sealed class VideoManager : ManagerBase<VideoManager>
     {
         [ProjectSettingSaveLoad]
         public sealed class Data

@@ -8,7 +8,7 @@ namespace SCKRM.Sound
 {
     public delegate void OnAudioFilterReadAction(float[] data, int channels);
 
-    public interface ISoundPlayerData<MetaData> where MetaData : SoundMetaDataParent
+    public interface ISoundPlayerData<MetaData> where MetaData : SoundMetaDataBase
     {
         SoundData<MetaData> soundData { get; }
         SoundData<MetaData> customSoundData { get; set; }
@@ -71,7 +71,7 @@ namespace SCKRM.Sound
     }
 
     [WikiDescription("내장 사운드 플레이어")]
-    public abstract class SoundPlayerParent<MetaData> : ObjectPooling, ISoundPlayer, ISoundPlayerData<MetaData> where MetaData : SoundMetaDataParent
+    public abstract class SoundPlayerBase<MetaData> : ObjectPoolingBase, ISoundPlayer, ISoundPlayerData<MetaData> where MetaData : SoundMetaDataBase
     {
         SoundData<MetaData> ISoundPlayerData<MetaData>.soundData { get => soundData; }
         public SoundData<MetaData> soundData { get; protected set; }

@@ -8,7 +8,7 @@ namespace SCKRM.Renderer
     [WikiDescription("이미지 렌더러")]
     [AddComponentMenu("SC KRM/Renderer/UI/Image")]
     [RequireComponent(typeof(Image))]
-    public class CustomImageRenderer : CustomAllSpriteRenderer
+    public class CustomImageRenderer : CustomSpriteRendererBase
     {
         [SerializeField, HideInInspector] Image _image; public Image image => _image = this.GetComponentFieldSave(_image);
 

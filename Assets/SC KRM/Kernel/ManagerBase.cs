@@ -16,7 +16,7 @@ void Awake()
 }
 ```"
 )]
-    public class Manager<T> : MonoBehaviour where T : Manager<T>
+    public abstract class ManagerBase<T> : MonoBehaviour where T : ManagerBase<T>
     {
         [WikiDescription("싱글톤의 인스턴스를 가져옵니다")]
         public static T instance { get; private set; }

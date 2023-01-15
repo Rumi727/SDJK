@@ -14,9 +14,9 @@ namespace SCKRM.FileDialog.MyPC
         [SerializeField, NotNull] Slider _capacitySlider; public Slider capacitySlider { get => _capacitySlider; }
         [SerializeField, NotNull] Image _capacitySliderFill; public Image capacitySliderFill { get => _capacitySliderFill; }
 
-        [SerializeField, NotNull] CustomAllSpriteRenderer _icon; public CustomAllSpriteRenderer icon { get => _icon; }
+        [SerializeField, NotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
         [SerializeField, NotNull] TMP_Text _nameText; public TMP_Text nameText { get => _nameText; }
-        [SerializeField, NotNull] CustomAllTextRenderer _capacityText; public CustomAllTextRenderer capacityText { get => _capacityText; }
+        [SerializeField, NotNull] CustomTextRendererBase _capacityText; public CustomTextRendererBase capacityText { get => _capacityText; }
 
         [WikiDescription("버튼 삭제")]
         public override bool Remove()

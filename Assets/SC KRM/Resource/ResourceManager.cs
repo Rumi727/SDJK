@@ -671,7 +671,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                         return null;
                     }
 
-                    async UniTask<(bool success, bool cancel)> TryGetSoundData<MetaData>(string folderPath, Dictionary<string, Dictionary<string, SoundData<MetaData>>> allSounds, Func<string, MetaData, UniTask<MetaData>> metaDataCreateFunc) where MetaData : SoundMetaDataParent
+                    async UniTask<(bool success, bool cancel)> TryGetSoundData<MetaData>(string folderPath, Dictionary<string, Dictionary<string, SoundData<MetaData>>> allSounds, Func<string, MetaData, UniTask<MetaData>> metaDataCreateFunc) where MetaData : SoundMetaDataBase
                     {
                         if (Directory.Exists(folderPath))
                         {
@@ -2270,10 +2270,10 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
 
 
 
-        public static SoundData<MetaData> CreateSoundData<MetaData>(string subtitle, bool isBGM, MetaData sounds) where MetaData : SoundMetaDataParent
+        public static SoundData<MetaData> CreateSoundData<MetaData>(string subtitle, bool isBGM, MetaData sounds) where MetaData : SoundMetaDataBase
             => new SoundData<MetaData>(subtitle, isBGM, new MetaData[] { sounds });
 
-        public static SoundData<MetaData> CreateSoundData<MetaData>(string subtitle, bool isBGM, MetaData[] sounds) where MetaData : SoundMetaDataParent
+        public static SoundData<MetaData> CreateSoundData<MetaData>(string subtitle, bool isBGM, MetaData[] sounds) where MetaData : SoundMetaDataBase
             => new SoundData<MetaData>(subtitle, isBGM, sounds);
 
         public static SoundMetaData CreateSoundMetaData(float pitch, float tempo, float loopStartTime, AudioClip audioClip)
@@ -2355,7 +2355,7 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
 
 
 
-    public class SoundData<MetaData> where MetaData : SoundMetaDataParent
+    public class SoundData<MetaData> where MetaData : SoundMetaDataBase
     {
         public SoundData(string subtitle, bool isBGM, params MetaData[] sounds)
         {
@@ -2369,9 +2369,9 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         public MetaData[] sounds { get; } = new MetaData[0];
     }
 
-    public class SoundMetaDataParent
+    public class SoundMetaDataBase
     {
-        public SoundMetaDataParent(string path, float pitch, float tempo)
+        public SoundMetaDataBase(string path, float pitch, float tempo)
         {
             this.path = path;
             this.pitch = pitch;
@@ -2383,7 +2383,7 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         public float tempo { get; } = 1;
     }
 
-    public class SoundMetaData : SoundMetaDataParent
+    public class SoundMetaData : SoundMetaDataBase
     {
         public SoundMetaData(string path, float pitch, float tempo, bool stream, float loopStartTime, AudioClip audioClip) : base(path, pitch, tempo)
         {
@@ -2399,7 +2399,7 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         [JsonIgnore] public AudioClip audioClip { get; }
     }
 
-    public class NBSMetaData : SoundMetaDataParent
+    public class NBSMetaData : SoundMetaDataBase
     {
         public NBSMetaData(string path, float pitch, float tempo, NBSFile nbsFile) : base(path, pitch, tempo) => this.nbsFile = nbsFile;
 

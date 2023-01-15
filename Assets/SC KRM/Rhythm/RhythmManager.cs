@@ -8,7 +8,7 @@ namespace SCKRM.Rhythm
 {
     [WikiDescription("리듬을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Rhythm/Rhythm Manager")]
-    public sealed class RhythmManager : Manager<RhythmManager>
+    public sealed class RhythmManager : ManagerBase<RhythmManager>
     {
         [GeneralSaveLoad]
         public sealed class SaveData

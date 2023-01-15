@@ -7,7 +7,7 @@ namespace SCKRM.Renderer
     [WikiDescription("스프라이트 렌더러")]
     [AddComponentMenu("SC KRM/Renderer/Sprite Renderer")]
     [RequireComponent(typeof(SpriteRenderer))]
-    public sealed class CustomSpriteRenderer : CustomAllSpriteRenderer
+    public sealed class CustomSpriteRenderer : CustomSpriteRendererBase
     {
         SpriteRenderer _spriteRenderer; public SpriteRenderer spriteRenderer => _spriteRenderer = this.GetComponentFieldSave(_spriteRenderer);
 

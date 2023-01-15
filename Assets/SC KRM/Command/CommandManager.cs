@@ -16,7 +16,7 @@ using UnityEngine.EventSystems;
 
 namespace SCKRM.Command
 {
-    public sealed class CommandManager : Manager<CommandManager>
+    public sealed class CommandManager : ManagerBase<CommandManager>
     {
         public static CommandDispatcher<DefaultCommandSource> commandDispatcher { get; } = new CommandDispatcher<DefaultCommandSource>();
         public static DefaultCommandSource defaultCommandSource { get; set; } = new DefaultCommandSource();

@@ -9,7 +9,7 @@ namespace SCKRM
 {
     [WikiDescription("특정한 날을 기념하기 위한 클래스 입니다 (예: 쿠루미쨩 생일)\n기념일이 되면 알림을 표시합니다")]
     [AddComponentMenu("SC KRM/Anniversary/Anniversary Manager")]
-    public sealed class AnniversaryManager : Manager<AnniversaryManager>
+    public sealed class AnniversaryManager : ManagerBase<AnniversaryManager>
     {
         public static List<Anniversary> anniversaryList { get; } = new List<Anniversary>();
 

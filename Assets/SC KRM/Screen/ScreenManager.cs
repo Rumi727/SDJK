@@ -5,7 +5,7 @@ namespace SCKRM
 {
     [AddComponentMenu("SC KRM/Screen/Screen Manager")]
     [WikiDescription("화면을 관리하는 클래스 입니다")]
-    public sealed class ScreenManager : Manager<ScreenManager>
+    public sealed class ScreenManager : ManagerBase<ScreenManager>
     {
         [WikiDescription("화면 폭")] public static int width { get; private set; }
         [WikiDescription("화면 높이")] public static int height { get; private set; }

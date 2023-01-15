@@ -7,15 +7,15 @@ using SCKRM.Language;
 namespace SCKRM.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(CustomAllTextRenderer), true)]
+    [CustomEditor(typeof(CustomTextRendererBase), true)]
     public class CustomAllTextRendererEditor : CustomInspectorEditor
     {
-        CustomAllTextRenderer editor;
+        CustomTextRendererBase editor;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            editor = (CustomAllTextRenderer)target;
+            editor = (CustomTextRendererBase)target;
         }
 
         public override void OnInspectorGUI()

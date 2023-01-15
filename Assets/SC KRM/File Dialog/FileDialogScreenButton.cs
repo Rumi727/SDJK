@@ -15,7 +15,7 @@ namespace SCKRM.FileDialog.Screen
     {
         [SerializeField, NotNull] Toggle _toggle; public Toggle toggle { get => _toggle; }
 
-        [SerializeField, NotNull] CustomAllSpriteRenderer _icon; public CustomAllSpriteRenderer icon { get => _icon; }
+        [SerializeField, NotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
         [SerializeField, NotNull] TMP_Text _text; public TMP_Text text { get => _text; }
 
 

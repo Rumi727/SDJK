@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace SCKRM.Discord
 {
     [WikiDescription("디스코드 API를 관리하는 클래스 입니다")]
-    public sealed class DiscordManager : Manager<DiscordManager>
+    public sealed class DiscordManager : ManagerBase<DiscordManager>
     {
         public static PresenceManager presenceManager => PresenceManager.instance;
         public static DiscordRpc.RichPresence presence => presenceManager.presence;

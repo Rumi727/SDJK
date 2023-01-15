@@ -56,16 +56,16 @@ namespace SCKRM.Editor
         public static void AllRerender()
         {
             PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
-            CustomAllRenderer[] customAllRenderers;
+            CustomRendererBase[] customAllRenderers;
 
             if (prefabStage == null)
-                customAllRenderers = UnityEngine.Object.FindObjectsOfType<CustomAllRenderer>();
+                customAllRenderers = UnityEngine.Object.FindObjectsOfType<CustomRendererBase>();
             else
-                customAllRenderers = prefabStage.FindComponentsOfType<CustomAllRenderer>();
+                customAllRenderers = prefabStage.FindComponentsOfType<CustomRendererBase>();
 
             for (int i = 0; i < customAllRenderers.Length; i++)
             {
-                CustomAllRenderer customAllRenderer = customAllRenderers[i];
+                CustomRendererBase customAllRenderer = customAllRenderers[i];
                 customAllRenderer.Refresh();
             }
         }

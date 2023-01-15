@@ -9,15 +9,15 @@ using SCKRM.Json;
 namespace SCKRM.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(CustomAllSpriteRenderer), true)]
+    [CustomEditor(typeof(CustomSpriteRendererBase), true)]
     public class CustomAllSpriteRendererEditor : CustomInspectorEditor
     {
-        CustomAllSpriteRenderer editor;
+        CustomSpriteRendererBase editor;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            editor = (CustomAllSpriteRenderer)target;
+            editor = (CustomSpriteRendererBase)target;
         }
 
         public override void OnInspectorGUI()

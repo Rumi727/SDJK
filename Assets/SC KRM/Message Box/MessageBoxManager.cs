@@ -17,8 +17,8 @@ namespace SCKRM.UI.Overlay.MessageBox
         [SerializeField] CanvasGroup messageBoxCanvasGroup;
         [SerializeField] GameObject messabeBoxBG;
         [SerializeField] Transform messageBoxButtons;
-        [SerializeField] CustomAllTextRenderer messageBoxInfo;
-        [SerializeField] CustomAllSpriteRenderer messageBoxIcon;
+        [SerializeField] CustomTextRendererBase messageBoxInfo;
+        [SerializeField] CustomSpriteRendererBase messageBoxIcon;
 
         static MessageBoxButton[] createdMessageBoxButton = new MessageBoxButton[0];
         public static bool isMessageBoxShow { get; private set; } = false;

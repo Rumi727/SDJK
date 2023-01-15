@@ -10,13 +10,13 @@ using UnityEngine;
 namespace SCKRM.SaveLoad
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public abstract class SaveLoadAttribute : Attribute
+    public abstract class SaveLoadBaseAttribute : Attribute
     {
 
     }
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class GeneralSaveLoadAttribute : SaveLoadAttribute
+    public class GeneralSaveLoadAttribute : SaveLoadBaseAttribute
     {
         public GeneralSaveLoadAttribute()
         {
@@ -72,7 +72,7 @@ namespace SCKRM.SaveLoad
         public static SaveLoadClass[] generalSLCList { get; [Obsolete("It is managed by the InitialLoadManager class. Please do not touch it.", false)] internal set; } = new SaveLoadClass[0];
 
         [WikiDescription("전부 초기화")]
-        public static void InitializeAll<T>(out SaveLoadClass[] result) where T : SaveLoadAttribute
+        public static void InitializeAll<T>(out SaveLoadClass[] result) where T : SaveLoadBaseAttribute
         {
             List<SaveLoadClass> saveLoadClassList = new List<SaveLoadClass>();
             Assembly[] assemblys = AppDomain.CurrentDomain.GetAssemblies();
@@ -94,7 +94,7 @@ namespace SCKRM.SaveLoad
         }
 
         [WikiDescription("초기화")]
-        public static void Initialize<T>(Type type, out SaveLoadClass result) where T : SaveLoadAttribute
+        public static void Initialize<T>(Type type, out SaveLoadClass result) where T : SaveLoadBaseAttribute
         {
             if (Attribute.GetCustomAttributes(type, typeof(T)).Length <= 0)
             {

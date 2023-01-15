@@ -35,6 +35,10 @@ namespace SCKRM.Editor
 
                 UseProperty("_customGuiSize", "GUI 크기 커스텀");
             }
+
+            DrawLine();
+
+            UseProperty("_alwaysVisible", "항상 씬에 보이게");
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SCKRM.Log
 {
     [WikiDescription("로그를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Log/Log Manager")]
-    public sealed class LogManager : Manager<LogManager>
+    public sealed class LogManager : ManagerBase<LogManager>
     {
         ConcurrentQueue<Log> logs = new ConcurrentQueue<Log>();
 

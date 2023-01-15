@@ -10,8 +10,8 @@ namespace SCKRM.FileDialog.ShortcurBar
     public sealed class FileDialogShortcutBarButton : UIObjectPooling
     {
         [SerializeField, NotNull] Button _button; public Button button { get => _button; }
-        [SerializeField, NotNull] CustomAllSpriteRenderer _icon; public CustomAllSpriteRenderer icon { get => _icon; }
-        [SerializeField, NotNull] CustomAllTextRenderer _text; public CustomAllTextRenderer text { get => _text; }
+        [SerializeField, NotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
+        [SerializeField, NotNull] CustomTextRendererBase _text; public CustomTextRendererBase text { get => _text; }
 
         [WikiDescription("버튼 삭제")]
         public override bool Remove()

@@ -17,7 +17,7 @@ namespace SCKRM.Sound
 {
     [WikiDescription("사운드를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Sound/Sound Manager", 0)]
-    public sealed class SoundManager : Manager<SoundManager>
+    public sealed class SoundManager : ManagerBase<SoundManager>
     {
         [GeneralSaveLoad]
         public sealed class SaveData

@@ -7,7 +7,7 @@ namespace SCKRM.Renderer
     [WikiDescription("텍스트 메쉬 렌더러")]
     [AddComponentMenu("SC KRM/Renderer/Text/Text Mesh")]
     [RequireComponent(typeof(TextMesh))]
-    public sealed class CustomTextMeshRenderer : CustomAllTextRenderer
+    public sealed class CustomTextMeshRenderer : CustomTextRendererBase
     {
         [SerializeField, HideInInspector] TextMesh _textMesh; public TextMesh text => _textMesh = this.GetComponentFieldSave(_textMesh);
 

@@ -9,7 +9,7 @@ namespace SCKRM.Tooltip
 {
     [WikiDescription("툴팁을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Tooltip/Tooltip Manager", 0)]
-    public sealed class TooltipManager : Manager<TooltipManager>
+    public sealed class TooltipManager : ManagerBase<TooltipManager>
     {
         public static bool isShow { get; private set; } = false;
 

@@ -66,7 +66,7 @@ namespace SCKRM.Object
 
     [WikiDescription("오브젝트 풀링으로 생성된 오브젝트를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Object/Object Pooling")]
-    public class ObjectPooling : MonoBehaviour, IObjectPooling
+    public class ObjectPoolingBase : MonoBehaviour, IObjectPooling
     {
         [WikiDescription("오브젝트 키")] public string objectKey { get; set; }
 

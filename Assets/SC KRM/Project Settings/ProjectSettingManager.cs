@@ -4,7 +4,7 @@ using System;
 namespace SCKRM.ProjectSetting
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public sealed class ProjectSettingSaveLoadAttribute : SaveLoadAttribute
+    public sealed class ProjectSettingSaveLoadAttribute : SaveLoadBaseAttribute
     {
 
     }
