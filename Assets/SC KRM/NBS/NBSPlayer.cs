@@ -58,7 +58,7 @@ namespace SCKRM.NBS
                     return;
                 }
 
-                value = value.Clamp(0, (int)length);
+                value = value.Clamp(0, tickLength);
 
                 int lastTick = _tick;
 
@@ -106,11 +106,25 @@ namespace SCKRM.NBS
                 if (nbsFile == null)
                     return 0;
 
+                return tickLength / (nbsFile.tickTempo * 0.01f);
+            }
+        }
+
+        [WikiDescription("곡의 틱 길이")]
+        public int tickLength
+        {
+            get
+            {
+                if (nbsFile == null)
+                    return 0;
+
                 return nbsFile.songLength;
             }
         }
 
-        [WikiDescription("곡의 실제 시간")] public override float realLength => length / tempo;
+        [WikiDescription("곡의 실제 길이")] public override float realLength => length / tempo;
+
+        [WikiDescription("곡의 실제 틱 길이")] public float realTickLength => tickLength / tempo;
 
         [WikiDescription("루프 여부")] public override bool isLooped { get; protected set; } = false;
         [WikiDescription("일시정지 여부")] public override bool isPaused { get; set; } = false;
@@ -243,7 +257,7 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
                 _tick = nbsFile.nbsNotes[nbsFile.nbsNotes.Count - 1].delayTick;
                 _index = nbsFile.nbsNotes.Count - 2;
             }
-            else if (tick > length)
+            else if (tick > tickLength)
             {
                 if (loop)
                 {

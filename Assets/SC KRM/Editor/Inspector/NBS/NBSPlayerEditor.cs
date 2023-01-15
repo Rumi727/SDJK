@@ -105,7 +105,7 @@ namespace SCKRM.Editor
                 else
                 {
                     float timer = nbsPlayer.time;
-                    float length = nbsPlayer.length * 0.05f;
+                    float length = nbsPlayer.length;
 
                     string time = timer.ToTime();
                     string endTime = length.ToTime();
@@ -117,10 +117,10 @@ namespace SCKRM.Editor
                         string pitchTime = nbsPlayer.realTime.ToTime();
                         string pitchEndTime = nbsPlayer.realLength.ToTime();
 
-                        GUILayout.Label($"{pitchTime} / {pitchEndTime} ({time} / {endTime}) ({nbsPlayer.tick} / {nbsPlayer.length})", GUILayout.ExpandWidth(false));
+                        GUILayout.Label($"{pitchTime} / {pitchEndTime} ({time} / {endTime}) ({nbsPlayer.tick} / {nbsPlayer.tickLength})", GUILayout.ExpandWidth(false));
                     }
                     else
-                        GUILayout.Label($"{time} / {endTime} ({nbsPlayer.tick} / {nbsPlayer.length})", GUILayout.ExpandWidth(false));
+                        GUILayout.Label($"{time} / {endTime} ({nbsPlayer.tick} / {nbsPlayer.tickLength})", GUILayout.ExpandWidth(false));
 
                     float audioTime = GUILayout.HorizontalSlider(timer, 0, length);
                     if (timer != audioTime && !refesh)
