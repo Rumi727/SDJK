@@ -176,11 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 98388522}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -662,11 +657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f4aeb36387ca04a936219ed42ecf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   text: {fileID: 693654083}
   lerpAniValue: 0.2
 --- !u!114 &693654087
@@ -750,11 +740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f4aeb36387ca04a936219ed42ecf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   text: {fileID: 713133048}
   lerpAniValue: 0.2
 --- !u!114 &713133048
@@ -1048,11 +1033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46bce7ba331139448a07cab38973cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   text: {fileID: 761167251}
   lerpAniValue: 0.2
   suffix: '%'
@@ -1232,6 +1212,7 @@ MonoBehaviour:
   _rectTransform: {fileID: 1070751509}
   _rectTransformTool: {fileID: 0}
   _graphic: {fileID: 1070751511}
+  _targetRectTransform: {fileID: 0}
 --- !u!114 &1070751515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,11 +1225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aaff26ed4f42dc4488adb270a47edeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 1070751511}
   image: {fileID: 1070751510}
   delayText: {fileID: 547206430}
   delayTextSuffix: ' ms'
@@ -1467,11 +1443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eab931cc4640dd42bc0a77b4e7880c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   text: {fileID: 1650278057}
 --- !u!1001 &1657977505
 PrefabInstance:
@@ -1599,11 +1570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80878873c0b26984e95c5338a1297994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 1835024279}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1835024281}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
+  _alwaysVisible: 0
   _customSetting: 0
   _customGuiSize: 1
   _worldRenderMode: 0
@@ -1732,7 +1699,7 @@ MonoBehaviour:
   _inputManager: {fileID: 777097535}
   _effectManager: {fileID: 1657977506}
   _gameOverManager: {fileID: 1561121225}
-  auto: 0
+  auto: 1
 --- !u!4 &1996896440
 Transform:
   m_ObjectHideFlags: 0
@@ -1870,10 +1837,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3fe761ec077204fb5f47e623b844b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   lerpAniValue: 0.2
   valueImage: {fileID: 521749795}

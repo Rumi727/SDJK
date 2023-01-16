@@ -20,6 +20,8 @@
 	"options.main_menu.logoVisualizerShow.info": "ロゴのスペクトルを有効にします",
 	"options.main_menu.logoMapHitsoundEnable": "ロゴヒットサウンドを有効にする",
 	"options.main_menu.logoMapHitsoundEnable.info": "ロゴにマウスポインタを置くとn拍子ではなくマップのヒット音を再生します",
+	"options.main_menu.logoEffectEnable": "ロゴエフェクトを有効にする",
+	"options.main_menu.logoEffectEnable.info": "ロゴにいくつかのエフェクトを適用します",
 	
 	"notice.running_task.map_list_refresh.name":"マップリストを更新中...",
 	

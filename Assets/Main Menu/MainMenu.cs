@@ -30,6 +30,7 @@ namespace SDJK.MainMenu
         {
             [JsonProperty] public static bool logoVisualizerShow { get; set; } = true;
             [JsonProperty] public static bool logoMapHitsoundEnable { get; set; } = false;
+            [JsonProperty] public static bool logoEffectEnable { get; set; } = true;
         }
 
         public static ScreenMode currentScreenMode { get; private set; } = ScreenMode.esc;
@@ -45,6 +46,7 @@ namespace SDJK.MainMenu
         [SerializeField, NotNull] CanvasGroup mapSelectScreen;
         [SerializeField, NotNull] SuperBlur.SuperBlur superBulr;
         [SerializeField, NotNull] GameObject logoVisualizer;
+        [SerializeField, NotNull] LogoEffect logoEffect;
 
 
 
@@ -60,6 +62,7 @@ namespace SDJK.MainMenu
         static float screenNormalAniT = 0;
         static Vector2 screenNormalStartPos = Vector2.zero;
         static Vector2 screenNormalStartSize = Vector2.zero;
+        static Vector2 screenEscStartPos = Vector2.zero;
 
         static float barAlpha = 0;
         void Update()
@@ -233,10 +236,22 @@ namespace SDJK.MainMenu
             {
                 if (barAlpha <= 0)
                 {
-                    if (Vector2.Distance(logo.anchoredPosition, anchoredPosition) > 0.01f)
-                        logo.anchoredPosition = logo.anchoredPosition.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    if (currentScreenMode == ScreenMode.esc)
+                    {
+                        if (Vector2.Distance(screenEscStartPos, anchoredPosition) > 0.01f)
+                            screenEscStartPos = screenEscStartPos.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        else
+                            screenEscStartPos = anchoredPosition;
+
+                        logo.anchoredPosition = logoEffect.pos + screenEscStartPos;
+                    }
                     else
-                        logo.anchoredPosition = anchoredPosition;
+                    {
+                        if (Vector2.Distance(logo.anchoredPosition, anchoredPosition) > 0.01f)
+                            logo.anchoredPosition = logo.anchoredPosition.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        else
+                            logo.anchoredPosition = anchoredPosition;
+                    }
 
                     if (Vector2.Distance(logo.sizeDelta, sizeDelta) > 0.01f)
                         logo.sizeDelta = logo.sizeDelta.Lerp(sizeDelta, 0.2f * Kernel.fpsUnscaledDeltaTime);
@@ -289,6 +304,7 @@ namespace SDJK.MainMenu
             StatusBarManager.allowStatusBarShow = false;
 
             ScreenChange(new Vector2(0.5f, 0.2f), new Vector2(0.5f, 0.8f));
+            screenEscStartPos = instance.logo.anchoredPosition - instance.logoEffect.pos;
         }
 
         public static void Normal()

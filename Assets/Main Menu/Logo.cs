@@ -25,6 +25,8 @@ namespace SDJK.MainMenu
         float pointerScale = 1;
         float clickScale = 1;
 
+        [SerializeField, NotNull] LogoEffect logoEffect;
+
         protected override void Awake() => image.alphaHitTestMinimumThreshold = 0.5f;
 
         int lastCurrentBeat = 0;
