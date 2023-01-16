@@ -237,9 +237,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         instance.combo = 0;
 
                     if (isMiss || metaData.missHp)
-                        instance.health -= map.globalEffect.hpMissValue.GetValue() * metaData.hpMultiplier;
+                        instance.health -= map.globalEffect.hpMissValue.GetValue(currentBeat) * metaData.hpMultiplier;
                     else
-                        instance.health += map.globalEffect.hpAddValue.GetValue() * metaData.hpMultiplier;
+                        instance.health += map.globalEffect.hpAddValue.GetValue(currentBeat) * metaData.hpMultiplier;
 
                     if (instance.health <= 0)
                         instance.gameOverManager.GameOver();

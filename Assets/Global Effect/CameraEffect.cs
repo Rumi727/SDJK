@@ -1,3 +1,4 @@
+using SCKRM.Rhythm;
 using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,8 +21,8 @@ namespace SDJK.Effect
                 return;
             }
 
-            transform.position = map.globalEffect.cameraPos.GetValue() + new Vector3(0, 0, (float)(-defaultDistance * map.globalEffect.cameraZoom.GetValue() + defaultDistance));
-            transform.eulerAngles = map.globalEffect.cameraRotation.GetValue();
+            transform.position = map.globalEffect.cameraPos.GetValue(RhythmManager.currentBeatScreen) + new Vector3(0, 0, (float)(-defaultDistance * map.globalEffect.cameraZoom.GetValue(RhythmManager.currentBeatScreen) + defaultDistance));
+            transform.eulerAngles = map.globalEffect.cameraRotation.GetValue(RhythmManager.currentBeatScreen);
         }
     }
 }

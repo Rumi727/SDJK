@@ -102,10 +102,10 @@ namespace SDJK.MainMenu
             else
             {
                 volumePade = volumePade.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
-                soundPlayer.volume = (float)map.globalEffect.volume.GetValue() * volumePade;
+                soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound) * volumePade;
 
-                soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue();
-                soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue();
+                soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
+                soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
             }
         }
 
