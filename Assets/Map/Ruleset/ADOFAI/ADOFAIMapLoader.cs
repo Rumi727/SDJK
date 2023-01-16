@@ -75,7 +75,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                     adofaiMap.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
 
                     adofaiMap.globalEffect.bpm.Add(double.MinValue, adofai.settings.bpm);
-                    adofaiMap.globalEffect.volume.Add(double.MinValue, 0, adofai.settings.volume * 0.02);
+                    adofaiMap.globalEffect.volume.Add(double.MinValue, 0, adofai.settings.volume * 0.01);
                     adofaiMap.info.songOffset = adofai.settings.offset * 0.001f;
                     adofaiMap.globalEffect.pitch.Add(double.MinValue, 0, adofai.settings.pitch * 0.01);
                     adofaiMap.globalEffect.tempo.Add(double.MinValue, 0, 1);
