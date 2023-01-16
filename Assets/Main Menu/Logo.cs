@@ -92,6 +92,9 @@ namespace SDJK.MainMenu
                 }
             }
 
+            if (!double.IsNormal(beatScale))
+                beatScale = 1;
+
             transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
         }
 
