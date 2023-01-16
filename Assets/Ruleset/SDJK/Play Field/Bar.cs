@@ -96,7 +96,7 @@ namespace SDJK.Ruleset.SDJK
             string inputKey = inputKeyOr.Replace("{0}", map.notes.Count.ToString()).Replace("{1}", barIndex.ToString());
 
             if (InputManager.controlSettingList.TryGetValue(inputKey, out List<KeyCode> value) && value.Count > 0)
-                keyText.text = value[0].ToString();
+                keyText.text = value[0].KeyCodeToString();
 
             NoteRefresh();
         }
