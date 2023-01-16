@@ -141,13 +141,13 @@ namespace SDJK.MainMenu
 
                     bar.sizeDelta = new Vector2(0, (float)EasingFunction.EaseOutCubic(0, 135, barAlpha));
 
-                    Vector2 offsetMin = new Vector2(-210, 0);
+                    Vector2 offsetMin = new Vector2(-240, 0);
                     if (Vector2.Distance(barLayout.offsetMin, offsetMin) > 0.01f)
                         barLayout.offsetMin = barLayout.offsetMin.Lerp(offsetMin, 0.2f * Kernel.fpsUnscaledDeltaTime);
                     else
                         barLayout.offsetMin = offsetMin;
 
-                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-25, 0.2f * Kernel.fpsUnscaledDeltaTime);
 
                     if (!bar.gameObject.activeSelf)
                         bar.gameObject.SetActive(true);
@@ -242,8 +242,8 @@ namespace SDJK.MainMenu
                     else
                         logo.sizeDelta = sizeDelta;
 
-                    barLayoutHorizontalLayout.spacing = -200;
-                    barLayout.offsetMin = new Vector2(-410, 0);
+                    barLayoutHorizontalLayout.spacing = -230;
+                    barLayout.offsetMin = new Vector2(-440, 0);
                     screenNormalAniT = 0;
 
                     if (bar.gameObject.activeSelf)
@@ -262,8 +262,8 @@ namespace SDJK.MainMenu
 
                     bar.sizeDelta = new Vector2(0, (float)EasingFunction.EaseOutCubic(0, 135, barAlpha));
 
-                    barLayout.offsetMin = barLayout.offsetMin.Lerp(new Vector2(-410, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
-                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-200, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    barLayout.offsetMin = barLayout.offsetMin.Lerp(new Vector2(-440, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-230, 0.2f * Kernel.fpsUnscaledDeltaTime);
 
                     return false;
                 }

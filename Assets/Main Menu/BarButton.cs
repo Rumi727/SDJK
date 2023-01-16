@@ -35,9 +35,9 @@ namespace SDJK.MainMenu
                 pointerSizeT = (pointerSizeT + 0.03f * Kernel.fpsUnscaledDeltaTime).Clamp01();
 
             if (pointer)
-                pointerSize = (float)EasingFunction.EaseOutElastic(pointerSizeStart, 300 + sizeOffset, pointerSizeT);
+                pointerSize = (float)EasingFunction.EaseOutElastic(pointerSizeStart, 330 + sizeOffset, pointerSizeT);
             else
-                pointerSize = (float)EasingFunction.EaseOutElastic(pointerSizeStart, 200 + sizeOffset, pointerSizeT);
+                pointerSize = (float)EasingFunction.EaseOutElastic(pointerSizeStart, 230 + sizeOffset, pointerSizeT);
 
             rectTransform.sizeDelta = new Vector2(pointerSize, 0);
 
