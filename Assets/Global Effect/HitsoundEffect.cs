@@ -20,8 +20,12 @@ namespace SDJK
                 SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
         }
 
-        public static int GetHitsoundPlayCount(MapFile map, double currentBeat, ref double lastValue)
+        public static int GetHitsoundPlayCount(MapFile map, double currentBeat, ref double lastValue) => GetHitsoundPlayCount(map, currentBeat, ref lastValue, out _);
+
+        public static int GetHitsoundPlayCount(MapFile map, double currentBeat, ref double lastValue, out int index)
         {
+            index = 0;
+
             if (map == null)
                 return 0;
 
@@ -38,6 +42,8 @@ namespace SDJK
                     if (map.allJudgmentBeat[i] >= currentBeat)
                     {
                         double beat = map.allJudgmentBeat[i - 1];
+                        value = beat;
+                        index = i - 1;
                         soundPlayCount++;
 
                         for (int j = i - 2; j >= 0; j--)
@@ -48,7 +54,6 @@ namespace SDJK
                                 break;
                         }
 
-                        value = beat;
                         break;
                     }
                 }

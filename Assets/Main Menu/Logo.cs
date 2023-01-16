@@ -3,6 +3,7 @@ using SCKRM.Easing;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
+using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,8 +32,6 @@ namespace SDJK.MainMenu
         double lastHitsoundBeat = -1;
         void Update()
         {
-            beatScale = beatScaleAni.GetValue((RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Repeat(1));
-
             {
                 if (pointerScaleT < 1)
                     pointerScaleT = (pointerScaleT + 0.03f * Kernel.fpsUnscaledDeltaTime).Clamp01();
@@ -50,7 +49,8 @@ namespace SDJK.MainMenu
                     clickScale = clickScale.Lerp(1, 0.2f * Kernel.fpsUnscaledDeltaTime);
             }
 
-            transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
+            double oneBeat = (RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Repeat(1);
+            beatScale = beatScaleAni.GetValue(oneBeat);
 
             if (!MainMenu.SaveData.logoMapHitsoundEnable)
             {
@@ -71,13 +71,28 @@ namespace SDJK.MainMenu
             }
             else
             {
-                int count = HitsoundEffect.GetHitsoundPlayCount(MapManager.selectedMap, RhythmManager.currentBeatSound, ref lastHitsoundBeat);
+                MapFile map = MapManager.selectedMap;
+                int count = HitsoundEffect.GetHitsoundPlayCount(map, RhythmManager.currentBeatSound, ref lastHitsoundBeat);
                 if (pointer)
                 {
                     for (int i = 0; i < count; i++)
                         SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
                 }
+
+                {
+                    HitsoundEffect.GetHitsoundPlayCount(map, RhythmManager.currentBeatScreen, ref lastHitsoundBeat, out int index);
+                    if (index + 1 < map.allJudgmentBeat.Count)
+                    {
+                        double lastBeat = map.allJudgmentBeat[index];
+                        double nextBeat = map.allJudgmentBeat[index + 1] - lastBeat;
+                        double currentBeat = RhythmManager.currentBeatScreen - lastBeat;
+
+                        beatScale = beatScaleAni.GetValue(currentBeat / nextBeat);
+                    }
+                }
             }
+
+            transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
