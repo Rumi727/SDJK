@@ -28,6 +28,7 @@ namespace SDJK.MainMenu
 
         int lastCurrentBeat = 0;
         double lastBPMOffsetBeat = 0;
+        double lastHitsoundBeat = -1;
         void Update()
         {
             beatScale = beatScaleAni.GetValue((RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Repeat(1));
@@ -51,19 +52,31 @@ namespace SDJK.MainMenu
 
             transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
 
-            int currentBeat = (int)(RhythmManager.currentBeatSound - RhythmManager.bpmOffsetBeat).Repeat(4);
-            if (lastCurrentBeat != currentBeat || lastBPMOffsetBeat != RhythmManager.bpmOffsetBeat)
+            if (!MainMenu.SaveData.logoMapHitsoundEnable)
             {
+                int currentBeat = (int)(RhythmManager.currentBeatSound - RhythmManager.bpmOffsetBeat).Repeat(4);
+                if (lastCurrentBeat != currentBeat || lastBPMOffsetBeat != RhythmManager.bpmOffsetBeat)
+                {
+                    if (pointer)
+                    {
+                        if (currentBeat == 0)
+                            SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.35f);
+
+                        SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+                    }
+
+                    lastCurrentBeat = currentBeat;
+                    lastBPMOffsetBeat = RhythmManager.bpmOffsetBeat;
+                }
+            }
+            else
+            {
+                int count = HitsoundEffect.GetHitsoundPlayCount(MapManager.selectedMap, RhythmManager.currentBeatSound, ref lastHitsoundBeat);
                 if (pointer)
                 {
-                    if (currentBeat == 0)
-                        SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.35f);
-
-                    SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+                    for (int i = 0; i < count; i++)
+                        SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
                 }
-
-                lastCurrentBeat = currentBeat;
-                lastBPMOffsetBeat = RhythmManager.bpmOffsetBeat;
             }
         }
 

@@ -29,11 +29,13 @@ namespace SDJK
             int soundPlayCount = 0;
             if (map.allJudgmentBeat.Count <= 0)
                 soundPlayCount = 0;
+            else if (map.allJudgmentBeat[0] >= currentBeat)
+                soundPlayCount = 1;
             else if (map.allJudgmentBeat.Count >= 2)
             {
                 for (int i = 0; i < map.allJudgmentBeat.Count; i++)
                 {
-                    if (map.allJudgmentBeat[i] >= RhythmManager.currentBeatSound)
+                    if (map.allJudgmentBeat[i] >= currentBeat)
                     {
                         double beat = map.allJudgmentBeat[i - 1];
                         soundPlayCount++;
@@ -51,8 +53,6 @@ namespace SDJK
                     }
                 }
             }
-            else if (map.allJudgmentBeat[0] >= RhythmManager.currentBeatSound)
-                soundPlayCount = 1;
 
             if (lastValue != value)
             {

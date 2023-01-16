@@ -29,6 +29,7 @@ namespace SDJK.MainMenu
         public class SaveData
         {
             [JsonProperty] public static bool logoVisualizerShow { get; set; } = true;
+            [JsonProperty] public static bool logoMapHitsoundEnable { get; set; } = false;
         }
 
         public static ScreenMode currentScreenMode { get; private set; } = ScreenMode.esc;

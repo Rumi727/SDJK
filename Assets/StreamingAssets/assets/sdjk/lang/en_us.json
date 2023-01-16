@@ -18,6 +18,8 @@
 	
 	"options.main_menu.logoVisualizerShow": "Activate Logo Spectrum",
 	"options.main_menu.logoVisualizerShow.info": "Activate the spectrum of the logo",
+	"options.main_menu.logoMapHitsoundEnable": "Activate logo hit sound",
+	"options.main_menu.logoMapHitsoundEnable.info": "Hovering the mouse pointer over the logo will play the map's hit sound instead of the n-beat sound",
 	
 	"notice.running_task.map_list_refresh.name":"Refreshing map list...",
 	

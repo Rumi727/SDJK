@@ -18,6 +18,8 @@
 	
 	"options.main_menu.logoVisualizerShow": "로고 스펙트럼 활성화",
 	"options.main_menu.logoVisualizerShow.info": "로고의 스펙트럼을 활성화합니다",
+	"options.main_menu.logoMapHitsoundEnable": "로고 히트 사운드 활성화",
+	"options.main_menu.logoMapHitsoundEnable.info": "로고에 마우스 포인터를 가져오면 n 박자 사운드 대신 맵의 히트 사운드를 재생합니다",
 	
 	"notice.running_task.map_list_refresh.name":"맵 리스트를 새로고치는 중...",
 	
