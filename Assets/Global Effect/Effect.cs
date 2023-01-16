@@ -1,7 +1,10 @@
+using SCKRM;
 using SCKRM.Rhythm;
+using SCKRM.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SDJK.Effect
 {
@@ -23,5 +26,38 @@ namespace SDJK.Effect
         }
 
         protected virtual void RealUpdate() { }
+    }
+
+    public abstract class UIEffect : Effect, IUI
+    {
+        Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
+
+        RectTransform _parentRectTransform; public RectTransform parentRectTransform
+        {
+            get
+            {
+                if (_parentRectTransform == null || _parentRectTransform.gameObject != transform.parent.gameObject)
+                    _parentRectTransform = transform.parent as RectTransform;
+
+                return _parentRectTransform;
+            }
+        }
+        RectTransform _rectTransform; public RectTransform rectTransform
+        {
+            get
+            {
+                if (_rectTransform == null || _rectTransform.gameObject != gameObject)
+                {
+                    _rectTransform = transform as RectTransform;
+                    if (_rectTransform == null)
+                        _rectTransform = gameObject.AddComponent<RectTransform>();
+                }
+
+                return _rectTransform;
+            }
+        }
+        RectTransformTool _rectTransformTool; public RectTransformTool rectTransformTool => _rectTransformTool = this.GetComponentFieldSave(_rectTransformTool);
+
+        Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentTool.GetComponentMode.none);
     }
 }
