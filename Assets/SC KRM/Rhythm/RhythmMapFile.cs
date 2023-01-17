@@ -196,6 +196,14 @@ namespace SCKRM.Rhythm
 
 
     #region Built-in effect class
+    public class BeatValuePairAniListInt : BeatValuePairAniList<int>
+    {
+        public BeatValuePairAniListInt(int defaultValue) : base(defaultValue) { }
+
+        public override int ValueCalculate(double t, EasingFunction.Ease easingFunction, IBeatValuePairAni<int> previousBeatValuePair, IBeatValuePairAni<int> beatValuePair)
+            => EasingFunction.EasingCalculate(previousBeatValuePair.value, beatValuePair.value, t, easingFunction).RoundToInt();
+    }
+
     public class BeatValuePairAniListFloat : BeatValuePairAniList<float>
     {
         public BeatValuePairAniListFloat(float defaultValue) : base(defaultValue) { }
