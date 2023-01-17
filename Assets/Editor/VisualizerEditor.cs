@@ -19,6 +19,7 @@ namespace SDJK.Editor
 
         public override void OnInspectorGUI()
         {
+            UseProperty("_effectManager");
             UseProperty("barPrefab", "바 프리팹");
 
             Space();

@@ -18,11 +18,14 @@ namespace SDJK.Map
     {
         public MapInfo info { get; set; } = new MapInfo();
         public MapGlobalEffect globalEffect { get; set; } = new MapGlobalEffect();
+        public MapVisualizerEffect visualizerEffect { get; set; } = new MapVisualizerEffect();
 
         [JsonIgnore] public List<double> allJudgmentBeat { get; set; } = new List<double>();
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = "";
         [JsonIgnore] public string mapFilePath { get; set; } = "";
+
+        public virtual void SetVisualizerEffect() { }
     }
 
     public sealed class MapInfo
@@ -123,6 +126,15 @@ namespace SDJK.Map
 
 
         public BeatValuePairAniListDouble judgmentSize { get; } = new(1);
+    }
+
+    public sealed class MapVisualizerEffect
+    {
+        public BeatValuePairAniListInt divide { get; } = new(5);
+        public BeatValuePairList<bool> leftMove { get; } = new(true);
+
+        public BeatValuePairAniListInt offset { get; } = new(0);
+        public BeatValuePairAniListFloat size { get; } = new(1);
     }
 
 
