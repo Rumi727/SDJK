@@ -8,6 +8,9 @@ using SDJK.Map.Ruleset.ADOFAI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+
+using Random = System.Random;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -327,9 +330,14 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 #region Effect
                 EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
                 EffectAdd(oldMap.Effect.DropPart, oldMap.Effect.DropPartEffect, map.globalEffect.yukiMode);
-
+                
                 EffectAdd2(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
-                EffectAdd3(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
+                map.globalEffect.cameraPos.Add(double.MinValue, 0, (Vector3)(JVector3)oldMap.Effect.Camera.CameraPos * 0.7344416049f);
+                for (int i = 0; i < oldMap.Effect.Camera.CameraPosEffect.Count; i++)
+                {
+                    var effect = oldMap.Effect.Camera.CameraPosEffect[i];
+                    map.globalEffect.cameraPos.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), ((Vector3)(JVector3)effect.Value) * 0.7344416049f, EasingFunction.Ease.EaseOutExpo);
+                }
                 EffectAdd3(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
 
                 EffectAdd2(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.pitch);
@@ -360,8 +368,18 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);*/
 
                 {
+                    void EffectAdd5(JVector3 defaultValue, List<OldSDJK.EffectValueLerp<OldSDJK.JVector3>> oldList, BeatValuePairAniList<JVector3> list)
+                    {
+                        list.Add(double.MinValue, defaultValue);
+                        for (int i = 0; i < oldList.Count; i++)
+                        {
+                            var effect = oldList[i];
+                            list.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), ((Vector3)(JVector3)effect.Value) * 1.0162601626f, EasingFunction.Ease.EaseOutExpo, effect.Disturbance);
+                        }
+                    }
+
                     FieldEffectFile fieldEffect = map.effect.fieldEffect[0];
-                    EffectAdd3(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
+                    EffectAdd5(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
                     EffectAdd3(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
 
                     fieldEffect.height.Add(double.MinValue, 0, oldMap.Effect.Camera.UiZoom * 16);
@@ -386,42 +404,42 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         {
                             if (oldMap.CapsLock.Count > 0 && capsLock)
                             {
-                                EffectAdd3(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.CapsLockBarPos, oldMap.Effect.CapsLockBarPosEffect, barEffect[i].pos);
                                 capsLock = false;
                             }
                             else if (oldMap.A.Count > 0 && a)
                             {
-                                EffectAdd3(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.ABarPos, oldMap.Effect.ABarPosEffect, barEffect[i].pos);
                                 a = false;
                             }
                             else if (oldMap.S.Count > 0 && s)
                             {
-                                EffectAdd3(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.SBarPos, oldMap.Effect.SBarPosEffect, barEffect[i].pos);
                                 s = false;
                             }
                             else if (oldMap.J.Count > 0 && d)
                             {
-                                EffectAdd3(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.DBarPos, oldMap.Effect.DBarPosEffect, barEffect[i].pos);
                                 d = false;
                             }
                             else if (oldMap.J.Count > 0 && j)
                             {
-                                EffectAdd3(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.JBarPos, oldMap.Effect.JBarPosEffect, barEffect[i].pos);
                                 j = false;
                             }
                             else if (oldMap.K.Count > 0 && k)
                             {
-                                EffectAdd3(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.KBarPos, oldMap.Effect.KBarPosEffect, barEffect[i].pos);
                                 k = false;
                             }
                             else if (oldMap.L.Count > 0 && l)
                             {
-                                EffectAdd3(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.LBarPos, oldMap.Effect.LBarPosEffect, barEffect[i].pos);
                                 l = false;
                             }
                             else if (oldMap.Semicolon.Count > 0 && semiccolon)
                             {
-                                EffectAdd3(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
+                                EffectAdd5(oldMap.Effect.SemicolonBarPos, oldMap.Effect.SemicolonBarPosEffect, barEffect[i].pos);
                                 semiccolon = false;
                             }
                         }
