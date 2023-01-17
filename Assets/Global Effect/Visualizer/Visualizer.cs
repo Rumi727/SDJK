@@ -3,9 +3,9 @@ using SCKRM.Sound;
 using System.Threading;
 using UnityEngine;
 
-namespace SDJK.MainMenu
+namespace SDJK.Effect
 {
-    public class Visualizer : SCKRM.UI.UI
+    public class Visualizer : UIEffect
     {
         [SerializeField, NotNull] VisualizerBar barPrefab;
         int barsLock = 0;
@@ -161,26 +161,33 @@ namespace SDJK.MainMenu
 
 
 
-        protected override void OnEnable()
+        void OnEnable()
         {
-            tempSoundPlayer = null;
+            lastSoundPlayer = null;
             tempCircle = false;
         }
 
 
 
+        public override void Refresh(bool force = false)
+        {
+
+        }
+
+
+
         float[] samples = new float[256];
-        ISoundPlayer tempSoundPlayer;
+        ISoundPlayer lastSoundPlayer;
         bool tempCircle = false;
         void Update()
         {
-            if (BGMManager.bgm != null && tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
+            if (effectManager != null && lastSoundPlayer != effectManager.soundPlayer && effectManager.soundPlayer != null)
             {
-                if (tempSoundPlayer != null && !tempSoundPlayer.isRemoved)
-                    tempSoundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
+                if (lastSoundPlayer != null && !lastSoundPlayer.isRemoved)
+                    lastSoundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
 
-                BGMManager.bgm.soundPlayer.onAudioFilterReadEvent += VisualizerUpdate;
-                tempSoundPlayer = BGMManager.bgm.soundPlayer;
+                effectManager.soundPlayer.onAudioFilterReadEvent += VisualizerUpdate;
+                lastSoundPlayer = effectManager.soundPlayer;
             }
 
             if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
@@ -243,10 +250,10 @@ namespace SDJK.MainMenu
             }
         }
 
-        protected override void OnDisable()
+        void OnDisable()
         {
-            if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null)
-                BGMManager.bgm.soundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
+            if (effectManager.soundPlayer != null && effectManager.soundPlayer != null)
+                effectManager.soundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
         }
 
         int i = 0;

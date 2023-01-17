@@ -1,11 +1,8 @@
 using SCKRM;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace SDJK.MainMenu
+namespace SDJK.Effect
 {
     public class VisualizerBar : MonoBehaviour
     {

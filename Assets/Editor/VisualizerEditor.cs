@@ -1,7 +1,5 @@
 using SCKRM.Editor;
-using SDJK.MainMenu;
-using System.Collections;
-using System.Collections.Generic;
+using SDJK.Effect;
 using UnityEditor;
 using UnityEngine;
 
