@@ -1,14 +1,10 @@
 using SCKRM.Rhythm;
 using SCKRM.Sound;
-using SDJK.Effect;
 using SDJK.Map;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-namespace SDJK
+namespace SDJK.Effect
 {
-    public sealed class HitsoundEffect : Effect.Effect
+    public sealed class HitsoundEffect : Effect
     {
         public override void Refresh(bool force = false) { }
 

@@ -1,13 +1,7 @@
 using SCKRM;
-using SCKRM.Json;
 using SCKRM.Sound;
-using SCKRM.UI;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SDJK.MainMenu
 {
@@ -30,27 +24,26 @@ namespace SDJK.MainMenu
         {
             get
             {
-                while (Interlocked.CompareExchange(ref allLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
                 bool all = _all;
 
-                Interlocked.Decrement(ref allLock);
+                Interlocked.Decrement(ref barsLock);
 
                 return all;
             }
             set
             {
-                while (Interlocked.CompareExchange(ref allLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
                 _all = value;
 
-                Interlocked.Decrement(ref allLock);
+                Interlocked.Decrement(ref barsLock);
             }
         }
         [SerializeField] bool _all = false;
-        int allLock = 0;
 
         /// <summary>
         /// Thread-Safe
@@ -59,27 +52,26 @@ namespace SDJK.MainMenu
         {
             get
             {
-                while (Interlocked.CompareExchange(ref leftLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
                 bool left = _left;
 
-                Interlocked.Decrement(ref leftLock);
+                Interlocked.Decrement(ref barsLock);
 
                 return left;
             }
             set
             {
-                while (Interlocked.CompareExchange(ref leftLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
                 _left = value;
 
-                Interlocked.Decrement(ref leftLock);
+                Interlocked.Decrement(ref barsLock);
             }
         }
         [SerializeField] bool _left = false;
-        int leftLock = 0;
 
         /// <summary>
         /// Thread-Safe
@@ -88,27 +80,26 @@ namespace SDJK.MainMenu
         {
             get
             {
-                while (Interlocked.CompareExchange(ref divideLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
-                int divide = _divide.Clamp(1, length);
+                int divide = _divide.Clamp(1);
 
-                Interlocked.Decrement(ref divideLock);
+                Interlocked.Decrement(ref barsLock);
 
                 return divide;
             }
             set
             {
-                while (Interlocked.CompareExchange(ref divideLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
-                _divide = value.Clamp(1, length);
+                _divide = value.Clamp(1);
 
-                Interlocked.Decrement(ref divideLock);
+                Interlocked.Decrement(ref barsLock);
             }
         }
         [Min(1), SerializeField] int _divide = 4;
-        int divideLock = 0;
 
         /// <summary>
         /// Thread-Safe
@@ -117,27 +108,26 @@ namespace SDJK.MainMenu
         {
             get
             {
-                while (Interlocked.CompareExchange(ref offsetLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
-                int offset = _offset.Clamp(0, length);
+                int offset = _offset;
 
-                Interlocked.Decrement(ref offsetLock);
+                Interlocked.Decrement(ref barsLock);
 
                 return offset;
             }
             set
             {
-                while (Interlocked.CompareExchange(ref offsetLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
-                _offset = value.Clamp(0, length);
+                _offset = value;
 
-                Interlocked.Decrement(ref offsetLock);
+                Interlocked.Decrement(ref barsLock);
             }
         }
-        [Min(0), SerializeField] int _offset = 0;
-        int offsetLock = 0;
+        [SerializeField] int _offset = 0;
 
         /// <summary>
         /// Thread-Safe
@@ -146,27 +136,26 @@ namespace SDJK.MainMenu
         {
             get
             {
-                while (Interlocked.CompareExchange(ref sizeLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
                 float size = _size;
 
-                Interlocked.Decrement(ref sizeLock);
+                Interlocked.Decrement(ref barsLock);
 
                 return size;
             }
             set
             {
-                while (Interlocked.CompareExchange(ref sizeLock, 1, 0) != 0)
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
                 _size = value;
 
-                Interlocked.Decrement(ref sizeLock);
+                Interlocked.Decrement(ref barsLock);
             }
         }
         [Min(0), SerializeField] float _size = 0;
-        int sizeLock = 0;
 
         public int length { get => _length; set => _length = value; } [Min(1), SerializeField] int _length = 160;
 
@@ -185,15 +174,25 @@ namespace SDJK.MainMenu
         bool tempCircle = false;
         void Update()
         {
-            if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0) { }
+            if (BGMManager.bgm != null && tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
+            {
+                if (tempSoundPlayer != null && !tempSoundPlayer.isRemoved)
+                    tempSoundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
 
-            bool isBarsLengthChanged = false;
+                BGMManager.bgm.soundPlayer.onAudioFilterReadEvent += VisualizerUpdate;
+                tempSoundPlayer = BGMManager.bgm.soundPlayer;
+            }
 
-            if (bars != null)
-                isBarsLengthChanged = bars.Length != length;
+            if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
+                return;
 
             try
             {
+                bool isBarsLengthChanged = false;
+
+                if (bars != null)
+                    isBarsLengthChanged = bars.Length != length;
+
                 if (isBarsLengthChanged || tempCircle != circle)
                 {
                     for (int i = 0; i < bars.Length; i++)
@@ -231,25 +230,16 @@ namespace SDJK.MainMenu
 
                     tempCircle = circle;
                 }
+
+                for (int i = 0; i < bars.Length; i++)
+                {
+                    VisualizerBar visualizerBar = bars[i];
+                    visualizerBar.SizeUpdate();
+                }
             }
             finally
             {
                 Interlocked.Decrement(ref barsLock);
-            }
-
-            if (BGMManager.bgm != null && tempSoundPlayer != BGMManager.bgm.soundPlayer && BGMManager.bgm.soundPlayer != null)
-            {
-                if (tempSoundPlayer != null && !tempSoundPlayer.isRemoved)
-                    tempSoundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
-
-                BGMManager.bgm.soundPlayer.onAudioFilterReadEvent += VisualizerUpdate;
-                tempSoundPlayer = BGMManager.bgm.soundPlayer;
-            }
-
-            for (int i = 0; i < bars.Length; i++)
-            {
-                VisualizerBar visualizerBar = bars[i];
-                visualizerBar.SizeUpdate();
             }
         }
 
@@ -266,10 +256,17 @@ namespace SDJK.MainMenu
             if (samples.Length != data.Length)
                 samples = new float[data.Length];
 
-            if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0) { }
+            if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
+                return;
 
             try
             {
+                bool left = _left;
+                bool all = _all;
+                int divide = _divide.Clamp(1, length);
+                float size = _size;
+                int offset = _offset.Repeat(length / divide);
+
                 if (all)
                 {
                     if (timer <= AudioSettings.dspTime)

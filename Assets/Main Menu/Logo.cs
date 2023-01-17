@@ -3,6 +3,7 @@ using SCKRM.Easing;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
+using SDJK.Effect;
 using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;

@@ -29,24 +29,27 @@ namespace SDJK.Editor
 
             Space();
 
-            UseProperty("_all", "한번에 변경");
+            editor.all = EditorGUILayout.Toggle("한번에 변경", editor.all);
 
             Space();
 
             if (!editor.all)
             {
-                UseProperty("_left", "왼쪽으로 애니메이션");
-                UseProperty("_divide", "분할");
+                editor.left = EditorGUILayout.Toggle("왼쪽으로 애니메이션", editor.left);
+                editor.divide = EditorGUILayout.IntField("분할", editor.divide);
 
                 Space();
             }
 
-            UseProperty("_offset");
-            UseProperty("_size");
+            editor.offset = EditorGUILayout.IntField("오프셋", editor.offset);
+            editor.size = EditorGUILayout.FloatField("크기", editor.size);
 
             Space();
 
             UseProperty("_length");
+
+            if (GUI.changed)
+                EditorUtility.SetDirty(target);
         }
     }
 }
