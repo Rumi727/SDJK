@@ -106,7 +106,9 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (eventType == "Twirl")
                         {
                             twirl = !twirl;
-                            twirlList.TryAdd(index, twirl);
+
+                            if (twirlList.TryAdd(index, twirl))
+                                adofaiMap.twirls.Add(new ADOFAITileEffectFile<bool>(index - 1, twirl));
                         }
                         else if (eventType == "Pause")
                         {
@@ -127,7 +129,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             int duration = action["duration"].Value<int>();
 
                             if (holdList.TryAdd(index, duration))
-                                adofaiMap.holds.Add(new ADOFAIHoldFile(index - 1, duration));
+                                adofaiMap.holds.Add(new ADOFAITileEffectFile<double>(index - 1, duration));
                         }
                         else if (eventType == "MultiPlanet")
                         {

@@ -1,4 +1,4 @@
-using SDJK.Map.Ruleset.SDJK.Map;
+using SCKRM.Rhythm;
 using System.Collections.Generic;
 
 namespace SDJK.Map.Ruleset.ADOFAI
@@ -6,18 +6,20 @@ namespace SDJK.Map.Ruleset.ADOFAI
     public sealed class ADOFAIMapFile : MapFile
     {
         public List<double> tiles { get; } = new List<double>();
-        public List<ADOFAIHoldFile> holds { get; } = new List<ADOFAIHoldFile>();
+        public List<ADOFAITileEffectFile<double>> holds { get; } = new List<ADOFAITileEffectFile<double>>();
+
+        public List<ADOFAITileEffectFile<bool>> twirls { get; } = new List<ADOFAITileEffectFile<bool>>();
     }
 
-    public struct ADOFAIHoldFile
+    public struct ADOFAITileEffectFile<T>
     {
         public int targetTileIndex { get; }
-        public int length { get; }
+        public T value { get; }
 
-        public ADOFAIHoldFile(int targetTileIndex, int length = 0)
+        public ADOFAITileEffectFile(int targetTileIndex, T value)
         {
             this.targetTileIndex = targetTileIndex;
-            this.length = length;
+            this.value = value;
         }
     }
 }
