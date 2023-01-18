@@ -95,6 +95,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                 Dictionary<int, int> holdList = new Dictionary<int, int>();
                 Dictionary<int, double> pauseList = new Dictionary<int, double>();
                 Dictionary<int, int> multiPlanetList = new Dictionary<int, int>();
+                Dictionary<int, bool> autoTileList = new Dictionary<int, bool>();
                 {
                     bool twirl = false;
                     for (int i = 0; i < adofai.actions.Length; i++)
@@ -139,6 +140,21 @@ namespace SDJK.Map.Ruleset.ADOFAI
                                 multiPlanetList.TryAdd(index, 3);
                             else
                                 multiPlanetList.TryAdd(index, 2);
+                        }
+                        else if (eventType == "AutoPlayTiles")
+                        {
+                            string enabled = action["enabled"].Value<string>();
+
+                            if (enabled == "Enabled")
+                            {
+                                if (autoTileList.TryAdd(index, true))
+                                    adofaiMap.autoTiles.Add(new ADOFAITileEffectFile<bool>(index - 1, true));
+                            }
+                            else
+                            {
+                                if (autoTileList.TryAdd(index, false))
+                                    adofaiMap.autoTiles.Add(new ADOFAITileEffectFile<bool>(index - 1, false));
+                            }
                         }
                     }
                 }

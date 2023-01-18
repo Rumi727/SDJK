@@ -1,4 +1,3 @@
-using SCKRM.Rhythm;
 using System.Collections.Generic;
 
 namespace SDJK.Map.Ruleset.ADOFAI
@@ -9,6 +8,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
         public List<ADOFAITileEffectFile<double>> holds { get; } = new List<ADOFAITileEffectFile<double>>();
 
         public List<ADOFAITileEffectFile<bool>> twirls { get; } = new List<ADOFAITileEffectFile<bool>>();
+
+        public List<ADOFAITileEffectFile<bool>> autoTiles { get; } = new List<ADOFAITileEffectFile<bool>>();
 
         public override void SetVisualizerEffect()
         {
