@@ -85,6 +85,13 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             {
                 bool lastIsHold = false;
+                bool isAuto = false;
+                {
+                    int index = adofaiMap.autoTiles.FindIndex(x => x.targetTileIndex >= 0);
+                    if (index >= 1)
+                        isAuto = adofaiMap.autoTiles[index - 1].value;
+                }
+
                 for (int i = 0; i < adofaiMap.tiles.Count; i++)
                 {
                     double beat = adofaiMap.tiles[i];
@@ -126,7 +133,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         holdBeat = adofaiMap.tiles[i + 1] - beat;
 
                     if (!lastIsHold || isHold)
-                        notes[keyIndex].Add(new SDJKNoteFile(beat, holdBeat, SDJKNoteTypeFile.normal));
+                        notes[keyIndex].Add(new SDJKNoteFile(beat, holdBeat, isAuto ? SDJKNoteTypeFile.auto : SDJKNoteTypeFile.normal));
 
                     lastIsHold = isHold;
                 }
