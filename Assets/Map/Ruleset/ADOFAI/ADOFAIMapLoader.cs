@@ -313,7 +313,12 @@ namespace SDJK.Map.Ruleset.ADOFAI
                     JObject action = adofai.actions[i];
                     int index = action["floor"].Value<int>() - 1;
                     string eventType = action["eventType"].Value<string>();
-                    double beat = allBeat[index.Clamp(0, allBeat.Count - 1)];
+                    double beat;
+                    if (index >= 0)
+                        beat = allBeat[index.Clamp(0, allBeat.Count - 1)];
+                    else
+                        beat = double.MinValue;
+
                     float duration = 0;
                     float angleOffset = 0;
                     string eventTag = "";
