@@ -192,7 +192,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         else
                             input = false;
 
-                        if (currentBeat >= currentHitsoundBeatReplay && currentHitsoundBeatReplayIndex < sdjkManager.currentReplay.hitSoundBeat[keyIndex].Count)
+                        while (currentBeat >= currentHitsoundBeatReplay && currentHitsoundBeatReplayIndex < sdjkManager.currentReplay.hitSoundBeat[keyIndex].Count)
                         {
                             HitsoundPlay();
                             NextHitsoundReplay();
