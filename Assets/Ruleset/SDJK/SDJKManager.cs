@@ -95,7 +95,7 @@ namespace SDJK.Ruleset.SDJK
 
             ruleset.GameStart(map.mapFilePath, isReplay ? currentReplay.replayFilePath : null, isEditor);
             if (!isReplay)
-                File.WriteAllText(map.mapFilePath + ".lastReplay", SCKRM.Json.JsonManager.ObjectToJson(createdReplay));
+                createdReplay.ReplaySave(map.mapFilePath + ".lastReplay");
         }
 
         public void Quit()
@@ -104,7 +104,7 @@ namespace SDJK.Ruleset.SDJK
                 Destroy(bgmClip, 1);
 
             if (!isReplay)
-                File.WriteAllText(map.mapFilePath + ".lastReplay", SCKRM.Json.JsonManager.ObjectToJson(createdReplay));
+                createdReplay.ReplaySave(map.mapFilePath + ".lastReplay");
 
             MainMenuLoad.Load();
             UIManager.BackEventRemove(Quit);
