@@ -9,6 +9,7 @@ using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Management.Instrumentation;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -33,7 +34,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
         /// 0 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
         public double accuracy { get; private set; } = 0;
-        public List<double> accuracys { get; } = new List<double>();
+        List<double> accuracys { get; } = new List<double>();
 
         public double health 
         { 
@@ -153,9 +154,11 @@ namespace SDJK.Ruleset.SDJK.Judgement
             List<int> lastJudgementIndex;
             List<double> lastJudgementBeat;
 
+            double replayInputLastBeat = double.MinValue;
             public void Update()
             {
-                SDJKRuleset ruleset = instance.sdjkManager.ruleset;
+                SDJKManager sdjkManager = instance.sdjkManager;
+                SDJKRuleset ruleset = sdjkManager.ruleset;
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
                 //SCKRM.Rhythm.BeatValuePairList<bool> yukiModes = map.globalEffect.yukiMode;
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
@@ -169,8 +172,19 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     if (autoNote || instance.auto)
                         input = currentBeat >= currentNote.beat;
+                    else if (sdjkManager.isReplay)
+                    {
+                        bool press = inputManager.ReplayGetKey(keyIndex, currentBeat, out double beat);
+                        if (press && replayInputLastBeat != beat)
+                        {
+                            input = true;
+                            replayInputLastBeat = beat;
+                        }
+                        else
+                            input = false;
+                    }
                     else
-                        input = inputManager.GetKey(keyIndex, InputType.Down);
+                        input = inputManager.GetKey(keyIndex);
 
                     if (input)
                         HitsoundPlay();
@@ -216,6 +230,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             public bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData)
             {
+                SDJKManager sdjkManager = instance.sdjkManager;
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
@@ -247,6 +262,11 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     instance.accuracys.Add(disSecond.Abs().Clamp(0, missSecond) / missSecond);
                     instance.accuracy = instance.accuracys.Average();
 
+                    if (!sdjkManager.isReplay)
+                        CreatedReplayFileAdd();
+                    else
+                        GetReplayComboToSet();
+
                     instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                     return true;
                 }
@@ -262,11 +282,36 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         instance.health = 0;
                         instance.gameOverManager.GameOver();
 
+                        if (!sdjkManager.isReplay)
+                            CreatedReplayFileAdd();
+
                         instance.judgementAction?.Invoke(dis, true, ruleset.instantDeathJudgementMetaData);
                     }
                 }
 
                 return false;
+            }
+
+            public void CreatedReplayFileAdd()
+            {
+                SDJKManager sdjkManager = instance.sdjkManager;
+                double currentBeat = RhythmManager.currentBeatSound;
+
+                sdjkManager.createdReplay.combos.Add(currentBeat, instance.combo);
+                sdjkManager.createdReplay.scores.Add(currentBeat, instance.score);
+                sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
+                sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracy);
+            }
+
+            public void GetReplayComboToSet()
+            {
+                SDJKManager sdjkManager = instance.sdjkManager;
+                double currentBeat = RhythmManager.currentBeatSound;
+
+                instance.combo = sdjkManager.createdReplay.combos.GetValue(currentBeat);
+                instance.score = sdjkManager.createdReplay.scores.GetValue(currentBeat);
+                instance.health = sdjkManager.createdReplay.healths.GetValue(currentBeat);
+                instance.accuracy = sdjkManager.createdReplay.accuracys.GetValue(currentBeat);
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
@@ -334,12 +379,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             bool isRemove = false;
 
+            double replayInputLastBeat = double.MinValue;
             public void Update()
             {
                 if (isRemove)
                     return;
 
-                SDJKRuleset ruleset = instance.sdjkManager.ruleset;
+                SDJKManager sdjkManager = instance.sdjkManager;
+                SDJKRuleset ruleset = sdjkManager.ruleset;
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double currentBeat = RhythmManager.currentBeatSound;
@@ -349,6 +396,17 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 if (autoNote || instance.auto)
                     input = currentBeat <= currentHoldNoteBeat;
+                else if (sdjkManager.isReplay)
+                {
+                    bool press = inputManager.ReplayGetKey(keyIndex, currentBeat, out double beat);
+                    if (press && replayInputLastBeat != beat)
+                    {
+                        input = false;
+                        replayInputLastBeat = beat;
+                    }
+                    else
+                        input = press;
+                }
                 else
                     input = inputManager.GetKey(keyIndex, InputType.Alway);
 

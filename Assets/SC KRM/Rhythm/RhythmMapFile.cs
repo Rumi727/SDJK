@@ -39,27 +39,10 @@ namespace SCKRM.Rhythm
                 beat = 0;
                 value = defaultValue;
             }
-            else if (Count <= 1 || this[0].beat >= currentBeat)
-            {
-                beat = this[0].beat;
-                value = this[0].value;
-            }
             else
             {
-                int findIndex = -1;
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i].beat > currentBeat)
-                    {
-                        findIndex = i;
-                        break;
-                    }
-                }
+                TPair beatValuePair = this[(GetValueIndexBinarySearch(currentBeat) - 1).Clamp(0)];
 
-                if (findIndex < 0)
-                    findIndex = Count;
-
-                TPair beatValuePair = this[findIndex - 1];
                 beat = beatValuePair.beat;
                 value = beatValuePair.value;
             }
@@ -122,6 +105,30 @@ namespace SCKRM.Rhythm
         public virtual void Add(double beat = double.MinValue, bool disturbance = false) => Add(new TPair() { beat = beat, value = defaultValue, disturbance = disturbance });
         public virtual void Add(TValue value, bool disturbance = false) => Add(new TPair() { beat = double.MinValue, value = value, disturbance = disturbance });
         public virtual void Add(double beat, TValue value, bool disturbance = false) => Add(new TPair() { beat = beat, value = value, disturbance = disturbance });
+
+        public virtual int GetValueIndexBinarySearch(double beat)
+        {
+            if (Count <= 0)
+                return 0;
+            else if (beat < this[0].beat)
+                return 0;
+            else if (beat >= this[Count - 1].beat)
+                return Count;
+
+            int low = 0;
+            int high = Count - 1;
+
+            while (low < high)
+            {
+                int index = (low + high) / 2;
+                if (this[index].beat <= beat)
+                    low = index + 1;
+                else
+                    high = index;
+            }
+
+            return low;
+        }
     }
     #endregion
 
@@ -152,21 +159,7 @@ namespace SCKRM.Rhythm
             }
             else
             {
-                int findIndex = -1;
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i].beat > currentBeat)
-                    {
-                        findIndex = i;
-                        break;
-                    }
-                }
-
-                if (findIndex < 0)
-                    findIndex = Count;
-
-
-                int index = findIndex - 1;
+                int index = GetValueIndexBinarySearch(currentBeat) - 1;
                 TPair beatValuePair = this[index];
                 beat = beatValuePair.beat;
 

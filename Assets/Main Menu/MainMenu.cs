@@ -295,7 +295,7 @@ namespace SDJK.MainMenu
             else if (currentScreenMode == ScreenMode.mapPackSelect)
                 MapSelect();
             else if (currentScreenMode == ScreenMode.mapSelect)
-                RulesetManager.GameStart(MapManager.selectedMap.mapFilePath, false);
+                RulesetManager.GameStart(MapManager.selectedMap.mapFilePath, null, false);
         }
 
         public static void Esc()

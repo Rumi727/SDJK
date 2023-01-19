@@ -1065,6 +1065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1494ffe7dc0950d4ca822830e3d8491a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sdjkManager: {fileID: 100744810}
   _effectManager: {fileID: 1657977506}
 --- !u!4 &777097536
 Transform:
@@ -1699,7 +1700,7 @@ MonoBehaviour:
   _inputManager: {fileID: 777097535}
   _effectManager: {fileID: 1657977506}
   _gameOverManager: {fileID: 1561121225}
-  auto: 1
+  auto: 0
 --- !u!4 &1996896440
 Transform:
   m_ObjectHideFlags: 0

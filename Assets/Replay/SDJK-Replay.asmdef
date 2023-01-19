@@ -1,0 +1,16 @@
+{
+    "name": "SDJK-Replay",
+    "rootNamespace": "SDJK.Replay",
+    "references": [
+        "GUID:9c1f978837ad80d49ae31d1cd963a280"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

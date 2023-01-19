@@ -9,6 +9,7 @@ using SCKRM.UI;
 using SDJK.Effect;
 using SDJK.MainMenu;
 using SDJK.Map.Ruleset.SDJK.Map;
+using SDJK.Replay;
 using System.IO;
 using UnityEngine;
 
@@ -20,6 +21,11 @@ namespace SDJK.Ruleset.SDJK
 
         public SDJKRuleset ruleset { get; private set; }
         public SDJKMapFile map { get; private set; }
+
+        public bool isReplay { get; private set; } = false;
+        public SDJKReplayFile currentReplay { get; private set; } = null;
+
+        public SDJKReplayFile createdReplay { get; private set; } = new SDJKReplayFile();
 
         public ISoundPlayer soundPlayer { get; private set; }
         public AudioClip bgmClip { get; private set; }
@@ -49,10 +55,21 @@ namespace SDJK.Ruleset.SDJK
                 Destroy(bgmClip, 1);
         }
 
-        public void Refresh(SDJKMapFile map, SDJKRuleset ruleset, bool isEditor)
+        public void Refresh(SDJKMapFile map, SDJKReplayFile replay, SDJKRuleset ruleset, bool isEditor)
         {
             if (SingletonCheck(this))
             {
+                if (replay != null)
+                {
+                    isReplay = true;
+                    currentReplay = replay;
+                }
+                else
+                {
+                    isReplay = false;
+                    currentReplay = null;
+                }
+
                 this.isEditor = isEditor;
 
                 this.ruleset = ruleset;
@@ -76,7 +93,7 @@ namespace SDJK.Ruleset.SDJK
             if (bgmClip != null)
                 Destroy(bgmClip, 1);
 
-            ruleset.GameStart(map.mapFilePath, isEditor);
+            ruleset.GameStart(map.mapFilePath, isReplay ? currentReplay.replayFilePath : null, isEditor);
         }
 
         async UniTaskVoid BGMPlay()

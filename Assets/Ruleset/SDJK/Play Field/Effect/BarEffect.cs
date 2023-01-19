@@ -31,8 +31,12 @@ namespace SDJK.Ruleset.SDJK.Effect
             if (effectManager == null)
                 effectManager = bar.effectManager;
 
-            isKeyEnable = inputManager.GetKey(bar.barIndex, InputType.Alway);
-            if (isKeyEnable)
+            if (SDJKManager.instance.isReplay)
+                isKeyEnable = inputManager.ReplayGetKey(bar.barIndex, RhythmManager.currentBeatScreen, out _);
+            else
+                isKeyEnable = inputManager.GetKey(bar.barIndex, InputType.Alway);
+
+                if (isKeyEnable)
                 transform.SetAsLastSibling();
 
             PosUpdate();
