@@ -33,6 +33,8 @@ namespace SDJK.Ruleset.SDJK.Input
                     inputsUp.Add(false);
                     inputs.Add(false);
                 }
+
+                sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
             }
         }
 
