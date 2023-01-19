@@ -241,12 +241,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double currentBeat = RhythmManager.currentBeatSound;
                 double bpmDivide60 = RhythmManager.bpm / 60d;
 
-                //리플레이 파일에 노트 기록 저장
-                if (!sdjkManager.isReplay && !isHoldJudgement && noteType != SDJKNoteTypeFile.auto)
-                    sdjkManager.createdReplay.pressNoteBeat[keyIndex].Add(currentBeat);
-
                 if (ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                 {
+                    //리플레이 파일에 노트 기록 저장
+                    if (!sdjkManager.isReplay && !isHoldJudgement && noteType != SDJKNoteTypeFile.auto)
+                        sdjkManager.createdReplay.pressNoteBeat[keyIndex].Add(currentBeat);
+
                     lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(beat);
                     bool isMiss = metaData.nameKey == SDJKRuleset.miss;
 
