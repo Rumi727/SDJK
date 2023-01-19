@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using SDJK.Replay;
+using static TreeEditor.TreeEditorHelper;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -98,7 +99,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     lastAutoJudgementBeat.Add(double.MinValue);
 
                     if (!sdjkManager.isReplay)
+                    {
                         sdjkManager.createdReplay.pressNoteBeat.Add(new List<double>());
+                        sdjkManager.createdReplay.hitSoundBeat.Add(new List<double>());
+                    }
                 }
             }
         }
@@ -138,6 +142,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 NextNote();
 
+                if (instance.sdjkManager.isReplay)
+                    NextHitsoundReplay();
+
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
@@ -150,8 +157,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
             bool autoNote;
             SDJKNoteFile currentNote;
             double currentNotePressBeatReplay;
+            double currentHitsoundBeatReplay;
             int currentNoteIndex = -1;
             int currentNotePressBeatReplayIndex = -1;
+            int currentHitsoundBeatReplayIndex = -1;
 
             /// <summary>
             /// lastJudgementBeat[keyIndex]
@@ -172,6 +181,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (currentNoteIndex < notes.Count)
                 {
                     bool input;
+                    SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentNotePressBeatReplay);
 
                     if (autoNote || instance.auto)
                         input = currentBeat >= currentNote.beat;
@@ -181,14 +191,21 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             input = currentBeat >= currentNotePressBeatReplay;
                         else
                             input = false;
+
+                        if (currentBeat >= currentHitsoundBeatReplay && currentHitsoundBeatReplayIndex < sdjkManager.currentReplay.hitSoundBeat[keyIndex].Count)
+                        {
+                            HitsoundPlay();
+                            NextHitsoundReplay();
+                        }
                     }
                     else
                         input = inputManager.GetKey(keyIndex);
 
-                    SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentNotePressBeatReplay);
-
-                    if (input)
+                    if (input && !sdjkManager.isReplay)
+                    {
                         HitsoundPlay();
+                        sdjkManager.createdReplay.hitSoundBeat[keyIndex].Add(currentBeat);
+                    }
 
                     for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
                     {
@@ -322,6 +339,15 @@ namespace SDJK.Ruleset.SDJK.Judgement
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+            public void NextHitsoundReplay()
+            {
+                SDJKManager sdjkManager = instance.sdjkManager;
+                List<double> replayHitsound = sdjkManager.currentReplay.hitSoundBeat[keyIndex];
+
+                currentHitsoundBeatReplayIndex++;
+                if (currentHitsoundBeatReplayIndex < replayHitsound.Count)
+                    currentHitsoundBeatReplay = replayHitsound[currentHitsoundBeatReplayIndex];
+            }
 
             public double GetDisSecond(double beat, bool maxClamp, double currentBeat)
             {
