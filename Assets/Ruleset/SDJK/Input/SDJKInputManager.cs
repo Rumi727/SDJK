@@ -36,6 +36,7 @@ namespace SDJK.Ruleset.SDJK.Input
             }
         }
 
+        List<KeyCode> pressKeys = new List<KeyCode>();
         void Update()
         {
             if (!RhythmManager.isPlaying)
@@ -49,6 +50,25 @@ namespace SDJK.Ruleset.SDJK.Input
                     inputs[i] = InternalGetKey(i, InputType.Alway);
                     inputsUp[i] = InternalGetKey(i, InputType.Up);
                 }
+
+                bool isRefresh = false;
+                for (int i = 0; i < InputManager.unityKeyCodeList.Length; i++)
+                {
+                    KeyCode keyCode = InputManager.unityKeyCodeList[i];
+                    if (InputManager.GetKey(keyCode, InputType.Down))
+                    {
+                        pressKeys.Add(keyCode);
+                        isRefresh = true;
+                    }
+                    else if (InputManager.GetKey(keyCode, InputType.Up))
+                    {
+                        pressKeys.Remove(keyCode);
+                        isRefresh = true;
+                    }
+                }
+
+                if (isRefresh)
+                    sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
             }
         }
 
