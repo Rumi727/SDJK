@@ -297,7 +297,7 @@ namespace SDJK.MainMenu
             else if (currentScreenMode == ScreenMode.mapSelect)
             {
                 string mapFilePath = MapManager.selectedMap.mapFilePath;
-                string lastReplayPath = mapFilePath + ".lastReplay";
+                string lastReplayPath = $"{mapFilePath}.{RulesetManager.selectedRuleset.name}-lastReplay";
 
                 if (InputManager.GetKey(KeyCode.LeftShift, InputType.Alway) && System.IO.File.Exists(lastReplayPath))
                     RulesetManager.GameStart(mapFilePath, lastReplayPath, false);
