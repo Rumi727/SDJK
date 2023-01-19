@@ -32,7 +32,7 @@ namespace SDJK.Ruleset.SDJK
 
         public bool isEditor { get; private set; }
 
-        void Awake() => UIManager.BackEventAdd(MainMenuLoad.Load);
+        void Awake() => UIManager.BackEventAdd(Quit);
 
         void Update()
         {
@@ -49,7 +49,7 @@ namespace SDJK.Ruleset.SDJK
 
         void OnDestroy()
         {
-            UIManager.BackEventRemove(MainMenuLoad.Load);
+            UIManager.BackEventRemove(Quit);
 
             if (bgmClip != null)
                 Destroy(bgmClip, 1);
@@ -94,6 +94,20 @@ namespace SDJK.Ruleset.SDJK
                 Destroy(bgmClip, 1);
 
             ruleset.GameStart(map.mapFilePath, isReplay ? currentReplay.replayFilePath : null, isEditor);
+            if (!isReplay)
+                File.WriteAllText(map.mapFilePath + ".lastReplay", SCKRM.Json.JsonManager.ObjectToJson(createdReplay));
+        }
+
+        public void Quit()
+        {
+            if (bgmClip != null)
+                Destroy(bgmClip, 1);
+
+            if (!isReplay)
+                File.WriteAllText(map.mapFilePath + ".lastReplay", SCKRM.Json.JsonManager.ObjectToJson(createdReplay));
+
+            MainMenuLoad.Load();
+            UIManager.BackEventRemove(Quit);
         }
 
         async UniTaskVoid BGMPlay()
