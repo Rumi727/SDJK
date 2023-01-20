@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace SDJK.Ruleset.SDJK.Input
 {
@@ -46,42 +47,48 @@ namespace SDJK.Ruleset.SDJK.Input
 
             if (instance != null)
             {
+                bool isRefresh = false;
+
                 for (int i = 0; i < map.notes.Count; i++)
                 {
-                    inputsDown[i] = InternalGetKey(i, InputType.Down);
-                    inputs[i] = InternalGetKey(i, InputType.Alway);
-                    inputsUp[i] = InternalGetKey(i, InputType.Up);
-                }
+                    inputsDown[i] = InternalGetKey(i, InputType.Down, out List<KeyCode> keyCodes);
+                    inputs[i] = InternalGetKey(i, InputType.Alway, out _);
+                    inputsUp[i] = InternalGetKey(i, InputType.Up, out _);
 
-                if (!sdjkManager.isReplay && InputManager.GetAnyKeyDown())
-                {
-                    bool isRefresh = false;
-                    for (int i = 0; i < InputManager.unityKeyCodeList.Length; i++)
+                    if (!sdjkManager.isReplay)
                     {
-                        KeyCode keyCode = InputManager.unityKeyCodeList[i];
-                        if (InputManager.GetKey(keyCode, InputType.Down))
+                        if (InputManager.GetKey(keyCodes, InputType.Down))
                         {
-                            pressKeys.Add(keyCode);
+                            pressKeys.AddRange(keyCodes);
                             isRefresh = true;
                         }
-                        else if (InputManager.GetKey(keyCode, InputType.Up))
+                        else if (InputManager.GetKey(keyCodes, InputType.Up))
                         {
-                            pressKeys.Remove(keyCode);
+                            for (int j = 0; j < keyCodes.Count; j++)
+                            {
+                                for (int k = 0; k < pressKeys.Count; k++)
+                                {
+                                    if (pressKeys[k] == keyCodes[j])
+                                        pressKeys.RemoveAt(k);
+                                }
+                            }
+
                             isRefresh = true;
                         }
                     }
-
-                    if (isRefresh)
-                        sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
                 }
+
+                if (isRefresh)
+                    sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
             }
         }
 
-        bool InternalGetKey(int keyIndex, InputType inputType)
+        bool InternalGetKey(int keyIndex, InputType inputType, out List<KeyCode> keyCode)
         {
             const string originalInputKey = "ruleset.sdjk.";
             string inputKey = originalInputKey + map.notes.Count + "." + keyIndex;
 
+            keyCode = InputManager.controlSettingList[inputKey];
             return InputManager.GetKey(inputKey, inputType);
         }
 

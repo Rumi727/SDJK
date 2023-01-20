@@ -278,6 +278,99 @@ Returns true while the user holds down the key identified by the key KeyCode enu
         }
 
         /// <summary>
+        /// 사용자가 키 KeyCode 열거형 매개변수로 식별되는 키를 누르고 있는 동안 true를 반환합니다
+        /// Returns true while the user holds down the key identified by the key KeyCode enum parameter
+        /// </summary>
+        /// <param name="keyCodes">
+        /// 키 코드
+        /// Key Code
+        /// </param>
+        /// <param name="inputType">
+        /// 인풋 타입
+        /// Input Type
+        /// </param>
+        /// <param name="inputLockDeny">
+        /// 무시할 인풋 락
+        /// input lock to ignore
+        /// </param>
+        /// <returns></returns>
+        /// <exception cref="NotMainThreadMethodException"></exception>
+        /// <exception cref="NotPlayModeMethodException"></exception>
+        /// <exception cref="NotInitialLoadEndMethodException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
+        [WikiIgnore]
+        public static bool GetKey(IList<KeyCode> keyCodes, InputType inputType = InputType.Down, params string[] inputLockDeny)
+        {
+            if (!ThreadManager.isMainThread)
+                throw new NotMainThreadMethodException();
+#if UNITY_EDITOR
+            if (!Kernel.isPlaying)
+                throw new NotPlayModeMethodException();
+#endif
+            if (!InitialLoadManager.isInitialLoadEnd)
+                throw new NotInitialLoadEndMethodException();
+
+            if (inputLockDeny == null)
+                inputLockDeny = new string[0];
+
+            if (keyCodes == null)
+                return false;
+            else if (keyCodes.Count <= 0)
+                return false;
+
+            if (!InputLockCheck(inputLockDeny))
+            {
+                if (inputType == InputType.Down)
+                {
+                    for (int i = 0; i < keyCodes.Count; i++)
+                    {
+                        if (i != keyCodes.Count - 1)
+                        {
+                            if (!UnityEngine.Input.GetKeyDown(keyCodes[i]))
+                                return false;
+                        }
+                        else if (!UnityEngine.Input.GetKeyDown(keyCodes[i]))
+                            return false;
+                    }
+
+                    return true;
+                }
+                else if (inputType == InputType.Alway)
+                {
+                    for (int i = 0; i < keyCodes.Count; i++)
+                    {
+                        if (i != keyCodes.Count - 1)
+                        {
+                            if (!UnityEngine.Input.GetKey(keyCodes[i]))
+                                return false;
+                        }
+                        else if (!UnityEngine.Input.GetKey(keyCodes[i]))
+                            return false;
+                    }
+
+                    return true;
+                }
+                else if (inputType == InputType.Up)
+                {
+                    for (int i = 0; i < keyCodes.Count; i++)
+                    {
+                        if (i != keyCodes.Count - 1)
+                        {
+                            if (!UnityEngine.Input.GetKeyUp(keyCodes[i]))
+                                return false;
+                        }
+                        else if (!UnityEngine.Input.GetKeyUp(keyCodes[i]))
+                            return false;
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 사용자가 딕셔너리로 식별된 키를 누르고 있는 동안 true를 반환합니다.
         /// Returns true while the user is holding down the key identified by the dictionary.
         /// </summary>
