@@ -16,7 +16,7 @@ namespace SCKRM
     public static class MathTool
     {
         public const float epsilonFloatWithAccuracy = 0.0001f;
-
+        
         #region Trigonometric functions
         public static float Sin(this float value) => (float)Math.Sin(value);
         [WikiIgnore] public static double Sin(this double value) => Math.Sin(value);
@@ -3217,25 +3217,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                sbyte val = getNumberFunc(enumerator.Current);
+                sbyte val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     sbyte currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3260,25 +3264,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                byte val = getNumberFunc(enumerator.Current);
+                byte val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     byte currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3303,25 +3311,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                short val = getNumberFunc(enumerator.Current);
+                short val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     short currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3346,25 +3358,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                ushort val = getNumberFunc(enumerator.Current);
+                ushort val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     ushort currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3389,25 +3405,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                int val = getNumberFunc(enumerator.Current);
+                int val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     int currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3432,25 +3452,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                uint val = getNumberFunc(enumerator.Current);
+                uint val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     uint currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3475,25 +3499,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                long val = getNumberFunc(enumerator.Current);
+                long val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     long currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3518,25 +3546,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                ulong val = getNumberFunc(enumerator.Current);
+                ulong val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     ulong currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3561,25 +3593,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                float val = getNumberFunc(enumerator.Current);
+                float val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     float currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3604,25 +3640,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                double val = getNumberFunc(enumerator.Current);
+                double val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     double currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3647,25 +3687,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                decimal val = getNumberFunc(enumerator.Current);
+                decimal val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     decimal currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3690,25 +3734,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                BigInteger val = getNumberFunc(enumerator.Current);
+                BigInteger val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     BigInteger currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3733,25 +3781,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                BigDecimal val = getNumberFunc(enumerator.Current);
+                BigDecimal val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     BigDecimal currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3776,25 +3828,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                nint val = getNumberFunc(enumerator.Current);
+                nint val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     nint currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target).Abs() < (currentNumber - target).Abs() ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
@@ -3819,25 +3875,29 @@ namespace SCKRM
             if (list.Count() > 0)
             {
                 using IEnumerator<T> enumerator = list.GetEnumerator();
-                enumerator.MoveNext();
 
-                bool setVal = false;
-                nuint val = getNumberFunc(enumerator.Current);
+                nuint val = 0;
+                bool exists = false;
+                while (enumerator.MoveNext())
+                {
+                    if (predicate(enumerator.Current))
+                    {
+                        val = getNumberFunc(enumerator.Current);
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    return 0;
+
                 while (enumerator.MoveNext())
                 {
                     if (!predicate(enumerator.Current))
-                    {
-                        if (!setVal)
-                        {
-                            val = getNumberFunc(enumerator.Current);
-                            setVal = true;
-                        }
-
                         continue;
-                    }
 
                     nuint currentNumber = getNumberFunc(enumerator.Current);
-                    val = (val - target) < (currentNumber - target) ? val : currentNumber;
+                    val = val.Distance(target) < currentNumber.Distance(target) ? val : currentNumber;
                 }
 
                 return val;
