@@ -99,10 +99,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     lastAutoJudgementBeat.Add(double.MinValue);
 
                     if (!sdjkManager.isReplay)
-                    {
-                        sdjkManager.createdReplay.pressNoteBeat.Add(new List<double>());
-                        sdjkManager.createdReplay.hitSoundBeat.Add(new List<double>());
-                    }
+                        sdjkManager.createdReplay.pressBeat.Add(new List<double>());
                 }
             }
         }
@@ -143,7 +140,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 NextNote();
 
                 if (instance.sdjkManager.isReplay)
-                    NextHitsoundReplay();
+                    NextPressBeatReplay();
 
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
@@ -158,11 +155,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             bool autoNote;
             SDJKNoteFile currentNote;
-            double currentNotePressBeatReplay;
-            double currentHitsoundBeatReplay;
+            double currentPressBeatReplay;
             int currentNoteIndex = -1;
-            int currentNotePressBeatReplayIndex = -1;
-            int currentHitsoundBeatReplayIndex = -1;
+            int currentPressBeatReplayIndex = -1;
 
             /// <summary>
             /// lastJudgementBeat[keyIndex]
@@ -185,37 +180,40 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (currentNoteIndex < notes.Count)
                 {
                     bool input;
-                    SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentNotePressBeatReplay);
+                    SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentPressBeatReplay);
 
                     if (autoNote || instance.auto)
                         input = currentBeat >= currentNote.beat;
                     else if (sdjkManager.isReplay)
                     {
-                        if (currentNotePressBeatReplayIndex < sdjkManager.currentReplay.pressNoteBeat[keyIndex].Count)
+                        /*if (currentNotePressBeatReplayIndex < sdjkManager.currentReplay.pressNoteBeat[keyIndex].Count)
                             input = currentBeat >= currentNotePressBeatReplay;
                         else
-                            input = false;
+                            input = false;*/
 
-                        while (currentBeat >= currentHitsoundBeatReplay && currentHitsoundBeatReplayIndex < sdjkManager.currentReplay.hitSoundBeat[keyIndex].Count)
+                        List<double> replayHitsounds = sdjkManager.currentReplay.pressBeat[keyIndex];
+                        if (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < replayHitsounds.Count)
                         {
                             input = true;
-
                             HitsoundPlay();
-                            NextHitsoundReplay();
                         }
+                        else
+                            input = false;
                     }
                     else
+                    {
                         input = inputManager.GetKey(keyIndex);
 
-                    if (input && !sdjkManager.isReplay)
-                    {
-                        HitsoundPlay();
-                        sdjkManager.createdReplay.hitSoundBeat[keyIndex].Add(currentBeat);
+                        if (input)
+                            sdjkManager.createdReplay.pressBeat[keyIndex].Add(currentBeat);
                     }
+
+                    if (input && !sdjkManager.isReplay)
+                        HitsoundPlay();
 
                     for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
                     {
-                        if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData, false, currentNote.type))
+                        if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData, false, currentNote.type, currentPressBeatReplay))
                         {
                             bool isMiss = metaData.nameKey == SDJKRuleset.miss;
                             if (currentNote.holdLength > 0)
@@ -237,13 +235,20 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             NextNote();
                         }
 
-                        SetDisSecond(currentNote.beat, true, out realDisSecond, out judgementDisSecond, currentNotePressBeatReplay);
+                        SetDisSecond(currentNote.beat, true, out realDisSecond, out judgementDisSecond, currentPressBeatReplay);
                         input = false;
+                    }
+
+                    if (sdjkManager.isReplay)
+                    {
+                        List<double> replayHitsounds = sdjkManager.currentReplay.pressBeat[keyIndex];
+                        while (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < replayHitsounds.Count)
+                            NextPressBeatReplay();
                     }
                 }
             }
 
-            public void SetDisSecond(double beat, bool maxClamp, out double realDisSecond, out double judgementDisSecond, double notePressBeatReplay)
+            public void SetDisSecond(double beat, bool maxClamp, out double realDisSecond, out double judgementDisSecond, double pressBeatReplay)
             {
                 realDisSecond = GetDisSecond(beat, maxClamp, RhythmManager.currentBeatSound);
                 judgementDisSecond = realDisSecond;
@@ -251,10 +256,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (autoNote || instance.auto)
                     judgementDisSecond = 0;
                 else if (instance.sdjkManager.isReplay)
-                    judgementDisSecond = GetDisSecond(beat, maxClamp, notePressBeatReplay);
+                    judgementDisSecond = GetDisSecond(beat, maxClamp, pressBeatReplay);
             }
 
-            public bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData, bool isHoldJudgement, SDJKNoteTypeFile noteType)
+            public bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData, bool isHoldJudgement, SDJKNoteTypeFile noteType, double notePressBeatReplay)
             {
                 SDJKManager sdjkManager = instance.sdjkManager;
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
@@ -266,10 +271,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 if (ruleset.Judgement(disSecond, forceFastMiss, out metaData))
                 {
-                    //리플레이 파일에 노트 기록 저장
-                    if (!sdjkManager.isReplay && !isHoldJudgement && noteType != SDJKNoteTypeFile.auto)
-                        sdjkManager.createdReplay.pressNoteBeat[keyIndex].Add(currentBeat);
-
                     lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(beat);
                     bool isMiss = metaData.nameKey == SDJKRuleset.miss;
 
@@ -312,16 +313,28 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 {
                     //가장 가까운 즉사 노트 감지
                     double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == SDJKNoteTypeFile.instantDeath);
-                    double dis = GetDisSecond(instantDeathNoteBeat, false, currentNotePressBeatReplay);
+                    double dis = GetDisSecond(instantDeathNoteBeat, false, notePressBeatReplay);
 
                     if (dis.Abs() <= missSecond)
                     {
                         instance.combo = 0;
                         instance.health = 0;
-                        instance.gameOverManager.GameOver();
+
+                        if (!sdjkManager.isReplay)
+                        {
+                            if (instance.health <= 0)
+                            {
+                                instance.gameOverManager.GameOver();
+                                sdjkManager.createdReplay.gameOverBeat = currentBeat;
+                            }
+                        }
+                        else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
+                            instance.gameOverManager.GameOver();
 
                         if (!sdjkManager.isReplay)
                             CreatedReplayFileAdd();
+                        else
+                            GetReplayComboToSet();
 
                         instance.judgementAction?.Invoke(dis, true, ruleset.instantDeathJudgementMetaData);
                     }
@@ -353,15 +366,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
-            public void NextHitsoundReplay()
-            {
-                SDJKManager sdjkManager = instance.sdjkManager;
-                List<double> replayHitsound = sdjkManager.currentReplay.hitSoundBeat[keyIndex];
-
-                currentHitsoundBeatReplayIndex++;
-                if (currentHitsoundBeatReplayIndex < replayHitsound.Count)
-                    currentHitsoundBeatReplay = replayHitsound[currentHitsoundBeatReplayIndex];
-            }
 
             public double GetDisSecond(double beat, bool maxClamp, double currentBeat)
             {
@@ -379,7 +383,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             void NextNote()
             {
-                SDJKManager sdjkManager = instance.sdjkManager;
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
 
                 for (int i = currentNoteIndex; i <= notes.Count; i++)
@@ -402,15 +405,16 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         }
                     }
                 }
+            }
 
-                if (sdjkManager.isReplay)
-                {
-                    List<double> replayNote = sdjkManager.currentReplay.pressNoteBeat[keyIndex];
+            public void NextPressBeatReplay()
+            {
+                SDJKManager sdjkManager = instance.sdjkManager;
+                List<double> pressBeatReplay = sdjkManager.currentReplay.pressBeat[keyIndex];
 
-                    currentNotePressBeatReplayIndex++;
-                    if (currentNotePressBeatReplayIndex < replayNote.Count)
-                        currentNotePressBeatReplay = replayNote[currentNotePressBeatReplayIndex];
-                }
+                currentPressBeatReplayIndex++;
+                if (currentPressBeatReplayIndex < pressBeatReplay.Count)
+                    currentPressBeatReplay = pressBeatReplay[currentPressBeatReplayIndex];
             }
         }
 
@@ -465,7 +469,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 if (realDisSecond >= missSecond || !input)
                 {
-                    judgementObject.Judgement(currentHoldNoteBeat, judgementDisSecond, true, out _, true, noteType);
+                    judgementObject.Judgement(currentHoldNoteBeat, judgementDisSecond, true, out _, true, noteType, replayInputBeat);
                     judgementObject.HitsoundPlay();
 
                     instance.holdJudgements.Remove(this);
