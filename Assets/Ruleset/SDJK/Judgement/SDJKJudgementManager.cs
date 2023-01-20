@@ -194,6 +194,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                         while (currentBeat >= currentHitsoundBeatReplay && currentHitsoundBeatReplayIndex < sdjkManager.currentReplay.hitSoundBeat[keyIndex].Count)
                         {
+                            input = true;
+
                             HitsoundPlay();
                             NextHitsoundReplay();
                         }
