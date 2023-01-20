@@ -280,7 +280,15 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         instance.health += map.globalEffect.hpAddValue.GetValue(currentBeat) * metaData.hpMultiplier;
 
-                    if (instance.health <= 0)
+                    if (!sdjkManager.isReplay)
+                    {
+                        if (instance.health <= 0)
+                        {
+                            instance.gameOverManager.GameOver();
+                            sdjkManager.createdReplay.gameOverBeat = currentBeat;
+                        }
+                    }
+                    else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
                         instance.gameOverManager.GameOver();
 
                     instance.accuracys.Add(disSecond.Abs().Clamp(0, missSecond) / missSecond);
