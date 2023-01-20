@@ -53,24 +53,27 @@ namespace SDJK.Ruleset.SDJK.Input
                     inputsUp[i] = InternalGetKey(i, InputType.Up);
                 }
 
-                bool isRefresh = false;
-                for (int i = 0; i < InputManager.unityKeyCodeList.Length; i++)
+                if (!sdjkManager.isReplay && InputManager.GetAnyKeyDown())
                 {
-                    KeyCode keyCode = InputManager.unityKeyCodeList[i];
-                    if (InputManager.GetKey(keyCode, InputType.Down))
+                    bool isRefresh = false;
+                    for (int i = 0; i < InputManager.unityKeyCodeList.Length; i++)
                     {
-                        pressKeys.Add(keyCode);
-                        isRefresh = true;
+                        KeyCode keyCode = InputManager.unityKeyCodeList[i];
+                        if (InputManager.GetKey(keyCode, InputType.Down))
+                        {
+                            pressKeys.Add(keyCode);
+                            isRefresh = true;
+                        }
+                        else if (InputManager.GetKey(keyCode, InputType.Up))
+                        {
+                            pressKeys.Remove(keyCode);
+                            isRefresh = true;
+                        }
                     }
-                    else if (InputManager.GetKey(keyCode, InputType.Up))
-                    {
-                        pressKeys.Remove(keyCode);
-                        isRefresh = true;
-                    }
-                }
 
-                if (isRefresh)
-                    sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
+                    if (isRefresh)
+                        sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
+                }
             }
         }
 
