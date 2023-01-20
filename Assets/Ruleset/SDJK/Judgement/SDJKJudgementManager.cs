@@ -148,6 +148,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
+
+                existsInstantDeathNote = notes.FindIndex(x => x.type == SDJKNoteTypeFile.instantDeath) != -1;
             }
 
             SDJKInputManager inputManager;
@@ -167,6 +169,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
             /// </summary>
             List<int> lastJudgementIndex;
             List<double> lastJudgementBeat;
+
+            bool existsInstantDeathNote = false;
 
             public void Update()
             {
@@ -304,7 +308,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
                     return true;
                 }
-                else //노트를 치지 않았을때
+                else if (existsInstantDeathNote) //즉사 노트가 존재하며 노트를 치지 않았을때
                 {
                     //가장 가까운 즉사 노트 감지
                     double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == SDJKNoteTypeFile.instantDeath);
