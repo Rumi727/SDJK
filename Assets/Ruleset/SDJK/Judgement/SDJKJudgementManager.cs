@@ -9,8 +9,6 @@ using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using SDJK.Replay;
-using static TreeEditor.TreeEditorHelper;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {

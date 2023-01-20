@@ -60,7 +60,7 @@ namespace SDJK.Map
                     sdjkMap.info.sckrmVersion = Kernel.sckrmVersion;
                     sdjkMap.info.sdjkVersion = (Version)Kernel.version;
 
-                    sdjkMap.info.ResetRandomSeed(mapFilePath);
+                    sdjkMap.info.ResetMapID(mapFilePath);
                     sdjkMap.SetVisualizerEffect();
 
                     return sdjkMap;

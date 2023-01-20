@@ -74,7 +74,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             #region Note
-            sdjkMapFile.info.ResetRandomSeed(mapFilePath);
+            sdjkMapFile.info.ResetMapID(mapFilePath);
 
             Random random = new Random(sdjkMapFile.info.randomSeed);
             List<List<SDJKNoteFile>> notes = sdjkMapFile.notes;

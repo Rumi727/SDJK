@@ -7,6 +7,8 @@ namespace SDJK.Replay
 {
     public class ReplayFile
     {
+        public string mapId { get; set; } = "";
+
         public Version sckrmVersion { get; set; } = new Version();
         public Version sdjkVersion { get; set; } = new Version();
 

@@ -3,6 +3,8 @@ using SCKRM.Json;
 using SCKRM.Rhythm;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
 using UnityEngine;
 
 using Version = SCKRM.Version;
@@ -30,8 +32,8 @@ namespace SDJK.Map
 
     public sealed class MapInfo
     {
-        [Obsolete("Not implemented!", true), JsonIgnore] public Guid id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        /*[JsonIgnore]*/ public int randomSeed { get; set; } //=> id.ToUInt64();
+        [JsonIgnore] public string id { get; private set; }
+        [JsonIgnore] public int randomSeed => id.GetHashCode();
 
 
 
@@ -75,12 +77,12 @@ namespace SDJK.Map
 
 
 
-        public void ResetRandomSeed(string mapFilePath)
+        public void ResetMapID(string mapFilePath)
         {
-            using System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-            using System.IO.FileStream stream = System.IO.File.OpenRead(mapFilePath);
+            using SHA256 sha256 = SHA256.Create();
+            using FileStream stream = File.OpenRead(mapFilePath);
 
-            randomSeed = BitConverter.ToString(md5.ComputeHash(stream)).GetHashCode();
+            id = BitConverter.ToString(sha256.ComputeHash(stream));
         }
     }
 
