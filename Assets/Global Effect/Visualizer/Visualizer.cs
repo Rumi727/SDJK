@@ -20,34 +20,6 @@ namespace SDJK.Effect
         /// <summary>
         /// Thread-Safe
         /// </summary>
-        public bool all
-        {
-            get
-            {
-                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
-                    Thread.Sleep(1);
-
-                bool all = _all;
-
-                Interlocked.Decrement(ref barsLock);
-
-                return all;
-            }
-            set
-            {
-                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
-                    Thread.Sleep(1);
-
-                _all = value;
-
-                Interlocked.Decrement(ref barsLock);
-            }
-        }
-        [SerializeField] bool _all = false;
-
-        /// <summary>
-        /// Thread-Safe
-        /// </summary>
         public bool left
         {
             get
@@ -269,69 +241,47 @@ namespace SDJK.Effect
             try
             {
                 bool left = _left;
-                bool all = _all;
                 int divide = _divide.Clamp(1, length);
                 float size = _size;
                 int offset = _offset.Repeat(length / divide);
 
-                if (all)
+                if (timer <= AudioSettings.dspTime)
                 {
-                    if (timer <= AudioSettings.dspTime)
+                    timer = AudioSettings.dspTime + 0.01f;
+
+                    samples = data;
+
+                    float average = 0;
+                    for (int j = 0; j < samples.Length; j += 2)
+                        average += samples[j].Abs();
+
+                    average /= samples.Length / 2f;
+
+                    for (int j = 0; j < divide; j++)
                     {
-                        timer = AudioSettings.dspTime + 0.005f;
-
-                        samples = data;
-
-                        int k = 0;
-                        for (int j = 0; j < bars.Length; j++)
+                        int index = i + (bars.Length / divide * j) + offset;
+                        if (index >= bars.Length)
                         {
-                            if (j - k >= samples.Length)
-                                k += samples.Length;
-
-                            bars[j].size = samples[j - k].Abs() * 2400 * size;
-                        }
-                    }
-                }
-                else
-                {
-                    if (timer <= AudioSettings.dspTime)
-                    {
-                        timer = AudioSettings.dspTime + 0.01f;
-
-                        samples = data;
-
-                        float average = 0;
-                        for (int j = 0; j < samples.Length; j += 2)
-                            average += samples[j].Abs();
-
-                        average /= samples.Length / 2f;
-
-                        for (int j = 0; j < divide; j++)
-                        {
-                            int index = i + (bars.Length / divide * j) + offset;
-                            if (index >= bars.Length)
-                            {
-                                if (index - bars.Length >= bars.Length)
-                                    bars[0].size = average * 2400 * size;
-                                else
-                                    bars[index - bars.Length].size = average * 2400 * size;
-                            }
+                            if (index - bars.Length >= bars.Length)
+                                bars[0].size = average * 2400 * size;
                             else
-                                bars[index].size = average * 2400 * size;
-                        }
-
-                        if (left)
-                        {
-                            i--;
-                            if (i < 0)
-                                i = bars.Length - 1;
+                                bars[index - bars.Length].size = average * 2400 * size;
                         }
                         else
-                        {
-                            i++;
-                            if (i >= bars.Length)
-                                i = 0;
-                        }
+                            bars[index].size = average * 2400 * size;
+                    }
+
+                    if (left)
+                    {
+                        i--;
+                        if (i < 0)
+                            i = bars.Length - 1;
+                    }
+                    else
+                    {
+                        i++;
+                        if (i >= bars.Length)
+                            i = 0;
                     }
                 }
             }
