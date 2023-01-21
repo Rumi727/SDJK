@@ -1,5 +1,6 @@
 using SCKRM;
 using SCKRM.Sound;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -141,14 +142,10 @@ namespace SDJK.Effect
 
 
 
-        public override void Refresh(bool force = false)
-        {
-
-        }
+        public override void Refresh(bool force = false) { }
 
 
 
-        float[] samples = new float[256];
         ISoundPlayer lastSoundPlayer;
         bool tempCircle = false;
         void Update()
@@ -228,13 +225,11 @@ namespace SDJK.Effect
                 effectManager.soundPlayer.onAudioFilterReadEvent -= VisualizerUpdate;
         }
 
-        int i = 0;
+        int targetBarIndex = 0;
         double timer = AudioSettings.dspTime;
+        List<float> sampleAverages = new List<float>();
         public void VisualizerUpdate(float[] data, int channels)
         {
-            if (samples.Length != data.Length)
-                samples = new float[data.Length];
-
             if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                 return;
 
@@ -245,43 +240,57 @@ namespace SDJK.Effect
                 float size = _size;
                 int offset = _offset.Repeat(length / divide);
 
+                float finalAverage = 0;
+                for (int i = 0; i < channels; i++)
+                {
+                    float sampleChannel = 0;
+                    for (int j = i; j < data.Length; j += channels)
+                    {
+                        float sample = data[j].Abs();
+                        if (sample > sampleChannel)
+                            sampleChannel += sample;
+                    }
+
+                    finalAverage += sampleChannel;
+                }
+
+                sampleAverages.Add(finalAverage);
+
                 if (timer <= AudioSettings.dspTime)
                 {
                     timer = AudioSettings.dspTime + 0.01f;
 
-                    samples = data;
-
                     float average = 0;
-                    for (int j = 0; j < samples.Length; j += 2)
-                        average += samples[j].Abs();
+                    for (int i = 0; i < sampleAverages.Count; i++)
+                        average += sampleAverages[i];
 
-                    average /= samples.Length / 2f;
+                    sampleAverages.Clear();
 
-                    for (int j = 0; j < divide; j++)
+                    for (int i = 0; i < divide; i++)
                     {
-                        int index = i + (bars.Length / divide * j) + offset;
+                        int index = targetBarIndex + (bars.Length / divide * i) + offset;
                         if (index >= bars.Length)
                         {
                             if (index - bars.Length >= bars.Length)
-                                bars[0].size = average * 2400 * size;
+                                bars[0].size = average * 240 * size;
                             else
-                                bars[index - bars.Length].size = average * 2400 * size;
+                                bars[index - bars.Length].size = average * 240 * size;
                         }
                         else
-                            bars[index].size = average * 2400 * size;
+                            bars[index].size = average * 240 * size;
                     }
 
                     if (left)
                     {
-                        i--;
-                        if (i < 0)
-                            i = bars.Length - 1;
+                        targetBarIndex--;
+                        if (targetBarIndex < 0)
+                            targetBarIndex = bars.Length - 1;
                     }
                     else
                     {
-                        i++;
-                        if (i >= bars.Length)
-                            i = 0;
+                        targetBarIndex++;
+                        if (targetBarIndex >= bars.Length)
+                            targetBarIndex = 0;
                     }
                 }
             }
