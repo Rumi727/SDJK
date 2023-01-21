@@ -1,10 +1,6 @@
 {
-  "splashScenePath": "Assets/SC KRM/Splash Screen/Splash Screen.unity",
+  "splashScenePath": "Assets/Splash Screen/Splash Screen.unity",
   "sceneLoadingScenePath": "Assets/SC KRM/Scene/Scene Load Scene.unity",
-  "kernelPrefabPath": "Assets/SC KRM/Kernel.prefab",
-  "startSceneIndex": 2,
-  "splashScreenPath": "Assets/Splash Screen",
-  "splashScreenName": "Splash Screen",
-  "kernelObjectPath": "Assets",
-  "kernelObjectName": "SDJK Kernel"
+  "kernelPrefabPath": "Assets/SDJK Kernel.prefab",
+  "startSceneIndex": 2
 }
