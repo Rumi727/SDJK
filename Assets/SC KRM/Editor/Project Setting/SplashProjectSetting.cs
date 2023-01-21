@@ -84,6 +84,8 @@ namespace SCKRM.Editor
             //플레이 모드가 아니면 변경한 리스트의 데이터를 잃어버리지 않게 파일로 저장
             if (GUI.changed && !Kernel.isPlaying)
             {
+                SCKRMSetting.SetPlayModeStartScene(false);
+
                 SaveLoadManager.Save(splashProjectSetting, Kernel.projectSettingPath);
                 SaveLoadManager.Save(virtualMachineDetector, Kernel.projectSettingPath);
             }

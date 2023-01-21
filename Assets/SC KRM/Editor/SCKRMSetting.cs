@@ -29,7 +29,7 @@ namespace SCKRM.Editor
             PlayerSettings.allowFullscreenSwitch = false;
             AudioListener.volume = 0.5f;
 
-            EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(splashScenePath);
+            SetPlayModeStartScene(true);
 
             EditorBuildSettings.sceneListChanged += () => SceneListChanged(true);
             EditorApplication.hierarchyChanged += () => HierarchyChanged(true);
@@ -282,6 +282,19 @@ namespace SCKRM.Editor
             {
                 hierarchyChangedEnable = true;
             }
+        }
+
+        public static void SetPlayModeStartScene(bool autoLoad)
+        {
+            if (autoLoad)
+            {
+                if (splashProjectSetting == null)
+                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(SplashScreen.Data), out splashProjectSetting);
+
+                SaveLoadManager.Load(splashProjectSetting, Kernel.projectSettingPath);
+            }
+
+            EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(splashScenePath);
         }
 
         public static void AddComponentCompatibleWithPrefab<T>(GameObject gameObject, ref bool isModified, bool backToTop = false) where T : Component
