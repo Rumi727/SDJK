@@ -220,9 +220,14 @@ namespace SCKRM.UI
             transform.position = camera.transform.position + (transform.forward * planeDistance);
 
 
+            float guiSize;
+            if (customGuiSize)
+                guiSize = canvas.scaleFactor;
+            else
+                guiSize = UIManager.currentGuiSize;
 
-            float width = camera.pixelWidth * (1 / UIManager.currentGuiSize);
-            float height = camera.pixelHeight * (1 / UIManager.currentGuiSize);
+            float width = camera.pixelWidth * (1 / guiSize);
+            float height = camera.pixelHeight * (1 / guiSize);
 
             rectTransform.sizeDelta = new Vector2(width, height);
             rectTransform.pivot = Vector2.one * 0.5f;

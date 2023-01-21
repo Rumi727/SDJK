@@ -11,7 +11,7 @@ namespace SCKRM
         [WikiDescription("화면 높이")] public static int height { get; private set; }
 
         [WikiDescription("현재 모니터 해상도")] public static Resolution currentResolution { get; private set; }
-        [WikiDescription("모든 모니터 해상도")] public static Resolution[] resolutions { get; private set; }
+        [WikiDescription("현재 모니터가 지원하는 모든 전체화면 해상도")] public static Resolution[] resolutions { get; private set; }
 
         void Awake()
         {

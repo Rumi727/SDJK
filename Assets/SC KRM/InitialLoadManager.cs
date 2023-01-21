@@ -85,20 +85,7 @@ namespace SCKRM
                 ThreadManager.ThreadAutoRemove().Forget();
 
 #if UNITY_EDITOR
-                //에디터에선 스플래시 씬에서 시작하지 않기 때문에
-                //시작한 씬의 인덱스를 구하고
-                //인덱스가 0번이 아니면 스플래시 씬을 로딩합니다
-                UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
-                int startedSceneIndex = scene.buildIndex;
-                if (startedSceneIndex != 0)
-                {
-                    //씬을 이동하기 전에 Awake가 작동하지 않게 모든 오브젝트를 삭제합니다
-                    MonoBehaviour[] gameObjects = UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true);
-                    for (int i = 0; i < gameObjects.Length; i++)
-                        UnityEngine.Object.DestroyImmediate(gameObjects[i]);
-
-                    SceneManager.LoadScene(0);
-                }
+                //에디터에선 SCKRMSetting 에디터 클래스가 시작 씬을 변경하니 아무런 조건문 없이 시작해도 됩니다
 #endif
                 //빌드된곳에선 스플래시 씬에서 시작하기 때문에
                 //아무런 조건문 없이 바로 시작합니다
@@ -240,19 +227,18 @@ namespace SCKRM
                 //강제종료 된 상태면, 씬을 이동하지 않습니다
                 if (!isForceQuit)
                 {
+                    int lastActivatedSceneIndex = 0;
+                    if (SplashScreen.Data.startSceneIndex >= 0)
+                        lastActivatedSceneIndex = SplashScreen.Data.startSceneIndex.Clamp(2);
+
 #if UNITY_EDITOR
-                    if (startedSceneIndex == 0)
-#endif
-                    {
-                        //씬 애니메이션이 끝날때까지 기다립니다
-                        Debug.ForceLog("Kernel: Waiting for scene animation...", nameof(InitialLoadManager));
-                        if (await UniTask.WaitUntil(() => !SplashScreen.isAniPlaying, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                            return;
-                    }
-#if UNITY_EDITOR
-                    else
+                    if (lastActivatedSceneIndex != 0)
                         SplashScreen.isAniPlaying = false;
 #endif
+                    //씬 애니메이션이 끝날때까지 기다립니다
+                    Debug.ForceLog("Kernel: Waiting for scene animation...", nameof(InitialLoadManager));
+                    if (await UniTask.WaitUntil(() => !SplashScreen.isAniPlaying, cancellationToken: AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                        return;
 
                     StatusBarManager.allowStatusBarShow = true;
 
@@ -263,8 +249,8 @@ namespace SCKRM
                     GC.Collect();
 #if UNITY_EDITOR
                     //씬을 이동합니다
-                    if (startedSceneIndex != 0)
-                        SceneManager.LoadScene(startedSceneIndex);
+                    if (lastActivatedSceneIndex != 0)
+                        SceneManager.LoadScene(lastActivatedSceneIndex);
                     else
                         SceneManager.LoadScene(2);
 #else

@@ -16,7 +16,7 @@ namespace SCKRM
     public static class MathTool
     {
         public const float epsilonFloatWithAccuracy = 0.0001f;
-        
+
         #region Trigonometric functions
         public static float Sin(this float value) => (float)Math.Sin(value);
         [WikiIgnore] public static double Sin(this double value) => Math.Sin(value);

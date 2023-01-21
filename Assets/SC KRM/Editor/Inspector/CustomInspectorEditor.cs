@@ -298,25 +298,14 @@ namespace SCKRM.Editor
                 return value;
         }
 
-        public static void FileObjectField<T>(string label, string extension, ref string path, ref string name, out bool isChanged) where T : UnityEngine.Object
+        public static void FileObjectField<T>(string label, ref string path, out bool isChanged) where T : UnityEngine.Object
         {
-            T oldAssets = AssetDatabase.LoadAssetAtPath<T>(PathTool.Combine(path, name) + extension);
+            T oldAssets = AssetDatabase.LoadAssetAtPath<T>(path);
             T assets = (T)EditorGUILayout.ObjectField(label, oldAssets, typeof(T), false);
 
-            {
-                string allAssetPath = AssetDatabase.GetAssetPath(assets);
-                if (allAssetPath != "")
-                {
-                    string assetPath = allAssetPath.Substring(0, allAssetPath.LastIndexOf("/"));
-                    string assetName = allAssetPath.Remove(0, allAssetPath.LastIndexOf("/") + 1);
-                    assetName = assetName.Substring(0, assetName.Length - extension.Length);
+            path = AssetDatabase.GetAssetPath(assets);
 
-                    path = assetPath;
-                    name = assetName;
-                }
-            }
-
-            EditorGUILayout.LabelField($"경로: {PathTool.Combine(path, name) + extension}");
+            EditorGUILayout.LabelField("경로: " + path);
             isChanged = oldAssets != assets;
         }
 

@@ -106,11 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5477792427623537723}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5161104910997935070}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -522,11 +517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2522155065052842584}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8827416451169415932}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -644,11 +634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8822245039545297045}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7565145349419306519}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -892,11 +877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1575b904d8709c48b986bebae234ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _textLayout: {fileID: 884855291335992650}
   _graphLayout: {fileID: 7515251356923265752}
 --- !u!1 &184524046455537307
@@ -1559,11 +1539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8578123551445239879}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5301459430066353222}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -1681,11 +1656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3413143391039522738}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3469394567524261339}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -1765,11 +1735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f9e947caaa70c4a9d10f956600872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2445179934866750458}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -2776,11 +2741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4672740001467306210}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4220663432685680695}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -4362,11 +4322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce6f2fd59b85d4d8a94c7f108064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2565516840996461909}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3669990276711224651}
   _inputField: {fileID: 71250827952955682}
 --- !u!114 &1404246901142734363
 MonoBehaviour:
@@ -4380,11 +4335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 5714171119667106107}
-  _rectTransform: {fileID: 2565516840996461909}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3669990276711224651}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -4633,11 +4583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7f5594c691d8642be69c89c4f66483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _leftText: {fileID: 868084628278197755}
   _rightText: {fileID: 8150686859310782603}
 --- !u!114 &7103711840206909576
@@ -5067,11 +5012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce6f2fd59b85d4d8a94c7f108064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 445194310898951883}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8887822605038226510}
   _inputField: {fileID: 3650703795804279333}
 --- !u!1 &981961500601646873
 GameObject:
@@ -5320,11 +5260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6799000012700337929}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5228732401324444483}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -5606,11 +5541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8472055425627233793}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5879441470723488376}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -6257,11 +6187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba592989150be745953d1b3f4dca6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4982221516194175158}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2582070917459930485}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -6279,11 +6204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4982221516194175158}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2582070917459930485}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -6778,11 +6698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8325555509547740772}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5289334622973000214}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -7326,11 +7241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3571311392813455103}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7791780492222644230}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -7599,10 +7509,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 55, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &4022818453412917929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7875,8 +7785,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 3199725932416169996}
+  _graphic: {fileID: 1229578281829448981}
 --- !u!222 &7119213835302340110
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8148,11 +8058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5130631421025051098}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3361137480696378756}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -8197,11 +8102,11 @@ RectTransform:
   m_Father: {fileID: 2155101039517547306}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &3598248734632109393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8229,11 +8134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fab8e6fd083e9349bb30802000fd0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _mode: 2
 --- !u!1 &1532519454372011454
 GameObject:
@@ -8437,11 +8337,11 @@ RectTransform:
   m_Father: {fileID: 2155101039517547306}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -94.83, y: 0}
   m_SizeDelta: {x: 55, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &880880984892390951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8657,11 +8557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2511857846765518653}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 1539967034291642330}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -8957,11 +8852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6352937720587886236}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3395807243256826164}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -9079,11 +8969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6487409176427206604}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4859387037127466646}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -9201,11 +9086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1054776351297858669}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4282752895564681749}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -9285,11 +9165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f9e947caaa70c4a9d10f956600872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2647591395713246938}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -9637,11 +9512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7969089367337080654}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8468319945405251462}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -9971,11 +9841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 662036529527049798}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5378197163761696319}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -10147,11 +10012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 152900882242567543}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 6609732308475883590}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -10251,11 +10111,11 @@ RectTransform:
   m_Father: {fileID: 2566619081376446823}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7725097989632431371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10283,11 +10143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fab8e6fd083e9349bb30802000fd0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _mode: 1
 --- !u!1 &1924742912118110298
 GameObject:
@@ -10782,11 +10637,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 558235148889449061}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7647277643356664596}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -11451,11 +11301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4729105713480671656}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -11481,11 +11326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4729105713480671656}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -11603,11 +11443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fbec17ce9c400498dcd03998694a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _image: {fileID: 4629600712605481662}
   _background: {fileID: 4134112406136330298}
   _backButton: {fileID: 1425178687874800396}
@@ -12639,11 +12474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce6f2fd59b85d4d8a94c7f108064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3000777061175466731}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 830380776276430643}
   _inputField: {fileID: 5486138260984438670}
 --- !u!1 &2342798495969641565
 GameObject:
@@ -13039,11 +12869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5896793477991101085}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7345425383222533198}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -13067,11 +12892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d92930f31b91fe418cd866a90ecc28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5896793477991101085}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7345425383222533198}
   _offset: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2396436493164394405
 GameObject:
@@ -13179,11 +12999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5685781800713423684}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7161752421733481825}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -13262,11 +13077,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3d0280bdf74ae43b8f5a3a0c70d773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
 --- !u!114 &3153033743781451417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13279,11 +13089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 274935658015554089}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -13309,11 +13114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 274935658015554089}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -13560,11 +13360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ce6f2fd59b85d4d8a94c7f108064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2368696330578836796}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2703873661657860756}
   _inputField: {fileID: 3192762622745131395}
 --- !u!1 &2562112119123372597
 GameObject:
@@ -13835,11 +13630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6665215115928794626}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2903137779748845696}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -14000,11 +13790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 9030330381401870631}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4289946345124413085}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -14342,11 +14127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3636991026441003159}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5556269148059769974}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -14425,11 +14205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 9039010525741935321}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -15171,11 +14946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc0a1bb22ea9d24dbba0e97a9ece7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   hide: {fileID: 3390760288997500701}
 --- !u!1 &3013936402308825311
 GameObject:
@@ -15953,11 +15723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da9137b72f0ae445a57be41778a5d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5576310999095303526}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
 --- !u!114 &6230842138419436292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15970,11 +15735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5576310999095303526}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -16000,11 +15760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5576310999095303526}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -16865,11 +16620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8914352206888186950}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3887082873817029563}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -17004,11 +16754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9baacbdf58619d74084840077b9cfd61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5180749512132245982}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 84690655566138625}
   _alpha: 0.33333334
   _yukiModeMode: 1
 --- !u!1 &3281293045449999681
@@ -17229,11 +16974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5613804314388473884}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -17639,11 +17379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75885d4f02b76ee4cbe88acb20e8cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2155101039517547306}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -17928,11 +17663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6687162457109895375}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 6957300661359061929}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -18305,10 +18035,10 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 55, y: 0}
   m_SizeDelta: {x: 55, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &5641978645443982261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18556,11 +18286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeae3217b975e9143825ca8144e9a7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3696608626188315236}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5191005542000934446}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -18756,11 +18481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75885d4f02b76ee4cbe88acb20e8cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2566619081376446823}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -18918,11 +18638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75885d4f02b76ee4cbe88acb20e8cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8697705866633857779}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -19007,11 +18722,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1818760885789760683}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 1
@@ -19037,11 +18747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1818760885789760683}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -19414,11 +19119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6264005940795542823}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 1833883893869580947}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -20206,11 +19906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8962791847273262322}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2301824881697508472}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -20288,11 +19983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6165992042693531516}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -20318,11 +20008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6165992042693531516}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -20751,11 +20436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecb8ef662169534d924de2bfe30f059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3977140737324948733}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 9020161984062096115}
   _text: {fileID: 0}
 --- !u!114 &9020161984062096115
 MonoBehaviour:
@@ -21106,7 +20786,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 14}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5701379949927273572
 MonoBehaviour:
@@ -21202,11 +20882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8823851999204979361}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8393675880256522537}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -21998,11 +21673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7125625583716815351}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 1413720596917001993}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -22120,11 +21790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8214248333829552214}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7083312677274287310}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -22440,11 +22105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeae3217b975e9143825ca8144e9a7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1199465852522579512}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 697279313835867000}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -23462,11 +23122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d92930f31b91fe418cd866a90ecc28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 493371743838521367}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3046755751031439782}
   _offset: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5044244652978964051
 GameObject:
@@ -24338,11 +23993,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73961dfe8860814b889b3e6e34e4643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _noticeListTransform: {fileID: 2520804082349610609}
   noticeBar: {fileID: 3313481173541874993}
   _noticeAdd:
@@ -24482,11 +24132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f9e947caaa70c4a9d10f956600872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4640206562135312860}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -25369,11 +25014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 9061763241364468236}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -25399,11 +25039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 9061763241364468236}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -25741,11 +25376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2810373236145300092}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5908062334362146917}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -26062,11 +25692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3442054903890296896}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4401393492417242157}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -26237,11 +25862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8857143750454370527}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4997783023234269378}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -26319,11 +25939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7941457e3ead24d43afee4fc3c194c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   chatInputField: {fileID: 3192762622745131395}
   backgroundTargetSizeFitter: {fileID: 4349772079632608995}
   empty: {fileID: 3022460179289230452}
@@ -26499,11 +26114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8522357488090363044}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7814168062744569933}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -27696,11 +27306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2860975187966622844}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 512180190266702504}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -27848,11 +27453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8673979069137479782}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 1
@@ -27878,11 +27478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8673979069137479782}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -28113,11 +27708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8688553918027345124}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7970702130867413088}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -28602,11 +28192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1678640449066847644}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4328235618646951183}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -28784,11 +28369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 114980636629478243}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4464673854888641497}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -28812,11 +28392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d92930f31b91fe418cd866a90ecc28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 114980636629478243}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4464673854888641497}
   _offset: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6119089893744379264
 GameObject:
@@ -28924,11 +28499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7266180564243114950}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8334913030380948053}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -29100,11 +28670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3564253038542449397}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7831538250205483945}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -29660,9 +29225,9 @@ MonoBehaviour:
   m_fontSize: 16
   m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 7
+  m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -29675,7 +29240,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -29711,11 +29276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 759498245364599186}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4630977121614653796}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -29828,11 +29388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8544072161242161425}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5450543512713372734}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -29971,11 +29526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2954277912657838808}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5227191156714041695}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -30900,11 +30450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d92930f31b91fe418cd866a90ecc28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 531377255852928034}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8480049152780182790}
   _offset: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6554277787209963517
 GameObject:
@@ -31029,11 +30574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7803fc6320f3541b3325dd2c9ffe62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _mode: 2
 --- !u!114 &2035843946134804359
 MonoBehaviour:
@@ -31047,11 +30587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 5714171119667106107}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -31510,11 +31045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6149474196960552659}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -31540,11 +31070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6149474196960552659}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -31882,11 +31407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3391795222290344851}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2299563253739333573}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -32114,11 +31634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7732606453855932476}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5071136493340400389}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -32840,11 +32355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7140417356466749857}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -32870,11 +32380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7140417356466749857}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -34142,11 +33647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3241824862582696347}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7439437798601557390}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -34224,11 +33724,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2520804082349610609}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -34254,11 +33749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2520804082349610609}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -34542,11 +34032,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2758168091850865433}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4954273770557532300}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -34685,11 +34170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd2b314d89a0ed4fb28b8b0f1dccaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _canvasGroup: {fileID: 6788790350663394239}
 --- !u!225 &6788790350663394239
 CanvasGroup:
@@ -35417,7 +34897,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 75}
-  m_SizeDelta: {x: 0, y: 80}
+  m_SizeDelta: {x: 128, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6749720627437590037
 MonoBehaviour:
@@ -35513,11 +34993,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7871248735546719376}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2593592979841549889}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -35541,11 +35016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7871248735546719376}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2593592979841549889}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -35734,11 +35204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c329ddda645aff04c806697ba5693b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
 --- !u!114 &4794767247265119705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35775,11 +35240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2653072838958038030}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -35858,11 +35318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22705438f475e5f4fbe531df9be3cba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -36457,11 +35912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7953abbdb5ea10458a41d81b3ef48c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   messageBoxCanvasGroup: {fileID: 5603727323028067361}
   messabeBoxBG: {fileID: 4339051522139893865}
   messageBoxButtons: {fileID: 5613804314388473884}
@@ -37082,11 +36532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3075784719952607877}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7289742452216995153}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -37236,11 +36681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeae3217b975e9143825ca8144e9a7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 39248092669605474}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 3023914783232869583}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -37790,11 +37230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6791953802084834370}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4893976425302549202}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -38070,11 +37505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d233388777becf8439c3b843aad374fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   toggleGroup: {fileID: 2842843057606058495}
   content: {fileID: 6583820925162596584}
   recyclableScrollRect: {fileID: 4855125009777551126}
@@ -38184,11 +37614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7420819314999900861}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5902462593141056038}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -39020,11 +38445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 7117259340331535152}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8561657452390959286}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -39286,11 +38706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba592989150be745953d1b3f4dca6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6867856800374100449}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 6841429888181482906}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -39308,11 +38723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6867856800374100449}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 6841429888181482906}
   _target: {fileID: 0}
   _xSize: 1
   _ySize: 1
@@ -39552,11 +38962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d92930f31b91fe418cd866a90ecc28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4701930215090364128}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 5325940062511060455}
   _offset: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8459591421140791699
 GameObject:
@@ -39595,11 +39000,11 @@ RectTransform:
   m_Father: {fileID: 2155101039517547306}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 94.83, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1923263098497785825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39721,11 +39126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 6271892794893452762}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 8683863388078563525}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -39842,11 +39242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7803fc6320f3541b3325dd2c9ffe62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _mode: 0
 --- !u!1 &8524860465134668859
 GameObject:
@@ -39954,11 +39349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 4769933092643205805}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2836204853272461973}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -40308,11 +39698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3367170457610186176}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4879872529138109167}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -40391,11 +39776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 2954277912657838808}
-  _rectTransform: {fileID: 3812908726952539211}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -41479,11 +40859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeae3217b975e9143825ca8144e9a7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 1560991558066819742}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 4383607839499739187}
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -41655,11 +41030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80878873c0b26984e95c5338a1297994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 7456958521831504988}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3260765865344146849}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
+  _alwaysVisible: 0
   _customSetting: 1
   _customGuiSize: 0
   _worldRenderMode: 0
@@ -41881,11 +41252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 8391760830930632046}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 7140983579009142011}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -43278,7 +42644,7 @@ PrefabInstance:
     - target: {fileID: -8279119025365591681, guid: 9634b5db80202484b99568838162e102, type: 3}
       propertyPath: _rectTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9017127058608923827}
     - target: {fileID: 2111679706206285908, guid: 9634b5db80202484b99568838162e102, type: 3}
       propertyPath: m_Name
       value: Space
@@ -46165,11 +45531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203a645f42296a04f870fef34ca8dcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3756693617863029385}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   dropdown: {fileID: 8172763209603253154}
 --- !u!224 &3756693617863029385 stripped
 RectTransform:
@@ -46318,6 +45679,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8673979069137479782}
     m_Modifications:
+    - target: {fileID: -362570380899275222, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
+      propertyPath: _graphic
+      value: 
+      objectReference: {fileID: 92807337767229}
+    - target: {fileID: -362570380899275222, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 5338924037873728177}
     - target: {fileID: 1606424650566480326, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
       propertyPath: m_text
       value: Debug
@@ -46416,6 +45785,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
+--- !u!114 &92807337767229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1606424650566480326, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
+  m_PrefabInstance: {fileID: 1606517180731769083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5338924037873728177 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6655429632274577994, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
@@ -48068,10 +47448,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8673979069137479782}
     m_Modifications:
+    - target: {fileID: -5606876564674959194, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _graphic
+      value: 
+      objectReference: {fileID: 8239648374794208151}
+    - target: {fileID: -5606876564674959194, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 2759987095991030210}
+    - target: {fileID: -2751699569417997985, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _graphic
+      value: 
+      objectReference: {fileID: 4133883511290145669}
+    - target: {fileID: -2751699569417997985, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 6381545706789565173}
+    - target: {fileID: 959917713261483981, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 3166572866420680364}
+    - target: {fileID: 1220777389986971638, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 3166572866420680364}
+    - target: {fileID: 1293196596527886693, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 3166572866420680364}
     - target: {fileID: 2908523562650576325, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
       propertyPath: _text
       value: options.debug.textShow.info
       objectReference: {fileID: 0}
+    - target: {fileID: 2916678358161674827, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 7017019235456613056}
     - target: {fileID: 3417893582090282169, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
       propertyPath: m_Name
       value: Text show
@@ -48176,6 +47588,22 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 6336995645839991219, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _graphic
+      value: 
+      objectReference: {fileID: 8412624495464543549}
+    - target: {fileID: 6336995645839991219, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 6874480618632229602}
+    - target: {fileID: 7692080572774773086, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 3166572866420680364}
+    - target: {fileID: 8594230655099203078, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 3166572866420680364}
     - target: {fileID: 8855952369967304975, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
       propertyPath: _path
       value: options.debug.textShow
@@ -48186,11 +47614,64 @@ PrefabInstance:
       objectReference: {fileID: 8421347046368727680}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+--- !u!224 &2759987095991030210 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 330070363612817596, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3166572866420680364 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 659840728747646930, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4133883511290145669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1983648433373221627, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &6381545706789565173 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8815262566469061515, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6874480618632229602 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9060920465292397468, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7017019235456613056 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4879827535997354942, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
   m_PrefabInstance: {fileID: 2511272030481135998}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8239648374794208151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5800856298254269161, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8412624495464543549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6225788824045898819, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}
+  m_PrefabInstance: {fileID: 2511272030481135998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8421347046368727680 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6199053283355814910, guid: 78c84ac40d227374aa3d853d7be659b9, type: 3}

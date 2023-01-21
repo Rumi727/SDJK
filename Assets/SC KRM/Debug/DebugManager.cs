@@ -42,8 +42,8 @@ namespace SCKRM.DebugUI
 
         void Update()
         {
-            rectTransform.offsetMin = StatusBarManager.cropedRect.min;
-            rectTransform.offsetMax = StatusBarManager.cropedRect.max;
+            rectTransform.offsetMin = new Vector2(0, StatusBarManager.cropedRect.min.y);
+            rectTransform.offsetMax = new Vector2(1, StatusBarManager.cropedRect.max.y);
 
             if (InitialLoadManager.isInitialLoadEnd && InputManager.GetKey("debug_manager.toggle", InputType.Down, InputManager.inputLockDenyAllForce))
                 isShow = !isShow;
