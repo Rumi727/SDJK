@@ -434,14 +434,14 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
 
                 for (int j = 0; j < soundPlayer.metaData.audioClip.channels; j++)
                 {
-                    soundPlayer.audioSource.GetOutputData(tempDatas, j);
+                    soundPlayer.audioSource.GetOutputData(tempDatas, j + 1);
 
                     for (int k = 0; k < tempDatas.Length; k++)
-                        audioDatas[k] += tempDatas[k];
+                        audioDatas[k] += tempDatas[k] / soundPlayer.metaData.audioClip.channels;
                 }
             }
 
-            OnAudioFilterReadInvoke(audioDatas, 0);
+            OnAudioFilterReadInvoke(audioDatas, 1);
         }
 
         [WikiDescription("플레이어 삭제")]
