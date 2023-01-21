@@ -12,6 +12,7 @@ namespace SDJK.MainMenu
 
         [SerializeField, NotNull] Camera mainCamera;
         [SerializeField, NotNull] RectTransform text;
+        [SerializeField, NotNull] RectTransform visualizer;
 
         public override void Refresh(bool force = false) { }
 
@@ -28,6 +29,9 @@ namespace SDJK.MainMenu
                 }
 
                 Vector3 cameraPos = map.globalEffect.cameraPos.GetValue(RhythmManager.currentBeatScreen);
+                cameraPos.x = -cameraPos.x;
+                cameraPos.y = -cameraPos.y;
+
                 float cameraRotation = -map.globalEffect.cameraRotation.GetValue(RhythmManager.currentBeatScreen).z;
                 float cameraZoom = (float)map.globalEffect.cameraZoom.GetValue(RhythmManager.currentBeatScreen);
                 float cameraZoomToZPos = (float)((cameraZoom * CameraEffect.defaultDistance) - CameraEffect.defaultDistance);
@@ -42,15 +46,17 @@ namespace SDJK.MainMenu
 
 
                 float zoom = screenY / height;
-                float posX = ((-cameraPos.x) * Mathf.Cos(cameraRotation * Mathf.Deg2Rad)) - ((-cameraPos.y) * Mathf.Sin(cameraRotation * Mathf.Deg2Rad));
-                float posY = ((-cameraPos.x) * Mathf.Sin(cameraRotation * Mathf.Deg2Rad)) + ((-cameraPos.y) * Mathf.Cos(cameraRotation * Mathf.Deg2Rad));
+                float posX = (cameraPos.x * Mathf.Cos(cameraRotation * Mathf.Deg2Rad)) - (cameraPos.y * Mathf.Sin(cameraRotation * Mathf.Deg2Rad));
+                float posY = (cameraPos.x * Mathf.Sin(cameraRotation * Mathf.Deg2Rad)) + (cameraPos.y * Mathf.Cos(cameraRotation * Mathf.Deg2Rad));
                 pos = new Vector2(posX, posY) / zoom;
                 text.localEulerAngles = new Vector3(0, 0, cameraRotation);
+                visualizer.localEulerAngles = new Vector3(0, 0, cameraRotation);
             }
             else
             {
                 pos = Vector2.zero;
                 text.localEulerAngles = Vector3.zero;
+                visualizer.localEulerAngles = Vector3.zero;
             }
         }
     }
