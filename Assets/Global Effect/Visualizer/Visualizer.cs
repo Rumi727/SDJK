@@ -248,10 +248,10 @@ namespace SDJK.Effect
                     {
                         float sample = data[j].Abs();
                         if (sample > sampleChannel)
-                            sampleChannel += sample;
+                            sampleChannel = sample;
                     }
 
-                    finalAverage += sampleChannel;
+                    finalAverage += sampleChannel / channels;
                 }
 
                 sampleAverages.Add(finalAverage);
@@ -272,12 +272,12 @@ namespace SDJK.Effect
                         if (index >= bars.Length)
                         {
                             if (index - bars.Length >= bars.Length)
-                                bars[0].size = average * 240 * size;
+                                bars[0].size = average * 720 * size;
                             else
-                                bars[index - bars.Length].size = average * 240 * size;
+                                bars[index - bars.Length].size = average * 720 * size;
                         }
                         else
-                            bars[index].size = average * 240 * size;
+                            bars[index].size = average * 720 * size;
                     }
 
                     if (left)
