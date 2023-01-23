@@ -106,7 +106,7 @@ namespace SDJK
                 string background = backgroundEffect.backgroundFile;
                 string backgroundNight = backgroundEffect.backgroundNightFile;
 
-                string texturePath = PathTool.Combine(map.mapFilePathParent, background);
+                string texturePath = PathUtility.Combine(map.mapFilePathParent, background);
                 Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
                 if (texture != null && !loadedSprites.ContainsKey(background))
@@ -120,7 +120,7 @@ namespace SDJK
                     return;
                 }
 
-                string nightTexturePath = PathTool.Combine(map.mapFilePathParent, backgroundNight);
+                string nightTexturePath = PathUtility.Combine(map.mapFilePathParent, backgroundNight);
                 Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
                 if (nightTexture != null && !loadedSprites.ContainsKey(backgroundNight))

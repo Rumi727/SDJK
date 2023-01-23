@@ -25,7 +25,7 @@ namespace SDJK.Map
 
         public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask)
         {
-            string[] packPaths = DirectoryTool.GetFiles(packfolderPath, new ExtensionFilter(extensionToLoad.ToArray()).ToSearchPatterns());
+            string[] packPaths = DirectoryUtility.GetFiles(packfolderPath, new ExtensionFilter(extensionToLoad.ToArray()).ToSearchPatterns());
             if (packPaths == null || packPaths.Length <= 0)
                 return null;
 

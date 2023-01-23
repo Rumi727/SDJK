@@ -112,7 +112,7 @@ namespace SDJK.Ruleset.SDJK
 
         async UniTaskVoid BGMPlay()
         {
-            string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
+            string path = PathUtility.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
                 bgmClip = await ResourceManager.GetAudio(fullPath, true, false);

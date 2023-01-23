@@ -137,7 +137,7 @@ namespace SDJK.MainMenu
                     ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
 
                 List<MapPack> mapPacks = new List<MapPack>();
-                string mapFolderPath = PathTool.Combine(Kernel.persistentDataPath, "Map");
+                string mapFolderPath = PathUtility.Combine(Kernel.persistentDataPath, "Map");
                 if (!Directory.Exists(mapFolderPath))
                     Directory.CreateDirectory(mapFolderPath);
 

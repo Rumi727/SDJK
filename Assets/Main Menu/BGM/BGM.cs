@@ -29,7 +29,7 @@ namespace SDJK.MainMenu
         public async UniTaskVoid Refresh(MapPack lastMapPack, float lastTime)
         {
             map = MapManager.selectedMap;
-            string path = PathTool.Combine(map.mapFilePathParent, map.info.songFile);
+            string path = PathUtility.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
                 audioClip = await ResourceManager.GetAudio(fullPath, true, true);

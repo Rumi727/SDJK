@@ -66,17 +66,17 @@ namespace SDJK
             string fullPath;
             if (now.Hour >= 0 && now.Hour < 4)
             {
-                videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundNightFile);
+                videoPath = PathUtility.Combine(map.mapFilePathParent, map.info.videoBackgroundNightFile);
                 if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
                 {
-                    videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
+                    videoPath = PathUtility.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
                     if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
                         videoPath = "";
                 }
             }
             else
             {
-                videoPath = PathTool.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
+                videoPath = PathUtility.Combine(map.mapFilePathParent, map.info.videoBackgroundFile);
                 if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
                     videoPath = "";
             }
