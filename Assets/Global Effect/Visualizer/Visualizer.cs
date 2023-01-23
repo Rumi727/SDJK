@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Sound;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using UnityEngine;
 
@@ -130,6 +131,34 @@ namespace SDJK.Effect
         }
         [Min(0), SerializeField] float _size = 0;
 
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public float speed
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                float speed = _speed;
+
+                Interlocked.Decrement(ref barsLock);
+
+                return speed;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _speed = value;
+
+                Interlocked.Decrement(ref barsLock);
+            }
+        }
+        [Min(0), SerializeField] float _speed = 0;
+
         public int length { get => _length; set => _length = value; } [Min(1), SerializeField] int _length = 160;
 
 
@@ -226,8 +255,8 @@ namespace SDJK.Effect
         }
 
         int targetBarIndex = 0;
-        double timer = AudioSettings.dspTime;
         List<float> sampleAverages = new List<float>();
+        Stopwatch timer = Stopwatch.StartNew();
         public void VisualizerUpdate(float[] data, int channels)
         {
             if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
@@ -239,6 +268,7 @@ namespace SDJK.Effect
                 int divide = _divide.Clamp(1, length);
                 float size = _size;
                 int offset = _offset.Repeat(length / divide);
+                float speed = _speed.Clamp(0);
 
                 float finalAverage = 0;
                 for (int i = 0; i < channels; i++)
@@ -256,9 +286,9 @@ namespace SDJK.Effect
 
                 sampleAverages.Add(finalAverage);
 
-                if (timer <= AudioSettings.dspTime)
+                if (timer.Elapsed.TotalSeconds >= 0.01f / speed)
                 {
-                    timer = AudioSettings.dspTime + 0.01f;
+                    timer.Restart();
 
                     float average = 0;
                     for (int i = 0; i < sampleAverages.Count; i++)

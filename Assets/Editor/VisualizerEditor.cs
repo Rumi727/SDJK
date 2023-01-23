@@ -30,6 +30,7 @@ namespace SDJK.Editor
 
             editor.left = EditorGUILayout.Toggle("왼쪽으로 애니메이션", editor.left);
             editor.divide = EditorGUILayout.IntField("분할", editor.divide);
+            editor.speed = EditorGUILayout.FloatField("속도", editor.speed);
 
             Space();
 
