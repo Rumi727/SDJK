@@ -290,12 +290,12 @@ namespace SDJK.Effect
                     if (index >= bars.Length)
                     {
                         if (index - bars.Length >= bars.Length)
-                            bars[0].size = finalSample * 720 * size;
+                            bars[0].size = finalSample * 1280 * size;
                         else
-                            bars[index - bars.Length].size = finalSample * 720 * size;
+                            bars[index - bars.Length].size = finalSample * 1280 * size;
                     }
                     else
-                        bars[index].size = finalSample * 720 * size;
+                        bars[index].size = finalSample * 1280 * size;
                 }
 
                 if (timer.Elapsed.TotalSeconds >= moveDelay)
