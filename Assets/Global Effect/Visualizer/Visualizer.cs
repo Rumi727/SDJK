@@ -158,7 +158,7 @@ namespace SDJK.Effect
                 Interlocked.Decrement(ref barsLock);
             }
         }
-        [Min(0), SerializeField] float _moveDelay = 0;
+        [Min(0), SerializeField] float _moveDelay = 0.001f;
 
         public int length { get => _length; set => _length = value; } [Min(1), SerializeField] int _length = 160;
 
