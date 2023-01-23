@@ -23,6 +23,7 @@ namespace SCKRM.UI
         [SerializeField] bool _worldRenderMode; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
         [SerializeField] float _planeDistance; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
         [SerializeField] bool _forceSafeScreenEnable; public bool forceSafeScreenEnable { get => _forceSafeScreenEnable; set => _forceSafeScreenEnable = value; }
+        [SerializeField] Vector2 _safeScreenMultiple = Vector2.one; public Vector2 safeScreenMultiple { get => _safeScreenMultiple; set => _safeScreenMultiple = value; }
 
 
 
@@ -66,8 +67,8 @@ namespace SCKRM.UI
                         {
                             SafeScreenSetting();
 
-                            safeScreen.offsetMin = StatusBarManager.cropedRect.min * guiSize;
-                            safeScreen.offsetMax = StatusBarManager.cropedRect.max * guiSize;
+                            safeScreen.offsetMin = StatusBarManager.cropedRect.min * guiSize * safeScreenMultiple;
+                            safeScreen.offsetMax = StatusBarManager.cropedRect.max * guiSize * safeScreenMultiple;
                         }
                         else
                             SafeScreenDestroy();
