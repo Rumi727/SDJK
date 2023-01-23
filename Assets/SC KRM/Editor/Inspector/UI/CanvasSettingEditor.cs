@@ -27,6 +27,10 @@ namespace SCKRM.Editor
 
                 if (editor.worldRenderMode)
                     UseProperty("_planeDistance");
+
+                Space();
+
+                UseProperty("_forceSafeScreenEnable", "강제로 안전 스크린 활성화");
             }
 
             if (!editor.customSetting || editor.canvas.renderMode != UnityEngine.RenderMode.WorldSpace)

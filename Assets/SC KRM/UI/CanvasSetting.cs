@@ -22,6 +22,7 @@ namespace SCKRM.UI
         [SerializeField] bool _customGuiSize; public bool customGuiSize { get => _customGuiSize; set => _customGuiSize = value; }
         [SerializeField] bool _worldRenderMode; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
         [SerializeField] float _planeDistance; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
+        [SerializeField] bool _forceSafeScreenEnable; public bool forceSafeScreenEnable { get => _forceSafeScreenEnable; set => _forceSafeScreenEnable = value; }
 
 
 
@@ -57,13 +58,11 @@ namespace SCKRM.UI
                 {
                     if (Kernel.isPlaying)
                     {
-                        RectTransform taskBarManager = StatusBarManager.instance.rectTransform;
-
                         float guiSize = 1;
                         if (customGuiSize)
                             guiSize = UIManager.currentGuiSize / canvas.scaleFactor;
 
-                        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+                        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay || forceSafeScreenEnable)
                         {
                             SafeScreenSetting();
 
@@ -77,7 +76,7 @@ namespace SCKRM.UI
                     {
                         tracker.Clear();
 
-                        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+                        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay || forceSafeScreenEnable)
                             SafeScreenSetting();
                         else
                             SafeScreenDestroy();
