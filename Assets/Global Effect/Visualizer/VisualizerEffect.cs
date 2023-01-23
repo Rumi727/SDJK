@@ -13,7 +13,7 @@ namespace SDJK.Effect
         bool lastLeftMove = true;
         int lastOffset = -1;
         float lastSize = -1;
-        float lastSpeed = -1;
+        float lastMoveDelay = -1;
         protected override void RealUpdate()
         {
             if (map == null)
@@ -23,7 +23,7 @@ namespace SDJK.Effect
             bool leftMove = map.visualizerEffect.leftMove.GetValue(RhythmManager.currentBeatScreen);
             int offset = map.visualizerEffect.offset.GetValue(RhythmManager.currentBeatScreen);
             float size = map.visualizerEffect.size.GetValue(RhythmManager.currentBeatScreen);
-            float speed = map.visualizerEffect.speed.GetValue(RhythmManager.currentBeatScreen);
+            float moveDelay = map.visualizerEffect.moveDelay.GetValue(RhythmManager.currentBeatScreen);
 
             if (lastDivide != divide)
             {
@@ -49,10 +49,10 @@ namespace SDJK.Effect
                 lastSize = size;
             }
 
-            if (lastSpeed != speed)
+            if (lastMoveDelay != moveDelay)
             {
-                visualizer.speed = speed;
-                lastSpeed = speed;
+                visualizer.moveDelay = moveDelay;
+                lastMoveDelay = moveDelay;
             }
         }
     }

@@ -135,30 +135,30 @@ namespace SDJK.Effect
         /// <summary>
         /// Thread-Safe
         /// </summary>
-        public float speed
+        public float moveDelay
         {
             get
             {
                 while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
-                float speed = _speed;
+                float moveDelay = _moveDelay;
 
                 Interlocked.Decrement(ref barsLock);
 
-                return speed;
+                return moveDelay;
             }
             set
             {
                 while (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                     Thread.Sleep(1);
 
-                _speed = value;
+                _moveDelay = value;
 
                 Interlocked.Decrement(ref barsLock);
             }
         }
-        [Min(0), SerializeField] float _speed = 0;
+        [Min(0), SerializeField] float _moveDelay = 0;
 
         public int length { get => _length; set => _length = value; } [Min(1), SerializeField] int _length = 160;
 
@@ -268,7 +268,7 @@ namespace SDJK.Effect
                 int divide = _divide.Clamp(1, length);
                 float size = _size;
                 int offset = _offset.Repeat(length / divide);
-                float speed = _speed.Clamp(0);
+                float moveDelay = _moveDelay.Clamp(0);
 
                 float finalSample = 0;
                 for (int i = 0; i < channels; i++)
@@ -298,7 +298,7 @@ namespace SDJK.Effect
                         bars[index].size = finalSample * 720 * size;
                 }
 
-                if (timer.Elapsed.TotalSeconds >= 0.01f / speed)
+                if (timer.Elapsed.TotalSeconds >= moveDelay)
                 {
                     timer.Restart();
 
