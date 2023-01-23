@@ -137,6 +137,8 @@ namespace SDJK.Map
 
         public BeatValuePairAniListInt offset { get; } = new(0);
         public BeatValuePairAniListFloat size { get; } = new(1);
+
+        public BeatValuePairAniListFloat speed { get; } = new(1);
     }
 
 
