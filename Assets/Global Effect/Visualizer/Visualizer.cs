@@ -2,6 +2,7 @@ using SCKRM;
 using SCKRM.Sound;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -255,7 +256,6 @@ namespace SDJK.Effect
         }
 
         int targetBarIndex = 0;
-        List<float> sampleAverages = new List<float>();
         Stopwatch timer = Stopwatch.StartNew();
         public void VisualizerUpdate(float[] data, int channels)
         {
@@ -270,7 +270,7 @@ namespace SDJK.Effect
                 int offset = _offset.Repeat(length / divide);
                 float speed = _speed.Clamp(0);
 
-                float finalAverage = 0;
+                float finalSample = 0;
                 for (int i = 0; i < channels; i++)
                 {
                     float sampleChannel = 0;
@@ -281,34 +281,26 @@ namespace SDJK.Effect
                             sampleChannel = sample;
                     }
 
-                    finalAverage += sampleChannel / channels;
+                    finalSample += sampleChannel / channels;
                 }
 
-                sampleAverages.Add(finalAverage);
+                for (int i = 0; i < divide; i++)
+                {
+                    int index = targetBarIndex + (bars.Length / divide * i) + offset;
+                    if (index >= bars.Length)
+                    {
+                        if (index - bars.Length >= bars.Length)
+                            bars[0].size = finalSample * 720 * size;
+                        else
+                            bars[index - bars.Length].size = finalSample * 720 * size;
+                    }
+                    else
+                        bars[index].size = finalSample * 720 * size;
+                }
 
                 if (timer.Elapsed.TotalSeconds >= 0.01f / speed)
                 {
                     timer.Restart();
-
-                    float average = 0;
-                    for (int i = 0; i < sampleAverages.Count; i++)
-                        average += sampleAverages[i];
-
-                    sampleAverages.Clear();
-
-                    for (int i = 0; i < divide; i++)
-                    {
-                        int index = targetBarIndex + (bars.Length / divide * i) + offset;
-                        if (index >= bars.Length)
-                        {
-                            if (index - bars.Length >= bars.Length)
-                                bars[0].size = average * 720 * size;
-                            else
-                                bars[index - bars.Length].size = average * 720 * size;
-                        }
-                        else
-                            bars[index].size = average * 720 * size;
-                    }
 
                     if (left)
                     {
