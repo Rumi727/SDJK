@@ -270,13 +270,13 @@ void Awake()
                         string fileName = Path.GetFileName(theEntry.Name); // 파일
 
                         //폴더 생성
-                        Directory.CreateDirectory(PathTool.Combine(targetDirectory, directoryName));
+                        Directory.CreateDirectory(PathUtility.Combine(targetDirectory, directoryName));
 
                         //파일 이름이 있는 경우
                         if (fileName != string.Empty)
                         {
                             //파일 스트림 생성 (파일생성)
-                            using FileStream streamWriter = File.Create(PathTool.Combine(targetDirectory, theEntry.Name));
+                            using FileStream streamWriter = File.Create(PathUtility.Combine(targetDirectory, theEntry.Name));
 
                             int size = 2048;
                             byte[] data = new byte[2048];

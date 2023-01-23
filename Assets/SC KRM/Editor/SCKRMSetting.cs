@@ -36,7 +36,7 @@ namespace SCKRM.Editor
 
             EditorApplication.update += Update;
 
-            File.WriteAllText(PathTool.Combine(Directory.GetCurrentDirectory(), "SC-KRM-Version"), Kernel.sckrmVersion.ToString());
+            File.WriteAllText(PathUtility.Combine(Directory.GetCurrentDirectory(), "SC-KRM-Version"), Kernel.sckrmVersion.ToString());
         }
 
         static void Update()
@@ -380,7 +380,7 @@ namespace SCKRM.Editor
         {
             int length = component.GetComponents<Component>().Length;
             for (int j = 0; j < length - 2; j++)
-                ComponentUtility.MoveComponentUp(component);
+                UnityEditorInternal.ComponentUtility.MoveComponentUp(component);
         }
     }
 }

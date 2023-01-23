@@ -104,7 +104,7 @@ namespace SCKRM.Easing
         // Easing functions
         //
 
-        public static double Linear(double start, double end, double value) => start.Lerp(end, value, true);
+        public static double Linear(double start, double end, double value) => start.Lerp(end, value);
 
         public static double Spring(double start, double end, double value)
         {

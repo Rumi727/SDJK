@@ -67,7 +67,7 @@ After importing the language file from the resource pack, it finds and returns t
             if (language == "")
                 language = SaveData.currentLanguage;
 
-            string value = JsonManager.JsonReadDictionary<string, string>(key, PathTool.Combine(ResourceManager.languagePath, language) + ".json", nameSpace).ConstEnvironmentVariable();
+            string value = JsonManager.JsonReadDictionary<string, string>(key, PathUtility.Combine(ResourceManager.languagePath, language) + ".json", nameSpace).ConstEnvironmentVariable();
             if (value == default)
                 return key;
 
@@ -91,9 +91,9 @@ After importing the language file from the resource pack, it finds and returns t
                 for (int nameSpaceIndex = 0; nameSpaceIndex < ResourceManager.nameSpaces.Count; nameSpaceIndex++)
                 {
                     string nameSpace = ResourceManager.nameSpaces[nameSpaceIndex];
-                    if (Directory.Exists(PathTool.Combine(resourcePackPath, ResourceManager.languagePath).Replace("%NameSpace%", nameSpace)))
+                    if (Directory.Exists(PathUtility.Combine(resourcePackPath, ResourceManager.languagePath).Replace("%NameSpace%", nameSpace)))
                     {
-                        string[] directorys = Directory.GetFiles(PathTool.Combine(resourcePackPath, ResourceManager.languagePath).Replace("%NameSpace%", nameSpace), "*.json");
+                        string[] directorys = Directory.GetFiles(PathUtility.Combine(resourcePackPath, ResourceManager.languagePath).Replace("%NameSpace%", nameSpace), "*.json");
 
                         for (int languageIndex = 0; languageIndex < directorys.Length; languageIndex++)
                         {

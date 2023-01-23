@@ -1,13 +1,18 @@
 using Cysharp.Threading.Tasks;
+using ExtendedNumerics;
 using SCKRM.Cursor;
+using SCKRM.Flee;
 using SCKRM.Input;
 using SCKRM.Json;
 using SCKRM.Renderer;
 using SCKRM.SaveLoad;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using UnityEngine;
+
+using Vector2 = UnityEngine.Vector2;
 
 namespace SCKRM.UI.Setting
 {
@@ -171,6 +176,7 @@ namespace SCKRM.UI.Setting
                     VariableType.Float => ((float)propertyInfo.GetValue(null)).Round(roundingDigits),
                     VariableType.Double => ((double)propertyInfo.GetValue(null)).Round(roundingDigits),
                     VariableType.Decimal => ((decimal)propertyInfo.GetValue(null)).Round(roundingDigits),
+                    VariableType.BigDecimal => ((BigDecimal)propertyInfo.GetValue(null)).Round(roundingDigits),
                     _ => propertyInfo.GetValue(null)
                 };
             }
@@ -180,7 +186,7 @@ namespace SCKRM.UI.Setting
                 {
                     VariableType.Float => ((float)fieldInfo.GetValue(null)).Round(roundingDigits),
                     VariableType.Double => ((double)fieldInfo.GetValue(null)).Round(roundingDigits),
-                    VariableType.Decimal => ((decimal)fieldInfo.GetValue(null)).Round(roundingDigits),
+                    VariableType.BigDecimal => ((BigDecimal)fieldInfo.GetValue(null)).Round(roundingDigits),
                     _ => fieldInfo.GetValue(null)
                 };
             }
@@ -192,71 +198,49 @@ namespace SCKRM.UI.Setting
         {
             if (propertyInfo != null)
             {
-                switch (variableType)
+                return variableType switch
                 {
-                    case VariableType.Char:
-                        return int.Parse(((char)propertyInfo.GetValue(null)).ToString());
-                    case VariableType.String:
-                        return int.Parse((string)propertyInfo.GetValue(null));
-                    case VariableType.Bool:
-                        return (bool)propertyInfo.GetValue(null) ? 1 : 0;
-                    case VariableType.Byte:
-                        return (byte)propertyInfo.GetValue(null);
-                    case VariableType.Sbyte:
-                        return (sbyte)propertyInfo.GetValue(null);
-                    case VariableType.Short:
-                        return (short)propertyInfo.GetValue(null);
-                    case VariableType.Int:
-                        return (int)propertyInfo.GetValue(null);
-                    case VariableType.Long:
-                        return (int)(long)propertyInfo.GetValue(null);
-                    case VariableType.Ushort:
-                        return (ushort)propertyInfo.GetValue(null);
-                    case VariableType.Uint:
-                        return (int)(uint)propertyInfo.GetValue(null);
-                    case VariableType.Ulong:
-                        return (int)(ulong)propertyInfo.GetValue(null);
-                    case VariableType.Float:
-                        return (int)(float)propertyInfo.GetValue(null);
-                    case VariableType.Double:
-                        return (int)(double)propertyInfo.GetValue(null);
-                    case VariableType.Decimal:
-                        return (int)(decimal)propertyInfo.GetValue(null);
-                }
+                    VariableType.Char => int.Parse(((char)propertyInfo.GetValue(null)).ToString()),
+                    VariableType.String => int.Parse((string)propertyInfo.GetValue(null)),
+                    VariableType.Bool => (bool)propertyInfo.GetValue(null) ? 1 : 0,
+                    VariableType.Byte => (byte)propertyInfo.GetValue(null),
+                    VariableType.Sbyte => (sbyte)propertyInfo.GetValue(null),
+                    VariableType.Short => (short)propertyInfo.GetValue(null),
+                    VariableType.Int => (int)propertyInfo.GetValue(null),
+                    VariableType.Long => (int)(long)propertyInfo.GetValue(null),
+                    VariableType.Ushort => (ushort)propertyInfo.GetValue(null),
+                    VariableType.Uint => (int)(uint)propertyInfo.GetValue(null),
+                    VariableType.Ulong => (int)(ulong)propertyInfo.GetValue(null),
+                    VariableType.Float => (int)(float)propertyInfo.GetValue(null),
+                    VariableType.Double => (int)(double)propertyInfo.GetValue(null),
+                    VariableType.Decimal => (int)(decimal)propertyInfo.GetValue(null),
+                    VariableType.BigInteger => (int)(BigInteger)propertyInfo.GetValue(null),
+                    VariableType.BigDecimal => (int)(BigDecimal)propertyInfo.GetValue(null),
+                    _ => 0,
+                };
             }
             else if (fieldInfo != null)
             {
-                switch (variableType)
+                return variableType switch
                 {
-                    case VariableType.Char:
-                        return int.Parse(((char)fieldInfo.GetValue(null)).ToString());
-                    case VariableType.String:
-                        return int.Parse((string)fieldInfo.GetValue(null));
-                    case VariableType.Bool:
-                        return (bool)fieldInfo.GetValue(null) ? 1 : 0;
-                    case VariableType.Byte:
-                        return (byte)fieldInfo.GetValue(null);
-                    case VariableType.Sbyte:
-                        return (sbyte)fieldInfo.GetValue(null);
-                    case VariableType.Short:
-                        return (short)fieldInfo.GetValue(null);
-                    case VariableType.Int:
-                        return (int)fieldInfo.GetValue(null);
-                    case VariableType.Long:
-                        return (int)(long)fieldInfo.GetValue(null);
-                    case VariableType.Ushort:
-                        return (ushort)fieldInfo.GetValue(null);
-                    case VariableType.Uint:
-                        return (int)(uint)fieldInfo.GetValue(null);
-                    case VariableType.Ulong:
-                        return (int)(ulong)fieldInfo.GetValue(null);
-                    case VariableType.Float:
-                        return (int)(float)fieldInfo.GetValue(null);
-                    case VariableType.Double:
-                        return (int)(double)fieldInfo.GetValue(null);
-                    case VariableType.Decimal:
-                        return (int)(decimal)fieldInfo.GetValue(null);
-                }
+                    VariableType.Char => int.Parse(((char)fieldInfo.GetValue(null)).ToString()),
+                    VariableType.String => int.Parse((string)fieldInfo.GetValue(null)),
+                    VariableType.Bool => (bool)fieldInfo.GetValue(null) ? 1 : 0,
+                    VariableType.Byte => (byte)fieldInfo.GetValue(null),
+                    VariableType.Sbyte => (sbyte)fieldInfo.GetValue(null),
+                    VariableType.Short => (short)fieldInfo.GetValue(null),
+                    VariableType.Int => (int)fieldInfo.GetValue(null),
+                    VariableType.Long => (int)(long)fieldInfo.GetValue(null),
+                    VariableType.Ushort => (ushort)fieldInfo.GetValue(null),
+                    VariableType.Uint => (int)(uint)fieldInfo.GetValue(null),
+                    VariableType.Ulong => (int)(ulong)fieldInfo.GetValue(null),
+                    VariableType.Float => (int)(float)fieldInfo.GetValue(null),
+                    VariableType.Double => (int)(double)fieldInfo.GetValue(null),
+                    VariableType.Decimal => (int)(decimal)fieldInfo.GetValue(null),
+                    VariableType.BigInteger => (int)(BigInteger)fieldInfo.GetValue(null),
+                    VariableType.BigDecimal => (int)(BigDecimal)fieldInfo.GetValue(null),
+                    _ => 0,
+                };
             }
 
             return 0;
@@ -296,6 +280,10 @@ namespace SCKRM.UI.Setting
                         return (float)((double)propertyInfo.GetValue(null)).Round(roundingDigits);
                     case VariableType.Decimal:
                         return (float)((decimal)propertyInfo.GetValue(null)).Round(roundingDigits);
+                    case VariableType.BigInteger:
+                        return (float)(BigInteger)propertyInfo.GetValue(null);
+                    case VariableType.BigDecimal:
+                        return (float)((BigDecimal)propertyInfo.GetValue(null)).Round(roundingDigits);
                 }
             }
             else if (fieldInfo != null)
@@ -330,6 +318,10 @@ namespace SCKRM.UI.Setting
                         return (float)((double)fieldInfo.GetValue(null)).Round(roundingDigits);
                     case VariableType.Decimal:
                         return (float)((decimal)fieldInfo.GetValue(null)).Round(roundingDigits);
+                    case VariableType.BigInteger:
+                        return (float)(BigInteger)fieldInfo.GetValue(null);
+                    case VariableType.BigDecimal:
+                        return (float)((BigDecimal)fieldInfo.GetValue(null)).Round(roundingDigits);
                 }
             }
 
@@ -351,6 +343,9 @@ namespace SCKRM.UI.Setting
                     case VariableType.Decimal:
                         propertyInfo.SetValue(null, ((decimal)value).Round(roundingDigits));
                         break;
+                    case VariableType.BigDecimal:
+                        propertyInfo.SetValue(null, ((BigDecimal)value).Round(roundingDigits));
+                        break;
                     default:
                         propertyInfo.SetValue(null, value);
                         break;
@@ -369,6 +364,9 @@ namespace SCKRM.UI.Setting
                     case VariableType.Decimal:
                         fieldInfo.SetValue(null, ((decimal)value).Round(roundingDigits));
                         break;
+                    case VariableType.BigDecimal:
+                        fieldInfo.SetValue(null, ((BigDecimal)value).Round(roundingDigits));
+                        break;
                     default:
                         fieldInfo.SetValue(null, value);
                         break;
@@ -386,7 +384,8 @@ namespace SCKRM.UI.Setting
                 switch (variableType)
                 {
                     case VariableType.Char:
-                        throw new ArgumentException();
+                        propertyInfo.SetValue(null, value.ToString()[0]);
+                        break;
                     case VariableType.String:
                         propertyInfo.SetValue(null, value.ToString());
                         break;
@@ -423,6 +422,14 @@ namespace SCKRM.UI.Setting
                     case VariableType.Decimal:
                         propertyInfo.SetValue(null, (decimal)value);
                         break;
+                    case VariableType.BigInteger:
+                        propertyInfo.SetValue(null, (BigInteger)value);
+                        break;
+                    case VariableType.BigDecimal:
+                        propertyInfo.SetValue(null, (BigDecimal)value);
+                        break;
+                    default:
+                        break;
                 }
             }
             else if (fieldInfo != null)
@@ -430,7 +437,8 @@ namespace SCKRM.UI.Setting
                 switch (variableType)
                 {
                     case VariableType.Char:
-                        throw new ArgumentException();
+                        fieldInfo.SetValue(null, value.ToString()[0]);
+                        break;
                     case VariableType.String:
                         fieldInfo.SetValue(null, value.ToString());
                         break;
@@ -467,12 +475,84 @@ namespace SCKRM.UI.Setting
                     case VariableType.Decimal:
                         fieldInfo.SetValue(null, (decimal)value);
                         break;
+                    case VariableType.BigInteger:
+                        fieldInfo.SetValue(null, (BigInteger)value);
+                        break;
+                    case VariableType.BigDecimal:
+                        fieldInfo.SetValue(null, (BigDecimal)value);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
 
         public virtual void SaveStringValue(string value)
         {
+            object number = 0;
+            try
+            {
+                switch (variableType)
+                {
+                    case VariableType.Char:
+                        break;
+                    case VariableType.String:
+                        break;
+                    case VariableType.Bool:
+                        number = FleeManager.Calculate<bool>(value);
+                        break;
+                    case VariableType.Byte:
+                        number = (byte)FleeManager.Calculate<double>(value).RepeatWhile(byte.MinValue, byte.MaxValue);
+                        break;
+                    case VariableType.Sbyte:
+                        number = (sbyte)FleeManager.Calculate<double>(value).RepeatWhile(sbyte.MinValue, sbyte.MaxValue);
+                        break;
+                    case VariableType.Short:
+                        number = (short)FleeManager.Calculate<double>(value).RepeatWhile(short.MinValue, short.MaxValue);
+                        break;
+                    case VariableType.Int:
+                        number = (int)FleeManager.Calculate<double>(value).RepeatWhile(int.MinValue, int.MaxValue);
+                        break;
+                    case VariableType.Long:
+                        number = (long)FleeManager.Calculate<double>(value).RepeatWhile(long.MinValue, long.MaxValue);
+                        break;
+                    case VariableType.Ushort:
+                        number = (ushort)FleeManager.Calculate<double>(value).RepeatWhile(ushort.MinValue, ushort.MaxValue);
+                        break;
+                    case VariableType.Uint:
+                        number = (uint)FleeManager.Calculate<double>(value).RepeatWhile(uint.MinValue, uint.MaxValue);
+                        break;
+                    case VariableType.Ulong:
+                        number = (ulong)FleeManager.Calculate<double>(value).RepeatWhile(ulong.MinValue, ulong.MaxValue);
+                        break;
+                    case VariableType.Float:
+                        number = (float)FleeManager.Calculate<double>(value).RepeatWhile(float.MinValue, float.MaxValue);
+                        break;
+                    case VariableType.Double:
+                        number = FleeManager.Calculate<double>(value).Round(roundingDigits);
+                        break;
+                    case VariableType.Decimal:
+                        number = FleeManager.Calculate<decimal>(value).Round(roundingDigits);
+                        break;
+                    case VariableType.JColor:
+                        break;
+                    case VariableType.JColor32:
+                        break;
+                    case VariableType.BigInteger:
+                        number = BigInteger.Parse(value);
+                        break;
+                    case VariableType.BigDecimal:
+                        number = BigDecimal.Parse(value).Round(roundingDigits);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch
+            {
+                return;
+            }
+
             try
             {
                 if (propertyInfo != null)
@@ -489,37 +569,45 @@ namespace SCKRM.UI.Setting
                             propertyInfo.SetValue(null, value);
                             break;
                         case VariableType.Byte:
-                            propertyInfo.SetValue(null, byte.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Sbyte:
-                            propertyInfo.SetValue(null, sbyte.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Short:
-                            propertyInfo.SetValue(null, short.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Int:
-                            propertyInfo.SetValue(null, int.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Long:
-                            propertyInfo.SetValue(null, long.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Ushort:
-                            propertyInfo.SetValue(null, ushort.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Uint:
-                            propertyInfo.SetValue(null, uint.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Ulong:
-                            propertyInfo.SetValue(null, ulong.Parse(value));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Float:
-                            propertyInfo.SetValue(null, float.Parse(value).Round(roundingDigits));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Double:
-                            propertyInfo.SetValue(null, double.Parse(value).Round(roundingDigits));
+                            propertyInfo.SetValue(null, number);
                             break;
                         case VariableType.Decimal:
-                            propertyInfo.SetValue(null, decimal.Parse(value).Round(roundingDigits));
+                            propertyInfo.SetValue(null, number);
+                            break;
+                        case VariableType.BigInteger:
+                            propertyInfo.SetValue(null, number);
+                            break;
+                        case VariableType.BigDecimal:
+                            propertyInfo.SetValue(null, number);
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -537,37 +625,45 @@ namespace SCKRM.UI.Setting
                             fieldInfo.SetValue(null, value);
                             break;
                         case VariableType.Byte:
-                            fieldInfo.SetValue(null, byte.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Sbyte:
-                            fieldInfo.SetValue(null, sbyte.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Short:
-                            fieldInfo.SetValue(null, short.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Int:
-                            fieldInfo.SetValue(null, int.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Long:
-                            fieldInfo.SetValue(null, long.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Ushort:
-                            fieldInfo.SetValue(null, ushort.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Uint:
-                            fieldInfo.SetValue(null, uint.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Ulong:
-                            fieldInfo.SetValue(null, ulong.Parse(value));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Float:
-                            fieldInfo.SetValue(null, float.Parse(value).Round(roundingDigits));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Double:
-                            fieldInfo.SetValue(null, double.Parse(value).Round(roundingDigits));
+                            fieldInfo.SetValue(null, number);
                             break;
                         case VariableType.Decimal:
-                            fieldInfo.SetValue(null, decimal.Parse(value).Round(roundingDigits));
+                            fieldInfo.SetValue(null, number);
+                            break;
+                        case VariableType.BigInteger:
+                            fieldInfo.SetValue(null, number);
+                            break;
+                        case VariableType.BigDecimal:
+                            fieldInfo.SetValue(null, number);
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -600,7 +696,9 @@ namespace SCKRM.UI.Setting
             Double,
             Decimal,
             JColor,
-            JColor32
+            JColor32,
+            BigInteger,
+            BigDecimal,
         }
     }
 
@@ -633,55 +731,99 @@ namespace SCKRM.UI.Setting
             {
                 object value = propertyInfo.GetValue(null);
 
-                if (variableType == VariableType.Byte)
-                    propertyInfo.SetValue(null, (byte)((byte)value + mouseDelta));
-                if (variableType == VariableType.Sbyte)
-                    propertyInfo.SetValue(null, (sbyte)((sbyte)value + mouseDelta));
-                if (variableType == VariableType.Short)
-                    propertyInfo.SetValue(null, (short)((short)value + mouseDelta));
-                if (variableType == VariableType.Int)
-                    propertyInfo.SetValue(null, (int)((int)value + mouseDelta));
-                if (variableType == VariableType.Long)
-                    propertyInfo.SetValue(null, (long)((long)value + mouseDelta));
-                if (variableType == VariableType.Ushort)
-                    propertyInfo.SetValue(null, (ushort)((ushort)value + mouseDelta));
-                if (variableType == VariableType.Uint)
-                    propertyInfo.SetValue(null, (uint)((uint)value + mouseDelta));
-                if (variableType == VariableType.Ulong)
-                    propertyInfo.SetValue(null, (ulong)((ulong)value + mouseDelta));
-                if (variableType == VariableType.Float)
-                    propertyInfo.SetValue(null, ((float)value + mouseDelta).Round(roundingDigits));
-                if (variableType == VariableType.Double)
-                    propertyInfo.SetValue(null, ((double)value + mouseDelta).Round(roundingDigits));
-                if (variableType == VariableType.Decimal)
-                    propertyInfo.SetValue(null, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
+                switch (variableType)
+                {
+                    case VariableType.Byte:
+                        propertyInfo.SetValue(null, (byte)((byte)value + mouseDelta));
+                        break;
+                    case VariableType.Sbyte:
+                        propertyInfo.SetValue(null, (sbyte)((sbyte)value + mouseDelta));
+                        break;
+                    case VariableType.Short:
+                        propertyInfo.SetValue(null, (short)((short)value + mouseDelta));
+                        break;
+                    case VariableType.Int:
+                        propertyInfo.SetValue(null, (int)((int)value + mouseDelta));
+                        break;
+                    case VariableType.Long:
+                        propertyInfo.SetValue(null, (long)((long)value + mouseDelta));
+                        break;
+                    case VariableType.Ushort:
+                        propertyInfo.SetValue(null, (ushort)((ushort)value + mouseDelta));
+                        break;
+                    case VariableType.Uint:
+                        propertyInfo.SetValue(null, (uint)((uint)value + mouseDelta));
+                        break;
+                    case VariableType.Ulong:
+                        propertyInfo.SetValue(null, (ulong)((ulong)value + mouseDelta));
+                        break;
+                    case VariableType.Float:
+                        propertyInfo.SetValue(null, ((float)value + mouseDelta).Round(roundingDigits));
+                        break;
+                    case VariableType.Double:
+                        propertyInfo.SetValue(null, ((double)value + mouseDelta).Round(roundingDigits));
+                        break;
+                    case VariableType.Decimal:
+                        propertyInfo.SetValue(null, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
+                        break;
+                    case VariableType.BigInteger:
+                        propertyInfo.SetValue(null, (BigInteger)value + (BigInteger)mouseDelta);
+                        break;
+                    case VariableType.BigDecimal:
+                        propertyInfo.SetValue(null, ((BigDecimal)value + (BigDecimal)mouseDelta).Round(roundingDigits));
+                        break;
+                    default:
+                        break;
+                }
             }
             else if (fieldInfo != null)
             {
-                object value2 = fieldInfo.GetValue(null);
+                object value = fieldInfo.GetValue(null);
 
-                if (variableType == VariableType.Byte)
-                    fieldInfo.SetValue(null, (byte)((byte)value2 + mouseDelta));
-                if (variableType == VariableType.Sbyte)
-                    fieldInfo.SetValue(null, (sbyte)((sbyte)value2 + mouseDelta));
-                if (variableType == VariableType.Short)
-                    fieldInfo.SetValue(null, (short)((short)value2 + mouseDelta));
-                if (variableType == VariableType.Int)
-                    fieldInfo.SetValue(null, (int)((int)value2 + mouseDelta));
-                if (variableType == VariableType.Long)
-                    fieldInfo.SetValue(null, (long)((long)value2 + mouseDelta));
-                if (variableType == VariableType.Ushort)
-                    fieldInfo.SetValue(null, (ushort)((ushort)value2 + mouseDelta));
-                if (variableType == VariableType.Uint)
-                    fieldInfo.SetValue(null, (uint)((uint)value2 + mouseDelta));
-                if (variableType == VariableType.Ulong)
-                    fieldInfo.SetValue(null, (ulong)((ulong)value2 + mouseDelta));
-                if (variableType == VariableType.Float)
-                    fieldInfo.SetValue(null, ((float)value2 + mouseDelta).Round(roundingDigits));
-                if (variableType == VariableType.Double)
-                    fieldInfo.SetValue(null, ((double)value2 + mouseDelta).Round(roundingDigits));
-                if (variableType == VariableType.Decimal)
-                    fieldInfo.SetValue(null, ((decimal)value2 + (decimal)mouseDelta).Round(roundingDigits));
+                switch (variableType)
+                {
+                    case VariableType.Byte:
+                        fieldInfo.SetValue(null, (byte)((byte)value + mouseDelta));
+                        break;
+                    case VariableType.Sbyte:
+                        fieldInfo.SetValue(null, (sbyte)((sbyte)value + mouseDelta));
+                        break;
+                    case VariableType.Short:
+                        fieldInfo.SetValue(null, (short)((short)value + mouseDelta));
+                        break;
+                    case VariableType.Int:
+                        fieldInfo.SetValue(null, (int)((int)value + mouseDelta));
+                        break;
+                    case VariableType.Long:
+                        fieldInfo.SetValue(null, (long)((long)value + mouseDelta));
+                        break;
+                    case VariableType.Ushort:
+                        fieldInfo.SetValue(null, (ushort)((ushort)value + mouseDelta));
+                        break;
+                    case VariableType.Uint:
+                        fieldInfo.SetValue(null, (uint)((uint)value + mouseDelta));
+                        break;
+                    case VariableType.Ulong:
+                        fieldInfo.SetValue(null, (ulong)((ulong)value + mouseDelta));
+                        break;
+                    case VariableType.Float:
+                        fieldInfo.SetValue(null, ((float)value + mouseDelta).Round(roundingDigits));
+                        break;
+                    case VariableType.Double:
+                        fieldInfo.SetValue(null, ((double)value + mouseDelta).Round(roundingDigits));
+                        break;
+                    case VariableType.Decimal:
+                        fieldInfo.SetValue(null, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
+                        break;
+                    case VariableType.BigInteger:
+                        fieldInfo.SetValue(null, (BigInteger)value + (BigInteger)mouseDelta);
+                        break;
+                    case VariableType.BigDecimal:
+                        fieldInfo.SetValue(null, ((BigDecimal)value + (BigDecimal)mouseDelta).Round(roundingDigits));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

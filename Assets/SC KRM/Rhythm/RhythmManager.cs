@@ -116,7 +116,7 @@ namespace SCKRM.Rhythm
 
                         _time += timePlusValue;
                     }
-                    else if (time > soundPlayer.length - MathTool.epsilonFloatWithAccuracy)
+                    else if (time > soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     {
                         if (soundPlayer.loop)
                             _time = 0;
@@ -146,7 +146,7 @@ namespace SCKRM.Rhythm
                         soundPlayer.isPaused = false;
                         isStart = false;
                     }
-                    else if (isEnd && time <= soundPlayer.length - MathTool.epsilonFloatWithAccuracy)
+                    else if (isEnd && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     {
                         soundPlayer.isPaused = false;
                         isEnd = false;

@@ -161,7 +161,7 @@ namespace SCKRM.SaveLoad
                 jObject.Add(fieldInfo.variableInfo.Name, JToken.FromObject(fieldInfo.variableInfo.GetValue(null)));
             }
 
-            File.WriteAllText(PathTool.Combine(saveDataPath, saveLoadClass.name) + ".json", jObject.ToString());
+            File.WriteAllText(PathUtility.Combine(saveDataPath, saveLoadClass.name) + ".json", jObject.ToString());
         }
 
         [WikiDescription("전부 로드")]
@@ -184,7 +184,7 @@ namespace SCKRM.SaveLoad
             else if (!noExistsCheck && !Directory.Exists(loadDataPath))
                 Directory.CreateDirectory(loadDataPath);
 
-            string path = PathTool.Combine(loadDataPath, saveLoadClass.name) + ".json";
+            string path = PathUtility.Combine(loadDataPath, saveLoadClass.name) + ".json";
             if (!noExistsCheck && !File.Exists(path))
                 return;
 

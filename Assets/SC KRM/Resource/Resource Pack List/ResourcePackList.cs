@@ -62,7 +62,7 @@ namespace SCKRM.Resource.UI
                     if (available && ResourceManager.SaveData.resourcePacks.Contains(resourcePackPath))
                         continue;
 
-                    string jsonPath = PathTool.Combine(resourcePackPath, "pack.json");
+                    string jsonPath = PathUtility.Combine(resourcePackPath, "pack.json");
                     if (File.Exists(jsonPath))
                     {
                         try
@@ -70,7 +70,7 @@ namespace SCKRM.Resource.UI
                             ResourcePackJson resourcePackJson = JsonConvert.DeserializeObject<ResourcePackJson>(File.ReadAllText(jsonPath));
                             if (resourcePackJson != null)
                             {
-                                Texture2D texture = ResourceManager.GetTexture(PathTool.Combine(resourcePackPath, "pack"), false, new TextureMetaData() { filterMode = FilterMode.Bilinear });
+                                Texture2D texture = ResourceManager.GetTexture(PathUtility.Combine(resourcePackPath, "pack"), false, new TextureMetaData() { filterMode = FilterMode.Bilinear });
                                 Sprite sprite = ResourceManager.GetSprite(texture);
                                 ResourcePack resourcePack = (ResourcePack)ObjectPoolingSystem.ObjectCreate("resource_pack_list.resource_pack", transform).monoBehaviour;
 #pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.

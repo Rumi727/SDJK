@@ -333,7 +333,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                 for (int j = 0; j < nameSpaces.Count; j++)
                 {
                     string nameSpace = nameSpaces[j];
-                    string resourcePackTexturePath = PathTool.Combine(resourcePack, texturePath.Replace("%NameSpace%", nameSpace));
+                    string resourcePackTexturePath = PathUtility.Combine(resourcePack, texturePath.Replace("%NameSpace%", nameSpace));
 
                     if (!Directory.Exists(resourcePackTexturePath))
                         continue;
@@ -630,8 +630,8 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                 for (int j = 0; j < nameSpaces.Count; j++)
                 {
                     string nameSpace = nameSpaces[j];
-                    string soundFolderPath = PathTool.Combine(resourcePack, soundPath.Replace("%NameSpace%", nameSpace));
-                    string nbsFolderPath = PathTool.Combine(resourcePack, nbsPath.Replace("%NameSpace%", nameSpace));
+                    string soundFolderPath = PathUtility.Combine(resourcePack, soundPath.Replace("%NameSpace%", nameSpace));
+                    string nbsFolderPath = PathUtility.Combine(resourcePack, nbsPath.Replace("%NameSpace%", nameSpace));
 
                     (bool success, bool cancel) = await TryGetSoundData(soundFolderPath, allSounds, soundMetaDataCreateFunc);
                     if (cancel)
@@ -645,7 +645,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                     async UniTask<SoundMetaData> soundMetaDataCreateFunc(string folderPath, SoundMetaData soundMetaData)
                     {
-                        string audioPath = PathTool.Combine(folderPath, soundMetaData.path);
+                        string audioPath = PathUtility.Combine(folderPath, soundMetaData.path);
                         AudioClip audioClip = await GetAudio(audioPath, false, soundMetaData.stream);
                         if (!Kernel.isPlaying)
                             return null;
@@ -658,7 +658,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                     async UniTask<NBSMetaData> nbsMetaDataCreateFunc(string folderPath, NBSMetaData nbsMetaData)
                     {
-                        string soundPath = PathTool.Combine(nbsFolderPath, nbsMetaData.path);
+                        string soundPath = PathUtility.Combine(nbsFolderPath, nbsMetaData.path);
                         if (!File.Exists(soundPath + ".nbs"))
                             return null;
 
@@ -737,7 +737,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
                         LanguageManager.Language language = languages[k];
 
-                        Dictionary<string, string> dictionary = JsonManager.JsonRead<Dictionary<string, string>>(PathTool.Combine(resourcePack, languagePath.Replace("%NameSpace%", nameSpace), language.language) + ".json", true);
+                        Dictionary<string, string> dictionary = JsonManager.JsonRead<Dictionary<string, string>>(PathUtility.Combine(resourcePack, languagePath.Replace("%NameSpace%", nameSpace), language.language) + ".json", true);
                         if (dictionary == null)
                             continue;
 
@@ -1514,10 +1514,10 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
             if (nameSpace == "")
                 nameSpace = defaultNameSpace;
 
-            string path = PathTool.Combine(resourcePackPath, texturePath.Replace("%NameSpace%", nameSpace));
-            string allPath = PathTool.Combine(path, type, name);
+            string path = PathUtility.Combine(resourcePackPath, texturePath.Replace("%NameSpace%", nameSpace));
+            string allPath = PathUtility.Combine(path, type, name);
 
-            TextureMetaData textureMetaData = JsonManager.JsonRead<TextureMetaData>(PathTool.Combine(path, type) + ".json", true);
+            TextureMetaData textureMetaData = JsonManager.JsonRead<TextureMetaData>(PathUtility.Combine(path, type) + ".json", true);
             if (textureMetaData == null)
                 textureMetaData = new TextureMetaData();
 
@@ -1668,7 +1668,7 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
                 path = "";
 
             if (pathExtensionUse)
-                path = PathTool.GetPathWithExtension(path);
+                path = PathUtility.GetPathWithExtension(path);
 
 
             AudioClip audioClip = await getSound(".ogg", AudioType.OGGVORBIS);
@@ -1762,7 +1762,7 @@ Get the list of loaded audio keys (manually find in the default resource pack if
             }
             else
             {
-                string path = PathTool.Combine(Kernel.streamingAssetsPath, soundPath.Replace("%NameSpace%", nameSpace));
+                string path = PathUtility.Combine(Kernel.streamingAssetsPath, soundPath.Replace("%NameSpace%", nameSpace));
                 Dictionary<string, SoundData<SoundMetaData>> soundDatas = JsonManager.JsonRead<Dictionary<string, SoundData<SoundMetaData>>>(path + ".json", true);
                 if (soundDatas != null)
                     return soundDatas.Keys.ToArray();
@@ -1800,7 +1800,7 @@ Get the list of loaded nbs keys (manually find in the default resource pack if n
             }
             else
             {
-                string path = PathTool.Combine(Kernel.streamingAssetsPath, nbsPath.Replace("%NameSpace%", nameSpace));
+                string path = PathUtility.Combine(Kernel.streamingAssetsPath, nbsPath.Replace("%NameSpace%", nameSpace));
                 Dictionary<string, SoundData<NBSMetaData>> soundDatas = JsonManager.JsonRead<Dictionary<string, SoundData<NBSMetaData>>>(path + ".json", true);
                 if (soundDatas != null)
                     return soundDatas.Keys.ToArray();
@@ -1839,7 +1839,7 @@ Get the list of loaded sprite type (manually find in the default resource pack i
             }
             else
             {
-                string resourcePackTexturePath = PathTool.Combine(Kernel.streamingAssetsPath, texturePath.Replace("%NameSpace%", nameSpace));
+                string resourcePackTexturePath = PathUtility.Combine(Kernel.streamingAssetsPath, texturePath.Replace("%NameSpace%", nameSpace));
                 string[] paths = Directory.GetDirectories(resourcePackTexturePath, "*", SearchOption.AllDirectories);
                 for (int i = 0; i < paths.Length; i++)
                 {
@@ -1882,7 +1882,7 @@ Get the list of loaded sprite keys (manually find in the default resource pack i
             }
             else
             {
-                string typePath = PathTool.Combine(Kernel.streamingAssetsPath, texturePath.Replace("%NameSpace%", nameSpace), type);
+                string typePath = PathUtility.Combine(Kernel.streamingAssetsPath, texturePath.Replace("%NameSpace%", nameSpace), type);
 
                 if (!Directory.Exists(typePath))
                     return null;
@@ -1933,7 +1933,7 @@ Get the list of loaded language keys (manually find in the default resource pack
             }
             else
             {
-                Dictionary<string, string> dictionary = JsonManager.JsonRead<Dictionary<string, string>>(PathTool.Combine(Kernel.streamingAssetsPath, languagePath.Replace("%NameSpace%", nameSpace), language) + ".json", true);
+                Dictionary<string, string> dictionary = JsonManager.JsonRead<Dictionary<string, string>>(PathUtility.Combine(Kernel.streamingAssetsPath, languagePath.Replace("%NameSpace%", nameSpace), language) + ".json", true);
                 if (dictionary != null)
                     return dictionary.Keys.ToArray();
                 else

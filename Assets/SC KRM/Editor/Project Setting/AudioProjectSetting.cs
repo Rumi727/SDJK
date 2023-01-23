@@ -50,7 +50,7 @@ namespace SCKRM.Editor
             GUILayout.Label("네임스페이스", GUILayout.ExpandWidth(false));
             nameSpace = CustomInspectorEditor.DrawNameSpace(nameSpace);
 
-            string path = PathTool.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", nameSpace));
+            string path = PathUtility.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", nameSpace));
 
             if (Kernel.isPlaying)
                 GUI.enabled = false;
@@ -296,11 +296,11 @@ namespace SCKRM.Editor
 
                                         //GUI
                                         {
-                                            string assetAllPath = PathTool.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", nameSpace));
-                                            string assetAllPathAndName = PathTool.Combine(assetAllPath, soundPath);
+                                            string assetAllPath = PathUtility.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", nameSpace));
+                                            string assetAllPathAndName = PathUtility.Combine(assetAllPath, soundPath);
 
-                                            string assetPath = PathTool.Combine("Assets/StreamingAssets", ResourceManager.soundPath.Replace("%NameSpace%", nameSpace));
-                                            string assetPathAndName = PathTool.Combine(assetPath, soundPath);
+                                            string assetPath = PathUtility.Combine("Assets/StreamingAssets", ResourceManager.soundPath.Replace("%NameSpace%", nameSpace));
+                                            string assetPathAndName = PathUtility.Combine(assetPath, soundPath);
 
                                             ResourceManager.FileExtensionExists(assetAllPathAndName, out string outPath, ResourceManager.audioExtension);
 
@@ -321,7 +321,7 @@ namespace SCKRM.Editor
                                                 if (Path.GetExtension(changedAssetPathAneName) == "." + ResourceManager.audioExtension[k])
                                                 {
                                                     exists = true;
-                                                    soundPath = PathTool.GetPathWithExtension(changedAssetPathAneName);
+                                                    soundPath = PathUtility.GetPathWithExtension(changedAssetPathAneName);
 
                                                     continue;
                                                 }

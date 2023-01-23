@@ -198,7 +198,7 @@ namespace SCKRM.FileDialog
         [WikiIgnore]
         public static void ScreenRefresh(string path, bool undoAllow)
         {
-            path = PathTool.ReplaceInvalidPathChars(path).Replace("\\", "/");
+            path = PathUtility.ReplaceInvalidPathChars(path).Replace("\\", "/");
             currentPath = path;
 
             if (undoAllow)
@@ -543,9 +543,9 @@ namespace SCKRM.FileDialog
 
             string fileName = instance.fileDialogFileName.text;
             if (Path.GetExtension(fileName) == "" && currentFilter.extensions.Length > 0 && !currentFilter.extensions[0].Contains("*"))
-                return PathTool.Combine(path, fileName + "." + currentFilter.extensions[0]);
+                return PathUtility.Combine(path, fileName + "." + currentFilter.extensions[0]);
             else
-                return PathTool.Combine(path, fileName);
+                return PathUtility.Combine(path, fileName);
         }
 
         /// <summary>
@@ -557,7 +557,7 @@ namespace SCKRM.FileDialog
         [WikiDescription("현재 화면에 보이는 곳에서 파일과 폴더를 검색하고 화면에 결과를 보여줍니다")]
         public static void Search(string value)
         {
-            value = PathTool.ReplaceInvalidFileNameChars(value);
+            value = PathUtility.ReplaceInvalidFileNameChars(value);
 
             currentSearch = value;
             instance.fileDialogSearch.text = value;
@@ -589,7 +589,7 @@ namespace SCKRM.FileDialog
         [WikiDescription("파일이 저장 될 이름을 정합니다")]
         public static void SetFileName(string value)
         {
-            value = PathTool.ReplaceInvalidFileNameChars(value);
+            value = PathUtility.ReplaceInvalidFileNameChars(value);
 
             fileName = value;
             instance.fileDialogFileName.text = value;

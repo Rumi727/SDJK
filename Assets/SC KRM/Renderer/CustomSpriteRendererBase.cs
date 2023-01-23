@@ -144,9 +144,9 @@ namespace SCKRM.Renderer
         public override string ToString()
         {
             if (string.IsNullOrEmpty(nameSpace))
-                return PathTool.Combine(type, path);
+                return PathUtility.Combine(type, path);
             else
-                return nameSpace + ":" + PathTool.Combine(type, path);
+                return nameSpace + ":" + PathUtility.Combine(type, path);
         }
     }
 
@@ -202,9 +202,9 @@ namespace SCKRM.Renderer
         public override string ToString()
         {
             if (string.IsNullOrEmpty(nameSpace))
-                return ResourceManager.defaultNameSpace + ":" + index + ":" + PathTool.Combine(type, path);
+                return ResourceManager.defaultNameSpace + ":" + index + ":" + PathUtility.Combine(type, path);
             else
-                return nameSpace + ":" + index + ":" + PathTool.Combine(type, path);
+                return nameSpace + ":" + index + ":" + PathUtility.Combine(type, path);
         }
     }
 }

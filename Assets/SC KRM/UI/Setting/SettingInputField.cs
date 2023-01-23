@@ -31,34 +31,18 @@ namespace SCKRM.UI.Setting
             if (await base.Awake())
                 return true;
 
-            if (variableType == VariableType.String)
+            if (variableType == VariableType.Char || variableType == VariableType.String)
             {
-                inputField.contentType = TMP_InputField.ContentType.Standard;
-
                 placeholder.nameSpace = textPlaceHolderNameSpace;
                 placeholder.path = textPlaceHolderPath;
-
-                placeholder.Refresh();
-            }
-            else if (variableType != VariableType.Float && variableType != VariableType.Double && variableType != VariableType.Decimal)
-            {
-                inputField.contentType = TMP_InputField.ContentType.IntegerNumber;
-
-                placeholder.nameSpace = numberPlaceHolderNameSpace;
-                placeholder.path = numberPlaceHolderPath;
-
-                placeholder.Refresh();
             }
             else
             {
-                inputField.contentType = TMP_InputField.ContentType.DecimalNumber;
-
                 placeholder.nameSpace = numberPlaceHolderNameSpace;
                 placeholder.path = numberPlaceHolderPath;
-
-                placeholder.Refresh();
             }
 
+            placeholder.Refresh();
             return false;
         }
 

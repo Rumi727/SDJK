@@ -63,10 +63,10 @@ namespace SCKRM.Editor
 
             index = EditorGUILayout.IntField("스프라이트 인덱스", index).Clamp(0);
 
-            string typePath = PathTool.Combine(ResourceManager.texturePath.Replace("%NameSpace%", nameSpace), type);
-            string filePath = PathTool.Combine(typePath, name);
-            string typeAllPath = PathTool.Combine(Kernel.streamingAssetsPath, typePath);
-            ResourceManager.FileExtensionExists(PathTool.Combine(Kernel.streamingAssetsPath, filePath), out string fileAllPath, ResourceManager.textureExtension);
+            string typePath = PathUtility.Combine(ResourceManager.texturePath.Replace("%NameSpace%", nameSpace), type);
+            string filePath = PathUtility.Combine(typePath, name);
+            string typeAllPath = PathUtility.Combine(Kernel.streamingAssetsPath, typePath);
+            ResourceManager.FileExtensionExists(PathUtility.Combine(Kernel.streamingAssetsPath, filePath), out string fileAllPath, ResourceManager.textureExtension);
 
             if (Directory.Exists(typeAllPath) && type != null && type != "")
             {

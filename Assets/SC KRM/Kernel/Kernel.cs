@@ -15,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : ManagerBase<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 16, 0);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 17, 0);
 
 
 
@@ -123,7 +123,7 @@ namespace SCKRM
                     return _saveDataPath;
                 else
                 {
-                    _saveDataPath = PathTool.Combine(persistentDataPath, "Save Data");
+                    _saveDataPath = PathUtility.Combine(persistentDataPath, "Save Data");
 
                     if (!Directory.Exists(_saveDataPath))
                         Directory.CreateDirectory(_saveDataPath);
@@ -146,7 +146,7 @@ namespace SCKRM
                     return _resourcePackPath;
                 else
                 {
-                    _resourcePackPath = PathTool.Combine(persistentDataPath, "Resource Pack");
+                    _resourcePackPath = PathUtility.Combine(persistentDataPath, "Resource Pack");
 
                     if (!Directory.Exists(_resourcePackPath))
                         Directory.CreateDirectory(_resourcePackPath);
@@ -161,7 +161,7 @@ namespace SCKRM
         /// PathTool.Combine(Kernel.streamingAssetsPath, "projectSettings")
         /// </summary>
         [WikiDescription("[Kernel.streamingAssetsPath](https://github.com/SimsimhanChobo/SC-KRM/wiki/SCKRM.Kernel#streamingAssetsPath) + \"/projectSettings\"")]
-        public static string projectSettingPath { get; } = PathTool.Combine(streamingAssetsPath, "projectSettings");
+        public static string projectSettingPath { get; } = PathUtility.Combine(streamingAssetsPath, "projectSettings");
 
 
 

@@ -31,7 +31,7 @@ namespace SCKRM.FileDialog.Screen
                 directorys = Directory.GetDirectories(path);
 
                 if (!FileDialogManager.isFolderOpenMode)
-                    files = DirectoryTool.GetFiles(path, FileDialogManager.currentFilter.ToSearchPatterns());
+                    files = DirectoryUtility.GetFiles(path, FileDialogManager.currentFilter.ToSearchPatterns());
                 else
                     files = new string[0];
 

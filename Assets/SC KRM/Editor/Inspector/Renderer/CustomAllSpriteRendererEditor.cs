@@ -49,10 +49,10 @@ namespace SCKRM.Editor
             if (nameSpace == null || nameSpace == "")
                 nameSpace = ResourceManager.defaultNameSpace;
 
-            string typePath = PathTool.Combine(ResourceManager.texturePath.Replace("%NameSpace%", nameSpace), editor.type);
-            string filePath = PathTool.Combine(typePath, editor.path);
-            string typeAllPath = PathTool.Combine(Kernel.streamingAssetsPath, typePath);
-            ResourceManager.FileExtensionExists(PathTool.Combine(Kernel.streamingAssetsPath, filePath), out string fileAllPath, ResourceManager.textureExtension);
+            string typePath = PathUtility.Combine(ResourceManager.texturePath.Replace("%NameSpace%", nameSpace), editor.type);
+            string filePath = PathUtility.Combine(typePath, editor.path);
+            string typeAllPath = PathUtility.Combine(Kernel.streamingAssetsPath, typePath);
+            ResourceManager.FileExtensionExists(PathUtility.Combine(Kernel.streamingAssetsPath, filePath), out string fileAllPath, ResourceManager.textureExtension);
 
             if (Directory.Exists(typeAllPath) && editor.type != null && editor.type != "")
             {

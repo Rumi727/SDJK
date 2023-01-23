@@ -12,7 +12,7 @@ namespace SCKRM.Camera
     {
 #pragma warning disable CS0108 // 멤버가 상속된 멤버를 숨깁니다. new 키워드가 없습니다.
         [WikiDescription("붙어있는 카메라 컴포넌트를 가져옵니다")]
-        public UnityEngine.Camera camera => _camera = this.GetComponentFieldSave(_camera, ComponentTool.GetComponentMode.destroyIfNull); [NonSerialized] UnityEngine.Camera _camera;
+        public UnityEngine.Camera camera => _camera = this.GetComponentFieldSave(_camera, ComponentUtility.GetComponentMode.destroyIfNull); [NonSerialized] UnityEngine.Camera _camera;
 #pragma warning restore CS0108 // 멤버가 상속된 멤버를 숨깁니다. new 키워드가 없습니다.
 
         public Rect normalizedViewPortRect { get => _normalizedViewPortRect; set => _normalizedViewPortRect = value; } [SerializeField] Rect _normalizedViewPortRect = new Rect(0, 0, 1, 1);

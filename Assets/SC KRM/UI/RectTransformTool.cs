@@ -38,7 +38,7 @@ namespace SCKRM.UI
 
         public RectTransformTool rectTransformTool => this;
 
-        [SerializeField] Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentTool.GetComponentMode.none);
+        [SerializeField] Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentUtility.GetComponentMode.none);
 
 
 

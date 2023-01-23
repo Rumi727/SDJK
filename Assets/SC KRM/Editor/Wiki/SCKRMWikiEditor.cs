@@ -78,7 +78,7 @@ namespace SCKRM.Editor
                         fastString.Append("\n" + Tab(tabSize) + "* " + TypeLinkCreate(assembly, api));
                     }
 
-                    File.WriteAllText(PathTool.Combine(path, "_Sidebar.md"), fastString.ToString());
+                    File.WriteAllText(PathUtility.Combine(path, "_Sidebar.md"), fastString.ToString());
                     return;
                 }
             }
@@ -302,7 +302,7 @@ namespace SCKRM.Editor
                     fastString.Append("\n없음  ");
             }
 
-            File.WriteAllText(PathTool.Combine(path, type.Namespace + "." + type.Name + ".md"), fastString.ToString());
+            File.WriteAllText(PathUtility.Combine(path, type.Namespace + "." + type.Name + ".md"), fastString.ToString());
             apiList.Add(type);
         }
 
@@ -462,7 +462,7 @@ namespace SCKRM.Editor
                 firstNameSpace = type.Namespace.Split(".")[0];
 
             if (type.Assembly == assembly)
-                return $"[{GetTypeGenericsName(type, true)}]({PathTool.Combine(selectedGithubWikiSite, fullName).Replace("[]", "")})";
+                return $"[{GetTypeGenericsName(type, true)}]({PathUtility.Combine(selectedGithubWikiSite, fullName).Replace("[]", "")})";
             else if (firstNameSpace == "UnityEngine" || firstNameSpace == "UnityEditor")
                 return $"[{GetTypeGenericsName(type, true)}]({unityWikiSite + fullName.Replace("`", "_").Replace("[]", "").Substring(firstNameSpace.Length + 1)}.html)";
             else if (firstNameSpace == "System")

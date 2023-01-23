@@ -69,7 +69,7 @@ namespace SCKRM.DragAndDrop
             if (!isFolder)
                 return false;
 
-            string jsonPath = PathTool.Combine(path, "pack.json");
+            string jsonPath = PathUtility.Combine(path, "pack.json");
             if (File.Exists(jsonPath))
             {
                 threadMetaData.name = "notice.running_task.drag_and_drop.resource_pack_load";
@@ -81,7 +81,7 @@ namespace SCKRM.DragAndDrop
 
 
                 DirectoryInfo directoryInfo = new DirectoryInfo(path);
-                string destPath = PathTool.Combine(Kernel.resourcePackPath, directoryInfo.Name);
+                string destPath = PathUtility.Combine(Kernel.resourcePackPath, directoryInfo.Name);
 
                 if (Directory.Exists(destPath))
                 {
@@ -90,7 +90,7 @@ namespace SCKRM.DragAndDrop
                 }
 
                 Directory.CreateDirectory(destPath);
-                DirectoryTool.Copy(path, destPath);
+                DirectoryUtility.Copy(path, destPath);
 
                 threadMetaData.progress = 1;
 
@@ -178,7 +178,7 @@ namespace SCKRM.DragAndDrop
                         else if (Path.GetExtension(path).ToLower().Equals(".zip"))
                         {
                             string uuid = Guid.NewGuid().ToString();
-                            tempFolderPath = PathTool.Combine(Kernel.temporaryCachePath, uuid);
+                            tempFolderPath = PathUtility.Combine(Kernel.temporaryCachePath, uuid);
                             string decompressFolerPath = Path.Combine(tempFolderPath, Path.GetFileNameWithoutExtension(path));
                             if (!CompressFileManager.DecompressZipFile(path, decompressFolerPath, "", threadMetaData))
                             {
