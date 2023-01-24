@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace SDJK.Ruleset
@@ -169,13 +170,17 @@ namespace SDJK.Ruleset
         public string nameKey;
         public double sizeSecond;
 
+        public Color color;
+
         public double hpMultiplier;
         public bool missHp;
 
-        public JudgementMetaData(string nameKey, double sizeSecond, double hpMultiplier = 1, bool missHp = false)
+        public JudgementMetaData(string nameKey, double sizeSecond, Color color, double hpMultiplier = 1, bool missHp = false)
         {
             this.nameKey = nameKey;
             this.sizeSecond = sizeSecond;
+
+            this.color = color;
 
             this.hpMultiplier = hpMultiplier;
             this.missHp = missHp;
