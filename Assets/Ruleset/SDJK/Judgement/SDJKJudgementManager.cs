@@ -379,7 +379,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 instance.score = sdjkManager.currentReplay.scores.GetValue(currentBeat);
                 instance.health = sdjkManager.currentReplay.healths.GetValue(currentBeat);
                 instance.accuracy = sdjkManager.currentReplay.accuracys.GetValue(currentBeat);
-                instance.accuracyUnclampeds = sdjkManager.currentReplay.accuracyUnclampeds.GetValue(currentBeat);
+                instance.accuracyUnclamped = sdjkManager.currentReplay.accuracyUnclampeds.GetValue(currentBeat);
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
