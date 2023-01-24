@@ -21,7 +21,7 @@ namespace SDJK.Ruleset.SDJK.UI
             if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
                 return;
 
-            value = value.Lerp(SDJKJudgementManager.instance.accuracy, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            value = value.Lerp(SDJKJudgementManager.instance.accuracyAbs, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             text.text = 100d.Lerp(0d, value).Round(2).ToString() + suffix;
         }
     }

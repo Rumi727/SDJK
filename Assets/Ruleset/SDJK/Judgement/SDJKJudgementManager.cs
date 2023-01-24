@@ -32,14 +32,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
         /// <summary>
         /// 0 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
-        public double accuracy { get; private set; } = 0;
-        List<double> accuracys { get; } = new List<double>();
+        public double accuracyAbs { get; private set; } = 0;
+        List<double> accuracyAbss { get; } = new List<double>();
 
         /// <summary>
         /// -1 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
-        public double accuracyUnclamped { get; private set; } = 0;
-        List<double> accuracyUnclampeds { get; } = new List<double>();
+        public double accuracy { get; private set; } = 0;
+        List<double> accuracys { get; } = new List<double>();
 
         public double health 
         { 
@@ -309,11 +309,11 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     {
                         double accuracy = disSecond.Abs().Clamp(0, missSecond) / missSecond;
 
-                        instance.accuracys.Add(accuracy);
-                        instance.accuracy = instance.accuracys.Average();
+                        instance.accuracyAbss.Add(accuracy);
+                        instance.accuracyAbs = instance.accuracyAbss.Average();
 
-                        instance.accuracyUnclampeds.Add(accuracy * disSecond.Sign());
-                        instance.accuracyUnclamped = instance.accuracyUnclampeds.Average();
+                        instance.accuracys.Add(accuracy * disSecond.Sign());
+                        instance.accuracy = instance.accuracys.Average();
                     }
 
                     if (!sdjkManager.isReplay)
@@ -366,8 +366,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 sdjkManager.createdReplay.combos.Add(currentBeat, instance.combo);
                 sdjkManager.createdReplay.scores.Add(currentBeat, instance.score);
                 sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
-                sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracy);
-                sdjkManager.createdReplay.accuracyUnclampeds.Add(currentBeat, instance.accuracyUnclamped);
+                sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracyAbs);
+                sdjkManager.createdReplay.accuracyUnclampeds.Add(currentBeat, instance.accuracy);
             }
 
             public void GetReplayComboToSet()
@@ -378,8 +378,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 instance.combo = sdjkManager.currentReplay.combos.GetValue(currentBeat);
                 instance.score = sdjkManager.currentReplay.scores.GetValue(currentBeat);
                 instance.health = sdjkManager.currentReplay.healths.GetValue(currentBeat);
-                instance.accuracy = sdjkManager.currentReplay.accuracys.GetValue(currentBeat);
-                instance.accuracyUnclamped = sdjkManager.currentReplay.accuracyUnclampeds.GetValue(currentBeat);
+                instance.accuracyAbs = sdjkManager.currentReplay.accuracys.GetValue(currentBeat);
+                instance.accuracy = sdjkManager.currentReplay.accuracyUnclampeds.GetValue(currentBeat);
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
