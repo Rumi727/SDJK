@@ -37,7 +37,7 @@ namespace SDJK.Ruleset.SDJK.UI
             }
         }
 
-        protected override void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData)
+        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
         {
             if (!graphic.enabled)
                 graphic.enabled = true;

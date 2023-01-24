@@ -73,7 +73,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
         public event JudgementAction judgementAction;
-        public delegate void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData);
+        public delegate void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData);
 
 
 
@@ -306,8 +306,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         instance.gameOverManager.GameOver();
 
                     //정확도
+                    double accuracy;
                     {
-                        double accuracy = disSecond.Abs().Clamp(0, missSecond) / missSecond;
+                        accuracy = disSecond.Abs().Clamp(0, missSecond) / missSecond;
 
                         instance.accuracyAbss.Add(accuracy);
                         instance.accuracyAbs = instance.accuracyAbss.Average();
@@ -321,16 +322,16 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         GetReplayComboToSet();
 
-                    instance.judgementAction?.Invoke(disSecond, isMiss, metaData);
+                    instance.judgementAction?.Invoke(disSecond, isMiss, accuracy * disSecond.Sign(), metaData);
                     return true;
                 }
                 else if (existsInstantDeathNote) //즉사 노트가 존재하며 노트를 치지 않았을때
                 {
                     //가장 가까운 즉사 노트 감지
                     double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == SDJKNoteTypeFile.instantDeath);
-                    double dis = GetDisSecond(instantDeathNoteBeat, false, notePressBeatReplay);
+                    double instantDisSecond = GetDisSecond(instantDeathNoteBeat, false, notePressBeatReplay);
 
-                    if (dis.Abs() <= missSecond)
+                    if (instantDisSecond.Abs() <= missSecond)
                     {
                         instance.combo = 0;
                         instance.health = 0;
@@ -351,7 +352,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         else
                             GetReplayComboToSet();
 
-                        instance.judgementAction?.Invoke(dis, true, ruleset.instantDeathJudgementMetaData);
+                        double accuracy = instantDisSecond.Abs().Clamp(0, missSecond) / missSecond;
+                        instance.judgementAction?.Invoke(instantDisSecond, true, accuracy * instantDisSecond.Sign(), ruleset.instantDeathJudgementMetaData);
                     }
                 }
 

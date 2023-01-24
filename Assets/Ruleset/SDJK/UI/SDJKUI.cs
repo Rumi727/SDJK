@@ -16,7 +16,7 @@ namespace SDJK.Ruleset.SDJK
             SDJKJudgementManager.instance.judgementAction += JudgementAction;
         }
 
-        protected virtual void JudgementAction(double disSecond, bool isMiss, JudgementMetaData metaData) { }
+        protected virtual void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData) { }
 
         protected override async void OnDisable()
         {
