@@ -1,9 +1,5 @@
-using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Rhythm;
-using SDJK.Ruleset.SDJK.Judgement;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -18,10 +14,10 @@ namespace SDJK.Ruleset.SDJK.UI
         double value = 0;
         void Update()
         {
-            if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
+            if (!RhythmManager.isPlaying)
                 return;
 
-            value = value.Lerp(SDJKJudgementManager.instance.accuracyAbs, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            value = value.Lerp(judgementManager.accuracyAbs, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             text.text = 100d.Lerp(0d, value).Round(2).ToString() + suffix;
         }
     }

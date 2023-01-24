@@ -1,9 +1,5 @@
-using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Rhythm;
-using SDJK.Ruleset.SDJK.Judgement;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -43,7 +39,7 @@ namespace SDJK.Ruleset.SDJK.UI
 
         protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
         {
-            int combo = SDJKJudgementManager.instance.combo;
+            int combo = judgementManager.combo;
             if (combo <= 0)
                 text.text = "";
             else

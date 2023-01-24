@@ -1,9 +1,6 @@
-using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Judgement;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.UI
@@ -16,10 +13,10 @@ namespace SDJK.Ruleset.SDJK.UI
         float value = 1;
         void Update()
         {
-            if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
+            if (!RhythmManager.isPlaying)
                 return;
 
-            value = value.Lerp((float)(SDJKJudgementManager.instance.health / SDJKJudgementManager.maxHealth), lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            value = value.Lerp((float)(judgementManager.health / SDJKJudgementManager.maxHealth), lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             valueImage.anchorMax = new Vector2(1, value);
         }
     }

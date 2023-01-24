@@ -1,10 +1,6 @@
-using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Renderer;
 using SCKRM.Rhythm;
-using SDJK.Ruleset.SDJK.Judgement;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 

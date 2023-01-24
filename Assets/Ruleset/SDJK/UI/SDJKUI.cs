@@ -1,29 +1,17 @@
-using Cysharp.Threading.Tasks;
+using SCKRM;
 using SDJK.Ruleset.SDJK.Judgement;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
     public abstract class SDJKUI : SCKRM.UI.UI
     {
-        protected override async void OnEnable()
-        {
-            if (await UniTask.WaitUntil(() => SDJKJudgementManager.instance != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
-                return;
+        [SerializeField, NotNull] SDJKJudgementManager _judgementManager; public SDJKJudgementManager judgementManager => _judgementManager;
 
-            SDJKJudgementManager.instance.judgementAction += JudgementAction;
-        }
+        protected override void OnEnable() => judgementManager.judgementAction += JudgementAction;
 
         protected virtual void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData) { }
 
-        protected override async void OnDisable()
-        {
-            if (await UniTask.WaitUntil(() => SDJKJudgementManager.instance != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
-                return;
-
-            SDJKJudgementManager.instance.judgementAction -= JudgementAction;
-        }
+        protected override void OnDisable() => judgementManager.judgementAction -= JudgementAction;
     }
 }
