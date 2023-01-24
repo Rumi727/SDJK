@@ -278,6 +278,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(beat);
                     bool isMiss = metaData.nameKey == SDJKRuleset.miss;
 
+                    //콤보
                     if (!isMiss)
                     {
                         instance.combo += 1;
@@ -286,11 +287,13 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         instance.combo = 0;
 
+                    //체력
                     if (isMiss || metaData.missHp)
                         instance.health -= map.globalEffect.hpMissValue.GetValue(currentBeat) * metaData.hpMultiplier;
                     else
                         instance.health += map.globalEffect.hpAddValue.GetValue(currentBeat) * metaData.hpMultiplier;
 
+                    //게임 오버
                     if (!sdjkManager.isReplay)
                     {
                         if (instance.health <= 0)
@@ -302,6 +305,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
                         instance.gameOverManager.GameOver();
 
+                    //정확도
                     {
                         double accuracy = disSecond.Abs().Clamp(0, missSecond) / missSecond;
 
