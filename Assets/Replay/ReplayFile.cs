@@ -18,6 +18,7 @@ namespace SDJK.Replay
 
         public BeatValuePairList<double> scores { get; set; } = new(0);
         public BeatValuePairList<double> accuracys { get; set; } = new(0);
+        public BeatValuePairList<double> accuracyUnclampeds { get; set; } = new(0);
         public BeatValuePairList<double> healths { get; set; } = new(0);
 
         public double gameOverBeat { get; set; } = double.MaxValue;
