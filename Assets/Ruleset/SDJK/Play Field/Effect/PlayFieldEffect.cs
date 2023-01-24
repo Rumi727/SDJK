@@ -10,8 +10,6 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] PlayField playField;
         FieldEffectFile fieldEffectFile => playField.fieldEffectFile;
 
-        public override void Refresh(bool force = false) { }
-
         protected override void RealUpdate()
         {
             if (effectManager == null)

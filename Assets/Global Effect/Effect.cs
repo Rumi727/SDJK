@@ -15,7 +15,7 @@ namespace SDJK.Effect
         public virtual Map.MapPack mapPack => effectManager.selectedMapPack;
         public virtual Map.MapFile map => effectManager.selectedMap;
 
-        public abstract void Refresh(bool force = false);
+        public virtual void Refresh(bool force = false) { }
 
         void Update()
         {

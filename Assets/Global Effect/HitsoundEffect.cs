@@ -6,8 +6,6 @@ namespace SDJK.Effect
 {
     public sealed class HitsoundEffect : Effect
     {
-        public override void Refresh(bool force = false) { }
-
         double lastValue = -1;
         protected override void RealUpdate()
         {

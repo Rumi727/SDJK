@@ -14,8 +14,6 @@ namespace SDJK.MainMenu
         [SerializeField, NotNull] RectTransform text;
         [SerializeField, NotNull] RectTransform visualizer;
 
-        public override void Refresh(bool force = false) { }
-
         protected override void RealUpdate()
         {
             if (MainMenu.SaveData.logoEffectEnable)

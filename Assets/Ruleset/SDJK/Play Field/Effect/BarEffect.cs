@@ -23,8 +23,6 @@ namespace SDJK.Ruleset.SDJK.Effect
         PlayField playField => bar.playField;
         SDJKInputManager inputManager => SDJKInputManager.instance;
 
-        public override void Refresh(bool force = false) { }
-
         bool isKeyEnable = false;
         protected override void RealUpdate()
         {

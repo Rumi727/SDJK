@@ -1,9 +1,6 @@
 using SCKRM;
 using SCKRM.Rhythm;
-using SCKRM.UI;
 using SDJK.Map;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +11,6 @@ namespace SDJK.Effect
     {
         [SerializeField] Image _image; public Image image => _image = this.GetComponentFieldSave(_image);
         [SerializeField] FlashOrder _flashOrder = FlashOrder.background; public FlashOrder flashOrder => _flashOrder;
-
-        public override void Refresh(bool force = false) { }
 
         protected override void RealUpdate()
         {

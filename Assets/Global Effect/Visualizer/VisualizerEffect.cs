@@ -7,8 +7,6 @@ namespace SDJK.Effect
     {
         [SerializeField] Visualizer visualizer;
 
-        public override void Refresh(bool force = false) { }
-
         int lastDivide = -1;
         bool lastLeftMove = true;
         int lastOffset = -1;

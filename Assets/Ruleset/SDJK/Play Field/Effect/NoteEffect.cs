@@ -15,8 +15,6 @@ namespace SDJK.Ruleset.SDJK
         Bar bar => note.bar;
         SDJKNoteTypeFile type => note.type;
 
-        public override void Refresh(bool force = false) { }
-
         protected override void RealUpdate()
         {
             if (effectManager == null)

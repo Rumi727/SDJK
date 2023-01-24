@@ -9,7 +9,6 @@ namespace SDJK.Effect
     public sealed class CameraEffect : Effect
     {
         public const float defaultDistance = 14;
-        public override void Refresh(bool force = false) { }
 
         protected override void RealUpdate()
         {

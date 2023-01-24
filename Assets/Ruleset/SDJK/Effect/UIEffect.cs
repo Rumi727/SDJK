@@ -11,8 +11,6 @@ namespace SDJK.Ruleset.SDJK
     {
         [SerializeField] Canvas canvas;
 
-        public override void Refresh(bool force = false) { }
-
         protected override void RealUpdate()
         {
             if (map == null)

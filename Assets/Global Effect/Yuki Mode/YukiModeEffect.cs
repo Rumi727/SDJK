@@ -14,8 +14,6 @@ namespace SDJK.Effect
         [SerializeField, Min(0)] float _width = 10; public float width => _width;
         [SerializeField] bool _forceShow = false; public bool forceShow => _forceShow;
 
-        public override void Refresh(bool force = false) { }
-
         int lastCount = -1;
         protected override void RealUpdate()
         {

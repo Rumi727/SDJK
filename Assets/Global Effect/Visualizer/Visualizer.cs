@@ -172,10 +172,6 @@ namespace SDJK.Effect
 
 
 
-        public override void Refresh(bool force = false) { }
-
-
-
         ISoundPlayer lastSoundPlayer;
         bool tempCircle = false;
         void Update()
