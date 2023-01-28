@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 
 using Version = SCKRM.Version;
@@ -32,8 +33,29 @@ namespace SDJK.Map
 
     public sealed class MapInfo
     {
-        [JsonIgnore] public string id { get; private set; }
-        [JsonIgnore] public int randomSeed => id.GetHashCode();
+        [JsonIgnore] bool idIsReseted = false;
+        public string id
+        {
+            get
+            {
+                if (!idIsReseted)
+                    throw new Exception(nameof(id) + " not reseted!");
+
+                return _id;
+            }
+        }
+        [JsonIgnore] private string _id;
+        [JsonIgnore] public int randomSeed
+        {
+            get
+            {
+                if (!idIsReseted)
+                    throw new Exception(nameof(id) + " not reseted!");
+
+                return _randomSeed;
+            }
+        }
+        private int _randomSeed;
 
 
 
@@ -82,7 +104,10 @@ namespace SDJK.Map
             using SHA256 sha256 = SHA256.Create();
             using FileStream stream = File.OpenRead(mapFilePath);
 
-            id = BitConverter.ToString(sha256.ComputeHash(stream));
+            _id = BitConverter.ToString(sha256.ComputeHash(stream));
+            _randomSeed = BitConverter.ToInt32(Encoding.UTF8.GetBytes(id));
+
+            idIsReseted = true;
         }
     }
 
