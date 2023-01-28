@@ -92,13 +92,24 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         isAuto = adofaiMap.autoTiles[index - 1].value;
                 }
 
+                int keyIndex = 0;
                 for (int i = 0; i < adofaiMap.tiles.Count; i++)
                 {
                     double beat = adofaiMap.tiles[i];
                     bool isHold = adofaiMap.holds.FindIndex(x => x.targetTileIndex == i) >= 0;
 
                     //키 인덱스
-                    int keyIndex = random.Next(0, notes.Count);
+                    {
+                        double keyIndexDouble = keyIndex;
+                        double randomKeyIndex = random.NextDouble() * (notes.Count - 1);
+
+                        if (random.Next(0, 2) <= 0)
+                            keyIndexDouble += randomKeyIndex;
+                        else
+                            keyIndexDouble -= randomKeyIndex;
+
+                        keyIndex = keyIndexDouble.Repeat(notes.Count - 1).RoundToInt();
+                    }
 
                     //중복 방지
                     {
@@ -123,7 +134,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                                 break;
 
                             secondDistances[keyIndex] = secondDistance;
-                            keyIndex = (keyIndex + 1).Repeat(notes.Count - 1);
+                            keyIndex = (keyIndex + 1).RepeatWhile(notes.Count - 1);
                         }
                     }
 
