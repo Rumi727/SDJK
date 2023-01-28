@@ -3,7 +3,6 @@ using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SCKRM.Rhythm;
-using SDJK.Map;
 using System;
 using System.Collections.Generic;
 using System.IO;
