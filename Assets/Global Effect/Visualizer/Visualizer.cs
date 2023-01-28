@@ -253,7 +253,7 @@ namespace SDJK.Effect
 
         int targetBarIndex = 0;
         Stopwatch timer = Stopwatch.StartNew();
-        public void VisualizerUpdate(float[] data, int channels)
+        public void VisualizerUpdate(ref float[] data, int channels)
         {
             if (Interlocked.CompareExchange(ref barsLock, 1, 0) != 0)
                 return;
