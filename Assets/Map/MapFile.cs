@@ -105,7 +105,7 @@ namespace SDJK.Map
             using FileStream stream = File.OpenRead(mapFilePath);
 
             _id = BitConverter.ToString(sha256.ComputeHash(stream));
-            _randomSeed = BitConverter.ToInt32(Encoding.UTF8.GetBytes(id));
+            _randomSeed = BitConverter.ToInt32(Encoding.UTF8.GetBytes(_id));
 
             idIsReseted = true;
         }
