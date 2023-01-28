@@ -87,7 +87,7 @@ namespace SCKRM.NTP
                 return dateTime;
             }
         }
-        static DateTime _lastSyncedServerDateTime;
+        static DateTime _lastSyncedServerDateTime = DateTime.Now;
 
         /// <summary>
         /// 마지막으로 NTP 서버와 동기화 될 때의 UTC 시간입니다
@@ -107,7 +107,7 @@ namespace SCKRM.NTP
                 return dateTime;
             }
         }
-        static DateTime _lastSyncedServerUTCDateTime;
+        static DateTime _lastSyncedServerUTCDateTime = DateTime.UtcNow;
 
         /// <summary>
         /// UTC 시간이 동기화 될 때 메인 스레드가 아닌 스레드에서 이벤트가 호출됩니다
@@ -138,10 +138,10 @@ namespace SCKRM.NTP
 
         static int ntpThreadLock = 0;
         static int ntpEventThreadLock = 0;
-        static Stopwatch timer = new Stopwatch();
+        static Stopwatch timer = Stopwatch.StartNew();
 
-        [Starten]
-        static void Starten()
+        [Awaken]
+        static void Awaken()
         {
             //응답까지 프리징이 걸리므로 쓰레드 사용하여 처리
             new ThreadMetaData(SyncTime, "ntp.thread.name", "ntp.thread.info.start", true, true, true);
