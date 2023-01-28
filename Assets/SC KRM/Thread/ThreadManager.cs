@@ -1,9 +1,10 @@
 using Cysharp.Threading.Tasks;
+using SCKRM.Renderer;
+using SCKRM.Resource;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using UnityEngine;
 
 namespace SCKRM.Threads
 {
@@ -68,11 +69,11 @@ namespace SCKRM.Threads
     public sealed class ThreadMetaData : AsyncTask
     {
         int nameLock = 0;
-        string _name = "";
+        NameSpacePathReplacePair _name = "";
         /// <summary>
         /// Thread-Safe
         /// </summary>
-        public override string name
+        public override NameSpacePathReplacePair name
         {
             get
             {
@@ -95,11 +96,11 @@ namespace SCKRM.Threads
         }
 
         int infoLock = 0;
-        string _info = "";
+        NameSpacePathReplacePair _info = "";
         /// <summary>
         /// Thread-Safe
         /// </summary>
-        public override string info
+        public override NameSpacePathReplacePair info
         {
             get
             {
@@ -263,7 +264,34 @@ namespace SCKRM.Threads
 
 
 
-        public ThreadMetaData(ThreadStart method, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
+        #region 생성자
+        public ThreadMetaData(ThreadStart method) : base()
+        {
+            autoRemoveDisable = false;
+
+            thread = new Thread(method);
+            thread.Start();
+
+            ThreadManager.runningThreads.Add(this);
+
+            ThreadManager.ThreadAddEventInvoke();
+            ThreadManager.ThreadChangeEventInvoke();
+        }
+
+        public ThreadMetaData(ThreadStart method, NameSpacePathReplacePair name) : base(name)
+        {
+            autoRemoveDisable = false;
+
+            thread = new Thread(method);
+            thread.Start();
+
+            ThreadManager.runningThreads.Add(this);
+
+            ThreadManager.ThreadAddEventInvoke();
+            ThreadManager.ThreadChangeEventInvoke();
+        }
+
+        public ThreadMetaData(ThreadStart method, NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
         {
             this.autoRemoveDisable = autoRemoveDisable;
 
@@ -276,7 +304,35 @@ namespace SCKRM.Threads
             ThreadManager.ThreadChangeEventInvoke();
         }
 
-        public ThreadMetaData(Action<ThreadMetaData> method, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
+
+
+        public ThreadMetaData(Action<ThreadMetaData> method) : base()
+        {
+            autoRemoveDisable = false;
+
+            thread = new Thread(() => method(this));
+            thread.Start();
+
+            ThreadManager.runningThreads.Add(this);
+
+            ThreadManager.ThreadAddEventInvoke();
+            ThreadManager.ThreadChangeEventInvoke();
+        }
+
+        public ThreadMetaData(Action<ThreadMetaData> method, NameSpacePathReplacePair name) : base(name)
+        {
+            autoRemoveDisable = false;
+
+            thread = new Thread(() => method(this));
+            thread.Start();
+
+            ThreadManager.runningThreads.Add(this);
+
+            ThreadManager.ThreadAddEventInvoke();
+            ThreadManager.ThreadChangeEventInvoke();
+        }
+
+        public ThreadMetaData(Action<ThreadMetaData> method, NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
         {
             this.autoRemoveDisable = autoRemoveDisable;
 
@@ -288,6 +344,9 @@ namespace SCKRM.Threads
             ThreadManager.ThreadAddEventInvoke();
             ThreadManager.ThreadChangeEventInvoke();
         }
+        #endregion
+
+
 
         public Thread thread { get; private set; } = null;
         public bool autoRemoveDisable { get; set; } = false;
@@ -304,6 +363,8 @@ namespace SCKRM.Threads
 
             if (base.Remove(force))
             {
+                Debug.Log("Thread Remove! Beware the Join method");
+
                 ThreadManager.runningThreads.Remove(this);
 
                 ThreadManager.ThreadChangeEventInvoke();
@@ -311,11 +372,8 @@ namespace SCKRM.Threads
 
                 if (thread != null)
                 {
-                    Thread _thread = thread;
-#pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+                    thread.Join();
                     thread = null;
-#pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
-                    _thread.Join();
                 }
 
                 return true;

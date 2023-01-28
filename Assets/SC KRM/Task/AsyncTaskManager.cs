@@ -1,8 +1,8 @@
+using SCKRM.Renderer;
 using SCKRM.Threads;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
 
 namespace SCKRM
 {
@@ -49,7 +49,33 @@ namespace SCKRM
     [WikiDescription("비동기 작업 클래스")]
     public class AsyncTask : IRemoveableForce
     {
-        public AsyncTask(string name = "", string info = "", bool loop = false, bool cantCancel = false)
+        public AsyncTask()
+        {
+            name = "";
+            info = "";
+            loop = false;
+            cantCancel = true;
+
+            AsyncTaskManager.asyncTasks.Add(this);
+
+            AsyncTaskManager.AsyncTaskAddEventInvoke();
+            AsyncTaskManager.AsyncTaskChangeEventInvoke();
+        }
+
+        public AsyncTask(NameSpacePathReplacePair name)
+        {
+            this.name = name;
+            info = "";
+            loop = false;
+            cantCancel = true;
+
+            AsyncTaskManager.asyncTasks.Add(this);
+
+            AsyncTaskManager.AsyncTaskAddEventInvoke();
+            AsyncTaskManager.AsyncTaskChangeEventInvoke();
+        }
+
+        public AsyncTask(NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool cantCancel = false)
         {
             this.name = name;
             this.info = info;
@@ -62,8 +88,10 @@ namespace SCKRM
             AsyncTaskManager.AsyncTaskChangeEventInvoke();
         }
 
-        public virtual string name { get; set; }
-        public virtual string info { get; set; }
+
+
+        public virtual NameSpacePathReplacePair name { get; set; }
+        public virtual NameSpacePathReplacePair info { get; set; }
         public virtual bool loop { get; set; }
         public virtual bool cantCancel { get; set; }
 

@@ -192,7 +192,7 @@ namespace SCKRM.Resource
             resourceRefreshEvent += async () =>
             {
                 Debug.ForceLog("Waiting for pack textures to set...", nameof(ResourceManager));
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_pack_textures.name", "", false, true);
+                resourceRefreshDetailedAsyncTask = new AsyncTask("sc-krm:notice.running_task.resource_pack_refresh.set_pack_textures.name", "", false, true);
 
                 await SetPackTextures();
             };
@@ -200,7 +200,7 @@ namespace SCKRM.Resource
             resourceRefreshEvent += async () =>
             {
                 Debug.ForceLog("Waiting for sprite to set...", nameof(ResourceManager));
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_sprite.name", "", false, true);
+                resourceRefreshDetailedAsyncTask = new AsyncTask("sc-krm:notice.running_task.resource_pack_refresh.set_sprite.name", "", false, true);
 
                 await SetSprite();
             };
@@ -208,7 +208,7 @@ namespace SCKRM.Resource
             resourceRefreshEvent += async () =>
             {
                 Debug.ForceLog("Waiting for language to set...", nameof(ResourceManager));
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_language.name", "", false, true);
+                resourceRefreshDetailedAsyncTask = new AsyncTask("sc-krm:notice.running_task.resource_pack_refresh.set_language.name", "", false, true);
 
                 await UniTask.RunOnThreadPool(() => SetLanguage());
 
@@ -218,7 +218,7 @@ namespace SCKRM.Resource
             resourceRefreshEvent += async () =>
             {
                 Debug.ForceLog("Waiting for audio to set...", nameof(ResourceManager));
-                resourceRefreshDetailedAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.set_audio.name", "", false, true);
+                resourceRefreshDetailedAsyncTask = new AsyncTask("sc-krm:notice.running_task.resource_pack_refresh.set_audio.name", "", false, true);
 
                 await SetAudio();
             };
@@ -250,7 +250,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
 
             Delegate[] delegates = resourceRefreshEvent.GetInvocationList();
 
-            resourceRefreshAsyncTask = new AsyncTask("notice.running_task.resource_pack_refresh.name", "", false, true);
+            resourceRefreshAsyncTask = new AsyncTask("sc-krm:notice.running_task.resource_pack_refresh.name", "", false, true);
             resourceRefreshAsyncTask.progress = 0;
             resourceRefreshAsyncTask.maxProgress = delegates.Length;
 
@@ -826,7 +826,7 @@ delete garbage"
             //볼륨을 재설정 합니다
             SoundManager.SaveData.mainVolume = SoundManager.SaveData.mainVolume;
 
-            AsyncTask asyncTask = new AsyncTask("notice.running_task.audio_refresh.name", "", false, true);
+            AsyncTask asyncTask = new AsyncTask("sc-krm:notice.running_task.audio_refresh.name", "", false, true);
             resourceRefreshAsyncTask = asyncTask;
             resourceRefreshDetailedAsyncTask = asyncTask;
 

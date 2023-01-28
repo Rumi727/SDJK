@@ -182,7 +182,7 @@ namespace SCKRM.DragAndDrop
             {
                 string path = paths[i];
 
-                new ThreadMetaData(DragAndDrop, "notice.running_task.drag_and_drop.file_load");
+                new ThreadMetaData(DragAndDrop, "sc-krm:notice.running_task.drag_and_drop.file_load");
 
                 void DragAndDrop(ThreadMetaData threadMetaData)
                 {

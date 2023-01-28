@@ -101,7 +101,7 @@ namespace SCKRM.NTP
                     Thread.Sleep(1);
 
                 DateTime dateTime = _lastSyncedServerUTCDateTime;
-                
+
                 Interlocked.Decrement(ref ntpThreadLock);
 
                 return dateTime;
@@ -114,7 +114,7 @@ namespace SCKRM.NTP
         /// Thread-safe
         /// </summary>
         public static event Action<DateTime> onTimeUpdated
-        { 
+        {
             add
             {
                 while (Interlocked.CompareExchange(ref ntpEventThreadLock, 1, 0) != 0)
@@ -144,7 +144,7 @@ namespace SCKRM.NTP
         static void Awaken()
         {
             //응답까지 프리징이 걸리므로 쓰레드 사용하여 처리
-            new ThreadMetaData(SyncTime, "ntp.thread.name", "ntp.thread.info.start", true, true, true);
+            new ThreadMetaData(SyncTime, "sc-krm:ntp.thread.name", "sc-krm:ntp.thread.info.start", true, true, true);
         }
 
         static void SyncTime(ThreadMetaData metaData)
@@ -156,13 +156,13 @@ namespace SCKRM.NTP
             {
                 if (Kernel.internetReachability == NetworkReachability.NotReachable)
                 {
-                    metaData.info = "ntp.thread.info.no_internet";
+                    metaData.info = "sc-krm:ntp.thread.info.no_internet";
                     continue;
                 }
 
                 try
                 {
-                    metaData.info = "ntp.thread.info.start";
+                    metaData.info = "sc-krm:ntp.thread.info.start";
 
                     byte[] ntpData = new byte[48];
                     ntpData[0] = 0x1B;
@@ -222,7 +222,7 @@ namespace SCKRM.NTP
                     Debug.Log("Time synced : " + networkDateTime);
                     Debug.Log("UTC Time synced : " + networkUTCDateTime);
 
-                    metaData.info = "ntp.thread.info.end";
+                    metaData.info = "sc-krm:ntp.thread.info.end";
 
                     //이벤트 호출
                     {
@@ -248,7 +248,7 @@ namespace SCKRM.NTP
                     Debug.ForceLogError("서버 시간을 가져오는 중 에러가 발생했습니다\nError getting server time");
                     Debug.LogException(e);
 
-                    metaData.info = "ntp.thread.info.error";
+                    metaData.info = "sc-krm:ntp.thread.info.error";
                 }
 
 

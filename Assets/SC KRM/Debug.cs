@@ -64,20 +64,42 @@ public static class Debug
     public static string NameOfCallingClass()
     {
         string name;
+
         Type declaringType;
         int skipFrames = 2;
         do
         {
             MethodBase method = new StackFrame(skipFrames, false).GetMethod();
             declaringType = method.DeclaringType;
+
             if (declaringType == null)
                 return method.Name;
 
-            skipFrames++;
             name = declaringType.Name;
+            skipFrames++;
         }
         while (declaringType.Module.Name.Equals("mscorlib.dll", StringComparison.OrdinalIgnoreCase));
 
         return name;
+    }
+
+    public static StackFrame GetMethodCallerStackFrame()
+    {
+        StackFrame stackFrame;
+        Type declaringType;
+        int skipFrames = 2;
+        do
+        {
+            stackFrame = new StackFrame(skipFrames, true);
+            declaringType = stackFrame.GetMethod().DeclaringType;
+
+            if (declaringType == null)
+                return stackFrame;
+
+            skipFrames++;
+        }
+        while (declaringType.Module.Name.Equals("mscorlib.dll", StringComparison.OrdinalIgnoreCase));
+
+        return stackFrame;
     }
 }
