@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace SCKRM
 {
@@ -6,16 +8,12 @@ namespace SCKRM
     [WikiDescription("무한 루프 검사 및 방지를 위한 클래스 입니다")]
     public static class InfiniteLoopDetector
     {
-        private static string prevPoint = "";
-        private static int detectionCount = 0;
-        private const int DetectionThreshold = 10000;
+        static string prevPoint = "";
+        static int detectionCount = 0;
+        const int detectionThreshold = 10000;
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
-        public static void Run(
-            [System.Runtime.CompilerServices.CallerMemberName] string mn = "",
-            [System.Runtime.CompilerServices.CallerFilePath] string fp = "",
-            [System.Runtime.CompilerServices.CallerLineNumber] int ln = 0
-        )
+        [Conditional("UNITY_EDITOR")]
+        public static void Run([CallerMemberName] string mn = "", [CallerFilePath] string fp = "", [CallerLineNumber] int ln = 0)
         {
             string currentPoint = $"{fp}:{ln}, {mn}()";
 
@@ -24,7 +22,7 @@ namespace SCKRM
             else
                 detectionCount = 0;
 
-            if (detectionCount > DetectionThreshold)
+            if (detectionCount > detectionThreshold)
                 throw new Exception($"Infinite Loop Detected: \n{currentPoint}\n\n");
 
             prevPoint = currentPoint;
@@ -32,7 +30,7 @@ namespace SCKRM
 
 #if UNITY_EDITOR
         [UnityEditor.InitializeOnLoadMethod]
-        private static void Init()
+        static void Init()
         {
             UnityEditor.EditorApplication.update += () =>
             {

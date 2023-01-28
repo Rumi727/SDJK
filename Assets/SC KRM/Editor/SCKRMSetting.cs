@@ -76,6 +76,26 @@ namespace SCKRM.Editor
             }
         }
 
+        [MenuItem("SC KRM/Selected Object Navigation Disable In Children")]
+        public static void SelectedObjectNavigationDisableInChildren()
+        {
+            if (!EditorUtility.DisplayDialog("Navigaion Disable", "Do you want to disable navigation to all child objects of the selected object?", "Yes", "No"))
+                return;
+
+            GameObject gameObject = Selection.activeGameObject;
+            if (gameObject == null)
+                return;
+
+            Selectable[] selectables = gameObject.GetComponentsInChildren<Selectable>(true);
+            for (int i = 0; i < selectables.Length; i++)
+            {
+                Selectable selectable = selectables[i];
+                selectable.navigation = new Navigation() { mode = Navigation.Mode.None };
+
+                EditorUtility.SetDirty(selectable);
+            }
+        }
+
 
 
         static bool sceneListChangedEnable = true;
@@ -211,9 +231,9 @@ namespace SCKRM.Editor
                     UnityEngine.Camera camera = cameras[i];
                     CameraSetting cameraSetting = camera.GetComponent<CameraSetting>();
                     if (camera.GetComponent<CameraSetting>() == null)
-                        AddComponentCompatibleWithPrefab<CameraSetting>(camera.gameObject, ref sceneDirty);
+                        EditorTool.AddComponentCompatibleWithPrefab<CameraSetting>(camera.gameObject, ref sceneDirty);
                     else if (!cameraSetting.enabled)
-                        DestroyComponentCompatibleWithPrefab(cameraSetting, ref sceneDirty);
+                        EditorTool.DestroyComponentCompatibleWithPrefab(cameraSetting, ref sceneDirty);
                 }
                 #endregion
 
@@ -232,9 +252,9 @@ namespace SCKRM.Editor
                     if (canvas.GetComponent<UIManager>() == null)
                     {
                         if (canvasSetting == null)
-                            AddComponentCompatibleWithPrefab<CanvasSetting>(canvas.gameObject, ref sceneDirty);
+                            EditorTool.AddComponentCompatibleWithPrefab<CanvasSetting>(canvas.gameObject, ref sceneDirty);
                         else if (!canvasSetting.enabled)
-                            DestroyComponentCompatibleWithPrefab(canvasSetting, ref sceneDirty);
+                            EditorTool.DestroyComponentCompatibleWithPrefab(canvasSetting, ref sceneDirty);
                     }
 
                     if (canvasSetting != null && !canvasSetting.customSetting && !canvasSetting.customGuiSize)
@@ -244,7 +264,7 @@ namespace SCKRM.Editor
                         {
                             CanvasScaler canvasScaler = canvasScalers[j];
                             if (canvasScaler != null)
-                                DestroyComponentCompatibleWithPrefab(canvasScaler, ref sceneDirty);
+                                EditorTool.DestroyComponentCompatibleWithPrefab(canvasScaler, ref sceneDirty);
                         }
                     }
                 }
@@ -266,12 +286,12 @@ namespace SCKRM.Editor
                     if (rectTransform != null)
                     {
                         if (rectTransformTool == null)
-                            AddComponentCompatibleWithPrefab<RectTransformTool>(rectTransform.gameObject, ref sceneDirty, true);
+                            EditorTool.AddComponentCompatibleWithPrefab<RectTransformTool>(rectTransform.gameObject, ref sceneDirty, true);
                         else if (!rectTransformTool.enabled)
-                            DestroyComponentCompatibleWithPrefab(rectTransformTool, ref sceneDirty);
+                            EditorTool.DestroyComponentCompatibleWithPrefab(rectTransformTool, ref sceneDirty);
                     }
                     else if (rectTransformTool != null)
-                        DestroyComponentCompatibleWithPrefab(rectTransformTool, ref sceneDirty);
+                        EditorTool.DestroyComponentCompatibleWithPrefab(rectTransformTool, ref sceneDirty);
                 }
                 #endregion
 
@@ -295,92 +315,6 @@ namespace SCKRM.Editor
             }
 
             EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(splashScenePath);
-        }
-
-        public static void AddComponentCompatibleWithPrefab<T>(GameObject gameObject, ref bool isModified, bool backToTop = false) where T : Component
-        {
-            //오브젝트의 프리팹 타입을 가져옵니다
-            PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType(gameObject);
-            if (prefabAssetType == PrefabAssetType.NotAPrefab) //프리팹이 아니라면 평소대로 컴포넌트를 추가합니다
-            {
-                T addedRectTransformTool = gameObject.AddComponent<T>();
-
-                if (backToTop)
-                    ComponentBackToTop(addedRectTransformTool);
-
-                isModified = true;
-            }
-            else if (prefabAssetType != PrefabAssetType.MissingAsset) //미싱되지 않은 프리팹이라면
-            {
-                //프리팹에서 오버라이딩으로 삭제된 컴포넌트를 가져옵니다
-                List<RemovedComponent> removedComponents = PrefabUtility.GetRemovedComponents(gameObject);
-                for (int j = 0; j < removedComponents.Count; j++)
-                {
-                    RemovedComponent removedComponent = removedComponents[j];
-                    if (removedComponent.assetComponent.GetType() == typeof(T))
-                    {
-                        /*
-                         * 만약 현제 추가할 컴포넌트가 오버라이딩으로 삭제된 컴포넌트랑 타입이 똑같다면
-                         * 오버라이딩을 되돌린후, 후에 수행할 작업을 취소합니다
-                         */
-
-                        removedComponent.Revert();
-                        isModified = true;
-
-                        return;
-                    }
-                }
-
-                /*
-                 * 프리팹의 오리지널 (에셋에 있는) 오브젝트를 가져오고
-                 * 그 오리지널 프리팹에 컴포넌트를 추가합니다
-                 */
-                GameObject original = PrefabUtility.GetCorrespondingObjectFromOriginalSource(gameObject);
-                T addedRectTransformTool = original.AddComponent<T>();
-
-                if (backToTop)
-                    ComponentBackToTop(addedRectTransformTool);
-
-                //수정 사항을 저장합니다
-                EditorUtility.SetDirty(original);
-                EditorUtility.SetDirty(addedRectTransformTool);
-
-                isModified = true;
-            }
-        }
-
-        public static void DestroyComponentCompatibleWithPrefab(Component component, ref bool isModified)
-        {
-            //오브젝트의 프리팹 타입을 가져옵니다
-            PrefabAssetType prefabAssetType = PrefabUtility.GetPrefabAssetType(component);
-
-            //오브젝트가 프리팹이 아니라면 평소대로 컴포넌트를 삭제합니다
-            if (prefabAssetType == PrefabAssetType.NotAPrefab)
-            {
-                GameObject gameObject = component.gameObject;
-                UnityEngine.Object.DestroyImmediate(component);
-
-                //수정 사항을 저장합니다
-                EditorUtility.SetDirty(gameObject);
-                isModified = true;
-            }
-            else if (prefabAssetType != PrefabAssetType.MissingAsset) //오브젝트가 미싱되지 않은 프리팹이라면 프리팹의 오리지널을 가져온후, 그 프리팹에서 컴포넌트를 삭제합니다
-            {
-                Component original = PrefabUtility.GetCorrespondingObjectFromOriginalSource(component);
-                GameObject gameObject = original.gameObject;
-                UnityEngine.Object.DestroyImmediate(original, true);
-
-                //수정 사항을 저장합니다
-                EditorUtility.SetDirty(gameObject);
-                isModified = true;
-            }
-        }
-
-        public static void ComponentBackToTop(Component component)
-        {
-            int length = component.GetComponents<Component>().Length;
-            for (int j = 0; j < length - 2; j++)
-                UnityEditorInternal.ComponentUtility.MoveComponentUp(component);
         }
     }
 }

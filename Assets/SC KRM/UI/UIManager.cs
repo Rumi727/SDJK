@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using SCKRM.Input;
 using SCKRM.Json;
+using SCKRM.Renderer;
 using SCKRM.SaveLoad;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
@@ -112,5 +114,9 @@ namespace SCKRM.UI
             else
                 backEventList.Clear();
         }
+
+        public static void AllRerender() => RendererManager.AllRerender();
+
+        public static void AllRefresh() => Kernel.AllRefresh().Forget();
     }
 }

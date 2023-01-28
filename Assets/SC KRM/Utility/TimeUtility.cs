@@ -110,6 +110,10 @@ namespace SCKRM
             int year = klc.GetYear(dateTime);
             int month = klc.GetMonth(dateTime);
             int day = klc.GetDayOfMonth(dateTime);
+            int hour = klc.GetHour(dateTime);
+            int minute = klc.GetMinute(dateTime);
+            int second = klc.GetSecond(dateTime);
+            int millisecond = (int)klc.GetMilliseconds(dateTime);
 
             //1년이 12이상이면 윤달이 있음..
             if (klc.GetMonthsInYear(year) > 12)
@@ -122,7 +126,7 @@ namespace SCKRM
                     month--;
             }
 
-            return new DateTime(year, month, day);
+            return new DateTime(year, month, day, hour, minute, second, millisecond);
         }
 
         public static DateTime ToSolarDate(this DateTime dateTime, bool isLeapMonth = false)
@@ -130,6 +134,10 @@ namespace SCKRM
             int year = dateTime.Year;
             int month = dateTime.Month;
             int day = dateTime.Day;
+            int hour = dateTime.Hour;
+            int minute = dateTime.Minute;
+            int second = dateTime.Second;
+            int millisecond = dateTime.Millisecond;
 
             if (klc.GetMonthsInYear(year) > 12)
             {
@@ -141,7 +149,7 @@ namespace SCKRM
                     month++;
             }
 
-            return klc.ToDateTime(year, month, day, 0, 0, 0, 0);
+            return klc.ToDateTime(year, month, day, hour, minute, second, millisecond);
         }
     }
 }

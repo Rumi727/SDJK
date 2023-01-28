@@ -476,10 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119e014005d1f5040be4204f36a32ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2270588504110008360}
   _nameText: {fileID: 1825936432925828226}
   _infoText: {fileID: 2763273285959432173}
   _progressBar: {fileID: 4252615146911722368}
@@ -496,13 +492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 836050093905084075}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2270588504110008360}
   _lerp: 0
   _lerpValue: 0.2
+  _awakeNoAni: 0
   _spacing: 2
+  _disabledObjectIgnore: 1
   _ignore:
   - {fileID: 699772947850157817}
   - {fileID: 7869714349382662689}
@@ -525,13 +519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 836050093905084075}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 2270588504110008360}
   _lerp: 0
   _lerpValue: 0.2
+  _awakeNoAni: 0
   _spacing: 2
+  _disabledObjectIgnore: 1
   _ignore:
   - {fileID: 7869714349382662689}
   _xSize: 0

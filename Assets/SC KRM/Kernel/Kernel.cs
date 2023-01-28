@@ -15,7 +15,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : ManagerBase<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 17, 0);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 18, 1);
 
 
 
@@ -360,33 +360,6 @@ Build: const true"
             }
         }
 
-        async UniTaskVoid Start()
-        {
-            if (isEditor)
-                return;
-
-            while (true)
-            {
-                if (InitialLoadManager.isInitialLoadEnd && InputManager.GetKey("kernel.full_screen", InputType.Down, InputManager.inputLockDenyAllForce))
-                {
-                    if (Screen.fullScreen)
-                        Screen.SetResolution((int)(ScreenManager.currentResolution.width / 1.5f), (int)(ScreenManager.currentResolution.height / 1.5f), false);
-                    else
-                    {
-                        Screen.SetResolution(ScreenManager.currentResolution.width, ScreenManager.currentResolution.height, false);
-
-                        if (await UniTask.DelayFrame(4, PlayerLoopTiming.LastPostLateUpdate, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                            return;
-
-                        Screen.SetResolution(ScreenManager.currentResolution.width, ScreenManager.currentResolution.height, true);
-                    }
-                }
-
-                if (await UniTask.DelayFrame(1, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                    return;
-            }
-        }
-
         void Update()
         {
             //게임 속도를 0에서 100 사이로 정하고, 타임 스케일을 게임 속도로 정합니다
@@ -442,7 +415,7 @@ Build: const true"
         [WikiDescription("전체 새로고침 시작 이벤트")] public static event Action allRefreshStart;
         [WikiDescription("전체 새로고침 끝 이벤트")] public static event Action allRefreshEnd;
         [WikiDescription("전체 새로고침")]
-        public static async UniTaskVoid AllRefresh()
+        public static async UniTask AllRefresh()
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -464,7 +437,7 @@ Build: const true"
             allRefreshEnd?.Invoke();
         }
 
-        [WikiDescription("파일 탐색기로 열기")] public static void RevealInFinder(string path) => Application.OpenURL("file:///" + path);
+        [WikiDescription("파일 탐색기로 열기")] public static void RevealInFinder(string path) => Application.OpenURL(PathUtility.urlPathPrefix + path);
     }
 
 

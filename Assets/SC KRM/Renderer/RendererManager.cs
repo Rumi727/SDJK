@@ -28,7 +28,7 @@ namespace SCKRM.Renderer
                 if (rerenderThread != null)
                     rerenderThread.Remove();
 
-                ThreadMetaData threadMetaData = ThreadManager.Create(Rerender, refreshableObjects, "notice.running_task.rerender.name");
+                ThreadMetaData threadMetaData = new ThreadMetaData((ThreadMetaData threadMetaData) => Rerender(refreshableObjects, threadMetaData), "notice.running_task.rerender.name");
                 rerenderThread = threadMetaData;
             }
             else
@@ -49,8 +49,7 @@ namespace SCKRM.Renderer
 
             for (int i = 0; i < refreshableObjects.Length; i++)
             {
-                Interlocked.Decrement(ref stopLoop);
-                if (Interlocked.Increment(ref stopLoop) > 0)
+                if (Interlocked.Add(ref stopLoop, 0) > 0)
                     return;
 
                 refreshableObjects[i].Refresh();

@@ -26,6 +26,7 @@
 	"gui.save": "저장",
 	"gui.open": "열기",
 	"gui.folder_select": "폴더 선택",
+	"gui.drag_and_drop": "드래그 앤 드랍",
 	
 	"gui.inputfield.enter_number": "숫자 입력...",
 	"gui.inputfield.enter_text": "텍스트 입력...",
@@ -75,6 +76,8 @@
 	"options.video.fixedGuiSizeEnable": "고정적인 GUI 크기 사용",
 	"options.video.fixedGuiSizeEnable.info": "GUI 크기를 해상도에 비례하지 않게 고정합니다",
 	"options.video.resource_pack_setting": "리소스 팩 설정",
+	"options.video.all_rerender": "모두 다시 렌더링",
+	"options.video.all_refresh": "모두 새로고침",
 	
 	"options.statusbar.title": "상태 표시줄",
 	"options.statusbar.bottomMode": "하단에 표시",
@@ -110,6 +113,8 @@
 	"options.debug.graphRefreshDelay.info": "그래프가 새로 고침 되는 딜레이를 조절합니다",
 	"options.debug.graphSpeed": "그래프 속도",
 	"options.debug.graphSpeed.info": "그래프의 속도를 조절합니다",
+	"options.debug.read_folder": "폴더 읽기",
+	"options.debug.read_file": "파일 읽기",
 	
 	"options.set_default.info": "기본값으로 설정",
 	

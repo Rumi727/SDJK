@@ -258,7 +258,7 @@ namespace SCKRM.Sound
 
 
 
-        void OnAudioFilterRead(float[] data, int channels) => OnAudioFilterReadInvoke(data, channels);
+        void OnAudioFilterRead(float[] data, int channels) => OnAudioFilterReadInvoke(ref data, channels);
 
 
 

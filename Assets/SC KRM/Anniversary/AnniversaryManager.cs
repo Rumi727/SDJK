@@ -100,12 +100,13 @@ namespace SCKRM
                 NoticeManager.Notice(title, description);
             }, 2, 9));
 
+            //설날
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.korean_new_year.title", "notice.korean_new_year.description");
             }, 1, 1, true, new TimeSpan(9, 0, 0)));
 
-            //스크래치 네이버 카페
+            //만우절
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.april_fools_day.title", "notice.april_fools_day.description");
@@ -174,6 +175,9 @@ namespace SCKRM
                 dateTime = NTPDateTime.utcNow + utcOffset;
             else
                 dateTime = NTPDateTime.now;
+
+            if (lunar)
+                dateTime = dateTime.ToSolarDate();
 
             //최적화를 위해 년, 월, 일이 변경되어야 실행됩니다
             if (lastYear != dateTime.Year || lastMonth != dateTime.Month || lastDay != dateTime.Day)

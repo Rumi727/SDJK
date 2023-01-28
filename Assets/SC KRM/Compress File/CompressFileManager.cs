@@ -87,8 +87,7 @@ void Awake()
                         ZipEntry oZipEntry;
                         for (int i = 0; i < fileList.Count; i++)
                         {
-                            Interlocked.Decrement(ref stopLoop);
-                            if (Interlocked.Increment(ref stopLoop) > 0)
+                            if (Interlocked.Add(ref stopLoop, 0) > 0)
                             {
                                 oZipStream.Close();
                                 return false;
@@ -258,8 +257,7 @@ void Awake()
                     ZipEntry theEntry;
                     while ((theEntry = zipInputStream.GetNextEntry()) != null)
                     {
-                        Interlocked.Decrement(ref stopLoop);
-                        if (Interlocked.Increment(ref stopLoop) > 0)
+                        if (Interlocked.Add(ref stopLoop, 0) > 0)
                         {
                             zipInputStream.Close();
                             return false;
@@ -284,8 +282,7 @@ void Awake()
                             //파일 복사
                             while (true)
                             {
-                                Interlocked.Decrement(ref stopLoop);
-                                if (Interlocked.Increment(ref stopLoop) > 0)
+                                if (Interlocked.Add(ref stopLoop, 0) > 0)
                                 {
                                     streamWriter.Close();
                                     zipInputStream.Close();

@@ -144,7 +144,7 @@ namespace SCKRM.NTP
         static void Starten()
         {
             //응답까지 프리징이 걸리므로 쓰레드 사용하여 처리
-            ThreadManager.Create(SyncTime, "ntp.thread.name", "ntp.thread.info.start", true, true, true);
+            new ThreadMetaData(SyncTime, "ntp.thread.name", "ntp.thread.info.start", true, true, true);
         }
 
         static void SyncTime(ThreadMetaData metaData)
@@ -260,8 +260,7 @@ namespace SCKRM.NTP
                 {
                     Thread.Sleep(1);
 
-                    Interlocked.Decrement(ref stopLoop);
-                    if (Interlocked.Increment(ref stopLoop) > 0)
+                    if (Interlocked.Add(ref stopLoop, 0) > 0)
                         return;
                 }
             }

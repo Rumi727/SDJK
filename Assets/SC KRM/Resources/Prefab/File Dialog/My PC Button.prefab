@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1071,10 +1071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c817c9b0feef5644ca3ec905a7483f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _button: {fileID: 8122583030189220204}
   _capacitySlider: {fileID: 4165699871697636119}
   _capacitySliderFill: {fileID: 7784185237743886234}

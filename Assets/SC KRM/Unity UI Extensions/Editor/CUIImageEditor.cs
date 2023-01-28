@@ -1,4 +1,4 @@
-﻿/// Credit Titinious (https://github.com/Titinious)
+/// Credit Titinious (https://github.com/Titinious)
 /// Sourced from - https://github.com/Titinious/CurlyUI
 
 using UnityEditor;
@@ -68,7 +68,7 @@ namespace UnityEngine.UI.Extensions
 
                 Handles.color = Color.gray;
                 EditorGUI.BeginChangeCheck();
-                Vector3 newCornerPos = Handles.FreeMoveHandle(script.transform.TransformPoint(cornerPos), script.transform.rotation, HandleUtility.GetHandleSize(script.transform.TransformPoint(cornerPos)) / 7, Vector3.one, Handles.SphereHandleCap);
+                Vector3 newCornerPos = Handles.FreeMoveHandle(script.transform.TransformPoint(cornerPos), HandleUtility.GetHandleSize(script.transform.TransformPoint(cornerPos)) / 7, Vector3.one, Handles.SphereHandleCap);
                 Handles.Label(newCornerPos, string.Format("Corner Mover"));
 
                 newCornerPos = script.transform.InverseTransformPoint(newCornerPos);

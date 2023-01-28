@@ -2867,27 +2867,27 @@ namespace SCKRM
 
         #region Ping Pong
         public static sbyte PingPong(this sbyte value, sbyte length) => (sbyte)(length - (value.Repeat((sbyte)(length * 2)) - length).Abs());
-        public static byte PingPong(this byte value, byte length) => (byte)(length - (value.Repeat((byte)(length * 2)) - length));
-        public static short PingPong(this short value, short length) => (short)(length - (value.Repeat((short)(length * 2)) - length).Abs());
-        public static ushort PingPong(this ushort value, ushort length) => (ushort)(length - (value.Repeat((ushort)(length * 2)) - length));
-        public static int PingPong(this int value, int length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static uint PingPong(this uint value, uint length) => length - (value.Repeat(length * 2) - length);
-        public static long PingPong(this long value, long length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static ulong PingPong(this ulong value, ulong length) => length - (value.Repeat(length * 2) - length);
-        public static float PingPong(this float value, float length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static double PingPong(this double value, double length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static decimal PingPong(this decimal value, decimal length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static BigInteger PingPong(this BigInteger value, BigInteger length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static BigDecimal PingPong(this BigDecimal value, BigDecimal length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static nint PingPong(this nint value, nint length) => length - (value.Repeat(length * 2) - length).Abs();
-        public static nuint PingPong(this nuint value, nuint length) => length - (value.Repeat(length * 2) - length);
+        [WikiIgnore] public static byte PingPong(this byte value, byte length) => (byte)(length - (value.Repeat((byte)(length * 2)) - length));
+        [WikiIgnore] public static short PingPong(this short value, short length) => (short)(length - (value.Repeat((short)(length * 2)) - length).Abs());
+        [WikiIgnore] public static ushort PingPong(this ushort value, ushort length) => (ushort)(length - (value.Repeat((ushort)(length * 2)) - length));
+        [WikiIgnore] public static int PingPong(this int value, int length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static uint PingPong(this uint value, uint length) => length - (value.Repeat(length * 2) - length);
+        [WikiIgnore] public static long PingPong(this long value, long length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static ulong PingPong(this ulong value, ulong length) => length - (value.Repeat(length * 2) - length);
+        [WikiIgnore] public static float PingPong(this float value, float length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static double PingPong(this double value, double length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static decimal PingPong(this decimal value, decimal length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static BigInteger PingPong(this BigInteger value, BigInteger length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static BigDecimal PingPong(this BigDecimal value, BigDecimal length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static nint PingPong(this nint value, nint length) => length - (value.Repeat(length * 2) - length).Abs();
+        [WikiIgnore] public static nuint PingPong(this nuint value, nuint length) => length - (value.Repeat(length * 2) - length);
         #endregion
 
         #region Pow
         public static float Pow(this float x, float y) => (float)Math.Pow(x, y);
-        public static double Pow(this double x, double y) => Math.Pow(x, y);
-        public static BigInteger Pow(this BigInteger x, int y) => BigInteger.Pow(x, y);
-        public static BigDecimal Pow(this BigDecimal x, BigInteger y) => BigDecimal.Pow(x, y);
+        [WikiIgnore] public static double Pow(this double x, double y) => Math.Pow(x, y);
+        [WikiIgnore] public static BigInteger Pow(this BigInteger x, int y) => BigInteger.Pow(x, y);
+        [WikiIgnore] public static BigDecimal Pow(this BigDecimal x, BigInteger y) => BigDecimal.Pow(x, y);
         #endregion
 
         #region Repeat
@@ -3163,6 +3163,7 @@ namespace SCKRM
             return t;
         }
 
+        [WikiIgnore]
         public static sbyte RepeatWhile(this sbyte t, sbyte length)
         {
             if (t >= 0)
@@ -3392,15 +3393,15 @@ namespace SCKRM
         [WikiIgnore] public static decimal Round(this decimal value) => Math.Round(value);
         [WikiIgnore] public static BigDecimal Round(this BigDecimal value) => BigDecimal.Round(value);
 
+        [WikiIgnore] public static float Round(this float value, int digits) => (float)Math.Round(value, digits);
+        [WikiIgnore] public static double Round(this double value, int digits) => Math.Round(value, digits);
+        [WikiIgnore] public static decimal Round(this decimal value, int digits) => Math.Round(value, digits);
+        [WikiIgnore] public static BigDecimal Round(this BigDecimal value, int digits) => BigDecimal.Round(value, digits);
+
         public static int RoundToInt(this float value) => (int)Math.Round(value);
         [WikiIgnore] public static int RoundToInt(this double value) => (int)Math.Round(value);
         [WikiIgnore] public static int RoundToInt(this decimal value) => (int)Math.Round(value);
         [WikiIgnore] public static BigInteger RoundToInt(this BigDecimal value) => BigDecimal.Round(value);
-
-        public static float Round(this float value, int digits) => (float)Math.Round(value, digits);
-        [WikiIgnore] public static double Round(this double value, int digits) => Math.Round(value, digits);
-        [WikiIgnore] public static decimal Round(this decimal value, int digits) => Math.Round(value, digits);
-        [WikiIgnore] public static BigDecimal Round(this BigDecimal value, int digits) => BigDecimal.Round(value, digits);
         #endregion
 
         #region Sign
@@ -3536,9 +3537,9 @@ namespace SCKRM
 
         #region Truncate
         public static float Truncate(this float value) => (float)Math.Truncate(value);
-        public static double Truncate(this double value) => Math.Truncate(value);
-        public static decimal Truncate(this decimal value) => Math.Truncate(value);
-        public static BigDecimal Truncate(this BigDecimal value) => BigDecimal.Truncate(value);
+        [WikiIgnore] public static double Truncate(this double value) => Math.Truncate(value);
+        [WikiIgnore] public static decimal Truncate(this decimal value) => Math.Truncate(value);
+        [WikiIgnore] public static BigDecimal Truncate(this BigDecimal value) => BigDecimal.Truncate(value);
         #endregion
     }
 }

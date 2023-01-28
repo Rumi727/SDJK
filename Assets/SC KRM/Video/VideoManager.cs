@@ -87,7 +87,11 @@ namespace SCKRM
                 if (SaveData.vSync)
                 {
                     QualitySettings.vSyncCount = 1;
+#if UNITY_2022_2_OR_NEWER
+                    Application.targetFrameRate = ScreenManager.currentResolution.refreshRateRatio.value.CeilToInt();
+#else
                     Application.targetFrameRate = ScreenManager.currentResolution.refreshRate;
+#endif
                 }
                 else
                 {

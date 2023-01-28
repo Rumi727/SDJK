@@ -7,6 +7,10 @@ namespace SCKRM.Splash
     [WikiDescription("스플래시 스크린을 관리하는 클래스 입니다")]
     public static class SplashScreen
     {
+#if UNITY_EDITOR
+        /// <summary>
+        /// 이 클래스는 에디터에서만 접근할 수 있습니다
+        /// </summary>
         [ProjectSettingSaveLoad]
         public sealed class Data
         {
@@ -17,6 +21,7 @@ namespace SCKRM.Splash
 
             [JsonProperty] public static int startSceneIndex { get; set; } = -1;
         }
+#endif
 
         [GeneralSaveLoad]
         public sealed class SaveData

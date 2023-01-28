@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SCKRM.Sound
 {
-    public delegate void OnAudioFilterReadAction(float[] data, int channels);
+    public delegate void OnAudioFilterReadAction(ref float[] data, int channels);
 
     public interface ISoundPlayerData<MetaData> where MetaData : SoundMetaDataBase
     {
@@ -159,14 +159,14 @@ namespace SCKRM.Sound
             }
         }
 
-        protected virtual void OnAudioFilterReadInvoke(float[] data, int channels)
+        protected virtual void OnAudioFilterReadInvoke(ref float[] data, int channels)
         {
             while (Interlocked.CompareExchange(ref onAudioFilterReadEventLock, 1, 0) != 0)
                 Thread.Sleep(1);
 
             try
             {
-                _onAudioFilterReadEvent?.Invoke(data, channels);
+                _onAudioFilterReadEvent?.Invoke(ref data, channels);
             }
             catch (Exception e)
             {

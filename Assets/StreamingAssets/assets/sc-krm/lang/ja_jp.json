@@ -75,6 +75,8 @@
 	"options.video.fixedGuiSizeEnable": "固定GUIサイズの使用",
 	"options.video.fixedGuiSizeEnable.info": "GUIサイズを解像度に比例しないように固定します",
 	"options.video.resource_pack_setting": "リソースパックの設定",
+	"options.video.all_rerender": "すべて再レンダリング",
+	"options.video.all_refresh": "すべて更新",
 	
 	"options.statusbar.title": "ステータスバー",
 	"options.statusbar.bottomMode": "下部に表示",
@@ -110,6 +112,8 @@
 	"options.debug.graphRefreshDelay.info": "グラフが更新されるディレイを調整します",
 	"options.debug.graphSpeed": "グラフ速度",
 	"options.debug.graphSpeed.info": "グラフの速度を調整します",
+	"options.debug.read_folder": "フォルダを読む",
+	"options.debug.read_file": "ファイルを読む",
 	
 	"options.set_default.info": "デフォルトに設定",
 	

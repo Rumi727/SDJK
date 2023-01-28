@@ -6,8 +6,9 @@ using System;
 using SCKRM.UI.SideBar;
 using K4.Threading;
 using SCKRM.ProjectSetting;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using SCKRM.FileDialog;
+using Cysharp.Threading.Tasks;
 #if !UNITY_EDITOR && UNITY_STANDALONE_WIN
 using B83.Win32;
 using System.Collections.Generic;
@@ -51,12 +52,29 @@ namespace SCKRM.DragAndDrop
         /// 메소드가 파일 감지에 성공했을 경우 true를 반환해야 하며, 감지에 실패했으면 false를 반환해야 합니다
         /// The method should return true if the file was detected successfully, and false if the detection was unsuccessful.
         /// </returns>
-        public delegate bool DragAndDropFunc(string path, bool isFolder, Vector2 mousePos, ThreadMetaData threadMetaData);
+        public delegate bool DragAndDropFunc(string path, bool isFolder, ThreadMetaData threadMetaData);
 
-        [WikiDescription("사용자가 파일을 드래그 앤 드랍할때 발생하는 이벤트 입니다")]
+        /// <summary>
+        /// 사용자가 파일을 드래그 앤 드랍할때 발생하는 이벤트 입니다.
+        /// 유니티 API를 사용하면 안됩니다
+        /// </summary>
+        [WikiDescription("사용자가 파일을 드래그 앤 드랍할때 발생하는 이벤트 입니다\n유니티 API를 사용하면 안됩니다")]
         public static event DragAndDropFunc dragAndDropEvent;
 
 
+        public static async void ReadFolder()
+        {
+            OpenFileResult result = await FileDialogManager.ShowFolderOpen("sc-krm:gui.drag_and_drop");
+            if (result.isSuccess)
+                DragAndDropEventInvoke(result.paths);
+        }
+
+        public static async void ReadFile()
+        {
+            OpenFileResult result = await FileDialogManager.ShowFileOpen("sc-krm:gui.drag_and_drop", false, ExtensionFilter.allFileFilter, ExtensionFilter.compressFileFilter);
+            if (result.isSuccess)
+                DragAndDropEventInvoke(result.paths);
+        }
 
         void Awake()
         {
@@ -64,7 +82,7 @@ namespace SCKRM.DragAndDrop
                 dragAndDropEvent += ResourcePackDragAndDrop;
         }
 
-        static bool ResourcePackDragAndDrop(string path, bool isFolder, Vector2 mousePos, ThreadMetaData threadMetaData)
+        static bool ResourcePackDragAndDrop(string path, bool isFolder, ThreadMetaData threadMetaData)
         {
             if (!isFolder)
                 return false;
@@ -108,7 +126,7 @@ namespace SCKRM.DragAndDrop
             UnityDragAndDropHook.InstallHook();
             UnityDragAndDropHook.OnDroppedFiles += OnFiles;
 
-            void OnFiles(List<string> aFiles, POINT aPos) => DragAndDropEventInvoke(aFiles.ToArray(), new Vector2(aPos.x, ScreenManager.height - aPos.y));
+            void OnFiles(List<string> aFiles, POINT aPos) => DragAndDropEventInvoke(aFiles.ToArray());
         }
 
         void OnDisable() => UnityDragAndDropHook.UninstallHook();
@@ -141,7 +159,7 @@ namespace SCKRM.DragAndDrop
                     if (drag)
                     {
                         drag = false;
-                        DragAndDropEventInvoke(tempDragAndDropPath, UnityEngine.Input.mousePosition);
+                        DragAndDropEventInvoke(tempDragAndDropPath);
                     }
                     else
                         drag = true;
@@ -154,7 +172,7 @@ namespace SCKRM.DragAndDrop
         }
 #endif
 
-        static void DragAndDropEventInvoke(string[] paths, Vector2 mousePos)
+        static void DragAndDropEventInvoke(string[] paths)
         {
             Delegate[] delegates = dragAndDropEvent?.GetInvocationList();
             if (delegates == null || delegates.Length <= 0)
@@ -164,7 +182,7 @@ namespace SCKRM.DragAndDrop
             {
                 string path = paths[i];
 
-                ThreadManager.Create(DragAndDrop, "notice.running_task.drag_and_drop.file_load");
+                new ThreadMetaData(DragAndDrop, "notice.running_task.drag_and_drop.file_load");
 
                 void DragAndDrop(ThreadMetaData threadMetaData)
                 {
@@ -202,7 +220,7 @@ namespace SCKRM.DragAndDrop
                         {
                             try
                             {
-                                if (((DragAndDropFunc)delegates[j]).Invoke(path, isFolder, mousePos, threadMetaData))
+                                if (((DragAndDropFunc)delegates[j]).Invoke(path, isFolder, threadMetaData))
                                     break;
                             }
                             catch (Exception e)

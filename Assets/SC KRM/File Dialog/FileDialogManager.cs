@@ -3,7 +3,6 @@ using SCKRM.FileDialog.MyPC;
 using SCKRM.FileDialog.Screen;
 using SCKRM.FileDialog.ShortcurBar;
 using SCKRM.Input;
-using SCKRM.Language;
 using SCKRM.Renderer;
 using SCKRM.Resource;
 using SCKRM.UI;
@@ -112,7 +111,7 @@ namespace SCKRM.FileDialog
         [SerializeField] TMP_InputField fileDialogSearch;
         [SerializeField] TMP_InputField fileDialogFileName;
         [SerializeField] TMP_InputField fileDialogPath;
-        [SerializeField] TMP_InputField fileDialogTitle;
+        [SerializeField] CustomTextMeshProRenderer fileDialogTitle;
         [SerializeField] UI.Dropdown fileDialogFilter;
         [SerializeField] CustomTextRendererBase fileDialogSaveOpenButtonText;
         [SerializeField] Button fileDialogSaveOpenButton;
@@ -292,7 +291,7 @@ namespace SCKRM.FileDialog
         /// </param>
         /// <returns></returns>
         [WikiDescription("폴더 열기")]
-        public static async UniTask<(bool isSuccess, string[] selectedPath)> ShowFolderOpen(string title, bool single = false)
+        public static async UniTask<OpenFileResult> ShowFolderOpen(NameSpacePathReplacePair title, bool single = false)
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
@@ -324,7 +323,7 @@ namespace SCKRM.FileDialog
         /// </param>
         /// <returns></returns>
         [WikiDescription("파일 열기")]
-        public static async UniTask<(bool isSuccess, string[] selectedPath)> ShowFileOpen(string title, bool single = false, params ExtensionFilter[] extensionFilters)
+        public static async UniTask<OpenFileResult> ShowFileOpen(NameSpacePathReplacePair title, bool single = false, params ExtensionFilter[] extensionFilters)
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
@@ -353,7 +352,7 @@ namespace SCKRM.FileDialog
         /// </param>
         /// <returns></returns>
         [WikiDescription("파일 저장")]
-        public static async UniTask<(bool isSuccess, string selectedPath)> ShowFileSave(string title, params ExtensionFilter[] extensionFilters)
+        public static async UniTask<SaveFileResult> ShowFileSave(NameSpacePathReplacePair title, params ExtensionFilter[] extensionFilters)
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
@@ -372,22 +371,24 @@ namespace SCKRM.FileDialog
             instance.fileDialogSaveOpenButtonText.nameSpacePathPair = "sc-krm:gui.save";
             instance.fileDialogSaveOpenButtonText.Refresh();
 
-            (bool isSuccess, _) = await show(title, true, extensionFilters);
-            if (isSuccess)
-                return (true, GetSaveFilePath(currentPath));
+            OpenFileResult result = await show(title, true, extensionFilters);
+            if (result.isSuccess)
+                return new SaveFileResult(GetSaveFilePath(currentPath));
             else
-                return (false, "");
+                return new SaveFileResult("");
         }
 
 
 
 
-        static async UniTask<(bool isSuccess, string[] selectedPath)> show(string title, bool single, params ExtensionFilter[] extensionFilters)
+        static async UniTask<OpenFileResult> show(NameSpacePathReplacePair title, bool single, params ExtensionFilter[] extensionFilters)
         {
             isFileDialogShow = true;
             UIOverlayManager.showedOverlays.Add(instance);
 
-            instance.fileDialogTitle.text = title;
+            instance.Update();
+
+            instance.fileDialogTitle.nameSpacePathReplacePair = title;
             isSingle = single;
 
             selectedFilePath.Clear();
@@ -435,10 +436,10 @@ namespace SCKRM.FileDialog
 
 
             GameObject previousTabSelectGameObject = StatusBarManager.tabSelectGameObject;
-            StatusBarManager.tabSelectGameObject = instance.fileDialogSaveOpenButton.gameObject;
+            StatusBarManager.tabSelectGameObject = null;
 
             GameObject previouslySelectedGameObject = EventSystem.current.currentSelectedGameObject;
-            EventSystem.current.SetSelectedGameObject(instance.fileDialogSaveOpenButton.gameObject);
+            EventSystem.current.SetSelectedGameObject(null);
 
             bool previousForceInputLock = InputManager.forceInputLock;
             InputManager.forceInputLock = true;
@@ -456,7 +457,7 @@ namespace SCKRM.FileDialog
                 if (await UniTask.WaitUntil(() => backEventInvoke || clickEventInvoke, PlayerLoopTiming.Update, showMethodCancelToken).SuppressCancellationThrow())
                 {
                     if (!Kernel.isPlaying)
-                        return (false, null);
+                        return new OpenFileResult(null);
 
                     _showMethodCancelTokenSource = new CancellationTokenSource();
 
@@ -510,17 +511,17 @@ namespace SCKRM.FileDialog
             UIManager.BackEventRemove(BackEvent, true);
 
             if (backEventInvoke)
-                return (false, null);
+                return new OpenFileResult(null);
             else
             {
                 if (!isFolderOpenMode)
-                    return (true, selectedFilePath.ToArray());
+                    return new OpenFileResult(selectedFilePath.ToArray());
                 else
                 {
                     if (selectedFilePath == null || selectedFilePath.Count <= 0)
-                        return (true, new string[] { currentPath });
+                        return new OpenFileResult(new string[] { currentPath });
                     else
-                        return (true, selectedFilePath.ToArray());
+                        return new OpenFileResult(selectedFilePath.ToArray());
                 }
             }
 
@@ -606,6 +607,46 @@ namespace SCKRM.FileDialog
         {
             cancelButIsSuccess = isSuccess;
             showMethodCancelTokenSource.Cancel();
+        }
+    }
+
+    public struct OpenFileResult
+    {
+        public bool isSuccess;
+        public string[] paths;
+
+        public OpenFileResult(string[] paths)
+        {
+            if (paths != null && paths.Length > 0)
+            {
+                isSuccess = true;
+                this.paths = paths;
+            }
+            else
+            {
+                isSuccess = false;
+                this.paths = null;
+            }
+        }
+    }
+
+    public struct SaveFileResult
+    {
+        public bool isSuccess;
+        public string path;
+
+        public SaveFileResult(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                isSuccess = true;
+                this.path = path;
+            }
+            else
+            {
+                isSuccess = false;
+                this.path = "";
+            }
         }
     }
 

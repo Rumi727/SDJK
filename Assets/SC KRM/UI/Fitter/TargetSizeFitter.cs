@@ -7,24 +7,19 @@ namespace SCKRM.UI
     [RequireComponent(typeof(RectTransform))]
     public sealed class TargetSizeFitter : UIAniLayout
     {
-        [SerializeField] RectTransform[] _targetRectTransforms;
-        public RectTransform[] targetRectTransforms { get => _targetRectTransforms; set => _targetRectTransforms = value; }
+        public RectTransform[] targetRectTransforms { get => _targetRectTransforms; set => _targetRectTransforms = value; } [SerializeField] RectTransform[] _targetRectTransforms;
 
-        [SerializeField] bool _xSize = false;
-        public bool xSize { get => _xSize; set => _xSize = value; }
-        [SerializeField] bool _ySize = false;
-        public bool ySize { get => _ySize; set => _ySize = value; }
+        public bool xSize { get => _xSize; set => _xSize = value; } [SerializeField] bool _xSize = false;
+        public bool ySize { get => _ySize; set => _ySize = value; } [SerializeField] bool _ySize = false;
 
-        [SerializeField] Vector2 _offset = Vector2.zero;
-        public Vector2 offset { get => _offset; set => _offset = value; }
+        public Vector2 offset { get => _offset; set => _offset = value; } [SerializeField] Vector2 _offset = Vector2.zero;
 
-        [SerializeField, Min(0)] Vector2 _min = Vector2.zero;
-        public Vector2 min { get => _min; set => _min = value; }
-        [SerializeField, Min(0)] Vector2 _max = Vector2.zero;
-        public Vector2 max { get => _max; set => _max = value; }
+        public Vector2 min { get => _min; set => _min = value; } [SerializeField, Min(0)] Vector2 _min = Vector2.zero;
+        public Vector2 max { get => _max; set => _max = value; } [SerializeField, Min(0)] Vector2 _max = Vector2.zero;
 
-        [SerializeField] bool _reversal = false;
-        public bool reversal { get => _reversal; set => _reversal = value; }
+        public bool reversal { get => _reversal; set => _reversal = value; } [SerializeField] bool _reversal = false;
+
+        public bool disabledObjectIgnore { get => _disabledObjectIgnore; set => _disabledObjectIgnore = value; } [SerializeField] bool _disabledObjectIgnore = false;
 
 
 
@@ -50,7 +45,7 @@ namespace SCKRM.UI
                 RectTransform targetRectTransform = targetRectTransforms[i];
                 if (targetRectTransform == null)
                     continue;
-                else if (!targetRectTransform.gameObject.activeInHierarchy)
+                else if (disabledObjectIgnore && !targetRectTransform.gameObject.activeInHierarchy)
                     continue;
 
                 Vector2 targetSize = targetRectTransform.rect.size;

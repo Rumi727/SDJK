@@ -63,301 +63,6 @@ namespace SCKRM.Threads
                     return;
             }
         }
-
-#pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
-        #region Thread Create Method
-        public static ThreadMetaData Create(Action method, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method());
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create(Action<ThreadMetaData> method, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T>(Action<T, ThreadMetaData> method, T obj, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(obj, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2>(Action<T1, T2, ThreadMetaData> method, T1 arg1, T2 arg2, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3>(Action<T1, T2, T3, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4>(Action<T1, T2, T3, T4, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        public static ThreadMetaData Create<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, ThreadMetaData> method, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true)
-        {
-            if (!isMainThread)
-                throw new NotMainThreadMethodException();
-            if (!Kernel.isPlaying)
-                throw new NotPlayModeThreadCreateException();
-
-            ThreadMetaData threadMetaData = new ThreadMetaData(name, info, loop, autoRemoveDisable, cantCancel);
-            threadMetaData.thread = new Thread(() => method(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, threadMetaData));
-            threadMetaData.thread.Start();
-
-            ThreadAddEventInvoke();
-            ThreadChangeEventInvoke();
-
-
-            return threadMetaData;
-        }
-        #endregion
-#pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
     }
 
     public sealed class ThreadMetaData : AsyncTask
@@ -558,13 +263,33 @@ namespace SCKRM.Threads
 
 
 
-        public ThreadMetaData(string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
+        public ThreadMetaData(ThreadStart method, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
         {
             this.autoRemoveDisable = autoRemoveDisable;
+
+            thread = new Thread(method);
+            thread.Start();
+
             ThreadManager.runningThreads.Add(this);
+
+            ThreadManager.ThreadAddEventInvoke();
+            ThreadManager.ThreadChangeEventInvoke();
         }
 
-        public Thread thread { get; [Obsolete("It is managed by the ThreadManager class. Please do not touch it.", false)] internal set; } = null;
+        public ThreadMetaData(Action<ThreadMetaData> method, string name = "", string info = "", bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
+        {
+            this.autoRemoveDisable = autoRemoveDisable;
+
+            thread = new Thread(() => method(this));
+            thread.Start();
+
+            ThreadManager.runningThreads.Add(this);
+
+            ThreadManager.ThreadAddEventInvoke();
+            ThreadManager.ThreadChangeEventInvoke();
+        }
+
+        public Thread thread { get; private set; } = null;
         public bool autoRemoveDisable { get; set; } = false;
 
         /// <summary>

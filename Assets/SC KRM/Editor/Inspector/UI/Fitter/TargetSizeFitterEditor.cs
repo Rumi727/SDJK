@@ -47,6 +47,10 @@ namespace SCKRM.Editor
 
                 UseProperty("_awakeNoAni", "시작할 때 애니메이션 무시");
             }
+
+            Space();
+
+            UseProperty("_disabledObjectIgnore", "비활성화 된 오브젝트 무시");
         }
     }
 }

@@ -177,7 +177,7 @@ namespace SCKRM.Rhythm
                     bpmUnscaledFpsDeltaTime = bpmUnscaledDeltaTime * VideoManager.Data.standardFPS;
                 }
 
-                screenYukiMode = yukiModeList.GetValue(RhythmManager.currentBeatScreen);
+                screenYukiMode = yukiModeList.GetValue(currentBeatScreen);
 
                 if (tempCurrentBeat != (int)currentBeat && currentBeat >= 0)
                 {

@@ -1656,9 +1656,7 @@ Import text file as string type"
 @"오디오 파일을 오디오 클립으로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
 Import audio files as audio clips (Since the Unity API is used, we need to run it on the main thread)"
 )]
-#pragma warning disable CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
         public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false, HideFlags hideFlags = HideFlags.DontSave)
-#pragma warning restore CS1998 // 이 비동기 메서드에는 'await' 연산자가 없으며 메서드가 동시에 실행됩니다.
         {
 #if !((UNITY_STANDALONE_LINUX && !UNITY_EDITOR) || UNITY_EDITOR_LINUX)
             if (!ThreadManager.isMainThread)
@@ -1702,7 +1700,6 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
                     using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip((path + extension).UrlPathPrefix(), type);
                     DownloadHandlerAudioClip downloadHandlerAudioClip = (DownloadHandlerAudioClip)www.downloadHandler;
                     downloadHandlerAudioClip.streamAudio = stream;
-                    downloadHandlerAudioClip.compressed = false;
 
                     await www.SendWebRequest();
 

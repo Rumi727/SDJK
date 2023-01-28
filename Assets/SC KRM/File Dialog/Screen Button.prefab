@@ -388,9 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb50abdcbadbf5c4e8e469e685653eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
   _toggle: {fileID: 5000971213609926491}
   _icon: {fileID: 1587270221401391221}
   _text: {fileID: 1589808583971161477}

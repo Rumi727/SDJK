@@ -227,11 +227,11 @@ namespace SCKRM
                 //강제종료 된 상태면, 씬을 이동하지 않습니다
                 if (!isForceQuit)
                 {
+#if UNITY_EDITOR
                     int lastActivatedSceneIndex = 0;
                     if (SplashScreen.Data.startSceneIndex >= 0)
                         lastActivatedSceneIndex = SplashScreen.Data.startSceneIndex.Clamp(2);
 
-#if UNITY_EDITOR
                     if (lastActivatedSceneIndex != 0)
                         SplashScreen.isAniPlaying = false;
 #endif

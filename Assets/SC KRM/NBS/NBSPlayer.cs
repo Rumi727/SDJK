@@ -441,7 +441,7 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
                 }
             }
 
-            OnAudioFilterReadInvoke(audioDatas, 1);
+            OnAudioFilterReadInvoke(ref audioDatas, 1);
         }
 
         [WikiDescription("플레이어 삭제")]
