@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 5807997502968531569}
   - component: {fileID: 6218630457546078406}
   - component: {fileID: 2763273285959432173}
+  - component: {fileID: 1686907783044322191}
   - component: {fileID: 7536563815847562951}
   m_Layer: 0
   m_Name: Info
@@ -234,8 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 8791534422561231438}
+  _graphic: {fileID: 2763273285959432173}
 --- !u!222 &6218630457546078406
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -333,6 +334,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1686907783044322191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102216362536156694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: 
+  _path: 
+  _textMeshPro: {fileID: 0}
 --- !u!114 &7536563815847562951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +403,7 @@ RectTransform:
   - {fileID: 699772947850157817}
   - {fileID: 7869714349382662689}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -476,8 +492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119e014005d1f5040be4204f36a32ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 1825936432925828226}
-  _infoText: {fileID: 2763273285959432173}
+  _nameText: {fileID: 2841727776109574167}
+  _infoText: {fileID: 1686907783044322191}
   _progressBar: {fileID: 4252615146911722368}
   _removeButtonCanvasGroup: {fileID: 8496771085619530406}
 --- !u!114 &6095498022105680824
@@ -653,6 +669,7 @@ GameObject:
   - component: {fileID: 3666548550204826687}
   - component: {fileID: 6316627868617735428}
   - component: {fileID: 1825936432925828226}
+  - component: {fileID: 2841727776109574167}
   - component: {fileID: 8204157248664446375}
   m_Layer: 0
   m_Name: Name
@@ -694,8 +711,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 4735766468382784235}
+  _graphic: {fileID: 1825936432925828226}
 --- !u!222 &6316627868617735428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -793,6 +810,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2841727776109574167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8785688744418880819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: 
+  _path: 
+  _textMeshPro: {fileID: 0}
 --- !u!114 &8204157248664446375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,6 +844,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 836050093905084075}
     m_Modifications:
     - target: {fileID: 4804087375201279673, guid: d76865c05b3f40d4ab83110bb6f1cc3f, type: 3}
@@ -907,6 +940,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d76865c05b3f40d4ab83110bb6f1cc3f, type: 3}
 --- !u!224 &699772947850157817 stripped
 RectTransform:

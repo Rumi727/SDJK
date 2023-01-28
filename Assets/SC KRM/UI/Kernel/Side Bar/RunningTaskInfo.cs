@@ -1,4 +1,5 @@
 using SCKRM.Language;
+using SCKRM.Renderer;
 using SCKRM.Resource;
 using SCKRM.Threads;
 using TMPro;
@@ -11,11 +12,11 @@ namespace SCKRM.UI.SideBar
     [RequireComponent(typeof(RectTransform))]
     public sealed class RunningTaskInfo : UIObjectPooling, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] TMP_Text _nameText;
-        public TMP_Text nameText => _nameText;
+        [SerializeField] CustomTextMeshProRenderer _nameText;
+        public CustomTextMeshProRenderer nameText => _nameText;
 
-        [SerializeField] TMP_Text _infoText;
-        public TMP_Text infoText => _infoText;
+        [SerializeField] CustomTextMeshProRenderer _infoText;
+        public CustomTextMeshProRenderer infoText => _infoText;
 
         [SerializeField] ProgressBar _progressBar;
         public ProgressBar progressBar => _progressBar;
@@ -42,13 +43,11 @@ namespace SCKRM.UI.SideBar
         {
             if (asyncTask != null)
             {
-                nameText.text = ResourceManager.SearchLanguage(asyncTask.name);
-                infoText.text = ResourceManager.SearchLanguage(asyncTask.info);
+                nameText.nameSpacePathReplacePair = asyncTask.name;
+                infoText.nameSpacePathReplacePair = asyncTask.info;
 
-                if (string.IsNullOrEmpty(nameText.text))
-                    nameText.text = asyncTask.name;
-                if (string.IsNullOrEmpty(infoText.text))
-                    infoText.text = asyncTask.info;
+                nameText.Refresh();
+                infoText.Refresh();
             }
         }
 
@@ -109,8 +108,12 @@ namespace SCKRM.UI.SideBar
 
             rectTransform.sizeDelta = new Vector2(430, 19);
             asyncTask = null;
-            nameText.text = "";
-            infoText.text = "";
+
+            nameText.nameSpacePathReplacePair = "";
+            infoText.nameSpacePathReplacePair = "";
+
+            nameText.Refresh();
+            infoText.Refresh();
 
             progressBar.Initialize();
 

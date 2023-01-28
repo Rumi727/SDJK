@@ -5,7 +5,6 @@ using SCKRM.SaveLoad;
 using SCKRM.Threads;
 using System;
 using UnityEngine;
-using SCKRM.Input;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -15,7 +14,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : ManagerBase<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 18, 2);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 18, 3);
 
 
 
