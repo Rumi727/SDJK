@@ -12,6 +12,8 @@ namespace SDJK.Ruleset.SDJK
 {
     public sealed class SDJKRuleset : Ruleset
     {
+        public override int order => int.MinValue;
+
         public override string name => "sdjk";
         public override string[] compatibleRuleset => new string[] { "adofai" };
 

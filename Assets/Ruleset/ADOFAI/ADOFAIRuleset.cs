@@ -6,6 +6,7 @@ namespace SDJK.Ruleset.ADOFAI
 {
     public sealed class ADOFAIRuleset : Ruleset
     {
+        public override int order => int.MaxValue;
         public override string name => "adofai";
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");

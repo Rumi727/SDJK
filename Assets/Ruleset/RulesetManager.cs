@@ -61,6 +61,14 @@ namespace SDJK.Ruleset
                 }
             }
 
+            //정렬
+            {
+                List<IRuleset> elements = rulesetList.OrderBy(x => x.order).ToList();
+
+                rulesetList.Clear();
+                rulesetList.AddRange(elements);
+            }
+
             selectedRulesetIndex = 0;
             isRulesetRefresh?.Invoke();
         }
@@ -113,6 +121,7 @@ namespace SDJK.Ruleset
     [WikiDescription("이 인터페이스를 상속하면 SDJK가 규칙 집합을 자동으로 감지합니다")]
     public interface IRuleset
     {
+        public int order { get; }
         public string name { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
@@ -150,6 +159,7 @@ namespace SDJK.Ruleset
     [WikiDescription("IRuleSet 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
     public abstract class Ruleset : IRuleset
     {
+        public abstract int order { get; }
         public abstract string name { get; }
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
