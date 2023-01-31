@@ -1,3 +1,4 @@
+using SCKRM.Reflection;
 using SCKRM.Text;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace SCKRM.Editor
             }
 
             apiList.Clear();
-            Assembly[] assemblys = AppDomain.CurrentDomain.GetAssemblies();
+            Assembly[] assemblys = ReflectionManager.assemblys;
             for (int assemblysIndex = 0; assemblysIndex < assemblys.Length; assemblysIndex++)
             {
                 Assembly assembly = assemblys[assemblysIndex];

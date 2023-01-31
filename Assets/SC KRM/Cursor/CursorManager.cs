@@ -3,7 +3,7 @@ using SCKRM.Input;
 using SCKRM.SaveLoad;
 using SCKRM.UI;
 using SCKRM.UI.Overlay.MessageBox;
-using SCKRM.UI.Setting;
+using SCKRM.SaveLoad.UI;
 using SCKRM.Window;
 using System;
 using System.Runtime.InteropServices;
@@ -150,7 +150,7 @@ namespace SCKRM.Cursor
 
         static bool highPrecisionMouseWarningLock = false;
         [WikiDescription("시스템 마우스 가속 무시 설정을 변경할때 경고창을 띄우는 메소드입니다")]
-        public static async void HighPrecisionMouseWarning(Setting setting)
+        public static async void HighPrecisionMouseWarning(SaveLoadUIBase setting)
         {
             if (highPrecisionMouseWarningLock)
                 return;

@@ -177,7 +177,7 @@ namespace SCKRM
                 dateTime = NTPDateTime.now;
 
             if (lunar)
-                dateTime = dateTime.ToSolarDate();
+                dateTime = dateTime.ToLunarDate(out _);
 
             //최적화를 위해 년, 월, 일이 변경되어야 실행됩니다
             if (lastYear != dateTime.Year || lastMonth != dateTime.Month || lastDay != dateTime.Day)

@@ -29,7 +29,7 @@ namespace SCKRM.Editor
             if (!Kernel.isPlaying)
             {
                 if (dadProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(DragAndDropManager.Data), out dadProjectSetting);
+                    SaveLoadManager.Initialize<DragAndDropManager.Data, ProjectSettingSaveLoadAttribute>(out dadProjectSetting);
 
                 SaveLoadManager.Load(dadProjectSetting, Kernel.projectSettingPath);
             }

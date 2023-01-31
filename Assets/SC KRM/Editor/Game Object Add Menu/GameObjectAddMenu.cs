@@ -5,9 +5,9 @@ namespace SCKRM.Editor
 {
     public sealed class GameObjectAddMenu
     {
-        static void PrefabInstantiate(string name, MenuCommand menuCommand)
+        static void PrefabInstantiate(string name, MenuCommand menuCommand, string path = "Assets/SC KRM/Editor/Game Object Add Menu")
         {
-            UnityEngine.Object gameObject = AssetDatabase.LoadAssetAtPath($"Assets/SC KRM/Editor/Game Object Add Menu/{name}.prefab", typeof(UnityEngine.Object));
+            UnityEngine.Object gameObject = AssetDatabase.LoadAssetAtPath($"{PathUtility.Combine(path, name)}.prefab", typeof(UnityEngine.Object));
             if (menuCommand.context != null)
                 gameObject = PrefabUtility.InstantiatePrefab(gameObject, ((GameObject)menuCommand.context).transform);
             else
@@ -25,32 +25,35 @@ namespace SCKRM.Editor
         [MenuItem("GameObject/Kernel/UI/Dropdown")]
         public static void Dropdown(MenuCommand menuCommand) => PrefabInstantiate("Dropdown", menuCommand);
 
-        [MenuItem("GameObject/Kernel/Setting UI/Title")]
-        public static void SettingTitle(MenuCommand menuCommand) => PrefabInstantiate("Title", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Title")]
+        public static void SaveLoadUITitle(MenuCommand menuCommand) => PrefabInstantiate("Title", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Input Field")]
-        public static void SettingInputField(MenuCommand menuCommand) => PrefabInstantiate("Setting Input Field", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Input Field")]
+        public static void SaveLoadUIInputField(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI Input Field", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Slider")]
-        public static void SettingSlider(MenuCommand menuCommand) => PrefabInstantiate("Setting Slider", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Slider")]
+        public static void SaveLoadUISlider(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI Slider", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Toggle")]
-        public static void SettingToggle(MenuCommand menuCommand) => PrefabInstantiate("Setting Toggle", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Toggle")]
+        public static void SaveLoadUIToggle(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI Toggle", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Color Picker")]
-        public static void SettingColorPicker(MenuCommand menuCommand) => PrefabInstantiate("Setting Color Picker", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Color Picker")]
+        public static void SaveLoadUIColorPicker(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI Color Picker", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Dropdown")]
-        public static void SettingDropdown(MenuCommand menuCommand) => PrefabInstantiate("Setting Dropdown", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Dropdown")]
+        public static void SaveLoadUIDropdown(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI Dropdown", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Space")]
-        public static void SettingSpace(MenuCommand menuCommand) => PrefabInstantiate("Space", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Space")]
+        public static void SaveLoadUISpace(MenuCommand menuCommand) => PrefabInstantiate("Space", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Line")]
-        public static void SettingLine(MenuCommand menuCommand) => PrefabInstantiate("Line", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Line")]
+        public static void SaveLoadUILine(MenuCommand menuCommand) => PrefabInstantiate("Line", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
-        [MenuItem("GameObject/Kernel/Setting UI/Button")]
-        public static void SettingButton(MenuCommand menuCommand) => PrefabInstantiate("Setting Button", menuCommand);
+        [MenuItem("GameObject/Kernel/Save Load UI/Button")]
+        public static void SaveLoadUIButton(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI Button", menuCommand, "Assets/SC KRM/Save Load/Save Load UI");
+
+        [MenuItem("GameObject/Kernel/Save Load UI/Save Load UI")]
+        public static void SaveLoadUI(MenuCommand menuCommand) => PrefabInstantiate("Save Load UI", menuCommand, "Assets/SC KRM/Resources/Prefab/Save Load UI");
 
         [MenuItem("GameObject/Kernel/UI/Side Bar/Left")]
         public static void SideBarLeft(MenuCommand menuCommand) => PrefabInstantiate("Side Bar", menuCommand);

@@ -28,7 +28,7 @@ namespace SCKRM.Editor
             if (!Kernel.isPlaying)
             {
                 if (loadingAniProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(LoadingAniManager.Data), out loadingAniProjectSetting);
+                    SaveLoadManager.Initialize<LoadingAniManager.Data, ProjectSettingSaveLoadAttribute>(out loadingAniProjectSetting);
 
                 SaveLoadManager.Load(loadingAniProjectSetting, Kernel.projectSettingPath);
             }

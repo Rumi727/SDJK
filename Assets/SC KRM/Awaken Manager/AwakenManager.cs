@@ -1,3 +1,4 @@
+using SCKRM.Reflection;
 using System;
 using System.Reflection;
 
@@ -21,19 +22,15 @@ namespace SCKRM
         [WikiDescription("Awakenable 어트리뷰트가 붙어있는 모든 메소드를 호출합니다\n(기본적으로 프로젝트 설정과 세이브 파일 불러오기가 끝나면 자동으로 호출됩니다)")]
         public static void AllAwakenableMethodAwaken()
         {
-            Assembly[] assemblys = AppDomain.CurrentDomain.GetAssemblies();
-            for (int assemblysIndex = 0; assemblysIndex < assemblys.Length; assemblysIndex++)
+            Type[] types = ReflectionManager.types;
+            for (int typesIndex = 0; typesIndex < types.Length; typesIndex++)
             {
-                Type[] types = assemblys[assemblysIndex].GetTypes();
-                for (int typesIndex = 0; typesIndex < types.Length; typesIndex++)
+                MethodInfo[] methodInfos = types[typesIndex].GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                for (int methodInfoIndex = 0; methodInfoIndex < methodInfos.Length; methodInfoIndex++)
                 {
-                    MethodInfo[] methodInfos = types[typesIndex].GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-                    for (int methodInfoIndex = 0; methodInfoIndex < methodInfos.Length; methodInfoIndex++)
-                    {
-                        MethodInfo methodInfo = methodInfos[methodInfoIndex];
-                        if (Attribute.GetCustomAttributes(methodInfo, typeof(AwakenAttribute)).Length > 0 && methodInfo.GetParameters().Length <= 0)
-                            methodInfo.Invoke(null, null);
-                    }
+                    MethodInfo methodInfo = methodInfos[methodInfoIndex];
+                    if (Attribute.GetCustomAttributes(methodInfo, typeof(AwakenAttribute)).Length > 0 && methodInfo.GetParameters().Length <= 0)
+                        methodInfo.Invoke(null, null);
                 }
             }
         }

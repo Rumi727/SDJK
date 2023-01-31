@@ -29,10 +29,10 @@ namespace SCKRM.Editor
             if (!Kernel.isPlaying)
             {
                 if (splashProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(SplashScreen.Data), out splashProjectSetting);
+                    SaveLoadManager.Initialize<SplashScreen.Data, ProjectSettingSaveLoadAttribute>(out splashProjectSetting);
 
                 if (virtualMachineDetector == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(VirtualMachineDetector.Data), out virtualMachineDetector);
+                    SaveLoadManager.Initialize<VirtualMachineDetector.Data, ProjectSettingSaveLoadAttribute>(out virtualMachineDetector);
 
                 SaveLoadManager.Load(splashProjectSetting, Kernel.projectSettingPath);
                 SaveLoadManager.Load(virtualMachineDetector, Kernel.projectSettingPath);

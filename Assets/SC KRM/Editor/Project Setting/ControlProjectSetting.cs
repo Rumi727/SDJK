@@ -30,7 +30,7 @@ namespace SCKRM.Editor
             if (!Kernel.isPlaying)
             {
                 if (controlProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(InputManager.Data), out controlProjectSetting);
+                    SaveLoadManager.Initialize<InputManager.Data, ProjectSettingSaveLoadAttribute>(out controlProjectSetting);
 
                 SaveLoadManager.Load(controlProjectSetting, Kernel.projectSettingPath);
             }

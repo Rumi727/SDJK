@@ -14,6 +14,7 @@ using SCKRM.ProjectSetting;
 using SCKRM.Renderer;
 using System.IO;
 using UnityEditorInternal;
+using SCKRM.SaveLoad.UI;
 
 namespace SCKRM.Editor
 {
@@ -96,6 +97,26 @@ namespace SCKRM.Editor
             }
         }
 
+        [MenuItem("SC KRM/Selected Object No Object Pooling Enable In Children")]
+        public static void SelectedObjectNoObjectPoolingEnableInChildren()
+        {
+            if (!EditorUtility.DisplayDialog("No Object Pooling Enable", "Do you want to enable no object pooling to all child objects of the selected object?", "Yes", "No"))
+                return;
+
+            GameObject gameObject = Selection.activeGameObject;
+            if (gameObject == null)
+                return;
+
+            SaveLoadUIBase[] saveLoadUIBases = gameObject.GetComponentsInChildren<SaveLoadUIBase>(true);
+            for (int i = 0; i < saveLoadUIBases.Length; i++)
+            {
+                SaveLoadUIBase saveLoadUIBase = saveLoadUIBases[i];
+                saveLoadUIBase.autoRefresh = true;
+
+                EditorUtility.SetDirty(saveLoadUIBase);
+            }
+        }
+
 
 
         static bool sceneListChangedEnable = true;
@@ -113,7 +134,7 @@ namespace SCKRM.Editor
                 if (autoLoad)
                 {
                     if (splashProjectSetting == null)
-                        SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(SplashScreen.Data), out splashProjectSetting);
+                        SaveLoadManager.Initialize<SplashScreen.Data, ProjectSettingSaveLoadAttribute>(out splashProjectSetting);
 
                     SaveLoadManager.Load(splashProjectSetting, Kernel.projectSettingPath);
                 }
@@ -169,7 +190,7 @@ namespace SCKRM.Editor
                 if (autoLoad)
                 {
                     if (splashProjectSetting == null)
-                        SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(SplashScreen.Data), out splashProjectSetting);
+                        SaveLoadManager.Initialize<SplashScreen.Data, ProjectSettingSaveLoadAttribute>(out splashProjectSetting);
 
                     SaveLoadManager.Load(splashProjectSetting, Kernel.projectSettingPath);
                 }
@@ -309,7 +330,7 @@ namespace SCKRM.Editor
             if (autoLoad)
             {
                 if (splashProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(SplashScreen.Data), out splashProjectSetting);
+                    SaveLoadManager.Initialize<SplashScreen.Data, ProjectSettingSaveLoadAttribute>(out splashProjectSetting);
 
                 SaveLoadManager.Load(splashProjectSetting, Kernel.projectSettingPath);
             }

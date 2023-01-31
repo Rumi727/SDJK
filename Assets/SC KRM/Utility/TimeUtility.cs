@@ -105,7 +105,7 @@ namespace SCKRM
         #endregion
 
         static readonly KoreanLunisolarCalendar klc = new KoreanLunisolarCalendar();
-        public static DateTime ToLunarDate(this DateTime dateTime)
+        public static DateTime ToLunarDate(this DateTime dateTime, out bool isLeapMonth)
         {
             int year = klc.GetYear(dateTime);
             int month = klc.GetMonth(dateTime);
@@ -115,6 +115,8 @@ namespace SCKRM
             int second = klc.GetSecond(dateTime);
             int millisecond = (int)klc.GetMilliseconds(dateTime);
 
+            isLeapMonth = false;
+
             //1년이 12이상이면 윤달이 있음..
             if (klc.GetMonthsInYear(year) > 12)
             {
@@ -123,7 +125,10 @@ namespace SCKRM
 
                 //달이 윤월보다 같거나 크면 -1을 함 즉 윤8은->9 이기때문
                 if (month >= leapMonth)
+                {
+                    isLeapMonth = true;
                     month--;
+                }
             }
 
             return new DateTime(year, month, day, hour, minute, second, millisecond);
@@ -131,25 +136,17 @@ namespace SCKRM
 
         public static DateTime ToSolarDate(this DateTime dateTime, bool isLeapMonth = false)
         {
-            int year = dateTime.Year;
-            int month = dateTime.Month;
-            int day = dateTime.Day;
-            int hour = dateTime.Hour;
-            int minute = dateTime.Minute;
-            int second = dateTime.Second;
-            int millisecond = dateTime.Millisecond;
-
-            if (klc.GetMonthsInYear(year) > 12)
+            if (klc.GetMonthsInYear(dateTime.Year) > 12)
             {
-                int leapMonth = klc.GetLeapMonth(year);
+                int leapMonth = klc.GetLeapMonth(dateTime.Year);
 
-                if (month > leapMonth - 1)
-                    month++;
-                else if (month == leapMonth - 1 && isLeapMonth)
-                    month++;
+                if (dateTime.Month > leapMonth - 1)
+                    dateTime = klc.AddMonths(dateTime, 1);
+                else if (dateTime.Month == leapMonth - 1 && isLeapMonth)
+                    dateTime = klc.AddMonths(dateTime, 1);
             }
 
-            return klc.ToDateTime(year, month, day, hour, minute, second, millisecond);
+            return klc.ToDateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace SCKRM.Editor
             if (!Kernel.isPlaying)
             {
                 if (videoProjectSetting == null)
-                    SaveLoadManager.Initialize<ProjectSettingSaveLoadAttribute>(typeof(VideoManager.Data), out videoProjectSetting);
+                    SaveLoadManager.Initialize<VideoManager.Data, ProjectSettingSaveLoadAttribute>(out videoProjectSetting);
 
                 SaveLoadManager.Load(videoProjectSetting, Kernel.projectSettingPath);
             }
