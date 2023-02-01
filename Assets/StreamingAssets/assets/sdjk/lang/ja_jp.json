@@ -25,5 +25,9 @@
 	
 	"notice.running_task.map_list_refresh.name":"マップリストを更新中...",
 	
-	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ルールセットは著作権問題のためゲームプレイは実装されていません。<size=10>\n\n</size><size=15>代わりにマップを変換できる別のルールセットでプレイしてください</size>"
+	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ルールセットは著作権問題のためゲームプレイは実装されていません。<size=10>\n\n</size><size=15>代わりにマップを変換できる別のルールセットでプレイしてください</size>",
+	
+	"mode.automatic": "オートマチック",
+	"mode.automatic.auto": "自動プレイ",
+	"mode.automatic.auto.info": "わずか1msも間違っていないとても良いコンピュータがプレイします"
 }

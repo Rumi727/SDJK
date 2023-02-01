@@ -25,5 +25,9 @@
 	
 	"notice.running_task.map_list_refresh.name":"맵 리스트를 새로고치는 중...",
 	
-	"ruleset.adofai.unplayable": "A Dance of Fire and Ice 모드는 저작권 문제로 인해 게임 플레이는 구현되지 않았습니다<size=10>\n\n</size><size=15>대신 맵을 변환할 수 있는 다른 모드로 플레이 해주세요</size>"
+	"ruleset.adofai.unplayable": "A Dance of Fire and Ice 모드는 저작권 문제로 인해 게임 플레이는 구현되지 않았습니다<size=10>\n\n</size><size=15>대신 맵을 변환할 수 있는 다른 모드로 플레이 해주세요</size>",
+	
+	"mode.automatic": "오토매틱",
+	"mode.automatic.auto": "자동 플레이",
+	"mode.automatic.auto.info": "단 1ms도 틀리지 않는 개쩌는 컴퓨터가 플레이할 것입니다"
 }
