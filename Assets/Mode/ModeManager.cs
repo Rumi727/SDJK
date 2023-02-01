@@ -73,6 +73,7 @@ namespace SDJK.Mode
     [WikiDescription("이 인터페이스를 상속하면 SDJK가 규칙 집합을 자동으로 감지합니다")]
     public interface IMode
     {
+        public NameSpacePathReplacePair title { get; }
         public int order { get; }
 
         public string name { get; }
@@ -90,6 +91,7 @@ namespace SDJK.Mode
     [WikiDescription("IMode 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
     public abstract class ModeBase : IMode
     {
+        public abstract NameSpacePathReplacePair title { get; }
         public abstract int order { get; }
 
         public abstract string name { get; }
@@ -98,6 +100,6 @@ namespace SDJK.Mode
         public virtual NameSpacePathReplacePair info => "";
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
-        public virtual string targetRuleset => null;
+        public abstract string targetRuleset { get; }
     }
 }
