@@ -82,7 +82,9 @@ namespace SDJK.Mode
         public NameSpacePathReplacePair info { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
+
         public string targetRuleset { get; }
+        public string[] incompatibleModes { get; }
     }
 
     /// <summary>
@@ -100,6 +102,8 @@ namespace SDJK.Mode
         public virtual NameSpacePathReplacePair info => "";
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
+
         public abstract string targetRuleset { get; }
+        public virtual string[] incompatibleModes => null;
     }
 }
