@@ -74,23 +74,23 @@ namespace SDJK.Ruleset
         }
 
         /// <summary>
-        /// 선택한 규칙 집합이랑 호환되는 모드인지 확인합니다
+        /// 선택한 규칙 집합이랑 호환되는 규칙 집합인지 확인합니다
         /// </summary>
         /// <param name="ruleset"></param>
         /// <param name="targetRulesetNames"></param>
         /// <returns></returns>
-        [WikiDescription("선택한 규칙 집합이랑 호환되는 모드인지 확인합니다")]
+        [WikiDescription("선택한 규칙 집합이랑 호환되는 규칙 집합인지 확인합니다")]
         public static bool IsCompatibleRuleset(this IRuleset ruleset, params string[] targetRulesetNames)
         {
             if (targetRulesetNames.Contains(ruleset.name))
                 return true;
 
-            if (ruleset.compatibleRuleset == null)
+            if (ruleset.compatibleRulesets == null)
                 return false;
 
-            for (int i = 0; i < ruleset.compatibleRuleset.Length; i++)
+            for (int i = 0; i < ruleset.compatibleRulesets.Length; i++)
             {
-                if (targetRulesetNames.Contains(ruleset.compatibleRuleset[i]))
+                if (targetRulesetNames.Contains(ruleset.compatibleRulesets[i]))
                     return true;
             }
 
@@ -125,7 +125,7 @@ namespace SDJK.Ruleset
         public string name { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
-        public string[] compatibleRuleset { get; }
+        public string[] compatibleRulesets { get; }
 
         /// <summary>
         /// 판정이 작은순 부터 큰순으로 리스트를 만들어야합니다
@@ -163,7 +163,7 @@ namespace SDJK.Ruleset
         public abstract string name { get; }
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
-        public virtual string[] compatibleRuleset => null;
+        public virtual string[] compatibleRulesets => null;
 
         public abstract JudgementMetaData[] judgementMetaDatas { get; }
         public abstract JudgementMetaData missJudgementMetaData { get; }

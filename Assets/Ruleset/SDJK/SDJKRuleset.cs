@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.SDJK
         public override int order => int.MinValue;
 
         public override string name => "sdjk";
-        public override string[] compatibleRuleset => new string[] { "adofai" };
+        public override string[] compatibleRulesets => new string[] { "adofai" };
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
