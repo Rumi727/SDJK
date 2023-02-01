@@ -63,8 +63,8 @@ namespace SDJK.Mode
             return false;
         }
 
-        public static IMode FindMode(string name) => modeList.Find(x => x.name == name);
-        public static IMode FindSelectedMode(string name) => selectedModeList.Find(x => x.name == name);
+        public static IMode FindMode(string name) => modeList.Find(x => x.displayName == name);
+        public static IMode FindSelectedMode(string name) => selectedModeList.Find(x => x.displayName == name);
     }
 
     /// <summary>
@@ -75,7 +75,9 @@ namespace SDJK.Mode
     {
         public int order { get; }
 
-        public NameSpacePathReplacePair name { get; }
+        public string name { get; }
+
+        public NameSpacePathReplacePair displayName { get; }
         public NameSpacePathReplacePair info { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
@@ -90,7 +92,9 @@ namespace SDJK.Mode
     {
         public abstract int order { get; }
 
-        public abstract NameSpacePathReplacePair name { get; }
+        public abstract string name { get; }
+
+        public abstract NameSpacePathReplacePair displayName { get; }
         public virtual NameSpacePathReplacePair info => "";
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
