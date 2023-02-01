@@ -68,9 +68,9 @@ namespace SDJK.Mode
     }
 
     /// <summary>
-    /// 이 인터페이스를 상속하면 SDJK가 규칙 집합을 자동으로 감지합니다
+    /// 이 인터페이스를 상속하면 SDJK가 모드를 자동으로 감지합니다
     /// </summary>
-    [WikiDescription("이 인터페이스를 상속하면 SDJK가 규칙 집합을 자동으로 감지합니다")]
+    [WikiDescription("이 인터페이스를 상속하면 SDJK가 모드를 자동으로 감지합니다")]
     public interface IMode
     {
         public NameSpacePathReplacePair title { get; }
