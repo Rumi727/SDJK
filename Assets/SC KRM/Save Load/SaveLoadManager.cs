@@ -31,12 +31,16 @@ namespace SCKRM.SaveLoad
         public SaveLoadVariable<PropertyInfo>[] propertyInfos { get; } = new SaveLoadVariable<PropertyInfo>[0];
         public SaveLoadVariable<FieldInfo>[] fieldInfos { get; } = new SaveLoadVariable<FieldInfo>[0];
 
-        public SaveLoadClass(string name, Type type, SaveLoadVariable<PropertyInfo>[] propertyInfos, SaveLoadVariable<FieldInfo>[] fieldInfos)
+        public object instance { get; }
+
+        public SaveLoadClass(string name, Type type, SaveLoadVariable<PropertyInfo>[] propertyInfos, SaveLoadVariable<FieldInfo>[] fieldInfos, object instance)
         {
             this.name = name;
             this.type = type;
             this.propertyInfos = propertyInfos;
             this.fieldInfos = fieldInfos;
+
+            this.instance = instance;
         }
 
         public class SaveLoadVariable<T> where T : MemberInfo
@@ -72,11 +76,11 @@ namespace SCKRM.SaveLoad
         public static SaveLoadClass[] generalSLCList { get; [Obsolete("It is managed by the InitialLoadManager class. Please do not touch it.", false)] internal set; } = new SaveLoadClass[0];
 
         [WikiDescription("전부 초기화")]
-        public static void InitializeAll<TAttribute>(out SaveLoadClass[] result) where TAttribute : SaveLoadBaseAttribute
-            => InitializeAll(typeof(TAttribute), out result);
+        public static void InitializeAll<TAttribute>(out SaveLoadClass[] result, object instance = null) where TAttribute : SaveLoadBaseAttribute
+            => InitializeAll(typeof(TAttribute), out result, instance);
 
         [WikiIgnore]
-        public static void InitializeAll(Type targetAttribute, out SaveLoadClass[] result)
+        public static void InitializeAll(Type targetAttribute, out SaveLoadClass[] result, object instance = null)
         {
             List<SaveLoadClass> saveLoadClassList = new List<SaveLoadClass>();
             Type[] types = ReflectionManager.types;
@@ -84,7 +88,7 @@ namespace SCKRM.SaveLoad
             {
                 Type type = types[typesIndex];
 
-                Initialize(type, targetAttribute, out SaveLoadClass result2);
+                Initialize(type, targetAttribute, out SaveLoadClass result2, instance);
 
                 if (result2 != null)
                     saveLoadClassList.Add(result2);
@@ -94,11 +98,11 @@ namespace SCKRM.SaveLoad
         }
 
         [WikiDescription("초기화")]
-        public static void Initialize<TClass, TAttribute>(out SaveLoadClass result) where TAttribute : SaveLoadBaseAttribute
-            => Initialize(typeof(TClass), typeof(TAttribute), out result);
+        public static void Initialize<TClass, TAttribute>(out SaveLoadClass result, object instance = null) where TAttribute : SaveLoadBaseAttribute
+            => Initialize(typeof(TClass), typeof(TAttribute), out result, instance);
 
         [WikiIgnore]
-        public static void Initialize(Type targetClass, Type targetAttribute, out SaveLoadClass result)
+        public static void Initialize(Type targetClass, Type targetAttribute, out SaveLoadClass result, object instance = null)
         {
             if (Attribute.GetCustomAttributes(targetClass, targetAttribute).Length <= 0)
             {
@@ -107,7 +111,11 @@ namespace SCKRM.SaveLoad
             }
 
             #region 경고 및 기본값 저장
-            PropertyInfo[] propertyInfos = targetClass.GetProperties(BindingFlags.Public | BindingFlags.Static);
+            BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
+            if (instance != null)
+                bindingFlags |= BindingFlags.Instance;
+
+            PropertyInfo[] propertyInfos = targetClass.GetProperties(bindingFlags);
             List<SaveLoadClass.SaveLoadVariable<PropertyInfo>> propertyInfoList = new List<SaveLoadClass.SaveLoadVariable<PropertyInfo>>();
             List<SaveLoadClass.SaveLoadVariable<FieldInfo>> fieldInfoList = new List<SaveLoadClass.SaveLoadVariable<FieldInfo>>();
             for (int i = 0; i < propertyInfos.Length; i++)
@@ -116,25 +124,26 @@ namespace SCKRM.SaveLoad
                 if (!propertyInfo.CanRead || !propertyInfo.CanWrite)
                     continue;
 
+                bool isStatic = (propertyInfo.GetMethod != null && propertyInfo.GetMethod.IsStatic) || (propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsStatic);
                 bool ignore = Attribute.GetCustomAttributes(propertyInfo, typeof(JsonIgnoreAttribute)).Length > 0;
-                if (Attribute.GetCustomAttributes(propertyInfo, typeof(JsonPropertyAttribute)).Length <= 0 && !ignore)
+                if (isStatic && Attribute.GetCustomAttributes(propertyInfo, typeof(JsonPropertyAttribute)).Length <= 0 && !ignore)
                     Debug.LogWarning(targetClass.FullName + " " + propertyInfo.PropertyType + " " + propertyInfo.Name + " 에 [JsonProperty] 어트리뷰트가 추가되어있지 않습니다.\n이 변수는 로드되지 않을것입니다.\n무시를 원하신다면 [JsonIgnore] 어트리뷰트를 추가해주세요");
                 else if (!ignore)
-                    propertyInfoList.Add(new SaveLoadClass.SaveLoadVariable<PropertyInfo>(propertyInfo, propertyInfo.GetValue(null)));
+                    propertyInfoList.Add(new SaveLoadClass.SaveLoadVariable<PropertyInfo>(propertyInfo, propertyInfo.GetValue(instance)));
             }
 
-            FieldInfo[] fieldInfos = targetClass.GetFields(BindingFlags.Public | BindingFlags.Static);
+            FieldInfo[] fieldInfos = targetClass.GetFields(bindingFlags);
             for (int i = 0; i < fieldInfos.Length; i++)
             {
                 FieldInfo fieldInfo = fieldInfos[i];
                 bool ignore = Attribute.GetCustomAttributes(fieldInfo, typeof(JsonIgnoreAttribute)).Length > 0;
-                if (Attribute.GetCustomAttributes(fieldInfo, typeof(JsonPropertyAttribute)).Length <= 0 && !ignore)
+                if (fieldInfo.IsStatic && Attribute.GetCustomAttributes(fieldInfo, typeof(JsonPropertyAttribute)).Length <= 0 && !ignore)
                     Debug.LogWarning(targetClass.FullName + " " + fieldInfo.FieldType + " " + fieldInfo.Name + " 에 [JsonProperty] 어트리뷰트가 추가되어있지 않습니다.\n이 변수는 로드되지 않을것입니다.\n무시를 원하신다면 [JsonIgnore] 어트리뷰트를 추가해주세요");
                 else if (!ignore)
-                    fieldInfoList.Add(new SaveLoadClass.SaveLoadVariable<FieldInfo>(fieldInfo, fieldInfo.GetValue(null)));
+                    fieldInfoList.Add(new SaveLoadClass.SaveLoadVariable<FieldInfo>(fieldInfo, fieldInfo.GetValue(instance)));
             }
 
-            result = new SaveLoadClass(targetClass.FullName, targetClass, propertyInfoList.ToArray(), fieldInfoList.ToArray());
+            result = new SaveLoadClass(targetClass.FullName, targetClass, propertyInfoList.ToArray(), fieldInfoList.ToArray(), instance);
             #endregion
         }
 
@@ -160,13 +169,13 @@ namespace SCKRM.SaveLoad
             for (int j = 0; j < saveLoadClass.propertyInfos.Length; j++)
             {
                 SaveLoadClass.SaveLoadVariable<PropertyInfo> propertyInfo = saveLoadClass.propertyInfos[j];
-                jObject.Add(propertyInfo.variableInfo.Name, JToken.FromObject(propertyInfo.variableInfo.GetValue(null)));
+                jObject.Add(propertyInfo.variableInfo.Name, JToken.FromObject(propertyInfo.variableInfo.GetValue(saveLoadClass.instance)));
             }
 
             for (int j = 0; j < saveLoadClass.fieldInfos.Length; j++)
             {
                 SaveLoadClass.SaveLoadVariable<FieldInfo> fieldInfo = saveLoadClass.fieldInfos[j];
-                jObject.Add(fieldInfo.variableInfo.Name, JToken.FromObject(fieldInfo.variableInfo.GetValue(null)));
+                jObject.Add(fieldInfo.variableInfo.Name, JToken.FromObject(fieldInfo.variableInfo.GetValue(saveLoadClass.instance)));
             }
 
             File.WriteAllText(PathUtility.Combine(saveDataPath, saveLoadClass.name) + ".json", jObject.ToString());
@@ -200,13 +209,13 @@ namespace SCKRM.SaveLoad
             for (int j = 0; j < saveLoadClass.propertyInfos.Length; j++)
             {
                 SaveLoadClass.SaveLoadVariable<PropertyInfo> propertyInfo = saveLoadClass.propertyInfos[j];
-                propertyInfo.variableInfo.SetValue(null, null);
+                propertyInfo.variableInfo.SetValue(saveLoadClass.instance, null);
             }
 
             for (int j = 0; j < saveLoadClass.fieldInfos.Length; j++)
             {
                 SaveLoadClass.SaveLoadVariable<FieldInfo> fieldInfo = saveLoadClass.fieldInfos[j];
-                fieldInfo.variableInfo.SetValue(null, null);
+                fieldInfo.variableInfo.SetValue(saveLoadClass.instance, null);
             }
             #endregion
 
@@ -226,15 +235,15 @@ namespace SCKRM.SaveLoad
             for (int j = 0; j < saveLoadClass.propertyInfos.Length; j++)
             {
                 SaveLoadClass.SaveLoadVariable<PropertyInfo> propertyInfo = saveLoadClass.propertyInfos[j];
-                if (propertyInfo.variableInfo.GetValue(null) == null)
-                    propertyInfo.variableInfo.SetValue(null, propertyInfo.defaultValue);
+                if (propertyInfo.variableInfo.GetValue(saveLoadClass.instance) == null)
+                    propertyInfo.variableInfo.SetValue(saveLoadClass.instance, propertyInfo.defaultValue);
             }
 
             for (int j = 0; j < saveLoadClass.fieldInfos.Length; j++)
             {
                 SaveLoadClass.SaveLoadVariable<FieldInfo> fieldInfo = saveLoadClass.fieldInfos[j];
-                if (fieldInfo.variableInfo.GetValue(null) == null)
-                    fieldInfo.variableInfo.SetValue(null, fieldInfo.defaultValue);
+                if (fieldInfo.variableInfo.GetValue(saveLoadClass.instance) == null)
+                    fieldInfo.variableInfo.SetValue(saveLoadClass.instance, fieldInfo.defaultValue);
             }
             #endregion
         }
