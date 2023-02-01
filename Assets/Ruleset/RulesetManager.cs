@@ -152,7 +152,7 @@ namespace SDJK.Ruleset
     /// <summary>
     /// <see cref="IRuleset"/> 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다
     /// </summary>
-    [WikiDescription("IRuleSet 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
+    [WikiDescription("IRuleset 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
     public abstract class RulesetBase : IRuleset
     {
         public abstract int order { get; }
