@@ -12,10 +12,10 @@ namespace SDJK.Ruleset.SDJK
 {
     public sealed class SDJKRuleset : RulesetBase
     {
-        public override int order => int.MinValue;
+        public override int order { get; } = int.MinValue;
 
-        public override string name => "sdjk";
-        public override string[] compatibleRulesets => new string[] { "adofai" };
+        public override string name { get; } = "sdjk";
+        public override string[] compatibleRulesets { get; } = new string[] { "adofai" };
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {

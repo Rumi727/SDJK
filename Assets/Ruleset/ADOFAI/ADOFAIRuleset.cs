@@ -6,10 +6,10 @@ namespace SDJK.Ruleset.ADOFAI
 {
     public sealed class ADOFAIRuleset : RulesetBase
     {
-        public override int order => int.MaxValue;
-        public override string name => "adofai";
+        public override int order { get; } = int.MaxValue;
+        public override string name { get; } = "adofai";
 
-        public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");
+        public override NameSpaceIndexTypePathPair icon { get; } = new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");
         public override JudgementMetaData[] judgementMetaDatas => null;
         public override JudgementMetaData missJudgementMetaData { get; }
 
