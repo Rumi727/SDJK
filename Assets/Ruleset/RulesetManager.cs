@@ -1,4 +1,5 @@
 using SCKRM;
+using SCKRM.Reflection;
 using SCKRM.Renderer;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
@@ -8,7 +9,6 @@ using SCKRM.UI.StatusBar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -38,24 +38,20 @@ namespace SDJK.Ruleset
         [Starten]
         public static void RulesetListRefresh()
         {
-            Assembly[] assemblys = AppDomain.CurrentDomain.GetAssemblies();
-            for (int assemblysIndex = 0; assemblysIndex < assemblys.Length; assemblysIndex++)
+            Type[] types = ReflectionManager.types;
+            for (int typesIndex = 0; typesIndex < types.Length; typesIndex++)
             {
-                Type[] types = assemblys[assemblysIndex].GetTypes();
-                for (int typesIndex = 0; typesIndex < types.Length; typesIndex++)
+                Type type = types[typesIndex];
+                if (type.IsPublic && type.IsClass && !type.IsAbstract && !type.IsSpecialName)
                 {
-                    Type type = types[typesIndex];
-                    if (type.IsPublic && type.IsClass && !type.IsAbstract && !type.IsSpecialName)
+                    Type[] interfaces = type.GetInterfaces();
+                    for (int interfaceIndex = 0; interfaceIndex < interfaces.Length; interfaceIndex++)
                     {
-                        Type[] interfaces = type.GetInterfaces();
-                        for (int interfaceIndex = 0; interfaceIndex < interfaces.Length; interfaceIndex++)
+                        Type interfaceType = interfaces[interfaceIndex];
+                        if (interfaceType == typeof(IRuleset))
                         {
-                            Type interfaceType = interfaces[interfaceIndex];
-                            if (interfaceType == typeof(IRuleset))
-                            {
-                                rulesetList.Add((IRuleset)Activator.CreateInstance(type));
-                                break;
-                            }
+                            rulesetList.Add((IRuleset)Activator.CreateInstance(type));
+                            break;
                         }
                     }
                 }
@@ -157,7 +153,7 @@ namespace SDJK.Ruleset
     /// <see cref="IRuleset"/> 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다
     /// </summary>
     [WikiDescription("IRuleSet 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다")]
-    public abstract class Ruleset : IRuleset
+    public abstract class RulesetBase : IRuleset
     {
         public abstract int order { get; }
         public abstract string name { get; }

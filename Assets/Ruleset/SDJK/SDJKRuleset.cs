@@ -10,7 +10,7 @@ using SDJK.Replay;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public sealed class SDJKRuleset : Ruleset
+    public sealed class SDJKRuleset : RulesetBase
     {
         public override int order => int.MinValue;
 

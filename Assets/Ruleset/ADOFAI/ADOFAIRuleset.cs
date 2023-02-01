@@ -4,7 +4,7 @@ using SCKRM.UI.Overlay.MessageBox;
 
 namespace SDJK.Ruleset.ADOFAI
 {
-    public sealed class ADOFAIRuleset : Ruleset
+    public sealed class ADOFAIRuleset : RulesetBase
     {
         public override int order => int.MaxValue;
         public override string name => "adofai";
