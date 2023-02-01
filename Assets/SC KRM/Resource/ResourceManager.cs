@@ -74,14 +74,21 @@ namespace SCKRM.Resource
 
         static List<string> _nameSpaces = new List<string>();
 #if UNITY_EDITOR
+        static SaveLoadClass resourceProjectSetting;
         public static List<string> nameSpaces
         {
             get
             {
-                if (_nameSpaces.Count > 0)
+                if (Kernel.isPlaying)
                     return _nameSpaces;
                 else
+                {
+                    if (resourceProjectSetting == null)
+                        SaveLoadManager.Initialize<Data, ProjectSettingSaveLoadAttribute>(out resourceProjectSetting);
+
+                    SaveLoadManager.Load(resourceProjectSetting, Kernel.projectSettingPath);
                     return Data.nameSpaces;
+                }
             }
         }
 #else
