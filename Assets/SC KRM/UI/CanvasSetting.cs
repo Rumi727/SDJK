@@ -17,13 +17,13 @@ namespace SCKRM.UI
         /// 이 프로퍼티는 런타임에 영향을 미치지 않습니다.
         /// </summary>
         public bool alwaysVisible { get => _alwaysVisible; set => _alwaysVisible = value; }
-        [SerializeField] bool _alwaysVisible;
-        [SerializeField] bool _customSetting; public bool customSetting { get => _customSetting; set => _customSetting = value; }
-        [SerializeField] bool _customGuiSize; public bool customGuiSize { get => _customGuiSize; set => _customGuiSize = value; }
-        [SerializeField] float _guiSize; public float guiSize { get => _guiSize; set => _guiSize = value; }
-        [SerializeField] bool _worldRenderMode; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
-        [SerializeField] float _planeDistance; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
-        [SerializeField] bool _forceSafeScreenEnable; public bool forceSafeScreenEnable { get => _forceSafeScreenEnable; set => _forceSafeScreenEnable = value; }
+        [SerializeField] bool _alwaysVisible = false;
+        [SerializeField] bool _customSetting = false; public bool customSetting { get => _customSetting; set => _customSetting = value; }
+        [SerializeField] bool _customGuiSize = false; public bool customGuiSize { get => _customGuiSize; set => _customGuiSize = value; }
+        [SerializeField] float _guiSize = 1; public float guiSize { get => _guiSize; set => _guiSize = value; }
+        [SerializeField] bool _worldRenderMode = false; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
+        [SerializeField] float _planeDistance = 14; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
+        [SerializeField] bool _forceSafeScreenEnable = false; public bool forceSafeScreenEnable { get => _forceSafeScreenEnable; set => _forceSafeScreenEnable = value; }
         [SerializeField] Vector2 _safeScreenMultiple = Vector2.one; public Vector2 safeScreenMultiple { get => _safeScreenMultiple; set => _safeScreenMultiple = value; }
 
 
