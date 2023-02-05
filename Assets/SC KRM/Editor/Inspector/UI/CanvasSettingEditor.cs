@@ -39,6 +39,8 @@ namespace SCKRM.Editor
                 DrawLine();
 
                 UseProperty("_customGuiSize", "GUI 크기 커스텀");
+                if (!editor.customGuiSize)
+                    UseProperty("_guiSize", "GUI 크기");
             }
 
             DrawLine();

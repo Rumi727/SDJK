@@ -20,6 +20,7 @@ namespace SCKRM.UI
         [SerializeField] bool _alwaysVisible;
         [SerializeField] bool _customSetting; public bool customSetting { get => _customSetting; set => _customSetting = value; }
         [SerializeField] bool _customGuiSize; public bool customGuiSize { get => _customGuiSize; set => _customGuiSize = value; }
+        [SerializeField] float _guiSize; public float guiSize { get => _guiSize; set => _guiSize = value; }
         [SerializeField] bool _worldRenderMode; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
         [SerializeField] float _planeDistance; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
         [SerializeField] bool _forceSafeScreenEnable; public bool forceSafeScreenEnable { get => _forceSafeScreenEnable; set => _forceSafeScreenEnable = value; }
@@ -48,9 +49,9 @@ namespace SCKRM.UI
             if (!customGuiSize)
             {
                 if (Kernel.isPlaying)
-                    canvas.scaleFactor = UIManager.currentGuiSize;
+                    canvas.scaleFactor = UIManager.currentGuiSize * guiSize;
                 else
-                    canvas.scaleFactor = 1;
+                    canvas.scaleFactor = guiSize;
             }
 
             if (!customSetting)
@@ -59,7 +60,7 @@ namespace SCKRM.UI
                 {
                     if (Kernel.isPlaying)
                     {
-                        float guiSize = 1;
+                        float guiSize = 1 / this.guiSize;
                         if (customGuiSize)
                             guiSize = UIManager.currentGuiSize / canvas.scaleFactor;
 
@@ -224,7 +225,7 @@ namespace SCKRM.UI
             if (customGuiSize)
                 guiSize = canvas.scaleFactor;
             else
-                guiSize = UIManager.currentGuiSize;
+                guiSize = UIManager.currentGuiSize * this.guiSize;
 
             float width = camera.pixelWidth * (1 / guiSize);
             float height = camera.pixelHeight * (1 / guiSize);
