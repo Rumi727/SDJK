@@ -158,7 +158,7 @@ namespace SDJK.Mode
                     if (modeConfig == null)
                         return null;
 
-                    SaveLoadManager.Initialize(modeConfig.GetType(), typeof(ModeConfigSaveLoadAttribute), out _modeConfigSlc);
+                    SaveLoadManager.Initialize(modeConfig.GetType(), typeof(ModeConfigSaveLoadAttribute), out _modeConfigSlc, modeConfig);
                 }
 
                 return _modeConfigSlc;
