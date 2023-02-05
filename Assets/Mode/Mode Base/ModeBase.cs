@@ -1,6 +1,7 @@
 using SCKRM.Renderer;
 using SCKRM.SaveLoad;
 using SCKRM;
+using System;
 
 namespace SDJK.Mode
 {
@@ -21,7 +22,7 @@ namespace SDJK.Mode
         public NameSpaceIndexTypePathPair icon { get; }
 
         public string targetRuleset { get; }
-        public string[] incompatibleModes { get; }
+        public Type[] incompatibleModes { get; }
 
         public IModeConfig modeConfig { get; }
         public SaveLoadClass modeConfigSlc { get; }
@@ -50,7 +51,7 @@ namespace SDJK.Mode
         public abstract NameSpaceIndexTypePathPair icon { get; }
 
         public abstract string targetRuleset { get; }
-        public virtual string[] incompatibleModes => null;
+        public virtual Type[] incompatibleModes => null;
 
         public virtual IModeConfig modeConfig
         {
