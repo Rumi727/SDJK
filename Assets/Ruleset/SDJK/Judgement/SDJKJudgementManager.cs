@@ -376,13 +376,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
             public void GetReplayComboToSet()
             {
                 SDJKManager sdjkManager = instance.sdjkManager;
+                SDJKReplayFile replay = sdjkManager.currentReplay;
                 double currentBeat = RhythmManager.currentBeatSound;
 
-                instance.combo = sdjkManager.currentReplay.combos.GetValue(currentBeat);
-                instance.score = sdjkManager.currentReplay.scores.GetValue(currentBeat);
-                instance.health = sdjkManager.currentReplay.healths.GetValue(currentBeat);
-                instance.accuracyAbs = sdjkManager.currentReplay.accuracys.GetValue(currentBeat);
-                instance.accuracy = sdjkManager.currentReplay.accuracyUnclampeds.GetValue(currentBeat);
+                if (replay.combos.Count > 0) instance.combo = replay.combos.GetValue(currentBeat);
+                if (replay.scores.Count > 0) instance.score = replay.scores.GetValue(currentBeat);
+                if (replay.healths.Count > 0) instance.health = replay.healths.GetValue(currentBeat);
+                if (replay.accuracys.Count > 0) instance.accuracyAbs = replay.accuracys.GetValue(currentBeat);
+                if (replay.accuracyUnclampeds.Count > 0) instance.accuracy = replay.accuracyUnclampeds.GetValue(currentBeat);
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
