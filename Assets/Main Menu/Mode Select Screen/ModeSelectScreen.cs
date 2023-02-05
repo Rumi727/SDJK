@@ -17,6 +17,7 @@ namespace SDJK.MainMenu.ModeSelectScreen
         [SerializeField] GameObject layout;
         [SerializeField] string modeTogglePrefab = "main_menu.mode_select_screen.mode_toggle";
         [SerializeField] string modeConfigSaveLoadUIPrefab = "main_menu.mode_select_screen.mode_config";
+        [SerializeField] string spacePrefab = "save_load.ui.space";
         [SerializeField] Transform modeListContent;
         [SerializeField] Transform modeConfigListContent;
         [SerializeField] string inputLockKey = "mode_select_screen";
@@ -49,20 +50,20 @@ namespace SDJK.MainMenu.ModeSelectScreen
             }
         }
 
-        List<ModeToggle> modeToggles = new List<ModeToggle>();
+        List<IObjectPooling> modeListObjectPooling = new List<IObjectPooling>();
         void ModeListRefresh()
         {
             if (!ModeManager.isModeRefreshEnd)
                 return;
 
-            for (int i = 0; i < modeToggles.Count; i++)
+            for (int i = 0; i < modeListObjectPooling.Count; i++)
             {
-                ModeToggle modeToggle = modeToggles[i];
+                IObjectPooling modeToggle = modeListObjectPooling[i];
                 if (modeToggle != null)
                     modeToggle.Remove();
             }
 
-            modeToggles.Clear();
+            modeListObjectPooling.Clear();
 
             ModeConfigRefresh();
 
@@ -72,8 +73,11 @@ namespace SDJK.MainMenu.ModeSelectScreen
                 if (mode.targetRuleset != RulesetManager.selectedRuleset.name)
                     continue;
 
+                if (i > 0 && mode.order.Distance(ModeManager.modeList[i - 1].order) >= 1000)
+                    modeListObjectPooling.Add(ObjectPoolingSystem.ObjectCreate(spacePrefab, modeListContent).objectPooling);
+
                 ModeToggle modeToggle = (ModeToggle)ObjectPoolingSystem.ObjectCreate(modeTogglePrefab, modeListContent).monoBehaviour;
-                modeToggles.Add(modeToggle);
+                modeListObjectPooling.Add(modeToggle);
 
                 modeToggle.mode = mode;
 
