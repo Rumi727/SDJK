@@ -9,6 +9,7 @@ using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using SDJK.Replay;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -188,7 +189,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     if (autoNote || instance.auto)
                         input = currentBeat >= currentNote.beat;
-                    else if (sdjkManager.isReplay)
+                    else if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count)
                     {
                         /*if (currentNotePressBeatReplayIndex < sdjkManager.currentReplay.pressNoteBeat[keyIndex].Count)
                             input = currentBeat >= currentNotePressBeatReplay;
@@ -243,7 +244,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         input = false;
                     }
 
-                    if (sdjkManager.isReplay)
+                    if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count)
                     {
                         List<double> replayHitsounds = sdjkManager.currentReplay.pressBeat[keyIndex];
                         while (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < replayHitsounds.Count)
@@ -429,11 +430,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
             public void NextPressBeatReplay()
             {
                 SDJKManager sdjkManager = instance.sdjkManager;
-                List<double> pressBeatReplay = sdjkManager.currentReplay.pressBeat[keyIndex];
 
-                currentPressBeatReplayIndex++;
-                if (currentPressBeatReplayIndex < pressBeatReplay.Count)
-                    currentPressBeatReplay = pressBeatReplay[currentPressBeatReplayIndex];
+                if (keyIndex < sdjkManager.currentReplay.pressBeat.Count)
+                {
+                    List<double> pressBeatReplay = sdjkManager.currentReplay.pressBeat[keyIndex];
+                    currentPressBeatReplayIndex++;
+                    if (currentPressBeatReplayIndex < pressBeatReplay.Count)
+                        currentPressBeatReplay = pressBeatReplay[currentPressBeatReplayIndex];
+                }
             }
         }
 
