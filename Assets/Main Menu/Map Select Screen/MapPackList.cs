@@ -48,7 +48,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         {
             if ((MainMenu.currentScreenMode == ScreenMode.mapPackSelect && !isMapList) || (MainMenu.currentScreenMode == ScreenMode.mapSelect && isMapList))
             {
-                rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, 0), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (!content.gameObject.activeSelf)
                     content.gameObject.SetActive(true);
@@ -56,7 +56,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             else
             {
                 Rect rect = rectTransform.rect;
-                rectTransform.anchoredPosition = rectTransform.anchoredPosition.MoveTowards(new Vector2(rect.width, 0), 100 * Kernel.fpsUnscaledDeltaTime);
+                rectTransform.anchoredPosition = rectTransform.anchoredPosition.MoveTowards(new Vector2(rect.width, 0), 100 * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (content.gameObject.activeSelf && rectTransform.anchoredPosition.x >= rect.width)
                     content.gameObject.SetActive(false);
@@ -75,7 +75,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             }
 
             if (content.rect.height > viewport.rect.height && !contentPosLock)
-                content.anchoredPosition = content.anchoredPosition.Lerp(new Vector2(0, contentPosY), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                content.anchoredPosition = content.anchoredPosition.Lerp(new Vector2(0, contentPosY), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
             for (int i = 0; i < mapSelectScreenMapPacks.Count; i++)
             {

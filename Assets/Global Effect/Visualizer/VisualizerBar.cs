@@ -40,9 +40,9 @@ namespace SDJK.Effect
         public void SizeUpdate()
         {
             if (size > 0)
-                size -= 5 * Kernel.fpsUnscaledDeltaTime;
+                size -= 5 * Kernel.fpsUnscaledSmoothDeltaTime;
 
-            transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(transform.localScale.x, size), 0.75f * Kernel.fpsUnscaledDeltaTime);
+            transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(transform.localScale.x, size), 0.75f * Kernel.fpsUnscaledSmoothDeltaTime);
 
             /*float yPosOffset = transform.localScale.y * 0.5f;
             float radRotation = -transform.eulerAngles.z * Mathf.Deg2Rad;

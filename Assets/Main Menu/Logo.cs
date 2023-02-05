@@ -37,7 +37,7 @@ namespace SDJK.MainMenu
         {
             {
                 if (pointerScaleT < 1)
-                    pointerScaleT = (pointerScaleT + 0.03f * Kernel.fpsUnscaledDeltaTime).Clamp01();
+                    pointerScaleT = (pointerScaleT + 0.03f * Kernel.fpsUnscaledSmoothDeltaTime).Clamp01();
 
                 if (pointer)
                     pointerScale = (float)EasingFunction.EaseOutElastic(pointerScaleStart, 1.2, pointerScaleT);
@@ -47,9 +47,9 @@ namespace SDJK.MainMenu
 
             {
                 if (click)
-                    clickScale = clickScale.Lerp(0.85f, 0.04f * Kernel.fpsUnscaledDeltaTime);
+                    clickScale = clickScale.Lerp(0.85f, 0.04f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else
-                    clickScale = clickScale.Lerp(1, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    clickScale = clickScale.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
             }
 
             double oneBeat = (RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Repeat(1);

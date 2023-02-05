@@ -24,7 +24,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             if (RhythmManager.isPlaying && isGameOver)
             {
                 if (Kernel.gameSpeed > 0.001f)
-                    Kernel.gameSpeed = Kernel.gameSpeed.Lerp(0, speed * Kernel.fpsUnscaledDeltaTime);
+                    Kernel.gameSpeed = Kernel.gameSpeed.Lerp(0, speed * Kernel.fpsUnscaledSmoothDeltaTime);
                 else
                 {
                     Kernel.gameSpeed = 0;

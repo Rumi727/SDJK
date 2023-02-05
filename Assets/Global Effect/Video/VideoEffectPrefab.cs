@@ -129,7 +129,7 @@ namespace SDJK
                     {
                         if (dis.Abs() < 1)
                         {
-                            canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                            canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                             if (dis >= 0.015625)
                                 videoPlayer.playbackSpeed = speed * 4;
@@ -154,7 +154,7 @@ namespace SDJK
                     if (!videoPlayer.isPaused)
                         videoPlayer.Pause();
 
-                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
                 }
             }
         }
@@ -174,7 +174,7 @@ namespace SDJK
 
             while (canvasGroup.alpha > 0)
             {
-                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
                 await UniTask.NextFrame();
 
                 if (this == null)

@@ -120,7 +120,7 @@ namespace SDJK.MainMenu
                 DefaultLogoAni(Vector2.zero, new Vector2(logo.sizeDelta.x, 0));
 
                 if (mapSelectScreen.alpha > 0)
-                    mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledDeltaTime);
+                    mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else if (mapSelectScreen.gameObject.activeSelf)
                     mapSelectScreen.gameObject.SetActive(false);
             }
@@ -128,11 +128,11 @@ namespace SDJK.MainMenu
             {
                 #region Logo Ani
                 if (screenNormalAniT < 1)
-                    screenNormalAniT = (screenNormalAniT + 0.1f * Kernel.fpsUnscaledDeltaTime).Clamp01();
+                    screenNormalAniT = (screenNormalAniT + 0.1f * Kernel.fpsUnscaledSmoothDeltaTime).Clamp01();
                 else
                 {
                     if (barAlpha < 1)
-                        barAlpha = (barAlpha += 0.1f * Kernel.fpsUnscaledDeltaTime).Clamp01();
+                        barAlpha = (barAlpha += 0.1f * Kernel.fpsUnscaledSmoothDeltaTime).Clamp01();
 
                     barCanvasGroup.alpha = barAlpha;
                     barCanvasGroup.blocksRaycasts = true;
@@ -142,11 +142,11 @@ namespace SDJK.MainMenu
 
                     Vector2 offsetMin = new Vector2(-240, 0);
                     if (Vector2.Distance(barLayout.offsetMin, offsetMin) > 0.01f)
-                        barLayout.offsetMin = barLayout.offsetMin.Lerp(offsetMin, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        barLayout.offsetMin = barLayout.offsetMin.Lerp(offsetMin, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
                         barLayout.offsetMin = offsetMin;
 
-                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-25, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-25, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                     if (!bar.gameObject.activeSelf)
                         bar.gameObject.SetActive(true);
@@ -168,7 +168,7 @@ namespace SDJK.MainMenu
                 #endregion
 
                 if (mapSelectScreen.alpha > 0)
-                    mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledDeltaTime);
+                    mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else if (mapSelectScreen.gameObject.activeSelf)
                     mapSelectScreen.gameObject.SetActive(false);
             }
@@ -178,7 +178,7 @@ namespace SDJK.MainMenu
                 {
                     if (mapSelectScreen.alpha < 1)
                     {
-                        mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(1, 0.1f * Kernel.fpsUnscaledDeltaTime);
+                        mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(1, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                         if (!mapSelectScreen.gameObject.activeSelf)
                             mapSelectScreen.gameObject.SetActive(true);
@@ -191,7 +191,7 @@ namespace SDJK.MainMenu
                 {
                     if (mapSelectScreen.alpha < 1)
                     {
-                        mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(1, 0.1f * Kernel.fpsUnscaledDeltaTime);
+                        mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(1, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                         if (!mapSelectScreen.gameObject.activeSelf)
                             mapSelectScreen.gameObject.SetActive(true);
@@ -234,7 +234,7 @@ namespace SDJK.MainMenu
                     if (currentScreenMode == ScreenMode.esc)
                     {
                         if (Vector2.Distance(screenEscStartPos, anchoredPosition) > 0.01f)
-                            screenEscStartPos = screenEscStartPos.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                            screenEscStartPos = screenEscStartPos.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                         else
                             screenEscStartPos = anchoredPosition;
 
@@ -243,13 +243,13 @@ namespace SDJK.MainMenu
                     else
                     {
                         if (Vector2.Distance(logo.anchoredPosition, anchoredPosition) > 0.01f)
-                            logo.anchoredPosition = logo.anchoredPosition.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                            logo.anchoredPosition = logo.anchoredPosition.Lerp(anchoredPosition, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                         else
                             logo.anchoredPosition = anchoredPosition;
                     }
 
                     if (Vector2.Distance(logo.sizeDelta, sizeDelta) > 0.01f)
-                        logo.sizeDelta = logo.sizeDelta.Lerp(sizeDelta, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        logo.sizeDelta = logo.sizeDelta.Lerp(sizeDelta, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
                         logo.sizeDelta = sizeDelta;
 
@@ -265,7 +265,7 @@ namespace SDJK.MainMenu
                 else
                 {
                     if (barAlpha > 0)
-                        barAlpha = (barAlpha -= 0.1f * Kernel.fpsUnscaledDeltaTime).Clamp01();
+                        barAlpha = (barAlpha -= 0.1f * Kernel.fpsUnscaledSmoothDeltaTime).Clamp01();
 
                     barCanvasGroup.alpha = barAlpha;
                     barCanvasGroup.blocksRaycasts = false;
@@ -273,8 +273,8 @@ namespace SDJK.MainMenu
 
                     bar.sizeDelta = new Vector2(0, (float)EasingFunction.EaseOutCubic(0, 135, barAlpha));
 
-                    barLayout.offsetMin = barLayout.offsetMin.Lerp(new Vector2(-440, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
-                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-230, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    barLayout.offsetMin = barLayout.offsetMin.Lerp(new Vector2(-440, 0), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                    barLayoutHorizontalLayout.spacing = barLayoutHorizontalLayout.spacing.Lerp(-230, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                     return false;
                 }

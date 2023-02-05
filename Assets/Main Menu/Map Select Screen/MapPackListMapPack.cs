@@ -51,8 +51,8 @@ namespace SDJK.MainMenu.MapSelectScreen
 
             if ((mapPack == MapManager.selectedMapPack && MainMenu.currentScreenMode == ScreenMode.mapPackSelect && !isMap) || (map == MapManager.selectedMap && MainMenu.currentScreenMode == ScreenMode.mapSelect && isMap))
             {
-                outline.color = outline.color.MoveTowards(Color.white, 0.1f * Kernel.fpsUnscaledDeltaTime);
-                rectTransform.offsetMin = rectTransform.offsetMin.Lerp(new Vector2(0, rectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                outline.color = outline.color.MoveTowards(Color.white, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                rectTransform.offsetMin = rectTransform.offsetMin.Lerp(new Vector2(0, rectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 float viewportHeight = mapPackList.viewport.rect.height;
                 float contentHeight = mapPackList.content.rect.height;
@@ -62,8 +62,8 @@ namespace SDJK.MainMenu.MapSelectScreen
             }
             else
             {
-                outline.color = outline.color.MoveTowards(new Color(1, 1, 1, 0), 0.1f * Kernel.fpsUnscaledDeltaTime);
-                rectTransform.offsetMin = rectTransform.offsetMin.Lerp(new Vector2(100, rectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                outline.color = outline.color.MoveTowards(new Color(1, 1, 1, 0), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                rectTransform.offsetMin = rectTransform.offsetMin.Lerp(new Vector2(100, rectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
             }
         }
 

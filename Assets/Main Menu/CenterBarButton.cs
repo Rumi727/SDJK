@@ -29,7 +29,7 @@ namespace SDJK.MainMenu
         void Update()
         {
             if (pointerSizeT < 1)
-                pointerSizeT = (pointerSizeT + 0.03f * Kernel.fpsUnscaledDeltaTime).Clamp01();
+                pointerSizeT = (pointerSizeT + 0.03f * Kernel.fpsUnscaledSmoothDeltaTime).Clamp01();
 
             if (pointer)
                 pointerSize = (float)EasingFunction.EaseOutElastic(pointerSizeStart, 330 + sizeOffset, pointerSizeT);
@@ -61,9 +61,9 @@ namespace SDJK.MainMenu
             }
             else
             {
-                icon.anchoredPosition = icon.anchoredPosition.Lerp(new Vector2(icon.anchoredPosition.x, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                icon.anchoredPosition = icon.anchoredPosition.Lerp(new Vector2(icon.anchoredPosition.x, 0), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
-                rotation = rotation.Lerp(Vector3.zero, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                rotation = rotation.Lerp(Vector3.zero, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 icon.localEulerAngles = rotation;
 
                 pointerAniLock = true;

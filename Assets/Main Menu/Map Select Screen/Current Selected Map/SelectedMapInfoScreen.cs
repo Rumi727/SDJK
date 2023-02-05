@@ -10,9 +10,9 @@ namespace SDJK.MainMenu
         void Update()
         {
             if (MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                bottom.anchoredPosition = bottom.anchoredPosition.Lerp(Vector2.zero, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                bottom.anchoredPosition = bottom.anchoredPosition.Lerp(Vector2.zero, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
             else
-                bottom.anchoredPosition = bottom.anchoredPosition.Lerp(new Vector2(0, -bottom.rect.height + 20), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                bottom.anchoredPosition = bottom.anchoredPosition.Lerp(new Vector2(0, -bottom.rect.height + 20), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
         }
     }
 }

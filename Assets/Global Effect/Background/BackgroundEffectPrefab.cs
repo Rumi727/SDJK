@@ -53,7 +53,7 @@ namespace SDJK
             {
                 if (loadedSprites.Count > 0)
                 {
-                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                     {
                         DateTime now = DateTime.Now;
@@ -87,7 +87,7 @@ namespace SDJK
             }
             else
             {
-                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (canvasGroup.alpha <= 0)
                     Remove();

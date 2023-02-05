@@ -91,7 +91,7 @@ namespace SDJK.MainMenu
 
             if (padeOut)
             {
-                soundPlayer.volume = soundPlayer.volume.MoveTowards(0, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                soundPlayer.volume = soundPlayer.volume.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (soundPlayer.volume <= 0)
                 {
@@ -101,7 +101,7 @@ namespace SDJK.MainMenu
             }
             else
             {
-                volumePade = volumePade.MoveTowards(1, 0.05f * Kernel.fpsUnscaledDeltaTime);
+                volumePade = volumePade.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
                 soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound) * volumePade;
 
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
