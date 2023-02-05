@@ -1,17 +1,14 @@
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Rhythm;
-using SCKRM.UI;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace SDJK.MainMenu
 {
-    public class BarButton : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
+    public class CenterBarButton : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
     {
         public float sizeOffset => _sizeOffset; [SerializeField] float _sizeOffset;
         public UnityEvent onClick => _onClick; [SerializeField] UnityEvent _onClick;
