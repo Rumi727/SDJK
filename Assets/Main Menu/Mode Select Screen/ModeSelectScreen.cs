@@ -15,8 +15,9 @@ namespace SDJK.MainMenu.ModeSelectScreen
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] GameObject layout;
         [SerializeField] string modeTogglePrefab = "main_menu.mode_select_screen.mode_toggle";
+        [SerializeField] string modeConfigSaveLoadUIPrefab = "main_menu.mode_select_screen.mode_config";
         [SerializeField] Transform modeListContent;
-        [SerializeField] SaveLoadUI modeConfigContent;
+        [SerializeField] Transform modeConfigListContent;
         [SerializeField] string inputLockKey = "mode_select_screen";
 
         protected override void Awake()
@@ -62,7 +63,7 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
             modeToggles.Clear();
 
-            ModeConfigRefresh(null);
+            ModeConfigRefresh();
 
             for (int i = 0; i < ModeManager.modeList.Count; i++)
             {
@@ -86,23 +87,42 @@ namespace SDJK.MainMenu.ModeSelectScreen
                     else
                         ModeManager.DeselectMode(mode);
 
-                    ModeConfigRefresh(mode);
+                    ModeConfigRefresh();
                 });
             }
         }
 
-        void ModeConfigRefresh(IMode mode)
+        List<SaveLoadUI> saveLoadUIs = new List<SaveLoadUI>();
+        void ModeConfigRefresh()
         {
-            if (mode == null || mode.modeConfig == null)
+            for (int i = 0; i < saveLoadUIs.Count; i++)
             {
-                modeConfigContent.saveLoadClassName = "";
-                modeConfigContent.Refresh();
-
-                return;
+                SaveLoadUI saveLoadUI = saveLoadUIs[i];
+                if (saveLoadUI != null)
+                    saveLoadUI.Remove();
             }
 
-            modeConfigContent.saveLoadClassName = mode.modeConfigSlc.name;
-            modeConfigContent.Refresh(mode.modeConfigSlc);
+            saveLoadUIs.Clear();
+
+            for (int i = 0; i < ModeManager.selectedModeList.Count; i++)
+            {
+                IMode mode = ModeManager.selectedModeList[i];
+                SaveLoadUI saveLoadUI = (SaveLoadUI)ObjectPoolingSystem.ObjectCreate(modeConfigSaveLoadUIPrefab, modeConfigListContent).monoBehaviour;
+                saveLoadUIs.Add(saveLoadUI);
+
+                if (mode == null || mode.modeConfig == null)
+                {
+                    saveLoadUI.saveLoadClassName = "";
+                    saveLoadUI.Refresh();
+
+                    return;
+                }
+
+                saveLoadUI.saveLoadClassName = mode.modeConfigSlc.name;
+                saveLoadUI.isLineShow = i < ModeManager.selectedModeList.Count - 1;
+
+                saveLoadUI.Refresh(mode.modeConfigSlc);
+            }
         }
 
         public void Show()

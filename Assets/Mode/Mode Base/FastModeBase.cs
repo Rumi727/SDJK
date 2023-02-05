@@ -18,7 +18,7 @@ namespace SDJK.Mode
 
 
 
-        [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.setting")]
+        [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.difficulty.fast")]
         public sealed class Data : IModeConfig
         {
             [SaveLoadUISliderConfig("sdjk:gui.speed", "", 1.0001f, 8, 0.1f, 4)]
