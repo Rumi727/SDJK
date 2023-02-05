@@ -1,5 +1,5 @@
 {
-    "name": "SDJK-Ruleset",
+    "name": "SDJK-Ruleset-SDJK",
     "rootNamespace": "SDJK.Ruleset.SDJK",
     "references": [
         "GUID:9c1f978837ad80d49ae31d1cd963a280",
@@ -9,7 +9,8 @@
         "GUID:42ec50f206125f04894d9168eeb43a0f",
         "GUID:70a0802e273e9914ca5ff31d00b0eb37",
         "GUID:62f2571728c803c47a54745cd9300d6d",
-        "GUID:d80eaad8620fa914facfb0e1f5f77bf9"
+        "GUID:d80eaad8620fa914facfb0e1f5f77bf9",
+        "GUID:d3874f4918e80154fab2009de9e5ea2c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
