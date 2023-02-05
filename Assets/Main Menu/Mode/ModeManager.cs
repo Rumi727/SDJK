@@ -79,7 +79,7 @@ namespace SDJK.Mode
                 for (int i = 0; i < selectedModeList.Count; i++)
                 {
                     IMode tempMode = selectedModeList[i];
-                    if (mode.incompatibleModes.Contains(tempMode.name))
+                    if (mode.incompatibleModes != null && mode.incompatibleModes.Contains(tempMode.name))
                         DeselectMode(tempMode);
                 }
 
