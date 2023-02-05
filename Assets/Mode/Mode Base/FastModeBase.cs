@@ -21,8 +21,9 @@ namespace SDJK.Mode
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.setting")]
         public sealed class Data : IModeConfig
         {
-            [SaveLoadUISliderConfig("sdjk:gui.speed", "", 1.01f, 8, 0.1f, 4)]
-            public double speed { get; set; } = 1.5;
+            [SaveLoadUISliderConfig("sdjk:gui.speed", "", 1.0001f, 8, 0.1f, 4)]
+            public double speed { get => _speed.Clamp(1.0001); set => _speed = value.Clamp(1.0001); }
+            double _speed = 1.5;
         }
 
         protected override IModeConfig CreateModeConfig() => new Data();
