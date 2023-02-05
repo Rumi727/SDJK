@@ -14,7 +14,12 @@ namespace SDJK.MainMenu.UI
         [SerializeField] RectTransform line;
         [SerializeField] Graphic lineGraphic;
 
-        void Awake() => RulesetManager.isRulesetRefresh += Refresh;
+        void Awake()
+        {
+            RulesetManager.isRulesetRefresh += Refresh;
+            if (RulesetManager.isRulesetRefreshEnd)
+                Refresh();
+        }
 
         List<StatusBarRuleset> statusBarRulesets = new List<StatusBarRuleset>();
         void Refresh()
