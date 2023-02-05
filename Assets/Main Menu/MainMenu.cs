@@ -11,12 +11,7 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
-using SDJK.Map;
 using SDJK.Ruleset;
-using SuperBlur;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -64,7 +59,7 @@ namespace SDJK.MainMenu
         static Vector2 screenNormalStartSize = Vector2.zero;
         static Vector2 screenEscStartPos = Vector2.zero;
 
-        static float barAlpha = 0;
+        public static float barAlpha = 0;
         void Update()
         {
             #region 곡 선택

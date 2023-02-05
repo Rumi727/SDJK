@@ -4,6 +4,7 @@
 	"gui.play": "Play",
 	"gui.edit": "Edit",
 	"gui.quit": "Quit",
+	"gui.mode": "Mode",
 	
 	"map_manager.music": "Music",
 	"map_manager.previous_music": "Previous music",

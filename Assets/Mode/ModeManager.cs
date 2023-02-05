@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Reflection;
 using SCKRM.Renderer;
+using SCKRM.SaveLoad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,7 +105,16 @@ namespace SDJK.Mode
 
         public string targetRuleset { get; }
         public string[] incompatibleModes { get; }
+
+        public IModeConfig modeConfig { get; }
+        public SaveLoadClass modeConfigSlc { get; }
+
+        public IModeConfig CreateModeConfig();
     }
+
+    public interface IModeConfig { }
+
+    public sealed class ModeConfigSaveLoadAttribute : SaveLoadBaseAttribute { }
 
     /// <summary>
     /// <see cref="IMode"/> 인터페이스를 사용할때 커스텀하지 않을경우 권장하는 부모 클래스 입니다
@@ -124,5 +134,36 @@ namespace SDJK.Mode
 
         public abstract string targetRuleset { get; }
         public virtual string[] incompatibleModes => null;
+
+        public virtual IModeConfig modeConfig
+        {
+            get
+            {
+                if (_modeConfig == null)
+                    _modeConfig = CreateModeConfig();
+
+                return _modeConfig;
+            }
+        }
+        IModeConfig _modeConfig = null;
+
+        public SaveLoadClass modeConfigSlc
+        {
+            get
+            {
+                if (_modeConfigSlc == null)
+                {
+                    if (modeConfig == null)
+                        return null;
+
+                    SaveLoadManager.Initialize(modeConfig.GetType(), typeof(ModeConfigSaveLoadAttribute), out _modeConfigSlc);
+                }
+
+                return _modeConfigSlc;
+            }
+        }
+        SaveLoadClass _modeConfigSlc;
+
+        public virtual IModeConfig CreateModeConfig() => null;
     }
 }
