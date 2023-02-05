@@ -1,14 +1,19 @@
 using SCKRM;
 using SCKRM.Object;
+using SCKRM.UI.StatusBar;
 using SDJK.Ruleset;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SDJK.MainMenu.UI
 {
     public class StatusBarRulesets : MonoBehaviour
     {
+        [SerializeField] RectTransform line;
+        [SerializeField] Graphic lineGraphic;
+
         void Awake() => RulesetManager.isRulesetRefresh += Refresh;
 
         List<StatusBarRuleset> statusBarRulesets = new List<StatusBarRuleset>();
@@ -26,6 +31,16 @@ namespace SDJK.MainMenu.UI
                 statusBarRuleset.icon.nameSpaceIndexTypePathPair = ruleset.icon;
                 statusBarRuleset.index = i;
             }
+        }
+
+        void Update()
+        {
+            RectTransform statusBar = StatusBarManager.instance.rectTransform;
+            float statusBarYPos = statusBar.anchoredPosition.y;
+            float statusBarYSize = statusBar.rect.height;
+
+            lineGraphic.color = new Color(1, 1, 1, 0).Lerp(Color.white, 1 - (statusBarYPos / statusBarYSize));
+            line.anchoredPosition = line.anchoredPosition.Lerp(new Vector2(RulesetManager.selectedRulesetIndex * 55f, line.anchoredPosition.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
         }
     }
 }
