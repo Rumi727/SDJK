@@ -39,7 +39,7 @@ namespace HSVPicker
             if (!lerp || !Kernel.isPlaying)
                 graphic.color = color;
             else
-                graphic.color = graphic.color.Lerp(color, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                graphic.color = graphic.color.Lerp(color, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
         }
 
         public enum Type

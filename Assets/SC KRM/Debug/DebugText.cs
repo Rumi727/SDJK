@@ -31,10 +31,16 @@ namespace SCKRM.DebugUI
             static void LeftDebug(FastString fastString)
             {
                 LabelValue("deltaTime", Kernel.deltaTime, fastString);
-                LabelValue("fpsDeltaTime", Kernel.fpsDeltaTime, fastString, true);
+                LabelValue("smoothDeltaTime", Kernel.smoothDeltaTime, fastString, true);
+
+                LabelValue("fpsDeltaTime", Kernel.fpsDeltaTime, fastString);
+                LabelValue("fpsSmoothDeltaTime", Kernel.fpsSmoothDeltaTime, fastString, true);
 
                 LabelValue("unscaledDeltaTime", Kernel.unscaledDeltaTime, fastString);
-                LabelValue("fpsUnscaledDeltaTime", Kernel.fpsUnscaledDeltaTime, fastString, true);
+                LabelValue("unscaledSmoothDeltaTime", Kernel.unscaledSmoothDeltaTime, fastString, true);
+
+                LabelValue("fpsUnscaledDeltaTime", Kernel.fpsUnscaledDeltaTime, fastString);
+                LabelValue("fpsUnscaledSmoothDeltaTime", Kernel.fpsUnscaledSmoothDeltaTime, fastString, true);
 
                 LabelValue("fps", Kernel.fps, fastString, true);
 

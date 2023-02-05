@@ -20,9 +20,13 @@ namespace SCKRM.Editor
             if (Kernel.isPlayingAndNotPaused)
             {
                 EditorGUILayout.LabelField("델타 타임 - " + Kernel.deltaTime);
+                EditorGUILayout.LabelField("부드러운 델타 타임 - " + Kernel.smoothDeltaTime);
                 EditorGUILayout.LabelField("FPS 델타 타임 - " + Kernel.fpsDeltaTime);
+                EditorGUILayout.LabelField("부드러운 FPS 델타 타임 - " + Kernel.fpsSmoothDeltaTime);
                 EditorGUILayout.LabelField("스케일 되지 않은 델타 타임 - " + Kernel.unscaledDeltaTime);
+                EditorGUILayout.LabelField("스케일 되지 않은 부드러운 델타 타임 - " + Kernel.unscaledSmoothDeltaTime);
                 EditorGUILayout.LabelField("스케일 되지 않은 FPS 델타 타임 - " + Kernel.fpsUnscaledDeltaTime);
+                EditorGUILayout.LabelField("스케일 되지 않은 부드러운 FPS 델타 타임 - " + Kernel.fpsUnscaledSmoothDeltaTime);
 
                 CustomInspectorEditor.DrawLine();
 
@@ -69,6 +73,7 @@ namespace SCKRM.Editor
 
                 CustomInspectorEditor.DrawLine();
 
+                EditorGUILayout.LabelField("인터넷 연결 방식 - " + Kernel.internetReachability);
                 EditorGUILayout.LabelField("배터리 상태 - " + SystemInfo.batteryStatus);
 
                 CustomInspectorEditor.DrawLine();

@@ -1,9 +1,15 @@
 {
 	"deltaTime": "델타 타임",
+	"smoothDeltaTime": "부드러운 델타 타임",
+	
 	"fpsDeltaTime": "FPS 델타 타임",
+	"fpsSmoothDeltaTime": "부드러운 FPS 델타 타임",
 	
 	"unscaledDeltaTime": "스케일 되지 않은 델타 타임",
+	"unscaledSmoothDeltaTime": "스케일 되지 않은 부드러운 델타 타임",
+	
 	"fpsUnscaledDeltaTime": "스케일 되지 않은 FPS 델타 타임",
+	"fpsUnscaledSmoothDeltaTime": "스케일 되지 않은 부드러운 FPS 델타 타임",
 	
 	"fps": "FPS",
 	
@@ -42,6 +48,7 @@
 	"deviceModel": "장치 모델",
 	"deviceName": "장치 이름",
 	
+	"internetReachability": "인터넷 연결 방식",
 	"batteryStatus": "배터리 상태",
 	
 	"processorType": "프로세서 유형",

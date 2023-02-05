@@ -122,7 +122,7 @@ namespace SCKRM.FileDialog
         {
             if (isFileDialogShow)
             {
-                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 if (fileDialogCanvasGroup.alpha > 0.99f)
                     fileDialogCanvasGroup.alpha = 1;
 
@@ -134,7 +134,7 @@ namespace SCKRM.FileDialog
             }
             else
             {
-                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 if (fileDialogCanvasGroup.alpha < 0.01f)
                 {
                     fileDialogCanvasGroup.alpha = 0;

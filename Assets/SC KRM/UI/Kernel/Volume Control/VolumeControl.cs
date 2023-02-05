@@ -40,13 +40,13 @@ namespace SCKRM.UI
                     switch (type)
                     {
                         case Type.main:
-                            slider.value = slider.value.Lerp(SoundManager.SaveData.mainVolume, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                            slider.value = slider.value.Lerp(SoundManager.SaveData.mainVolume, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                             break;
                         case Type.bgm:
-                            slider.value = slider.value.Lerp(SoundManager.SaveData.bgmVolume, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                            slider.value = slider.value.Lerp(SoundManager.SaveData.bgmVolume, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                             break;
                         case Type.sound:
-                            slider.value = slider.value.Lerp(SoundManager.SaveData.soundVolume, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                            slider.value = slider.value.Lerp(SoundManager.SaveData.soundVolume, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                             break;
                     }
                 }

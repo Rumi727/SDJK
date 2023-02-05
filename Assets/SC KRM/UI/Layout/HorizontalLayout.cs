@@ -195,7 +195,7 @@ namespace SCKRM.UI.Layout
                 if (!Kernel.isPlaying || !lerp || !useAni)
                     childRectTransform.anchoredPosition = pos;
                 else
-                    childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(pos, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                    childRectTransform.anchoredPosition = childRectTransform.anchoredPosition.Lerp(pos, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (!onlyPos)
                 {
@@ -206,8 +206,8 @@ namespace SCKRM.UI.Layout
                     }
                     else
                     {
-                        childRectTransform.offsetMin = childRectTransform.offsetMin.Lerp(new Vector2(childRectTransform.offsetMin.x, padding.bottom), lerpValue * Kernel.fpsUnscaledDeltaTime);
-                        childRectTransform.offsetMax = childRectTransform.offsetMax.Lerp(new Vector2(childRectTransform.offsetMax.x, -padding.top), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                        childRectTransform.offsetMin = childRectTransform.offsetMin.Lerp(new Vector2(childRectTransform.offsetMin.x, padding.bottom), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
+                        childRectTransform.offsetMax = childRectTransform.offsetMax.Lerp(new Vector2(childRectTransform.offsetMax.x, -padding.top), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                     }
                 }
             }

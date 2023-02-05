@@ -19,7 +19,7 @@ namespace SCKRM.UI
             if (!lerp || !Kernel.isPlaying)
                 graphic.color = color;
             else
-                graphic.color = graphic.color.Lerp(color, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                graphic.color = graphic.color.Lerp(color, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
         }
 
         public static Color GetReadbilityColor(float color)

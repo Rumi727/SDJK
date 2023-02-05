@@ -44,10 +44,10 @@ namespace SCKRM.UI
                     isNoResponse = true;
                 }
 
-                loopValue += 0.0125f * Kernel.fpsUnscaledDeltaTime;
+                loopValue += 0.0125f * Kernel.fpsUnscaledSmoothDeltaTime;
 
-                tempMinX = tempMinX.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
-                tempMaxX = tempMaxX.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                tempMinX = tempMinX.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                tempMaxX = tempMaxX.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 fillShow.anchorMin = new Vector2((loopValue - 0.25f + tempMinX).Clamp01(), fillShow.anchorMin.y);
                 fillShow.anchorMax = new Vector2((loopValue + tempMaxX).Clamp01(), fillShow.anchorMax.y);
@@ -65,8 +65,8 @@ namespace SCKRM.UI
                 slider.value = progress;
                 slider.maxValue = maxProgress;
 
-                fillShow.anchorMin = fillShow.anchorMin.Lerp(slider.fillRect.anchorMin, 0.2f * Kernel.fpsUnscaledDeltaTime);
-                fillShow.anchorMax = fillShow.anchorMax.Lerp(slider.fillRect.anchorMax, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                fillShow.anchorMin = fillShow.anchorMin.Lerp(slider.fillRect.anchorMin, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                fillShow.anchorMax = fillShow.anchorMax.Lerp(slider.fillRect.anchorMax, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 tempTimer += Kernel.unscaledDeltaTime;
             }

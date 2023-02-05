@@ -34,9 +34,9 @@ namespace SCKRM.UI
                     }
 
                     if (StatusBarManager.SaveData.bottomMode)
-                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(rectTransform.anchoredPosition.x, -15), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(rectTransform.anchoredPosition.x, -15), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
-                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(rectTransform.anchoredPosition.x, -15 + StatusBarManager.cropedRect.max.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(rectTransform.anchoredPosition.x, -15 + StatusBarManager.cropedRect.max.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace SCKRM.UI
                         graphic.enabled = false;
                     }
 
-                    rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(rectTransform.anchoredPosition.x, rectTransform.rect.size.y + 1), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(rectTransform.anchoredPosition.x, rectTransform.rect.size.y + 1), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 }
 
                 if (InputManager.GetKey("volume_control.minus", InputType.Down, InputManager.inputLockDenyAllForce))

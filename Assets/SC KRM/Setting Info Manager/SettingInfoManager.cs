@@ -31,14 +31,14 @@ namespace SCKRM.UI
         {
             if (isShow)
             {
-                settingInfo.alpha += 0.1f * Kernel.fpsUnscaledDeltaTime;
+                settingInfo.alpha += 0.1f * Kernel.fpsUnscaledSmoothDeltaTime;
 
                 showTimer += Time.deltaTime;
                 if (showTimer >= 1.5f)
                     Hide();
             }
             else
-                settingInfo.alpha -= 0.1f * Kernel.fpsUnscaledDeltaTime;
+                settingInfo.alpha -= 0.1f * Kernel.fpsUnscaledSmoothDeltaTime;
 
             settingInfo.alpha = settingInfo.alpha.Clamp01();
 

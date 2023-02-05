@@ -17,7 +17,7 @@ namespace SCKRM.UI
             if (RhythmManager.isPlaying && ((RhythmManager.screenYukiMode && yukiModeMode) || !yukiModeMode))
                 graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alpha.Lerp(0f, (float)RhythmManager.currentBeatScreen1Beat));
             else
-                graphic.color = graphic.color.MoveTowards(new Color(graphic.color.r, graphic.color.g, graphic.color.b, 0), 0.025f * Kernel.fpsUnscaledDeltaTime);
+                graphic.color = graphic.color.MoveTowards(new Color(graphic.color.r, graphic.color.g, graphic.color.b, 0), 0.025f * Kernel.fpsUnscaledSmoothDeltaTime);
         }
     }
 }

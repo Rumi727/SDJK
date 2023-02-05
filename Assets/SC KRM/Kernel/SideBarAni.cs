@@ -190,9 +190,9 @@ namespace SCKRM.UI.SideBar
                 if (lerp)
                 {
                     if (isShow)
-                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, rectTransform.anchoredPosition.y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, rectTransform.anchoredPosition.y), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
-                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(right * rectTransform.rect.size.x, rectTransform.anchoredPosition.y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(right * rectTransform.rect.size.x, rectTransform.anchoredPosition.y), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
 
 
                     if (scrollBarParentRectTransform != null && scrollBar != null)
@@ -201,20 +201,20 @@ namespace SCKRM.UI.SideBar
                         {
                             scrollBar.interactable = true;
 
-                            scrollBarParentRectTransform.anchoredPosition = scrollBarParentRectTransform.anchoredPosition.Lerp(Vector2.zero, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                            scrollBarParentRectTransform.anchoredPosition = scrollBarParentRectTransform.anchoredPosition.Lerp(Vector2.zero, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
 
                             if (this.right)
-                                viewPort.offsetMax = viewPort.offsetMax.Lerp(new Vector2(-scrollBarParentRectTransform.rect.size.x, 0), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                                viewPort.offsetMax = viewPort.offsetMax.Lerp(new Vector2(-scrollBarParentRectTransform.rect.size.x, 0), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                             else
-                                viewPort.offsetMin = viewPort.offsetMin.Lerp(new Vector2(scrollBarParentRectTransform.rect.size.x, 1), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                                viewPort.offsetMin = viewPort.offsetMin.Lerp(new Vector2(scrollBarParentRectTransform.rect.size.x, 1), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                         }
                         else
                         {
                             scrollBar.interactable = false;
 
-                            scrollBarParentRectTransform.anchoredPosition = scrollBarParentRectTransform.anchoredPosition.Lerp(new Vector2(right * scrollBarParentRectTransform.rect.size.x, 0), 0.2f * Kernel.fpsUnscaledDeltaTime);
-                            viewPort.offsetMin = viewPort.offsetMin.Lerp(Vector2.zero, lerpValue * Kernel.fpsUnscaledDeltaTime);
-                            viewPort.offsetMax = viewPort.offsetMax.Lerp(Vector2.zero, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                            scrollBarParentRectTransform.anchoredPosition = scrollBarParentRectTransform.anchoredPosition.Lerp(new Vector2(right * scrollBarParentRectTransform.rect.size.x, 0), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                            viewPort.offsetMin = viewPort.offsetMin.Lerp(Vector2.zero, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
+                            viewPort.offsetMax = viewPort.offsetMax.Lerp(Vector2.zero, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                         }
                     }
                 }

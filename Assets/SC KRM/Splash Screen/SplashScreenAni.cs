@@ -76,7 +76,7 @@ namespace SCKRM.Splash
                 //페이드 인
                 while (canvasGroup.alpha < 1)
                 {
-                    canvasGroup.alpha += 0.05f * Kernel.fpsUnscaledDeltaTime;
+                    canvasGroup.alpha += 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
                     if (await UniTask.DelayFrame(1, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                         return;
                     else if (!SplashScreen.isAniPlaying)
@@ -96,12 +96,12 @@ namespace SCKRM.Splash
                 //C# 던지기
                 while (!((CS.localPosition.x >= -75 && CS.localPosition.x <= 75 && CS.localPosition.y >= -75 && CS.localPosition.y <= 75) || (xFlip && (CS.localPosition.x <= -500 || CS.localPosition.y <= -300)) || (!xFlip && (CS.localPosition.x >= 500 || CS.localPosition.y <= -300))))
                 {
-                    CS.localPosition = new Vector2(CS.localPosition.x + xV * Kernel.fpsUnscaledDeltaTime, CS.localPosition.y + yV * Kernel.fpsUnscaledDeltaTime);
-                    CSImage.transform.localEulerAngles = new Vector3(CSImage.transform.localEulerAngles.x, CSImage.transform.localEulerAngles.y, CSImage.transform.localEulerAngles.z + rV * Kernel.fpsUnscaledDeltaTime);
-                    yV -= 0.5f * Kernel.fpsUnscaledDeltaTime;
+                    CS.localPosition = new Vector2(CS.localPosition.x + xV * Kernel.fpsUnscaledSmoothDeltaTime, CS.localPosition.y + yV * Kernel.fpsUnscaledSmoothDeltaTime);
+                    CSImage.transform.localEulerAngles = new Vector3(CSImage.transform.localEulerAngles.x, CSImage.transform.localEulerAngles.y, CSImage.transform.localEulerAngles.z + rV * Kernel.fpsUnscaledSmoothDeltaTime);
+                    yV -= 0.5f * Kernel.fpsUnscaledSmoothDeltaTime;
 
                     if (SplashScreen.SaveData.allowProgressBarShow)
-                        progressBarCanvasGroup.alpha += 0.05f * Kernel.fpsUnscaledDeltaTime;
+                        progressBarCanvasGroup.alpha += 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
 
                     if (await UniTask.DelayFrame(1, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                         return;
@@ -120,25 +120,25 @@ namespace SCKRM.Splash
                     float timer = 0;
                     while (canvasGroup.alpha > 0)
                     {
-                        text.rectTransform.anchoredPosition = text.rectTransform.anchoredPosition.Lerp(Vector3.zero, 0.1f * Kernel.fpsUnscaledDeltaTime);
-                        CSImage.transform.rotation = Quaternion.Lerp(CSImage.transform.rotation, Quaternion.Euler(Vector3.zero), 0.1f * Kernel.fpsUnscaledDeltaTime);
-                        CS.localPosition = CS.localPosition.Lerp(new Vector3(24, -24), 0.1f * Kernel.fpsUnscaledDeltaTime);
+                        text.rectTransform.anchoredPosition = text.rectTransform.anchoredPosition.Lerp(Vector3.zero, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                        CSImage.transform.rotation = Quaternion.Lerp(CSImage.transform.rotation, Quaternion.Euler(Vector3.zero), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                        CS.localPosition = CS.localPosition.Lerp(new Vector3(24, -24), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                         if (timer >= 2 && InitialLoadManager.isInitialLoadEnd)
-                            canvasGroup.alpha -= 0.05f * Kernel.fpsUnscaledDeltaTime;
+                            canvasGroup.alpha -= 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
                         else
                         {
                             if (timer >= 3)
                             {
                                 text.text = "Please wait...";
-                                progressBarCanvasGroup.alpha += 0.05f * Kernel.fpsUnscaledDeltaTime;
+                                progressBarCanvasGroup.alpha += 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
                             }
                             else
                                 timer += Kernel.unscaledDeltaTime;
                         }
 
                         if (SplashScreen.SaveData.allowProgressBarShow)
-                            progressBarCanvasGroup.alpha += 0.05f * Kernel.fpsUnscaledDeltaTime;
+                            progressBarCanvasGroup.alpha += 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
 
                         if (await UniTask.DelayFrame(1, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                             return;

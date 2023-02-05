@@ -1,9 +1,15 @@
 {
 	"deltaTime": "デルタタイム",
+	"smoothDeltaTime": "ソフトデルタタイム",
+	
 	"fpsDeltaTime": "FPSデルタタイム",
+	"fpsSmoothDeltaTime": "ソフトFPSデルタタイム",
 	
 	"unscaledDeltaTime": "スケールされていないデルタタイム",
+	"unscaledSmoothDeltaTime": "スケールされていない滑らかなデルタタイム",
+	
 	"fpsUnscaledDeltaTime": "スケールされていないFPSデルタタイム",
+	"fpsUnscaledSmoothDeltaTime": "スケールされていない滑らかなFPSデルタタイム",
 	
 	"fps": "FPS",
 	
@@ -42,6 +48,7 @@
 	"deviceModel": "デバイスモデル",
 	"deviceName": "デバイス名",
 	
+	"internetReachability": "インターネット接続方式",
 	"batteryStatus": "バッテリーの状態",
 	
 	"processorType": "プロセッサタイプ",

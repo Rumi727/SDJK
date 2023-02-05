@@ -31,7 +31,7 @@ namespace SCKRM.UI.Overlay.MessageBox
         {
             if (isMessageBoxShow)
             {
-                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 if (messageBoxCanvasGroup.alpha > 0.99f)
                     messageBoxCanvasGroup.alpha = 1;
 
@@ -43,7 +43,7 @@ namespace SCKRM.UI.Overlay.MessageBox
             }
             else
             {
-                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 if (messageBoxCanvasGroup.alpha < 0.01f)
                 {
                     messageBoxCanvasGroup.alpha = 0;

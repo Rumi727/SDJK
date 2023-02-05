@@ -50,7 +50,7 @@ namespace SCKRM.UI
             else
             {
                 inputField.caretBlinkRate = defaultCaretBlinkRate;
-                inputField.caretColor = inputField.caretColor.MoveTowards(defaultCaretColor, 0.025f * Kernel.fpsUnscaledDeltaTime);
+                inputField.caretColor = inputField.caretColor.MoveTowards(defaultCaretColor, 0.025f * Kernel.fpsUnscaledSmoothDeltaTime);
             }
         }
     }

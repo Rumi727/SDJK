@@ -1,9 +1,15 @@
 {
 	"deltaTime": "Delta Time",
+	"smoothDeltaTime": "Smooth Delta Time",
+	
 	"fpsDeltaTime": "FPS Delta Time",
+	"fpsSmoothDeltaTime": "Smooth FPS Delta Time",
 	
 	"unscaledDeltaTime": "Unscaled Delta Time",
+	"unscaledSmoothDeltaTime": "Unscaled Smooth Delta Time",
+	
 	"fpsUnscaledDeltaTime": "Unscaled FPS Delta Time",
+	"fpsUnscaledSmoothDeltaTime": "Unscaled Smooth FPS Delta Time",
 	
 	"fps": "FPS",
 	
@@ -42,6 +48,7 @@
 	"deviceModel": "Device model",
 	"deviceName": "Device name",
 	
+	"internetReachability": "Internet reachability",
 	"batteryStatus": "Battery status",
 	
 	"processorType": "Processor type",

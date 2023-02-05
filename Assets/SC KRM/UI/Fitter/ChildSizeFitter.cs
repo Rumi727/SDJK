@@ -111,9 +111,9 @@ namespace SCKRM.UI.Layout
             else
             {
                 if (xSize)
-                    rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rectTransform.rect.width.Lerp(targetSize.x, lerpValue * Kernel.fpsUnscaledDeltaTime));
+                    rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rectTransform.rect.width.Lerp(targetSize.x, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime));
                 if (ySize)
-                    rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rectTransform.rect.height.Lerp(targetSize.y, lerpValue * Kernel.fpsUnscaledDeltaTime));
+                    rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rectTransform.rect.height.Lerp(targetSize.y, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime));
             }
         }
     }

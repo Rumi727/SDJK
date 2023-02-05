@@ -73,7 +73,7 @@ namespace SCKRM.DebugUI
             if (!Kernel.isPlaying || !lerp)
                 deltaTimeHeight = max;
             else
-                deltaTimeHeight = deltaTimeHeight.Lerp(max, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                deltaTimeHeight = deltaTimeHeight.Lerp(max, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
         }
 
         void DeltaTimeRender()
@@ -132,7 +132,7 @@ namespace SCKRM.DebugUI
             if (!Kernel.isPlaying || !lerp)
                 memoryHeight = max;
             else
-                memoryHeight = memoryHeight.Lerp(max, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                memoryHeight = memoryHeight.Lerp(max, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
         }
 
         void MemoryRender()

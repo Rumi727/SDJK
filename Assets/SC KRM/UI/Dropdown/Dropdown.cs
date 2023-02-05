@@ -103,7 +103,7 @@ namespace SCKRM.UI
             {
                 if (!isShow)
                 {
-                    listRectTransform.sizeDelta = listRectTransform.sizeDelta.Lerp(new Vector2(listRectTransform.sizeDelta.x, listRectTransform.anchoredPosition.y), listTargetSizeFitter.lerpValue * Kernel.fpsUnscaledDeltaTime);
+                    listRectTransform.sizeDelta = listRectTransform.sizeDelta.Lerp(new Vector2(listRectTransform.sizeDelta.x, listRectTransform.anchoredPosition.y), listTargetSizeFitter.lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
 
                     if (listRectTransform.gameObject.activeSelf && listRectTransform.sizeDelta.y < listRectTransform.anchoredPosition.y + 0.01f)
                     {

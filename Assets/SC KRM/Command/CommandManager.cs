@@ -61,7 +61,7 @@ namespace SCKRM.Command
 
             if (isChatShow)
             {
-                commandCanvasGroup.alpha = commandCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                commandCanvasGroup.alpha = commandCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 if (commandCanvasGroup.alpha > 0.99f)
                     commandCanvasGroup.alpha = 1;
 
@@ -88,7 +88,7 @@ namespace SCKRM.Command
                 if (InputManager.GetKey("command_manager.chat_show", InputType.Down, InputManager.inputLockDenyAll))
                     Show().Forget();
 
-                commandCanvasGroup.alpha = commandCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                commandCanvasGroup.alpha = commandCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 if (commandCanvasGroup.alpha < 0.01f)
                 {
                     commandCanvasGroup.alpha = 0;

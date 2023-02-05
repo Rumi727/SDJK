@@ -114,8 +114,8 @@ namespace SCKRM.Cursor
                 }
                 else if (UnityEngine.Input.GetMouseButton(0))
                 {
-                    graphic.color = graphic.color.Lerp(UIManager.SaveData.systemColor * new Color(1, 1, 1, 0.5f), 0.2f * Kernel.fpsUnscaledDeltaTime);
-                    rectTransform.localScale = rectTransform.localScale.Lerp(Vector3.one * 0.2f, 0.075f * Kernel.fpsUnscaledDeltaTime);
+                    graphic.color = graphic.color.Lerp(UIManager.SaveData.systemColor * new Color(1, 1, 1, 0.5f), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                    rectTransform.localScale = rectTransform.localScale.Lerp(Vector3.one * 0.2f, 0.075f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                     if (!dragStart && Vector2.Distance(pos, dragStartMousePosition) >= EventSystem.current.pixelDragThreshold / UIManager.currentGuiSize)
                         dragStart = true;
@@ -123,19 +123,19 @@ namespace SCKRM.Cursor
                     {
                         Vector3 dir = pos - dragStartMousePosition;
                         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                        rectTransform.localRotation = Quaternion.Lerp(rectTransform.localRotation, Quaternion.Euler(new Vector3(0, 0, angle + 67.5f)), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.localRotation = Quaternion.Lerp(rectTransform.localRotation, Quaternion.Euler(new Vector3(0, 0, angle + 67.5f)), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                         isDragged = true;
                     }
                     else
-                        rectTransform.localRotation = Quaternion.Lerp(rectTransform.localRotation, Quaternion.Euler(Vector3.zero), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.localRotation = Quaternion.Lerp(rectTransform.localRotation, Quaternion.Euler(Vector3.zero), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 }
                 else
                 {
-                    graphic.color = graphic.color.Lerp(new Color(0, 0, 0, 0.5f), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    graphic.color = graphic.color.Lerp(new Color(0, 0, 0, 0.5f), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
-                    rectTransform.localScale = transform.localScale.Lerp(Vector3.one * 0.25f, 0.3f * Kernel.fpsUnscaledDeltaTime);
-                    rectTransform.localRotation = Quaternion.Lerp(rectTransform.localRotation, Quaternion.Euler(Vector3.zero), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                    rectTransform.localScale = transform.localScale.Lerp(Vector3.one * 0.25f, 0.3f * Kernel.fpsUnscaledSmoothDeltaTime);
+                    rectTransform.localRotation = Quaternion.Lerp(rectTransform.localRotation, Quaternion.Euler(Vector3.zero), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 }
 
                 rectTransform.anchoredPosition3D = pos;

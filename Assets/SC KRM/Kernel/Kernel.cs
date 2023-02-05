@@ -14,7 +14,7 @@ namespace SCKRM
     [AddComponentMenu("SC KRM/Kernel/Kernel")]
     public sealed class Kernel : ManagerBase<Kernel>
     {
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 20, 1);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 20, 2);
 
 
 
@@ -22,9 +22,17 @@ namespace SCKRM
 
         [WikiDescription("현재 델타타임")] public static float deltaTime { get; private set; } = fps60second;
         [WikiDescription("현재 FPS 델타타임")] public static float fpsDeltaTime { get; private set; } = 1;
+
+        [WikiDescription("현재 부드러운 델타타임")] public static float smoothDeltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 부드러운 FPS 델타타임")] public static float fpsSmoothDeltaTime { get; private set; } = fps60second;
+
         [WikiDescription("현재 스케일되지 않은 델타타임")] public static float unscaledDeltaTime { get; private set; } = fps60second;
         [WikiDescription("현재 스케일되지 않은 FPS 델타타임")] public static float fpsUnscaledDeltaTime { get; private set; } = 1;
-        [WikiDescription("현재 고정 델타타임")] public static float fixedDeltaTime { get; private set; } = fps60second;
+
+        [WikiDescription("현재 부드러운 델타타임")] public static float unscaledSmoothDeltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 부드러운 FPS 델타타임")] public static float fpsUnscaledSmoothDeltaTime { get; private set; } = fps60second;
+
+        [WikiDescription("현재 고정 델타타임")] public static float fixedDeltaTime { get; set; } = fps60second;
 
         [WikiDescription("1 / 60")] public const float fps60second = 1f / 60f;
 
@@ -70,7 +78,8 @@ namespace SCKRM
                 if (_streamingAssetsPath != "")
                     return _streamingAssetsPath;
                 else
-                    return _streamingAssetsPath = Application.streamingAssetsPath;;
+                    return _streamingAssetsPath = Application.streamingAssetsPath;
+                ;
 #endif
             }
         }
@@ -359,6 +368,7 @@ Build: const true"
             }
         }
 
+        float lastUnscaledDeltaTime = fps60second;
         void Update()
         {
             //게임 속도를 0에서 100 사이로 정하고, 타임 스케일을 게임 속도로 정합니다
@@ -369,12 +379,26 @@ Build: const true"
             //이렇게 관리 스크립트가 변수를 할당하고 다른 스크립트가 그 변수를 가져오는것이 성능에 더 도움 되는것을 확인하였습니다
             deltaTime = Time.deltaTime;
             fpsDeltaTime = deltaTime * VideoManager.Data.standardFPS;
+
             unscaledDeltaTime = Time.unscaledDeltaTime;
             fpsUnscaledDeltaTime = unscaledDeltaTime * VideoManager.Data.standardFPS;
+
             fixedDeltaTime = 1f / VideoManager.Data.standardFPS;
             Time.fixedDeltaTime = fixedDeltaTime;
 
             fps = 1f / unscaledDeltaTime;
+
+            //Smooth Delta Time
+            //테스트 결과, 게임 속도 영향을 제외하면 유니티 내부 구현이랑 정확히 같습니다
+            {
+                unscaledSmoothDeltaTime += (unscaledDeltaTime - lastUnscaledDeltaTime) * 0.2f;
+                smoothDeltaTime = unscaledDeltaTime * gameSpeed;
+
+                fpsSmoothDeltaTime = smoothDeltaTime * VideoManager.Data.standardFPS;
+                fpsUnscaledSmoothDeltaTime = unscaledSmoothDeltaTime * VideoManager.Data.standardFPS;
+
+                lastUnscaledDeltaTime = unscaledSmoothDeltaTime;
+            }
 
             internetReachability = Application.internetReachability;
         }

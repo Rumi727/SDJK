@@ -46,17 +46,17 @@ namespace SCKRM.Input.UI
                 return;
 
             if (isSelected)
-                controlButtonImage.color = controlButtonImage.color.Lerp(UIManager.SaveData.systemColor, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                controlButtonImage.color = controlButtonImage.color.Lerp(UIManager.SaveData.systemColor, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
             else
-                controlButtonImage.color = controlButtonImage.color.Lerp(new Color(0.05098039f, 0.05098039f, 0.05098039f), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                controlButtonImage.color = controlButtonImage.color.Lerp(new Color(0.05098039f, 0.05098039f, 0.05098039f), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
             nameRectTransform.offsetMax = new Vector2(-(controlButtonImage.rectTransform.rect.size.x + 96), nameRectTransform.offsetMax.y);
 
             if (InputManager.SaveData.controlSettingList.ContainsKey(targetKey))
             {
                 resetButton.interactable = true;
-                controlPanelRectTransform.offsetMin = controlPanelRectTransform.offsetMin.Lerp(new Vector2(35, controlPanelRectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
-                resetButton.alpha = resetButton.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                controlPanelRectTransform.offsetMin = controlPanelRectTransform.offsetMin.Lerp(new Vector2(35, controlPanelRectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                resetButton.alpha = resetButton.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (resetButton.alpha > 0.99f)
                     resetButton.alpha = 1;
@@ -64,8 +64,8 @@ namespace SCKRM.Input.UI
             else
             {
                 resetButton.interactable = false;
-                controlPanelRectTransform.offsetMin = controlPanelRectTransform.offsetMin.Lerp(new Vector2(0, controlPanelRectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
-                resetButton.alpha = resetButton.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                controlPanelRectTransform.offsetMin = controlPanelRectTransform.offsetMin.Lerp(new Vector2(0, controlPanelRectTransform.offsetMin.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                resetButton.alpha = resetButton.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 if (resetButton.alpha < 0.01f)
                     resetButton.alpha = 0;

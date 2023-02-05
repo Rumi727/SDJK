@@ -36,7 +36,7 @@ namespace SCKRM.UI
                 if (!isShow)
                 {
                     if (lerp)
-                        colorPickerMask.sizeDelta = colorPickerMask.sizeDelta.Lerp(new Vector2(colorPickerMask.sizeDelta.x, colorPickerMask.anchoredPosition.y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                        colorPickerMask.sizeDelta = colorPickerMask.sizeDelta.Lerp(new Vector2(colorPickerMask.sizeDelta.x, colorPickerMask.anchoredPosition.y), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
                         colorPickerMask.sizeDelta = new Vector2(colorPickerMask.sizeDelta.x, 0);
 
@@ -49,7 +49,7 @@ namespace SCKRM.UI
                 if (isShow)
                 {
                     if (lerp)
-                        colorPickerMask.sizeDelta = colorPickerMask.sizeDelta.Lerp(new Vector2(colorPickerMask.sizeDelta.x, colorPickerRectTransform.sizeDelta.y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                        colorPickerMask.sizeDelta = colorPickerMask.sizeDelta.Lerp(new Vector2(colorPickerMask.sizeDelta.x, colorPickerRectTransform.sizeDelta.y), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
                         colorPickerMask.sizeDelta = new Vector2(colorPickerMask.sizeDelta.x, colorPickerRectTransform.sizeDelta.y);
 

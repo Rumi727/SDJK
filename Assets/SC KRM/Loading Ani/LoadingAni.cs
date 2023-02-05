@@ -42,7 +42,7 @@ namespace SCKRM.Loading
             if (!isStartAniEnd || progress < maxProgress)
             {
                 if (startAni)
-                    aniImage.anchorMax = aniImage.anchorMax.Lerp(Vector2.one, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledDeltaTime);
+                    aniImage.anchorMax = aniImage.anchorMax.Lerp(Vector2.one, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledSmoothDeltaTime);
                 else
                     aniImage.anchorMax = Vector2.one;
 
@@ -60,14 +60,14 @@ namespace SCKRM.Loading
 
                     if (timer >= LoadingAniManager.Data.longLoadingTime)
                     {
-                        alpha = alpha.MoveTowards(1, 0.01f * Kernel.fpsUnscaledDeltaTime);
+                        alpha = alpha.MoveTowards(1, 0.01f * Kernel.fpsUnscaledSmoothDeltaTime);
                         canvasGroup.alpha = alpha;
 
                         isLongLoadingAniEnd = false;
                     }
                     else
                     {
-                        timer += Kernel.deltaTime;
+                        timer += Kernel.unscaledDeltaTime;
                         isLongLoadingAniEnd = true;
                     }
                 }
@@ -84,7 +84,7 @@ namespace SCKRM.Loading
                     isLoadingEnd = true;
                 }
 
-                alpha = alpha.MoveTowards(-0.1f, 0.01f * Kernel.fpsUnscaledDeltaTime);
+                alpha = alpha.MoveTowards(-0.1f, 0.01f * Kernel.fpsUnscaledSmoothDeltaTime);
                 canvasGroup.alpha = alpha;
 
                 progressBar.progress = maxProgress;
@@ -94,7 +94,7 @@ namespace SCKRM.Loading
                     isLongLoadingAniEnd = true;
 
                     if (endAni)
-                        aniImage.anchorMin = aniImage.anchorMin.Lerp(Vector2.right, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledDeltaTime);
+                        aniImage.anchorMin = aniImage.anchorMin.Lerp(Vector2.right, LoadingAniManager.Data.aniLerp * Kernel.fpsUnscaledSmoothDeltaTime);
                     else
                         aniImage.anchorMin = Vector2.right;
 

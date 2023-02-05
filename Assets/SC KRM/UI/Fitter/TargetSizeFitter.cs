@@ -97,11 +97,11 @@ namespace SCKRM.UI
                 Rect rect = rectTransform.rect;
                 Vector2 size = rect.size;
                 if (xSize && !ySize)
-                    size = rect.size.Lerp(new Vector2(this.size.x, rect.size.y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                    size = rect.size.Lerp(new Vector2(this.size.x, rect.size.y), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                 else if (!xSize && ySize)
-                    size = rect.size.Lerp(new Vector2(rect.size.x, this.size.y), lerpValue * Kernel.fpsUnscaledDeltaTime);
+                    size = rect.size.Lerp(new Vector2(rect.size.x, this.size.y), lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
                 else if (xSize && ySize)
-                    size = rect.size.Lerp(this.size, lerpValue * Kernel.fpsUnscaledDeltaTime);
+                    size = rect.size.Lerp(this.size, lerpValue * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
                 rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);

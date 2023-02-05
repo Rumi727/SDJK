@@ -64,20 +64,7 @@ namespace SCKRM.UI.StatusBar
         protected override void OnEnable()
         {
             if (SingletonCheck(this))
-            {
-                InitialLoadManager.initialLoadEnd += AniStart;
-
-                //씬이 이동하고 나서 잠깐 렉이 있기 때문에, 애니메이션이 제대로 재생될려면 딜레이를 걸어줘야합니다
-                async void AniStart()
-                {
-                    BottomMode();
-
-                    aniStop = true;
-                    if (await UniTask.DelayFrame(3, cancellationToken: this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
-                        return;
-                    aniStop = false;
-                }
-            }
+                BottomMode();
         }
 
         static bool defaultTabAllow = false;
@@ -85,12 +72,11 @@ namespace SCKRM.UI.StatusBar
         static bool tempSelectedStatusBar;
         static bool pointer = false;
         static float timer = 0;
-        static bool aniStop = false;
         static bool tempBottomMode = false;
         static bool tempCropTheScreen = true;
         void Update()
         {
-            if (InitialLoadManager.isInitialLoadEnd && !aniStop)
+            if (InitialLoadManager.isInitialLoadEnd)
             {
                 {
                     bool mouseYisScreenY = false;
@@ -127,7 +113,7 @@ namespace SCKRM.UI.StatusBar
                             background.raycastTarget = true;
                         }
 
-                        background.color = background.color.Lerp(new Color(0, 0, 0, 0.5f), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        background.color = background.color.Lerp(new Color(0, 0, 0, 0.5f), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                     }
                     else
                     {
@@ -140,7 +126,7 @@ namespace SCKRM.UI.StatusBar
                                 background.raycastTarget = false;
                             }
                             else
-                                background.color = background.color.Lerp(Color.clear, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                                background.color = background.color.Lerp(Color.clear, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                         }
                     }
 
@@ -155,7 +141,7 @@ namespace SCKRM.UI.StatusBar
                 {
                     if (isStatusBarShow)
                     {
-                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(Vector2.zero, 0.2f * Kernel.fpsUnscaledDeltaTime);
+                        rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(Vector2.zero, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                         if (!layout.activeSelf)
                         {
@@ -167,7 +153,7 @@ namespace SCKRM.UI.StatusBar
                     {
                         if (!SaveData.bottomMode)
                         {
-                            rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, rectTransform.rect.size.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                            rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, rectTransform.rect.size.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                             if (rectTransform.anchoredPosition.y >= rectTransform.rect.size.y - 0.01f)
                             {
@@ -180,7 +166,7 @@ namespace SCKRM.UI.StatusBar
                         }
                         else
                         {
-                            rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, -rectTransform.rect.size.y), 0.2f * Kernel.fpsUnscaledDeltaTime);
+                            rectTransform.anchoredPosition = rectTransform.anchoredPosition.Lerp(new Vector2(0, -rectTransform.rect.size.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                             if (rectTransform.anchoredPosition.y <= -rectTransform.rect.size.y + 0.01f)
                             {
