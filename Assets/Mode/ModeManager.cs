@@ -101,7 +101,7 @@ namespace SDJK.Mode
         public string name { get; }
 
         public NameSpacePathReplacePair displayName { get; }
-        public NameSpacePathReplacePair info { get; }
+        public NameSpacePathPair info { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
 
@@ -130,7 +130,7 @@ namespace SDJK.Mode
         public abstract string name { get; }
 
         public abstract NameSpacePathReplacePair displayName { get; }
-        public virtual NameSpacePathReplacePair info => "";
+        public virtual NameSpacePathPair info => "";
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
 
