@@ -76,6 +76,14 @@ namespace SDJK.MainMenu.MapSelectScreen
 
             if (content.rect.height > viewport.rect.height && !contentPosLock)
                 content.anchoredPosition = content.anchoredPosition.Lerp(new Vector2(0, contentPosY), 0.2f * Kernel.fpsUnscaledDeltaTime);
+
+            for (int i = 0; i < mapSelectScreenMapPacks.Count; i++)
+            {
+                MapPackListMapPack mapPackListMapPack = mapSelectScreenMapPacks[i];
+                bool active = !mapPackListMapPack.IsOccluded();
+                if (active != mapPackListMapPack.gameObject.activeSelf)
+                    mapPackListMapPack.gameObject.SetActive(active);
+            }
         }
 
         protected override void OnDestroy()

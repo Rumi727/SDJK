@@ -164,26 +164,11 @@ namespace SDJK.MainMenu.MapSelectScreen
             {
                 isTextureLoading = false;
             }
-
-            while (true)
-            {
-                if (!Kernel.isPlaying || isRemoved || IsDestroyed())
-                {
-                    TextureDestroy();
-                    return;
-                }
-
-                bool active = !IsOccluded();
-                if (active != gameObject.activeSelf)
-                    gameObject.SetActive(active);
-
-                await UniTask.NextFrame();
-            }
         }
 
         protected override void OnDestroy() => TextureDestroy();
 
-        private bool IsOccluded()
+        public bool IsOccluded()
         {
             bool top = mapPackList.rectTransformTool.worldCorners.topLeft.y < rectTransformTool.worldCorners.bottomLeft.y - 5;
             bool bottom = mapPackList.rectTransformTool.worldCorners.bottomLeft.y > rectTransformTool.worldCorners.topLeft.y + 5;

@@ -65,11 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75885d4f02b76ee4cbe88acb20e8cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 3946438051095062918}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -271,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2416322189939809887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -373,11 +368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a0548ab9bc585449617e4ab001c639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   verticalLayout: {fileID: 4617106503645142556}
   outline: {fileID: 2512105676647686057}
   background: {fileID: 2416322190213699761}
@@ -399,11 +389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45453fe11c3135f44852cc83f6128203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2416322189939809887}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -431,11 +416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 0}
-  _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 2416322189939809887}
-  _rectTransformTool: {fileID: 0}
-  _graphic: {fileID: 0}
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
@@ -866,7 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
