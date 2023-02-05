@@ -40,7 +40,7 @@ namespace SDJK.MainMenu.UI
             float statusBarYSize = statusBar.rect.height;
 
             lineGraphic.color = new Color(1, 1, 1, 0).Lerp(Color.white, 1 - (statusBarYPos / statusBarYSize));
-            line.anchoredPosition = line.anchoredPosition.Lerp(new Vector2(RulesetManager.selectedRulesetIndex * 55f, line.anchoredPosition.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+            line.anchoredPosition = line.anchoredPosition.Lerp(new Vector2(RulesetManager.selectedRulesetIndex * statusBarYSize, line.anchoredPosition.y), 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
         }
     }
 }
