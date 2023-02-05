@@ -1,9 +1,12 @@
 using SCKRM;
 using SCKRM.Reflection;
+using SCKRM.SaveLoad;
 using SDJK.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using UnityEngine.UIElements;
 
 namespace SDJK.Mode
 {
@@ -88,6 +91,29 @@ namespace SDJK.Mode
         }
 
         public static void DeselectMode(string name) => DeselectMode(FindMode(name));
-        public static void DeselectMode(IMode mode) => selectedModeList.Remove(mode);
+        public static void DeselectMode(IMode mode)
+        {
+            selectedModeList.Remove(mode);
+            if (mode.modeConfigSlc != null)
+            {
+                {
+                    SaveLoadClass.SaveLoadVariable<PropertyInfo>[] slvs = mode.modeConfigSlc.propertyInfos;
+                    for (int j = 0; j < slvs.Length; j++)
+                    {
+                        SaveLoadClass.SaveLoadVariable<PropertyInfo> slv = slvs[j];
+                        slv.variableInfo.SetValue(slv.defaultValue, mode.modeConfigSlc.instance);
+                    }
+                }
+
+                {
+                    SaveLoadClass.SaveLoadVariable<FieldInfo>[] slvs = mode.modeConfigSlc.fieldInfos;
+                    for (int j = 0; j < slvs.Length; j++)
+                    {
+                        SaveLoadClass.SaveLoadVariable<FieldInfo> slv = slvs[j];
+                        slv.variableInfo.SetValue(slv.defaultValue, mode.modeConfigSlc.instance);
+                    }
+                }
+            }
+        }
     }
 }
