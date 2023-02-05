@@ -33,7 +33,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -67,9 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f727a0174f07c2241bc228d119966f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _noObjectPooling: 0
+  _autoRefresh: 0
   _saveLoadClassName: 
-  _isLast: 0
+  _isLineShow: 1
   _titlePrefab: save_load.ui.title
   _linePrefab: save_load.ui.line
   _spacePrefab: save_load.ui.space
