@@ -34,6 +34,7 @@
     "ruleset.sdjk.play_field.bar": "Prefab/Ruleset/SDJK/Bar",
     "ruleset.sdjk.play_field.bar.note": "Prefab/Ruleset/SDJK/Note",
     "ruleset.sdjk.yuki_mode_effect": "Prefab/Ruleset/SDJK/Yuki Mode Effect Prefab",
-    "ruleset.sdjk.accuract_bar.rod": "Prefab/Ruleset/SDJK/Accuracy Bar/Rod"
+    "ruleset.sdjk.accuract_bar.rod": "Prefab/Ruleset/SDJK/Accuracy Bar/Rod",
+    "main_menu.mode_select_screen.mode_toggle": "Prefab/Main Menu/Mode Screen/Mode Toggle"
   }
 }

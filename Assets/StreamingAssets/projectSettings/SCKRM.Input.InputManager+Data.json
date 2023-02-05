@@ -173,6 +173,7 @@
     "volumecontrol": false,
     "controlbar": false,
     "ruleset.sdjk.pause": false,
-    "ruleset.sdjk.gameover": false
+    "ruleset.sdjk.gameover": false,
+    "mode_select_screen": false
   }
 }
