@@ -71,7 +71,6 @@ namespace SDJK.Mode
             return false;
         }
 
-        public static void SelectMode(string name) => SelectMode(selectedModeList.FindMode(name));
         public static void SelectMode(IMode mode)
         {
             if (!selectedModeList.Contains(mode))
@@ -96,7 +95,6 @@ namespace SDJK.Mode
             }
         }
 
-        public static void DeselectMode(string name) => DeselectMode(selectedModeList.FindMode(name));
         public static void DeselectMode(IMode mode)
         {
             selectedModeList.Remove(mode);

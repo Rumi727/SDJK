@@ -14,8 +14,6 @@ namespace SDJK.Mode
         public NameSpacePathReplacePair title { get; }
         public int order { get; }
 
-        public string name { get; }
-
         public NameSpacePathReplacePair displayName { get; }
         public NameSpacePathPair info { get; }
 
@@ -42,8 +40,6 @@ namespace SDJK.Mode
     {
         public abstract NameSpacePathReplacePair title { get; }
         public abstract int order { get; }
-
-        public abstract string name { get; }
 
         public abstract NameSpacePathReplacePair displayName { get; }
         public virtual NameSpacePathPair info => "";
