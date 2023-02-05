@@ -73,6 +73,17 @@ namespace SDJK.Mode
 
         public static IMode FindMode(string name) => modeList.Find(x => x.name == name);
         public static IMode FindSelectedMode(string name) => selectedModeList.Find(x => x.name == name);
+        public static IMode FindSelectedMode<T>() where T : IMode
+        {
+            for (int i = 0; i < selectedModeList.Count; i++)
+            {
+                IMode mode = selectedModeList[i];
+                if (mode is T)
+                    return mode;
+            }
+
+            return null;
+        }
 
         public static void SelectMode(string name) => SelectMode(FindMode(name));
         public static void SelectMode(IMode mode)
