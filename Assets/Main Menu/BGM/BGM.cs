@@ -6,6 +6,7 @@ using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SDJK.Map;
+using SDJK.Mode;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -106,6 +107,15 @@ namespace SDJK.MainMenu
 
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
                 soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+
+                //모드
+                {
+                    IMode speedMode;
+                    if ((speedMode = ModeManager.selectedModeList.FindMode<FastModeBase>()) != null)
+                        soundPlayer.speed *= (float)((FastModeBase.Data)speedMode.modeConfig).speed;
+                    else if ((speedMode = ModeManager.selectedModeList.FindMode<SlowModeBase>()) != null)
+                        soundPlayer.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
+                }
             }
         }
 
