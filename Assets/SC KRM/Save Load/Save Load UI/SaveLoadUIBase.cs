@@ -43,6 +43,7 @@ namespace SCKRM.SaveLoad.UI
         public Type type { get; private set; } = null;
         public PropertyInfo propertyInfo { get; private set; } = null;
         public FieldInfo fieldInfo { get; private set; } = null;
+        public object instance { get; private set; } = null;
 
         public bool isDefault { get; protected set; } = true;
 
@@ -95,6 +96,7 @@ namespace SCKRM.SaveLoad.UI
                             defaultValue = propertyInfo.defaultValue;
                             this.propertyInfo = propertyInfo.variableInfo;
 
+                            instance = slc.instance;
                             break;
                         }
                     }
@@ -108,6 +110,7 @@ namespace SCKRM.SaveLoad.UI
                             defaultValue = fieldInfo.defaultValue;
                             this.fieldInfo = fieldInfo.variableInfo;
 
+                            instance = slc.instance;
                             break;
                         }
                     }
@@ -216,21 +219,21 @@ namespace SCKRM.SaveLoad.UI
             {
                 return variableType switch
                 {
-                    VariableType.Float => ((float)propertyInfo.GetValue(null)).Round(roundingDigits),
-                    VariableType.Double => ((double)propertyInfo.GetValue(null)).Round(roundingDigits),
-                    VariableType.Decimal => ((decimal)propertyInfo.GetValue(null)).Round(roundingDigits),
-                    VariableType.BigDecimal => ((BigDecimal)propertyInfo.GetValue(null)).Round(roundingDigits),
-                    _ => propertyInfo.GetValue(null)
+                    VariableType.Float => ((float)propertyInfo.GetValue(instance)).Round(roundingDigits),
+                    VariableType.Double => ((double)propertyInfo.GetValue(instance)).Round(roundingDigits),
+                    VariableType.Decimal => ((decimal)propertyInfo.GetValue(instance)).Round(roundingDigits),
+                    VariableType.BigDecimal => ((BigDecimal)propertyInfo.GetValue(instance)).Round(roundingDigits),
+                    _ => propertyInfo.GetValue(instance)
                 };
             }
             else if (fieldInfo != null)
             {
                 return variableType switch
                 {
-                    VariableType.Float => ((float)fieldInfo.GetValue(null)).Round(roundingDigits),
-                    VariableType.Double => ((double)fieldInfo.GetValue(null)).Round(roundingDigits),
-                    VariableType.BigDecimal => ((BigDecimal)fieldInfo.GetValue(null)).Round(roundingDigits),
-                    _ => fieldInfo.GetValue(null)
+                    VariableType.Float => ((float)fieldInfo.GetValue(instance)).Round(roundingDigits),
+                    VariableType.Double => ((double)fieldInfo.GetValue(instance)).Round(roundingDigits),
+                    VariableType.BigDecimal => ((BigDecimal)fieldInfo.GetValue(instance)).Round(roundingDigits),
+                    _ => fieldInfo.GetValue(instance)
                 };
             }
 
@@ -243,22 +246,22 @@ namespace SCKRM.SaveLoad.UI
             {
                 return variableType switch
                 {
-                    VariableType.Char => int.Parse(((char)propertyInfo.GetValue(null)).ToString()),
-                    VariableType.String => int.Parse((string)propertyInfo.GetValue(null)),
-                    VariableType.Bool => (bool)propertyInfo.GetValue(null) ? 1 : 0,
-                    VariableType.Byte => (byte)propertyInfo.GetValue(null),
-                    VariableType.Sbyte => (sbyte)propertyInfo.GetValue(null),
-                    VariableType.Short => (short)propertyInfo.GetValue(null),
-                    VariableType.Int => (int)propertyInfo.GetValue(null),
-                    VariableType.Long => (int)(long)propertyInfo.GetValue(null),
-                    VariableType.Ushort => (ushort)propertyInfo.GetValue(null),
-                    VariableType.Uint => (int)(uint)propertyInfo.GetValue(null),
-                    VariableType.Ulong => (int)(ulong)propertyInfo.GetValue(null),
-                    VariableType.Float => (int)(float)propertyInfo.GetValue(null),
-                    VariableType.Double => (int)(double)propertyInfo.GetValue(null),
-                    VariableType.Decimal => (int)(decimal)propertyInfo.GetValue(null),
-                    VariableType.BigInteger => (int)(BigInteger)propertyInfo.GetValue(null),
-                    VariableType.BigDecimal => (int)(BigDecimal)propertyInfo.GetValue(null),
+                    VariableType.Char => int.Parse(((char)propertyInfo.GetValue(instance)).ToString()),
+                    VariableType.String => int.Parse((string)propertyInfo.GetValue(instance)),
+                    VariableType.Bool => (bool)propertyInfo.GetValue(instance) ? 1 : 0,
+                    VariableType.Byte => (byte)propertyInfo.GetValue(instance),
+                    VariableType.Sbyte => (sbyte)propertyInfo.GetValue(instance),
+                    VariableType.Short => (short)propertyInfo.GetValue(instance),
+                    VariableType.Int => (int)propertyInfo.GetValue(instance),
+                    VariableType.Long => (int)(long)propertyInfo.GetValue(instance),
+                    VariableType.Ushort => (ushort)propertyInfo.GetValue(instance),
+                    VariableType.Uint => (int)(uint)propertyInfo.GetValue(instance),
+                    VariableType.Ulong => (int)(ulong)propertyInfo.GetValue(instance),
+                    VariableType.Float => (int)(float)propertyInfo.GetValue(instance),
+                    VariableType.Double => (int)(double)propertyInfo.GetValue(instance),
+                    VariableType.Decimal => (int)(decimal)propertyInfo.GetValue(instance),
+                    VariableType.BigInteger => (int)(BigInteger)propertyInfo.GetValue(instance),
+                    VariableType.BigDecimal => (int)(BigDecimal)propertyInfo.GetValue(instance),
                     _ => 0,
                 };
             }
@@ -266,22 +269,22 @@ namespace SCKRM.SaveLoad.UI
             {
                 return variableType switch
                 {
-                    VariableType.Char => int.Parse(((char)fieldInfo.GetValue(null)).ToString()),
-                    VariableType.String => int.Parse((string)fieldInfo.GetValue(null)),
-                    VariableType.Bool => (bool)fieldInfo.GetValue(null) ? 1 : 0,
-                    VariableType.Byte => (byte)fieldInfo.GetValue(null),
-                    VariableType.Sbyte => (sbyte)fieldInfo.GetValue(null),
-                    VariableType.Short => (short)fieldInfo.GetValue(null),
-                    VariableType.Int => (int)fieldInfo.GetValue(null),
-                    VariableType.Long => (int)(long)fieldInfo.GetValue(null),
-                    VariableType.Ushort => (ushort)fieldInfo.GetValue(null),
-                    VariableType.Uint => (int)(uint)fieldInfo.GetValue(null),
-                    VariableType.Ulong => (int)(ulong)fieldInfo.GetValue(null),
-                    VariableType.Float => (int)(float)fieldInfo.GetValue(null),
-                    VariableType.Double => (int)(double)fieldInfo.GetValue(null),
-                    VariableType.Decimal => (int)(decimal)fieldInfo.GetValue(null),
-                    VariableType.BigInteger => (int)(BigInteger)fieldInfo.GetValue(null),
-                    VariableType.BigDecimal => (int)(BigDecimal)fieldInfo.GetValue(null),
+                    VariableType.Char => int.Parse(((char)fieldInfo.GetValue(instance)).ToString()),
+                    VariableType.String => int.Parse((string)fieldInfo.GetValue(instance)),
+                    VariableType.Bool => (bool)fieldInfo.GetValue(instance) ? 1 : 0,
+                    VariableType.Byte => (byte)fieldInfo.GetValue(instance),
+                    VariableType.Sbyte => (sbyte)fieldInfo.GetValue(instance),
+                    VariableType.Short => (short)fieldInfo.GetValue(instance),
+                    VariableType.Int => (int)fieldInfo.GetValue(instance),
+                    VariableType.Long => (int)(long)fieldInfo.GetValue(instance),
+                    VariableType.Ushort => (ushort)fieldInfo.GetValue(instance),
+                    VariableType.Uint => (int)(uint)fieldInfo.GetValue(instance),
+                    VariableType.Ulong => (int)(ulong)fieldInfo.GetValue(instance),
+                    VariableType.Float => (int)(float)fieldInfo.GetValue(instance),
+                    VariableType.Double => (int)(double)fieldInfo.GetValue(instance),
+                    VariableType.Decimal => (int)(decimal)fieldInfo.GetValue(instance),
+                    VariableType.BigInteger => (int)(BigInteger)fieldInfo.GetValue(instance),
+                    VariableType.BigDecimal => (int)(BigDecimal)fieldInfo.GetValue(instance),
                     _ => 0,
                 };
             }
@@ -296,37 +299,37 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Char:
-                        return float.Parse(((char)propertyInfo.GetValue(null)).ToString());
+                        return float.Parse(((char)propertyInfo.GetValue(instance)).ToString());
                     case VariableType.String:
-                        return float.Parse((string)propertyInfo.GetValue(null));
+                        return float.Parse((string)propertyInfo.GetValue(instance));
                     case VariableType.Bool:
-                        return (bool)propertyInfo.GetValue(null) ? 1 : 0;
+                        return (bool)propertyInfo.GetValue(instance) ? 1 : 0;
                     case VariableType.Byte:
-                        return (byte)propertyInfo.GetValue(null);
+                        return (byte)propertyInfo.GetValue(instance);
                     case VariableType.Sbyte:
-                        return (sbyte)propertyInfo.GetValue(null);
+                        return (sbyte)propertyInfo.GetValue(instance);
                     case VariableType.Short:
-                        return (short)propertyInfo.GetValue(null);
+                        return (short)propertyInfo.GetValue(instance);
                     case VariableType.Int:
-                        return (int)propertyInfo.GetValue(null);
+                        return (int)propertyInfo.GetValue(instance);
                     case VariableType.Long:
-                        return (long)propertyInfo.GetValue(null);
+                        return (long)propertyInfo.GetValue(instance);
                     case VariableType.Ushort:
-                        return (ushort)propertyInfo.GetValue(null);
+                        return (ushort)propertyInfo.GetValue(instance);
                     case VariableType.Uint:
-                        return (uint)propertyInfo.GetValue(null);
+                        return (uint)propertyInfo.GetValue(instance);
                     case VariableType.Ulong:
-                        return (ulong)propertyInfo.GetValue(null);
+                        return (ulong)propertyInfo.GetValue(instance);
                     case VariableType.Float:
-                        return (float)propertyInfo.GetValue(null);
+                        return (float)propertyInfo.GetValue(instance);
                     case VariableType.Double:
-                        return (float)((double)propertyInfo.GetValue(null)).Round(roundingDigits);
+                        return (float)((double)propertyInfo.GetValue(instance)).Round(roundingDigits);
                     case VariableType.Decimal:
-                        return (float)((decimal)propertyInfo.GetValue(null)).Round(roundingDigits);
+                        return (float)((decimal)propertyInfo.GetValue(instance)).Round(roundingDigits);
                     case VariableType.BigInteger:
-                        return (float)(BigInteger)propertyInfo.GetValue(null);
+                        return (float)(BigInteger)propertyInfo.GetValue(instance);
                     case VariableType.BigDecimal:
-                        return (float)((BigDecimal)propertyInfo.GetValue(null)).Round(roundingDigits);
+                        return (float)((BigDecimal)propertyInfo.GetValue(instance)).Round(roundingDigits);
                 }
             }
             else if (fieldInfo != null)
@@ -334,37 +337,37 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Char:
-                        return float.Parse(((char)fieldInfo.GetValue(null)).ToString());
+                        return float.Parse(((char)fieldInfo.GetValue(instance)).ToString());
                     case VariableType.String:
-                        return float.Parse((string)fieldInfo.GetValue(null));
+                        return float.Parse((string)fieldInfo.GetValue(instance));
                     case VariableType.Bool:
-                        return (bool)fieldInfo.GetValue(null) ? 1 : 0;
+                        return (bool)fieldInfo.GetValue(instance) ? 1 : 0;
                     case VariableType.Byte:
-                        return (byte)fieldInfo.GetValue(null);
+                        return (byte)fieldInfo.GetValue(instance);
                     case VariableType.Sbyte:
-                        return (sbyte)fieldInfo.GetValue(null);
+                        return (sbyte)fieldInfo.GetValue(instance);
                     case VariableType.Short:
-                        return (short)fieldInfo.GetValue(null);
+                        return (short)fieldInfo.GetValue(instance);
                     case VariableType.Int:
-                        return (int)fieldInfo.GetValue(null);
+                        return (int)fieldInfo.GetValue(instance);
                     case VariableType.Long:
-                        return (long)fieldInfo.GetValue(null);
+                        return (long)fieldInfo.GetValue(instance);
                     case VariableType.Ushort:
-                        return (ushort)fieldInfo.GetValue(null);
+                        return (ushort)fieldInfo.GetValue(instance);
                     case VariableType.Uint:
-                        return (uint)fieldInfo.GetValue(null);
+                        return (uint)fieldInfo.GetValue(instance);
                     case VariableType.Ulong:
-                        return (ulong)fieldInfo.GetValue(null);
+                        return (ulong)fieldInfo.GetValue(instance);
                     case VariableType.Float:
-                        return (float)fieldInfo.GetValue(null);
+                        return (float)fieldInfo.GetValue(instance);
                     case VariableType.Double:
-                        return (float)((double)fieldInfo.GetValue(null)).Round(roundingDigits);
+                        return (float)((double)fieldInfo.GetValue(instance)).Round(roundingDigits);
                     case VariableType.Decimal:
-                        return (float)((decimal)fieldInfo.GetValue(null)).Round(roundingDigits);
+                        return (float)((decimal)fieldInfo.GetValue(instance)).Round(roundingDigits);
                     case VariableType.BigInteger:
-                        return (float)(BigInteger)fieldInfo.GetValue(null);
+                        return (float)(BigInteger)fieldInfo.GetValue(instance);
                     case VariableType.BigDecimal:
-                        return (float)((BigDecimal)fieldInfo.GetValue(null)).Round(roundingDigits);
+                        return (float)((BigDecimal)fieldInfo.GetValue(instance)).Round(roundingDigits);
                 }
             }
 
@@ -701,7 +704,7 @@ namespace SCKRM.SaveLoad.UI
 
             if (propertyInfo != null)
             {
-                object value = propertyInfo.GetValue(null);
+                object value = propertyInfo.GetValue(instance);
 
                 switch (variableType)
                 {
@@ -750,7 +753,7 @@ namespace SCKRM.SaveLoad.UI
             }
             else if (fieldInfo != null)
             {
-                object value = fieldInfo.GetValue(null);
+                object value = fieldInfo.GetValue(instance);
 
                 switch (variableType)
                 {
