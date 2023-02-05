@@ -35,6 +35,8 @@ namespace SDJK.Ruleset
         public static event Action isRulesetChanged;
         public static event Action isRulesetRefresh;
 
+        public static bool isRulesetRefreshEnd { get; private set; } = false;
+
         [Starten]
         public static void RulesetListRefresh()
         {
@@ -66,6 +68,7 @@ namespace SDJK.Ruleset
             }
 
             selectedRulesetIndex = 0;
+            isRulesetRefreshEnd = true;
             isRulesetRefresh?.Invoke();
         }
 
