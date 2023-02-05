@@ -98,7 +98,7 @@ namespace SDJK.Mode
                     for (int j = 0; j < slvs.Length; j++)
                     {
                         SaveLoadClass.SaveLoadVariable<PropertyInfo> slv = slvs[j];
-                        slv.variableInfo.SetValue(slv.defaultValue, mode.modeConfigSlc.instance);
+                        slv.variableInfo.SetValue(mode.modeConfigSlc.instance, slv.defaultValue);
                     }
                 }
 
@@ -107,7 +107,7 @@ namespace SDJK.Mode
                     for (int j = 0; j < slvs.Length; j++)
                     {
                         SaveLoadClass.SaveLoadVariable<FieldInfo> slv = slvs[j];
-                        slv.variableInfo.SetValue(slv.defaultValue, mode.modeConfigSlc.instance);
+                        slv.variableInfo.SetValue(mode.modeConfigSlc.instance, slv.defaultValue);
                     }
                 }
             }

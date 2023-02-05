@@ -62,6 +62,8 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
             modeToggles.Clear();
 
+            ModeConfigRefresh(null);
+
             for (int i = 0; i < ModeManager.modeList.Count; i++)
             {
                 IMode mode = ModeManager.modeList[i];
@@ -89,7 +91,7 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
         void ModeConfigRefresh(IMode mode)
         {
-            if (mode.modeConfig == null)
+            if (mode == null || mode.modeConfig == null)
             {
                 modeConfigContent.saveLoadClassName = "";
                 modeConfigContent.Refresh();
