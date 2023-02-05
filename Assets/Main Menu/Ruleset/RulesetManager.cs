@@ -6,6 +6,7 @@ using SCKRM.Sound;
 using SCKRM.UI;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
+using SDJK.Mode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,14 +97,14 @@ namespace SDJK.Ruleset
             return false;
         }
 
-        public static IRuleset GameStart(string mapFilePath, string replayFilePath, bool isEditor)
+        public static IRuleset GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes)
         {
             for (int i = 0; i < rulesetList.Count; i++)
             {
                 IRuleset ruleset = rulesetList[i];
                 if (ruleset == selectedRuleset)
                 {
-                    ruleset.GameStart(mapFilePath, replayFilePath, isEditor);
+                    ruleset.GameStart(mapFilePath, replayFilePath, isEditor, modes);
                     return ruleset;
                 }
             }

@@ -7,6 +7,7 @@ using SDJK.Ruleset.SDJK.Judgement;
 using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
 using SDJK.Replay;
+using SDJK.Mode;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -38,9 +39,9 @@ namespace SDJK.Ruleset.SDJK
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
 
-        public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor)
+        public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes)
         {
-            base.GameStart(mapFilePath, replayFilePath, isEditor);
+            base.GameStart(mapFilePath, replayFilePath, isEditor, modes);
 
             await SceneManager.LoadScene(3);
             await UniTask.NextFrame();
@@ -50,7 +51,7 @@ namespace SDJK.Ruleset.SDJK
             if (replayFilePath != null)
                 replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath);
 
-            Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor);
+            Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
             Object.FindObjectOfType<SDJKJudgementManager>(true).Refresh();
 

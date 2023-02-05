@@ -2,7 +2,8 @@
     "name": "SDJK-Ruleset",
     "rootNamespace": "SDJlK.Ruleset",
     "references": [
-        "GUID:9c1f978837ad80d49ae31d1cd963a280"
+        "GUID:9c1f978837ad80d49ae31d1cd963a280",
+        "GUID:ec55cd8e1668f8e4c9c6f03edd05c2c4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

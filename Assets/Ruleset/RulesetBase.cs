@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using SDJK.Mode;
 
 namespace SDJK.Ruleset
 {
@@ -31,7 +32,7 @@ namespace SDJK.Ruleset
         public JudgementMetaData[] judgementMetaDatas { get; }
         public JudgementMetaData missJudgementMetaData { get; }
 
-        public void GameStart(string mapFilePath, string replayFilePath, bool isEditor);
+        public void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes);
 
         public static void GameStartDefaultMethod()
         {
@@ -70,7 +71,7 @@ namespace SDJK.Ruleset
         /// Please put base.GameStart() when overriding
         /// </summary>
         /// <param name="mapFilePath"></param>
-        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor) => IRuleset.GameStartDefaultMethod();
+        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod();
     }
 
     public struct JudgementMetaData : IEquatable<JudgementMetaData>
