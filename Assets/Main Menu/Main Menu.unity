@@ -6751,6 +6751,7 @@ MonoBehaviour:
   layout: {fileID: 382845661}
   modeTogglePrefab: main_menu.mode_select_screen.mode_toggle
   modeConfigSaveLoadUIPrefab: main_menu.mode_select_screen.mode_config
+  spacePrefab: save_load.ui.space
   modeListContent: {fileID: 1161430167}
   modeConfigListContent: {fileID: 1924403159}
   inputLockKey: mode_select_screen
