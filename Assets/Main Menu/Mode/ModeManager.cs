@@ -13,7 +13,7 @@ namespace SDJK.Mode
     public static class ModeManager
     {
         public static List<IMode> modeList { get; } = new List<IMode>();
-        public static List<IMode> selectedModeList { get; } = new List<IMode>();
+        public static List<IMode> selectedModeList { get; private set; } = new List<IMode>();
 
         public static event Action isModeRefresh;
         public static bool isModeRefreshEnd { get; private set; } = false;
@@ -93,6 +93,7 @@ namespace SDJK.Mode
                 }
 
                 selectedModeList.Add(mode);
+                selectedModeList = selectedModeList.OrderBy(x => x.order).ToList();
             }
         }
 
