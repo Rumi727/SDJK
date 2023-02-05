@@ -7,7 +7,7 @@ namespace SDJK.Mode
     public abstract class SlowModeBase : ModeBase
     {
         public override NameSpacePathReplacePair title { get; } = "sdjk:mode.difficulty";
-        public override int order => 0;
+        public override int order => 1000;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.difficulty.slow";
         public override NameSpacePathPair info { get; } = "sdjk:mode.difficulty.slow.info";
