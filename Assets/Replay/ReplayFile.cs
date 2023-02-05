@@ -9,8 +9,8 @@ namespace SDJK.Replay
     {
         public string mapId { get; set; } = "";
 
-        public Version sckrmVersion { get; set; } = new Version();
-        public Version sdjkVersion { get; set; } = new Version();
+        public Version sckrmVersion { get; set; } = Kernel.sckrmVersion;
+        public Version sdjkVersion { get; set; } = new Version(Kernel.version);
 
         [JsonIgnore] public string replayFilePath { get; set; } = "";
 
