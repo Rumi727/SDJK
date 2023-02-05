@@ -73,11 +73,13 @@ namespace SDJK.MainMenu.ModeSelectScreen
                 ModeToggle modeToggle = (ModeToggle)ObjectPoolingSystem.ObjectCreate(modeTogglePrefab, modeListContent).monoBehaviour;
                 modeToggles.Add(modeToggle);
 
+                modeToggle.mode = mode;
+
                 modeToggle.nameText.nameSpacePathReplacePair = mode.displayName;
                 modeToggle.nameTooltip.nameSpacePathPair = mode.info;
 
                 modeToggle.toggle.isOn = ModeManager.selectedModeList.Contains(mode);
-                modeToggle.toggle.onValueChanged.AddListener(x =>
+                modeToggle.onValueChanged.AddListener(x =>
                 {
                     if (x)
                         ModeManager.SelectMode(mode);

@@ -71,6 +71,9 @@ MonoBehaviour:
   _nameText: {fileID: 6735406891184462672}
   _nameTooltip: {fileID: 1135883364609208218}
   _toggle: {fileID: 7632506089289055983}
+  _onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7748718656828850595
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,8 +435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
-  _graphic: {fileID: 0}
+  _rectTransform: {fileID: 6494342445985726915}
+  _graphic: {fileID: 8212350002239948316}
 --- !u!222 &8989285185561430332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -519,10 +522,10 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SCKRM.UI.Setting.InputField.SettingToggle, SC KRM
-        m_MethodName: OnValueChanged
-        m_Mode: 1
+      - m_Target: {fileID: 3629173184617945649}
+        m_TargetAssemblyTypeName: SDJK.MainMenu.ModeSelectScreen.ModeToggle, SDJK-Main-Menu
+        m_MethodName: OnValueChangedInvoke
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
