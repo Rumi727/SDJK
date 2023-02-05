@@ -16,7 +16,7 @@ namespace SCKRM.SaveLoad.UI
         [SerializeField, Tooltip("SaveLoadManager.generalSLCList 리스트를 사용합니다")] bool _autoRefresh = false; public bool autoRefresh { get => _autoRefresh; set => _autoRefresh = value; }
         [SerializeField] string _saveLoadClassName = ""; public string saveLoadClassName { get => _saveLoadClassName; set => _saveLoadClassName = value; }
 
-        [SerializeField] bool _isLast = false; public bool isLast { get => _isLast; set => _isLast = value; }
+        [SerializeField] bool _isLineShow = false; public bool isLineShow { get => _isLineShow; set => _isLineShow = value; }
 
         [SerializeField] string _titlePrefab = "save_load.ui.title"; public string titlePrefab { get => _titlePrefab; set => _titlePrefab = value; }
         [SerializeField] string _linePrefab = "save_load.ui.line"; public string linePrefab { get => _linePrefab; set => _linePrefab = value; }
@@ -66,7 +66,7 @@ namespace SCKRM.SaveLoad.UI
             for (int j = 0; j < slc.fieldInfos.Length; j++)
                 FieldCreate(slc.fieldInfos[j]);
 
-            if (!isLast)
+            if (!isLineShow)
             {
                 ObjectCreate<MonoBehaviour>(spacePrefab);
                 ObjectCreate<MonoBehaviour>(linePrefab);

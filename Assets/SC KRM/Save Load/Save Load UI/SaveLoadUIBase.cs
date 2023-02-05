@@ -208,9 +208,9 @@ namespace SCKRM.SaveLoad.UI
         public virtual void SetDefault()
         {
             if (propertyInfo != null)
-                propertyInfo.SetValue(null, defaultValue);
+                propertyInfo.SetValue(instance, defaultValue);
             else if (fieldInfo != null)
-                fieldInfo.SetValue(null, defaultValue);
+                fieldInfo.SetValue(instance, defaultValue);
         }
 
         public virtual object GetValue()
@@ -381,19 +381,19 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Float:
-                        propertyInfo.SetValue(null, ((float)value).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((float)value).Round(roundingDigits));
                         break;
                     case VariableType.Double:
-                        propertyInfo.SetValue(null, ((double)value).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((double)value).Round(roundingDigits));
                         break;
                     case VariableType.Decimal:
-                        propertyInfo.SetValue(null, ((decimal)value).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((decimal)value).Round(roundingDigits));
                         break;
                     case VariableType.BigDecimal:
-                        propertyInfo.SetValue(null, ((BigDecimal)value).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((BigDecimal)value).Round(roundingDigits));
                         break;
                     default:
-                        propertyInfo.SetValue(null, value);
+                        propertyInfo.SetValue(instance, value);
                         break;
                 }
             }
@@ -402,19 +402,19 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Float:
-                        fieldInfo.SetValue(null, ((float)value).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((float)value).Round(roundingDigits));
                         break;
                     case VariableType.Double:
-                        fieldInfo.SetValue(null, ((double)value).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((double)value).Round(roundingDigits));
                         break;
                     case VariableType.Decimal:
-                        fieldInfo.SetValue(null, ((decimal)value).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((decimal)value).Round(roundingDigits));
                         break;
                     case VariableType.BigDecimal:
-                        fieldInfo.SetValue(null, ((BigDecimal)value).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((BigDecimal)value).Round(roundingDigits));
                         break;
                     default:
-                        fieldInfo.SetValue(null, value);
+                        fieldInfo.SetValue(instance, value);
                         break;
                 }
             }
@@ -430,49 +430,49 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Char:
-                        propertyInfo.SetValue(null, value.ToString()[0]);
+                        propertyInfo.SetValue(instance, value.ToString()[0]);
                         break;
                     case VariableType.String:
-                        propertyInfo.SetValue(null, value.ToString());
+                        propertyInfo.SetValue(instance, value.ToString());
                         break;
                     case VariableType.Byte:
-                        propertyInfo.SetValue(null, (byte)value);
+                        propertyInfo.SetValue(instance, (byte)value);
                         break;
                     case VariableType.Sbyte:
-                        propertyInfo.SetValue(null, (sbyte)value);
+                        propertyInfo.SetValue(instance, (sbyte)value);
                         break;
                     case VariableType.Short:
-                        propertyInfo.SetValue(null, (short)value);
+                        propertyInfo.SetValue(instance, (short)value);
                         break;
                     case VariableType.Int:
-                        propertyInfo.SetValue(null, (int)value);
+                        propertyInfo.SetValue(instance, (int)value);
                         break;
                     case VariableType.Long:
-                        propertyInfo.SetValue(null, (long)value);
+                        propertyInfo.SetValue(instance, (long)value);
                         break;
                     case VariableType.Ushort:
-                        propertyInfo.SetValue(null, (ushort)value);
+                        propertyInfo.SetValue(instance, (ushort)value);
                         break;
                     case VariableType.Uint:
-                        propertyInfo.SetValue(null, (uint)value);
+                        propertyInfo.SetValue(instance, (uint)value);
                         break;
                     case VariableType.Ulong:
-                        propertyInfo.SetValue(null, (ulong)value);
+                        propertyInfo.SetValue(instance, (ulong)value);
                         break;
                     case VariableType.Float:
-                        propertyInfo.SetValue(null, value);
+                        propertyInfo.SetValue(instance, value);
                         break;
                     case VariableType.Double:
-                        propertyInfo.SetValue(null, (double)value);
+                        propertyInfo.SetValue(instance, (double)value);
                         break;
                     case VariableType.Decimal:
-                        propertyInfo.SetValue(null, (decimal)value);
+                        propertyInfo.SetValue(instance, (decimal)value);
                         break;
                     case VariableType.BigInteger:
-                        propertyInfo.SetValue(null, (BigInteger)value);
+                        propertyInfo.SetValue(instance, (BigInteger)value);
                         break;
                     case VariableType.BigDecimal:
-                        propertyInfo.SetValue(null, (BigDecimal)value);
+                        propertyInfo.SetValue(instance, (BigDecimal)value);
                         break;
                     default:
                         break;
@@ -483,49 +483,49 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Char:
-                        fieldInfo.SetValue(null, value.ToString()[0]);
+                        fieldInfo.SetValue(instance, value.ToString()[0]);
                         break;
                     case VariableType.String:
-                        fieldInfo.SetValue(null, value.ToString());
+                        fieldInfo.SetValue(instance, value.ToString());
                         break;
                     case VariableType.Byte:
-                        fieldInfo.SetValue(null, (byte)value);
+                        fieldInfo.SetValue(instance, (byte)value);
                         break;
                     case VariableType.Sbyte:
-                        fieldInfo.SetValue(null, (sbyte)value);
+                        fieldInfo.SetValue(instance, (sbyte)value);
                         break;
                     case VariableType.Short:
-                        fieldInfo.SetValue(null, (short)value);
+                        fieldInfo.SetValue(instance, (short)value);
                         break;
                     case VariableType.Int:
-                        fieldInfo.SetValue(null, (int)value);
+                        fieldInfo.SetValue(instance, (int)value);
                         break;
                     case VariableType.Long:
-                        fieldInfo.SetValue(null, (long)value);
+                        fieldInfo.SetValue(instance, (long)value);
                         break;
                     case VariableType.Ushort:
-                        fieldInfo.SetValue(null, (ushort)value);
+                        fieldInfo.SetValue(instance, (ushort)value);
                         break;
                     case VariableType.Uint:
-                        fieldInfo.SetValue(null, (uint)value);
+                        fieldInfo.SetValue(instance, (uint)value);
                         break;
                     case VariableType.Ulong:
-                        fieldInfo.SetValue(null, (ulong)value);
+                        fieldInfo.SetValue(instance, (ulong)value);
                         break;
                     case VariableType.Float:
-                        fieldInfo.SetValue(null, value);
+                        fieldInfo.SetValue(instance, value);
                         break;
                     case VariableType.Double:
-                        fieldInfo.SetValue(null, (double)value);
+                        fieldInfo.SetValue(instance, (double)value);
                         break;
                     case VariableType.Decimal:
-                        fieldInfo.SetValue(null, (decimal)value);
+                        fieldInfo.SetValue(instance, (decimal)value);
                         break;
                     case VariableType.BigInteger:
-                        fieldInfo.SetValue(null, (BigInteger)value);
+                        fieldInfo.SetValue(instance, (BigInteger)value);
                         break;
                     case VariableType.BigDecimal:
-                        fieldInfo.SetValue(null, (BigDecimal)value);
+                        fieldInfo.SetValue(instance, (BigDecimal)value);
                         break;
                     default:
                         break;
@@ -607,15 +607,15 @@ namespace SCKRM.SaveLoad.UI
                     {
                         case VariableType.Char:
                             if (value.Length > 0)
-                                propertyInfo.SetValue(null, value[0]);
+                                propertyInfo.SetValue(instance, value[0]);
                             else
-                                propertyInfo.SetValue(null, char.MinValue);
+                                propertyInfo.SetValue(instance, char.MinValue);
                             break;
                         case VariableType.String:
-                            propertyInfo.SetValue(null, value);
+                            propertyInfo.SetValue(instance, value);
                             break;
                         case VariableType.Bool or VariableType.Byte or VariableType.Sbyte or VariableType.Short or VariableType.Int or VariableType.Long or VariableType.Ushort or VariableType.Uint or VariableType.Ulong or VariableType.Float or VariableType.Double or VariableType.Decimal or VariableType.BigInteger or VariableType.BigDecimal:
-                            propertyInfo.SetValue(null, number);
+                            propertyInfo.SetValue(instance, number);
                             break;
                         default:
                             break;
@@ -627,15 +627,15 @@ namespace SCKRM.SaveLoad.UI
                     {
                         case VariableType.Char:
                             if (value.Length > 0)
-                                fieldInfo.SetValue(null, value[0]);
+                                fieldInfo.SetValue(instance, value[0]);
                             else
-                                fieldInfo.SetValue(null, char.MinValue);
+                                fieldInfo.SetValue(instance, char.MinValue);
                             break;
                         case VariableType.String:
-                            fieldInfo.SetValue(null, value);
+                            fieldInfo.SetValue(instance, value);
                             break;
                         case VariableType.Bool or VariableType.Byte or VariableType.Sbyte or VariableType.Short or VariableType.Int or VariableType.Long or VariableType.Ushort or VariableType.Uint or VariableType.Ulong or VariableType.Float or VariableType.Double or VariableType.Decimal or VariableType.BigInteger or VariableType.BigDecimal:
-                            propertyInfo.SetValue(null, number);
+                            propertyInfo.SetValue(instance, number);
                             break;
                         default:
                             break;
@@ -709,43 +709,43 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Byte:
-                        propertyInfo.SetValue(null, (byte)((byte)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (byte)((byte)value + mouseDelta));
                         break;
                     case VariableType.Sbyte:
-                        propertyInfo.SetValue(null, (sbyte)((sbyte)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (sbyte)((sbyte)value + mouseDelta));
                         break;
                     case VariableType.Short:
-                        propertyInfo.SetValue(null, (short)((short)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (short)((short)value + mouseDelta));
                         break;
                     case VariableType.Int:
-                        propertyInfo.SetValue(null, (int)((int)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (int)((int)value + mouseDelta));
                         break;
                     case VariableType.Long:
-                        propertyInfo.SetValue(null, (long)((long)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (long)((long)value + mouseDelta));
                         break;
                     case VariableType.Ushort:
-                        propertyInfo.SetValue(null, (ushort)((ushort)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (ushort)((ushort)value + mouseDelta));
                         break;
                     case VariableType.Uint:
-                        propertyInfo.SetValue(null, (uint)((uint)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (uint)((uint)value + mouseDelta));
                         break;
                     case VariableType.Ulong:
-                        propertyInfo.SetValue(null, (ulong)((ulong)value + mouseDelta));
+                        propertyInfo.SetValue(instance, (ulong)((ulong)value + mouseDelta));
                         break;
                     case VariableType.Float:
-                        propertyInfo.SetValue(null, ((float)value + mouseDelta).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((float)value + mouseDelta).Round(roundingDigits));
                         break;
                     case VariableType.Double:
-                        propertyInfo.SetValue(null, ((double)value + mouseDelta).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((double)value + mouseDelta).Round(roundingDigits));
                         break;
                     case VariableType.Decimal:
-                        propertyInfo.SetValue(null, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
                         break;
                     case VariableType.BigInteger:
-                        propertyInfo.SetValue(null, (BigInteger)value + (BigInteger)mouseDelta);
+                        propertyInfo.SetValue(instance, (BigInteger)value + (BigInteger)mouseDelta);
                         break;
                     case VariableType.BigDecimal:
-                        propertyInfo.SetValue(null, ((BigDecimal)value + (BigDecimal)mouseDelta).Round(roundingDigits));
+                        propertyInfo.SetValue(instance, ((BigDecimal)value + (BigDecimal)mouseDelta).Round(roundingDigits));
                         break;
                     default:
                         break;
@@ -758,43 +758,43 @@ namespace SCKRM.SaveLoad.UI
                 switch (variableType)
                 {
                     case VariableType.Byte:
-                        fieldInfo.SetValue(null, (byte)((byte)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (byte)((byte)value + mouseDelta));
                         break;
                     case VariableType.Sbyte:
-                        fieldInfo.SetValue(null, (sbyte)((sbyte)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (sbyte)((sbyte)value + mouseDelta));
                         break;
                     case VariableType.Short:
-                        fieldInfo.SetValue(null, (short)((short)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (short)((short)value + mouseDelta));
                         break;
                     case VariableType.Int:
-                        fieldInfo.SetValue(null, (int)((int)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (int)((int)value + mouseDelta));
                         break;
                     case VariableType.Long:
-                        fieldInfo.SetValue(null, (long)((long)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (long)((long)value + mouseDelta));
                         break;
                     case VariableType.Ushort:
-                        fieldInfo.SetValue(null, (ushort)((ushort)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (ushort)((ushort)value + mouseDelta));
                         break;
                     case VariableType.Uint:
-                        fieldInfo.SetValue(null, (uint)((uint)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (uint)((uint)value + mouseDelta));
                         break;
                     case VariableType.Ulong:
-                        fieldInfo.SetValue(null, (ulong)((ulong)value + mouseDelta));
+                        fieldInfo.SetValue(instance, (ulong)((ulong)value + mouseDelta));
                         break;
                     case VariableType.Float:
-                        fieldInfo.SetValue(null, ((float)value + mouseDelta).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((float)value + mouseDelta).Round(roundingDigits));
                         break;
                     case VariableType.Double:
-                        fieldInfo.SetValue(null, ((double)value + mouseDelta).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((double)value + mouseDelta).Round(roundingDigits));
                         break;
                     case VariableType.Decimal:
-                        fieldInfo.SetValue(null, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((decimal)value + (decimal)mouseDelta).Round(roundingDigits));
                         break;
                     case VariableType.BigInteger:
-                        fieldInfo.SetValue(null, (BigInteger)value + (BigInteger)mouseDelta);
+                        fieldInfo.SetValue(instance, (BigInteger)value + (BigInteger)mouseDelta);
                         break;
                     case VariableType.BigDecimal:
-                        fieldInfo.SetValue(null, ((BigDecimal)value + (BigDecimal)mouseDelta).Round(roundingDigits));
+                        fieldInfo.SetValue(instance, ((BigDecimal)value + (BigDecimal)mouseDelta).Round(roundingDigits));
                         break;
                     default:
                         break;

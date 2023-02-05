@@ -37,6 +37,7 @@ namespace SCKRM.Editor
             }
 
             UseProperty("_autoRefresh", "자동 새로고침");
+            UseProperty("_isLineShow", "구분선 활성화");
 
             DrawLine();
 
