@@ -14,6 +14,7 @@ namespace SDJK.Mode
         public static List<IMode> selectedModeList { get; } = new List<IMode>();
 
         public static event Action isModeRefresh;
+        public static bool isModeRefreshEnd { get; private set; } = false;
 
         [Starten]
         public static void ModeListRefresh()
@@ -46,6 +47,7 @@ namespace SDJK.Mode
             }
 
             selectedModeList.Clear();
+            isModeRefreshEnd = true;
             isModeRefresh?.Invoke();
         }
 
