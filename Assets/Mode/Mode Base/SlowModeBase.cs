@@ -22,7 +22,7 @@ namespace SDJK.Mode
         public sealed class Data : IModeConfig
         {
             [SaveLoadUISliderConfig("sdjk:gui.speed", "", 0.125f, 0.99f, 0.1f, 4)]
-            public double speed { get; set; } = 0.5;
+            public double speed { get; set; } = 0.75;
         }
 
         protected override IModeConfig CreateModeConfig() => new Data();
