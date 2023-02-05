@@ -1,5 +1,6 @@
 using SCKRM;
 using SCKRM.Reflection;
+using SDJK.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace SDJK.Mode
 
         public static event Action isModeRefresh;
         public static bool isModeRefreshEnd { get; private set; } = false;
+
+        [Awaken]
+        static void Awaken() => RulesetManager.isRulesetChanged += () => selectedModeList.Clear();
 
         [Starten]
         public static void ModeListRefresh()
