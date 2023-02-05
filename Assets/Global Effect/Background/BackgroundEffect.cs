@@ -1,14 +1,18 @@
+using SCKRM;
 using SCKRM.Object;
 using SCKRM.Rhythm;
 using SDJK.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SDJK.Effect
 {
     public sealed class BackgroundEffect : Effect
     {
+        [SerializeField, NotNull] Image image;
+
         [SerializeField] string _prefab = "background_effect.background"; public string prefab { get => _prefab; set => _prefab = value; }
         public BackgroundEffectPrefab background { get; private set; } = null;
 
@@ -27,6 +31,9 @@ namespace SDJK.Effect
                 lastBackgrounds.CopyTo(map.globalEffect.background.ToArray());
                 lastMapPack = mapPack;
             }
+
+            //배경이 없으면 검정색 이미지를 표시합니다
+            image.enabled = background == null;
         }
 
         bool BackgroundCheck()
