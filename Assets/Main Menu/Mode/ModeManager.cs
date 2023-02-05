@@ -71,21 +71,7 @@ namespace SDJK.Mode
             return false;
         }
 
-        public static IMode FindMode(string name) => modeList.Find(x => x.name == name);
-        public static IMode FindSelectedMode(string name) => selectedModeList.Find(x => x.name == name);
-        public static IMode FindSelectedMode<T>() where T : IMode
-        {
-            for (int i = 0; i < selectedModeList.Count; i++)
-            {
-                IMode mode = selectedModeList[i];
-                if (mode is T)
-                    return mode;
-            }
-
-            return null;
-        }
-
-        public static void SelectMode(string name) => SelectMode(FindMode(name));
+        public static void SelectMode(string name) => SelectMode(selectedModeList.FindMode(name));
         public static void SelectMode(IMode mode)
         {
             if (!selectedModeList.Contains(mode))
@@ -101,7 +87,7 @@ namespace SDJK.Mode
             }
         }
 
-        public static void DeselectMode(string name) => DeselectMode(FindMode(name));
+        public static void DeselectMode(string name) => DeselectMode(selectedModeList.FindMode(name));
         public static void DeselectMode(IMode mode)
         {
             selectedModeList.Remove(mode);
