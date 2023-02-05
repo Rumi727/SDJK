@@ -66,7 +66,7 @@ namespace SCKRM.SaveLoad.UI
             for (int j = 0; j < slc.fieldInfos.Length; j++)
                 FieldCreate(slc.fieldInfos[j]);
 
-            if (!isLineShow)
+            if (isLineShow)
             {
                 ObjectCreate<MonoBehaviour>(spacePrefab);
                 ObjectCreate<MonoBehaviour>(linePrefab);

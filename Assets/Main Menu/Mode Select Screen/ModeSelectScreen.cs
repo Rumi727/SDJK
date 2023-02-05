@@ -6,6 +6,7 @@ using SCKRM.UI;
 using SDJK.Mode;
 using SDJK.Ruleset;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SDJK.MainMenu.ModeSelectScreen
@@ -104,22 +105,26 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
             saveLoadUIs.Clear();
 
-            for (int i = 0; i < ModeManager.selectedModeList.Count; i++)
+            List<IMode> modes = ModeManager.selectedModeList.ToList();
+            for (int i = 0; i < modes.Count; i++)
             {
-                IMode mode = ModeManager.selectedModeList[i];
+                IMode mode = modes[i];
+                if (mode == null || mode.modeConfig == null)
+                {
+                    modes.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < modes.Count; i++)
+            {
+                IMode mode = modes[i];
+
                 SaveLoadUI saveLoadUI = (SaveLoadUI)ObjectPoolingSystem.ObjectCreate(modeConfigSaveLoadUIPrefab, modeConfigListContent).monoBehaviour;
                 saveLoadUIs.Add(saveLoadUI);
 
-                if (mode == null || mode.modeConfig == null)
-                {
-                    saveLoadUI.saveLoadClassName = "";
-                    saveLoadUI.Refresh();
-
-                    return;
-                }
-
                 saveLoadUI.saveLoadClassName = mode.modeConfigSlc.name;
-                saveLoadUI.isLineShow = i < ModeManager.selectedModeList.Count - 1;
+                saveLoadUI.isLineShow = i < modes.Count - 1;
 
                 saveLoadUI.Refresh(mode.modeConfigSlc);
             }
