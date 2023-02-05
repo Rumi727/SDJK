@@ -32,7 +32,11 @@ namespace SDJK.Ruleset.SDJK
 
         public bool isEditor { get; private set; }
 
-        void Awake() => UIManager.BackEventAdd(Quit);
+        void Awake()
+        {
+            if (SingletonCheck(this))
+                UIManager.BackEventAdd(Quit);
+        }
 
         void Update()
         {
