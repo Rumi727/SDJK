@@ -81,6 +81,7 @@ namespace SDJK.Mode
         }
         SaveLoadClass _modeConfigSlc;
 
-        public virtual IModeConfig CreateModeConfig() => null;
+        IModeConfig IMode.CreateModeConfig() => CreateModeConfig();
+        protected virtual IModeConfig CreateModeConfig() => null;
     }
 }
