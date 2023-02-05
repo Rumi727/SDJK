@@ -5,6 +5,7 @@
 	"gui.edit": "편집",
 	"gui.quit": "종료",
 	"gui.mode": "모드",
+	"gui.speed": "스피드",
 	
 	"map_manager.music": "음악",
 	"map_manager.previous_music": "이전 음악",
@@ -28,7 +29,21 @@
 	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice 모드는 저작권 문제로 인해 게임 플레이는 구현되지 않았습니다<size=10>\n\n</size><size=15>대신 맵을 변환할 수 있는 다른 모드로 플레이 해주세요</size>",
 	
+	
+	
 	"mode.automatic": "오토매틱",
+	
 	"mode.automatic.auto": "자동 플레이",
-	"mode.automatic.auto.info": "단 1ms도 틀리지 않는 개쩌는 컴퓨터가 플레이할 것입니다"
+	"mode.automatic.auto.info": "단 1ms도 틀리지 않는 개쩌는 컴퓨터가 플레이할 것입니다",
+	
+	
+	
+	"mode.difficulty": "난이도",
+	
+	"mode.difficulty.fast": "빠르게",
+	"mode.difficulty.fast.info": "도르마무 거래를 하러 왔다",
+	"mode.difficulty.slow": "느리게",
+	"mode.difficulty.slow.info": "거북이가 지나가던 개미랑 가위바위보 해서 이기는 데 걸리는 시간만큼 느려집니다",
+	
+	"mode.setting": "모드 설정"
 }

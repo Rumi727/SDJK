@@ -28,7 +28,20 @@
 	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ルールセットは著作権問題のためゲームプレイは実装されていません。<size=10>\n\n</size><size=15>代わりにマップを変換できる別のルールセットでプレイしてください</size>",
 	
+	
+	
 	"mode.automatic": "オートマチック",
+	
 	"mode.automatic.auto": "自動プレイ",
-	"mode.automatic.auto.info": "わずか1msも間違っていないとても良いコンピュータがプレイします"
+	"mode.automatic.auto.info": "わずか1msも間違っていないとても良いコンピュータがプレイします",
+	
+	
+	"mode.difficulty": "難易度",
+	
+	"mode.difficulty.fast": "早く",
+	"mode.difficulty.fast.info": "ドルマムゥ 取引に来たぞ",
+	"mode.difficulty.slow": "ゆっくり",
+	"mode.difficulty.slow.info": "カメが通り過ぎていたアリとはさみロックを見て勝つのにかかる時間と同じくらい遅くなります",
+	
+	"mode.setting": "モード設定"
 }

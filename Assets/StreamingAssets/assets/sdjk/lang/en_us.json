@@ -28,7 +28,21 @@
 	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ruleset has no gameplay due to copyright issues.<size=10>\n\n</size><size=15>Please play with a different ruleset that can convert the map instead</size>",
 	
+	
+	
 	"mode.automatic": "Automatic",
+	
 	"mode.automatic.auto": "Auto play",
-	"mode.automatic.auto.info": "A great computer that won't go wrong even 1 ms will play"
+	"mode.automatic.auto.info": "A great computer that won't go wrong even 1 ms will play",
+	
+	
+	"mode.difficulty": "Difficulty",
+	
+	"mode.difficulty.fast": "Fast",
+	"mode.difficulty.fast.info": "Dormammu i've come to bargain",
+	"mode.difficulty.slow": "Slow",
+	"mode.difficulty.slow.info": "Slows down by the amount of time it takes for a turtle to win a game of rock-paper-scissors with an ant passing by",
+	
+	
+	"mode.setting": "Mode setting"
 }
