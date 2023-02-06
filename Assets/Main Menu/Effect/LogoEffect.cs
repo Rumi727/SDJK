@@ -1,6 +1,5 @@
 using SCKRM;
 using SCKRM.Rhythm;
-using SCKRM.UI;
 using SDJK.Effect;
 using UnityEngine;
 
@@ -31,22 +30,15 @@ namespace SDJK.MainMenu
                 cameraPos.y = -cameraPos.y;
 
                 float cameraRotation = -map.globalEffect.cameraRotation.GetValue(RhythmManager.currentBeatScreen).z;
-                float cameraZoom = (float)map.globalEffect.cameraZoom.GetValue(RhythmManager.currentBeatScreen);
-                float cameraZoomToZPos = (float)((cameraZoom * CameraEffect.defaultDistance) - CameraEffect.defaultDistance);
 
-                float height = mainCamera.pixelHeight / canvas.transform.localScale.x;
-                float screenY;
+                Rect lastRect = mainCamera.rect;
+                mainCamera.rect = new Rect(0, 0, 1, 1);
 
-                if (mainCamera.orthographic)
-                    screenY = mainCamera.orthographicSize * 2;
-                else
-                    screenY = Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) * 2.0f * (-cameraPos.z + cameraZoomToZPos);
+                pos = (mainCamera.WorldToScreenPoint(Vector3.zero) * (canvas.pixelRect.height / ScreenManager.height));
+                pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
 
+                mainCamera.rect = lastRect;
 
-                float zoom = screenY / height;
-                float posX = (cameraPos.x * Mathf.Cos(cameraRotation * Mathf.Deg2Rad)) - (cameraPos.y * Mathf.Sin(cameraRotation * Mathf.Deg2Rad));
-                float posY = (cameraPos.x * Mathf.Sin(cameraRotation * Mathf.Deg2Rad)) + (cameraPos.y * Mathf.Cos(cameraRotation * Mathf.Deg2Rad));
-                pos = new Vector2(posX, posY) / zoom;
                 text.localEulerAngles = new Vector3(0, 0, cameraRotation);
                 visualizer.localEulerAngles = new Vector3(0, 0, cameraRotation);
             }
