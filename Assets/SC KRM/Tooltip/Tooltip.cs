@@ -21,8 +21,26 @@ namespace SCKRM.Tooltip
         [SerializeField] string _nameSpace = ""; public string nameSpace { get => _nameSpace; set => _nameSpace = value; }
         [SerializeField] string _text = ""; public string text { get => _text; set => _text = value; }
 
-        public void OnPointerEnter(PointerEventData eventData) => TooltipManager.Show(text, nameSpace);
+        bool pointer = false;
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            TooltipManager.Show(text, nameSpace);
+            pointer = true;
+        }
 
-        public void OnPointerExit(PointerEventData eventData) => TooltipManager.Hide();
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            TooltipManager.Hide();
+            pointer = false;
+        }
+
+        void OnDisable()
+        {
+            if (!pointer)
+                return;
+
+            TooltipManager.Hide();
+            pointer = false;
+        }
     }
 }
