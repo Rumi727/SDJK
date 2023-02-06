@@ -45,5 +45,8 @@
 	"mode.difficulty.slow": "느리게",
 	"mode.difficulty.slow.info": "거북이가 지나가던 개미랑 가위바위보 해서 이기는 데 걸리는 시간만큼 느려집니다",
 	
+	"mode.difficulty.no_fail": "무적",
+	"mode.difficulty.no_fail.info": "쿠루미쨩은 죽지 않아!",
+	
 	"mode.setting": "모드 설정"
 }

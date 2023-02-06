@@ -43,6 +43,9 @@
 	"mode.difficulty.slow": "Slow",
 	"mode.difficulty.slow.info": "Slows down by the amount of time it takes for a turtle to win a game of rock-paper-scissors with an ant passing by",
 	
+	"mode.difficulty.no_fail": "No Fail",
+	"mode.difficulty.no_fail.info": "Kurumi-chan never dies!",
+	
 	
 	"mode.setting": "Mode setting"
 }
