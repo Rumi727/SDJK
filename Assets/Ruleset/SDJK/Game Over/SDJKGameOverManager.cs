@@ -2,6 +2,7 @@ using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
 using SDJK.Effect;
+using SDJK.Mode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] float speed = 0;
 
         [SerializeField] bool _invincibility; public bool invincibility { get => _invincibility; set => _invincibility = value; }
+
+        public IMode[] modes => manager.modes;
 
         public bool isGameOver { get; private set; } = false;
 
@@ -35,7 +38,7 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         public void GameOver()
         {
-            if (invincibility)
+            if (invincibility || modes.FindMode<NoFailModeBase>() != null)
                 return;
 
             isGameOver = true;
