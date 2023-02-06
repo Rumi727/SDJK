@@ -341,10 +341,13 @@ namespace SCKRM.Rhythm
             if (timeChangedEventLock)
                 return;
 
-            Debug.Log("Sound Player Time Changed");
+            if (isPlaying && soundPlayer != null)
+            {
+                Debug.Log("Sound Player Time Changed");
 
-            _time = soundPlayer.time;
-            FixBPM();
+                _time = soundPlayer.time;
+                FixBPM();
+            }
         }
 
         static void FixBPM()

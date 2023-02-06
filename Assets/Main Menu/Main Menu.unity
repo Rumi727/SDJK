@@ -536,7 +536,7 @@ MonoBehaviour:
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
-  safeScreen: {fileID: 518970847}
+  _safeScreen: {fileID: 518970847}
 --- !u!114 &52792038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,7 +3510,7 @@ MonoBehaviour:
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
-  safeScreen: {fileID: 1605662048}
+  _safeScreen: {fileID: 1605662048}
 --- !u!114 &791535483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3950,7 +3950,7 @@ MonoBehaviour:
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
-  safeScreen: {fileID: 1726261265}
+  _safeScreen: {fileID: 1726261265}
 --- !u!114 &839120023
 MonoBehaviour:
   m_ObjectHideFlags: 0
