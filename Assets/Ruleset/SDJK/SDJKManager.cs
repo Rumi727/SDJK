@@ -34,12 +34,6 @@ namespace SDJK.Ruleset.SDJK
         public bool isEditor { get; private set; }
         public IMode[] modes { get; private set; }
 
-        void Awake()
-        {
-            if (SingletonCheck(this))
-                UIManager.BackEventAdd(Quit);
-        }
-
         void Update()
         {
             if (!RhythmManager.isPlaying)
@@ -74,6 +68,8 @@ namespace SDJK.Ruleset.SDJK
         {
             if (SingletonCheck(this))
             {
+                UIManager.BackEventAdd(Quit);
+
                 if (replay != null)
                 {
                     isReplay = true;
@@ -134,6 +130,9 @@ namespace SDJK.Ruleset.SDJK
                 bgmClip = await ResourceManager.GetAudio(fullPath, true, false);
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, bgmClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
+
+                if (!Kernel.isPlaying || this == null)
+                    return;
 
                 soundPlayer = SoundManager.PlaySound(soundData);
             }
