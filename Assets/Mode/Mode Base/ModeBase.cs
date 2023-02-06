@@ -22,7 +22,7 @@ namespace SDJK.Mode
         public string targetRuleset { get; }
         public Type[] incompatibleModes { get; }
 
-        public IModeConfig modeConfig { get; }
+        public IModeConfig modeConfig { get; set; }
         public SaveLoadClass modeConfigSlc { get; }
 
         public IModeConfig CreateModeConfig();
@@ -57,6 +57,11 @@ namespace SDJK.Mode
                     _modeConfig = CreateModeConfig();
 
                 return _modeConfig;
+            }
+            set
+            {
+                _modeConfig = value;
+                _modeConfigSlc = null;
             }
         }
         IModeConfig _modeConfig = null;
