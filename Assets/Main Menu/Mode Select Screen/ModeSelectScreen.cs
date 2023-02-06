@@ -24,9 +24,6 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
         protected override void Awake()
         {
-            RulesetManager.isRulesetChanged -= ModeListRefresh;
-            ModeManager.isModeRefresh -= ModeListRefresh;
-
             RulesetManager.isRulesetChanged += ModeListRefresh;
             ModeManager.isModeRefresh += ModeListRefresh;
 
@@ -51,6 +48,12 @@ namespace SDJK.MainMenu.ModeSelectScreen
                 if (canvasGroup.alpha <= 0 && layout.activeSelf)
                     layout.SetActive(false);
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            RulesetManager.isRulesetChanged -= ModeListRefresh;
+            ModeManager.isModeRefresh -= ModeListRefresh;
         }
 
         List<IObjectPooling> modeListObjectPooling = new List<IObjectPooling>();
