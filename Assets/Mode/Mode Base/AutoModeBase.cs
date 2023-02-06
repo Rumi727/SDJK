@@ -5,7 +5,7 @@ namespace SDJK.Mode
     public abstract class AutoModeBase : ModeBase
     {
         public override NameSpacePathReplacePair title { get; } = "sdjk:mode.automatic";
-        public override int order => 100000;
+        public override int order => int.MaxValue;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.automatic.auto";
         public override NameSpacePathPair info { get; } = "sdjk:mode.automatic.auto.info";
