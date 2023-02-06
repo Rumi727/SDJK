@@ -12,6 +12,8 @@ namespace SDJK.Replay
         public Version sckrmVersion { get; set; } = Kernel.sckrmVersion;
         public Version sdjkVersion { get; set; } = new Version(Kernel.version);
 
+        public ReplayModeFile[] modes { get; set; }
+
         [JsonIgnore] public string replayFilePath { get; set; } = "";
 
         public BeatValuePairList<KeyCode[]> inputs { get; set; } = new(new KeyCode[0]);

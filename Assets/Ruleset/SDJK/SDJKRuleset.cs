@@ -49,7 +49,7 @@ namespace SDJK.Ruleset.SDJK
             SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath);
             SDJKReplayFile replay = null;
             if (replayFilePath != null)
-                replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath);
+                replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath, out modes);
 
             Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
