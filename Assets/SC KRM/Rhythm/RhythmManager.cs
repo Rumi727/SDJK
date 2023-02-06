@@ -260,6 +260,13 @@ namespace SCKRM.Rhythm
             RhythmManager.bpmList = bpmList;
             RhythmManager.offset = offset;
             RhythmManager.yukiModeList = yukiModeList;
+
+            if (RhythmManager.soundPlayer != null)
+            {
+                RhythmManager.soundPlayer.timeChanged -= SoundPlayerTimeChange;
+                RhythmManager.soundPlayer.looped -= SoundPlayerTimeChange;
+            }
+
             RhythmManager.soundPlayer = soundPlayer;
 
             if (RhythmManager.soundPlayer != null)
