@@ -1,6 +1,7 @@
 using SCKRM.UI.StatusBar;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -28,7 +29,7 @@ namespace SCKRM.UI
 
 
 
-        [SerializeField, HideInInspector] RectTransform safeScreen;
+        [SerializeField, HideInInspector, FormerlySerializedAs("safeScreen")] RectTransform _safeScreen; public RectTransform safeScreen => _safeScreen;
 
         DrivenRectTransformTracker tracker;
 
@@ -101,10 +102,10 @@ namespace SCKRM.UI
                     if (Kernel.emptyRectTransform == null)
                         return;
 
-                    safeScreen = Instantiate(Kernel.emptyRectTransform, transform.parent);
+                    _safeScreen = Instantiate(Kernel.emptyRectTransform, transform.parent);
                 }
                 else
-                    safeScreen = new GameObject().AddComponent<RectTransform>();
+                    _safeScreen = new GameObject().AddComponent<RectTransform>();
 
                 safeScreen.name = "Safe Screen";
             }

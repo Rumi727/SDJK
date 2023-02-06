@@ -8,6 +8,9 @@ namespace SCKRM.UI
 {
     public interface IUI
     {
+        public Canvas canvas { get; }
+        public CanvasSetting canvasSetting { get; }
+
         public RectTransform parentRectTransform { get; }
         public RectTransform rectTransform { get; }
         public RectTransformTool rectTransformTool { get; }
@@ -18,6 +21,7 @@ namespace SCKRM.UI
     public class UI : UIBehaviour, IUI
     {
         Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
+        CanvasSetting _canvasSetting; public CanvasSetting canvasSetting => _canvasSetting = this.GetComponentInParentFieldSave(_canvasSetting, true);
 
         RectTransform _parentRectTransform; public RectTransform parentRectTransform
         {

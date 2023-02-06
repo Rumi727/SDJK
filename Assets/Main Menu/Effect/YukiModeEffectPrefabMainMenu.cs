@@ -9,6 +9,9 @@ namespace SDJK.MainMenu.Effect
     public class YukiModeEffectPrefabMainMenu : YukiModeEffectPrefabParent, IUI
     {
         #region UI
+        Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
+        CanvasSetting _canvasSetting; public CanvasSetting canvasSetting => _canvasSetting = this.GetComponentInParentFieldSave(_canvasSetting, true);
+
         [SerializeField] RectTransform _parentRectTransform; public RectTransform parentRectTransform
         {
             get

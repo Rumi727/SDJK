@@ -31,6 +31,7 @@ namespace SDJK.Effect
     public abstract class UIEffect : Effect, IUI
     {
         Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
+        CanvasSetting _canvasSetting; public CanvasSetting canvasSetting => _canvasSetting = this.GetComponentInParentFieldSave(_canvasSetting, true);
 
         RectTransform _parentRectTransform; public RectTransform parentRectTransform
         {
