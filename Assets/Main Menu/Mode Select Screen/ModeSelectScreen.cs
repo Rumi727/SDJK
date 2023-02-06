@@ -24,6 +24,9 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
         protected override void Awake()
         {
+            RulesetManager.isRulesetChanged -= ModeListRefresh;
+            ModeManager.isModeRefresh -= ModeListRefresh;
+
             RulesetManager.isRulesetChanged += ModeListRefresh;
             ModeManager.isModeRefresh += ModeListRefresh;
 
@@ -59,7 +62,7 @@ namespace SDJK.MainMenu.ModeSelectScreen
             for (int i = 0; i < modeListObjectPooling.Count; i++)
             {
                 IObjectPooling modeToggle = modeListObjectPooling[i];
-                if (modeToggle != null)
+                if (!modeToggle.isRemoved && !modeToggle.IsDestroyed())
                     modeToggle.Remove();
             }
 
