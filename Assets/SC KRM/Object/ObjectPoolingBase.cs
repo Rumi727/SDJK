@@ -13,6 +13,8 @@ namespace SCKRM.Object
 
         void OnCreate();
 
+        bool IsDestroyed();
+
         [WikiDescription("오브젝트를 생성할때의 기본 스크립트")]
         public static void OnCreateDefault(Transform transform, IObjectPooling objectPooling)
         {
@@ -92,5 +94,7 @@ namespace SCKRM.Object
         /// </summary>
         [WikiDescription("오브젝트 삭제")]
         public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
+
+        public bool IsDestroyed() => this == null;
     }
 }
