@@ -33,7 +33,6 @@ namespace SDJK.MainMenu
 
 
 
-        [SerializeField, NotNull] CanvasScaler canvasScaler;
         [SerializeField, NotNull] RectTransform logo;
         [SerializeField, NotNull] RectTransform bar;
         [SerializeField, NotNull] CanvasGroup barCanvasGroup;
@@ -110,8 +109,6 @@ namespace SDJK.MainMenu
                 }
             }
             #endregion
-
-            canvasScaler.referenceResolution = new Vector2((ScreenManager.width / UIManager.currentGuiSize).Clamp(1280), (ScreenManager.height / UIManager.currentGuiSize).Clamp(720));
 
             if (InputManager.GetKey(KeyCode.Space) || InputManager.GetKey(KeyCode.Return))
                 NextScreen();

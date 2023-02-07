@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 52792038}
   - component: {fileID: 52792037}
   - component: {fileID: 52792042}
+  - component: {fileID: 52792045}
   - component: {fileID: 52792043}
   m_Layer: 5
   m_Name: Map Select Screen
@@ -552,7 +553,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 720}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -631,7 +632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4896d634895e00c47b080d32cf2aef20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasScaler: {fileID: 52792038}
 --- !u!225 &52792043
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -659,6 +659,20 @@ MonoBehaviour:
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 52792041}
   _graphic: {fileID: 0}
+--- !u!114 &52792045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52792036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee23ec4bcaf2334fbd4f844a86d4160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _min: {x: 1920, y: 1080}
+  _max: {x: 0, y: 0}
 --- !u!1 &87418764
 GameObject:
   m_ObjectHideFlags: 0
@@ -3923,6 +3937,7 @@ GameObject:
   - component: {fileID: 839120022}
   - component: {fileID: 839120026}
   - component: {fileID: 839120029}
+  - component: {fileID: 839120030}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -4022,7 +4037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ce690241171804598a1bbfb5298862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasScaler: {fileID: 839120027}
   logo: {fileID: 365730755}
   bar: {fileID: 881122264}
   barCanvasGroup: {fileID: 881122267}
@@ -4083,6 +4097,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectManager: {fileID: 789537519}
+--- !u!114 &839120030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839120021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee23ec4bcaf2334fbd4f844a86d4160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _min: {x: 1280, y: 720}
+  _max: {x: 0, y: 0}
 --- !u!1 &873753397
 GameObject:
   m_ObjectHideFlags: 0

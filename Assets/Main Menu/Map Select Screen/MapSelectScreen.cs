@@ -1,20 +1,11 @@
 using SCKRM;
 using SCKRM.Input;
-using SCKRM.Object;
-using SCKRM.UI;
-using SDJK.Map;
-using SDJK.Ruleset;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SDJK.MainMenu.MapSelectScreen
 {
     public class MapSelectScreen : SCKRM.UI.UI
     {
-        [SerializeField, NotNull] CanvasScaler canvasScaler;
-
         float upTimer = 0;
         float upTimer2 = 0;
         float downTimer = 0;
@@ -25,8 +16,6 @@ namespace SDJK.MainMenu.MapSelectScreen
         float rightTimer2 = 0;
         void Update()
         {
-            canvasScaler.referenceResolution = new Vector2((ScreenManager.width / UIManager.currentGuiSize).Clamp(1920), (ScreenManager.height / UIManager.currentGuiSize).Clamp(1080));
-
             if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
             {
                 bool up = ReapeatInput(KeyCode.UpArrow, ref upTimer, ref upTimer2);
