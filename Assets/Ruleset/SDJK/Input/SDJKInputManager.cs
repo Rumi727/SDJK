@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace SDJK.Ruleset.SDJK.Input
 {
@@ -51,7 +50,7 @@ namespace SDJK.Ruleset.SDJK.Input
 
                 for (int i = 0; i < map.notes.Count; i++)
                 {
-                    string keyString = InternalGetKeyString(i);
+                    string keyString = GetKeyString(i, map.notes.Count);
                     bool down, up;
 
                     inputsDown[i] = down = InputManager.GetKey(keyString, InputType.Down);
@@ -62,7 +61,7 @@ namespace SDJK.Ruleset.SDJK.Input
                     {
                         if (down)
                         {
-                            pressKeys.Add(InternalGetKeyString(i));
+                            pressKeys.Add(keyString);
                             isRefresh = true;
                         }
                         else if (up)
@@ -83,10 +82,10 @@ namespace SDJK.Ruleset.SDJK.Input
             }
         }
 
-        string InternalGetKeyString(int keyIndex)
+        public static string GetKeyString(int keyIndex, int keyCount)
         {
             const string originalInputKey = "ruleset.sdjk.";
-            return originalInputKey + map.notes.Count + "." + keyIndex;
+            return originalInputKey + keyCount + "." + keyIndex;
         }
 
         public bool ReplayGetKey(int keyIndex, double beat, out double findedBeat)
