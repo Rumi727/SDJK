@@ -8,6 +8,9 @@ using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
 using SDJK.Replay;
 using SDJK.Mode;
+using System.Collections.Generic;
+using SCKRM;
+using static SDJK.Replay.SDJKReplayFile;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -50,6 +53,9 @@ namespace SDJK.Ruleset.SDJK
             SDJKReplayFile replay = null;
             if (replayFilePath != null)
                 replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath, out modes);
+
+            if (modes.FindMode<AutoModeBase>() != null)
+                replay = GetAutoModeReplayFile(map, modes);
 
             Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
@@ -107,6 +113,30 @@ namespace SDJK.Ruleset.SDJK
             }
 
             System.IO.File.WriteAllText(mapFilePath, SCKRM.Json.JsonManager.ObjectToJson(map));*/
+        }
+
+        static SDJKReplayFile GetAutoModeReplayFile(SDJKMapFile map, IMode[] modes)
+        {
+            SDJKReplayFile replay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
+
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                replay.pressBeat.Add(new List<double>());
+                replay.pressUpBeat.Add(new List<double>());
+
+                List<SDJKNoteFile> notes = map.notes[i];
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+                    if (note.type == SDJKNoteTypeFile.instantDeath || note.type == SDJKNoteTypeFile.auto)
+                        continue;
+
+                    replay.pressBeat[i].Add(note.beat);
+                    replay.pressUpBeat[i].Add(note.beat + note.holdLength);
+                }
+            }
+
+            return replay;
         }
     }
 }
