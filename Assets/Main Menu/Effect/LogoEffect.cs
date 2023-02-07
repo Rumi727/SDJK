@@ -34,8 +34,13 @@ namespace SDJK.MainMenu
                 Rect lastRect = mainCamera.rect;
                 mainCamera.rect = new Rect(0, 0, 1, 1);
 
-                pos = (mainCamera.WorldToScreenPoint(Vector3.zero) * (canvas.pixelRect.height / ScreenManager.height));
+                pos = mainCamera.WorldToViewportPoint(Vector3.zero);
+
+                pos.x *= canvas.pixelRect.width;
+                pos.y *= canvas.pixelRect.height;
+
                 pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
+                pos /= canvas.scaleFactor;
 
                 mainCamera.rect = lastRect;
 
