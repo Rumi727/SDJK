@@ -6,8 +6,6 @@ using SCKRM.UI.StatusBar;
 using SCKRM.UI;
 using SCKRM;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using SDJK.Mode;
