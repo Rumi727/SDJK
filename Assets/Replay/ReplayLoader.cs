@@ -6,13 +6,20 @@ using SDJK.Mode;
 using System;
 using System.IO;
 using UnityEngine;
-
 using Version = SCKRM.Version;
 
 namespace SDJK.Replay
 {
     public static class ReplayLoader
     {
+        public static T CreateReplay<T>(MapFile map, IMode[] modes) where T : ReplayFile, new()
+        {
+            T replay = new T();
+            replay.InternalReplayFileSetting(map, modes);
+
+            return replay;
+        }
+
         public static T ReplayLoad<T>(string replayFilePath, out IMode[] modes) where T : ReplayFile, new()
         {
             if (File.Exists(replayFilePath))
@@ -39,24 +46,28 @@ namespace SDJK.Replay
             return null;
         }
 
-        public static void ReplaySave<T>(this T replayFile, MapFile map, IMode[] modes, string savePath) where T : ReplayFile, new()
+        public static void ReplaySave<T>(this T replay, MapFile map, IMode[] modes, string savePath) where T : ReplayFile, new()
         {
-            replayFile.mapId = map.info.id;
-            
-            replayFile.sckrmVersion = Kernel.sckrmVersion;
-            replayFile.sdjkVersion = new Version(Application.version);
+            replay.InternalReplayFileSetting(map, modes);
+            File.WriteAllText(savePath, JsonManager.ObjectToJson(replay));
+        }
+
+        static void InternalReplayFileSetting<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()
+        {
+            replay.mapId = map.info.id;
+
+            replay.sckrmVersion = Kernel.sckrmVersion;
+            replay.sdjkVersion = new Version(Application.version);
 
             {
-                replayFile.modes = new ReplayModeFile[modes.Length];
-                ReplayModeFile[] replayModeFiles = replayFile.modes;
+                replay.modes = new ReplayModeFile[modes.Length];
+                ReplayModeFile[] replayModeFiles = replay.modes;
                 for (int i = 0; i < modes.Length; i++)
                 {
                     IMode mode = modes[i];
                     replayModeFiles[i] = new ReplayModeFile(mode.GetType(), mode.modeConfig);
                 }
             }
-
-            File.WriteAllText(savePath, JsonManager.ObjectToJson(replayFile));
         }
     }
 }
