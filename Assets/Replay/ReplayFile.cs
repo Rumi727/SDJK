@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Replay
 {
-    public class ReplayFile
+    public abstract class ReplayFile
     {
         public string mapId { get; set; } = "";
 
