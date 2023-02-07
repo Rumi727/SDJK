@@ -1,12 +1,9 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Object;
-using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SDJK.Map;
 using SDJK.Ruleset;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -81,8 +78,8 @@ namespace SDJK.MainMenu.MapSelectScreen
             {
                 MapPackListMapPack mapPackListMapPack = mapSelectScreenMapPacks[i];
                 bool active = !mapPackListMapPack.IsOccluded();
-                if (active != mapPackListMapPack.gameObject.activeSelf)
-                    mapPackListMapPack.gameObject.SetActive(active);
+                if (active != mapPackListMapPack.viewport.activeSelf)
+                    mapPackListMapPack.viewport.SetActive(active);
             }
         }
 

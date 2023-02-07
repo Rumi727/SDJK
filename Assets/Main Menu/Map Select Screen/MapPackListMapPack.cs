@@ -30,6 +30,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
         [SerializeField] Transform rulesetList;
+        public GameObject viewport;
 
         public override void OnCreate()
         {
@@ -44,7 +45,7 @@ namespace SDJK.MainMenu.MapSelectScreen
         int mapPackIndex;
         MapFile map;
         int mapIndex;
-        void Update()
+        public void Update()
         {
             if (isMap)
                 verticalLayout.padding.left = (int)(rulesetIconRectTransform.anchoredPosition.x * 2 + rulesetIconRectTransform.rect.width);
