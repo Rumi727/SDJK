@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.Rhythm;
-using UnityEngine;
 
 namespace SDJK.Replay
 {
@@ -16,6 +15,8 @@ namespace SDJK.Replay
 
         [JsonIgnore] public string replayFilePath { get; set; } = "";
 
+        public BeatValuePairList<int> combos { get; set; } = new(0);
+        public BeatValuePairList<int> maxCombo { get; set; } = new(0);
         public BeatValuePairList<double> scores { get; set; } = new(0);
         public BeatValuePairList<double> accuracys { get; set; } = new(0);
         public BeatValuePairList<double> accuracyUnclampeds { get; set; } = new(0);

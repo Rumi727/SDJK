@@ -27,6 +27,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
         public int combo { get; private set; }
+        public int maxCombo { get; private set; }
 
         public double score { get; private set; }
         public const double scoreMultiplier = 10000000;
@@ -315,6 +316,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     {
                         instance.combo += 1;
                         instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count) * instance.combo * scoreMultiplier;
+
+                        if (instance.maxCombo < instance.combo)
+                        {
+                            instance.maxCombo = instance.combo;
+                            sdjkManager.createdReplay.maxCombo.Add(currentBeat, instance.maxCombo);
+                        }
                     }
                     else
                         instance.combo = 0;
@@ -352,7 +359,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (!sdjkManager.isReplay)
                         CreatedReplayFileAdd();
                     else
-                        GetReplayComboToSet();
+                        GetReplayFileValue();
 
                     instance.judgementAction?.Invoke(disSecond, isMiss, accuracy * disSecond.Sign(), metaData);
                     return true;
@@ -382,7 +389,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         if (!sdjkManager.isReplay)
                             CreatedReplayFileAdd();
                         else
-                            GetReplayComboToSet();
+                            GetReplayFileValue();
 
                         double accuracy = instantDisSecond.Abs().Clamp(0, missSecond) / missSecond;
                         instance.judgementAction?.Invoke(instantDisSecond, true, accuracy * instantDisSecond.Sign(), ruleset.instantDeathJudgementMetaData);
@@ -390,31 +397,38 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
 
                 return false;
-            }
 
-            public void CreatedReplayFileAdd()
-            {
-                SDJKManager sdjkManager = instance.sdjkManager;
-                double currentBeat = RhythmManager.currentBeatSound;
+                static void CreatedReplayFileAdd()
+                {
+                    SDJKManager sdjkManager = instance.sdjkManager;
+                    double currentBeat = RhythmManager.currentBeatSound;
 
-                sdjkManager.createdReplay.combos.Add(currentBeat, instance.combo);
-                sdjkManager.createdReplay.scores.Add(currentBeat, instance.score);
-                sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
-                sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracyAbs);
-                sdjkManager.createdReplay.accuracyUnclampeds.Add(currentBeat, instance.accuracy);
-            }
+                    sdjkManager.createdReplay.combos.Add(currentBeat, instance.combo);
+                    sdjkManager.createdReplay.scores.Add(currentBeat, instance.score);
+                    sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
+                    sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracyAbs);
+                    sdjkManager.createdReplay.accuracyUnclampeds.Add(currentBeat, instance.accuracy);
+                }
 
-            public void GetReplayComboToSet()
-            {
-                SDJKManager sdjkManager = instance.sdjkManager;
-                SDJKReplayFile replay = sdjkManager.currentReplay;
-                double currentBeat = RhythmManager.currentBeatSound;
+                static void GetReplayFileValue()
+                {
+                    SDJKManager sdjkManager = instance.sdjkManager;
+                    SDJKReplayFile replay = sdjkManager.currentReplay;
+                    double currentBeat = RhythmManager.currentBeatSound;
 
-                if (replay.combos.Count > 0) instance.combo = replay.combos.GetValue(currentBeat);
-                if (replay.scores.Count > 0) instance.score = replay.scores.GetValue(currentBeat);
-                if (replay.healths.Count > 0) instance.health = replay.healths.GetValue(currentBeat);
-                if (replay.accuracys.Count > 0) instance.accuracyAbs = replay.accuracys.GetValue(currentBeat);
-                if (replay.accuracyUnclampeds.Count > 0) instance.accuracy = replay.accuracyUnclampeds.GetValue(currentBeat);
+                    if (replay.combos.Count > 0)
+                        instance.combo = replay.combos.GetValue(currentBeat);
+                    if (replay.maxCombo.Count > 0)
+                        instance.maxCombo = replay.maxCombo.GetValue(currentBeat);
+                    if (replay.scores.Count > 0)
+                        instance.score = replay.scores.GetValue(currentBeat);
+                    if (replay.healths.Count > 0)
+                        instance.health = replay.healths.GetValue(currentBeat);
+                    if (replay.accuracys.Count > 0)
+                        instance.accuracyAbs = replay.accuracys.GetValue(currentBeat);
+                    if (replay.accuracyUnclampeds.Count > 0)
+                        instance.accuracy = replay.accuracyUnclampeds.GetValue(currentBeat);
+                }
             }
 
             public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
