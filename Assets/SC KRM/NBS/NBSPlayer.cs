@@ -16,7 +16,7 @@ namespace SCKRM.NBS
 
 
 
-        float tickTimer = 0.05f;
+        double tickTimer = 0.05f;
 
         int _index = 0;
         [WikiDescription("현재 인덱스")]
@@ -72,7 +72,7 @@ namespace SCKRM.NBS
         }
 
         [WikiDescription("현재 시간")]
-        public override float time
+        public override double time
         {
             get
             {
@@ -85,8 +85,8 @@ namespace SCKRM.NBS
             {
                 if (nbsFile != null)
                 {
-                    float value20 = (value * (nbsFile.tickTempo * 0.0005f)) * 20;
-                    float lastTime = time;
+                    double value20 = (value * (nbsFile.tickTempo * 0.0005f)) * 20;
+                    double lastTime = time;
 
                     tick = (int)value20;
                     tickTimer = ((value20 - (int)value20) * 0.05f) + 0.05f;
@@ -96,10 +96,10 @@ namespace SCKRM.NBS
                 }
             }
         }
-        [WikiDescription("실제 현재 시간")] public override float realTime { get => time / tempo; set => time = value * tempo; }
+        [WikiDescription("실제 현재 시간")] public override double realTime { get => time / tempo; set => time = value * tempo; }
 
         [WikiDescription("곡의 길이")]
-        public override float length
+        public override double length
         {
             get
             {
@@ -122,9 +122,9 @@ namespace SCKRM.NBS
             }
         }
 
-        [WikiDescription("곡의 실제 길이")] public override float realLength => length / tempo;
+        [WikiDescription("곡의 실제 길이")] public override double realLength => length / tempo;
 
-        [WikiDescription("곡의 실제 틱 길이")] public float realTickLength => tickLength / tempo;
+        [WikiDescription("곡의 실제 틱 길이")] public double realTickLength => tickLength / tempo;
 
         [WikiDescription("루프 여부")] public override bool isLooped { get; protected set; } = false;
         [WikiDescription("일시정지 여부")] public override bool isPaused { get; set; } = false;
@@ -160,7 +160,7 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
             {
                 if (realSpeed < 0)
                 {
-                    tickTimer -= Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
+                    tickTimer -= Kernel.deltaTimeDouble * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
 
                     bool soundPlayerAllow = false;
                     while (tickTimer <= 0)
@@ -176,7 +176,7 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
                 }
                 else
                 {
-                    tickTimer += Kernel.deltaTime * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
+                    tickTimer += Kernel.deltaTimeDouble * (nbsFile.tickTempo * 0.0005f) * realSpeed.Abs();
 
                     bool soundPlayerAllow = false;
                     while (tickTimer >= 0.05f)

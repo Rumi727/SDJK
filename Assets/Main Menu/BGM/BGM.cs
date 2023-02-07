@@ -27,13 +27,13 @@ namespace SDJK.MainMenu
 
         AudioClip audioClip;
         MapFile map;
-        public async UniTaskVoid Refresh(MapPack lastMapPack, float lastTime)
+        public async UniTaskVoid Refresh(MapPack lastMapPack, double lastTime)
         {
             map = MapManager.selectedMap;
             string path = PathUtility.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
-                audioClip = await ResourceManager.GetAudio(fullPath, true, true);
+                audioClip = await ResourceManager.GetAudio(fullPath, true, false);
                 if (!Kernel.isPlaying || this == null)
                 {
                     AudioDestroy();

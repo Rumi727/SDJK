@@ -55,10 +55,10 @@ namespace SCKRM.Editor
                 nbsPlayer.loop = EditorGUILayout.Toggle(nbsPlayer.loop, GUILayout.Width(15));
 
                 GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                nbsPlayer.pitch = EditorGUILayout.Slider(nbsPlayer.pitch, -3f.Min(nbsPlayer.pitch), 3f.Max(nbsPlayer.pitch));
+                nbsPlayer.pitch = EditorGUILayout.Slider(nbsPlayer.pitch, (-3f).Min(nbsPlayer.pitch), 3f.Max(nbsPlayer.pitch));
 
                 GUILayout.Label("템포", GUILayout.ExpandWidth(false));
-                nbsPlayer.tempo = EditorGUILayout.Slider(nbsPlayer.tempo, -3f.Min(nbsPlayer.tempo), 3f.Max(nbsPlayer.tempo));
+                nbsPlayer.tempo = EditorGUILayout.Slider(nbsPlayer.tempo, (-3f).Min(nbsPlayer.tempo), 3f.Max(nbsPlayer.tempo));
 
                 EditorGUILayout.EndHorizontal();
             }
@@ -104,8 +104,8 @@ namespace SCKRM.Editor
                 }
                 else
                 {
-                    float timer = nbsPlayer.time;
-                    float length = nbsPlayer.length;
+                    double timer = nbsPlayer.time;
+                    double length = nbsPlayer.length;
 
                     string time = timer.ToTime();
                     string endTime = length.ToTime();
@@ -122,8 +122,8 @@ namespace SCKRM.Editor
                     else
                         GUILayout.Label($"{time} / {endTime} ({nbsPlayer.tick} / {nbsPlayer.tickLength})", GUILayout.ExpandWidth(false));
 
-                    float audioTime = GUILayout.HorizontalSlider(timer, 0, length);
-                    if (timer != audioTime && !refesh)
+                    float audioTime = GUILayout.HorizontalSlider((float)timer, 0, (float)length);
+                    if ((float)timer != audioTime && !refesh && UnityEngine.GUI.changed)
                         nbsPlayer.time = audioTime;
                 }
 

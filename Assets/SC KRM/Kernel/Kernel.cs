@@ -7,6 +7,7 @@ using System;
 using UnityEngine;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace SCKRM
 {
@@ -23,14 +24,20 @@ namespace SCKRM
         [WikiDescription("현재 델타타임")] public static float deltaTime { get; private set; } = fps60second;
         [WikiDescription("현재 FPS 델타타임")] public static float fpsDeltaTime { get; private set; } = 1;
 
+        [WikiDescription("현재 델타타임 Double")] public static double deltaTimeDouble { get; private set; } = fps60second;
+        [WikiDescription("현재 FPS 델타타임 Double")] public static double fpsDeltaTimeDouble { get; private set; } = 1;
+
         [WikiDescription("현재 부드러운 델타타임")] public static float smoothDeltaTime { get; private set; } = fps60second;
         [WikiDescription("현재 부드러운 FPS 델타타임")] public static float fpsSmoothDeltaTime { get; private set; } = fps60second;
 
         [WikiDescription("현재 스케일되지 않은 델타타임")] public static float unscaledDeltaTime { get; private set; } = fps60second;
         [WikiDescription("현재 스케일되지 않은 FPS 델타타임")] public static float fpsUnscaledDeltaTime { get; private set; } = 1;
 
-        [WikiDescription("현재 부드러운 델타타임")] public static float unscaledSmoothDeltaTime { get; private set; } = fps60second;
-        [WikiDescription("현재 부드러운 FPS 델타타임")] public static float fpsUnscaledSmoothDeltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 스케일되지 않은 델타타임 Double")] public static double unscaledDeltaTimeDouble { get; private set; } = fps60second;
+        [WikiDescription("현재 스케일되지 않은 FPS 델타타임 Double")] public static double fpsUnscaledDeltaTimeDouble { get; private set; } = 1;
+
+        [WikiDescription("현재 스케일 되지 않은 부드러운 델타타임")] public static float unscaledSmoothDeltaTime { get; private set; } = fps60second;
+        [WikiDescription("현재 스케일 되지 않은 부드러운 FPS 델타타임")] public static float fpsUnscaledSmoothDeltaTime { get; private set; } = fps60second;
 
         [WikiDescription("현재 고정 델타타임")] public static float fixedDeltaTime { get; set; } = fps60second;
 
@@ -368,20 +375,30 @@ Build: const true"
             }
         }
 
+        Stopwatch deltaTimeStopwatch = Stopwatch.StartNew();
         float lastUnscaledDeltaTime = fps60second;
         void Update()
         {
+            double realDeltaTime = deltaTimeStopwatch.Elapsed.TotalSeconds;
+            deltaTimeStopwatch.Restart();
+
             //게임 속도를 0에서 100 사이로 정하고, 타임 스케일을 게임 속도로 정합니다
             gameSpeed = gameSpeed.Clamp(0, 100);
             Time.timeScale = gameSpeed;
 
             //유니티의 내장 변수들은 테스트 결과, 약간의 성능을 더 먹는것으로 확인되었기 때문에
             //이렇게 관리 스크립트가 변수를 할당하고 다른 스크립트가 그 변수를 가져오는것이 성능에 더 도움 되는것을 확인하였습니다
-            deltaTime = Time.deltaTime;
+            deltaTime = (float)realDeltaTime * gameSpeed;
             fpsDeltaTime = deltaTime * VideoManager.Data.standardFPS;
 
-            unscaledDeltaTime = Time.unscaledDeltaTime;
+            deltaTimeDouble = realDeltaTime * gameSpeed;
+            fpsDeltaTimeDouble = deltaTimeDouble * VideoManager.Data.standardFPS;
+
+            unscaledDeltaTime = (float)realDeltaTime;
             fpsUnscaledDeltaTime = unscaledDeltaTime * VideoManager.Data.standardFPS;
+
+            unscaledDeltaTimeDouble = realDeltaTime;
+            fpsUnscaledDeltaTimeDouble = unscaledDeltaTimeDouble * VideoManager.Data.standardFPS;
 
             fixedDeltaTime = 1f / VideoManager.Data.standardFPS;
             Time.fixedDeltaTime = fixedDeltaTime;

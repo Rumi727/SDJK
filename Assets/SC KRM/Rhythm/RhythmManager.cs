@@ -91,7 +91,7 @@ namespace SCKRM.Rhythm
                 {
                     if (soundPlayer.isActived)
                     {
-                        soundPlayer.speed = soundPlayer.speed.Clamp(0);
+                        //soundPlayer.speed = soundPlayer.speed.Clamp(0);
                         currentSpeed = soundPlayer.speed;
                     }
                     else
@@ -130,7 +130,7 @@ namespace SCKRM.Rhythm
                     }
                     else if (sync.Abs() >= 0.015625)
                     {
-                        if (sync >= 0)
+                        if (sync * currentSpeed.Sign() >= 0)
                         {
                             _time = soundPlayer.time;
 
@@ -170,8 +170,8 @@ namespace SCKRM.Rhythm
                 }
 
                 {
-                    bpmDeltaTime = (float)(bpm / 60 * Kernel.deltaTime * currentSpeed);
-                    bpmUnscaledDeltaTime = (float)(bpm / 60 * Kernel.unscaledDeltaTime * currentSpeed);
+                    bpmDeltaTime = (float)(bpm / 60 * Kernel.deltaTime * currentSpeed.Abs());
+                    bpmUnscaledDeltaTime = (float)(bpm / 60 * Kernel.unscaledDeltaTime * currentSpeed.Abs());
 
                     bpmFpsDeltaTime = bpmDeltaTime * VideoManager.Data.standardFPS;
                     bpmUnscaledFpsDeltaTime = bpmUnscaledDeltaTime * VideoManager.Data.standardFPS;

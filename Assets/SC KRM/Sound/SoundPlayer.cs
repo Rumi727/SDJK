@@ -16,27 +16,30 @@ namespace SCKRM.Sound
 
 
 
-        [WikiDescription("현재 시간")]
-        public override float time
+        [WikiDescription("현재 시간 (Get is Thread-safe)")]
+        public override double time
         {
-            get => audioSource.time;
+            get => (double)audioSource.timeSamples / frequency;
             set
             {
-                float lastTime = audioSource.time;
+                if (!ThreadManager.isMainThread)
+                    throw new NotMainThreadMethodException();
+
+                double lastTime = time;
 
                 if (lastTime != value)
                 {
-                    audioSource.time = value;
-                    tempTime = audioSource.time;
+                    audioSource.timeSamples = (int)(value * frequency);
+                    this.lastTime = time;
 
                     _timeChanged?.Invoke();
                 }
             }
         }
-        [WikiDescription("현재 실제 시간")] public override float realTime { get => time / speed; set => time = value * speed; }
+        [WikiDescription("현재 실제 시간")] public override double realTime { get => time / speed; set => time = value * speed; }
 
-        [WikiDescription("곡의 길이")] public override float length => (float)(audioSource.clip != null ? audioSource.clip.length : 0);
-        [WikiDescription("곡의 실제 길이")] public override float realLength => length / speed;
+        [WikiDescription("곡의 길이")] public override double length => audioSource.clip != null ? (double)lengthSamples / frequency : 0;
+        [WikiDescription("곡의 실제 길이")] public override double realLength => length / speed;
 
         [WikiDescription("루프 가능 여부")]
         public override bool loop
@@ -78,6 +81,7 @@ namespace SCKRM.Sound
 
 
 
+        double lastPitch = 1;
         [WikiDescription("피치")]
         public override float pitch
         {
@@ -87,6 +91,15 @@ namespace SCKRM.Sound
                 if (base.pitch != value)
                 {
                     base.pitch = value;
+
+                    {
+                        float pitch = audioSource.pitch.Sign();
+                        if (lastPitch != pitch)
+                        {
+                            lastTime = time - (pitch * 0.001);
+                            lastPitch = pitch;
+                        }
+                    }
 
                     RefreshTempoAndPitch();
                     RefreshVolume();
@@ -213,9 +226,12 @@ namespace SCKRM.Sound
             }
         }
 
+        public int frequency { get; private set; }
+        public int lengthSamples { get; private set; }
 
 
-        float tempTime = 0;
+
+        double lastTime = 0;
         void Update()
         {
             if (UIOverlayManager.isOverlayShow)
@@ -228,10 +244,10 @@ namespace SCKRM.Sound
                 isLooped = false;
                 if (audioSource.pitch < 0)
                 {
-                    if (audioSource.time < metaData.loopStartTime)
-                        audioSource.time = length - 0.001f;
+                    if (time < metaData.loopStartTime)
+                        time = length - 0.001;
 
-                    if (audioSource.time > tempTime)
+                    if (time > lastTime)
                     {
                         isLooped = true;
                         _looped?.Invoke();
@@ -239,17 +255,17 @@ namespace SCKRM.Sound
                 }
                 else
                 {
-                    if (audioSource.time < tempTime)
+                    if (time < lastTime)
                     {
                         if (metaData.loopStartTime > 0)
-                            audioSource.time = metaData.loopStartTime;
+                            time = metaData.loopStartTime;
 
                         isLooped = true;
                         _looped?.Invoke();
                     }
                 }
 
-                tempTime = audioSource.time;
+                lastTime = time;
             }
 
             if (!isPaused && !audioSource.isPlaying && !ResourceManager.isAudioReset)
@@ -309,10 +325,11 @@ namespace SCKRM.Sound
             else
                 name = nameSpace + ":" + key;
 
-            float backTime = time;
             {
                 metaData = soundData.sounds[Random.Range(0, soundData.sounds.Length)];
                 audioSource.clip = metaData.audioClip;
+                frequency = metaData.audioClip.frequency;
+                lengthSamples = metaData.audioClip.samples;
 
                 if (soundData.isBGM && SoundManager.useTempo)
                     audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
@@ -321,8 +338,6 @@ namespace SCKRM.Sound
 
                 RefreshTempoAndPitch();
                 RefreshVolume();
-
-                audioSource.Play();
             }
 
             if (!SoundManager.soundList.Contains(this))
@@ -332,13 +347,15 @@ namespace SCKRM.Sound
                 if (isPaused)
                     isPaused = false;
 
-                if (audioSource.pitch < 0 && !metaData.stream && tempTime == 0)
-                    audioSource.time = length - 0.001f;
+                if (audioSource.pitch < 0 && !metaData.stream && lastTime == 0)
+                    time = length - 0.001;
                 else
-                    audioSource.time = Mathf.Min(backTime, length - 0.001f);
+                    time = time.Min(length - 0.001);
 
-                tempTime = audioSource.time;
+                lastTime = time;
             }
+
+            audioSource.Play();
         }
 
         public void RefreshTempoAndPitch()
@@ -399,12 +416,11 @@ namespace SCKRM.Sound
             if (!base.Remove())
                 return false;
 
-            tempTime = 0;
+            lastTime = 0;
 
             audioSource.clip = null;
             audioSource.outputAudioMixerGroup = null;
 
-            audioSource.time = 0;
             audioSource.Stop();
 
             soundData = null;

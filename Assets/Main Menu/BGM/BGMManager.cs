@@ -51,7 +51,7 @@ namespace SDJK.MainMenu
 
         void Refresh()
         {
-            float lastTime = 0;
+            double lastTime = 0;
             if (bgm != null && !bgm.isRemoved)
             {
                 bgm.padeOut = true;

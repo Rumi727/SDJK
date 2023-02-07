@@ -130,8 +130,8 @@ namespace SCKRM.Editor
                     else
                         GUILayout.Label($"{time} / {endTime}", GUILayout.ExpandWidth(false));
 
-                    float audioTime = GUILayout.HorizontalSlider(soundObject.time, 0, soundObject.length);
-                    if (soundObject.time != audioTime && !refesh)
+                    float audioTime = GUILayout.HorizontalSlider((float)soundObject.time, 0, (float)soundObject.length);
+                    if ((float)soundObject.time != audioTime && !refesh && UnityEngine.GUI.changed)
                         soundObject.time = audioTime;
                 }
 

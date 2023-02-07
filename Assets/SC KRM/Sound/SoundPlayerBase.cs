@@ -24,11 +24,11 @@ namespace SCKRM.Sound
 
 
 
-        [WikiDescription("시간")] float time { get; set; }
-        [WikiDescription("실제 시간")] float realTime { get; set; }
+        [WikiDescription("시간")] double time { get; set; }
+        [WikiDescription("실제 시간")] double realTime { get; set; }
 
-        [WikiDescription("곡의 길이")] float length { get; }
-        [WikiDescription("곡의 실제 길이")] float realLength { get; }
+        [WikiDescription("곡의 길이")] double length { get; }
+        [WikiDescription("곡의 실제 길이")] double realLength { get; }
 
         [WikiDescription("루프 가능 여부")] bool loop { get; set; }
 
@@ -86,11 +86,11 @@ namespace SCKRM.Sound
 
 
 
-        [WikiDescription("시간")] public abstract float time { get; set; }
-        [WikiDescription("실제 시간")] public abstract float realTime { get; set; }
+        [WikiDescription("시간")] public abstract double time { get; set; }
+        [WikiDescription("실제 시간")] public abstract double realTime { get; set; }
 
-        [WikiDescription("곡의 길이")] public abstract float length { get; }
-        [WikiDescription("곡의 실제 길이")] public abstract float realLength { get; }
+        [WikiDescription("곡의 길이")] public abstract double length { get; }
+        [WikiDescription("곡의 실제 길이")] public abstract double realLength { get; }
 
         [WikiDescription("루프 가능 여부")] public virtual bool loop { get; set; } = false;
 

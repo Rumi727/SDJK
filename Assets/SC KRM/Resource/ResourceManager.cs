@@ -824,7 +824,7 @@ delete garbage"
 
             isAudioReset = true;
 
-            List<float> playersTime = new List<float>();
+            List<double> playersTime = new List<double>();
             for (int i = 0; i < SoundManager.soundList.Count; i++)
                 playersTime.Add(SoundManager.soundList[i].time);
 
