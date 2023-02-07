@@ -16,7 +16,7 @@ namespace SDJK.Replay
 
         [JsonIgnore] public string replayFilePath { get; set; } = "";
 
-        public BeatValuePairList<KeyCode[]> inputs { get; set; } = new(new KeyCode[0]);
+        public BeatValuePairList<string[]> inputs { get; set; } = new(new string[0]);
 
         public BeatValuePairList<double> scores { get; set; } = new(0);
         public BeatValuePairList<double> accuracys { get; set; } = new(0);

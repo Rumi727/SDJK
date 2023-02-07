@@ -39,7 +39,7 @@ namespace SDJK.Ruleset.SDJK.Input
             }
         }
 
-        List<KeyCode> pressKeys = new List<KeyCode>();
+        List<string> pressKeys = new List<string>();
         void Update()
         {
             if (!RhythmManager.isPlaying)
@@ -51,26 +51,26 @@ namespace SDJK.Ruleset.SDJK.Input
 
                 for (int i = 0; i < map.notes.Count; i++)
                 {
-                    inputsDown[i] = InternalGetKey(i, InputType.Down, out List<KeyCode> keyCodes);
-                    inputs[i] = InternalGetKey(i, InputType.Alway, out _);
-                    inputsUp[i] = InternalGetKey(i, InputType.Up, out _);
+                    string keyString = InternalGetKeyString(i);
+                    bool down, up;
+
+                    inputsDown[i] = down = InputManager.GetKey(keyString, InputType.Down);
+                    inputs[i] = InputManager.GetKey(keyString, InputType.Alway);
+                    inputsUp[i] = up = InputManager.GetKey(keyString, InputType.Up);
 
                     if (!sdjkManager.isReplay)
                     {
-                        if (InputManager.GetKey(keyCodes, InputType.Down))
+                        if (down)
                         {
-                            pressKeys.AddRange(keyCodes);
+                            pressKeys.Add(InternalGetKeyString(i));
                             isRefresh = true;
                         }
-                        else if (InputManager.GetKey(keyCodes, InputType.Up))
+                        else if (up)
                         {
-                            for (int j = 0; j < keyCodes.Count; j++)
+                            for (int k = 0; k < pressKeys.Count; k++)
                             {
-                                for (int k = 0; k < pressKeys.Count; k++)
-                                {
-                                    if (pressKeys[k] == keyCodes[j])
-                                        pressKeys.RemoveAt(k);
-                                }
+                                if (pressKeys[k] == keyString)
+                                    pressKeys.RemoveAt(k);
                             }
 
                             isRefresh = true;
@@ -83,13 +83,10 @@ namespace SDJK.Ruleset.SDJK.Input
             }
         }
 
-        bool InternalGetKey(int keyIndex, InputType inputType, out List<KeyCode> keyCode)
+        string InternalGetKeyString(int keyIndex)
         {
             const string originalInputKey = "ruleset.sdjk.";
-            string inputKey = originalInputKey + map.notes.Count + "." + keyIndex;
-
-            keyCode = InputManager.controlSettingList[inputKey];
-            return InputManager.GetKey(inputKey, inputType);
+            return originalInputKey + map.notes.Count + "." + keyIndex;
         }
 
         public bool ReplayGetKey(int keyIndex, double beat, out double findedBeat)
@@ -97,26 +94,15 @@ namespace SDJK.Ruleset.SDJK.Input
             const string originalInputKey = "ruleset.sdjk.";
             string inputKey = originalInputKey + map.notes.Count + "." + keyIndex;
 
-            findedBeat = double.MinValue;
-
-            List<KeyCode> list = InputManager.controlSettingList[inputKey];
-            if (list == null)
+            string[] pressKeys = sdjkManager.currentReplay.inputs.GetValue(beat, out findedBeat);
+            bool input = pressKeys.Contains(inputKey);
+            if (!input)
                 return false;
-            else if (list.Count <= 0)
-                return false;
-
-            KeyCode[] pressKeyCodes = sdjkManager.currentReplay.inputs.GetValue(beat, out findedBeat);
-            for (int i = 0; i < list.Count; i++)
-            {
-                bool input = pressKeyCodes.Contains(list[i]);
-                if (!input)
-                    return false;
-            }
 
             return true;
         }
 
-        /// <exception cref="System.NotSupportedException">
+        /// <exception cref="NotSupportedException">
         /// 이 예외가 발생한다면 학교생활부로 연락해주세요
         /// </exception>
         public bool GetKey(int keyIndex, InputType inputType = InputType.Down)
@@ -131,7 +117,7 @@ namespace SDJK.Ruleset.SDJK.Input
                     return inputsDown[keyIndex];
             }
 
-            throw new System.NotSupportedException("쿠루미! 이것 좀 봐! 불가능한 일이 일어났어!");
+            throw new NotSupportedException("쿠루미! 이것 좀 봐! 불가능한 일이 일어났어!");
         }
     }
 }
