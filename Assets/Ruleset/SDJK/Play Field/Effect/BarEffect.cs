@@ -45,6 +45,7 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         void Press()
         {
+            inputColor = new Color(0.2f, 0.2f, 0.2f);
             transform.SetAsLastSibling();
             isKeyEnable = true;
         }
