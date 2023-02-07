@@ -1,7 +1,9 @@
+using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Input;
+using SDJK.Ruleset.SDJK.Judgement;
 using TMPro;
 using UnityEngine;
 
@@ -21,22 +23,40 @@ namespace SDJK.Ruleset.SDJK.Effect
         [SerializeField] float backgroundAlpha = 0.8f;
 
         PlayField playField => bar.playField;
-        SDJKInputManager inputManager => SDJKInputManager.instance;
+        SDJKJudgementManager judgementManager => SDJKJudgementManager.instance;
+
+        async UniTaskVoid Awake()
+        {
+            if (await UniTask.WaitUntil(() => judgementManager != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
+                return;
+
+            judgementManager.pressAction[bar.barIndex] += Press;
+            judgementManager.pressUpAction[bar.barIndex] += PressUp;
+        }
+
+        async UniTaskVoid OnDestroy()
+        {
+            if (await UniTask.WaitUntil(() => judgementManager != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
+                return;
+
+            judgementManager.pressAction[bar.barIndex] -= Press;
+            judgementManager.pressUpAction[bar.barIndex] -= PressUp;
+        }
+
+        void Press()
+        {
+            transform.SetAsLastSibling();
+            isKeyEnable = true;
+        }
+
+        void PressUp() => isKeyEnable = false;
 
         bool isKeyEnable = false;
         protected override void RealUpdate()
         {
             if (effectManager == null)
                 effectManager = bar.effectManager;
-
-            if (SDJKManager.instance.isReplay)
-                isKeyEnable = inputManager.ReplayGetKey(bar.barIndex, RhythmManager.currentBeatScreen, out _);
-            else
-                isKeyEnable = inputManager.GetKey(bar.barIndex, InputType.Alway);
-
-                if (isKeyEnable)
-                transform.SetAsLastSibling();
-
+            
             PosUpdate();
             SizeUpdate();
             ColorUpdate();

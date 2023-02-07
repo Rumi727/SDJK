@@ -5,7 +5,6 @@ using SDJK.Effect;
 using SDJK.Map.Ruleset.SDJK.Map;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Input
@@ -33,12 +32,9 @@ namespace SDJK.Ruleset.SDJK.Input
                     inputsUp.Add(false);
                     inputs.Add(false);
                 }
-
-                sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
             }
         }
 
-        List<string> pressKeys = new List<string>();
         void Update()
         {
             if (!RhythmManager.isPlaying)
@@ -46,39 +42,14 @@ namespace SDJK.Ruleset.SDJK.Input
 
             if (instance != null)
             {
-                bool isRefresh = false;
-
                 for (int i = 0; i < map.notes.Count; i++)
                 {
                     string keyString = GetKeyString(i, map.notes.Count);
-                    bool down, up;
 
-                    inputsDown[i] = down = InputManager.GetKey(keyString, InputType.Down);
+                    inputsDown[i] = InputManager.GetKey(keyString, InputType.Down);
                     inputs[i] = InputManager.GetKey(keyString, InputType.Alway);
-                    inputsUp[i] = up = InputManager.GetKey(keyString, InputType.Up);
-
-                    if (!sdjkManager.isReplay)
-                    {
-                        if (down)
-                        {
-                            pressKeys.Add(keyString);
-                            isRefresh = true;
-                        }
-                        else if (up)
-                        {
-                            for (int k = 0; k < pressKeys.Count; k++)
-                            {
-                                if (pressKeys[k] == keyString)
-                                    pressKeys.RemoveAt(k);
-                            }
-
-                            isRefresh = true;
-                        }
-                    }
+                    inputsUp[i] = InputManager.GetKey(keyString, InputType.Up);
                 }
-
-                if (isRefresh)
-                    sdjkManager.createdReplay.inputs.Add(RhythmManager.currentBeatSound, pressKeys.ToArray());
             }
         }
 
@@ -86,19 +57,6 @@ namespace SDJK.Ruleset.SDJK.Input
         {
             const string originalInputKey = "ruleset.sdjk.";
             return originalInputKey + keyCount + "." + keyIndex;
-        }
-
-        public bool ReplayGetKey(int keyIndex, double beat, out double findedBeat)
-        {
-            const string originalInputKey = "ruleset.sdjk.";
-            string inputKey = originalInputKey + map.notes.Count + "." + keyIndex;
-
-            string[] pressKeys = sdjkManager.currentReplay.inputs.GetValue(beat, out findedBeat);
-            bool input = pressKeys.Contains(inputKey);
-            if (!input)
-                return false;
-
-            return true;
         }
 
         /// <exception cref="NotSupportedException">
@@ -113,7 +71,7 @@ namespace SDJK.Ruleset.SDJK.Input
                 case InputType.Alway:
                     return inputs[keyIndex];
                 case InputType.Up:
-                    return inputsDown[keyIndex];
+                    return inputsUp[keyIndex];
             }
 
             throw new NotSupportedException("쿠루미! 이것 좀 봐! 불가능한 일이 일어났어!");

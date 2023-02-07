@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using SDJK.Replay;
+using System;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -73,6 +74,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
 
 
+        public List<Action> pressAction = new List<Action>();
+        public List<Action> pressUpAction = new List<Action>();
         public event JudgementAction judgementAction;
         public delegate void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData);
 
@@ -103,8 +106,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     lastJudgementBeat.Add(double.MinValue);
                     lastAutoJudgementBeat.Add(double.MinValue);
 
+                    pressAction.Add(null);
+                    pressUpAction.Add(null);
+
                     if (!sdjkManager.isReplay)
+                    {
                         sdjkManager.createdReplay.pressBeat.Add(new List<double>());
+                        sdjkManager.createdReplay.pressUpBeat.Add(new List<double>());
+                    }
                 }
             }
         }
@@ -145,7 +154,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 NextNote();
 
                 if (instance.sdjkManager.isReplay)
+                {
                     NextPressBeatReplay();
+                    NextPressUpBeatReplay();
+                }
 
                 List<SDJKNoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
@@ -161,8 +173,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
             bool autoNote;
             SDJKNoteFile currentNote;
             double currentPressBeatReplay;
+            double currentPressUpBeatReplay;
             int currentNoteIndex = -1;
             int currentPressBeatReplayIndex = -1;
+            int currentPressUpBeatReplayIndex = -1;
 
             /// <summary>
             /// lastJudgementBeat[keyIndex]
@@ -189,31 +203,38 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     if (autoNote || instance.auto)
                         input = currentBeat >= currentNote.beat;
-                    else if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count)
+                    else if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count && keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
                     {
-                        /*if (currentNotePressBeatReplayIndex < sdjkManager.currentReplay.pressNoteBeat[keyIndex].Count)
-                            input = currentBeat >= currentNotePressBeatReplay;
-                        else
-                            input = false;*/
-
-                        List<double> replayHitsounds = sdjkManager.currentReplay.pressBeat[keyIndex];
-                        if (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < replayHitsounds.Count)
+                        List<double> pressBeats = sdjkManager.currentReplay.pressBeat[keyIndex];
+                        if (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < pressBeats.Count)
                         {
                             input = true;
-                            HitsoundPlay();
+                            instance.pressAction[keyIndex]?.Invoke();
                         }
                         else
                             input = false;
+
+                        List<double> pressUpBeats = sdjkManager.currentReplay.pressUpBeat[keyIndex];
+                        if (currentBeat >= currentPressUpBeatReplay && currentPressUpBeatReplayIndex < pressUpBeats.Count)
+                            instance.pressUpAction[keyIndex]?.Invoke();
                     }
                     else
                     {
                         input = inputManager.GetKey(keyIndex);
 
                         if (input)
+                        {
                             sdjkManager.createdReplay.pressBeat[keyIndex].Add(currentBeat);
+                            instance.pressAction[keyIndex]?.Invoke();
+                        }
+                        else if (inputManager.GetKey(keyIndex, InputType.Up))
+                        {
+                            sdjkManager.createdReplay.pressUpBeat[keyIndex].Add(currentBeat);
+                            instance.pressUpAction[keyIndex]?.Invoke();
+                        }
                     }
 
-                    if (input && !sdjkManager.isReplay)
+                    if (input)
                         HitsoundPlay();
 
                     for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
@@ -227,7 +248,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                                 if (!isMiss) //미스가 아닐경우 홀드 노트 진행
                                 {
-                                    HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, keyIndex, autoNote, holdBeat);
+                                    HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, keyIndex, autoNote, holdBeat, currentPressUpBeatReplay);
                                     instance.holdJudgements.Add(holdJudgementObject);
 
                                     holdJudgementObject.Update();
@@ -244,11 +265,21 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         input = false;
                     }
 
-                    if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count)
+                    if (sdjkManager.isReplay)
                     {
-                        List<double> replayHitsounds = sdjkManager.currentReplay.pressBeat[keyIndex];
-                        while (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < replayHitsounds.Count)
-                            NextPressBeatReplay();
+                        if (keyIndex < sdjkManager.currentReplay.pressBeat.Count)
+                        {
+                            List<double> pressBeats = sdjkManager.currentReplay.pressBeat[keyIndex];
+                            while (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < pressBeats.Count)
+                                NextPressBeatReplay();
+                        }
+                        
+                        if (keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
+                        {
+                            List<double> pressUpBeats = sdjkManager.currentReplay.pressUpBeat[keyIndex];
+                            while (currentBeat >= currentPressUpBeatReplay && currentPressUpBeatReplayIndex < pressUpBeats.Count)
+                                NextPressUpBeatReplay();
+                        }
                     }
                 }
             }
@@ -440,11 +471,24 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         currentPressBeatReplay = pressBeatReplay[currentPressBeatReplayIndex];
                 }
             }
+
+            public void NextPressUpBeatReplay()
+            {
+                SDJKManager sdjkManager = instance.sdjkManager;
+
+                if (keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
+                {
+                    List<double> pressUpBeatReplay = sdjkManager.currentReplay.pressUpBeat[keyIndex];
+                    currentPressUpBeatReplayIndex++;
+                    if (currentPressUpBeatReplayIndex < pressUpBeatReplay.Count)
+                        currentPressUpBeatReplay = pressUpBeatReplay[currentPressUpBeatReplayIndex];
+                }
+            }
         }
 
         class HoldJudgementObject
         {
-            public HoldJudgementObject(JudgementObject judgementObject, SDJKInputManager inputManager, int keyIndex, bool autoNote, double currentHoldNoteBeat)
+            public HoldJudgementObject(JudgementObject judgementObject, SDJKInputManager inputManager, int keyIndex, bool autoNote, double currentHoldNoteBeat, double replayInputBeat)
             {
                 this.judgementObject = judgementObject;
                 this.inputManager = inputManager;
@@ -452,6 +496,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 this.autoNote = autoNote;
                 this.currentHoldNoteBeat = currentHoldNoteBeat;
+                this.replayInputBeat = replayInputBeat;
             }
 
             JudgementObject judgementObject;
@@ -460,6 +505,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             bool autoNote;
             double currentHoldNoteBeat;
+            double replayInputBeat;
 
             bool isRemove = false;
 
@@ -475,14 +521,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double currentBeat = RhythmManager.currentBeatSound;
 
                 bool input;
-                double replayInputBeat = 0;
                 if (autoNote || instance.auto)
                     input = currentBeat <= currentHoldNoteBeat;
                 else if (sdjkManager.isReplay)
-                {
-                    input = inputManager.ReplayGetKey(keyIndex, currentBeat, out double beat);
-                    replayInputBeat = beat;
-                }
+                    input = currentBeat <= replayInputBeat;
                 else
                     input = inputManager.GetKey(keyIndex, InputType.Alway);
 
