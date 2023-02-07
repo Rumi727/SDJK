@@ -59,31 +59,13 @@ namespace SCKRM.UI
             {
                 if (!worldRenderMode)
                 {
-                    if (Kernel.isPlaying)
-                    {
-                        float guiSize = 1 / this.guiSize;
-                        if (customGuiSize)
-                            guiSize = UIManager.currentGuiSize / canvas.scaleFactor;
-
-                        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay || forceSafeScreenEnable)
-                        {
-                            SafeScreenSetting();
-
-                            safeScreen.offsetMin = StatusBarManager.cropedRect.min * guiSize * safeScreenMultiple;
-                            safeScreen.offsetMax = StatusBarManager.cropedRect.max * guiSize * safeScreenMultiple;
-                        }
-                        else
-                            SafeScreenDestroy();
-                    }
-                    else
-                    {
+                    if (!Kernel.isPlaying)
                         tracker.Clear();
 
-                        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay || forceSafeScreenEnable)
-                            SafeScreenSetting();
-                        else
-                            SafeScreenDestroy();
-                    }
+                    if (canvas.renderMode == RenderMode.ScreenSpaceOverlay || forceSafeScreenEnable)
+                        SafeScreenSetting();
+                    else
+                        SafeScreenDestroy();
                 }
                 else
                 {
@@ -133,8 +115,20 @@ namespace SCKRM.UI
             safeScreen.anchorMin = Vector2.zero;
             safeScreen.anchorMax = Vector2.one;
 
-            safeScreen.offsetMin = Vector2.zero;
-            safeScreen.offsetMax = Vector2.zero;
+            if (Kernel.isPlaying)
+            {
+                float guiSize = 1 / this.guiSize;
+                if (customGuiSize)
+                    guiSize = UIManager.currentGuiSize / canvas.scaleFactor;
+
+                safeScreen.offsetMin = StatusBarManager.cropedRect.min * guiSize * safeScreenMultiple;
+                safeScreen.offsetMax = StatusBarManager.cropedRect.max * guiSize * safeScreenMultiple;
+            }
+            else
+            {
+                safeScreen.offsetMin = Vector2.zero;
+                safeScreen.offsetMax = Vector2.one;
+            }
 
             safeScreen.pivot = Vector2.zero;
 
