@@ -44,7 +44,7 @@ namespace SDJK.Ruleset.SDJK.Input
             {
                 for (int i = 0; i < map.notes.Count; i++)
                 {
-                    string keyString = GetKeyString(i, map.notes.Count);
+                    string keyString = InternalGetKeyString(i);
 
                     inputsDown[i] = InputManager.GetKey(keyString, InputType.Down);
                     inputs[i] = InputManager.GetKey(keyString, InputType.Alway);
@@ -53,10 +53,10 @@ namespace SDJK.Ruleset.SDJK.Input
             }
         }
 
-        public static string GetKeyString(int keyIndex, int keyCount)
+        internal string InternalGetKeyString(int keyIndex)
         {
             const string originalInputKey = "ruleset.sdjk.";
-            return originalInputKey + keyCount + "." + keyIndex;
+            return originalInputKey + map.notes.Count + "." + keyIndex;
         }
 
         /// <exception cref="NotSupportedException">
