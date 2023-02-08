@@ -5,6 +5,8 @@ namespace SDJK.Ruleset
 {
     public static class JudgementManager
     {
+        public const double maxScore = 10000000;
+
         public static bool Judgement(this IRuleset ruleset, double disSecond, bool forceFastMiss, out JudgementMetaData judgementMetaData)
         {
             for (int i = 0; i < ruleset.judgementMetaDatas.Length; i++)
@@ -24,9 +26,9 @@ namespace SDJK.Ruleset
             double scoreMultiplier = 1d.Lerp(0, disSecond.Abs() / ruleset.judgementMetaDatas.Last().sizeSecond);
 
             if (allowComboMultiplier)
-                return length / 1d.ArithmeticSequenceSum(length) / length * scoreMultiplier;
+                return length / 1d.ArithmeticSequenceSum(length) / length * scoreMultiplier * maxScore;
             else
-                return 1d / length * scoreMultiplier;
+                return 1d / length * scoreMultiplier * maxScore;
         }
 
         /// <returns>

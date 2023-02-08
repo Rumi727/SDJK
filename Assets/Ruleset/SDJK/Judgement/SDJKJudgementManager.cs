@@ -30,7 +30,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
         public int maxCombo { get; private set; }
 
         public double score { get; private set; }
-        public const double scoreMultiplier = 10000000;
 
         /// <summary>
         /// 0 ~ 1 (0에 가까울수록 정확함)
@@ -315,7 +314,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (!isMiss)
                     {
                         instance.combo += 1;
-                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count) * instance.combo * scoreMultiplier;
+                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count) * instance.combo;
 
                         if (instance.maxCombo < instance.combo)
                         {
