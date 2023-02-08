@@ -41644,11 +41644,12 @@ MonoBehaviour:
   _alwaysVisible: 0
   _customSetting: 1
   _customGuiSize: 0
+  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
-  safeScreen: {fileID: 0}
+  _safeScreen: {fileID: 0}
 --- !u!1 &8943242007721661153
 GameObject:
   m_ObjectHideFlags: 0
@@ -48564,6 +48565,35 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 149191433057823382, guid: 02be26bd3dd3c5040ab91f2f6d8792a3, type: 3}
   m_PrefabInstance: {fileID: 2487013226617171309}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4930313801532019221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7415276968854388600, guid: 02be26bd3dd3c5040ab91f2f6d8792a3, type: 3}
+  m_PrefabInstance: {fileID: 2487013226617171309}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2029181682400401787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930313801532019221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667265df635d9cf409d440278f4a80ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 7020396218910860928}
+--- !u!114 &7020396218910860928 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4895079024698297325, guid: 02be26bd3dd3c5040ab91f2f6d8792a3, type: 3}
+  m_PrefabInstance: {fileID: 2487013226617171309}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930313801532019221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2511272030481135998
 PrefabInstance:
   m_ObjectHideFlags: 0

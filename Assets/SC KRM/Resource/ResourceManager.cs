@@ -154,6 +154,8 @@ namespace SCKRM.Resource
         public static bool isAudioReset { get; private set; } = false;
         public static bool isInitialLoadLanguageEnd { get; private set; } = false;
 
+        public static bool audioResetProhibition { get; set; } = false;
+
         /// <summary>
         /// Thread-Safe
         /// </summary>
@@ -819,7 +821,7 @@ delete garbage"
         [WikiIgnore]
         public static async UniTask AudioReset(AudioConfiguration audioConfiguration)
         {
-            if (isAudioReset)
+            if (isAudioReset || audioResetProhibition)
                 return;
 
             isAudioReset = true;
