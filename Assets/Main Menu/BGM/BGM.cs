@@ -106,7 +106,7 @@ namespace SDJK.MainMenu
                 soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound) * volumePade;
 
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
-                soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+                soundPlayer.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
 
                 //모드
                 {

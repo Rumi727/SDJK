@@ -42,7 +42,7 @@ namespace SDJK.Ruleset.SDJK
             if (soundPlayer != null)
             {
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
-                soundPlayer.tempo = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+                soundPlayer.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
                 soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound);
 
                 //모드
