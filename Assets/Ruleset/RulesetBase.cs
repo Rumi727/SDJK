@@ -82,7 +82,7 @@ namespace SDJK.Ruleset
 
     public struct RankMetaData : IEquatable<RankMetaData>
     {
-        public string nameKey;
+        public string name;
 
         /// <summary>
         /// 0 ~ 1
@@ -96,7 +96,7 @@ namespace SDJK.Ruleset
         /// </param>
         public RankMetaData(string nameKey, double size, Color color)
         {
-            this.nameKey = nameKey;
+            this.name = nameKey;
             this.size = size;
 
             this.color = color;
@@ -113,9 +113,9 @@ namespace SDJK.Ruleset
                 return false;
         }
 
-        public bool Equals(RankMetaData other) => nameKey == other.nameKey;
+        public bool Equals(RankMetaData other) => name == other.name;
 
-        public override int GetHashCode() => nameKey.GetHashCode();
+        public override int GetHashCode() => name.GetHashCode();
     }
 
     public struct JudgementMetaData : IEquatable<JudgementMetaData>
