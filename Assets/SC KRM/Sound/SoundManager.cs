@@ -3,7 +3,6 @@ using K4.Threading;
 using Newtonsoft.Json;
 using SCKRM.NBS;
 using SCKRM.Object;
-using SCKRM.ProjectSetting;
 using SCKRM.Resource;
 using SCKRM.SaveLoad;
 using SCKRM.Threads;
@@ -80,19 +79,7 @@ namespace SCKRM.Sound
             }
             static bool _fixAudioLatency = true;
 
-            [JsonProperty]
-            public static bool useTempo
-            {
-                get => _useTempo;
-                set
-                {
-                    _useTempo = value;
-
-                    if (!InitialLoadManager.isInitialLoadEnd)
-                        SoundManager.useTempo = value;
-                }
-            }
-            static bool _useTempo = true;
+            [JsonProperty] public static bool useTempo { get; set; }
         }
 
         [SerializeField] AudioMixerGroup _audioMixerGroup;
@@ -105,10 +92,6 @@ namespace SCKRM.Sound
 
         public const int maxSoundCount = 256;
         public const int maxNBSCount = 16;
-
-
-
-        [WikiDescription("템포 기능을 사용 가능한지 여부")] public static bool useTempo { get; private set; }
 
 
 

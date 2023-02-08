@@ -102,7 +102,6 @@ namespace SCKRM.Sound
                     }
 
                     RefreshTempoAndPitch();
-                    RefreshVolume();
                 }
             }
         }
@@ -117,7 +116,6 @@ namespace SCKRM.Sound
                     base.tempo = value;
 
                     RefreshTempoAndPitch();
-                    RefreshVolume();
                 }
             }
         }
@@ -127,14 +125,14 @@ namespace SCKRM.Sound
         {
             get
             {
-                if (soundData != null && soundData.isBGM && SoundManager.useTempo)
+                if (soundData != null && soundData.isBGM && SoundManager.SaveData.useTempo)
                     return tempo;
                 else
                     return pitch;
             }
             set
             {
-                if (soundData != null && soundData.isBGM && SoundManager.useTempo)
+                if (soundData != null && soundData.isBGM && SoundManager.SaveData.useTempo)
                     tempo = value;
                 else
                     pitch = value;
@@ -148,7 +146,7 @@ namespace SCKRM.Sound
                 if (metaData == null)
                     return 0;
 
-                if (soundData != null && soundData.isBGM && SoundManager.useTempo)
+                if (soundData != null && soundData.isBGM && SoundManager.SaveData.useTempo)
                     return tempo * metaData.tempo;
                 else
                     return pitch * metaData.pitch;
@@ -231,9 +229,21 @@ namespace SCKRM.Sound
 
 
 
+        bool lastUseTempo = true;
         double lastTime = 0;
         void Update()
         {
+            if (lastUseTempo != SoundManager.SaveData.useTempo)
+            {
+                if (soundData.isBGM && SoundManager.SaveData.useTempo)
+                    audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
+                else
+                    audioSource.outputAudioMixerGroup = null;
+
+                lastUseTempo = SoundManager.SaveData.useTempo;
+                RefreshTempoAndPitch();
+            }
+
             if (UIOverlayManager.isOverlayShow)
                 audioLowPassFilter.cutoffFrequency = 687.5f;
             else
@@ -331,10 +341,12 @@ namespace SCKRM.Sound
                 frequency = metaData.audioClip.frequency;
                 lengthSamples = metaData.audioClip.samples;
 
-                if (soundData.isBGM && SoundManager.useTempo)
+                if (soundData.isBGM && SoundManager.SaveData.useTempo)
                     audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
                 else
                     audioSource.outputAudioMixerGroup = null;
+
+                lastUseTempo = SoundManager.SaveData.useTempo;
 
                 RefreshTempoAndPitch();
                 RefreshVolume();
@@ -365,7 +377,7 @@ namespace SCKRM.Sound
                 return;
             }
 
-            if (soundData == null || soundData.isBGM && SoundManager.useTempo)
+            if (soundData == null || soundData.isBGM && SoundManager.SaveData.useTempo)
             {
                 if (metaData.stream)
                     base.tempo = base.tempo.Clamp(0);
@@ -426,6 +438,7 @@ namespace SCKRM.Sound
             customSoundData = null;
 
             SoundManager.soundList.Remove(this);
+            lastUseTempo = true;
 
             return true;
         }

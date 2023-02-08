@@ -334,7 +334,7 @@ namespace SCKRM.Editor
                                             }
                                         }
 
-                                        if (soundData.Value.isBGM && SoundManager.useTempo)
+                                        if (soundData.Value.isBGM && SoundManager.SaveData.useTempo)
                                         {
                                             GUILayout.Label("피치", GUILayout.ExpandWidth(false));
                                             pitch = EditorGUILayout.FloatField(pitch, GUILayout.Width(30)).Clamp(soundMetaData.tempo.Abs() * 0.5f, soundMetaData.tempo.Abs() * 2f);

@@ -57,7 +57,7 @@
 	"options.sound.fixAudioLatency": "オーディオレイテンシ",
 	"options.sound.fixAudioLatency.info": "オーディオレイテンシを修正します (音声が途切れることがあります！)",
 	"options.sound.useTempo": "テンポ機能を使う",
-	"options.sound.useTempo.info": "音楽のテンポ機能をオンにします(音楽の高低を変えずに音楽の速度を変える機能です)\nこの機能を有効にすると、オーディオレイテンシが<b>流動的に</b>増加します（流動的に増加するため、コードで解決できません）\n<b>プログラムを再起動する必要が適用されます！</b>",
+	"options.sound.useTempo.info": "音楽のテンポ機能をオンにします(音楽の高低を変えずに音楽の速度を変える機能です)\nこの機能を有効にすると、オーディオレイテンシが<b>流動的に</b>増加します（流動的に増加するため、コードで解決できません）",
 	"options.sound.audio_reset": "オーディオリセット",
 	"options.sound.audio_reset.info": "Unityオーディオをリセットします（音が途切れたときにのみ使用してください）",
 	
