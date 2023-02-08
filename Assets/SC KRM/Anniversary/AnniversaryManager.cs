@@ -42,7 +42,7 @@ namespace SCKRM
                 description.replace = new ReplaceOldNewPair[] { replace };
 
                 NoticeManager.Notice(title, description);
-            }, 7, 1));
+            }, 7, 1, false, new TimeSpan(9, 0, 0)));
 
             //학교생활! 애니
             anniversaryList.Add(new Anniversary(dateTime =>
@@ -55,37 +55,37 @@ namespace SCKRM
                 description.replace = new ReplaceOldNewPair[] { replace };
 
                 NoticeManager.Notice(title, description);
-            }, 7, 9));
+            }, 7, 9, false, new TimeSpan(9, 0, 0)));
 
             //쿠루미쨩
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.ebisuzawa_kurumi_chan.birthday.title", "notice.ebisuzawa_kurumi_chan.birthday.description");
-            }, 8, 7));
+            }, 8, 7, false, new TimeSpan(9, 0, 0)));
 
             //유키
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.takeya_yuki.birthday.title", "notice.takeya_yuki.birthday.description");
-            }, 4, 5));
+            }, 4, 5, false, new TimeSpan(9, 0, 0)));
 
             //유리
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.wakasa_yuri.birthday.title", "notice.wakasa_yuri.birthday.description");
-            }, 10, 11));
+            }, 10, 11, false, new TimeSpan(9, 0, 0)));
 
             //미키
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.naoki_miki.birthday.title", "notice.naoki_miki.birthday.description");
-            }, 12, 10));
+            }, 12, 10, false, new TimeSpan(9, 0, 0)));
 
             //메구미
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.sakura_megumi.birthday.title", "notice.sakura_megumi.birthday.description");
-            }, 3, 10));
+            }, 3, 10, false, new TimeSpan(9, 0, 0)));
 
             //스크래치 네이버 카페
             anniversaryList.Add(new Anniversary(dateTime =>
@@ -98,7 +98,7 @@ namespace SCKRM
                 description.replace = new ReplaceOldNewPair[] { replace };
 
                 NoticeManager.Notice(title, description);
-            }, 2, 9));
+            }, 2, 9, false, new TimeSpan(9, 0, 0)));
 
             //설날
             anniversaryList.Add(new Anniversary(dateTime =>
@@ -110,13 +110,13 @@ namespace SCKRM
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.april_fools_day.title", "notice.april_fools_day.description");
-            }, 4, 1));
+            }, 4, 1, false, new TimeSpan(9, 0, 0)));
 
             //마플님
             anniversaryList.Add(new Anniversary(dateTime =>
             {
                 NoticeManager.Notice("notice.marple.birthday.title", "notice.marple.birthday.description");
-            }, 4, 23));
+            }, 4, 23, false, new TimeSpan(9, 0, 0)));
         }
     }
 
