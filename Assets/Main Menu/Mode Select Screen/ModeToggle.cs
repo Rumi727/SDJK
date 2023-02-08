@@ -12,6 +12,8 @@ namespace SDJK.MainMenu.ModeSelectScreen
     {
         public IMode mode;
 
+        [SerializeField] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon => _icon;
+
         [SerializeField] CustomTextRendererBase _nameText; public CustomTextRendererBase nameText => _nameText;
         [SerializeField] Tooltip _nameTooltip; public Tooltip nameTooltip => _nameTooltip;
 

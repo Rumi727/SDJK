@@ -87,6 +87,8 @@ namespace SDJK.MainMenu.ModeSelectScreen
 
                 modeToggle.mode = mode;
 
+                modeToggle.icon.nameSpaceIndexTypePathPair = mode.icon;
+
                 modeToggle.nameText.nameSpacePathReplacePair = mode.displayName;
                 modeToggle.nameTooltip.nameSpacePathPair = mode.info;
 
