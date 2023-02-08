@@ -79,7 +79,7 @@ namespace SCKRM.Sound
             }
             static bool _fixAudioLatency = true;
 
-            [JsonProperty] public static bool useTempo { get; set; }
+            [JsonProperty] public static bool useTempo { get; set; } = true;
         }
 
         [SerializeField] AudioMixerGroup _audioMixerGroup;

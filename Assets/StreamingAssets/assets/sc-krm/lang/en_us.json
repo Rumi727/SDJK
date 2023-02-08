@@ -57,7 +57,7 @@
 	"options.sound.fixAudioLatency": "Fix Audio Latency",
 	"options.sound.fixAudioLatency.info": "Fix audio latency (Sound may choppy!)",
 	"options.sound.useTempo": "Using the tempo function",
-	"options.sound.useTempo.info": "Turn on the tempo function of the music (This function changes the speed of the music without changing the pitch of the music)\nEnabling this feature will cause the audio latency to increase <b>dynamically</b> (cannot be solved with code because it increases dynamically)",
+	"options.sound.useTempo.info": "Turn on the tempo function of the music (This function changes the speed of the music without changing the pitch of the music)",
 	"options.sound.audio_reset": "Audio reset",
 	"options.sound.audio_reset.info": "Reset Unity Audio (Only use when sound is choppy)",
 	
