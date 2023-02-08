@@ -11,7 +11,7 @@ namespace SDJK.Ruleset.SDJK
 
         protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
         {
-            RankMetaData rank = manager.ruleset.GetRank(accuracy.Abs());
+            RankMetaData rank = manager.ruleset.GetRank(judgementManager.accuracyAbs);
 
             text.text = rank.name;
             text.color = rank.color;
