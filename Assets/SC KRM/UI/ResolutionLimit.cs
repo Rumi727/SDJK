@@ -11,6 +11,7 @@ namespace SCKRM
 
         [SerializeField, Min(0)] Vector2 _min = Vector2.zero; public Vector2 min => _min;
         [SerializeField, Min(0)] Vector2 _max = Vector2.zero; public Vector2 max => _max;
+        [SerializeField, Min(0)] float _guiSize = 1; public float guiSize => _guiSize;
 
         protected override void Awake() => canvasSetting.customGuiSize = true;
 
@@ -31,7 +32,7 @@ namespace SCKRM
 
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-            canvasScaler.referenceResolution = new Vector2((ScreenManager.width / UIManager.currentGuiSize).Clamp(min.x, maxX), (ScreenManager.height / UIManager.currentGuiSize).Clamp(min.y, maxY));
+            canvasScaler.referenceResolution = new Vector2((ScreenManager.width / (UIManager.currentGuiSize * guiSize)).Clamp(min.x, maxX), (ScreenManager.height / (UIManager.currentGuiSize * guiSize)).Clamp(min.y, maxY));
         }
     }
 }
