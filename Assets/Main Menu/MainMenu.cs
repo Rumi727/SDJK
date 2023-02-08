@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Input;
+using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.SaveLoad;
 using SCKRM.Scene;
@@ -370,6 +371,7 @@ namespace SDJK.MainMenu
         {
             StatusBarManager.statusBarForceHide = false;
             SideBarManager.sideBarForceHide = false;
+            ResourceManager.audioResetProhibition = false;
 
             EventSystem.current.SetSelectedGameObject(null);
             SideBarManager.AllHide();

@@ -9,6 +9,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using SDJK.Mode;
+using SCKRM.Resource;
 
 namespace SDJK.Ruleset
 {
@@ -38,10 +39,11 @@ namespace SDJK.Ruleset
 
         public void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes);
 
-        public static void GameStartDefaultMethod()
+        public static void GameStartDefaultMethod(bool isReplay)
         {
             StatusBarManager.statusBarForceHide = true;
-            SideBarManager.sideBarForceHide = true;
+            SideBarManager.sideBarForceHide = isReplay;
+            ResourceManager.audioResetProhibition = true;
 
             EventSystem.current.SetSelectedGameObject(null);
             SideBarManager.AllHide();
@@ -77,7 +79,7 @@ namespace SDJK.Ruleset
         /// Please put base.GameStart() when overriding
         /// </summary>
         /// <param name="mapFilePath"></param>
-        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod();
+        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod(!string.IsNullOrEmpty(replayFilePath));
     }
 
     public struct RankMetaData : IEquatable<RankMetaData>
