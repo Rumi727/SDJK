@@ -11,6 +11,9 @@ namespace SDJK.Ruleset.ADOFAI
         public override string name { get; } = "adofai";
 
         public override NameSpaceIndexTypePathPair icon { get; } = new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");
+
+        public override RankMetaData[] rankMetaDatas { get; }
+
         public override JudgementMetaData[] judgementMetaDatas => null;
         public override JudgementMetaData missJudgementMetaData { get; }
 

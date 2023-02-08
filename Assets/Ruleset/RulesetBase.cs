@@ -25,6 +25,12 @@ namespace SDJK.Ruleset
         public string[] compatibleRulesets { get; }
 
         /// <summary>
+        /// 크기가 작은순 부터 큰순으로 리스트를 만들어야합니다.
+        /// 크기가 작으면 랭크가 낮습니다
+        /// </summary>
+        public RankMetaData[] rankMetaDatas { get; }
+
+        /// <summary>
         /// 판정이 작은순 부터 큰순으로 리스트를 만들어야합니다
         /// </summary>
         public JudgementMetaData[] judgementMetaDatas { get; }
@@ -62,6 +68,8 @@ namespace SDJK.Ruleset
         public abstract NameSpaceIndexTypePathPair icon { get; }
         public virtual string[] compatibleRulesets => null;
 
+        public abstract RankMetaData[] rankMetaDatas { get; }
+
         public abstract JudgementMetaData[] judgementMetaDatas { get; }
         public abstract JudgementMetaData missJudgementMetaData { get; }
 
@@ -70,6 +78,44 @@ namespace SDJK.Ruleset
         /// </summary>
         /// <param name="mapFilePath"></param>
         public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod();
+    }
+
+    public struct RankMetaData : IEquatable<RankMetaData>
+    {
+        public string nameKey;
+
+        /// <summary>
+        /// 0 ~ 1
+        /// </summary>
+        public double size;
+
+        public Color color;
+
+        /// <param name="size">
+        /// 0 ~ 1
+        /// </param>
+        public RankMetaData(string nameKey, double size, Color color)
+        {
+            this.nameKey = nameKey;
+            this.size = size;
+
+            this.color = color;
+        }
+
+        public static bool operator ==(RankMetaData left, RankMetaData right) => left.Equals(right);
+        public static bool operator !=(RankMetaData left, RankMetaData right) => !left.Equals(right);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is RankMetaData)
+                return ((RankMetaData)obj).Equals(this);
+            else
+                return false;
+        }
+
+        public bool Equals(RankMetaData other) => nameKey == other.nameKey;
+
+        public override int GetHashCode() => nameKey.GetHashCode();
     }
 
     public struct JudgementMetaData : IEquatable<JudgementMetaData>

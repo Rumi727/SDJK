@@ -9,8 +9,6 @@ using UnityEngine;
 using SDJK.Replay;
 using SDJK.Mode;
 using System.Collections.Generic;
-using SCKRM;
-using static SDJK.Replay.SDJKReplayFile;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -20,6 +18,17 @@ namespace SDJK.Ruleset.SDJK
 
         public override string name { get; } = "sdjk";
         public override string[] compatibleRulesets { get; } = new string[] { "adofai" };
+
+        public override RankMetaData[] rankMetaDatas { get; } = new RankMetaData[]
+        {
+            new RankMetaData("WTF", 0.1, new Color32(0, 0, 0, 255)),
+            new RankMetaData("F", 0.5, new Color32(166, 166, 166, 255)),
+            new RankMetaData("C", 0.75, new Color32(230, 230, 0, 255)),
+            new RankMetaData("B", 0.875, new Color32(100, 255, 100, 255)),
+            new RankMetaData("A", 0.9375, new Color32(0, 170, 255, 255)),
+            new RankMetaData("S", 0.96875, new Color32(0, 220, 255, 255)),
+            new RankMetaData("SS", 1, new Color32(142, 26, 160, 255))
+        };
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
