@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Linq;
 using SCKRM;
 using SCKRM.Json;
+using SCKRM.NTP;
 using SDJK.Map;
 using SDJK.Mode;
 using System;
@@ -58,6 +59,8 @@ namespace SDJK.Replay
 
             replay.sckrmVersion = Kernel.sckrmVersion;
             replay.sdjkVersion = new Version(Application.version);
+
+            replay.clearUTCTime = NTPDateTime.utcNow;
 
             {
                 replay.modes = new ReplayModeFile[modes.Length];
