@@ -352,8 +352,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 EffectAdd3(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
                 EffectAdd3(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
 
+                map.globalEffect.pitch.Add(double.MinValue, 0, 1);
                 EffectAdd2(oldMap.Effect.Pitch, oldMap.Effect.PitchEffect, map.globalEffect.tempo);
-                map.globalEffect.tempo.Add(double.MinValue, 0, 1);
 
                 EffectAdd2(oldMap.Effect.Volume, oldMap.Effect.VolumeEffect, map.globalEffect.volume);
 
