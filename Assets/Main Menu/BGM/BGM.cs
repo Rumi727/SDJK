@@ -33,7 +33,7 @@ namespace SDJK.MainMenu
             string path = PathUtility.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
-                audioClip = await ResourceManager.GetAudio(fullPath, true, false);
+                audioClip = await ResourceManager.GetAudio(fullPath, true, true);
                 if (!Kernel.isPlaying || this == null)
                 {
                     AudioDestroy();

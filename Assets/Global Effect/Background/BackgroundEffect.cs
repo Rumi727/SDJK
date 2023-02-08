@@ -33,7 +33,7 @@ namespace SDJK.Effect
             }
 
             //배경이 없으면 검정색 이미지를 표시합니다
-            image.enabled = background == null;
+            image.enabled = background == null || background.isRemoved;
         }
 
         bool BackgroundCheck()
