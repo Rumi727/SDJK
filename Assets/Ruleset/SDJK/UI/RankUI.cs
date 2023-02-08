@@ -9,6 +9,12 @@ namespace SDJK.Ruleset.SDJK
         [SerializeField, NotNull] SDJKManager manager;
         [SerializeField, NotNull] TMP_Text text;
 
-        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData) => text.text = manager.ruleset.GetRank(accuracy.Abs()).name;
+        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
+        {
+            RankMetaData rank = manager.ruleset.GetRank(accuracy.Abs());
+
+            text.text = rank.name;
+            text.color = rank.color;
+        }
     }
 }
