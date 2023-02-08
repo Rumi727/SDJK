@@ -58,7 +58,7 @@
 	"options.sound.fixAudioLatency": "오디오 대기 시간 수정",
 	"options.sound.fixAudioLatency.info": "오디오 대기 시간을 수정합니다 (소리가 끊길 수 있습니다!)",
 	"options.sound.useTempo": "템포 기능 사용",
-	"options.sound.useTempo.info": "음악의 템포 기능을 켭니다 (음악의 높낮이를 바꾸지 않고 음악의 속도를 바꾸는 기능입니다)",
+	"options.sound.useTempo.info": "음악의 템포 기능을 켭니다 (음악의 높낮이를 바꾸지 않고 음악의 속도를 바꾸는 기능입니다)\n레이턴시를 위해 품질을 희생했기 때문에 템포가 느리면 오디오가 약간 이상해집니다",
 	"options.sound.audio_reset": "오디오 리셋",
 	"options.sound.audio_reset.info": "유니티 오디오를 리셋합니다 (소리가 끊길 때만 사용하세요)\n(이 버튼을 여러번 눌러도 소리가 끊긴다면 오디오 대기 시간 수정을 꺼보세요)",
 	
