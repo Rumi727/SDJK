@@ -9,6 +9,12 @@ namespace SDJK.Ruleset
 
         public static bool Judgement(this IRuleset ruleset, double disSecond, bool forceFastMiss, out JudgementMetaData judgementMetaData)
         {
+            if (disSecond == 0 && ruleset.judgementMetaDatas.Length > 0)
+            {
+                judgementMetaData = ruleset.judgementMetaDatas[0];
+                return true;
+            }
+
             for (int i = 0; i < ruleset.judgementMetaDatas.Length; i++)
             {
                 judgementMetaData = ruleset.judgementMetaDatas[i];
@@ -85,6 +91,9 @@ namespace SDJK.Ruleset
 
         public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs)
         {
+            if (accuracyAbs == 0 && ruleset.rankMetaDatas.Length > 0)
+                return ruleset.rankMetaDatas[0];
+
             for (int i = 0; i < ruleset.rankMetaDatas.Length; i++)
             {
                 RankMetaData rankMetaData = ruleset.rankMetaDatas[i];
