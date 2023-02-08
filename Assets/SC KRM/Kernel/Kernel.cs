@@ -373,7 +373,16 @@ Build: const true"
 
                 _emptyRectTransform = emptyRectTransform;
             }
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.pauseStateChanged += PauseStateChanged;
+#endif
         }
+
+#if UNITY_EDITOR
+        void PauseStateChanged(UnityEditor.PauseState pauseState) => deltaTimeStopwatch.Restart();
+#endif
+
+        void OnApplicationPause(bool pause) => deltaTimeStopwatch.Restart();
 
         Stopwatch deltaTimeStopwatch = Stopwatch.StartNew();
         float lastUnscaledDeltaTime = fps60second;
@@ -448,6 +457,10 @@ Build: const true"
 
             if (InitialLoadManager.isInitialLoadEnd)
                 SaveLoadManager.SaveAll(SaveLoadManager.generalSLCList, saveDataPath);
+
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.pauseStateChanged -= PauseStateChanged;
+#endif
         }
 
 
