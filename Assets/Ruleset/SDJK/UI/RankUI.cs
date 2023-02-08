@@ -2,7 +2,7 @@ using SCKRM;
 using TMPro;
 using UnityEngine;
 
-namespace SDJK.Ruleset.SDJK
+namespace SDJK.Ruleset.SDJK.UI
 {
     public sealed class RankUI : SDJKUI
     {

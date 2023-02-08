@@ -3,7 +3,7 @@ using SCKRM;
 using SDJK.Ruleset.SDJK.Judgement;
 using UnityEngine;
 
-namespace SDJK.Ruleset.SDJK
+namespace SDJK.Ruleset.SDJK.UI
 {
     public abstract class SDJKUI : SCKRM.UI.UI
     {

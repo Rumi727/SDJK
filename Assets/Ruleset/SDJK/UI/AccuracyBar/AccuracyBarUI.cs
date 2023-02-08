@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK.Ruleset.SDJK
+namespace SDJK.Ruleset.SDJK.UI
 {
     public sealed class AccuracyBarUI : SDJKUI
     {
