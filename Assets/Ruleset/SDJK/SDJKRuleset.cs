@@ -28,7 +28,7 @@ namespace SDJK.Ruleset.SDJK
             new RankMetaData("C", 0.25, new Color32(230, 230, 0, 255)),
             new RankMetaData("F", 0.5, new Color32(166, 166, 166, 255)),
             new RankMetaData("WTF", 0.1, new Color32(0, 0, 0, 255))
-        }
+        };
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
