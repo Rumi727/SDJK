@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK
 {
-    public class AccuracyBarRod : UIObjectPooling
+    public sealed class AccuracyBarRod : UIObjectPooling
     {
         [SerializeField] float speed = 0.001f;
 

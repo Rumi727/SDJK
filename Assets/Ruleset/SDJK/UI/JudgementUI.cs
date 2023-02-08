@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.UI
 {
-    public class JudgementUI : SDJKUI
+    public sealed class JudgementUI : SDJKUI
     {
         [SerializeField] CustomImageRenderer image;
         [SerializeField] TMP_Text delayText;
