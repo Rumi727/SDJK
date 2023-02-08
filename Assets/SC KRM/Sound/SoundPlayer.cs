@@ -344,18 +344,17 @@ namespace SCKRM.Sound
                 SoundManager.soundList.Add(this);
 
             {
-                if (isPaused)
-                    isPaused = false;
+                if (!audioSource.isPlaying && !isPaused)
+                {
+                    if (audioSource.pitch < 0 && !metaData.stream && lastTime == 0)
+                        time = length - 0.001;
+                    else
+                        time = time.Min(length - 0.001);
 
-                if (audioSource.pitch < 0 && !metaData.stream && lastTime == 0)
-                    time = length - 0.001;
-                else
-                    time = time.Min(length - 0.001);
-
-                lastTime = time;
+                    lastTime = time;
+                    audioSource.Play();
+                }
             }
-
-            audioSource.Play();
         }
 
         public void RefreshTempoAndPitch()
