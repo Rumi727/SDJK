@@ -83,13 +83,13 @@ namespace SDJK.Ruleset
             return 0;
         }
 
-        public static RankMetaData GetRank(this IRuleset ruleset, double score)
+        public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs)
         {
             for (int i = 0; i < ruleset.rankMetaDatas.Length; i++)
             {
                 RankMetaData rankMetaData = ruleset.rankMetaDatas[i];
 
-                if (score / maxScore < rankMetaData.size)
+                if (accuracyAbs < rankMetaData.size)
                     return rankMetaData;
             }
 

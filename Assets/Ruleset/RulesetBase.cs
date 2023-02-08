@@ -26,7 +26,7 @@ namespace SDJK.Ruleset
 
         /// <summary>
         /// 크기가 작은순 부터 큰순으로 리스트를 만들어야합니다.
-        /// 크기가 작으면 랭크가 낮습니다
+        /// 크기가 작으면 랭크가 높습니다
         /// </summary>
         public RankMetaData[] rankMetaDatas { get; }
 
