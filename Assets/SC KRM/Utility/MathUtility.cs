@@ -196,6 +196,12 @@ namespace SCKRM
         [WikiIgnore] public static nuint ArithmeticSequenceSum(this nuint start, nuint end) => (start.Distance(end) + 1) * (start + end) / 2;
         #endregion
 
+        public static float Angle(this Vector2 current, Vector2 target)
+        {
+            Vector2 dir = target - current;
+            return Atan2(dir.y, dir.x) * rad2Deg;
+        }
+
         #region Approximately
         public static bool Approximately(this float a, float b) => (b - a).Abs() < Max(1E-06f * Max(a.Abs(), b.Abs()), float.Epsilon * 8f);
         [WikiIgnore] public static bool Approximately(this double a, double b) => (b - a).Abs() < Max(1E-06d * Max(a.Abs(), b.Abs()), double.Epsilon * 8f);
