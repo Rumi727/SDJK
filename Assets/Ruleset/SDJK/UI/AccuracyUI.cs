@@ -7,7 +7,7 @@ namespace SDJK.Ruleset.SDJK.UI
 {
     public sealed class AccuracyUI : SDJKUI
     {
-        [SerializeField] TMP_Text text;
+        [SerializeField, NotNull] TMP_Text text;
         [SerializeField] float lerpAniValue = 0.2f;
         [SerializeField] string suffix = "%";
 

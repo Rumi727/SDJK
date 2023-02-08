@@ -14,10 +14,10 @@ namespace SDJK.Ruleset.SDJK
         [SerializeField] int sampleCount = 10;
         [SerializeField] string rodObject = "ruleset.sdjk.accuract_bar.rod";
         [SerializeField] float lerpT = 0.125f;
-        [SerializeField] SDJKManager manager;
-        [SerializeField] RectTransform arrow;
-        [SerializeField] RectTransform bar;
-        [SerializeField] RawImage barImage;
+        [SerializeField, NotNull] SDJKManager manager;
+        [SerializeField, NotNull] RectTransform arrow;
+        [SerializeField, NotNull] RectTransform bar;
+        [SerializeField, NotNull] RawImage barImage;
 
         protected override void OnEnable()
         {
