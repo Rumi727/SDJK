@@ -519,6 +519,9 @@ namespace SDJK.Map.Ruleset.ADOFAI
                 repeatEvents.Invoke();
                 #endregion
 
+                if (allBeat.Count > 0)
+                    adofaiMap.info.clearBeat = allBeat.Last() + 4;
+
                 return adofaiMap;
             }
             catch (Exception e)
