@@ -1759,7 +1759,7 @@ Get the list of loaded audio keys (manually find in the default resource pack if
             if (nameSpace == "")
                 nameSpace = defaultNameSpace;
 
-            if (isInitialLoadAudioEnd)
+            if (Kernel.isPlaying && isInitialLoadAudioEnd)
             {
                 if (allSounds.ContainsKey(nameSpace))
                     return allSounds[nameSpace].Keys.ToArray();
@@ -1797,7 +1797,7 @@ Get the list of loaded nbs keys (manually find in the default resource pack if n
             if (nameSpace == "")
                 nameSpace = defaultNameSpace;
 
-            if (isInitialLoadAudioEnd)
+            if (Kernel.isPlaying && isInitialLoadAudioEnd)
             {
                 if (allNBS.ContainsKey(nameSpace))
                     return allNBS[nameSpace].Keys.ToArray();
@@ -1836,7 +1836,7 @@ Get the list of loaded sprite type (manually find in the default resource pack i
             if (nameSpace == "")
                 nameSpace = defaultNameSpace;
 
-            if (isInitialLoadSpriteEnd)
+            if (Kernel.isPlaying && isInitialLoadSpriteEnd)
             {
                 if (allTextureSprites.ContainsKey(nameSpace))
                     return allTextureSprites[nameSpace].Keys.ToArray();
@@ -1879,7 +1879,7 @@ Get the list of loaded sprite keys (manually find in the default resource pack i
             if (nameSpace == "")
                 nameSpace = defaultNameSpace;
 
-            if (isInitialLoadSpriteEnd)
+            if (Kernel.isPlaying && isInitialLoadSpriteEnd)
             {
                 if (allTextureSprites.ContainsKey(nameSpace) && allTextureSprites[nameSpace].ContainsKey(type))
                     return allTextureSprites[nameSpace][type].Keys.ToArray();
@@ -1930,7 +1930,7 @@ Get the list of loaded language keys (manually find in the default resource pack
             if (nameSpace == "")
                 nameSpace = defaultNameSpace;
 
-            if (isInitialLoadLanguageEnd)
+            if (Kernel.isPlaying && isInitialLoadLanguageEnd)
             {
                 if (allLanguages.ContainsKey(nameSpace) && allLanguages[nameSpace].ContainsKey(language))
                     return allLanguages[nameSpace][language].Keys.ToArray();
