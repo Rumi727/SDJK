@@ -249,6 +249,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
                 map.info.songOffset = oldMap.Offset;
                 map.info.mainMenuStartTime = oldMap.MainMenuStartTime;
+
+                if (oldMap.AllBeat.Count > 0)
+                    map.info.clearBeat = oldMap.AllBeat.Last();
                 #endregion
 
                 #region Beat
