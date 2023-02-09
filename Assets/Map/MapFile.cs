@@ -99,6 +99,10 @@ namespace SDJK.Map
 
 
 
+        public double clearBeat { get; set; } = double.MaxValue;
+
+
+
         public void ResetMapID(string mapFilePath)
         {
             using SHA256 sha256 = SHA256.Create();

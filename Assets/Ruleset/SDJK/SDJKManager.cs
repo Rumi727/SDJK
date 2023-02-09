@@ -11,6 +11,7 @@ using SDJK.MainMenu;
 using SDJK.Map.Ruleset.SDJK.Map;
 using SDJK.Mode;
 using SDJK.Replay;
+using SDJlK.Ruleset.ResultScreen;
 using System.IO;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace SDJK.Ruleset.SDJK
         public bool isReplay { get; private set; } = false;
         public SDJKReplayFile currentReplay { get; private set; } = null;
 
-        public SDJKReplayFile createdReplay { get; private set; } = new SDJKReplayFile();
+        public SDJKReplayFile createdReplay { get; private set; } = null;
 
         public ISoundPlayer soundPlayer { get; private set; }
         public AudioClip bgmClip { get; private set; }
@@ -34,9 +35,10 @@ namespace SDJK.Ruleset.SDJK
         public bool isEditor { get; private set; }
         public IMode[] modes { get; private set; }
 
+        bool isClear = false;
         void Update()
         {
-            if (!RhythmManager.isPlaying)
+            if (!RhythmManager.isPlaying || map == null)
                 return;
 
             if (soundPlayer != null)
@@ -54,6 +56,9 @@ namespace SDJK.Ruleset.SDJK
                         soundPlayer.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
                 }
             }
+
+            if (map.info.clearBeat <= RhythmManager.currentBeatSound)
+                Clear();
         }
 
         void OnDestroy()
@@ -81,6 +86,8 @@ namespace SDJK.Ruleset.SDJK
                     currentReplay = null;
                 }
 
+                createdReplay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
+
                 this.modes = modes;
                 this.isEditor = isEditor;
 
@@ -100,6 +107,37 @@ namespace SDJK.Ruleset.SDJK
             }
         }
 
+        public void Clear()
+        {
+            if (isClear)
+                return;
+
+            ReplayFile replay;
+            if (isReplay)
+            {
+                replay = currentReplay;
+
+                if (modes.FindMode<AutoModeBase>() != null)
+                {
+                    currentReplay.scores.Add(double.MinValue, JudgementManager.maxScore);
+
+                    currentReplay.combos.Add(double.MinValue, map.allJudgmentBeat.Count);
+                    currentReplay.maxCombo.Add(double.MinValue, map.allJudgmentBeat.Count);
+
+                    currentReplay.accuracys.Add(double.MinValue, 0);
+                    currentReplay.accuracyUnclampeds.Add(double.MinValue, 0);
+                }
+            }
+            else
+                replay = createdReplay;
+
+            if (!isReplay)
+                createdReplay.ReplaySave(map, modes, $"{map.mapFilePath}.{ruleset.name}-lastReplay");
+
+            ResultScreen.Show(ruleset, map, replay, Quit);
+            isClear = true;
+        }
+
         public void Restart()
         {
             if (bgmClip != null)
@@ -114,9 +152,6 @@ namespace SDJK.Ruleset.SDJK
         {
             if (bgmClip != null)
                 Destroy(bgmClip, 1);
-
-            if (!isReplay)
-                createdReplay.ReplaySave(map, modes, $"{map.mapFilePath}.{ruleset.name}-lastReplay");
 
             MainMenuLoad.Load();
             UIManager.BackEventRemove(Quit);

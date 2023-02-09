@@ -36,6 +36,8 @@
     "ruleset.sdjk.yuki_mode_effect": "Prefab/Ruleset/SDJK/Yuki Mode Effect Prefab",
     "ruleset.sdjk.accuract_bar.rod": "Prefab/Ruleset/SDJK/Accuracy Bar/Rod",
     "main_menu.mode_select_screen.mode_toggle": "Prefab/Main Menu/Mode Screen/Mode Toggle",
-    "main_menu.mode_select_screen.mode_config": "Prefab/Main Menu/Mode Screen/Mode Config"
+    "main_menu.mode_select_screen.mode_config": "Prefab/Main Menu/Mode Screen/Mode Config",
+    "rulset.result_screen": "Prefab/Ruleset/Result Screen/Result Screen",
+    "rulset.result_screen.mode": "Prefab/Ruleset/Result Screen/Result Screen Mode"
   }
 }

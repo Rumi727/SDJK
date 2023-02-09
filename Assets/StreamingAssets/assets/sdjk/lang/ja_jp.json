@@ -46,5 +46,11 @@
 	"mode.difficulty.no_fail": "無敵",
 	"mode.difficulty.no_fail.info": "くるみは死なない！",
 	
-	"mode.setting": "モード設定"
+	"mode.setting": "モード設定",
+	
+	
+	
+	"result_screen.accuracy": "精度",
+	"result_screen.max_combo": "最大コンボ",
+	"result_screen.full_combo": "フルコンボ"
 }

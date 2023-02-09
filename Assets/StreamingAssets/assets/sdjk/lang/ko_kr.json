@@ -48,5 +48,11 @@
 	"mode.difficulty.no_fail": "무적",
 	"mode.difficulty.no_fail.info": "쿠루미쨩은 죽지 않아!",
 	
-	"mode.setting": "모드 설정"
+	"mode.setting": "모드 설정",
+	
+	
+	
+	"result_screen.accuracy": "정확도",
+	"result_screen.max_combo": "최대 콤보",
+	"result_screen.full_combo": "풀 콤보"
 }

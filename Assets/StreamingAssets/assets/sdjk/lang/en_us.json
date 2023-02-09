@@ -47,5 +47,11 @@
 	"mode.difficulty.no_fail.info": "Kurumi-chan never dies!",
 	
 	
-	"mode.setting": "Mode setting"
+	"mode.setting": "Mode setting",
+	
+	
+	
+	"result_screen.accuracy": "ACCURACY",
+	"result_screen.max_combo": "MAX COMBO",
+	"result_screen.full_combo": "Full Combo"
 }
