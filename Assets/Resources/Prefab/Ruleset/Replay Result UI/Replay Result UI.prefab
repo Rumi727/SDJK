@@ -508,7 +508,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -625,8 +625,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 110}
+  m_AnchoredPosition: {x: -1, y: -1.5}
+  m_SizeDelta: {x: -1, y: 110}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2705830980444297804
 MonoBehaviour:
@@ -655,6 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f988362605c712a468c6038ce79e7b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ranking: {fileID: 2705830979176753168}
   replayResultUIBases:
   - {fileID: 2705830980893349232}
   - {fileID: 2705830980910336685}
@@ -1231,7 +1232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1280,4 +1281,5 @@ MonoBehaviour:
   _lerp: 1
   _lerpValue: 0.2
   _awakeNoAni: 0
+  background: {fileID: 2705830981229176905}
   text: {fileID: 2705830980298259419}

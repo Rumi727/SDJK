@@ -40,7 +40,7 @@ namespace SDJK.Ruleset
             this.replay = replay;
             this.backEvent = backEvent;
 
-            replayResultUI.Refresh(ruleset, map, replay);
+            replayResultUI.Refresh(ruleset, map, replay, 0);
 
             InputManager.SetInputLock("ruleset.result_screen", true);
             UIManager.BackEventAdd(Hide);

@@ -1961,6 +1961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f988362605c712a468c6038ce79e7b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ranking: {fileID: 0}
   replayResultUIBases:
   - {fileID: 7972514445242543785}
   - {fileID: 5462794294781421874}
@@ -2323,6 +2324,7 @@ MonoBehaviour:
   _lerp: 1
   _lerpValue: 0.075
   _awakeNoAni: 0
+  background: {fileID: 320259586004965260}
   text: {fileID: 320259586004965260}
 --- !u!1 &320259587243093348
 GameObject:
