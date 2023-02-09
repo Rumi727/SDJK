@@ -39,10 +39,10 @@ namespace SDJK.Ruleset
 
         public void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes);
 
-        public static void GameStartDefaultMethod(bool isReplay)
+        public static void GameStartDefaultMethod(bool isReplay, bool isAuto)
         {
             StatusBarManager.statusBarForceHide = true;
-            SideBarManager.sideBarForceHide = isReplay;
+            SideBarManager.sideBarForceHide = !isReplay && !isAuto;
             ResourceManager.audioResetProhibition = true;
 
             EventSystem.current.SetSelectedGameObject(null);
@@ -79,7 +79,7 @@ namespace SDJK.Ruleset
         /// Please put base.GameStart() when overriding
         /// </summary>
         /// <param name="mapFilePath"></param>
-        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod(!string.IsNullOrEmpty(replayFilePath));
+        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod(replayFilePath != null, modes.FindMode<AutoModeBase>() != null);
     }
 
     public struct RankMetaData : IEquatable<RankMetaData>
