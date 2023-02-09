@@ -49,6 +49,9 @@ namespace SDJK.Ruleset
 
         public void Hide()
         {
+            if (!isShow)
+                return;
+
             InputManager.SetInputLock("ruleset.result_screen", false);
             UIManager.BackEventRemove(Hide);
 
@@ -76,7 +79,7 @@ namespace SDJK.Ruleset
 
         public void ReplayPlay()
         {
-            if (ruleset == null || map == null || replay == null)
+            if (ruleset == null || map == null || replay == null || !isShow)
                 return;
 
             ruleset.GameStart(map.mapFilePath, replay.replayFilePath, false);
