@@ -51,9 +51,19 @@ namespace SDJK.Replay
         public static void ReplaySave<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()
         {
             replay.InternalReplayFileSetting(map, modes);
-            File.WriteAllText($"{map.info.id}.{replay.clearUTCTime.Ticks}.replay", JsonManager.ObjectToJson(replay));
+            replay.replayFilePath = $"{map.info.id}.{replay.clearUTCTime.Ticks}.replay";
 
+            File.WriteAllText(replay.replayFilePath, JsonManager.ObjectToJson(replay));
             replaySaveEvent?.Invoke(replay);
+        }
+
+        public static event Action<ReplayFile> replayDeleteEvent;
+        public static void ReplayDelete<T>(this T replay) where T : ReplayFile, new()
+        {
+            if (File.Exists(replay.replayFilePath))
+                File.Delete(replay.replayFilePath);
+
+            replayDeleteEvent?.Invoke(replay);
         }
 
         static void InternalReplayFileSetting<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()
