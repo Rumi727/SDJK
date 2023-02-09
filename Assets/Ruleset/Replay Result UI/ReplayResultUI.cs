@@ -13,8 +13,15 @@ namespace SDJK.Ruleset
         [SerializeField] TMP_Text ranking;
         [SerializeField] List<ReplayResultUIBase> replayResultUIBases = new List<ReplayResultUIBase>();
 
+        IRuleset ruleset;
+        MapFile map;
+        ReplayFile replay;
         public void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay, int ranking)
         {
+            this.ruleset = ruleset;
+            this.map = map;
+            this.replay = replay;
+
             for (int i = 0; i < replayResultUIBases.Count; i++)
                 replayResultUIBases[i].Refresh(ruleset, map, replay);
 
@@ -39,5 +46,7 @@ namespace SDJK.Ruleset
             ObjectReset();
             return true;
         }
+
+        public void ShowResultScreen() => ResultScreen.Show(ruleset, map, replay, null);
     }
 }
