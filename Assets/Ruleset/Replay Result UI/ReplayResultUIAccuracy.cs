@@ -8,18 +8,18 @@ namespace SDJK.Ruleset.ReplayResult
     {
         [SerializeField, NotNull] TMP_Text text;
 
-        double accuracyAnimation = 0;
+        double accuracyAnimation = 1;
         public override void RealUpdate(float lerpValue)
         {
             accuracyAnimation = accuracyAnimation.Lerp(replay.accuracys.GetValue(double.MaxValue), lerpValue);
-            text.text = accuracyAnimation.Round(2).ToString() + "%";
+            text.text = 100d.Lerp(0d, accuracyAnimation).Round(2).ToString() + "%";
         }
 
         public override void ObjectReset()
         {
             base.ObjectReset();
 
-            accuracyAnimation = 0;
+            accuracyAnimation = 1;
             text.text = "";
         }
     }
