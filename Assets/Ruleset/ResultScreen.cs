@@ -23,7 +23,7 @@ namespace SDJK.Ruleset
 
         [SerializeField, NotNull] Graphic background;
         [SerializeField, NotNull] ReplayResultUI replayResultUI;
-        [SerializeField] float alphaAni = 0.1f;
+        [SerializeField] float alphaAni = 0.15f;
         [SerializeField, NotNull] CanvasGroup canvasGroup;
 
         IRuleset ruleset;
