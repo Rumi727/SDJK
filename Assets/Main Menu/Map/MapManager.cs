@@ -1,21 +1,11 @@
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
 using SCKRM;
-using SCKRM.FileDialog;
-using SCKRM.Input;
-using SCKRM.Json;
-using SCKRM.NBS;
 using SCKRM.Resource;
-using SCKRM.Rhythm;
-using SCKRM.Sound;
-using SCKRM.UI;
 using SDJK.Map;
 using SDJK.Ruleset;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 
 namespace SDJK.MainMenu
 {
