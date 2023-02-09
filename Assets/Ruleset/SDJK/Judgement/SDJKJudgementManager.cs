@@ -164,7 +164,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
 
-                existsInstantDeathNote = notes.FindIndex(x => x.type == SDJKNoteTypeFile.instantDeath) >= 0;
+                for (int i = 0; i < notes.Count; i++)
+                {
+                    SDJKNoteFile note = notes[i];
+                    if (note.type == SDJKNoteTypeFile.instantDeath)
+                        instantDeathNoteBeats.Add(note.beat);
+                }
             }
 
             SDJKInputManager inputManager;
@@ -185,7 +190,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             List<int> lastJudgementIndex;
             List<double> lastJudgementBeat;
 
-            bool existsInstantDeathNote = false;
+            List<double> instantDeathNoteBeats = new List<double>();
 
             public void Update()
             {
@@ -369,11 +374,15 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     instance.judgementAction?.Invoke(disSecond, isMiss, accuracy * disSecond.Sign(), metaData);
                     return true;
                 }
-                else if (existsInstantDeathNote) //즉사 노트가 존재하며 노트를 치지 않았을때
+                else if (instantDeathNoteBeats.Count > 0) //즉사 노트가 존재하며 노트를 치지 않았을때
                 {
                     //가장 가까운 즉사 노트 감지
-                    double instantDeathNoteBeat = notes.CloseValue(currentBeat, x => x.beat, x => x.type == SDJKNoteTypeFile.instantDeath);
-                    double instantDisSecond = GetDisSecond(instantDeathNoteBeat, false, notePressBeatReplay);
+                    double instantDeathNoteBeat = instantDeathNoteBeats.CloseValue(currentBeat);
+                    double instantDisSecond;
+                    if (sdjkManager.isReplay)
+                        instantDisSecond = GetDisSecond(instantDeathNoteBeat, false, notePressBeatReplay);
+                    else
+                        instantDisSecond = GetDisSecond(instantDeathNoteBeat, false, currentBeat);
 
                     if (instantDisSecond.Abs() <= missSecond)
                     {
