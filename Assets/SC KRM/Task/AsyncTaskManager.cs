@@ -75,7 +75,7 @@ namespace SCKRM
             AsyncTaskManager.AsyncTaskChangeEventInvoke();
         }
 
-        public AsyncTask(NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool cantCancel = false)
+        public AsyncTask(NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool cantCancel = true)
         {
             this.name = name;
             this.info = info;
