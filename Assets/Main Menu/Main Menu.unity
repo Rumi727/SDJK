@@ -2528,7 +2528,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 129.75
+  m_fontSize: 135.1
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5071,6 +5071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c644562fce3ac489ff87ba4a0828da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewport: {fileID: 817210985}
   content: {fileID: 1130250900}
   lastReplayResultUI: {fileID: 1852104383}
   replayResultUIPrefab: ruleset.replay_result_ui
@@ -6059,7 +6060,7 @@ MonoBehaviour:
   _lerpValue: 0.2
   _awakeNoAni: 0
   _spacing: 10
-  _disabledObjectIgnore: 1
+  _disabledObjectIgnore: 0
   _ignore: []
   _xSize: 0
   _ySize: 1
@@ -6082,7 +6083,7 @@ MonoBehaviour:
   _lerpValue: 0.2
   _awakeNoAni: 0
   _spacing: 10
-  _disabledObjectIgnore: 1
+  _disabledObjectIgnore: 0
   _ignore: []
   _allLerp: 0
   _onlyPos: 0
