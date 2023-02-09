@@ -152,14 +152,9 @@ namespace SCKRM.Rhythm
                 beat = 0;
                 value = defaultValue;
             }
-            else if (Count <= 1 || this[0].beat >= currentBeat)
-            {
-                beat = this[0].beat;
-                value = this[0].value;
-            }
             else
             {
-                int index = GetValueIndexBinarySearch(currentBeat) - 1;
+                int index = (GetValueIndexBinarySearch(currentBeat) - 1).Clamp(0);
                 TPair beatValuePair = this[index];
                 beat = beatValuePair.beat;
 
