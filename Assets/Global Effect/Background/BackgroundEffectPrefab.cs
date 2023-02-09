@@ -51,10 +51,10 @@ namespace SDJK
         {
             if (!padeOut)
             {
+                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
+
                 if (loadedSprites.Count > 0)
                 {
-                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-
                     {
                         DateTime now = DateTime.Now;
                         string texturePath;
@@ -78,12 +78,12 @@ namespace SDJK
                             TextureChange(texturePath).Forget();
                         }
                     }
-
-                    if (image.sprite != null)
-                        image.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
-                    else
-                        image.color = Color.black;
                 }
+
+                if (image.sprite != null)
+                    image.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
+                else
+                    image.color = Color.black;
             }
             else
             {
