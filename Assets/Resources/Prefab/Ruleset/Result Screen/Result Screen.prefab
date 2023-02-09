@@ -1966,7 +1966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   replayResultUI: {fileID: 2609743521703257990}
-  alphaAni: 0.05
+  alphaAni: 0.1
   canvasGroup: {fileID: 5385739423894885592}
 --- !u!114 &2609743521703257990
 MonoBehaviour:
