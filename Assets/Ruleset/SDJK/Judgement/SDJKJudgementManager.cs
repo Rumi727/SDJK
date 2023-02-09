@@ -164,7 +164,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
 
-                existsInstantDeathNote = notes.FindIndex(x => x.type == SDJKNoteTypeFile.instantDeath) != -1;
+                existsInstantDeathNote = notes.FindIndex(x => x.type == SDJKNoteTypeFile.instantDeath) >= 0;
             }
 
             SDJKInputManager inputManager;

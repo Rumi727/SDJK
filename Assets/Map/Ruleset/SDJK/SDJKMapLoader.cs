@@ -270,16 +270,21 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         return;
 
                     List<SDJKNoteFile> notes = new List<SDJKNoteFile>();
-                    for (int i = 0; i < list.Count - 1; i++)
+                    for (int i = 0; i < list.Count; i++)
                     {
+                        double beat = list[i];
+                        if (oldMap.AllBeat.Count > 0 && beat >= oldMap.AllBeat.Last())
+                            continue;
+
                         if (list.Count != holdList.Count)
-                            notes.Add(new SDJKNoteFile(list[i] - 1, 0, SDJKNoteTypeFile.normal));
+                            notes.Add(new SDJKNoteFile(beat - 1, 0, SDJKNoteTypeFile.normal));
                         else
                         {
-                            if (holdList[i] >= -1 && holdList[i] < 0)
-                                notes.Add(new SDJKNoteFile(list[i] - 1, 0, SDJKNoteTypeFile.instantDeath));
+                            double holdBeat = holdList[i];
+                            if (holdBeat >= -1 && holdList[i] < 0)
+                                notes.Add(new SDJKNoteFile(beat - 1, 0, SDJKNoteTypeFile.instantDeath));
                             else
-                                notes.Add(new SDJKNoteFile(list[i] - 1, holdList[i], SDJKNoteTypeFile.normal));
+                                notes.Add(new SDJKNoteFile(beat - 1, holdBeat, SDJKNoteTypeFile.normal));
                         }
                     }
 
