@@ -74,7 +74,13 @@ namespace SDJK.Ruleset
             canvasGroup.alpha = alphaValue;
         }
 
-        public void ReplayPlay() => ruleset.GameStart(map.mapFilePath, replay.replayFilePath, false);
+        public void ReplayPlay()
+        {
+            if (ruleset == null || map == null || replay == null)
+                return;
+
+            ruleset.GameStart(map.mapFilePath, replay.replayFilePath, false);
+        }
 
         protected override void OnDestroy()
         {

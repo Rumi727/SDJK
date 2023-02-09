@@ -47,6 +47,12 @@ namespace SDJK.Ruleset
             return true;
         }
 
-        public void ShowResultScreen() => ResultScreen.Show(ruleset, map, replay, null);
+        public void ShowResultScreen()
+        {
+            if (ruleset == null || map == null || replay == null)
+                return;
+
+            ResultScreen.Show(ruleset, map, replay, null);
+        }
     }
 }
