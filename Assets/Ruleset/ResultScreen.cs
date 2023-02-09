@@ -93,6 +93,15 @@ namespace SDJK.Ruleset
             isShow = false;
         }
 
+        public void ReplayRemove()
+        {
+            if (ruleset == null || map == null || replay == null || !isShow)
+                return;
+
+            ReplayLoader.ReplayDelete(replay);
+            Hide();
+        }
+
         protected override void OnDestroy()
         {
             isShow = false;
