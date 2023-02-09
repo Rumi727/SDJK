@@ -16,6 +16,10 @@ namespace SDJK.Ruleset.ReplayResult
             text.text = map.info.author;
         }
 
-        public override void ObjectReset() => text.text = "";
+        public override void ObjectReset()
+        {
+            base.ObjectReset();
+            text.text = "";
+        }
     }
 }

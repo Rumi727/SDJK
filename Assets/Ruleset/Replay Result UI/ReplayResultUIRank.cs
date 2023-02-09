@@ -22,6 +22,7 @@ namespace SDJK.Ruleset.ReplayResult
 
         public override void ObjectReset()
         {
+            base.ObjectReset();
             accuracyAnimation = 0;
 
             background.color = Color.clear;

@@ -21,6 +21,7 @@ namespace SDJK.Ruleset.ReplayResult
 
         public override void ObjectReset()
         {
+            base.ObjectReset();
             scoreAnimation = 0;
 
             background.fillAmount = 1;

@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lerp: 1
-  _lerpValue: 0.2
+  _lerpValue: 0.4
   _awakeNoAni: 0
   text: {fileID: 2705830979678947299}
 --- !u!1 &2705830979724039806
@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 2705830979724039804}
   - component: {fileID: 2705830979724039805}
   - component: {fileID: 2705830979724039778}
+  - component: {fileID: 56286600531354767}
   m_Layer: 5
   m_Name: Modes
   m_TagString: Untagged
@@ -402,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75885d4f02b76ee4cbe88acb20e8cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lerp: 1
+  _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
   _spacing: 0
@@ -415,6 +416,29 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
+--- !u!114 &56286600531354767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830979724039806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d646b6ab0b1b1bf4cacea338ffa57b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lerp: 0
+  _lerpValue: 0.2
+  _awakeNoAni: 0
+  _spacing: 0
+  _disabledObjectIgnore: 1
+  _ignore: []
+  _xSize: 1
+  _ySize: 0
+  _offset: {x: 0, y: 0}
+  _min: 0
+  _max: 0
 --- !u!1 &2705830980298259413
 GameObject:
   m_ObjectHideFlags: 0

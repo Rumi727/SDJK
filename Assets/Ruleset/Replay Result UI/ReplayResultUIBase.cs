@@ -30,6 +30,11 @@ namespace SDJK.Ruleset
         }
 
         public virtual void RealUpdate(float lerpValue) { }
-        public abstract void ObjectReset();
+        public virtual void ObjectReset()
+        {
+            ruleset = null;
+            map = null;
+            replay = null;
+        }
     }
 }

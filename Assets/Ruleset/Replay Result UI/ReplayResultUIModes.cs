@@ -90,6 +90,10 @@ namespace SDJK.Ruleset.ReplayResult
             resultScreenModes.Clear();
         }
 
-        public override void ObjectReset() => ModeObjectRemove();
+        public override void ObjectReset()
+        {
+            base.ObjectReset();
+            ModeObjectRemove();
+        }
     }
 }

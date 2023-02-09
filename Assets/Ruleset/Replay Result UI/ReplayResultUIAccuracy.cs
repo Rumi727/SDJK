@@ -17,6 +17,8 @@ namespace SDJK.Ruleset.ReplayResult
 
         public override void ObjectReset()
         {
+            base.ObjectReset();
+
             accuracyAnimation = 0;
             text.text = "";
         }
