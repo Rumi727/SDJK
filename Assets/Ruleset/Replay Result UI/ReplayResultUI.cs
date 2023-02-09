@@ -35,7 +35,7 @@ namespace SDJK.Ruleset
                 replayResultUIBases[i].ObjectReset();
 
             if (ranking != null)
-                ranking.text = "1";
+                ranking.text = "";
         }
 
         public override bool Remove()
