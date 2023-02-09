@@ -650,8 +650,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4, y: -6}
-  m_SizeDelta: {x: -4, y: 110}
+  m_AnchoredPosition: {x: -5, y: -7.5}
+  m_SizeDelta: {x: -5, y: 110}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2705830980444297804
 MonoBehaviour:
@@ -867,6 +867,7 @@ GameObject:
   - component: {fileID: 2705830980893349261}
   - component: {fileID: 6751579001310649151}
   - component: {fileID: 2705830980893349232}
+  - component: {fileID: 2412803617994320777}
   m_Layer: 5
   m_Name: Max Combo
   m_TagString: Untagged
@@ -891,9 +892,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 88, y: 78}
+  m_AnchoredPosition: {x: 88, y: 39.809998}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &2705830980893349235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1037,20 @@ MonoBehaviour:
   _lerpValue: 0.2
   _awakeNoAni: 0
   text: {fileID: 2705830980893349261}
+--- !u!114 &2412803617994320777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830980893349262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &2705830980910336687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,6 +1065,7 @@ GameObject:
   - component: {fileID: 2705830980910336658}
   - component: {fileID: 3758259598281550227}
   - component: {fileID: 2705830980910336685}
+  - component: {fileID: 2370595863600012802}
   m_Layer: 5
   m_Name: Accuracy
   m_TagString: Untagged
@@ -1076,7 +1092,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 88, y: 5}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &2705830980910336656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1235,20 @@ MonoBehaviour:
   _lerpValue: 0.2
   _awakeNoAni: 0
   text: {fileID: 2705830980910336658}
+--- !u!114 &2370595863600012802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830980910336687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &2705830981229176903
 GameObject:
   m_ObjectHideFlags: 0
