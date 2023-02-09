@@ -3,7 +3,7 @@ using SCKRM.Tooltip;
 using SCKRM.UI;
 using UnityEngine;
 
-namespace SDJK.Ruleset.ResultScreen
+namespace SDJK.Ruleset.ReplayResult
 {
     public class ReplayResultUIMode : UIObjectPooling
     {

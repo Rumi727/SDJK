@@ -47,10 +47,19 @@ namespace SDJK.Replay
             return null;
         }
 
+        public static void LastReplayLoad<T>(MapFile map, out IMode[] modes) where T : ReplayFile, new()
+            => ReplayLoad<T>($"{map.mapFilePath}.{map.info.ruleset}-lastReplay", out modes);
+
         public static void ReplaySave<T>(this T replay, MapFile map, IMode[] modes, string savePath) where T : ReplayFile, new()
         {
             replay.InternalReplayFileSetting(map, modes);
             File.WriteAllText(savePath, JsonManager.ObjectToJson(replay));
+        }
+
+        public static void LastReplaySave<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()
+        {
+            replay.InternalReplayFileSetting(map, modes);
+            File.WriteAllText($"{map.mapFilePath}.{map.info.ruleset}-lastReplay", JsonManager.ObjectToJson(replay));
         }
 
         static void InternalReplayFileSetting<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()

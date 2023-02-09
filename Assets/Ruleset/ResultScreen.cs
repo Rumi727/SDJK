@@ -7,7 +7,7 @@ using SDJK.Replay;
 using System;
 using UnityEngine;
 
-namespace SDJK.Ruleset.ResultScreen
+namespace SDJK.Ruleset
 {
     public sealed class ResultScreen : UIObjectPooling
     {
@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.ResultScreen
 
             ResultScreen resultScreen = (ResultScreen)ObjectPoolingSystem.ObjectCreate(prefab).monoBehaviour;
             resultScreen.Refresh(ruleset, map, replay, backEvent);
-
+            
             return resultScreen;
         }
 
