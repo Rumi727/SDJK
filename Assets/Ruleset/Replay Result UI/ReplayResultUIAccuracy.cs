@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.ReplayResult
             text.text = accuracyAnimation.Round(2).ToString() + "%";
         }
 
-        public override void Remove()
+        public override void ObjectReset()
         {
             accuracyAnimation = 0;
             text.text = "0%";

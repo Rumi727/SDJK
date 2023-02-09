@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.ReplayResult
             text.text = maxComboAnimation.RoundToInt().ToString();
         }
 
-        public override void Remove()
+        public override void ObjectReset()
         {
             maxComboAnimation = 0;
             text.text = "0";

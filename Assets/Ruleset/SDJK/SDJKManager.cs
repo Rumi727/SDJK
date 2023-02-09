@@ -128,10 +128,10 @@ namespace SDJK.Ruleset.SDJK
                 }
             }
             else
+            {
+                createdReplay.ReplaySave(map, modes);
                 replay = createdReplay;
-
-            if (!isReplay)
-                createdReplay.LastReplaySave(map, modes);
+            }
 
             ResultScreen.Show(ruleset, map, replay, Quit);
             isClear = true;

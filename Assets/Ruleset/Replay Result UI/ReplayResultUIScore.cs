@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.ReplayResult
             text.text = scoreAnimation.RoundToInt().ToString();
         }
 
-        public override void Remove()
+        public override void ObjectReset()
         {
             scoreAnimation = 0;
             text.text = "";

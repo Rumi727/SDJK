@@ -30,6 +30,6 @@ namespace SDJK.Ruleset
         }
 
         public virtual void RealUpdate(float lerpValue) { }
-        public abstract void Remove();
+        public abstract void ObjectReset();
     }
 }

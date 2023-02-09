@@ -290,15 +290,7 @@ namespace SDJK.MainMenu
             else if (currentScreenMode == ScreenMode.mapPackSelect)
                 MapSelect();
             else if (currentScreenMode == ScreenMode.mapSelect)
-            {
-                string mapFilePath = MapManager.selectedMap.mapFilePath;
-                string lastReplayPath = $"{mapFilePath}.{RulesetManager.selectedRuleset.name}-lastReplay";
-
-                if (InputManager.GetKey(KeyCode.LeftShift, InputType.Alway) && System.IO.File.Exists(lastReplayPath))
-                    RulesetManager.GameStart(mapFilePath, ReplayLoader.GetLastReplayPath(MapManager.selectedMap), false, ModeManager.selectedModeList.ToArray());
-                else
-                    RulesetManager.GameStart(mapFilePath, null, false, ModeManager.selectedModeList.ToArray());
-            }
+                RulesetManager.GameStart(MapManager.selectedMap.mapFilePath, null, false, ModeManager.selectedModeList.ToArray());
         }
 
         public static void Esc()

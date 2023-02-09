@@ -19,7 +19,7 @@ namespace SDJK.Ruleset.ReplayResult
             color.fillAmount = fillAmout;
         }
 
-        public override void Remove()
+        public override void ObjectReset()
         {
             scoreAnimation = 0;
 

@@ -16,6 +16,6 @@ namespace SDJK.Ruleset.ReplayResult
             text.text = map.info.songName;
         }
 
-        public override void Remove() => text.text = "";
+        public override void ObjectReset() => text.text = "";
     }
 }

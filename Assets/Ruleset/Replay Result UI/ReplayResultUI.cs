@@ -16,14 +16,18 @@ namespace SDJK.Ruleset
                 replayResultUIBases[i].Refresh(ruleset, map, replay);
         }
 
+        public void ObjectReset()
+        {
+            for (int i = 0; i < replayResultUIBases.Count; i++)
+                replayResultUIBases[i].ObjectReset();
+        }
+
         public override bool Remove()
         {
             if (!base.Remove())
                 return false;
 
-            for (int i = 0; i < replayResultUIBases.Count; i++)
-                replayResultUIBases[i].Remove();
-
+            ObjectReset();
             return true;
         }
     }

@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.ReplayResult
             text.text = ruleset.GetRank(accuracyAnimation).name;
         }
 
-        public override void Remove()
+        public override void ObjectReset()
         {
             accuracyAnimation = 0;
             text.text = "";
