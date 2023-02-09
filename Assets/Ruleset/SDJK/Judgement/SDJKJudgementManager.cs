@@ -11,6 +11,7 @@ using System.Linq;
 using UnityEngine;
 using SDJK.Replay;
 using System;
+using SDJK.Mode;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -273,7 +274,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             while (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < pressBeats.Count)
                                 NextPressBeatReplay();
                         }
-                        
+
                         if (keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
                         {
                             List<double> pressUpBeats = sdjkManager.currentReplay.pressUpBeat[keyIndex];
@@ -292,7 +293,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (autoNote || instance.auto)
                     judgementDisSecond = 0;
                 else if (instance.sdjkManager.isReplay)
-                    judgementDisSecond = GetDisSecond(beat, maxClamp, pressBeatReplay);
+                {
+                    if (instance.sdjkManager.modes.FindMode<AutoModeBase>() != null)
+                        judgementDisSecond = 0;
+                    else
+                        judgementDisSecond = GetDisSecond(beat, maxClamp, pressBeatReplay);
+                }
             }
 
             public bool Judgement(double beat, double disSecond, bool forceFastMiss, out JudgementMetaData metaData, double notePressBeatReplay)
