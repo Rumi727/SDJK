@@ -37,7 +37,7 @@ namespace SDJK.Ruleset
         public JudgementMetaData[] judgementMetaDatas { get; }
         public JudgementMetaData missJudgementMetaData { get; }
 
-        public void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes);
+        public void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes);
 
         public static void GameStartDefaultMethod(bool isReplay, bool isAuto)
         {
@@ -79,7 +79,7 @@ namespace SDJK.Ruleset
         /// Please put base.GameStart() when overriding
         /// </summary>
         /// <param name="mapFilePath"></param>
-        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes) => IRuleset.GameStartDefaultMethod(replayFilePath != null, modes.FindMode<AutoModeBase>() != null);
+        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes) => IRuleset.GameStartDefaultMethod(replayFilePath != null, modes.FindMode<AutoModeBase>() != null);
     }
 
     public struct RankMetaData : IEquatable<RankMetaData>

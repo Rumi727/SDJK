@@ -51,7 +51,7 @@ namespace SDJK.Ruleset.SDJK
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
 
-        public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes)
+        public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {
             base.GameStart(mapFilePath, replayFilePath, isEditor, modes);
 
@@ -124,7 +124,7 @@ namespace SDJK.Ruleset.SDJK
             System.IO.File.WriteAllText(mapFilePath, SCKRM.Json.JsonManager.ObjectToJson(map));*/
         }
 
-        static SDJKReplayFile GetAutoModeReplayFile(SDJKMapFile map, IMode[] modes)
+        static SDJKReplayFile GetAutoModeReplayFile(SDJKMapFile map, params IMode[] modes)
         {
             SDJKReplayFile replay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
 
