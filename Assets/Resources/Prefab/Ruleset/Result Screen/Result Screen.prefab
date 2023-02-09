@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 320259586004965262}
   - component: {fileID: 320259586004965263}
   - component: {fileID: 320259586004965260}
+  - component: {fileID: 4522342492307071012}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -441,6 +442,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4522342492307071012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320259586004965298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f96dbfdb1792448b286b3b5cadf75b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lerp: 1
+  _lerpValue: 0.075
+  _awakeNoAni: 0
+  background: {fileID: 320259586004965260}
+  text: {fileID: 320259586004965260}
 --- !u!1 &320259586174401009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +1983,7 @@ MonoBehaviour:
   ranking: {fileID: 0}
   replayResultUIBases:
   - {fileID: 7972514445242543785}
+  - {fileID: 4522342492307071012}
   - {fileID: 5462794294781421874}
   - {fileID: 9171639759416267138}
   - {fileID: 37957432896312109}
@@ -2249,7 +2268,6 @@ GameObject:
   - component: {fileID: 320259587189175913}
   - component: {fileID: 320259587189175912}
   - component: {fileID: 7972514445242543785}
-  - component: {fileID: 4421151491151707885}
   m_Layer: 0
   m_Name: Rank
   m_TagString: Untagged
@@ -2310,23 +2328,6 @@ MonoBehaviour:
   _awakeNoAni: 0
   background: {fileID: 320259586703779383}
   color: {fileID: 320259587862263665}
---- !u!114 &4421151491151707885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320259587189175918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46f96dbfdb1792448b286b3b5cadf75b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lerp: 1
-  _lerpValue: 0.075
-  _awakeNoAni: 0
-  background: {fileID: 320259586004965260}
-  text: {fileID: 320259586004965260}
 --- !u!1 &320259587243093348
 GameObject:
   m_ObjectHideFlags: 0
