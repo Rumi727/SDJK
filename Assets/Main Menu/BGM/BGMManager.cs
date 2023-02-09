@@ -26,8 +26,8 @@ namespace SDJK.MainMenu
 
 
         MapPack tempSDJKMapPack;
-        Map.MapFile tempSDJKMap;
-        Map.MapFile tempSDJKMap2;
+        MapFile tempSDJKMap;
+        MapFile tempSDJKMap2;
         string tempSongFile = "";
         void Update()
         {

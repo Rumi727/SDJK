@@ -63,7 +63,7 @@ namespace SDJK.MainMenu
         }
         public static int _selectedMapIndex = 0;
 
-        public static Map.MapFile selectedMap
+        public static MapFile selectedMap
         {
             get => _selectedMap;
             set
@@ -83,7 +83,7 @@ namespace SDJK.MainMenu
                 }
             }
         }
-        static Map.MapFile _selectedMap = null;
+        static MapFile _selectedMap = null;
 
         public static MapInfo selectedMapInfo { get; private set; } = null;
         public static MapGlobalEffect selectedMapEffect { get; private set; } = null;
