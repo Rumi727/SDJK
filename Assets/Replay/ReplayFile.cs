@@ -15,7 +15,7 @@ namespace SDJK.Replay
         public Version sckrmVersion { get; set; } = Kernel.sckrmVersion;
         public Version sdjkVersion { get; set; } = new Version(Kernel.version);
 
-        public ReplayModeFile[] modes { get; set; }
+        public ReplayModeFile[] modes { get; set; } = new ReplayModeFile[0];
 
         [JsonIgnore] public string replayFilePath { get; set; } = "";
 
