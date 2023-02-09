@@ -31,9 +31,7 @@ namespace SCKRM.UI.Overlay.MessageBox
         {
             if (isMessageBoxShow)
             {
-                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-                if (messageBoxCanvasGroup.alpha > 0.99f)
-                    messageBoxCanvasGroup.alpha = 1;
+                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.MoveTowards(1, 0.15f * Kernel.fpsUnscaledSmoothDeltaTime);
 
                 messageBoxCanvasGroup.interactable = true;
                 messageBoxCanvasGroup.blocksRaycasts = true;
@@ -43,11 +41,10 @@ namespace SCKRM.UI.Overlay.MessageBox
             }
             else
             {
-                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-                if (messageBoxCanvasGroup.alpha < 0.01f)
-                {
-                    messageBoxCanvasGroup.alpha = 0;
+                messageBoxCanvasGroup.alpha = messageBoxCanvasGroup.alpha.MoveTowards(0, 0.15f * Kernel.fpsUnscaledSmoothDeltaTime);
 
+                if (messageBoxCanvasGroup.alpha <= 0)
+                {
                     if (messabeBoxBG.activeSelf)
                         messabeBoxBG.SetActive(false);
                 }

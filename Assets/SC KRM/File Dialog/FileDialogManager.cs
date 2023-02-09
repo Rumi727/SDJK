@@ -122,10 +122,8 @@ namespace SCKRM.FileDialog
         {
             if (isFileDialogShow)
             {
-                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-                if (fileDialogCanvasGroup.alpha > 0.99f)
-                    fileDialogCanvasGroup.alpha = 1;
-
+                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.MoveTowards(1, 0.15f * Kernel.fpsUnscaledSmoothDeltaTime);
+                
                 fileDialogCanvasGroup.interactable = true;
                 fileDialogCanvasGroup.blocksRaycasts = true;
 
@@ -134,11 +132,10 @@ namespace SCKRM.FileDialog
             }
             else
             {
-                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-                if (fileDialogCanvasGroup.alpha < 0.01f)
-                {
-                    fileDialogCanvasGroup.alpha = 0;
+                fileDialogCanvasGroup.alpha = fileDialogCanvasGroup.alpha.MoveTowards(0, 0.15f * Kernel.fpsUnscaledSmoothDeltaTime);
 
+                if (fileDialogCanvasGroup.alpha <= 0)
+                {
                     if (fileDialogBG.activeSelf)
                         fileDialogBG.SetActive(false);
                 }
