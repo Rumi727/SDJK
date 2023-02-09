@@ -1,6 +1,6 @@
 {
     "name": "SDJK-Ruleset",
-    "rootNamespace": "SDJlK.Ruleset",
+    "rootNamespace": "SDJK.Ruleset",
     "references": [
         "GUID:9c1f978837ad80d49ae31d1cd963a280",
         "GUID:70a0802e273e9914ca5ff31d00b0eb37",

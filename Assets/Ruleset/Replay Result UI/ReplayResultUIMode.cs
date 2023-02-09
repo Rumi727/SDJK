@@ -3,9 +3,9 @@ using SCKRM.Tooltip;
 using SCKRM.UI;
 using UnityEngine;
 
-namespace SDJlK.Ruleset.ResultScreen
+namespace SDJK.Ruleset.ResultScreen
 {
-    public class ResultScreenMode : UIObjectPooling
+    public class ReplayResultUIMode : UIObjectPooling
     {
         [SerializeField] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
         [SerializeField] Tooltip _tooltip; public Tooltip tooltip => _tooltip;
