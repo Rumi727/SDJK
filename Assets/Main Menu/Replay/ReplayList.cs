@@ -42,8 +42,17 @@ namespace SDJK.MainMenu
             }
         }
 
-        protected override void OnEnable() => ReplayManager.replayLoadingEnd += Refresh;
-        protected override void OnDisable() => ReplayManager.replayLoadingEnd -= Refresh;
+        protected override void OnEnable()
+        {
+            RulesetManager.isRulesetChanged += Refresh;
+            ReplayManager.replayLoadingEnd += Refresh;
+        }
+
+        protected override void OnDisable()
+        {
+            RulesetManager.isRulesetChanged -= Refresh;
+            ReplayManager.replayLoadingEnd -= Refresh;
+        }
 
         protected override void OnDestroy() => cancel.Cancel();
 
