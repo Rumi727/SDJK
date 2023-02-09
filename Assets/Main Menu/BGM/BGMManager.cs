@@ -27,7 +27,6 @@ namespace SDJK.MainMenu
 
         MapPack tempSDJKMapPack;
         MapFile tempSDJKMap;
-        MapFile tempSDJKMap2;
         string tempSongFile = "";
         void Update()
         {
@@ -38,14 +37,6 @@ namespace SDJK.MainMenu
             {
                 if (tempSDJKMapPack != MapManager.selectedMapPack || (tempSDJKMap != MapManager.selectedMap && tempSongFile != MapManager.selectedMapInfo.songFile))
                     Refresh();
-
-                if ((tempSDJKMap2 != MapManager.selectedMap || !RhythmManager.isPlaying) && bgm != null && bgm.soundPlayer != null)
-                {
-                    RhythmManager.Stop();
-                    RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.yukiMode, bgm.soundPlayer);
-
-                    tempSDJKMap2 = MapManager.selectedMap;
-                }
             }
         }
 
@@ -57,6 +48,9 @@ namespace SDJK.MainMenu
                 bgm.padeOut = true;
                 lastTime = bgm.soundPlayer.time;
             }
+
+            RhythmManager.Stop();
+            RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.yukiMode);
 
             bgm = (BGM)ObjectPoolingSystem.ObjectCreate("bgm_manager.bgm", transform, false).monoBehaviour;
             bgm.Refresh(tempSDJKMapPack, lastTime).Forget();

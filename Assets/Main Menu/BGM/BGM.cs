@@ -46,14 +46,7 @@ namespace SDJK.MainMenu
                 soundPlayer = SoundManager.PlaySound(soundData, 0, true);
                 soundPlayer.looped += Looped;
 
-                if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                {
-                    if (lastMapPack != MapManager.selectedMapPack)
-                        soundPlayer.time = (float)map.info.mainMenuStartTime;
-                    else
-                        soundPlayer.time = lastTime.Clamp(0, soundPlayer.length - 0.01f);
-                }
-
+                RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
             }
             else if (File.Exists(path + ".nbs"))
@@ -65,18 +58,19 @@ namespace SDJK.MainMenu
                 soundPlayer = SoundManager.PlayNBS(soundData, 0, true);
                 soundPlayer.looped += Looped;
 
-                if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                {
-                    if (lastMapPack != MapManager.selectedMapPack)
-                        soundPlayer.time = (float)map.info.mainMenuStartTime;
-                    else
-                        soundPlayer.time = lastTime.Clamp(0, soundPlayer.length - 0.01f);
-                }
-
+                RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
             }
             else
                 Remove();
+
+            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
+            {
+                if (lastMapPack != MapManager.selectedMapPack)
+                    RhythmManager.time = (float)map.info.mainMenuStartTime;
+                else
+                    RhythmManager.time = lastTime.Clamp(0, soundPlayer.length - 0.01f);
+            }
         }
 
         void Update()

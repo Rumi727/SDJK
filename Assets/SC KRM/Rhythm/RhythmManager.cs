@@ -50,9 +50,9 @@ namespace SCKRM.Rhythm
             {
                 if (!isPlaying)
                     return;
-                else if (soundPlayer != null || soundPlayer.isRemoved)
+                else if (soundPlayer == null || soundPlayer.isRemoved)
                     _time = value;
-                else //사운드 플레이어의 구현이 정상적이라면 사운드 플레이어의 시간이 변경됨과 동시에 이벤트로인해 time의 시간도 바뀌게 됩니다
+                else //사운드 플레이어의 구현이 정상적이라면 사운드 플레이어의 시간이 변경됨과 동시에 이벤트로 인해 time의 시간도 바뀌게 됩니다
                     soundPlayer.time = (float)value;
             }
         }
@@ -330,6 +330,8 @@ namespace SCKRM.Rhythm
 
             if (RhythmManager.soundPlayer != null)
             {
+                soundPlayer.time = time.Clamp(0, soundPlayer.length - 0.01f);
+
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
                 RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
             }
