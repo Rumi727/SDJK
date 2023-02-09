@@ -5,7 +5,11 @@
 	"gui.edit": "Edit",
 	"gui.quit": "Quit",
 	"gui.mode": "Mode",
+	"gui.speed": "Speed",
 	"gui.last_replay": "Last Record",
+	"gui.accuracy": "Accuracy",
+	"gui.max_combo": "Max Combo",
+	"gui.full_combo": "Full Combo",
 	
 	"map_manager.music": "Music",
 	"map_manager.previous_music": "Previous music",
@@ -39,6 +43,7 @@
 	"mode.automatic.auto.info": "A great computer that won't go wrong even 1 ms will play",
 	
 	
+	
 	"mode.difficulty": "Difficulty",
 	
 	"mode.difficulty.fast": "Fast",
@@ -49,12 +54,5 @@
 	"mode.difficulty.no_fail": "No Fail",
 	"mode.difficulty.no_fail.info": "Kurumi-chan never dies!",
 	
-	
-	"mode.setting": "Mode setting",
-	
-	
-	
-	"result_screen.accuracy": "ACCURACY",
-	"result_screen.max_combo": "MAX COMBO",
-	"result_screen.full_combo": "Full Combo"
+	"mode.setting": "Mode setting"
 }

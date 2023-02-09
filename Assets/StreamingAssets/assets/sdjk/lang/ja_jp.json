@@ -5,7 +5,11 @@
 	"gui.edit": "編集",
 	"gui.quit": "終了",
 	"gui.mode": "モード",
+	"gui.speed": "スピード",
 	"gui.last_replay": "最後の記録",
+	"gui.accuracy": "精度",
+	"gui.max_combo": "最大コンボ",
+	"gui.full_combo": "フルコンボ"
 	
 	"map_manager.music": "音楽",
 	"map_manager.previous_music": "以前の音楽",
@@ -39,6 +43,7 @@
 	"mode.automatic.auto.info": "わずか1msも間違っていないとても良いコンピュータがプレイします",
 	
 	
+	
 	"mode.difficulty": "難易度",
 	
 	"mode.difficulty.fast": "早く",
@@ -49,11 +54,5 @@
 	"mode.difficulty.no_fail": "無敵",
 	"mode.difficulty.no_fail.info": "くるみは死なない！",
 	
-	"mode.setting": "モード設定",
-	
-	
-	
-	"result_screen.accuracy": "精度",
-	"result_screen.max_combo": "最大コンボ",
-	"result_screen.full_combo": "フルコンボ"
+	"mode.setting": "モード設定"
 }

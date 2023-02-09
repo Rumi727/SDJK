@@ -650,8 +650,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3, y: -4.5}
-  m_SizeDelta: {x: -3, y: 110}
+  m_AnchoredPosition: {x: -4, y: -6}
+  m_SizeDelta: {x: -4, y: 110}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2705830980444297804
 MonoBehaviour:
@@ -865,6 +865,7 @@ GameObject:
   - component: {fileID: 2705830980893349235}
   - component: {fileID: 2705830980893349234}
   - component: {fileID: 2705830980893349261}
+  - component: {fileID: 6751579001310649151}
   - component: {fileID: 2705830980893349232}
   m_Layer: 5
   m_Name: Max Combo
@@ -930,7 +931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1005,6 +1006,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6751579001310649151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830980893349262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.max_combo
 --- !u!114 &2705830980893349232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,6 +1048,7 @@ GameObject:
   - component: {fileID: 2705830980910336656}
   - component: {fileID: 2705830980910336659}
   - component: {fileID: 2705830980910336658}
+  - component: {fileID: 3758259598281550227}
   - component: {fileID: 2705830980910336685}
   m_Layer: 5
   m_Name: Accuracy
@@ -1173,6 +1189,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3758259598281550227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830980910336687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.accuracy
 --- !u!114 &2705830980910336685
 MonoBehaviour:
   m_ObjectHideFlags: 0

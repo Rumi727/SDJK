@@ -2789,7 +2789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MAX COMBO
+  m_text: gui.full_combo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70326e25170c0754db3e2c1a70c9cd88, type: 2}
   m_sharedMaterial: {fileID: 7639992929945359739, guid: 70326e25170c0754db3e2c1a70c9cd88, type: 2}
@@ -2871,7 +2871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nameSpace: sdjk
-  _path: result_screen.max_combo
+  _path: gui.full_combo
   _textMeshPro: {fileID: 320259587634474516}
 --- !u!1 &320259587789863155
 GameObject:
@@ -2956,7 +2956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACCURACY
+  m_text: gui.accuracy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70326e25170c0754db3e2c1a70c9cd88, type: 2}
   m_sharedMaterial: {fileID: 7639992929945359739, guid: 70326e25170c0754db3e2c1a70c9cd88, type: 2}
@@ -3038,7 +3038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nameSpace: sdjk
-  _path: result_screen.accuracy
+  _path: gui.accuracy
   _textMeshPro: {fileID: 320259587789863116}
 --- !u!1 &320259587862263668
 GameObject:
