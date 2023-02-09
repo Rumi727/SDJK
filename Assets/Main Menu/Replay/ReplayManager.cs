@@ -114,7 +114,7 @@ namespace SDJK.MainMenu
                     return x.scores.Last().value;
                 else
                     return x.scores.defaultValue;
-            }, OrderByDirection.Descending).ToList();
+            }, OrderByDirection.Descending).ThenBy(x => x.clearUTCTime).ToList();
         }
     }
 }
