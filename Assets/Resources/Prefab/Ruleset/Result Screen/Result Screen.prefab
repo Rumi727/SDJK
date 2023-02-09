@@ -3440,7 +3440,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 320259586939984757}
         m_TargetAssemblyTypeName: SDJK.Ruleset.ResultScreen, SDJK-Ruleset
-        m_MethodName: ReplayPlay
+        m_MethodName: ReplayRemove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
