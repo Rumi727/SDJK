@@ -3,6 +3,7 @@ using MoreLinq;
 using SCKRM;
 using SCKRM.Resource;
 using SDJK.Replay;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,15 +26,25 @@ namespace SDJK.MainMenu
                     value = ReplayListSort(value);
 
                     currentReplayFiles[x.mapId] = value;
+                    replayLoadingEnd?.Invoke();
                 }
             };
 
             ReplayLoader.replayDeleteEvent += x =>
             {
                 if (currentReplayFiles.TryGetValue(x.mapId, out List<ReplayFile> value))
+                {
                     value.Remove(x);
+                    replayLoadingEnd?.Invoke();
+                }
             };
         }
+
+
+
+        public static event Action replayLoadingEnd;
+
+
 
         static bool isReplayListRefreshing = false;
         public static async UniTask Refresh()
@@ -99,6 +110,9 @@ namespace SDJK.MainMenu
 
                 asyncTask.progress++;
                 currentReplayFiles = resultReplays;
+
+                if (InitialLoadManager.isInitialLoadEnd)
+                    replayLoadingEnd?.Invoke();
             }
             finally
             {
