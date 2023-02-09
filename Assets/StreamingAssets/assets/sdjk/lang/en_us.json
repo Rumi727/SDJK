@@ -33,6 +33,10 @@
 	"notice.running_task.replay_list_refresh.name":"Refreshing replay list...",
 	"notice.running_task.replay_list_refresh_sort.name":"Sorting replay list...",
 	
+	"notice.running_task.drag_and_drop.map_load.warning": "Load as map?",
+	"notice.running_task.drag_and_drop.map_load.name":"Loading map...",
+	"notice.running_task.drag_and_drop.replay_list_load.name":"Loading replay...",
+	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ruleset has no gameplay due to copyright issues.<size=10>\n\n</size><size=15>Please play with a different ruleset that can convert the map instead</size>",
 	
 	

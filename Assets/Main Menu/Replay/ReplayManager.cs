@@ -54,6 +54,10 @@ namespace SDJK.MainMenu
 
             if (Path.GetExtension(path) == ".sdjk-replay")
             {
+                threadMetaData.name = "sdjk:notice.running_task.drag_and_drop.replay_list_load.name";
+                threadMetaData.info = "";
+                threadMetaData.progress = 0;
+
                 ReplayFile replay = ReplayLoader.ReplayLoad<ReplayFile>(path);
                 if (replay == null)
                     return true;
@@ -75,6 +79,7 @@ namespace SDJK.MainMenu
                     }
                 });
 
+                threadMetaData.progress = 1;
                 return true;
             }
 

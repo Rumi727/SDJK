@@ -33,6 +33,10 @@
 	"notice.running_task.replay_list_refresh.name":"리플레이 리스트를 새로고치는 중...",
 	"notice.running_task.replay_list_refresh_sort.name":"리플레이 리스트를 정렬하는 중...",
 	
+	"notice.running_task.drag_and_drop.map_load.warning": "맵으로 로드하시겠습니까?",
+	"notice.running_task.drag_and_drop.map_load.name":"맵 로드 중...",
+	"notice.running_task.drag_and_drop.replay_list_load.name":"리플레이 로드 중...",
+	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice 모드는 저작권 문제로 인해 게임 플레이는 구현되지 않았습니다<size=10>\n\n</size><size=15>대신 맵을 변환할 수 있는 다른 모드로 플레이 해주세요</size>",
 	
 	

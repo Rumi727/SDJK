@@ -1,11 +1,17 @@
 using Cysharp.Threading.Tasks;
+using K4.Threading;
 using SCKRM;
+using SCKRM.DragAndDrop;
+using SCKRM.Renderer;
 using SCKRM.Resource;
+using SCKRM.Threads;
+using SCKRM.UI.Overlay.MessageBox;
 using SDJK.Map;
 using SDJK.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace SDJK.MainMenu
 {
@@ -87,8 +93,49 @@ namespace SDJK.MainMenu
         [Awaken]
         public static void Awaken()
         {
+            DragAndDropManager.dragAndDropEvent += DragAndDropEvent;
+
             ResourceManager.resourceRefreshEvent += MapListLoad;
             RulesetManager.isRulesetChanged += RulesetMapCountRefresh;
+        }
+
+        static bool DragAndDropEvent(string path, bool isFolder, ThreadMetaData threadMetaData)
+        {
+            if (!isFolder)
+                return false;
+
+            threadMetaData.name = "sdjk:notice.running_task.drag_and_drop.map_load.name";
+            threadMetaData.info = "";
+
+            threadMetaData.progress = 0;
+            threadMetaData.maxProgress = 1;
+
+            int index = -1;
+
+            threadMetaData.cancelEvent += CancelEvent;
+            K4UnityThreadDispatcher.Execute(async () =>
+            {
+                int result = await MessageBoxManager.Show(new NameSpacePathReplacePair[] { "sc-krm:gui.yes", "sc-krm:gui.no" },
+                1,
+                "sdjk:notice.running_task.drag_and_drop.map_load.warning",
+                "sc-krm:0:gui/icon/exclamation_mark");
+
+                Interlocked.CompareExchange(ref index, result, -1);
+            });
+
+            while (Interlocked.Add(ref index, 0) < 0)
+                Thread.Sleep(1);
+
+            if (index == 0)
+            {
+                DirectoryUtility.Copy(path, PathUtility.Combine(Kernel.persistentDataPath, "Map", Path.GetFileName(path)));
+                K4UnityThreadDispatcher.Execute(MapListLoad);
+            }
+
+            threadMetaData.progress = 1;
+            return true;
+
+            void CancelEvent() => Interlocked.CompareExchange(ref index, 1, -1);
         }
 
         //void OnApplicationFocus(bool focus) => MapListLoad();

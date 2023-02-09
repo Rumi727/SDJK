@@ -33,6 +33,10 @@
 	"notice.running_task.replay_list_refresh.name":"リプレイリストを更新中...",
 	"notice.running_task.replay_list_refresh_sort.name":"リプレイリストを並べ替える...",
 	
+	"notice.running_task.drag_and_drop.map_load.warning": "マップにロードしますか？",
+	"notice.running_task.drag_and_drop.map_load.name":"マップを読み込んでいます...",
+	"notice.running_task.drag_and_drop.replay_list_load.name":"リプレイを読み込んでいます...",
+	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ルールセットは著作権問題のためゲームプレイは実装されていません。<size=10>\n\n</size><size=15>代わりにマップを変換できる別のルールセットでプレイしてください</size>",
 	
 	
