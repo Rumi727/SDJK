@@ -174,7 +174,6 @@
     "controlbar": false,
     "ruleset.sdjk.pause": false,
     "ruleset.sdjk.gameover": false,
-    "mode_select_screen": false,
-    "ruleset.result_screen": false
+    "mode_select_screen": false
   }
 }

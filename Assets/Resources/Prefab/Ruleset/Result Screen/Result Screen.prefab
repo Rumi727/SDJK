@@ -1622,11 +1622,11 @@ RectTransform:
   m_Father: {fileID: 320259586340126384}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -5, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &320259586725085935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1994,6 +1994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5f53f9417f97b49a32094bc91abcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 522232289293961641}
   replayResultUI: {fileID: 2609743521703257990}
   alphaAni: 0.1
   canvasGroup: {fileID: 5385739423894885592}
@@ -2258,7 +2259,7 @@ RectTransform:
   m_GameObject: {fileID: 320259586977069612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 320259585952400576}
@@ -2267,9 +2268,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -56}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &320259586977069614
 MonoBehaviour:

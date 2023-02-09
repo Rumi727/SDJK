@@ -6,6 +6,8 @@ using SDJK.Map;
 using SDJK.Replay;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace SDJK.Ruleset
 {
@@ -13,16 +15,14 @@ namespace SDJK.Ruleset
     {
         public static ResultScreen Show(IRuleset ruleset, MapFile map, ReplayFile replay, Action backEvent, string prefab = "ruleset.result_screen")
         {
-            if (isShow)
-                return null;
-
             ResultScreen resultScreen = (ResultScreen)ObjectPoolingSystem.ObjectCreate(prefab).monoBehaviour;
             resultScreen.Refresh(ruleset, map, replay, backEvent);
             
             return resultScreen;
         }
 
-        [SerializeField] ReplayResultUI replayResultUI;
+        [SerializeField, NotNull] Graphic background;
+        [SerializeField, NotNull] ReplayResultUI replayResultUI;
         [SerializeField] float alphaAni = 0.1f;
         [SerializeField, NotNull] CanvasGroup canvasGroup;
 
@@ -31,7 +31,7 @@ namespace SDJK.Ruleset
         ReplayFile replay = null;
         Action backEvent;
 
-        static bool isShow = false;
+        bool isShow = false;
 
         public void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay, Action backEvent)
         {
@@ -42,7 +42,7 @@ namespace SDJK.Ruleset
 
             replayResultUI.Refresh(ruleset, map, replay, 0);
 
-            InputManager.SetInputLock("ruleset.result_screen", true);
+            InputManager.SetInputLock("ruleset.result_screen_" + GetInstanceID(), true);
             UIManager.BackEventAdd(Hide);
             isShow = true;
         }
@@ -52,10 +52,12 @@ namespace SDJK.Ruleset
             if (!isShow)
                 return;
 
-            InputManager.SetInputLock("ruleset.result_screen", false);
+            InputManager.SetInputLock("ruleset.result_screen_" + GetInstanceID(), false);
             UIManager.BackEventRemove(Hide);
 
             backEvent?.Invoke();
+
+            background.raycastTarget = false;
             isShow = false;
         }
 
@@ -84,9 +86,10 @@ namespace SDJK.Ruleset
 
             ruleset.GameStart(map.mapFilePath, replay.replayFilePath, false);
 
-            InputManager.SetInputLock("ruleset.result_screen", false);
+            InputManager.SetInputLock("ruleset.result_screen_" + GetInstanceID(), false);
             UIManager.BackEventRemove(Hide);
 
+            background.raycastTarget = false;
             isShow = false;
         }
 
@@ -108,7 +111,9 @@ namespace SDJK.Ruleset
             alphaValue = 0;
             isShow = false;
 
+            background.raycastTarget = true;
             replayResultUI.ObjectReset();
+
             return true;
         }
     }
