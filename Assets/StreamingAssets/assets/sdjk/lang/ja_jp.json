@@ -5,6 +5,7 @@
 	"gui.edit": "編集",
 	"gui.quit": "終了",
 	"gui.mode": "モード",
+	"gui.last_replay": "最後の記録",
 	
 	"map_manager.music": "音楽",
 	"map_manager.previous_music": "以前の音楽",
@@ -25,6 +26,8 @@
 	"options.main_menu.logoEffectEnable.info": "ロゴにいくつかのエフェクトを適用します",
 	
 	"notice.running_task.map_list_refresh.name":"マップリストを更新中...",
+	"notice.running_task.replay_list_refresh.name":"リプレイリストを更新中...",
+	"notice.running_task.replay_list_refresh_sort.name":"リプレイリストを並べ替える...",
 	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ルールセットは著作権問題のためゲームプレイは実装されていません。<size=10>\n\n</size><size=15>代わりにマップを変換できる別のルールセットでプレイしてください</size>",
 	

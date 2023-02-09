@@ -5,6 +5,7 @@
 	"gui.edit": "Edit",
 	"gui.quit": "Quit",
 	"gui.mode": "Mode",
+	"gui.last_replay": "Last Record",
 	
 	"map_manager.music": "Music",
 	"map_manager.previous_music": "Previous music",
@@ -25,6 +26,8 @@
 	"options.main_menu.logoEffectEnable.info": "Apply some effects to your logo",
 	
 	"notice.running_task.map_list_refresh.name":"Refreshing map list...",
+	"notice.running_task.replay_list_refresh.name":"Refreshing replay list...",
+	"notice.running_task.replay_list_refresh_sort.name":"Sorting replay list...",
 	
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ruleset has no gameplay due to copyright issues.<size=10>\n\n</size><size=15>Please play with a different ruleset that can convert the map instead</size>",
 	
