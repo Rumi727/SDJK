@@ -99,6 +99,8 @@ namespace SDJK.Ruleset
 
             alphaValue = 0;
             isShow = false;
+
+            replayResultUI.ObjectReset();
             return true;
         }
     }
