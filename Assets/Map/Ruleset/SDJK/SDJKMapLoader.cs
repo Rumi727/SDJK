@@ -270,7 +270,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         return;
 
                     List<SDJKNoteFile> notes = new List<SDJKNoteFile>();
-                    for (int i = 0; i < list.Count; i++)
+                    for (int i = 0; i < list.Count - 1; i++)
                     {
                         if (list.Count != holdList.Count)
                             notes.Add(new SDJKNoteFile(list[i] - 1, 0, SDJKNoteTypeFile.normal));
