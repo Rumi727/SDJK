@@ -8,7 +8,7 @@ using Version = SCKRM.Version;
 
 namespace SDJK.Replay
 {
-    public abstract class ReplayFile
+    public class ReplayFile
     {
         public string mapId { get; set; } = "";
 
