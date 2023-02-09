@@ -80,6 +80,7 @@ namespace SDJK.Ruleset
                 return;
 
             ruleset.GameStart(map.mapFilePath, replay.replayFilePath, false);
+            Hide();
         }
 
         protected override void OnDestroy()
