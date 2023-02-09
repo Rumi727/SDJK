@@ -207,7 +207,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentPressBeatReplay);
 
                 if (autoNote || instance.auto)
-                    input = currentBeat >= currentNote.beat;
+                {
+                    if (currentNoteIndex < notes.Count)
+                        input = currentBeat >= currentNote.beat;
+                    else
+                        input = false;
+                }
                 else if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count && keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
                 {
                     List<double> pressBeats = sdjkManager.currentReplay.pressBeat[keyIndex];
@@ -239,11 +244,11 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     }
                 }
 
+                if (input)
+                    HitsoundPlay();
+
                 if (currentNoteIndex < notes.Count)
                 {
-                    if (input)
-                        HitsoundPlay();
-
                     for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
                     {
                         if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData, currentPressBeatReplay))
