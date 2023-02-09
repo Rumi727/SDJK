@@ -71,11 +71,11 @@ namespace SDJK.MainMenu
                 if (replayPaths == null || replayPaths.Length <= 0)
                     return;
 
-                asyncTask.maxProgress = replayPaths.Length + 1;
+                asyncTask.maxProgress = replayPaths.Length;
 
                 for (int i = 0; i < replayPaths.Length; i++)
                 {
-                    ReplayFile replay = ReplayLoader.ReplayLoad<ReplayFile>(replayPaths[i], out _);
+                    ReplayFile replay = ReplayLoader.ReplayLoad<ReplayFile>(replayPaths[i]);
                     if (replay != null)
                     {
                         if (resultReplays.ContainsKey(replay.mapId))
@@ -84,7 +84,7 @@ namespace SDJK.MainMenu
                             resultReplays[replay.mapId] = new List<ReplayFile>() { replay };
                     }
 
-                    await UniTask.NextFrame();
+                    await UniTask.DelayFrame(1);
 
                     if (asyncTask.isCanceled)
                         return;
@@ -96,15 +96,21 @@ namespace SDJK.MainMenu
 
                 {
                     List<KeyValuePair<string, List<ReplayFile>>> replays = resultReplays.ToList();
+
+                    asyncTask.progress = 0;
+                    asyncTask.maxProgress = replays.Count;
+
                     for (int i = 0; i < replays.Count; i++)
                     {
                         KeyValuePair<string, List<ReplayFile>> replay = replays[i];
                         resultReplays[replay.Key] = ReplayListSort(replay.Value);
 
-                        await UniTask.NextFrame();
+                        await UniTask.DelayFrame(1);
 
                         if (asyncTask.isCanceled)
                             return;
+
+                        asyncTask.progress++;
                     }
                 }
 

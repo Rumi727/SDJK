@@ -21,6 +21,19 @@ namespace SDJK.Replay
             return replay;
         }
 
+        public static T ReplayLoad<T>(string replayFilePath) where T : ReplayFile, new()
+        {
+            if (File.Exists(replayFilePath))
+            {
+                T replayFile = JsonManager.JsonRead<T>(replayFilePath, true);
+                replayFile.replayFilePath = replayFilePath;
+
+                return replayFile;
+            }
+
+            return null;
+        }
+
         public static T ReplayLoad<T>(string replayFilePath, out IMode[] modes) where T : ReplayFile, new()
         {
             if (File.Exists(replayFilePath))

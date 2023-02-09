@@ -1,5 +1,4 @@
-using SCKRM;
-using SCKRM.Object;
+using SCKRM.UI;
 using SDJK.Map;
 using SDJK.Replay;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset
 {
-    public sealed class ReplayResultUI : ObjectPoolingBase
+    public sealed class ReplayResultUI : UIObjectPooling
     {
         [SerializeField] TMP_Text ranking;
         [SerializeField] List<ReplayResultUIBase> replayResultUIBases = new List<ReplayResultUIBase>();
@@ -16,6 +15,7 @@ namespace SDJK.Ruleset
         IRuleset ruleset;
         MapFile map;
         ReplayFile replay;
+
         public void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay, int ranking)
         {
             this.ruleset = ruleset;
