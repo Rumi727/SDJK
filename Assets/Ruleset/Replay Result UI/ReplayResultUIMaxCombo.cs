@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void ObjectReset()
         {
             maxComboAnimation = 0;
-            text.text = "0";
+            text.text = "";
         }
     }
 }

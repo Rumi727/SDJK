@@ -24,7 +24,7 @@ namespace SDJK.Ruleset.ReplayResult
         {
             accuracyAnimation = 0;
 
-            background.color = Color.black;
+            background.color = Color.clear;
             text.text = "";
         }
     }
