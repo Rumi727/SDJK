@@ -92,6 +92,7 @@ namespace SDJK.Replay
             replay.sdjkVersion = new Version(Application.version);
 
             replay.clearUTCTime = NTPDateTime.utcNow;
+            replay.ruleset = map.info.ruleset;
 
             {
                 replay.modes = new ReplayModeFile[modes.Length];

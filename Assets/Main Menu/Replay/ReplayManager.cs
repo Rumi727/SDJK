@@ -68,7 +68,7 @@ namespace SDJK.MainMenu
                             MapFile map = mapPack.maps[j];
                             if (map.info.id == replay.mapId)
                             {
-                                ResultScreen.Show(RulesetManager.FindRuleset(map.info.ruleset), map, replay, null);
+                                ResultScreen.Show(RulesetManager.FindRuleset(replay.ruleset), map, replay, null);
                                 return;
                             }
                         }

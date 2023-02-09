@@ -29,5 +29,7 @@ namespace SDJK.Replay
         public double gameOverBeat { get; set; } = double.MaxValue;
 
         public DateTime clearUTCTime { get; set; } = NTPDateTime.utcNow;
+
+        public string ruleset { get; set; } = "";
     }
 }

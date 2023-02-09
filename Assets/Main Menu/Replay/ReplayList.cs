@@ -74,6 +74,8 @@ namespace SDJK.MainMenu
                 for (int i = 0; i < replays.Count; i++)
                 {
                     ReplayFile replay = replays[i];
+                    if (replay.ruleset != RulesetManager.selectedRuleset.name)
+                        continue;
 
                     //마지막 리플레이 계산
                     if (lastReplay == null)
@@ -101,6 +103,8 @@ namespace SDJK.MainMenu
                 for (int i = 0; i < replays.Count; i++)
                 {
                     ReplayFile replay = replays[i];
+                    if (replay.ruleset != RulesetManager.selectedRuleset.name)
+                        continue;
 
                     ReplayResultUI ui = (ReplayResultUI)ObjectPoolingSystem.ObjectCreate(replayResultUIPrefab, content).monoBehaviour;
                     replayResultUIs.Add(ui);
