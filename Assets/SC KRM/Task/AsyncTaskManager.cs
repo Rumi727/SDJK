@@ -90,18 +90,200 @@ namespace SCKRM
 
 
 
-        public virtual NameSpacePathReplacePair name { get; set; }
-        public virtual NameSpacePathReplacePair info { get; set; }
-        public virtual bool loop { get; set; }
-        public virtual bool cantCancel { get; set; }
+        int nameLock = 0;
+        NameSpacePathReplacePair _name = "";
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual NameSpacePathReplacePair name
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref nameLock, 1, 0) != 0)
+                    Thread.Sleep(1);
 
-        public virtual float progress { get; set; }
-        public virtual float maxProgress { get; set; }
+                string value = _name;
+
+                Interlocked.Decrement(ref nameLock);
+                return value;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref nameLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _name = value;
+                Interlocked.Decrement(ref nameLock);
+            }
+        }
+
+        int infoLock = 0;
+        NameSpacePathReplacePair _info = "";
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual NameSpacePathReplacePair info
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref infoLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                string value = _info;
+
+                Interlocked.Decrement(ref infoLock);
+                return value;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref infoLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _info = value;
+                Interlocked.Decrement(ref infoLock);
+            }
+        }
+
+        int loopLock = 0;
+        bool _loop = false;
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual bool loop
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref loopLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                bool value = _loop;
+
+                Interlocked.Decrement(ref loopLock);
+                return value;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref loopLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _loop = value;
+                Interlocked.Decrement(ref loopLock);
+            }
+        }
+
+        int cantCancelLock = 0;
+        bool _cantCancel = false;
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual bool cantCancel
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref cantCancelLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                bool value = _cantCancel;
+
+                Interlocked.Decrement(ref cantCancelLock);
+                return value;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref cantCancelLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _cantCancel = value;
+                Interlocked.Decrement(ref cantCancelLock);
+            }
+        }
 
 
 
+        int progressLock = 0;
+        float _progress = 0;
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual float progress
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref progressLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                float value = _progress;
+
+                Interlocked.Decrement(ref progressLock);
+                return value;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref progressLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _progress = value;
+                Interlocked.Decrement(ref progressLock);
+            }
+        }
+
+        int maxProgressLock = 0;
+        float _maxProgress = 0;
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual float maxProgress
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref maxProgressLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                float value = _maxProgress;
+
+                Interlocked.Decrement(ref maxProgressLock);
+                return value;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref maxProgressLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _maxProgress = value;
+                Interlocked.Decrement(ref maxProgressLock);
+            }
+        }
+
+
+
+        int isCanceledLock = 0;
+        bool _isCanceled = false;
+        /// <summary>
+        /// Thread-Safe
+        /// </summary>
+        public virtual bool isCanceled
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref isCanceledLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                bool value = _isCanceled;
+
+                Interlocked.Decrement(ref isCanceledLock);
+                return value;
+            }
+            protected set
+            {
+                while (Interlocked.CompareExchange(ref isCanceledLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _isCanceled = value;
+
+                Interlocked.Decrement(ref isCanceledLock);
+            }
+        }
         public virtual bool isRemoved { get => isCanceled; }
-        public virtual bool isCanceled { get; protected set; }
 
 
 
