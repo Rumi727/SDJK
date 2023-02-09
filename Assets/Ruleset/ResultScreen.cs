@@ -80,7 +80,11 @@ namespace SDJK.Ruleset
                 return;
 
             ruleset.GameStart(map.mapFilePath, replay.replayFilePath, false);
-            Hide();
+
+            InputManager.SetInputLock("ruleset.result_screen", false);
+            UIManager.BackEventRemove(Hide);
+
+            isShow = false;
         }
 
         protected override void OnDestroy()
