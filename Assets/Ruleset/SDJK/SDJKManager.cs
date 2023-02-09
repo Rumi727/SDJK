@@ -131,7 +131,7 @@ namespace SDJK.Ruleset.SDJK
                 replay = createdReplay;
 
             if (!isReplay)
-                createdReplay.ReplaySave(map, modes, $"{map.mapFilePath}.{ruleset.name}-lastReplay");
+                createdReplay.LastReplaySave(map, modes);
 
             ResultScreen.Show(ruleset, map, replay, Quit);
             isClear = true;
@@ -143,8 +143,6 @@ namespace SDJK.Ruleset.SDJK
                 Destroy(bgmClip, 1);
 
             ruleset.GameStart(map.mapFilePath, isReplay ? currentReplay.replayFilePath : null, isEditor, modes);
-            if (!isReplay)
-                createdReplay.ReplaySave(map, modes, $"{map.mapFilePath}.{ruleset.name}-lastReplay");
         }
 
         public void Quit()

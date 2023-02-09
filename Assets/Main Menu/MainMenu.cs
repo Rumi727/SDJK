@@ -13,6 +13,7 @@ using SCKRM.UI.Layout;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
 using SDJK.Mode;
+using SDJK.Replay;
 using SDJK.Ruleset;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -294,7 +295,7 @@ namespace SDJK.MainMenu
                 string lastReplayPath = $"{mapFilePath}.{RulesetManager.selectedRuleset.name}-lastReplay";
 
                 if (InputManager.GetKey(KeyCode.LeftShift, InputType.Alway) && System.IO.File.Exists(lastReplayPath))
-                    RulesetManager.GameStart(mapFilePath, lastReplayPath, false, ModeManager.selectedModeList.ToArray());
+                    RulesetManager.GameStart(mapFilePath, ReplayLoader.GetLastReplayPath(MapManager.selectedMap), false, ModeManager.selectedModeList.ToArray());
                 else
                     RulesetManager.GameStart(mapFilePath, null, false, ModeManager.selectedModeList.ToArray());
             }
