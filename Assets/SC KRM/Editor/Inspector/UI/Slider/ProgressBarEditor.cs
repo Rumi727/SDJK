@@ -18,12 +18,14 @@ namespace SCKRM.Editor
 
             DrawLine();
 
+            UseProperty("_right", "오른쪽에서 시작");
             UseProperty("_allowNoResponse", "응답 없음 애니메이션 허용");
 
             DrawLine();
 
-            UseProperty("_slider");
-            UseProperty("_fillShow");
+            UseProperty("_fillArea");
+            UseProperty("_fill");
+            UseProperty("_fillSlicedFilledImage");
         }
     }
 }

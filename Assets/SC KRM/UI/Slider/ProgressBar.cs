@@ -1,21 +1,26 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SCKRM.UI
 {
-    [AddComponentMenu("SC KRM/UI/Slider/Progress Bar")]
-    public sealed class ProgressBar : UIAni
+    [AddComponentMenu("SC KRM/UI/Slider/Progress Bar"), ExecuteAlways]
+    public sealed class ProgressBar : UIAniBase
     {
         [SerializeField, Min(0)] float _progress; public float progress { get => _progress; set => _progress = value.Clamp(0); }
         [SerializeField, Min(0)] float _maxProgress; public float maxProgress { get => _maxProgress; set => _maxProgress = value.Clamp(0); }
 
 
 
-        [SerializeField, NotNull] Slider _slider;
-        public Slider slider => _slider;
+        [SerializeField, NotNull] RectTransform _fillArea;
+        public RectTransform fillArea => _fillArea;
 
-        [SerializeField, NotNull] RectTransform _fillShow;
-        public RectTransform fillShow => _fillShow;
+        [SerializeField, NotNull] RectTransform _fill;
+        public RectTransform fill => _fill;
+
+        [SerializeField, NotNull] SlicedFilledImage _fillSlicedFilledImage;
+        public SlicedFilledImage fillSlicedFilledImage => _fillSlicedFilledImage;
+
+        [SerializeField] bool _right = false;
+        public bool right { get => _right; set => _right = value; }
 
 
         [SerializeField] bool _allowNoResponse = true; public bool allowNoResponse { get => _allowNoResponse; set => _allowNoResponse = value; }
@@ -28,50 +33,126 @@ namespace SCKRM.UI
         [System.NonSerialized] float tempMaxX = 0;
 
 
+        
+        protected override void Awake() => Initialize();
 
+
+
+        [System.NonSerialized] float anchorMinX = 0;
+        [System.NonSerialized] float anchorMaxX = 0;
         void Update()
         {
-            if (tempTimer >= 1 && allowNoResponse && progress < maxProgress)
-            {
-                if (slider.enabled)
-                    slider.enabled = false;
+            float lerpValue;
+            if (Kernel.isPlaying && lerp)
+                lerpValue = this.lerpValue * Kernel.fpsUnscaledSmoothDeltaTime;
+            else
+                lerpValue = 1;
 
+            if (Kernel.isPlaying && tempTimer >= 1 && allowNoResponse && progress < maxProgress)
+            {
                 if (!isNoResponse)
                 {
-                    tempMinX = fillShow.anchorMin.x - (loopValue - 0.25f).Clamp01();
-                    tempMaxX = fillShow.anchorMax.x - loopValue.Clamp01();
+                    if (right)
+                    {
+                        tempMinX = anchorMinX - loopValue.Clamp01();
+                        tempMaxX = anchorMaxX - (loopValue + 0.25f).Clamp01();
+                    }
+                    else
+                    {
+                        tempMinX = anchorMinX - (loopValue - 0.25f).Clamp01();
+                        tempMaxX = anchorMaxX - loopValue.Clamp01();
+                    }
 
                     isNoResponse = true;
                 }
 
-                loopValue += 0.0125f * Kernel.fpsUnscaledSmoothDeltaTime;
+                if (right)
+                    loopValue -= 0.0125f * Kernel.fpsUnscaledSmoothDeltaTime;
+                else
+                    loopValue += 0.0125f * Kernel.fpsUnscaledSmoothDeltaTime;
 
-                tempMinX = tempMinX.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-                tempMaxX = tempMaxX.Lerp(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+                tempMinX = tempMinX.Lerp(0, lerpValue);
+                tempMaxX = tempMaxX.Lerp(0, lerpValue);
 
-                fillShow.anchorMin = new Vector2((loopValue - 0.25f + tempMinX).Clamp01(), fillShow.anchorMin.y);
-                fillShow.anchorMax = new Vector2((loopValue + tempMaxX).Clamp01(), fillShow.anchorMax.y);
+                if (right)
+                {
+                    anchorMinX = (loopValue + tempMinX).Clamp01();
+                    anchorMaxX = (loopValue + 0.25f + tempMaxX).Clamp01();
+                }
+                else
+                {
+                    anchorMinX = (loopValue - 0.25f + tempMinX).Clamp01();
+                    anchorMaxX = (loopValue + tempMaxX).Clamp01();
+                }
 
-                if (fillShow.anchorMin.x >= 1)
-                    loopValue = 0;
+                if (right)
+                {
+                    if (anchorMaxX <= 0)
+                        loopValue = 1;
+                }
+                else
+                {
+                    if (anchorMinX >= 1)
+                        loopValue = 0;
+                }
             }
             else
             {
-                if (!slider.enabled)
-                    slider.enabled = true;
+                if (Kernel.isPlaying)
+                {
+                    isNoResponse = false;
+                    tempTimer += Kernel.unscaledDeltaTime;
+                }
 
-                isNoResponse = false;
+                float temp = progress / maxProgress;
+                if (!float.IsNormal(temp))
+                    temp = 0;
 
-                slider.value = progress;
-                slider.maxValue = maxProgress;
-
-                fillShow.anchorMin = fillShow.anchorMin.Lerp(slider.fillRect.anchorMin, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-                fillShow.anchorMax = fillShow.anchorMax.Lerp(slider.fillRect.anchorMax, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-
-                tempTimer += Kernel.unscaledDeltaTime;
+                if (right)
+                {
+                    anchorMinX = anchorMinX.Lerp(1 - temp, lerpValue);
+                    anchorMaxX = anchorMaxX.Lerp(1, lerpValue);
+                }
+                else
+                {
+                    anchorMinX = anchorMinX.Lerp(0, lerpValue);
+                    anchorMaxX = anchorMaxX.Lerp(temp, lerpValue);
+                }
             }
 
-            if (tempProgress != progress)
+            {
+                float clampMin = 1 - fill.rect.height / fillArea.rect.width;
+                float clampMax = fill.rect.height / fillArea.rect.width;
+
+                fill.anchorMin = new Vector2(anchorMinX.Clamp(0, clampMin), fill.anchorMin.y);
+                fill.anchorMax = new Vector2(anchorMaxX.Clamp(clampMax, 1), fill.anchorMax.y);
+
+                if (anchorMaxX <= clampMax)
+                {
+                    if (fillSlicedFilledImage.fillDirection != SlicedFilledImage.FillDirection.Right)
+                        fillSlicedFilledImage.fillDirection = SlicedFilledImage.FillDirection.Right;
+
+                    float fillAmount = 0f.InverseLerp(clampMax, anchorMaxX);
+                    if (fillSlicedFilledImage.fillAmount != fillAmount)
+                        fillSlicedFilledImage.fillAmount = fillAmount;
+                }
+                else if (anchorMinX >= clampMin)
+                {
+                    if (fillSlicedFilledImage.fillDirection != SlicedFilledImage.FillDirection.Left)
+                        fillSlicedFilledImage.fillDirection = SlicedFilledImage.FillDirection.Left;
+
+                    float fillAmount = 1 - clampMin.InverseLerp(1f, anchorMinX);
+                    if (fillSlicedFilledImage.fillAmount != fillAmount)
+                        fillSlicedFilledImage.fillAmount = fillAmount;
+                }
+                else
+                {
+                    if (fillSlicedFilledImage.fillAmount != 1)
+                        fillSlicedFilledImage.fillAmount = 1;
+                }
+            }
+
+            if (Kernel.isPlaying && tempProgress != progress)
             {
                 tempTimer = 0;
                 tempProgress = progress;
@@ -87,9 +168,13 @@ namespace SCKRM.UI
             tempMinX = 0;
             tempMaxX = 0;
 
-            slider.value = 0;
-            fillShow.anchorMin = new Vector2(0, slider.fillRect.anchorMin.y);
-            fillShow.anchorMax = new Vector2(0, slider.fillRect.anchorMax.y);
+            anchorMinX = 0;
+            anchorMaxX = 0;
+
+            fill.anchorMin = new Vector2(0, fill.anchorMin.y);
+            fill.anchorMax = new Vector2(0, fill.anchorMax.y);
+
+            fillSlicedFilledImage.fillAmount = 1;
         }
     }
 }

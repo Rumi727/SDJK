@@ -63,7 +63,7 @@ namespace SCKRM.UI.SideBar
                 progressBar.progress = 1;
                 progressBar.maxProgress = 1;
 
-                if (progressBar.fillShow.anchorMax.x >= 0.99f || lastLoop)
+                if (progressBar.fill.anchorMax.x >= 0.99f || lastLoop)
                     Remove();
 
                 return;
