@@ -11,7 +11,7 @@ namespace SCKRM.FileDialog.Screen
 {
     [WikiDescription("파일 선택 화면의 버튼을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Screen Button")]
-    public sealed class FileDialogScreenButton : UI.UI, ICell, IPointerClickHandler
+    public sealed class FileDialogScreenButton : UI.UIBase, ICell, IPointerClickHandler
     {
         [SerializeField, NotNull] Toggle _toggle; public Toggle toggle { get => _toggle; }
 

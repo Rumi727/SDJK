@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace SDJK.MainMenu
 {
-    public class CenterBarButton : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
+    public class CenterBarButton : SCKRM.UI.UIBase, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
     {
         public float sizeOffset => _sizeOffset; [SerializeField] float _sizeOffset;
         public UnityEvent onClick => _onClick; [SerializeField] UnityEvent _onClick;

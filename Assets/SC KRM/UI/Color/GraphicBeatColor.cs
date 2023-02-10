@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SCKRM.UI
 {
     [AddComponentMenu("SC KRM/UI/Color/Graphic Beat Color", 0)]
-    public sealed class GraphicBeatColor : UI
+    public sealed class GraphicBeatColor : UIBase
     {
         [SerializeField] float _alpha = 1;
         public float alpha { get => _alpha; set => _alpha = value; }

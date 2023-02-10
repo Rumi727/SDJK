@@ -11,7 +11,7 @@ namespace SCKRM.Resource.UI
 {
     [WikiDescription("리소스팩 버튼을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Resource/Resource Pack List/Resource Pack")]
-    public sealed class ResourcePack : UIObjectPooling, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public sealed class ResourcePack : UIObjectPoolingBase, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public ResourcePackList resourcePackList { get; [Obsolete("It is managed by the ResourcePackList class. Please do not touch it.")] internal set; }
 

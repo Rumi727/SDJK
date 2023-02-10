@@ -4,7 +4,7 @@ using UnityEditor;
 namespace SCKRM.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(LayoutChild))]
+    [CustomEditor(typeof(LayoutChildBase))]
     public class LayoutChildEditor : UIAniEditor
     {
         public override void OnInspectorGUI()

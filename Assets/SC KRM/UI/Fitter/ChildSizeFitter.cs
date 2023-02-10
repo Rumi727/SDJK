@@ -6,7 +6,7 @@ namespace SCKRM.UI.Layout
     [ExecuteAlways]
     [AddComponentMenu("SC KRM/UI/Size Fitter/Child Size Fitter")]
     [RequireComponent(typeof(RectTransform))]
-    public sealed class ChildSizeFitter : LayoutChild
+    public sealed class ChildSizeFitter : LayoutChildBase
     {
         [SerializeField] bool _xSize = false;
         public bool xSize { get => _xSize; set => _xSize = value; }

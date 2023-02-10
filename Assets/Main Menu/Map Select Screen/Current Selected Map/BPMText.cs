@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu.MapSelectScreen
 {
-    public sealed class BPMText : SCKRM.UI.UI
+    public sealed class BPMText : SCKRM.UI.UIBase
     {
         [SerializeField] TMP_Text text;
 

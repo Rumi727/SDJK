@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SCKRM.UI.SideBar
 {
     [AddComponentMenu("SC KRM/UI/Kerenl/Side Bar/Running Task List")]
-    public sealed class RunningTaskList : UI
+    public sealed class RunningTaskList : UIBase
     {
         protected override void Awake()
         {

@@ -17,7 +17,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MainMenu.MapSelectScreen
 {
-    public class MapPackListMapPack : UIObjectPooling, IPointerClickHandler
+    public class MapPackListMapPack : UIObjectPoolingBase, IPointerClickHandler
     {
         public static bool isTextureLoading { get; private set; } = false;
 

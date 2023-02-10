@@ -5,7 +5,7 @@ namespace SCKRM.UI
 {
     [ExecuteAlways]
     [AddComponentMenu("SC KRM/UI/Color/Color Readability"), RequireComponent(typeof(Graphic))]
-    public sealed class ColorReadability : UIAni
+    public sealed class ColorReadability : UIAniBase
     {
         [SerializeField] CanvasRenderer _targetCanvasRenderer; public CanvasRenderer targetCanvasRenderer => _targetCanvasRenderer;
         [SerializeField] Graphic _targetGraphic; public Graphic targetGraphic => _targetGraphic;

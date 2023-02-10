@@ -6,7 +6,7 @@ namespace SCKRM.UI
 {
     [ExecuteAlways]
     [AddComponentMenu("SC KRM/UI/Color/Input Field Caret Color", 0)]
-    public sealed class InputFieldCaretColor : UI
+    public sealed class InputFieldCaretColor : UIBase
     {
         [SerializeField, NotNull] TMP_InputField _inputField; public TMP_InputField inputField => _inputField;
 

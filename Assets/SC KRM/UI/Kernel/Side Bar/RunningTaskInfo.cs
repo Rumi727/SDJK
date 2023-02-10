@@ -10,7 +10,7 @@ namespace SCKRM.UI.SideBar
 {
     [AddComponentMenu("SC KRM/UI/Kerenl/Side Bar/Running Task Info")]
     [RequireComponent(typeof(RectTransform))]
-    public sealed class RunningTaskInfo : UIObjectPooling, IPointerEnterHandler, IPointerExitHandler
+    public sealed class RunningTaskInfo : UIObjectPoolingBase, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] CustomTextMeshProRenderer _nameText;
         public CustomTextMeshProRenderer nameText => _nameText;

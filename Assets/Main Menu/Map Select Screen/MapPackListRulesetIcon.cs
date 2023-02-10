@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MainMenu
 {
-    public sealed class MapPackListRulesetIcon : UIObjectPooling
+    public sealed class MapPackListRulesetIcon : UIObjectPoolingBase
     {
         [SerializeField] CanvasGroup _canvasGroup; public CanvasGroup canvasGroup => _canvasGroup;
         [SerializeField] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon => _icon;

@@ -8,7 +8,7 @@ namespace SCKRM.FileDialog.Screen
 {
     [WikiDescription("파일 선택 화면을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Screen")]
-    public sealed class FileDialogScreen : UI.UI, IRecyclableScrollRectDataSource
+    public sealed class FileDialogScreen : UI.UIBase, IRecyclableScrollRectDataSource
     {
         [SerializeField] ToggleGroup toggleGroup;
         [SerializeField] Transform content;

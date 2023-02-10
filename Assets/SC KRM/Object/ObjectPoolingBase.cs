@@ -45,7 +45,7 @@ namespace SCKRM.Object
         }
 
         [WikiIgnore]
-        public static bool RemoveDefault(UI.UI ui, IObjectPooling objectPooling)
+        public static bool RemoveDefault(UI.UIBase ui, IObjectPooling objectPooling)
         {
             if (!objectPooling.isActived)
                 return false;

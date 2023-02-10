@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SCKRM
 {
-    public class SaveLoadUITitle : UIObjectPooling
+    public class SaveLoadUITitle : UIObjectPoolingBase
     {
         [SerializeField, NotNull] CustomTextMeshProRenderer _customTextMeshProRenderer; public CustomTextMeshProRenderer customTextMeshProRenderer => _customTextMeshProRenderer;
 

@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu.ModeSelectScreen
 {
-    public sealed class ModeSelectScreen : SCKRM.UI.UI
+    public sealed class ModeSelectScreen : SCKRM.UI.UIBase
     {
         [SerializeField] CanvasGroup canvasGroup;
         [SerializeField] GameObject layout;

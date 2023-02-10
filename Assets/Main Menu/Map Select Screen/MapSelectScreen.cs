@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu.MapSelectScreen
 {
-    public class MapSelectScreen : SCKRM.UI.UI
+    public class MapSelectScreen : SCKRM.UI.UIBase
     {
         float upTimer = 0;
         float upTimer2 = 0;

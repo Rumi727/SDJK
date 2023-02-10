@@ -16,7 +16,7 @@ using Vector2 = UnityEngine.Vector2;
 
 namespace SCKRM.SaveLoad.UI
 {
-    public abstract class SaveLoadUIBase : UIObjectPooling
+    public abstract class SaveLoadUIBase : UIObjectPoolingBase
     {
         public static Dictionary<string, SaveLoadUIBase> settingInstance { get; } = new Dictionary<string, SaveLoadUIBase>();
         public static Dictionary<string, List<SaveLoadUIBase>> settingInstances { get; } = new Dictionary<string, List<SaveLoadUIBase>>();

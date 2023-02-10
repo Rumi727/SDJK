@@ -11,7 +11,7 @@ namespace SCKRM.UI
 {
     [ExecuteAlways]
     [AddComponentMenu("SC KRM/UI/Canvas Setting")]
-    public sealed class CanvasSetting : UI
+    public sealed class CanvasSetting : UIBase
     {
         /// <summary>
         /// 이 변수를 활성화 하면 에디터에서 씬 가시성이 항상 활성화 됩니다.

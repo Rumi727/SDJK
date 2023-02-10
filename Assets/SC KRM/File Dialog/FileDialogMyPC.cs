@@ -9,7 +9,7 @@ namespace SCKRM.FileDialog.MyPC
 {
     [WikiDescription("파일 선택 화면의 내 PC 화면을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog My PC")]
-    public sealed class FileDialogMyPC : UI.UI
+    public sealed class FileDialogMyPC : UI.UIBase
     {
         List<IObjectPooling> buttons = new List<IObjectPooling>();
 

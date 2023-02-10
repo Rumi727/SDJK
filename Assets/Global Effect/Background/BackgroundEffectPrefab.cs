@@ -14,7 +14,7 @@ using UnityEngine.UI;
 namespace SDJK
 {
     [RequireComponent(typeof(Image)), RequireComponent(typeof(CanvasGroup))]
-    public sealed class BackgroundEffectPrefab : UIObjectPooling
+    public sealed class BackgroundEffectPrefab : UIObjectPoolingBase
     {
         public Image image => this.GetComponentFieldSave(_image); [SerializeField] Image _image;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;

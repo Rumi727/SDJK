@@ -5,7 +5,7 @@ namespace SCKRM.UI.Layout
     [ExecuteAlways]
     [RequireComponent(typeof(RectTransform))]
     [AddComponentMenu("SC KRM/UI/Layout/Horizontal Layout")]
-    public sealed class HorizontalLayout : LayoutChildSetting<HorizontalLayoutSetting>
+    public sealed class HorizontalLayout : LayoutChildSettingBase<HorizontalLayoutSetting>
     {
         public float[] childXPoses { get; private set; } = new float[0];
         public float lastXPos { get; private set; } = 0;

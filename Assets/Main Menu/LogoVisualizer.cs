@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu
 {
-    public class LogoVisualizer : SCKRM.UI.UI
+    public class LogoVisualizer : SCKRM.UI.UIBase
     {
         [SerializeField] RectTransform logo;
 

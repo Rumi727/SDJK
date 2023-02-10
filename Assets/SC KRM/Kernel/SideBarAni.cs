@@ -7,7 +7,7 @@ namespace SCKRM.UI.SideBar
 {
     [WikiDescription("사이드 바를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Kernel/UI/Side Bar Ani")]
-    public sealed class SideBarAni : UIAni
+    public sealed class SideBarAni : UIAniBase
     {
         [SerializeField] string _showControlKey; public string showControlKey => _showControlKey;
         [SerializeField] string _inputLockName; public string inputLockName => _inputLockName;

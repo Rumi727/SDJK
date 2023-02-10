@@ -7,7 +7,7 @@ namespace SCKRM.UI
     [AddComponentMenu("SC KRM/UI/Size Fitter/Old Target Size Fitter")]
     [RequireComponent(typeof(RectTransform))]
     [Obsolete("Use TargetSizeFitter instead")]
-    public sealed class OldTargetSizeFitter : UIAniLayout
+    public sealed class OldTargetSizeFitter : UIAniLayoutBase
     {
         [SerializeField] RectTransform _targetRectTransform;
         public RectTransform targetRectTransform { get => _targetRectTransform; set => _targetRectTransform = value; }

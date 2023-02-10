@@ -8,7 +8,7 @@ namespace SCKRM.FileDialog.MyPC
 {
     [WikiDescription("파일 선택 화면의 내 PC 화면에 있는 버튼을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/Object Pooling/File Dialog My PC Button")]
-    public sealed class FileDialogMyPCButton : UIObjectPooling
+    public sealed class FileDialogMyPCButton : UIObjectPoolingBase
     {
         [SerializeField, NotNull] Button _button; public Button button { get => _button; }
         [SerializeField, NotNull] Slider _capacitySlider; public Slider capacitySlider { get => _capacitySlider; }

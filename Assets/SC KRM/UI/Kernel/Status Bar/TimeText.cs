@@ -10,7 +10,7 @@ namespace SCKRM.UI.StatusBar
 {
     [AddComponentMenu("SC KRM/UI/Kerenl/Status Bar/Time Text")]
     [RequireComponent(typeof(TMP_Text))]
-    public sealed class TimeText : UI
+    public sealed class TimeText : UIBase
     {
         [SerializeField, HideInInspector] TMP_Text _text;
         public TMP_Text text => _text = this.GetComponentFieldSave(_text);

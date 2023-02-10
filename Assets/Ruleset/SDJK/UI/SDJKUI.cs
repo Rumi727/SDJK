@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.UI
 {
-    public abstract class SDJKUI : SCKRM.UI.UI
+    public abstract class SDJKUI : SCKRM.UI.UIBase
     {
         [SerializeField, NotNull] SDJKJudgementManager _judgementManager; public SDJKJudgementManager judgementManager => _judgementManager;
 

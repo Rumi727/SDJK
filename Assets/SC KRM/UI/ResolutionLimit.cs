@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace SCKRM
 {
     [ExecuteAlways, AddComponentMenu("SC KRM/UI/Resoluiton Limit"), RequireComponent(typeof(CanvasScaler))]
-    public sealed class ResolutionLimit : UI.UI
+    public sealed class ResolutionLimit : UI.UIBase
     {
         CanvasScaler _canvasScaler; public CanvasScaler canvasScaler => _canvasScaler = this.GetComponentFieldSave(_canvasScaler);
 

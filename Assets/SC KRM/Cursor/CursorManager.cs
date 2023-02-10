@@ -14,7 +14,7 @@ namespace SCKRM.Cursor
 {
     [WikiDescription("마우스 포인터를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Cursor/UI/Cursor Manager")]
-    public sealed class CursorManager : UIManager<CursorManager>
+    public sealed class CursorManager : UIManagerBase<CursorManager>
     {
         [GeneralSaveLoad]
         public sealed class SaveData

@@ -18,7 +18,7 @@ namespace SCKRM.UI
         public Graphic graphic { get; }
     }
 
-    public class UI : UIBehaviour, IUI
+    public class UIBase : UIBehaviour, IUI
     {
         Canvas _canvas; public Canvas canvas => _canvas = this.GetComponentInParentFieldSave(_canvas, true);
         CanvasSetting _canvasSetting; public CanvasSetting canvasSetting => _canvasSetting = this.GetComponentInParentFieldSave(_canvasSetting, true);
@@ -52,7 +52,7 @@ namespace SCKRM.UI
         Graphic _graphic; public Graphic graphic => _graphic = this.GetComponentFieldSave(_graphic, ComponentUtility.GetComponentMode.none);
     }
 
-    public class UIObjectPooling : UI, IObjectPooling
+    public class UIObjectPoolingBase : UIBase, IObjectPooling
     {
         public string objectKey { get; set; }
 
@@ -79,7 +79,7 @@ namespace SCKRM.UI
         public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
     }
 
-    public class UIManager<T> : UI where T : MonoBehaviour
+    public class UIManagerBase<T> : UIBase where T : MonoBehaviour
     {
         public static T instance { get; private set; }
 
@@ -97,7 +97,7 @@ namespace SCKRM.UI
         }
     }
 
-    public abstract class UILayout : UI
+    public abstract class UILayoutBase : UIBase
     {
         protected override void Awake()
         {
@@ -131,7 +131,7 @@ namespace SCKRM.UI
         public abstract void LayoutUpdate();
     }
 
-    public class UIAni : UI
+    public class UIAniBase : UIBase
     {
         [SerializeField] bool _lerp = true;
         public bool lerp { get => _lerp; set => _lerp = value; }
@@ -142,7 +142,7 @@ namespace SCKRM.UI
         public bool awakeNoAni { get => _awakeNoAni; set => _awakeNoAni = value; }
     }
 
-    public abstract class UIAniLayout : UIAni
+    public abstract class UIAniLayoutBase : UIAniBase
     {
         //protected override void OnEnable() => update();
 

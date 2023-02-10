@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace SDJK.Ruleset
 {
-    public sealed class ResultScreen : UIObjectPooling
+    public sealed class ResultScreen : UIObjectPoolingBase
     {
         public static ResultScreen Show(IRuleset ruleset, MapFile map, ReplayFile replay, Action backEvent, string prefab = "ruleset.result_screen")
         {

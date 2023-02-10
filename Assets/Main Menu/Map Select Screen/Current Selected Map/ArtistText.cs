@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu.MapSelectScreen
 {
-    public sealed class ArtistText : SCKRM.UI.UI
+    public sealed class ArtistText : SCKRM.UI.UIBase
     {
         [SerializeField] TMP_Text text;
 

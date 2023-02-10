@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace SCKRM.SaveLoad.UI
 {
-    public sealed class SaveLoadUI : UIObjectPooling
+    public sealed class SaveLoadUI : UIObjectPoolingBase
     {
         [SerializeField, Tooltip("SaveLoadManager.generalSLCList 리스트를 사용합니다")] bool _autoRefresh = false; public bool autoRefresh { get => _autoRefresh; set => _autoRefresh = value; }
         [SerializeField] string _saveLoadClassName = ""; public string saveLoadClassName { get => _saveLoadClassName; set => _saveLoadClassName = value; }

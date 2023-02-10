@@ -5,7 +5,7 @@ namespace SCKRM.UI
     [ExecuteAlways]
     [AddComponentMenu("SC KRM/UI/Size Fitter/Target Size Fitter")]
     [RequireComponent(typeof(RectTransform))]
-    public sealed class TargetSizeFitter : UIAniLayout
+    public sealed class TargetSizeFitter : UIAniLayoutBase
     {
         public RectTransform[] targetRectTransforms { get => _targetRectTransforms; set => _targetRectTransforms = value; } [SerializeField] RectTransform[] _targetRectTransforms;
 

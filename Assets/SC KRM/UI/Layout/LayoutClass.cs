@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SCKRM.UI.Layout
 {
-    public abstract class LayoutChild : UIAniLayout
+    public abstract class LayoutChildBase : UIAniLayoutBase
     {
         [SerializeField] float _spacing;
         public float spacing { get => _spacing; set => _spacing = value; }
@@ -53,7 +53,7 @@ namespace SCKRM.UI.Layout
         }
     }
 
-    public abstract class LayoutChildSetting<ChildSettingComponent> : LayoutChild where ChildSettingComponent : Component
+    public abstract class LayoutChildSettingBase<ChildSettingComponent> : LayoutChildBase where ChildSettingComponent : Component
     {
         public List<ChildSettingComponent> childSettingComponents { get; } = new List<ChildSettingComponent>();
 

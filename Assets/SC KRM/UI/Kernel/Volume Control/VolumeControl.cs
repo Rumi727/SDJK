@@ -9,7 +9,7 @@ namespace SCKRM.UI
 {
     [ExecuteAlways]
     [AddComponentMenu("SC KRM/UI/Kerenl/Volume Control/Volume Control")]
-    public sealed class VolumeControl : UIAni, IPointerDownHandler, IEndDragHandler
+    public sealed class VolumeControl : UIAniBase, IPointerDownHandler, IEndDragHandler
     {
         enum Type
         {

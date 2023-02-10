@@ -10,7 +10,7 @@ namespace SCKRM.FileDialog.ShortcurBar
 {
     [WikiDescription("파일 선택 화면의 바로가기를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Shortcur Bar")]
-    public sealed class FileDialogShortcutBar : UI.UI
+    public sealed class FileDialogShortcutBar : UI.UIBase
     {
         List<IObjectPooling> buttons = new List<IObjectPooling>();
 

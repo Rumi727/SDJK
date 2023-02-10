@@ -4,7 +4,7 @@ using SDJK.Ruleset;
 
 namespace SDJK.MainMenu.UI
 {
-    public class StatusBarRuleset : UIObjectPooling
+    public class StatusBarRuleset : UIObjectPoolingBase
     {
         public CustomSpriteRendererBase icon;
         public int index;

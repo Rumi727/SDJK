@@ -11,7 +11,7 @@ namespace SCKRM.UI.StatusBar
 {
     [AddComponentMenu("SC KRM/UI/Kerenl/Status Bar/Status Bar Manager")]
     [RequireComponent(typeof(RectTransform)), RequireComponent(typeof(Image))]
-    public sealed class StatusBarManager : UIManager<StatusBarManager>, IPointerEnterHandler, IPointerExitHandler
+    public sealed class StatusBarManager : UIManagerBase<StatusBarManager>, IPointerEnterHandler, IPointerExitHandler
     {
         [GeneralSaveLoad]
         public sealed class SaveData

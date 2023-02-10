@@ -5,7 +5,7 @@ using SDJK.Replay;
 
 namespace SDJK.Ruleset
 {
-    public abstract class ReplayResultUIBase : UIAni
+    public abstract class ReplayResultUIBase : UIAniBase
     {
         protected IRuleset ruleset = null;
         protected MapFile map = null;

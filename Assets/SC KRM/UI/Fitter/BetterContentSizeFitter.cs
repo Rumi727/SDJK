@@ -6,7 +6,7 @@ namespace SCKRM.UI
     [ExecuteAlways]
     [RequireComponent(typeof(RectTransform))]
     [AddComponentMenu("SC KRM/UI/Size Fitter/Better Content Size Fitter")]
-    public sealed class BetterContentSizeFitter : UI, ILayoutSelfController
+    public sealed class BetterContentSizeFitter : UIBase, ILayoutSelfController
     {
         [SerializeField] RectTransform _target; public RectTransform target { get => _target; set => _target = value; }
 

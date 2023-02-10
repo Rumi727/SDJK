@@ -13,7 +13,7 @@ using UnityEngine.Video;
 namespace SDJK
 {
     [RequireComponent(typeof(VideoPlayer)), RequireComponent(typeof(CanvasGroup))]
-    public sealed class VideoEffectPrefab : UIObjectPooling
+    public sealed class VideoEffectPrefab : UIObjectPoolingBase
     {
         public VideoPlayer videoPlayer => this.GetComponentFieldSave(_videoPlayer); [SerializeField] VideoPlayer _videoPlayer;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;

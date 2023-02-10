@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu
 {
-    public sealed class ReplayList : SCKRM.UI.UI
+    public sealed class ReplayList : SCKRM.UI.UIBase
     {
         [SerializeField] RectTransformTool viewport;
         [SerializeField] Transform content;

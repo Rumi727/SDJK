@@ -11,7 +11,7 @@ namespace SCKRM.DebugUI
 {
     [WikiDescription("F3 디버그 모드의 텍스트를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Debug/UI/Debug Text")]
-    public sealed class DebugText : UI.UI, ITextRefreshable
+    public sealed class DebugText : UI.UIBase, ITextRefreshable
     {
         public delegate void DebugTextAction(FastString fastString);
         [WikiDescription("F3 디버그 모드의 왼쪽 텍스트가 새로고침될때 호출되는 이벤트입니다")] public static event DebugTextAction leftDebugText;

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace SDJK.MainMenu.ModeSelectScreen
 {
-    public sealed class ModeToggle : UIObjectPooling
+    public sealed class ModeToggle : UIObjectPoolingBase
     {
         public IMode mode;
 

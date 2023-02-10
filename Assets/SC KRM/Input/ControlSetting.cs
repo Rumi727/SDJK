@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace SCKRM.Input.UI
 {
     [WikiDescription("조작 설정을 관리하는 클래스 입니다")]
-    public sealed class ControlSetting : SCKRM.UI.UI
+    public sealed class ControlSetting : SCKRM.UI.UIBase
     {
         readonly static List<KeyCode> emptyKeyCodeList = new List<KeyCode>();
 

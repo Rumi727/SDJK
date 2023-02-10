@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace SCKRM.Command
 {
-    public sealed class CommandIntelliSense : UI.UI
+    public sealed class CommandIntelliSense : UI.UIBase
     {
         [SerializeField] TMP_InputField chatInputField;
 

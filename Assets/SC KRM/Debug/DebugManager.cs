@@ -9,7 +9,7 @@ namespace SCKRM.DebugUI
 {
     [WikiDescription("F3 디버그 화면을 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Debug/UI/Debug Manager")]
-    public sealed class DebugManager : UIManager<DebugManager>
+    public sealed class DebugManager : UIManagerBase<DebugManager>
     {
         [GeneralSaveLoad]
         public class SaveData

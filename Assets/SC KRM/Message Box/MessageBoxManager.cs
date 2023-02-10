@@ -12,7 +12,7 @@ namespace SCKRM.UI.Overlay.MessageBox
 {
     [WikiDescription("메시지 박스를 관리하는 클래스 입니다")]
     [AddComponentMenu("SC KRM/Message Box/UI/Message Box Manager")]
-    public sealed class MessageBoxManager : UIManager<MessageBoxManager>, IUIOverlay
+    public sealed class MessageBoxManager : UIManagerBase<MessageBoxManager>, IUIOverlay
     {
         [SerializeField] CanvasGroup messageBoxCanvasGroup;
         [SerializeField] GameObject messabeBoxBG;

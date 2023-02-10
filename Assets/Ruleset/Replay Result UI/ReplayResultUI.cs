@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset
 {
-    public sealed class ReplayResultUI : UIObjectPooling
+    public sealed class ReplayResultUI : UIObjectPoolingBase
     {
         [SerializeField] TMP_Text ranking;
         [SerializeField] List<ReplayResultUIBase> replayResultUIBases = new List<ReplayResultUIBase>();

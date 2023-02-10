@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SCKRM.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UI.UI))]
+    [CustomEditor(typeof(UI.UIBase))]
     public class UIEditor : CustomInspectorEditor
     {
         [System.NonSerialized] IUI editor;
@@ -58,22 +58,22 @@ namespace SCKRM.Editor
     }
 
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UIObjectPooling))]
+    [CustomEditor(typeof(UIObjectPoolingBase))]
     public class ObjectPoolingUIEditor : UIEditor
     {
         public override void OnInspectorGUI() => base.OnInspectorGUI();
     }
 
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UIAni))]
+    [CustomEditor(typeof(UIAniBase))]
     public class UIAniEditor : UIEditor
     {
-        UIAni editor;
+        UIAniBase editor;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            editor = (UIAni)target;
+            editor = (UIAniBase)target;
         }
 
         public override void OnInspectorGUI()

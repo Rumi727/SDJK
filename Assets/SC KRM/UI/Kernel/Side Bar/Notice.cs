@@ -7,7 +7,7 @@ namespace SCKRM.UI.SideBar
 {
     [AddComponentMenu("SC KRM/UI/Kerenl/Side Bar/Notice")]
     [RequireComponent(typeof(VerticalLayout), typeof(ChildSizeFitter))]
-    public sealed class Notice : UIObjectPooling, IPointerEnterHandler, IPointerExitHandler
+    public sealed class Notice : UIObjectPoolingBase, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField, HideInInspector] VerticalLayout _verticalLayout; public VerticalLayout verticalLayout => _verticalLayout = this.GetComponentFieldSave(_verticalLayout);
         [SerializeField, HideInInspector] ChildSizeFitter _childSizeFitter; public ChildSizeFitter childSizeFitter => _childSizeFitter = this.GetComponentFieldSave(_childSizeFitter);

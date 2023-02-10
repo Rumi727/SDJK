@@ -5,7 +5,7 @@ using UnityEngine.UI.Extensions.ColorPicker;
 
 namespace HSVPicker
 {
-    public class SVBoxSliderHandleColor : UIAni
+    public class SVBoxSliderHandleColor : UIAniBase
     {
         public ColorPicker colorPicker;
         public Type type;

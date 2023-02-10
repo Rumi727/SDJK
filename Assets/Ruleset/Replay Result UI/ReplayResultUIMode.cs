@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.ReplayResult
 {
-    public class ReplayResultUIMode : UIObjectPooling
+    public class ReplayResultUIMode : UIObjectPoolingBase
     {
         [SerializeField] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
         [SerializeField] Tooltip _tooltip; public Tooltip tooltip => _tooltip;
