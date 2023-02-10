@@ -1,10 +1,7 @@
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
-using SDJK.Effect;
 using SDJK.Mode;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Effect

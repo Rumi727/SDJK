@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
-using SCKRM.Input;
 using SCKRM.Rhythm;
-using SDJK.Ruleset.SDJK.Input;
 using SDJK.Ruleset.SDJK.Judgement;
 using TMPro;
 using UnityEngine;

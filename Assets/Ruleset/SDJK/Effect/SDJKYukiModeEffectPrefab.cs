@@ -1,9 +1,5 @@
-using SCKRM;
 using SCKRM.Rhythm;
-using SCKRM.UI;
-using SDJK.Effect;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SDJK.Ruleset.SDJK.Effect
 {
