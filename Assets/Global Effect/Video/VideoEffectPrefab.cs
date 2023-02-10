@@ -122,7 +122,7 @@ namespace SDJK
                 if (time < videoPlayer.length - 0.1f)
                 {
                     double dis = time - videoPlayer.time;
-                    float speed = (float)(RhythmManager.currentSpeed * Kernel.gameSpeed);
+                    float speed = (float)(RhythmManager.speed * Kernel.gameSpeed);
                     videoPlayer.playbackSpeed = speed;
 
                     if (time >= 0)

@@ -460,7 +460,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double bpmDivide60 = RhythmManager.bpm / 60d;
-                double value = (currentBeat - beat) / bpmDivide60 / (RhythmManager.currentSpeed * Kernel.gameSpeed);
+                double value = (currentBeat - beat) / bpmDivide60 / (RhythmManager.speed * Kernel.gameSpeed);
                 if (maxClamp)
                     return value.Clamp(double.MinValue, missSecond);
                 else

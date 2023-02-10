@@ -43,17 +43,18 @@ namespace SDJK.Ruleset.SDJK
             if (soundPlayer != null)
             {
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
-                soundPlayer.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
                 soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound);
+            }
 
-                //모드
-                {
-                    IMode speedMode;
-                    if ((speedMode = modes.FindMode<FastModeBase>()) != null)
-                        soundPlayer.speed *= (float)((FastModeBase.Data)speedMode.modeConfig).speed;
-                    else if ((speedMode = modes.FindMode<SlowModeBase>()) != null)
-                        soundPlayer.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
-                }
+            RhythmManager.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+
+            //모드
+            {
+                IMode speedMode;
+                if ((speedMode = modes.FindMode<FastModeBase>()) != null)
+                    RhythmManager.speed *= (float)((FastModeBase.Data)speedMode.modeConfig).speed;
+                else if ((speedMode = modes.FindMode<SlowModeBase>()) != null)
+                    RhythmManager.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
             }
 
             if (map.info.clearBeat <= RhythmManager.currentBeatSound)

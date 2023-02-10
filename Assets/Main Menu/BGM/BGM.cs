@@ -97,18 +97,19 @@ namespace SDJK.MainMenu
             else
             {
                 volumePade = volumePade.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-                soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound) * volumePade;
 
+                soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound) * volumePade;
                 soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
-                soundPlayer.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+
+                RhythmManager.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
 
                 //모드
                 {
                     IMode speedMode;
                     if ((speedMode = ModeManager.selectedModeList.FindMode<FastModeBase>()) != null)
-                        soundPlayer.speed *= (float)((FastModeBase.Data)speedMode.modeConfig).speed;
+                        RhythmManager.speed *= (float)((FastModeBase.Data)speedMode.modeConfig).speed;
                     else if ((speedMode = ModeManager.selectedModeList.FindMode<SlowModeBase>()) != null)
-                        soundPlayer.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
+                        RhythmManager.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
                 }
             }
         }

@@ -38,7 +38,7 @@ namespace SCKRM.Editor
 
             CustomInspectorEditor.DrawLine();
 
-            EditorGUILayout.LabelField("현재 속도 - " + RhythmManager.currentSpeed);
+            EditorGUILayout.LabelField("현재 속도 - " + RhythmManager.speed);
 
             CustomInspectorEditor.DrawLine();
 
