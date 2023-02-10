@@ -167,7 +167,7 @@ namespace SCKRM.Threads
 
             if (base.Remove(force))
             {
-                if (Kernel.isPlaying)
+                if (Kernel.isPlaying && ResourceManager.isInitialLoadLanguageEnd)
                     Debug.ForceLog($"{ResourceManager.SearchLanguage(name.path, name.nameSpace)} Thread Remove! Beware the Join method");
                 else
                     Debug.ForceLog($"{name} Thread Remove! Beware the Join method");
