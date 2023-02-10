@@ -299,6 +299,7 @@ namespace SCKRM.Rhythm
             }
 
             isPlaying = true;
+            isPaused = false;
             isStart = false;
             isEnd = false;
 
