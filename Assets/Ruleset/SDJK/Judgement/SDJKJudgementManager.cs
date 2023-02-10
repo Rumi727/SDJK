@@ -351,12 +351,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (!sdjkManager.isReplay)
                     {
                         if (instance.health <= 0)
-                        {
                             instance.gameOverManager.GameOver();
-
-                            if (!sdjkManager.isReplay)
-                                sdjkManager.createdReplay.gameOverBeat = currentBeat;
-                        }
                     }
                     else if (currentBeat >= sdjkManager.currentReplay.gameOverBeat)
                         instance.gameOverManager.GameOver();
@@ -399,12 +394,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         if (!sdjkManager.isReplay)
                         {
                             if (instance.health <= 0)
-                            {
                                 instance.gameOverManager.GameOver();
-
-                                if (!sdjkManager.isReplay)
-                                    sdjkManager.createdReplay.gameOverBeat = currentBeat;
-                            }
                         }
                         else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
                             instance.gameOverManager.GameOver();

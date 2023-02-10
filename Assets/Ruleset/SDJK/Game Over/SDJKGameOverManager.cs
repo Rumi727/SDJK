@@ -48,6 +48,12 @@ namespace SDJK.Ruleset.SDJK.Effect
             if (invincibility || modes.FindMode<NoFailModeBase>() != null)
                 return;
 
+            if (!manager.isReplay)
+            {
+                manager.createdReplay.gameOverBeat = RhythmManager.currentBeatSound;
+                manager.createdReplay.isGameOver = true;
+            }
+
             isGameOver = true;
             InputManager.SetInputLock("ruleset.sdjk.gameover", true);
         }
