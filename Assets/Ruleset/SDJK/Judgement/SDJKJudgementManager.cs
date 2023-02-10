@@ -336,7 +336,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         if (instance.maxCombo < instance.combo)
                         {
                             instance.maxCombo = instance.combo;
-                            sdjkManager.createdReplay.maxCombo.Add(currentBeat, instance.maxCombo);
+
+                            if (!sdjkManager.isReplay)
+                                sdjkManager.createdReplay.maxCombo.Add(currentBeat, instance.maxCombo);
                         }
                     }
                     else
@@ -354,7 +356,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         if (instance.health <= 0)
                         {
                             instance.gameOverManager.GameOver();
-                            sdjkManager.createdReplay.gameOverBeat = currentBeat;
+
+                            if (!sdjkManager.isReplay)
+                                sdjkManager.createdReplay.gameOverBeat = currentBeat;
                         }
                     }
                     else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
@@ -400,7 +404,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             if (instance.health <= 0)
                             {
                                 instance.gameOverManager.GameOver();
-                                sdjkManager.createdReplay.gameOverBeat = currentBeat;
+
+                                if (!sdjkManager.isReplay)
+                                    sdjkManager.createdReplay.gameOverBeat = currentBeat;
                             }
                         }
                         else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
