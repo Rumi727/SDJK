@@ -11,14 +11,20 @@ using SDJK.MainMenu;
 using SDJK.Map.Ruleset.SDJK.Map;
 using SDJK.Mode;
 using SDJK.Replay;
+using SDJK.Ruleset.PauseScreen;
+using SDJK.Ruleset.SDJK.Effect;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SDJK.Ruleset.SDJK
 {
     public sealed class SDJKManager : ManagerBase<SDJKManager>
     {
+        [SerializeField] SDJKGameOverManager _gameOverManager; public SDJKGameOverManager gameOverManager => _gameOverManager;
+        [SerializeField] PauseScreenUI _pauseScreen; public PauseScreenUI pauseScreen => _pauseScreen;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
+        [SerializeField] Button _replaySaveButton; public Button replaySaveButton => _replaySaveButton;
 
         public SDJKRuleset ruleset { get; private set; }
         public SDJKMapFile map { get; private set; }
@@ -63,7 +69,7 @@ namespace SDJK.Ruleset.SDJK
 
         void OnDestroy()
         {
-            UIManager.BackEventRemove(Quit);
+            UIManager.BackEventRemove(Pause);
 
             if (bgmClip != null)
                 Destroy(bgmClip, 1);
@@ -73,20 +79,23 @@ namespace SDJK.Ruleset.SDJK
         {
             if (SingletonCheck(this))
             {
-                UIManager.BackEventAdd(Quit);
+                UIManager.BackEventAdd(Pause);
 
                 if (replay != null)
                 {
                     isReplay = true;
                     currentReplay = replay;
+
+                    replaySaveButton.interactable = false;
                 }
                 else
                 {
                     isReplay = false;
                     currentReplay = null;
-                }
 
-                createdReplay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
+                    replaySaveButton.interactable = true;
+                    createdReplay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
+                }
 
                 this.modes = modes;
                 this.isEditor = isEditor;
@@ -130,7 +139,7 @@ namespace SDJK.Ruleset.SDJK
             }
             else
             {
-                createdReplay.ReplaySave(map, modes);
+                ReplaySave();
                 replay = createdReplay;
             }
 
@@ -138,21 +147,49 @@ namespace SDJK.Ruleset.SDJK
             isClear = true;
         }
 
+        public void ReplaySave()
+        {
+            if (isReplay)
+                return;
+
+            createdReplay.ReplaySave(map, modes);
+        }
+
+        bool isRestart = false;
         public void Restart()
         {
+            if (isRestart)
+                return;
+
+            isRestart = true;
+
             if (bgmClip != null)
                 Destroy(bgmClip, 1);
 
             ruleset.GameStart(map.mapFilePath, isReplay ? currentReplay.replayFilePath : null, isEditor, modes);
         }
 
+        bool isQuit = false;
         public void Quit()
         {
+            if (isQuit)
+                return;
+
+            isQuit = true;
+
             if (bgmClip != null)
                 Destroy(bgmClip, 1);
 
             MainMenuLoad.Load();
-            UIManager.BackEventRemove(Quit);
+            UIManager.BackEventRemove(Pause);
+        }
+
+        public void Pause()
+        {
+            if (gameOverManager.isGameOver)
+                return;
+
+            pauseScreen.Show();
         }
 
         async UniTaskVoid BGMPlay()

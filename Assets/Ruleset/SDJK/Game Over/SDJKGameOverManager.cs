@@ -2,6 +2,7 @@ using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
 using SDJK.Mode;
+using SDJK.Ruleset.PauseScreen;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.Effect
@@ -9,7 +10,10 @@ namespace SDJK.Ruleset.SDJK.Effect
     public sealed class SDJKGameOverManager : ManagerBase<SDJKGameOverManager>
     {
         [SerializeField] SDJKManager _manager; public SDJKManager manager => _manager;
+        [SerializeField] PauseScreenUI _pauseScreen; public PauseScreenUI gameOverScreen => _pauseScreen;
+
         [SerializeField] float speed = 0;
+        [SerializeField] float screenShowTime = 3;
 
         [SerializeField] bool _invincibility; public bool invincibility { get => _invincibility; set => _invincibility = value; }
 
@@ -19,6 +23,7 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         void Awake() => SingletonCheck(this);
 
+        float timer = 0;
         void Update()
         {
             if (RhythmManager.isPlaying && isGameOver)
@@ -28,8 +33,13 @@ namespace SDJK.Ruleset.SDJK.Effect
                 else
                 {
                     Kernel.gameSpeed = 0;
-                    manager.soundPlayer.isPaused = true;
+                    RhythmManager.isPaused = true;
                 }
+
+                if (timer >= screenShowTime)
+                    gameOverScreen.Show(false);
+                else
+                    timer += Kernel.unscaledDeltaTime;
             }
         }
 

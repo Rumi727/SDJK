@@ -10,6 +10,8 @@
 	"gui.accuracy": "精度",
 	"gui.max_combo": "最大コンボ",
 	"gui.full_combo": "フルコンボ",
+	"gui.pause": "一時停止",
+	"gui.game_over": "ゲームオーバー",
 	
 	"map_manager.music": "音楽",
 	"map_manager.previous_music": "以前の音楽",
