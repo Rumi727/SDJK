@@ -13,10 +13,8 @@ using UnityEngine.UI;
 
 namespace SDJK.MainMenu
 {
-    public sealed class Logo : SCKRM.UI.UI, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+    public sealed class Logo : SCKRM.UI.UIBase, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
-        public Image image { get => _image = this.GetComponentFieldSave(_image); } [System.NonSerialized] Image _image;
-
         BeatValuePairAniListFloat beatScaleAni = new BeatValuePairAniListFloat(0) { new BeatValuePairAni<float>(0, 0.95f, 0, EasingFunction.Ease.Linear), new BeatValuePairAni<float>(0, 1, 0.9, EasingFunction.Ease.EaseOutSine), new BeatValuePairAni<float>(0.9, 0.95f, 0.1, EasingFunction.Ease.Linear) };
         bool pointer = false;
         bool click = false;
@@ -27,8 +25,6 @@ namespace SDJK.MainMenu
         float clickScale = 1;
 
         [SerializeField, NotNull] LogoEffect logoEffect;
-
-        protected override void Awake() => image.alphaHitTestMinimumThreshold = 0.5f;
 
         int lastCurrentBeat = 0;
         double lastBPMOffsetBeat = 0;
