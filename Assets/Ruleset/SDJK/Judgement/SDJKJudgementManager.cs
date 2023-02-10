@@ -247,35 +247,32 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (input)
                     HitsoundPlay();
 
-                if (currentNoteIndex < notes.Count)
+                for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
                 {
-                    for (int i = currentNoteIndex; (realDisSecond >= missSecond || input) && i < notes.Count; i++)
+                    if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData, currentPressBeatReplay))
                     {
-                        if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData, currentPressBeatReplay))
+                        bool isMiss = metaData.nameKey == SDJKRuleset.miss;
+                        if (currentNote.holdLength > 0)
                         {
-                            bool isMiss = metaData.nameKey == SDJKRuleset.miss;
-                            if (currentNote.holdLength > 0)
+                            double holdBeat = currentNote.beat + currentNote.holdLength;
+
+                            if (!isMiss) //미스가 아닐경우 홀드 노트 진행
                             {
-                                double holdBeat = currentNote.beat + currentNote.holdLength;
+                                HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, keyIndex, autoNote, holdBeat, currentPressUpBeatReplay);
+                                instance.holdJudgements.Add(holdJudgementObject);
 
-                                if (!isMiss) //미스가 아닐경우 홀드 노트 진행
-                                {
-                                    HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, keyIndex, autoNote, holdBeat, currentPressUpBeatReplay);
-                                    instance.holdJudgements.Add(holdJudgementObject);
-
-                                    holdJudgementObject.Update();
-                                }
-                                else //미스 일경우 홀드 노트 패스
-                                    lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(holdBeat);
+                                holdJudgementObject.Update();
                             }
-
-                            lastJudgementIndex[keyIndex] = currentNoteIndex;
-                            NextNote();
+                            else //미스 일경우 홀드 노트 패스
+                                lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(holdBeat);
                         }
 
-                        SetDisSecond(currentNote.beat, true, out realDisSecond, out judgementDisSecond, currentPressBeatReplay);
-                        input = false;
+                        lastJudgementIndex[keyIndex] = currentNoteIndex;
+                        NextNote();
                     }
+
+                    SetDisSecond(currentNote.beat, true, out realDisSecond, out judgementDisSecond, currentPressBeatReplay);
+                    input = false;
                 }
 
                 if (sdjkManager.isReplay)
@@ -506,9 +503,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (keyIndex < sdjkManager.currentReplay.pressBeat.Count)
                 {
                     List<double> pressBeatReplay = sdjkManager.currentReplay.pressBeat[keyIndex];
+
                     currentPressBeatReplayIndex++;
                     if (currentPressBeatReplayIndex < pressBeatReplay.Count)
                         currentPressBeatReplay = pressBeatReplay[currentPressBeatReplayIndex];
+                    else
+                        currentPressBeatReplay = double.MaxValue;
                 }
             }
 
@@ -519,9 +519,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 if (keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
                 {
                     List<double> pressUpBeatReplay = sdjkManager.currentReplay.pressUpBeat[keyIndex];
+
                     currentPressUpBeatReplayIndex++;
                     if (currentPressUpBeatReplayIndex < pressUpBeatReplay.Count)
                         currentPressUpBeatReplay = pressUpBeatReplay[currentPressUpBeatReplayIndex];
+                    else
+                        currentPressBeatReplay = double.MaxValue;
                 }
             }
         }
