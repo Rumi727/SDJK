@@ -12,7 +12,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void RealUpdate(float lerpValue)
         {
             maxComboAnimation = maxComboAnimation.Lerp(replay.maxCombo.GetValue(double.MaxValue), lerpValue);
-            text.text = maxComboAnimation.RoundToInt().ToString();
+            text.text = maxComboAnimation.RoundToInt().ToString() + " / " + map.allJudgmentBeat.Count;
         }
 
         public override void ObjectReset()
