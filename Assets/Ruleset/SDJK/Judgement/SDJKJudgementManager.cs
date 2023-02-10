@@ -361,7 +361,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                                 sdjkManager.createdReplay.gameOverBeat = currentBeat;
                         }
                     }
-                    else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
+                    else if (currentBeat >= sdjkManager.currentReplay.gameOverBeat)
                         instance.gameOverManager.GameOver();
 
                     //정확도
