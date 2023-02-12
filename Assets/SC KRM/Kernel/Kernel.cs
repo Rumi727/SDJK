@@ -450,13 +450,13 @@ Build: const true"
                 }
             }
 
+            if (InitialLoadManager.isInitialLoadEnd)
+                SaveLoadManager.SaveAll(SaveLoadManager.generalSLCList, saveDataPath);
+
             ResourceManager.AllDestroy();
 
             AsyncTaskManager.AllAsyncTaskCancel(false);
             ThreadManager.AllThreadRemove();
-
-            if (InitialLoadManager.isInitialLoadEnd)
-                SaveLoadManager.SaveAll(SaveLoadManager.generalSLCList, saveDataPath);
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.pauseStateChanged -= PauseStateChanged;
