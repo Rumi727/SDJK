@@ -30,6 +30,9 @@ TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 �
 ## 사용한 아이콘
 - 제가 직접 만들었거나, [여기](https://www.iconfinder.com/search?q=&price=free&family=bootstrap)에서 가져왔습니다
 
+## 버전 표기 규칙
+- [Semantic Versioning](https://semver.org/)
+
 ## 사양
 ### 최소 사양
 CPU: ?  
