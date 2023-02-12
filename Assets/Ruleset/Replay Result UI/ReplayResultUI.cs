@@ -31,6 +31,10 @@ namespace SDJK.Ruleset
 
         public void ObjectReset()
         {
+            ruleset = null;
+            map = null;
+            replay = null;
+
             for (int i = 0; i < replayResultUIBases.Count; i++)
                 replayResultUIBases[i].ObjectReset();
 
