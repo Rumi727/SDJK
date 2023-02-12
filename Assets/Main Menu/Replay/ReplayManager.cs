@@ -180,7 +180,7 @@ namespace SDJK.MainMenu
                     return x.scores.Last().value;
                 else
                     return x.scores.defaultValue;
-            }, OrderByDirection.Descending).ThenBy(x => x.clearUTCTime).ToList();
+            }, OrderByDirection.Descending).ThenBy(x => x.clearUTCTime, OrderByDirection.Descending).ToList();
         }
     }
 }
