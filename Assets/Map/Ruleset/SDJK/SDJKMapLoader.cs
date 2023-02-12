@@ -70,6 +70,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #region Global Info Copy
             sdjkMapFile.info = adofaiMap.info;
             sdjkMapFile.globalEffect = adofaiMap.globalEffect;
+
+            sdjkMapFile.info.ruleset = "sdjk";
             #endregion
 
             #region Note
