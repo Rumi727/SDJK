@@ -216,6 +216,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 else if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count && keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
                 {
                     List<double> pressBeats = sdjkManager.currentReplay.pressBeat[keyIndex];
+                    if (keyIndex == 3)
+                    {
+                        Debug.Log(currentPressBeatReplay);
+                        Debug.Log(currentPressBeatReplayIndex);
+                        Debug.Log(pressBeats.Count);
+                    }
                     if (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < pressBeats.Count)
                     {
                         input = true;
@@ -343,9 +349,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                     //체력
                     if (isMiss || metaData.missHp)
-                        instance.health -= map.globalEffect.hpMissValue.GetValue(currentBeat) * metaData.hpMultiplier;
+                        instance.health -= map.globalEffect.hpMissValue.GetValue(beat) * metaData.hpMultiplier;
                     else
-                        instance.health += map.globalEffect.hpAddValue.GetValue(currentBeat) * metaData.hpMultiplier;
+                        instance.health += map.globalEffect.hpAddValue.GetValue(beat) * metaData.hpMultiplier;
 
                     //게임 오버
                     if (!sdjkManager.isReplay)
@@ -514,7 +520,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (currentPressUpBeatReplayIndex < pressUpBeatReplay.Count)
                         currentPressUpBeatReplay = pressUpBeatReplay[currentPressUpBeatReplayIndex];
                     else
-                        currentPressBeatReplay = double.MaxValue;
+                        currentPressUpBeatReplay = double.MaxValue;
                 }
             }
         }
