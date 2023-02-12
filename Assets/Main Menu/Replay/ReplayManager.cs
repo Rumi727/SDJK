@@ -27,14 +27,14 @@ namespace SDJK.MainMenu
             ResourceManager.resourceRefreshEvent += Refresh;
             ReplayLoader.replaySaveEvent += x =>
             {
-                if (currentReplayFiles.TryGetValue(x.mapId, out List<ReplayFile> value))
-                {
-                    value.Add(x);
-                    value = ReplayListSort(value);
+                if (!currentReplayFiles.TryGetValue(x.mapId, out List<ReplayFile> value))
+                    value = new List<ReplayFile>();
 
-                    currentReplayFiles[x.mapId] = value;
-                    replayLoadingEnd?.Invoke();
-                }
+                value.Add(x);
+                value = ReplayListSort(value);
+
+                currentReplayFiles[x.mapId] = value;
+                replayLoadingEnd?.Invoke();
             };
 
             ReplayLoader.replayDeleteEvent += x =>
