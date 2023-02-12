@@ -84,6 +84,9 @@ namespace SCKRM
                 //스레드를 자동 삭제해주는 함수를 작동시킵니다
                 ThreadManager.ThreadAutoRemove().Forget();
 
+                //CPU가 GPU가 렌더링할때까지 기다리는것을 끕니다
+                QualitySettings.maxQueuedFrames = 1;
+
 #if UNITY_EDITOR
                 //에디터에선 SCKRMSetting 에디터 클래스가 시작 씬을 변경하니 아무런 조건문 없이 시작해도 됩니다
 #endif
