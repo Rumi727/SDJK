@@ -191,8 +191,8 @@ namespace SCKRM.NTP
                     intPart = SwapEndianness(intPart);
                     fractPart = SwapEndianness(fractPart);
 
-                    ulong milliseconds = (intPart * 1000) + ((fractPart * 1000) / 0x100000000L);
-                    DateTime networkUTCDateTime = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long)milliseconds);
+                    double milliseconds = (intPart * 1000d) + ((fractPart * 1000d) / 0x100000000d);
+                    DateTime networkUTCDateTime = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(milliseconds);
                     DateTime networkDateTime = networkUTCDateTime.ToLocalTime();
 
                     //시간 적용

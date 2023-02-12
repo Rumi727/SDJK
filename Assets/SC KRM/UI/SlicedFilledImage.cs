@@ -15,8 +15,8 @@ namespace SCKRM.Editor
 
     // Custom Editor to order the variables in the Inspector similar to Image component
     [CustomEditor(typeof(SlicedFilledImage)), CanEditMultipleObjects]
-	public class SlicedFilledImageEditor : UnityEditor.Editor
-	{
+	public class SlicedFilledImageEditor : Editor
+    {
 		private SerializedProperty spriteProp, colorProp;
 		private GUIContent spriteLabel;
 
