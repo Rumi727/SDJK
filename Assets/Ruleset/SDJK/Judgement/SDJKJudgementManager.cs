@@ -396,7 +396,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                             if (instance.health <= 0)
                                 instance.gameOverManager.GameOver();
                         }
-                        else if (currentBeat >= sdjkManager.createdReplay.gameOverBeat)
+                        else if (currentBeat >= sdjkManager.currentReplay.gameOverBeat)
                             instance.gameOverManager.GameOver();
 
                         if (!sdjkManager.isReplay)
