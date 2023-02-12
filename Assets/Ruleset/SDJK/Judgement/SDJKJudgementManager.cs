@@ -216,12 +216,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 else if (sdjkManager.isReplay && keyIndex < sdjkManager.currentReplay.pressBeat.Count && keyIndex < sdjkManager.currentReplay.pressUpBeat.Count)
                 {
                     List<double> pressBeats = sdjkManager.currentReplay.pressBeat[keyIndex];
-                    if (keyIndex == 3)
-                    {
-                        Debug.Log(currentPressBeatReplay);
-                        Debug.Log(currentPressBeatReplayIndex);
-                        Debug.Log(pressBeats.Count);
-                    }
                     if (currentBeat >= currentPressBeatReplay && currentPressBeatReplayIndex < pressBeats.Count)
                     {
                         input = true;
