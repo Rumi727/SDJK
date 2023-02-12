@@ -328,7 +328,15 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (!isMiss)
                     {
                         instance.combo += 1;
-                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count, instance.combo, 0.25);
+
+                        double comboMultiplier = 0.25;
+                        {
+                            IMode comboMultiplierMode;
+                            if ((comboMultiplierMode = sdjkManager.modes.FindMode<ComboMultiplierModeBase>()) != null)
+                                comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
+                        }
+
+                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count, instance.combo, comboMultiplier);
 
                         if (instance.maxCombo < instance.combo)
                         {

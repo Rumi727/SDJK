@@ -14,6 +14,7 @@
 	"gui.game_over": "게임 오버",
 	"gui.clear_time": "클리어 시간",
 	"gui.score": "점수",
+	"gui.multiplier": "배수",
 	
 	"map_manager.music": "음악",
 	"map_manager.previous_music": "이전 음악",
@@ -61,6 +62,9 @@
 	
 	"mode.difficulty.no_fail": "무적",
 	"mode.difficulty.no_fail.info": "쿠루미쨩은 죽지 않아!",
+	
+	"mode.difficulty.combo_multiplier": "콤보 배수",
+	"mode.difficulty.combo_multiplier.info": "계속 미스 나서 점수가 낮다고요? 이 모드를 한번 써보세요!",
 	
 	"mode.setting": "모드 설정"
 }
