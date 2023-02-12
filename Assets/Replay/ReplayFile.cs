@@ -29,7 +29,8 @@ namespace SDJK.Replay
         public bool isGameOver { get; set; } = false;
         public double gameOverBeat { get; set; } = double.MaxValue;
 
-        public DateTime clearUTCTime { get; set; } = NTPDateTime.utcNow;
+        [JsonIgnore] public DateTime clearUTCTime { get => new DateTime(clearUTCTimeTick); set => clearUTCTimeTick = value.Ticks; }
+        [JsonProperty(nameof(clearUTCTime))] long clearUTCTimeTick = NTPDateTime.utcNow.Ticks;
 
         public string ruleset { get; set; } = "";
     }

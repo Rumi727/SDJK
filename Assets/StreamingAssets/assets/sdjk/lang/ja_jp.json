@@ -12,6 +12,8 @@
 	"gui.full_combo": "フルコンボ",
 	"gui.pause": "一時停止",
 	"gui.game_over": "ゲームオーバー",
+	"gui.clear_time": "クリア時間",
+	"gui.score": "スコア",
 	
 	"map_manager.music": "音楽",
 	"map_manager.previous_music": "以前の音楽",

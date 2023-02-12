@@ -152,40 +152,41 @@ namespace SCKRM
                 {
                     case >= timeSpanTicksPerYear:
                         nameSpacePathReplacePair.path += "years";
-                        replaceOldNewPair.replaceNew = timeSpan.GetTotalYears().Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.GetTotalYears().Floor(digits).ToString("F" + digits);
                         break;
                     case >= timeSpanTicksPerMonth:
                         nameSpacePathReplacePair.path += "months";
-                        replaceOldNewPair.replaceNew = timeSpan.GetTotalMonths().Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.GetTotalMonths().Floor(digits).ToString("F" + digits);
                         break;
                     case >= timeSpanTicksPerWeek:
                         nameSpacePathReplacePair.path += "weeks";
-                        replaceOldNewPair.replaceNew = timeSpan.GetTotalWeeks().Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.GetTotalWeeks().Floor(digits).ToString("F" + digits);
                         break;
                     case >= TimeSpan.TicksPerDay:
                         nameSpacePathReplacePair.path += "days";
-                        replaceOldNewPair.replaceNew = timeSpan.TotalDays.Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.TotalDays.Floor(digits).ToString("F" + digits);
                         break;
                     case >= TimeSpan.TicksPerHour:
                         nameSpacePathReplacePair.path += "hours";
-                        replaceOldNewPair.replaceNew = timeSpan.TotalHours.Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.TotalHours.Floor(digits).ToString("F" + digits);
                         break;
                     case >= TimeSpan.TicksPerMinute:
                         nameSpacePathReplacePair.path += "minutes";
-                        replaceOldNewPair.replaceNew = timeSpan.TotalDays.Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.TotalMinutes.Floor(digits).ToString("F" + digits);
                         break;
                     case >= TimeSpan.TicksPerSecond:
                         nameSpacePathReplacePair.path += "seconds";
-                        replaceOldNewPair.replaceNew = timeSpan.TotalSeconds.Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.TotalSeconds.Floor(digits).ToString("F" + digits);
                         break;
                     case >= TimeSpan.TicksPerMillisecond:
                         nameSpacePathReplacePair.path += "milliseconds";
-                        replaceOldNewPair.replaceNew = timeSpan.TotalMilliseconds.Floor(digits).ToString();
+                        replaceOldNewPair.replaceNew = timeSpan.TotalMilliseconds.Floor(digits).ToString("F" + digits);
                         break;
                     default:
                         return "";
                 }
 
+                nameSpacePathReplacePair.replace = new ReplaceOldNewPair[] { replaceOldNewPair };
                 return nameSpacePathReplacePair;
             }
             catch (Exception)

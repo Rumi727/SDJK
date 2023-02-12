@@ -12,6 +12,8 @@
 	"gui.full_combo": "Full Combo",
 	"gui.pause": "Pause",
 	"gui.game_over": "Game Over",
+	"gui.clear_time": "Clear Time",
+	"gui.score": "Score",
 	
 	"map_manager.music": "Music",
 	"map_manager.previous_music": "Previous music",

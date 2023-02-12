@@ -25,10 +25,10 @@ namespace SDJK.Replay
         {
             if (File.Exists(replayFilePath))
             {
-                T replayFile = JsonManager.JsonRead<T>(replayFilePath, true);
-                replayFile.replayFilePath = replayFilePath;
+                T replay = JsonManager.JsonRead<T>(replayFilePath, true);
+                replay.replayFilePath = replayFilePath;
 
-                return replayFile;
+                return replay;
             }
 
             return null;
@@ -38,13 +38,13 @@ namespace SDJK.Replay
         {
             if (File.Exists(replayFilePath))
             {
-                T replayFile = JsonManager.JsonRead<T>(replayFilePath, true);
-                replayFile.replayFilePath = replayFilePath;
+                T replay = JsonManager.JsonRead<T>(replayFilePath, true);
+                replay.replayFilePath = replayFilePath;
 
-                modes = new IMode[replayFile.modes.Length];
-                for (int i = 0; i < replayFile.modes.Length; i++)
+                modes = new IMode[replay.modes.Length];
+                for (int i = 0; i < replay.modes.Length; i++)
                 {
-                    ReplayModeFile replayMode = replayFile.modes[i];
+                    ReplayModeFile replayMode = replay.modes[i];
                     IMode mode = (IMode)Activator.CreateInstance(replayMode.modeType);
 
                     if (replayMode.modeConfigType != null)
@@ -53,7 +53,7 @@ namespace SDJK.Replay
                     modes[i] = mode;
                 }
 
-                return replayFile;
+                return replay;
             }
 
             modes = null;
