@@ -26,6 +26,25 @@
 	"gui.save": "Save",
 	"gui.open": "Open",
 	"gui.folder_select": "Folder select",
+	"gui.drag_and_drop": "Drag and Drop",
+	
+	"gui.ago.years": "%value%y ago",
+	"gui.ago.months": "%value%m ago",
+	"gui.ago.days": "%value%d ago",
+	"gui.ago.days": "%value%w ago",
+	"gui.ago.hours": "%value%h ago",
+	"gui.ago.minutes": "%value%min ago",
+	"gui.ago.seconds": "%value%s ago",
+	"gui.ago.milliseconds": "%value%ms ago",
+	
+	"gui.later.years": "%value%y later",
+	"gui.later.months": "%value%m later",
+	"gui.later.days": "%value%d later",
+	"gui.later.days": "%value%w later",
+	"gui.later.hours": "%value%h later",
+	"gui.later.minutes": "%value%min later",
+	"gui.later.seconds": "%value%s later",
+	"gui.later.milliseconds": "%value%ms later",
 	
 	"gui.inputfield.enter_number": "Enter number...",
 	"gui.inputfield.enter_text": "Enter text...",
@@ -112,7 +131,6 @@
 	"options.debug.graphRefreshDelay.info": "Adjusts the delay at which the graph refreshes",
 	"options.debug.graphSpeed": "Graph speed",
 	"options.debug.graphSpeed.info": "Adjusts the speed of the graph",
-	"options.debug.graphSpeed": "Graph speed",
 	"options.debug.read_folder": "Read Folder",
 	"options.debug.read_file": "Read File",
 	
@@ -189,9 +207,17 @@
 	"file_dialog.pictures": "Pictures",
 	"file_dialog.music": "Music",
 	
-	"file_dialog.all_file": "All files",
+	"file_dialog.file.all": "All files",
+	"file_dialog.file.video": "Video file",
+	"file_dialog.file.text": "Text file",
+	"file_dialog.file.picture": "Photo file",
+	"file_dialog.file.music": "Music file",
+	"file_dialog.file.compress": "Compressed file",
+	"file_dialog.file.code": "Code file",
 	
 	"file_dialog.capacity_display": "%value% of %all% available",
+	
+	"file_dialog.file_save_warning": "%value%이(가) 이미 있습니다\n바꾸시겠습니까?",
 	
 	
 	

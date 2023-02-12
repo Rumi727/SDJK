@@ -26,6 +26,25 @@
 	"gui.save": "保存",
 	"gui.open": "開く",
 	"gui.folder_select": "フォルダの選択",
+	"gui.drag_and_drop": "ドラッグ＆ドロップ",
+	
+	"gui.ago.years": "%value%年前",
+	"gui.ago.months": "%value%ヶ月前",
+	"gui.ago.days": "%value%日前",
+	"gui.ago.days": "%value%週間前",
+	"gui.ago.hours": "%value%時間前",
+	"gui.ago.minutes": "%value%分前",
+	"gui.ago.seconds": "%value%秒前",
+	"gui.ago.milliseconds": "%value%ミリ秒前",
+	
+	"gui.later.years": "%value%년 전",
+	"gui.later.months": "%value%달 전",
+	"gui.later.days": "%value%일 전",
+	"gui.later.days": "%value%주 전",
+	"gui.later.hours": "%value%시간 전",
+	"gui.later.minutes": "%value%분 전",
+	"gui.later.seconds": "%value%초 전",
+	"gui.later.milliseconds": "%value%밀리초 전",
 	
 	"gui.inputfield.enter_number": "数値を入力...",
 	"gui.inputfield.enter_text": "テキスト入力...",
@@ -188,9 +207,17 @@
 	"file_dialog.pictures": "ピクチャー",
 	"file_dialog.music": "音楽",
 	
-	"file_dialog.all_file": "すべてのファイル",
+	"file_dialog.file.all": "すべてのファイル",
+	"file_dialog.file.video": "動画ファイル",
+	"file_dialog.file.text": "テキストファイル",
+	"file_dialog.file.picture": "写真ファイル",
+	"file_dialog.file.music": "音楽ファイル",
+	"file_dialog.file.compress": "圧縮ファイル",
+	"file_dialog.file.code": "コードファイル",
 	
 	"file_dialog.capacity_display": "%all%のうち%value%が利用可能",
+	
+	"file_dialog.file_save_warning": "%value%はすでに存在しています\n変更してもよろしいですか？",
 	
 	
 	

@@ -11,6 +11,31 @@ namespace SCKRM
 {
     public static class MathUtility
     {
+        const int maxRoundingDigits = 15;
+        static float[] roundPower10Float = new float[16]
+        {
+            1E+0f, 1E+1f, 1E+2f, 1E+3f, 1E+4f, 1E+5f, 1E+6f, 1E+7f, 1E+8f, 1E+9f,
+            1E+10f, 1E+11f, 1E+12f, 1E+13f, 1E+14f, 1E+15f
+        };
+
+        static double[] roundPower10Double = new double[16]
+        {
+            1E+0, 1E+1, 1E+2, 1E+3, 1E+4, 1E+5, 1E+6, 1E+7, 1E+8, 1E+9,
+            1E+10, 1E+11, 1E+12, 1E+13, 1E+14, 1E+15
+        };
+
+        static decimal[] roundPower10Decimal = new decimal[16]
+        {
+            1E+0m, 1E+1m, 1E+2m, 1E+3m, 1E+4m, 1E+5m, 1E+6m, 1E+7m, 1E+8m, 1E+9m,
+            1E+10m, 1E+11m, 1E+12m, 1E+13m, 1E+14m, 1E+15m
+        };
+
+        static BigDecimal[] roundPower10BigDecimal = new BigDecimal[16]
+        {
+            1E+0, 1E+1, 1E+2, 1E+3, 1E+4, 1E+5, 1E+6, 1E+7, 1E+8, 1E+9,
+            1E+10, 1E+11, 1E+12, 1E+13, 1E+14, 1E+15
+        };
+
         public const float pi = (float)Math.PI;
         public const float e = (float)Math.E;
         public const float deg2Rad = pi / 180;
@@ -242,6 +267,43 @@ namespace SCKRM
         [WikiIgnore] public static double Ceil(this double value) => Math.Ceiling(value);
         [WikiIgnore] public static decimal Ceil(this decimal value) => Math.Ceiling(value);
         [WikiIgnore] public static BigDecimal Ceil(this BigDecimal value) => BigDecimal.Ceiling(value);
+
+        [WikiIgnore]
+        public static float Ceil(this float value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            float num = roundPower10Float[digits];
+            return (value * num).Ceil() / num;
+        }
+        [WikiIgnore]
+        public static double Ceil(this double value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            double num = roundPower10Double[digits];
+            return (value * num).Ceil() / num;
+        }
+        [WikiIgnore]
+        public static decimal Ceil(this decimal value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            decimal num = roundPower10Decimal[digits];
+            return (value * num).Ceil() / num;
+        }
+        [WikiIgnore]
+        public static BigDecimal Ceil(this BigDecimal value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            BigDecimal num = roundPower10BigDecimal[digits];
+            return (value * num).Ceil() / num;
+        }
 
         public static int CeilToInt(this float value) => (int)Math.Ceiling(value);
         [WikiIgnore] public static int CeilToInt(this double value) => (int)Math.Ceiling(value);
@@ -940,6 +1002,43 @@ namespace SCKRM
         [WikiIgnore] public static double Floor(this double value) => Math.Floor(value);
         [WikiIgnore] public static decimal Floor(this decimal value) => Math.Floor(value);
         [WikiIgnore] public static BigDecimal Floor(this BigDecimal value) => BigDecimal.Floor(value);
+
+        [WikiIgnore]
+        public static float Floor(this float value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            float num = roundPower10Float[digits];
+            return (value * num).Floor() / num;
+        }
+        [WikiIgnore]
+        public static double Floor(this double value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            double num = roundPower10Double[digits];
+            return (value * num).Floor() / num;
+        }
+        [WikiIgnore]
+        public static decimal Floor(this decimal value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            decimal num = roundPower10Decimal[digits];
+            return (value * num).Floor() / num;
+        }
+        [WikiIgnore]
+        public static BigDecimal Floor(this BigDecimal value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            BigDecimal num = roundPower10BigDecimal[digits];
+            return (value * num).Floor() / num;
+        }
 
         public static int FloorToInt(this float value) => (int)Math.Floor(value);
         [WikiIgnore] public static int FloorToInt(this double value) => (int)Math.Floor(value);
@@ -3399,10 +3498,27 @@ namespace SCKRM
         [WikiIgnore] public static decimal Round(this decimal value) => Math.Round(value);
         [WikiIgnore] public static BigDecimal Round(this BigDecimal value) => BigDecimal.Round(value);
 
+        [WikiIgnore] public static float Round(this float value, MidpointRounding midpointRounding) => (float)Math.Round(value, midpointRounding);
+        [WikiIgnore] public static double Round(this double value, MidpointRounding midpointRounding) => Math.Round(value, midpointRounding);
+        [WikiIgnore] public static decimal Round(this decimal value, MidpointRounding midpointRounding) => Math.Round(value, midpointRounding);
+        [WikiIgnore] public static BigDecimal Round(this BigDecimal value, MidpointRounding midpointRounding) => BigDecimal.Round(value, midpointRounding);
+
         [WikiIgnore] public static float Round(this float value, int digits) => (float)Math.Round(value, digits);
         [WikiIgnore] public static double Round(this double value, int digits) => Math.Round(value, digits);
         [WikiIgnore] public static decimal Round(this decimal value, int digits) => Math.Round(value, digits);
-        [WikiIgnore] public static BigDecimal Round(this BigDecimal value, int digits) => BigDecimal.Round(value, digits);
+        [WikiIgnore]
+        public static BigDecimal Round(this BigDecimal value, int digits)
+        {
+            if (digits < 0 || digits > maxRoundingDigits)
+                throw new ArgumentOutOfRangeException(nameof(digits));
+
+            BigDecimal num = roundPower10BigDecimal[digits];
+            return BigDecimal.Round(value * num) / num;
+        }
+
+        [WikiIgnore] public static float Round(this float value, int digits, MidpointRounding midpointRounding) => (float)Math.Round(value, digits, midpointRounding);
+        [WikiIgnore] public static double Round(this double value, int digits, MidpointRounding midpointRounding) => Math.Round(value, digits, midpointRounding);
+        [WikiIgnore] public static decimal Round(this decimal value, int digits, MidpointRounding midpointRounding) => Math.Round(value, digits, midpointRounding);
 
         public static int RoundToInt(this float value) => (int)Math.Round(value);
         [WikiIgnore] public static int RoundToInt(this double value) => (int)Math.Round(value);

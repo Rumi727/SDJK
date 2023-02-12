@@ -1,10 +1,30 @@
 using System.Globalization;
 using System;
+using SCKRM.Renderer;
 
 namespace SCKRM
 {
     public static class TimeUtility
     {
+        public const double yearToDay = ((365 * 3) + 366) / 4d;
+        public const double monthToDay = yearToDay / 12d;
+        public const int weekPerDay = 7;
+
+        public const long timeSpanTicksPerYear = (long)(TimeSpan.TicksPerDay * yearToDay);
+        public const long timeSpanTicksPerMonth = (long)(TimeSpan.TicksPerDay * monthToDay);
+        public const long timeSpanTicksPerWeek = TimeSpan.TicksPerDay * weekPerDay;
+
+        public static int GetYears(this TimeSpan timeSpan) => (int)(timeSpan.Ticks / timeSpanTicksPerYear);
+        public static double GetTotalYears(this TimeSpan timeSpan) => timeSpan.Ticks / timeSpanTicksPerYear;
+
+        public static int GetMonths(this TimeSpan timeSpan) => (int)(timeSpan.Ticks / timeSpanTicksPerMonth);
+        public static double GetTotalMonths(this TimeSpan timeSpan) => timeSpan.Ticks / timeSpanTicksPerMonth;
+
+        public static int GetWeeks(this TimeSpan timeSpan) => (int)(timeSpan.Ticks / timeSpanTicksPerWeek);
+        public static double GetTotalWeeks(this TimeSpan timeSpan) => timeSpan.Ticks / timeSpanTicksPerWeek;
+
+
+
         #region To Time
         /// <summary>
         /// (second = 70) = "1:10"
@@ -51,6 +71,7 @@ namespace SCKRM
 
             return ToString(TimeSpan.FromSeconds(second), decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
         }
+        #endregion
 
         /// <summary>
         /// (second = 70.1) = "1:10.1"
@@ -61,7 +82,7 @@ namespace SCKRM
         /// <param name="hourAlwayShow">시간, 분 단위 항상 표시</param>
         /// <param name="dayAlwayShow">하루, 시간, 분 단위 항상 표시</param>
         /// <returns></returns>
-        [WikiIgnore]
+        
         public static string ToString(this TimeSpan timeSpan, bool decimalShow = true, bool minuteAlwayShow = false, bool hourAlwayShow = false, bool dayAlwayShow = false)
         {
             try
@@ -105,7 +126,73 @@ namespace SCKRM
                 return "--:--";
             }
         }
-        #endregion
+
+
+
+        public static NameSpacePathReplacePair ToRelativeString(this TimeSpan timeSpan, int digits = 2)
+        {
+            try
+            {
+                NameSpacePathReplacePair nameSpacePathReplacePair = new NameSpacePathReplacePair();
+                ReplaceOldNewPair replaceOldNewPair = new ReplaceOldNewPair("%value%", "");
+
+                nameSpacePathReplacePair.nameSpace = "sc-krm";
+                nameSpacePathReplacePair.path = "gui.";
+
+                string isAgo = "later";
+                if (timeSpan < TimeSpan.Zero)
+                {
+                    timeSpan = -timeSpan;
+                    isAgo = "ago";
+                }
+
+                nameSpacePathReplacePair.path += isAgo + ".";
+
+                switch (timeSpan.Ticks)
+                {
+                    case >= timeSpanTicksPerYear:
+                        nameSpacePathReplacePair.path += "years";
+                        replaceOldNewPair.replaceNew = timeSpan.GetTotalYears().Floor(digits).ToString();
+                        break;
+                    case >= timeSpanTicksPerMonth:
+                        nameSpacePathReplacePair.path += "months";
+                        replaceOldNewPair.replaceNew = timeSpan.GetTotalMonths().Floor(digits).ToString();
+                        break;
+                    case >= timeSpanTicksPerWeek:
+                        nameSpacePathReplacePair.path += "weeks";
+                        replaceOldNewPair.replaceNew = timeSpan.GetTotalWeeks().Floor(digits).ToString();
+                        break;
+                    case >= TimeSpan.TicksPerDay:
+                        nameSpacePathReplacePair.path += "days";
+                        replaceOldNewPair.replaceNew = timeSpan.TotalDays.Floor(digits).ToString();
+                        break;
+                    case >= TimeSpan.TicksPerHour:
+                        nameSpacePathReplacePair.path += "hours";
+                        replaceOldNewPair.replaceNew = timeSpan.TotalHours.Floor(digits).ToString();
+                        break;
+                    case >= TimeSpan.TicksPerMinute:
+                        nameSpacePathReplacePair.path += "minutes";
+                        replaceOldNewPair.replaceNew = timeSpan.TotalDays.Floor(digits).ToString();
+                        break;
+                    case >= TimeSpan.TicksPerSecond:
+                        nameSpacePathReplacePair.path += "seconds";
+                        replaceOldNewPair.replaceNew = timeSpan.TotalSeconds.Floor(digits).ToString();
+                        break;
+                    case >= TimeSpan.TicksPerMillisecond:
+                        nameSpacePathReplacePair.path += "milliseconds";
+                        replaceOldNewPair.replaceNew = timeSpan.TotalMilliseconds.Floor(digits).ToString();
+                        break;
+                    default:
+                        return "";
+                }
+
+                return nameSpacePathReplacePair;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
 
         static readonly KoreanLunisolarCalendar klc = new KoreanLunisolarCalendar();
         public static DateTime ToLunarDate(this DateTime dateTime, out bool isLeapMonth)
