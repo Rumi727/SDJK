@@ -18,8 +18,8 @@ namespace SDJK.Mode
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.difficulty.combo_multiplier")]
         public sealed class Data : IModeConfig
         {
-            [SaveLoadUISliderConfig("sdjk:gui.multiplier", "", 0.25f, 2, 0.002f, 4)]
-            public double multiplier { get => _multiplier.Clamp(0); set => _multiplier = value.Clamp(0); }
+            [SaveLoadUISliderConfig("sdjk:gui.multiplier", "", -2, 2, 0.002f, 4)]
+            public double multiplier { get => _multiplier; set => _multiplier = value; }
             double _multiplier = 0.25;
         }
 
