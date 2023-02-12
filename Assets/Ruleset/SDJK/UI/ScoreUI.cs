@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.SDJK.UI
                 return;
 
             value = value.Lerp(SDJKJudgementManager.instance.score, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
-            text.text = value.RoundToInt().ToString();
+            text.text = value.Round().ToString();
         }
     }
 }

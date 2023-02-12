@@ -13,7 +13,10 @@ namespace SDJK.Ruleset.ReplayResult
         double accuracyAnimation = 1;
         public override void RealUpdate(float lerpValue)
         {
-            accuracyAnimation = accuracyAnimation.Lerp(replay.accuracys.GetValue(double.MaxValue), lerpValue);
+            double realAccuracy = replay.accuracys.GetValue(double.MaxValue);
+            accuracyAnimation = accuracyAnimation.Lerp(realAccuracy, lerpValue);
+            if (accuracyAnimation.Distance(realAccuracy) <= 0.001)
+                accuracyAnimation = realAccuracy;
 
             RankMetaData rank = ruleset.GetRank(accuracyAnimation);
             background.color = rank.color;

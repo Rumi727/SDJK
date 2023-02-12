@@ -12,7 +12,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void RealUpdate(float lerpValue)
         {
             scoreAnimation = scoreAnimation.Lerp(replay.scores.GetValue(double.MaxValue), lerpValue);
-            text.text = scoreAnimation.RoundToInt().ToString();
+            text.text = scoreAnimation.Round().ToString();
         }
 
         public override void ObjectReset()
