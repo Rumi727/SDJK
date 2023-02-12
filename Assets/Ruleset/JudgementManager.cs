@@ -27,14 +27,19 @@ namespace SDJK.Ruleset
             return forceFastMiss || disSecond >= 0;
         }
 
-        public static double GetScoreAddValue(this IRuleset ruleset, double disSecond, double length, bool allowComboMultiplier = true)
+        public static double GetScoreAddValue(this IRuleset ruleset, double disSecond, double length, double combo, double comboMultiplier = 0)
         {
             double scoreMultiplier = 1d.Lerp(0, disSecond.Abs() / ruleset.judgementMetaDatas.Last().sizeSecond);
 
-            if (allowComboMultiplier)
-                return 1d / 1d.ArithmeticSequenceSum(length) * scoreMultiplier * maxScore;
-            else
+            if (comboMultiplier == 0)
                 return 1d / length * scoreMultiplier * maxScore;
+            else
+            {
+                double comboScoreResult = (1d / (1d.ArithmeticSequenceSum(length) / comboMultiplier)) * combo;
+                double normalScoreResult = (1d / length).LerpUnclamped(0, comboMultiplier);
+
+                return (comboScoreResult + normalScoreResult) * scoreMultiplier * maxScore;
+            }
         }
 
         /// <returns>

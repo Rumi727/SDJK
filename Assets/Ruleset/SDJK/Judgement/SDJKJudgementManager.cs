@@ -328,7 +328,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     if (!isMiss)
                     {
                         instance.combo += 1;
-                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count) * instance.combo;
+                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count, instance.combo, 0.25);
 
                         if (instance.maxCombo < instance.combo)
                         {
