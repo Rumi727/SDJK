@@ -56,7 +56,6 @@ namespace SCKRM.UI
             }
         }
 
-#if RECT_TRANSFORM_TOOL_EVENT_ENABLE
         public delegate void RectTransformEvent();
 
         /// <summary>
@@ -130,7 +129,6 @@ namespace SCKRM.UI
             /*if (onCanvasGroupChangedUnityEvent.GetPersistentEventCount() > 0)
                 onCanvasGroupChangedUnityEvent.Invoke();*/
         }
-#endif
     }
 
     public struct RectCorner
