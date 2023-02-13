@@ -11084,7 +11084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
-  _rectTransform: {fileID: 0}
+  _rectTransform: {fileID: 6575676672834307166}
   _graphic: {fileID: 0}
 --- !u!1 &2202863986226083238
 GameObject:
@@ -25188,16 +25188,16 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3556050843750309016}
-          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC KRM
+          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC-KRM
           m_MethodName: BackEventInvoke
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
 --- !u!1 &5309905718041240337
 GameObject:
@@ -27164,16 +27164,16 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3556050843750309016}
-          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC KRM
+          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC-KRM
           m_MethodName: BackEventInvoke
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
 --- !u!1 &5857791788355889587
 GameObject:
@@ -29289,16 +29289,16 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3556050843750309016}
-          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC KRM
+          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC-KRM
           m_MethodName: BackEventInvoke
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
 --- !u!1 &6258469938076402443
 GameObject:
@@ -32275,16 +32275,16 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3556050843750309016}
-          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC KRM
+          m_TargetAssemblyTypeName: SCKRM.UI.UIManager, SC-KRM
           m_MethodName: BackEventInvoke
-          m_Mode: 1
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
 --- !u!1 &6788292750735314163
 GameObject:
