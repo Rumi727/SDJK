@@ -132,8 +132,6 @@ namespace SCKRM.UI.StatusBar
 
                     if ((!selectedStatusBar || (statusBarShow && defaultTabAllow)) && InputManager.GetKey("gui.tab", InputType.Down, InputManager.inputLockDenyAllForce))
                         Tab();
-                    else if (selectedStatusBar && InputManager.GetKey("gui.back", InputType.Down, InputManager.inputLockDenyAll))
-                        EventSystem.current.SetSelectedGameObject(null);
                 }
 
 

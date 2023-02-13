@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace SCKRM.UI
@@ -66,7 +67,7 @@ namespace SCKRM.UI
             if (InitialLoadManager.isInitialLoadEnd)
             {
                 if (InputManager.GetKey("gui.back", InputType.Down, InputManager.inputLockDenyAllForceInput))
-                    BackEventInvoke();
+                    BackEventInvoke(false);
                 else if (InputManager.GetKey("gui.home", InputType.Down, InputManager.inputLockDenyAll))
                     homeEvent?.Invoke();
             }
@@ -78,8 +79,15 @@ namespace SCKRM.UI
         }
 
         [WikiDescription("뒤로가기 이벤트")]
-        public static void BackEventInvoke()
+        public static void BackEventInvoke(bool selectedGameObjectIgnore)
         {
+            if (EventSystem.current.currentSelectedGameObject != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                if (!selectedGameObjectIgnore)
+                    return;
+            }
+
             if (highPriorityBackEventList.Count > 0)
                 highPriorityBackEventList[0].Invoke();
             else if (backEventList.Count > 0)
