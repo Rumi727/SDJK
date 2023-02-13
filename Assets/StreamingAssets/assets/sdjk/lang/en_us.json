@@ -15,6 +15,10 @@
 	"gui.clear_time": "Clear Time",
 	"gui.score": "Score",
 	"gui.multiplier": "Multiplier",
+	"gui.replay_play": "Replay Play",
+	"gui.replay_delete": "Replay Delete",
+	"gui.replay_save": "Replay Save",
+	"gui.restart": "Restart",
 	
 	"map_manager.music": "Music",
 	"map_manager.previous_music": "Previous music",

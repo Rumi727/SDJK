@@ -204,8 +204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7, y: -7}
-  m_SizeDelta: {x: -7, y: -7}
+  m_AnchoredPosition: {x: -8, y: -8}
+  m_SizeDelta: {x: -8, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5765649250551961989
 MonoBehaviour:
@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 5765649250618424692}
   - component: {fileID: 5765649250618424691}
   - component: {fileID: 5765649250618424648}
+  - component: {fileID: 7870783240242783393}
   m_Layer: 0
   m_Name: Restart Button
   m_TagString: Untagged
@@ -435,6 +436,20 @@ MonoBehaviour:
   _image: {fileID: 5765649250618424693}
   _slicedFilledImage: {fileID: 0}
   _alphaHitTestMinimumThreshold: 0.5
+--- !u!114 &7870783240242783393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765649250618424689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.restart
 --- !u!1 &5765649250889843782
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +852,7 @@ GameObject:
   - component: {fileID: 5765649251917701865}
   - component: {fileID: 5765649251917701864}
   - component: {fileID: 5765649251917701869}
+  - component: {fileID: 3687495438621748613}
   m_Layer: 0
   m_Name: Play Button
   m_TagString: Untagged
@@ -1006,6 +1022,20 @@ MonoBehaviour:
   _image: {fileID: 5765649251917701866}
   _slicedFilledImage: {fileID: 0}
   _alphaHitTestMinimumThreshold: 0.5
+--- !u!114 &3687495438621748613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765649251917701782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.play
 --- !u!1 &5765649252114726766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,6 +1157,7 @@ GameObject:
   - component: {fileID: 5765649252210383208}
   - component: {fileID: 5765649252210383127}
   - component: {fileID: 5765649252210383212}
+  - component: {fileID: 3970984683175937760}
   m_Layer: 0
   m_Name: Quit Button
   m_TagString: Untagged
@@ -1296,3 +1327,17 @@ MonoBehaviour:
   _image: {fileID: 5765649252210383209}
   _slicedFilledImage: {fileID: 0}
   _alphaHitTestMinimumThreshold: 0.5
+--- !u!114 &3970984683175937760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765649252210383125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.quit

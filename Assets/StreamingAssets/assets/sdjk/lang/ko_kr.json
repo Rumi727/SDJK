@@ -15,6 +15,10 @@
 	"gui.clear_time": "클리어 시간",
 	"gui.score": "점수",
 	"gui.multiplier": "배수",
+	"gui.replay_play": "리플레이 재생",
+	"gui.replay_delete": "리플레이 삭제",
+	"gui.replay_save": "리플레이 저장",
+	"gui.restart": "재시작",
 	
 	"map_manager.music": "음악",
 	"map_manager.previous_music": "이전 음악",

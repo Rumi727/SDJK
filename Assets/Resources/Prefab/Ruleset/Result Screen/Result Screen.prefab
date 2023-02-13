@@ -3296,6 +3296,7 @@ GameObject:
   - component: {fileID: 4175793601430613271}
   - component: {fileID: 1590196678491716557}
   - component: {fileID: 1324517491599999146}
+  - component: {fileID: 8997598365159187673}
   m_Layer: 0
   m_Name: Remove Button
   m_TagString: Untagged
@@ -3450,6 +3451,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8997598365159187673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762290106089220326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.replay_delete
 --- !u!1 &4725127013164862142
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,6 +3609,7 @@ GameObject:
   - component: {fileID: 2649352932624604514}
   - component: {fileID: 7184838707772232745}
   - component: {fileID: 5557761850196008684}
+  - component: {fileID: 1165675471006501272}
   m_Layer: 0
   m_Name: Replay Play Button
   m_TagString: Untagged
@@ -3748,3 +3764,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1165675471006501272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460289258984993186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameSpace: sdjk
+  _text: gui.replay_play
