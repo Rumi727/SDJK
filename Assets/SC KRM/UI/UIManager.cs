@@ -69,7 +69,10 @@ namespace SCKRM.UI
                 if (InputManager.GetKey("gui.back", InputType.Down, InputManager.inputLockDenyAllForceInput))
                     BackEventInvoke(false);
                 else if (InputManager.GetKey("gui.home", InputType.Down, InputManager.inputLockDenyAll))
+                {
+                    EventSystem.current.SetSelectedGameObject(null);
                     homeEvent?.Invoke();
+                }
             }
 
             kernelCanvasBackground.raycastTarget = highPriorityBackEventList.Count > 0;
