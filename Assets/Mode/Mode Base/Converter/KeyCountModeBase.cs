@@ -17,8 +17,8 @@ namespace SDJK.Mode.Converter
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.converter.key_count")]
         public sealed class Data : IModeConfig
         {
-            [SaveLoadUISliderConfig("sdjk:gui.count", "", 1, 10, 0.01f)]
-            public int count { get => _count.Min(1); set => _count = value.Min(1); }
+            [SaveLoadUISliderConfig("sdjk:gui.count", "", 1, 8, 0.01f)]
+            public int count { get => _count.Clamp(1); set => _count = value.Clamp(1); }
             int _count = 4;
         }
 

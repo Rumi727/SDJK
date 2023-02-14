@@ -8,9 +8,10 @@ using SDJK.Map.Ruleset.ADOFAI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SDJK.Mode;
+using SDJK.Mode.Converter;
 
 using Random = System.Random;
-using SDJK.Mode;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -24,48 +25,123 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             {
                 bool typeIsSDJKMap = type == typeof(SDJKMapFile);
                 if (extension == ".sdjk" && (type == typeof(MapFile) || typeIsSDJKMap))
-                    return MapLoad(mapFilePath);
+                    return MapLoad(mapFilePath, modes);
 
                 //Ruleset 호환성
                 if (typeIsSDJKMap)
                 {
                     //ADOFAI
                     if (extension == ".adofai")
-                        return ADOFAIMapLoad(mapFilePath);
+                        return ADOFAIMapLoad(mapFilePath, modes);
                 }
 
                 return null;
             };
         }
 
-        public static SDJKMapFile MapLoad(string mapFilePath)
+
+
+        public static SDJKMapFile MapLoad(string mapFilePath, IMode[] modes)
         {
             JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
+            SDJKMapFile map;
 
             if (OldSDJKMapDistinction(jObjectMap))
-                return OldSDJKMapLoad(jObjectMap);
+            {
+                map = OldSDJKMapLoad(mapFilePath, jObjectMap);
+                if (map == null)
+                    return null;
+            }
             else
             {
-                SDJKMapFile map = jObjectMap.ToObject<SDJKMapFile>();
-
+                map = jObjectMap.ToObject<SDJKMapFile>();
                 if (map == null)
                     return null;
 
-                if (map.info.ruleset == "sdjk")
-                {
-                    FixMap(map);
-                    FixAllJudgmentBeat(map);
+                map.Init(mapFilePath);
 
-                    return map;
+                if (map.info.ruleset != "sdjk")
+                    return null;
+            }
+
+            IMode keyCountMode;
+            if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
+                KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
+
+            FixMap(map);
+            FixAllJudgmentBeat(map);
+
+            return map;
+        }
+
+        static void KeyCountChange(SDJKMapFile map, int count)
+        {
+            int originalCount = map.notes.Count;
+            if (count == originalCount)
+                return;
+
+            double offsetCount = (double)count / originalCount;
+
+            List<List<SDJKNoteFile>> newNoteLists = new List<List<SDJKNoteFile>>();
+            for (int i = 0; i < count; i++)
+                newNoteLists.Add(new List<SDJKNoteFile>());
+
+            if (count > originalCount)
+            {
+                //기존 노트 키 인덱스 늘리기
+                for (int i = 0; i < originalCount; i++)
+                    newNoteLists[(i * offsetCount).RoundToInt().Clamp(0, count - 1)] = map.notes[i];
+
+                Random random = new Random(map.info.randomSeed);
+                for (int i = 0; i < originalCount; i++)
+                {
+                    int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
+                    List<SDJKNoteFile> newNoteList = newNoteLists[keyIndex];
+
+                    for (int j = 0; j < newNoteList.Count; j++)
+                    {
+                        //늘려진 노트들을 랜덤으로 쪼개기
+                        int moveTargetKeyIndex = random.Next(keyIndex, (keyIndex + 1 + offsetCount).RoundToInt().Clamp(0, count));
+                        if (keyIndex == moveTargetKeyIndex)
+                            continue;
+
+                        newNoteLists[moveTargetKeyIndex].Add(newNoteList[j]);
+                        newNoteList.RemoveAt(j);
+                        j--;
+                    }
+                }
+
+                //바 이펙트
+                for (int i = 0; i < map.effect.fieldEffect.Count; i++)
+                {
+                    FieldEffectFile fieldEffect = map.effect.fieldEffect[i];
+                    for (int j = 0; j < count - originalCount; j++)
+                        fieldEffect.barEffect.Add(new BarEffectFile());
+                }
+            }
+            else
+            {
+                //줄이는건 간-단
+                for (int i = 0; i < originalCount; i++)
+                {
+                    int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
+                    newNoteLists[keyIndex] = newNoteLists[keyIndex].Union(map.notes[i]).ToList();
                 }
             }
 
-            return null;
+            for (int i = 0; i < newNoteLists.Count; i++)
+                newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToList();
+
+            map.notes = newNoteLists;
         }
 
-        public static SDJKMapFile ADOFAIMapLoad(string mapFilePath)
+
+
+        public static SDJKMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes)
         {
             SDJKMapFile sdjkMapFile = new SDJKMapFile();
+            sdjkMapFile.Init(mapFilePath);
+
             ADOFAIMapFile adofaiMap = ADOFAIMapLoader.MapLoad(mapFilePath);
 
             #region Global Info Copy
@@ -76,14 +152,19 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             #region Note
-            sdjkMapFile.info.ResetMapID(mapFilePath);
-
             Random random = new Random(sdjkMapFile.info.randomSeed);
             List<List<SDJKNoteFile>> notes = sdjkMapFile.notes;
             Dictionary<int, double> secondDistances = new Dictionary<int, double>();
 
-            for (int i = 0; i < 4; i++)
-                sdjkMapFile.notes.Add(new List<SDJKNoteFile>());
+            {
+                int count = 4;
+                IMode keyCountMode;
+                if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
+                    count = ((KeyCountModeBase.Data)keyCountMode.modeConfig).count;
+
+                for (int i = 0; i < count; i++)
+                   sdjkMapFile.notes.Add(new List<SDJKNoteFile>());
+            }
 
             {
                 bool lastIsHold = false;
@@ -176,6 +257,129 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             return sdjkMapFile;
         }
 
+
+
+
+        /// <summary>
+        /// 노트 겹침 방지, 마이너스 홀드 방지, 중복 비트 방지
+        /// </summary>
+        /// <param name="map"></param>
+        static void FixMap(SDJKMapFile map)
+        {
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<SDJKNoteFile> notes = map.notes[i];
+
+                double lastBeat = double.MinValue;
+                bool holdNoteStart = false;
+                double holdNoteEndBeat = 0;
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+
+                    //중복 비트 방지
+                    if (note.beat == lastBeat)
+                    {
+                        notes.RemoveAt(j);
+                        j--;
+
+                        continue;
+                    }
+
+                    lastBeat = note.beat;
+
+                    //노트 겹침 방지
+                    if (!holdNoteStart)
+                    {
+                        if (note.holdLength > 0)
+                        {
+                            holdNoteStart = true;
+                            holdNoteEndBeat = note.beat + note.holdLength;
+                        }
+                    }
+                    else
+                    {
+                        if (note.beat < holdNoteEndBeat)
+                            note.type = SDJKNoteTypeFile.auto;
+                        else
+                            holdNoteStart = false;
+                    }
+
+                    //마이너스 홀드 방지
+                    note.holdLength = note.holdLength.Clamp(0);
+                    notes[j] = note;
+                }
+            }
+        }
+
+        /*static void FixOverlappingAutoNotes(SDJKMapFile map)
+        {
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<NoteFile> notes = map.notes[i];
+
+                bool holdNoteStart = false;
+                double holdNoteEndBeat = 0;
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    NoteFile note = notes[j];
+                    if (note.type != NoteTypeFile.auto)
+                        continue;
+
+                    if (!holdNoteStart)
+                    {
+                        if (note.holdLength <= 0)
+                            continue;
+                        else
+                        {
+                            holdNoteStart = true;
+                            holdNoteEndBeat = note.beat + note.holdLength;
+                        }
+                    }
+                    else
+                    {
+                        if (note.beat < holdNoteEndBeat)
+                        {
+                            if (note.holdLength > 0)
+                                notes.RemoveAt(j);
+                        }
+                        else
+                            holdNoteStart = false;
+                    }
+                }
+            }
+        }*/
+
+        static void FixAllJudgmentBeat(SDJKMapFile map)
+        {
+            map.allJudgmentBeat.Clear();
+
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<SDJKNoteFile> notes = map.notes[i];
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+
+                    //모든 판정 비트에 노트 추가
+                    if (note.type != SDJKNoteTypeFile.instantDeath)
+                    {
+                        map.allJudgmentBeat.Add(note.beat);
+                        if (note.holdLength > 0)
+                            map.allJudgmentBeat.Add(note.beat + note.holdLength);
+                    }
+                }
+            }
+
+            map.allJudgmentBeat.Sort();
+        }
+
+
+
+        #region Old SDJK
         static bool OldSDJKMapDistinction(JObject jObjectMap) =>
             jObjectMap.ContainsKey("A") &&
             jObjectMap.ContainsKey("S") &&
@@ -186,11 +390,13 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             jObjectMap.ContainsKey("AllBeat") &&
             jObjectMap.ContainsKey("Effect");
 
-        static SDJKMapFile OldSDJKMapLoad(JObject jObjectMap)
+        static SDJKMapFile OldSDJKMapLoad(string mapFilePath, JObject jObjectMap)
         {
             try
             {
                 SDJKMapFile map = new SDJKMapFile();
+                map.Init(mapFilePath);
+
                 OldSDJK oldMap = jObjectMap.ToObject<OldSDJK>();
 
                 if (oldMap == null)
@@ -358,7 +564,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 #region Effect
                 EffectAdd(oldMap.Effect.BPM, oldMap.Effect.BPMEffect, map.globalEffect.bpm);
                 EffectAdd(oldMap.Effect.DropPart, oldMap.Effect.DropPartEffect, map.globalEffect.yukiMode);
-                
+
                 EffectAdd2(oldMap.Effect.Camera.CameraZoom, oldMap.Effect.Camera.CameraZoomEffect, map.globalEffect.cameraZoom);
                 EffectAdd3(oldMap.Effect.Camera.CameraPos, oldMap.Effect.Camera.CameraPosEffect, map.globalEffect.cameraPos);
                 EffectAdd3(oldMap.Effect.Camera.CameraRotation, oldMap.Effect.Camera.CameraRotationEffect, map.globalEffect.cameraRotation);
@@ -535,9 +741,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 EffectStackingTrick(map.effect.globalNoteDistance);
                 #endregion
 
-                FixMap(map);
-                FixAllJudgmentBeat(map);
-
                 return map;
             }
             catch (Exception e)
@@ -545,111 +748,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 Debug.LogException(e);
                 return null;
             }
-        }
-
-        /// <summary>
-        /// 노트 겹침 방지, 마이너스 홀드 방지
-        /// </summary>
-        /// <param name="map"></param>
-        static void FixMap(SDJKMapFile map)
-        {
-            for (int i = 0; i < map.notes.Count; i++)
-            {
-                List<SDJKNoteFile> notes = map.notes[i];
-
-                bool holdNoteStart = false;
-                double holdNoteEndBeat = 0;
-
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    SDJKNoteFile note = notes[j];
-
-                    //노트 겹침 방지
-                    if (!holdNoteStart)
-                    {
-                        if (note.holdLength > 0)
-                        {
-                            holdNoteStart = true;
-                            holdNoteEndBeat = note.beat + note.holdLength;
-                        }
-                    }
-                    else
-                    {
-                        if (note.beat < holdNoteEndBeat)
-                            note.type = SDJKNoteTypeFile.auto;
-                        else
-                            holdNoteStart = false;
-                    }
-
-                    //마이너스 홀드 방지
-                    note.holdLength = note.holdLength.Clamp(0);
-                    notes[j] = note;
-                }
-            }
-        }
-
-        /*static void FixOverlappingAutoNotes(SDJKMapFile map)
-        {
-            for (int i = 0; i < map.notes.Count; i++)
-            {
-                List<NoteFile> notes = map.notes[i];
-
-                bool holdNoteStart = false;
-                double holdNoteEndBeat = 0;
-
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    NoteFile note = notes[j];
-                    if (note.type != NoteTypeFile.auto)
-                        continue;
-
-                    if (!holdNoteStart)
-                    {
-                        if (note.holdLength <= 0)
-                            continue;
-                        else
-                        {
-                            holdNoteStart = true;
-                            holdNoteEndBeat = note.beat + note.holdLength;
-                        }
-                    }
-                    else
-                    {
-                        if (note.beat < holdNoteEndBeat)
-                        {
-                            if (note.holdLength > 0)
-                                notes.RemoveAt(j);
-                        }
-                        else
-                            holdNoteStart = false;
-                    }
-                }
-            }
-        }*/
-
-        static void FixAllJudgmentBeat(SDJKMapFile map)
-        {
-            map.allJudgmentBeat.Clear();
-
-            for (int i = 0; i < map.notes.Count; i++)
-            {
-                List<SDJKNoteFile> notes = map.notes[i];
-
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    SDJKNoteFile note = notes[j];
-
-                    //모든 판정 비트에 노트 추가
-                    if (note.type != SDJKNoteTypeFile.instantDeath)
-                    {
-                        map.allJudgmentBeat.Add(note.beat);
-                        if (note.holdLength > 0)
-                            map.allJudgmentBeat.Add(note.beat + note.holdLength);
-                    }
-                }
-            }
-
-            map.allJudgmentBeat.Sort();
         }
 
         class OldSDJK
@@ -932,5 +1030,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 Center
             }
         }
+        #endregion
     }
 }
