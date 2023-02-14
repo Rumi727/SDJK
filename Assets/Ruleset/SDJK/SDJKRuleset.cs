@@ -62,10 +62,11 @@ namespace SDJK.Ruleset.SDJK
             await SceneManager.LoadScene(3);
             await UniTask.NextFrame();
 
-            SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath);
             SDJKReplayFile replay = null;
             if (replayFilePath != null)
                 replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath, out modes);
+
+            SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath, modes);
 
             if (modes.FindMode<AutoModeBase>() != null)
                 replay = GetAutoModeReplayFile(map, modes);
