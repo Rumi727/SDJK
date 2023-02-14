@@ -32,6 +32,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
             try
             {
                 ADOFAIMapFile adofaiMap = new ADOFAIMapFile();
+                adofaiMap.Init(mapFilePath);
+
                 List<double> allBeat = new List<double>();
                 ADOFAI adofai = JsonManager.JsonRead<ADOFAI>(mapFilePath, true);
                 if (adofai == null)

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using SCKRM;
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System;
@@ -27,6 +28,22 @@ namespace SDJK.Map
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = "";
         [JsonIgnore] public string mapFilePath { get; set; } = "";
+
+        [JsonIgnore] public bool isInit { get; private set; } = false;
+
+        public virtual void Init(string mapFilePath)
+        {
+            mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
+            this.mapFilePath = mapFilePath;
+
+            info.sckrmVersion = Kernel.sckrmVersion;
+            info.sdjkVersion = (Version)Kernel.version;
+
+            info.ResetMapID(mapFilePath);
+            SetVisualizerEffect();
+
+            isInit = true;
+        }
 
         public virtual void SetVisualizerEffect() { }
     }

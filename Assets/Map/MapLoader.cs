@@ -60,15 +60,11 @@ namespace SDJK.Map
                 if (map != null)
                 {
                     T sdjkMap = (T)map;
-
-                    sdjkMap.mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
-                    sdjkMap.mapFilePath = mapFilePath;
-
-                    sdjkMap.info.sckrmVersion = Kernel.sckrmVersion;
-                    sdjkMap.info.sdjkVersion = (Version)Kernel.version;
-
-                    sdjkMap.info.ResetMapID(mapFilePath);
-                    sdjkMap.SetVisualizerEffect();
+                    if (!sdjkMap.isInit)
+                    {
+                        Debug.LogError(typeof(T).FullName + " is not init");
+                        return null;
+                    }
 
                     return sdjkMap;
                 }
