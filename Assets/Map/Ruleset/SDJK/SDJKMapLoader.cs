@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Random = System.Random;
+using SDJK.Mode;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -19,7 +20,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         static void Awaken()
         {
             MapLoader.extensionToLoad.Add("sdjk");
-            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
             {
                 bool typeIsSDJKMap = type == typeof(SDJKMapFile);
                 if (extension == ".sdjk" && (type == typeof(MapFile) || typeIsSDJKMap))

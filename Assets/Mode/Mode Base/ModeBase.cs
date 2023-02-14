@@ -26,6 +26,8 @@ namespace SDJK.Mode
         public SaveLoadClass modeConfigSlc { get; }
 
         public IModeConfig CreateModeConfig();
+
+        public static IMode[] emptyModes { get; } = new IMode[0];
     }
 
     public interface IModeConfig { }

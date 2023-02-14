@@ -54,6 +54,9 @@ namespace SDJK.Ruleset.SDJK
 
         public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
             base.GameStart(mapFilePath, replayFilePath, isEditor, modes);
 
             await SceneManager.LoadScene(3);

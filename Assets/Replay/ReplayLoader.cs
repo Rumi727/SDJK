@@ -13,8 +13,11 @@ namespace SDJK.Replay
 {
     public static class ReplayLoader
     {
-        public static T CreateReplay<T>(MapFile map, IMode[] modes) where T : ReplayFile, new()
+        public static T CreateReplay<T>(MapFile map, params IMode[] modes) where T : ReplayFile, new()
         {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
             T replay = new T();
             replay.InternalReplayFileSetting(map, modes);
 
@@ -61,8 +64,11 @@ namespace SDJK.Replay
         }
 
         public static event Action<ReplayFile> replaySaveEvent;
-        public static void ReplaySave<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()
+        public static void ReplaySave<T>(this T replay, MapFile map, params IMode[] modes) where T : ReplayFile, new()
         {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
             replay.InternalReplayFileSetting(map, modes);
 
             string replayFolderPath = PathUtility.Combine(Kernel.persistentDataPath, "Replay");

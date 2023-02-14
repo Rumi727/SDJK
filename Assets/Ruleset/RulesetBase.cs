@@ -80,7 +80,13 @@ namespace SDJK.Ruleset
         /// Please put base.GameStart() when overriding
         /// </summary>
         /// <param name="mapFilePath"></param>
-        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes) => IRuleset.GameStartDefaultMethod(replayFilePath != null, modes.FindMode<AutoModeBase>() != null);
+        public virtual void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
+        {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
+            IRuleset.GameStartDefaultMethod(replayFilePath != null, modes.FindMode<AutoModeBase>() != null);
+        }
     }
 
     public struct RankMetaData : IEquatable<RankMetaData>

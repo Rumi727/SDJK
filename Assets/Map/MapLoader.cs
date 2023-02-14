@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.FileDialog;
+using SDJK.Mode;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,12 +20,15 @@ namespace SDJK.Map
         /// <returns>
         /// 맵 인스턴스
         /// </returns>
-        public delegate MapFile MapLoaderFunc(Type type, string mapFilePath, string extension);
+        public delegate MapFile MapLoaderFunc(Type type, string mapFilePath, string extension, params IMode[] modes);
         public static event MapLoaderFunc mapLoaderFunc;
         public static List<string> extensionToLoad { get; } = new List<string>();
 
-        public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask)
+        public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask, params IMode[] modes)
         {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
             string[] packPaths = DirectoryUtility.GetFiles(packfolderPath, new ExtensionFilter(extensionToLoad.ToArray()).ToSearchPatterns());
             if (packPaths == null || packPaths.Length <= 0)
                 return null;
@@ -32,7 +36,7 @@ namespace SDJK.Map
             MapPack pack = new MapPack();
             for (int i = 0; i < packPaths.Length; i++)
             {
-                MapFile map = MapLoad<MapFile>(packPaths[i].Replace("\\", "/"));
+                MapFile map = MapLoad<MapFile>(packPaths[i].Replace("\\", "/"), modes);
                 if (map != null)
                     pack.maps.Add(map);
 
@@ -43,13 +47,16 @@ namespace SDJK.Map
             return pack;
         }
 
-        public static T MapLoad<T>(string mapFilePath) where T : MapFile, new()
+        public static T MapLoad<T>(string mapFilePath, params IMode[] modes) where T : MapFile, new()
         {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
             Delegate[] delegates = mapLoaderFunc.GetInvocationList();
             for (int i = 0; i < delegates.Length; i++)
             {
                 MapLoaderFunc action = (MapLoaderFunc)delegates[i];
-                object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath));
+                object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), modes);
                 if (map != null)
                 {
                     T sdjkMap = (T)map;

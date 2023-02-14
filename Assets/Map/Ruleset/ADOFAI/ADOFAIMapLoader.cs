@@ -3,6 +3,7 @@ using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Json;
 using SCKRM.Rhythm;
+using SDJK.Mode;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
         static void Awaken()
         {
             MapLoader.extensionToLoad.Add("adofai");
-            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension) =>
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
             {
                 if (extension == ".adofai" && (type == typeof(MapFile) || type == typeof(ADOFAIMapFile)))
                     return MapLoad(mapFilePath);

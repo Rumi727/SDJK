@@ -97,8 +97,11 @@ namespace SDJK.Ruleset
             return false;
         }
 
-        public static IRuleset GameStart(string mapFilePath, string replayFilePath, bool isEditor, IMode[] modes)
+        public static IRuleset GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {
+            if (modes == null)
+                modes = IMode.emptyModes;
+
             for (int i = 0; i < rulesetList.Count; i++)
             {
                 IRuleset ruleset = rulesetList[i];
