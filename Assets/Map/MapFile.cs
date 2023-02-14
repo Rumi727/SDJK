@@ -26,8 +26,8 @@ namespace SDJK.Map
 
         [JsonIgnore] public List<double> allJudgmentBeat { get; set; } = new List<double>();
 
-        [JsonIgnore] public string mapFilePathParent { get; set; } = "";
-        [JsonIgnore] public string mapFilePath { get; set; } = "";
+        [JsonIgnore] public string mapFilePathParent { get; set; } = null;
+        [JsonIgnore] public string mapFilePath { get; set; } = null;
 
         [JsonIgnore] public bool isInit { get; private set; } = false;
 

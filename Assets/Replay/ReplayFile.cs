@@ -17,7 +17,7 @@ namespace SDJK.Replay
 
         public ReplayModeFile[] modes { get; set; } = new ReplayModeFile[0];
 
-        [JsonIgnore] public string replayFilePath { get; set; } = "";
+        [JsonIgnore] public string replayFilePath { get; set; } = null;
 
         public BeatValuePairList<int> combos { get; set; } = new(0);
         public BeatValuePairList<int> maxCombo { get; set; } = new(0);
