@@ -12,6 +12,8 @@ using UnityEngine;
 using SDJK.Replay;
 using System;
 using SDJK.Mode;
+using SDJK.Mode.Automatic;
+using SDJK.Mode.Difficulty;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {

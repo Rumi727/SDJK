@@ -1,10 +1,9 @@
 using SCKRM.Renderer;
 
-namespace SDJK.Mode
+namespace SDJK.Mode.Automatic
 {
-    public abstract class AutoModeBase : ModeBase
+    public abstract class AutoModeBase : AutomaticModeBase
     {
-        public override NameSpacePathReplacePair title { get; } = "sdjk:mode.automatic";
         public override int order => int.MaxValue;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.automatic.auto";

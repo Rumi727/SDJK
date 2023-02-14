@@ -2,11 +2,10 @@ using SCKRM;
 using SCKRM.Renderer;
 using System;
 
-namespace SDJK.Mode
+namespace SDJK.Mode.Difficulty
 {
-    public abstract class SlowModeBase : ModeBase
+    public abstract class SlowModeBase : DifficultyModeBase
     {
-        public override NameSpacePathReplacePair title { get; } = "sdjk:mode.difficulty";
         public override int order => 0;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.difficulty.slow";

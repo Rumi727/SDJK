@@ -19,6 +19,7 @@
 	"gui.replay_delete": "リプレイの削除",
 	"gui.replay_save": "リプレイ保存",
 	"gui.restart": "再試行",
+	"gui.count": "数",
 	
 	"map_manager.music": "音楽",
 	"map_manager.previous_music": "以前の音楽",
@@ -69,6 +70,15 @@
 	
 	"mode.difficulty.combo_multiplier": "コンボ排水",
 	"mode.difficulty.combo_multiplier.info": "ずっとミスしてからスコアが低いって？ このモードを一度使ってみてください！",
+	
+	
+	
+	"mode.converter": "コンバーター",
+	
+	"mode.converter.key_count": "キー数",
+	"mode.converter.key_count.info": "やはりキー数が多いと難しいと思います。 そうですか？",
+	
+	
 	
 	"mode.setting": "モード設定"
 }

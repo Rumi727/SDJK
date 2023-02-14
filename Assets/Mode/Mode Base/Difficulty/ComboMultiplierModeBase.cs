@@ -1,11 +1,10 @@
 using SCKRM;
 using SCKRM.Renderer;
 
-namespace SDJK.Mode
+namespace SDJK.Mode.Difficulty
 {
-    public abstract class ComboMultiplierModeBase : ModeBase
+    public abstract class ComboMultiplierModeBase : DifficultyModeBase
     {
-        public override NameSpacePathReplacePair title { get; } = "sdjk:mode.difficulty";
         public override int order => 10000;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.difficulty.combo_multiplier";

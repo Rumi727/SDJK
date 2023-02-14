@@ -10,6 +10,8 @@ using SDJK.Effect;
 using SDJK.MainMenu;
 using SDJK.Map.Ruleset.SDJK.Map;
 using SDJK.Mode;
+using SDJK.Mode.Automatic;
+using SDJK.Mode.Difficulty;
 using SDJK.Replay;
 using SDJK.Ruleset.PauseScreen;
 using SDJK.Ruleset.SDJK.Effect;

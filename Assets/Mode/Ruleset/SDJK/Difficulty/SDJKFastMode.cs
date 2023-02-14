@@ -1,4 +1,6 @@
-namespace SDJK.Mode.Ruleset.SDJK
+using SDJK.Mode.Difficulty;
+
+namespace SDJK.Mode.Ruleset.SDJK.Difficulty
 {
     public sealed class SDJKFastMode : FastModeBase
     {

@@ -9,6 +9,7 @@ using UnityEngine;
 using SDJK.Replay;
 using SDJK.Mode;
 using System.Collections.Generic;
+using SDJK.Mode.Automatic;
 
 namespace SDJK.Ruleset.SDJK
 {

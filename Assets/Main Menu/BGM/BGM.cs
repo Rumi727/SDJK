@@ -7,8 +7,7 @@ using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SDJK.Map;
 using SDJK.Mode;
-using System.Collections;
-using System.Collections.Generic;
+using SDJK.Mode.Difficulty;
 using System.IO;
 using UnityEngine;
 

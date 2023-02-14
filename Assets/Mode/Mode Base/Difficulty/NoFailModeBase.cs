@@ -1,10 +1,9 @@
 using SCKRM.Renderer;
 
-namespace SDJK.Mode
+namespace SDJK.Mode.Difficulty
 {
-    public abstract class NoFailModeBase : ModeBase
+    public abstract class NoFailModeBase : DifficultyModeBase
     {
-        public override NameSpacePathReplacePair title { get; } = "sdjk:mode.difficulty";
         public override int order => 5000;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.difficulty.no_fail";

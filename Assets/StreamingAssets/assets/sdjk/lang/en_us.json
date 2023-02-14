@@ -19,6 +19,7 @@
 	"gui.replay_delete": "Replay Delete",
 	"gui.replay_save": "Replay Save",
 	"gui.restart": "Restart",
+	"gui.count": "Count",
 	
 	"map_manager.music": "Music",
 	"map_manager.previous_music": "Previous music",
@@ -69,6 +70,15 @@
 	
 	"mode.difficulty.combo_multiplier": "Combo Multiplier",
 	"mode.difficulty.combo_multiplier.info": "Are you getting a low score because you keep missing? Give this mod a try!",
+	
+	
+	
+	"mode.converter": "Converter",
+	
+	"mode.converter.key_count": "Key Count",
+	"mode.converter.key_count.info": "I think it will be difficult if there are too many keys. Yes?",
+	
+	
 	
 	"mode.setting": "Mode setting"
 }

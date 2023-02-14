@@ -1,4 +1,6 @@
-namespace SDJK.Mode.Ruleset.SDJK
+using SDJK.Mode.Automatic;
+
+namespace SDJK.Mode.Ruleset.SDJK.Automatic
 {
     public sealed class SDJKAutoMode : AutoModeBase
     {

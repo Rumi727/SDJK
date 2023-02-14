@@ -19,6 +19,7 @@
 	"gui.replay_delete": "리플레이 삭제",
 	"gui.replay_save": "리플레이 저장",
 	"gui.restart": "재시작",
+	"gui.count": "개수",
 	
 	"map_manager.music": "음악",
 	"map_manager.previous_music": "이전 음악",
@@ -69,6 +70,15 @@
 	
 	"mode.difficulty.combo_multiplier": "콤보 배수",
 	"mode.difficulty.combo_multiplier.info": "계속 미스 나서 점수가 낮다고요? 이 모드를 한번 써보세요!",
+	
+	
+	
+	"mode.converter": "컨버터",
+	
+	"mode.converter.key_count": "키 개수",
+	"mode.converter.key_count.info": "역시 키 개수가 많으면 어려울 것 같아요. 그렇죠?",
+	
+	
 	
 	"mode.setting": "모드 설정"
 }

@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using SDJK.Mode;
 using SCKRM.Resource;
+using SDJK.Mode.Automatic;
 
 namespace SDJK.Ruleset
 {
