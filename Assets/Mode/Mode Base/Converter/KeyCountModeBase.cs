@@ -18,8 +18,8 @@ namespace SDJK.Mode.Converter
         public sealed class Data : IModeConfig
         {
             [SaveLoadUISliderConfig("sdjk:gui.count", "", 1, 10, 0.01f)]
-            public int multiplier { get => _multiplier.Min(1); set => _multiplier = value.Min(1); }
-            int _multiplier = 4;
+            public int count { get => _count.Min(1); set => _count = value.Min(1); }
+            int _count = 4;
         }
 
         protected override IModeConfig CreateModeConfig() => new Data();
