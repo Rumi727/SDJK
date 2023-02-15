@@ -8,8 +8,8 @@ namespace SCKRM.Editor
 {
     static class AndroidSupport
     {
-        static readonly string tempStreamingAssetsFolderPath = PathTool.Combine(Directory.GetCurrentDirectory(), "Temp" + Kernel.streamingAssetsFolderName);
-        static readonly string zipPath = PathTool.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
+        static readonly string tempStreamingAssetsFolderPath = PathUtility.Combine(Directory.GetCurrentDirectory(), "Temp" + Kernel.streamingAssetsFolderName);
+        static readonly string zipPath = PathUtility.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
 
         [InitializeOnLoadMethod]
         static void Init()
