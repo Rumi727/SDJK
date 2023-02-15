@@ -74,7 +74,7 @@ namespace SCKRM
                     return _streamingAssetsPath;
                 else
                 {
-                    _streamingAssetsPath = PathTool.Combine(persistentDataPath, streamingAssetsFolderName);
+                    _streamingAssetsPath = PathUtility.Combine(persistentDataPath, streamingAssetsFolderName);
 
                     if (!Directory.Exists(_streamingAssetsPath))
                         Directory.CreateDirectory(_streamingAssetsPath);

@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using SCKRM.Input;
 using SCKRM.ProjectSetting;
 using SCKRM.Renderer;
@@ -116,7 +115,7 @@ namespace SCKRM
                 if (warningDisable)
                     throw new NotSupportedException("SC KRM은 WebGL을 지원하지 않습니다\nSC KRM does not support WebGL");
 #elif (UNITY_ANDROID || ENABLE_ANDROID_SUPPORT) && !UNITY_EDITOR
-                if (!Directory.Exists(PathTool.Combine(Kernel.streamingAssetsPath, "assets")))
+                if (!Directory.Exists(PathUtility.Combine(Kernel.streamingAssetsPath, "assets")))
                 {
                     if (Directory.Exists(Kernel.streamingAssetsPath))
                     {
@@ -124,12 +123,12 @@ namespace SCKRM
                         Directory.CreateDirectory(Kernel.streamingAssetsPath);
                     }
 
-                    string zipPath = PathTool.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
+                    string zipPath = PathUtility.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
 
                     Debug.Log(nameof(zipPath) + ": " + zipPath, nameof(InitialLoadManager));
                     Debug.Log(nameof(Kernel.streamingAssetsPath) + ": " + Kernel.streamingAssetsPath, nameof(InitialLoadManager));
 
-                    using (UnityWebRequest webRequest = UnityWebRequest.Get(PathTool.Combine(Application.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip")))
+                    using (UnityWebRequest webRequest = UnityWebRequest.Get(PathUtility.Combine(Application.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip")))
                     {
                         await webRequest.SendWebRequest();
 
@@ -140,7 +139,7 @@ namespace SCKRM
                     }
 
                     CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "");
-                    ThreadMetaData metaData = ThreadManager.Create(x => CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "", x));
+                    ThreadMetaData metaData = new ThreadMetaData(x => CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "", x));
                     ResourceManager.resourceRefreshDetailedAsyncTask = metaData;
 
                     if (await UniTask.WaitUntil(() => metaData.progress >= metaData.maxProgress, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
