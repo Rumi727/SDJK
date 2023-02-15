@@ -86,12 +86,6 @@ namespace SCKRM
                 //CPU가 GPU가 렌더링할때까지 기다리는것을 끕니다
                 QualitySettings.maxQueuedFrames = 0;
 
-#if UNITY_EDITOR
-                //에디터에선 SCKRMSetting 에디터 클래스가 시작 씬을 변경하니 아무런 조건문 없이 시작해도 됩니다
-#endif
-                //빌드된곳에선 스플래시 씬에서 시작하기 때문에
-                //아무런 조건문 없이 바로 시작합니다
-
                 //다른 스레드에서 이 값을 설정하기 전에
                 //미리 설정합니다
                 //(참고: 이 변수는 프로퍼티고 변수가 비어있다면 Application를 호출합니다)
@@ -114,42 +108,7 @@ namespace SCKRM
                 bool warningDisable = true;
                 if (warningDisable)
                     throw new NotSupportedException("SC KRM은 WebGL을 지원하지 않습니다\nSC KRM does not support WebGL");
-#elif (UNITY_ANDROID || ENABLE_ANDROID_SUPPORT) && !UNITY_EDITOR
-                if (!Directory.Exists(PathUtility.Combine(Kernel.streamingAssetsPath, "assets")))
-                {
-                    if (Directory.Exists(Kernel.streamingAssetsPath))
-                    {
-                        Directory.Delete(Kernel.streamingAssetsPath, true);
-                        Directory.CreateDirectory(Kernel.streamingAssetsPath);
-                    }
-
-                    string zipPath = PathUtility.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
-
-                    Debug.Log(nameof(zipPath) + ": " + zipPath, nameof(InitialLoadManager));
-                    Debug.Log(nameof(Kernel.streamingAssetsPath) + ": " + Kernel.streamingAssetsPath, nameof(InitialLoadManager));
-
-                    using (UnityWebRequest webRequest = UnityWebRequest.Get(PathUtility.Combine(Application.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip")))
-                    {
-                        await webRequest.SendWebRequest();
-
-                        if (webRequest.result != UnityWebRequest.Result.Success)
-                            Debug.LogError(webRequest.error);
-
-                        await File.WriteAllBytesAsync(zipPath, webRequest.downloadHandler.data);
-                    }
-
-                    CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "");
-                    ThreadMetaData metaData = new ThreadMetaData(x => CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "", x));
-                    ResourceManager.resourceRefreshDetailedAsyncTask = metaData;
-
-                    if (await UniTask.WaitUntil(() => metaData.progress >= metaData.maxProgress, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                        return;
-
-                    ResourceManager.resourceRefreshDetailedAsyncTask = null;
-                    File.Delete(zipPath);
-                }
 #endif
-
                 Debug.ForceLog("Waiting for settings to load...", nameof(InitialLoadManager));
                 {
                     //세이브 데이터의 기본값과 변수들을 다른 스레드에서 로딩합니다
@@ -204,6 +163,48 @@ namespace SCKRM
                     return;
 
                 AwakenManager.AllAwakenableMethodAwaken();
+
+                #region 안드로이드 스트리밍 에셋 호환 코드
+#if (UNITY_ANDROID || ENABLE_ANDROID_SUPPORT) && !UNITY_EDITOR
+                if (Kernel.SaveData.lastSckrmVersion != Kernel.sckrmVersion || Kernel.SaveData.lastVersion != Kernel.version || !Directory.Exists(PathUtility.Combine(Kernel.streamingAssetsPath, "assets")))
+                {
+                    Debug.Log("ANDROID Streaming Assets Patch...");
+
+                    if (Directory.Exists(Kernel.streamingAssetsPath))
+                    {
+                        Directory.Delete(Kernel.streamingAssetsPath, true);
+                        Directory.CreateDirectory(Kernel.streamingAssetsPath);
+                    }
+
+                    string zipPath = PathUtility.Combine(Kernel.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip");
+
+                    Debug.Log(nameof(zipPath) + ": " + zipPath, nameof(InitialLoadManager));
+                    Debug.Log(nameof(Kernel.streamingAssetsPath) + ": " + Kernel.streamingAssetsPath, nameof(InitialLoadManager));
+
+                    using (UnityWebRequest webRequest = UnityWebRequest.Get(PathUtility.Combine(Application.streamingAssetsPath, Kernel.streamingAssetsFolderName + ".zip")))
+                    {
+                        await webRequest.SendWebRequest();
+
+                        if (webRequest.result != UnityWebRequest.Result.Success)
+                            Debug.LogError(webRequest.error);
+
+                        await File.WriteAllBytesAsync(zipPath, webRequest.downloadHandler.data);
+                    }
+
+                    CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "");
+                    ThreadMetaData metaData = new ThreadMetaData(x => CompressFileManager.DecompressZipFile(zipPath, Kernel.streamingAssetsPath, "", x));
+                    ResourceManager.resourceRefreshDetailedAsyncTask = metaData;
+
+                    if (await UniTask.WaitUntil(() => metaData.progress >= metaData.maxProgress, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                        return;
+
+                    ResourceManager.resourceRefreshDetailedAsyncTask = null;
+                    File.Delete(zipPath);
+                }
+
+                Debug.Log("ANDROID Streaming Assets Patch Done...");
+#endif
+                #endregion
 
                 {
                     //리소스를 로딩합니다

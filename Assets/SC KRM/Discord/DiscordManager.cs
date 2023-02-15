@@ -8,7 +8,7 @@ namespace SCKRM.Discord
     public sealed class DiscordManager : ManagerBase<DiscordManager>
     {
         public static PresenceManager presenceManager => PresenceManager.instance;
-        public static DiscordRpc.RichPresence presence => presenceManager.presence;
+        public static DiscordRpc.RichPresence presence => presenceManager?.presence;
 
         void Awake() => SingletonCheck(this);
 
