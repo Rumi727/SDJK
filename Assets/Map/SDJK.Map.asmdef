@@ -1,15 +1,12 @@
 {
-    "name": "SDJK-Editor",
-    "rootNamespace": "SDJK.Editor",
+    "name": "SDJK.Map",
+    "rootNamespace": "SDJK.Map",
     "references": [
-        "GUID:42ec50f206125f04894d9168eeb43a0f",
         "GUID:9c1f978837ad80d49ae31d1cd963a280",
-        "GUID:d3187ea2c974e474f8608791b2a0c036",
-        "GUID:2202e78d7624df842a672b28530411dc"
+        "GUID:ec55cd8e1668f8e4c9c6f03edd05c2c4",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

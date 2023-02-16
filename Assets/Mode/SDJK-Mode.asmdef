@@ -1,5 +1,5 @@
 {
-    "name": "SDJK-Mode",
+    "name": "SDJK.Mode",
     "rootNamespace": "SDJK.Mode",
     "references": [
         "GUID:9c1f978837ad80d49ae31d1cd963a280"

@@ -1,10 +1,14 @@
 {
-    "name": "SDJK-Main-Menu-Assembly-Portal",
-    "rootNamespace": "",
+    "name": "SCKRM",
+    "rootNamespace": "SCKRM",
     "references": [
-        "GUID:9c1f978837ad80d49ae31d1cd963a280",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:2202e78d7624df842a672b28530411dc"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:30556314f7f693d45870d849f77abd9a",
+        "GUID:238a89b0a8e716945af7673dfb7e013c",
+        "GUID:e89de4e5a0e0c0b47a8506136f6d550d",
+        "GUID:8f248ae274a64a34788b91a8740e201a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
