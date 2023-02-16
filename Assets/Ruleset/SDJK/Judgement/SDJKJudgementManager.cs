@@ -273,6 +273,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 void Input(double pressUpBeatReplay = 0)
                 {
+                    if (currentNoteIndex >= notes.Count)
+                        return;
+
                     if (Judgement(currentNote.beat, judgementDisSecond, false, out JudgementMetaData metaData, currentPressBeatReplay))
                     {
                         bool isMiss = metaData.nameKey == SDJKRuleset.miss;
