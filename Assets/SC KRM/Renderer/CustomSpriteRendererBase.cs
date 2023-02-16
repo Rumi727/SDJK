@@ -1,5 +1,5 @@
 using SCKRM.Resource;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -30,6 +30,31 @@ namespace SCKRM.Renderer
                 _type = value;
 
                 Interlocked.Decrement(ref typeLock);
+            }
+        }
+
+        int spriteTagLock = 0;
+        [SerializeField] string _spriteTag = ResourceManager.spriteDefaultTag;
+        public string spriteTag
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref spriteTagLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                string spriteTag = _spriteTag;
+
+                Interlocked.Decrement(ref spriteTagLock);
+                return spriteTag;
+            }
+            set
+            {
+                while (Interlocked.CompareExchange(ref spriteTagLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                _spriteTag = value;
+
+                Interlocked.Decrement(ref spriteTagLock);
             }
         }
 
@@ -88,11 +113,11 @@ namespace SCKRM.Renderer
             queue.Enqueue();
         }*/
 
-        public static Sprite GetSprite(string type, string name, int index, string nameSpace = "")
+        public static Sprite GetSprite(string type, string name, int index, string nameSpace = "", string tag = ResourceManager.spriteDefaultTag, bool forceLocalSprite = false)
         {
-            if (Kernel.isPlaying && InitialLoadManager.isInitialLoadEnd)
+            if (Kernel.isPlaying && InitialLoadManager.isInitialLoadEnd && !forceLocalSprite)
             {
-                Sprite[] sprites = ResourceManager.SearchSprites(type, name, nameSpace);
+                Sprite[] sprites = ResourceManager.SearchSprites(type, name, nameSpace, tag);
                 if (sprites != null && sprites.Length > 0)
                     return sprites[index.Clamp(0, sprites.Length - 1)];
 
@@ -100,9 +125,18 @@ namespace SCKRM.Renderer
             }
             else
             {
-                Sprite[] sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace);
-                if (sprites != null && sprites.Length > 0)
-                    return sprites[index.Clamp(0, sprites.Length - 1)];
+                Dictionary<string, Sprite[]> sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace);
+                if (sprites == null)
+                    return null;
+
+                Sprite[] sprites2 = null;
+                if (sprites.ContainsKey(tag))
+                    sprites2 = sprites[tag];
+                else if (sprites.ContainsKey(ResourceManager.spriteDefaultTag))
+                    sprites2 = sprites[ResourceManager.spriteDefaultTag];
+
+                if (sprites2 != null && sprites2.Length > 0)
+                    return sprites2[index.Clamp(0, sprites2.Length - 1)];
                 else
                     return null;
             }

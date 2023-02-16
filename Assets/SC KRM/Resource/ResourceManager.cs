@@ -72,6 +72,8 @@ namespace SCKRM.Resource
         public const string languagePath = "assets/%NameSpace%/lang";
         public const string settingsPath = "projectSettings";
 
+        public const string spriteDefaultTag = "global";
+
         static List<string> _nameSpaces = new List<string>();
 #if UNITY_EDITOR
         static SaveLoadClass resourceProjectSetting;
@@ -121,7 +123,7 @@ namespace SCKRM.Resource
         /// <summary>
         /// Sprite = allTextureSprites[nameSpace][type][fileName];
         /// </summary>
-        static Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>> allTextureSprites { get; } = new Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>();
+        static Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>> allTextureSprites { get; } = new Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>>();
 
 
 
@@ -553,8 +555,9 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
             foreach (var item in allTextureSprites)
                 foreach (var item2 in item.Value)
                     foreach (var item3 in item2.Value)
-                        for (int i = 0; i < item3.Value.Length; i++)
-                            garbages.Add(item3.Value[i]);
+                        foreach (var item4 in item3.Value)
+                            for (int i = 0; i < item4.Value.Length; i++)
+                                garbages.Add(item4.Value[i]);
 
             allTextureSprites.Clear();
 
@@ -575,26 +578,33 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                         Rect rect = fileName.Value;
                         rect = new Rect(rect.x * background.width, rect.y * background.height, rect.width * background.width, rect.height * background.height);
 
-                        SpriteMetaData[] spriteMetaDatas = JsonManager.JsonRead<SpriteMetaData[]>(SearchTexturePath(type.Key, fileName.Key, nameSpace.Key) + ".json", true);
+                        Dictionary<string, SpriteMetaData[]> spriteMetaDatas = JsonManager.JsonRead<Dictionary<string, SpriteMetaData[]>>(SearchTexturePath(type.Key, fileName.Key, nameSpace.Key) + ".json", true);
                         if (spriteMetaDatas == null)
-                            spriteMetaDatas = new SpriteMetaData[1];
+                            spriteMetaDatas = new Dictionary<string, SpriteMetaData[]>();
+                        if (!spriteMetaDatas.ContainsKey(spriteDefaultTag))
+                            spriteMetaDatas.Add(spriteDefaultTag, new SpriteMetaData[] { new SpriteMetaData() });
 
-                        for (int i = 0; i < spriteMetaDatas.Length; i++)
+                        foreach (var item in spriteMetaDatas)
                         {
-                            SpriteMetaData spriteMetaData = spriteMetaDatas[i];
-                            if (spriteMetaData == null)
+                            SpriteMetaData[] spriteMetaDatas2 = item.Value;
+                            for (int i = 0; i < spriteMetaDatas2.Length; i++)
                             {
-                                spriteMetaData = new SpriteMetaData();
-                                spriteMetaData.RectMinMax(rect.width, rect.height);
-                                spriteMetaDatas[i] = spriteMetaData;
+                                SpriteMetaData spriteMetaData = spriteMetaDatas2[i];
+                                if (spriteMetaData == null)
+                                {
+                                    spriteMetaData = new SpriteMetaData();
+                                    spriteMetaData.RectMinMax(rect.width, rect.height);
+                                    spriteMetaDatas[item.Key][i] = spriteMetaData;
+                                }
+
+                                spriteMetaData.rect = new JRect(rect.x + spriteMetaData.rect.x, rect.y + spriteMetaData.rect.y, rect.width - (rect.width - spriteMetaData.rect.width), rect.height - (rect.height - spriteMetaData.rect.height));
                             }
-
-                            spriteMetaDatas[i].rect = new JRect(rect.x + spriteMetaData.rect.x, rect.y + spriteMetaData.rect.y, rect.width - (rect.width - spriteMetaData.rect.width), rect.height - (rect.height - spriteMetaData.rect.height));
                         }
-                        Sprite[] sprites = GetSprites(background, HideFlags.DontSave, spriteMetaDatas);
 
-                        allTextureSprites.TryAdd(nameSpace.Key, new Dictionary<string, Dictionary<string, Sprite[]>>());
-                        allTextureSprites[nameSpace.Key].TryAdd(type.Key, new Dictionary<string, Sprite[]>());
+                        Dictionary<string, Sprite[]> sprites = GetSprites(background, HideFlags.DontSave, spriteMetaDatas);
+
+                        allTextureSprites.TryAdd(nameSpace.Key, new Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>());
+                        allTextureSprites[nameSpace.Key].TryAdd(type.Key, new Dictionary<string, Dictionary<string, Sprite[]>>());
                         allTextureSprites[nameSpace.Key][type.Key].TryAdd(fileName.Key, sprites);
 
                         if (await UniTask.DelayFrame(1, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
@@ -1011,7 +1021,7 @@ Returns a Rect of the merged texture."
         /// <exception cref="NotInitialLoadEndMethodException"></exception>
         /// <exception cref="NotPlayModeMethodException"></exception>
         [WikiDescription("스프라이트 리스트에서 스프라이트를 찾고 반환합니다")]
-        public static Sprite[] SearchSprites(string type, string name, string nameSpace = "")
+        public static Sprite[] SearchSprites(string type, string name, string nameSpace = "", string tag = spriteDefaultTag)
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeSearchMethodException();
@@ -1033,7 +1043,12 @@ Returns a Rect of the merged texture."
                 if (allTextureSprites[nameSpace].ContainsKey(type))
                 {
                     if (allTextureSprites[nameSpace][type].ContainsKey(name))
-                        return allTextureSprites[nameSpace][type][name];
+                    {
+                        if (allTextureSprites[nameSpace][type][name].ContainsKey(tag))
+                            return allTextureSprites[nameSpace][type][name][tag];
+                        else if (allTextureSprites[nameSpace][type][name].ContainsKey(spriteDefaultTag))
+                            return allTextureSprites[nameSpace][type][name][spriteDefaultTag];
+                    }
                 }
             }
             return null;
@@ -1506,7 +1521,7 @@ Convert texture to sprite (Since the Unity API is used, we need to run it on the
 @"이미지 파일을 스프라이트로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다.)
 Import image files as sprites (Since the Unity API is used, we need to run it on the main thread)"
 )]
-        public static Sprite[] GetSprites(string resourcePackPath, string type, string name, string nameSpace = "", TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
+        public static Dictionary<string, Sprite[]> GetSprites(string resourcePackPath, string type, string name, string nameSpace = "", TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1532,7 +1547,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
 
             Texture2D texture = GetTexture(allPath, false, textureMetaData, textureFormat);
             FileExtensionExists(allPath, out string allPath2, textureExtension);
-            SpriteMetaData[] spriteMetaDatas = JsonManager.JsonRead<SpriteMetaData[]>(allPath2 + ".json", true);
+            Dictionary<string, SpriteMetaData[]> spriteMetaDatas = JsonManager.JsonRead<Dictionary<string, SpriteMetaData[]>>(allPath2 + ".json", true);
             return GetSprites(texture, hideFlags, spriteMetaDatas);
         }
 
@@ -1551,7 +1566,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
         [WikiIgnore]
-        public static Sprite[] GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
+        public static Dictionary<string, Sprite[]> GetSprites(string path, bool pathExtensionUse = false, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1560,7 +1575,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
                 path = "";
 
             Texture2D texture = GetTexture(path, pathExtensionUse, textureFormat);
-            SpriteMetaData[] spriteMetaDatas = JsonManager.JsonRead<SpriteMetaData[]>(path + ".json", true);
+            Dictionary<string, SpriteMetaData[]> spriteMetaDatas = JsonManager.JsonRead<Dictionary<string, SpriteMetaData[]>>(path + ".json", true);
             return GetSprites(texture, hideFlags, spriteMetaDatas);
         }
 
@@ -1578,7 +1593,7 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
         /// <returns></returns>
         /// <exception cref="NotMainThreadMethodException"></exception>
         [WikiIgnore]
-        public static Sprite[] GetSprites(Texture2D texture, HideFlags hideFlags, params SpriteMetaData[] spriteMetaDatas)
+        public static Dictionary<string, Sprite[]> GetSprites(Texture2D texture, HideFlags hideFlags, Dictionary<string, SpriteMetaData[]> spriteMetaDatas)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1586,25 +1601,31 @@ Import image files as sprites (Since the Unity API is used, we need to run it on
             if (texture == null)
                 return null;
             if (spriteMetaDatas == null)
-                spriteMetaDatas = new SpriteMetaData[] { new SpriteMetaData() };
+                spriteMetaDatas = new Dictionary<string, SpriteMetaData[]>();
+            if (!spriteMetaDatas.ContainsKey(spriteDefaultTag))
+                spriteMetaDatas.Add(spriteDefaultTag, new SpriteMetaData[] { new SpriteMetaData() });
 
-            Sprite[] sprites = new Sprite[spriteMetaDatas.Length];
-            for (int i = 0; i < spriteMetaDatas.Length; i++)
+            Dictionary<string, Sprite[]> sprites = new Dictionary<string, Sprite[]>();
+            foreach (var item in spriteMetaDatas)
             {
-                SpriteMetaData spriteMetaData = spriteMetaDatas[i];
-                if (spriteMetaData == null)
-                    spriteMetaData = new SpriteMetaData();
+                SpriteMetaData[] spriteMetaDatas2 = item.Value;
+                sprites.Add(item.Key, new Sprite[spriteMetaDatas2.Length]);
 
-                spriteMetaData.RectMinMax(texture.width, texture.height);
-                spriteMetaData.PixelsPreUnitMinSet();
+                for (int i = 0; i < spriteMetaDatas2.Length; i++)
+                {
+                    SpriteMetaData spriteMetaData = spriteMetaDatas2[i];
+                    spriteMetaData ??= new SpriteMetaData();
 
-                Sprite sprite = Sprite.Create(texture, spriteMetaData.rect, spriteMetaData.pivot, spriteMetaData.pixelsPerUnit, 0, SpriteMeshType.FullRect, spriteMetaData.border);
-                sprite.name = texture.name;
-                sprite.hideFlags = hideFlags;
+                    spriteMetaData.RectMinMax(texture.width, texture.height);
+                    spriteMetaData.PixelsPreUnitMinSet();
 
-                allLoadedResources.Add(sprite);
+                    Sprite sprite = Sprite.Create(texture, spriteMetaData.rect, spriteMetaData.pivot, spriteMetaData.pixelsPerUnit, 0, SpriteMeshType.FullRect, spriteMetaData.border);
+                    sprite.name = texture.name;
+                    sprite.hideFlags = hideFlags;
 
-                sprites[i] = sprite;
+                    allLoadedResources.Add(sprite);
+                    sprites[item.Key][i] = sprite;
+                }
             }
             return sprites;
         }
@@ -1846,6 +1867,9 @@ Get the list of loaded sprite type (manually find in the default resource pack i
             else
             {
                 string resourcePackTexturePath = PathUtility.Combine(Kernel.streamingAssetsPath, texturePath.Replace("%NameSpace%", nameSpace));
+                if (!Directory.Exists(resourcePackTexturePath))
+                    return null;
+
                 string[] paths = Directory.GetDirectories(resourcePackTexturePath, "*", SearchOption.AllDirectories);
                 for (int i = 0; i < paths.Length; i++)
                 {
@@ -2375,10 +2399,10 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
 
     public class SpriteMetaData
     {
-        [JsonProperty("Rect")] public JRect rect = new JRect(float.MinValue);
-        [JsonProperty("Pivot")] public JVector2 pivot = new JVector2(0.5f);
-        [JsonProperty("Pixels Per Unit")] public float pixelsPerUnit = 100;
-        [JsonProperty("Border")] public JVector4 border = JVector4.zero;
+        public JRect rect = new JRect(float.MinValue);
+        public JVector2 pivot = new JVector2(0.5f);
+        public float pixelsPerUnit = 100;
+        public JVector4 border = JVector4.zero;
 
         public void RectMinMax(float width, float height)
         {

@@ -1,4 +1,5 @@
 using K4.Threading;
+using SCKRM.Resource;
 using SCKRM.Threads;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,10 +31,10 @@ namespace SCKRM.Renderer
             base.Refresh();
 
             SpriteState spriteState = new SpriteState();
-            spriteState.highlightedSprite = GetSprite(highlightedSprite.type, highlightedSprite.name, highlightedSprite.index, highlightedSprite.nameSpace);
-            spriteState.pressedSprite = GetSprite(pressedSprite.type, pressedSprite.name, pressedSprite.index, pressedSprite.nameSpace);
-            spriteState.selectedSprite = GetSprite(selectedSprite.type, selectedSprite.name, selectedSprite.index, selectedSprite.nameSpace);
-            spriteState.disabledSprite = GetSprite(disabledSprite.type, disabledSprite.name, disabledSprite.index, disabledSprite.nameSpace);
+            spriteState.highlightedSprite = GetSprite(highlightedSprite.type, highlightedSprite.name, highlightedSprite.index, highlightedSprite.nameSpace, highlightedSprite.tag);
+            spriteState.pressedSprite = GetSprite(pressedSprite.type, pressedSprite.name, pressedSprite.index, pressedSprite.nameSpace, pressedSprite.tag);
+            spriteState.selectedSprite = GetSprite(selectedSprite.type, selectedSprite.name, selectedSprite.index, selectedSprite.nameSpace, selectedSprite.tag);
+            spriteState.disabledSprite = GetSprite(disabledSprite.type, disabledSprite.name, disabledSprite.index, disabledSprite.nameSpace, disabledSprite.tag);
 
             if (ThreadManager.isMainThread)
                 selectable.spriteState = spriteState;
@@ -55,6 +56,9 @@ namespace SCKRM.Renderer
 
             [SerializeField, Min(0)] int _index = 0;
             public int index { get => _index; set => _index = value; }
+
+            [SerializeField] string _tag = ResourceManager.spriteDefaultTag;
+            public string tag { get => _tag; set => _tag = value; }
         }
     }
 }

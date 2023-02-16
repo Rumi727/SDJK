@@ -5,13 +5,11 @@ using SCKRM.SaveLoad;
 using SCKRM.Resource;
 using SCKRM.Json;
 using System.IO;
-using UnityEngine.UIElements;
 using SCKRM.Renderer;
 using UnityEditor.UI;
 using System.Reflection;
 using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using SpriteMetaData = SCKRM.Resource.SpriteMetaData;
 
 namespace SCKRM.Editor
 {
@@ -31,17 +29,6 @@ namespace SCKRM.Editor
 
         public override void OnGUI(string searchContext)
         {
-            DrawGUI(ref nameSpace, ref type, ref name, ref index);
-            DrawSprite(nameSpace, type, name, index, ref previewSize);
-        }
-
-        public static SaveLoadClass controlProjectSetting;
-        string nameSpace = "";
-        string type = "";
-        string name = "";
-        int index = 0;
-        public static void DrawGUI(ref string nameSpace, ref string type, ref string name, ref int index)
-        {
             nameSpace = CustomInspectorEditor.DrawNameSpace("네임스페이스", nameSpace);
 
             if (nameSpace == null || nameSpace == "")
@@ -59,10 +46,24 @@ namespace SCKRM.Editor
 
             name = CustomInspectorEditor.DrawStringArray("이름", name, spriteKeys);
 
+            tag = EditorGUILayout.TextField("태그", tag);
+
             EditorGUILayout.Space();
 
             index = EditorGUILayout.IntField("스프라이트 인덱스", index).Clamp(0);
 
+            DrawGUI(nameSpace, type, name, tag, index);
+            DrawSprite(nameSpace, type, name, tag, index, ref previewSize);
+        }
+
+        public static SaveLoadClass controlProjectSetting;
+        string nameSpace = "";
+        string type = "";
+        string name = "";
+        string tag = ResourceManager.spriteDefaultTag;
+        int index = 0;
+        public static void DrawGUI(string nameSpace, string type, string name, string tag, int index)
+        {
             string typePath = PathUtility.Combine(ResourceManager.texturePath.Replace("%NameSpace%", nameSpace), type);
             string filePath = PathUtility.Combine(typePath, name);
             string typeAllPath = PathUtility.Combine(Kernel.streamingAssetsPath, typePath);
@@ -76,6 +77,12 @@ namespace SCKRM.Editor
 
                 CustomInspectorEditor.DrawLine();
 
+                if (Kernel.isPlaying)
+                {
+                    EditorGUILayout.HelpBox($"이 밑부터는 플레이 모드가 켜져 있어도 변경 사항이 저장됩니다", MessageType.Warning);
+                    EditorGUILayout.Space();
+                }
+
                 textureMetaData.filterMode = (FilterMode)EditorGUILayout.EnumPopup("필터 모드", textureMetaData.filterMode);
                 textureMetaData.mipmapUse = EditorGUILayout.Toggle("밉맵 사용", textureMetaData.mipmapUse);
                 textureMetaData.compressionType = (TextureMetaData.CompressionType)EditorGUILayout.EnumPopup("압축 타입", textureMetaData.compressionType);
@@ -85,13 +92,23 @@ namespace SCKRM.Editor
                 {
                     CustomInspectorEditor.DrawLine();
 
-                    List<Resource.SpriteMetaData> spriteMetaDatas = JsonManager.JsonRead<List<Resource.SpriteMetaData>>(fileAllPath + ".json", true);
-                    if (spriteMetaDatas == null)
-                        spriteMetaDatas = new List<Resource.SpriteMetaData>();
+                    Dictionary<string, List<SpriteMetaData>> spriteMetaDataLists = JsonManager.JsonRead<Dictionary<string, List<SpriteMetaData>>>(fileAllPath + ".json", true);
+                    List<SpriteMetaData> spriteMetaDatas;
+
+                    if (spriteMetaDataLists == null)
+                        spriteMetaDataLists = new Dictionary<string, List<SpriteMetaData>>();
+
+                    if (!spriteMetaDataLists.ContainsKey(ResourceManager.spriteDefaultTag))
+                        spriteMetaDataLists.Add(ResourceManager.spriteDefaultTag, new List<SpriteMetaData>());
+
+                    if (spriteMetaDataLists.ContainsKey(tag))
+                        spriteMetaDatas = spriteMetaDataLists[tag];
+                    else
+                        spriteMetaDatas = spriteMetaDataLists[ResourceManager.spriteDefaultTag];
 
                     if (index < spriteMetaDatas.Count)
                     {
-                        Resource.SpriteMetaData spriteMetaData = spriteMetaDatas[index];
+                        SpriteMetaData spriteMetaData = spriteMetaDatas[index];
 
                         spriteMetaData.RectMinMax(texture.width, texture.height);
                         spriteMetaData.PixelsPreUnitMinSet();
@@ -113,18 +130,36 @@ namespace SCKRM.Editor
                     }
                     else if (GUILayout.Button("스프라이트 만들기"))
                     {
-                        Resource.SpriteMetaData spriteMetaData = new Resource.SpriteMetaData();
+                        SpriteMetaData spriteMetaData = new SpriteMetaData();
                         spriteMetaData.RectMinMax(texture.width, texture.height);
                         spriteMetaData.PixelsPreUnitMinSet();
                         spriteMetaDatas.Add(spriteMetaData);
                     }
 
-                    GUI.enabled = true;
+                    if (!spriteMetaDataLists.ContainsKey(tag))
+                    {
+                        if (GUILayout.Button("태그 만들기"))
+                            spriteMetaDataLists.Add(tag, new List<SpriteMetaData>());
+
+                        EditorGUILayout.Space();
+                        EditorGUILayout.HelpBox($"스프라이트 메타 데이터에 '{tag}' 태그가 없기 때문에 기본 태그를 불러왔습니다", MessageType.None);
+                    }
+                    else
+                    {
+                        bool lastEnabled = GUI.enabled;
+                        if (tag == ResourceManager.spriteDefaultTag)
+                            GUI.enabled = false;
+
+                        if (GUILayout.Button("태그 지우기"))
+                            spriteMetaDataLists.Remove(tag);
+
+                        GUI.enabled = lastEnabled;
+                    }
 
                     if (GUI.changed)
                     {
                         File.WriteAllText(typeAllPath + ".json", JsonManager.ObjectToJson(textureMetaData));
-                        File.WriteAllText(fileAllPath + ".json", JsonManager.ObjectToJson(spriteMetaDatas));
+                        File.WriteAllText(fileAllPath + ".json", JsonManager.ObjectToJson(spriteMetaDataLists));
 
                         AssetDatabase.Refresh();
                     }
@@ -137,13 +172,17 @@ namespace SCKRM.Editor
 
                 UnityEngine.Object.DestroyImmediate(texture);
             }
+
+            CustomInspectorEditor.DrawLine();
+
+            EditorGUILayout.LabelField("경로 - " + filePath);
         }
 
         static Assembly assembly = typeof(ImageEditor).Assembly;
         static Type spriteDrawUtility;
         static MethodInfo drawSpriteMethod;
         float previewSize = 200;
-        public static void DrawSprite(string nameSpace, string type, string name, int index, ref float previewSize)
+        public static void DrawSprite(string nameSpace, string type, string name, string tag, int index, ref float previewSize)
         {
             if (spriteDrawUtility == null)
             {
@@ -183,7 +222,7 @@ namespace SCKRM.Editor
                 return;
             }
 
-            Sprite sprite = CustomSpriteRendererBase.GetSprite(type, name, index, nameSpace);
+            Sprite sprite = CustomSpriteRendererBase.GetSprite(type, name, index, nameSpace, tag, true);
             if (sprite == null)
                 return;
 

@@ -21,7 +21,7 @@ namespace SCKRM.Renderer
 
         public override void Refresh()
         {
-            Sprite sprite = GetSprite(type, path, index, nameSpace);
+            Sprite sprite = GetSprite(type, path, index, nameSpace, spriteTag);
             if (ThreadManager.isMainThread)
             {
                 spriteRenderer.sprite = sprite;
