@@ -42,6 +42,8 @@ namespace SDJK.Ruleset.SDJK
         public bool isEditor { get; private set; }
         public IMode[] modes { get; private set; }
 
+        public bool isPaused => pauseScreen.isShow;
+
         bool isClear = false;
         void Update()
         {
@@ -189,6 +191,8 @@ namespace SDJK.Ruleset.SDJK
         public void Pause()
         {
             if (gameOverManager.isGameOver)
+                return;
+            else if (isPaused)
                 return;
 
             pauseScreen.Show();
