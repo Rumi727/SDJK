@@ -100,6 +100,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: hold_note
   _type: ruleset/sdjk/play_field
+  _spriteTag: global
   _index: 0
   _size: {x: 2.5, y: 1}
   _drawMode: 1
@@ -206,6 +207,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: note
   _type: ruleset/sdjk/play_field
+  _spriteTag: global
   _index: 0
   _size: {x: 2.5, y: 1}
   _drawMode: 1
@@ -222,6 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holdNote: {fileID: 7345809823669653971}
+  _customSpriteRendererBase: {fileID: 3538876862012429750}
+  _customSpriteRendererBaseHoldNote: {fileID: 1460261147896851716}
 --- !u!114 &5046559768761843685
 MonoBehaviour:
   m_ObjectHideFlags: 0

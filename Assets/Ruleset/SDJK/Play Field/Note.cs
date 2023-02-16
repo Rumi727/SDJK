@@ -5,6 +5,7 @@ using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Judgement;
 using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
+using SCKRM.Renderer;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -27,7 +28,10 @@ namespace SDJK.Ruleset.SDJK
         public EffectManager effectManager => SDJKManager.instance.effectManager;
         public PlayField playField => bar.playField;
 
-        [SerializeField] Transform _holdNote; public Transform holdNote => _holdNote;
+        [SerializeField, NotNull] Transform _holdNote; public Transform holdNote => _holdNote;
+
+        [SerializeField, NotNull] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
+        [SerializeField, NotNull] CustomSpriteRendererBase _customSpriteRendererBaseHoldNote; public CustomSpriteRendererBase holdNoteCustomSpriteRendererBase => _customSpriteRendererBaseHoldNote;
 
         public double GetNoteDis()
         {

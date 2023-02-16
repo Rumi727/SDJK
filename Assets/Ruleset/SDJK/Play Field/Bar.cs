@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Object;
+using SCKRM.Renderer;
 using SCKRM.Rhythm;
 using SDJK.Effect;
 using SDJK.Map.Ruleset.SDJK.Map;
@@ -20,9 +21,13 @@ namespace SDJK.Ruleset.SDJK
         public const float barBottomKeyHeight = 2.5f;
         public const float barBottomKeyHeightHalf = 1.25f;
 
-        [SerializeField] Transform _notes; public Transform notes => _notes;
-        [SerializeField] TMP_Text _keyText; public TMP_Text keyText => _keyText;
-        [SerializeField] Transform _spriteMask; public Transform spriteMask => _spriteMask;
+        [SerializeField, NotNull] Transform _notes; public Transform notes => _notes;
+        [SerializeField, NotNull] TMP_Text _keyText; public TMP_Text keyText => _keyText;
+        [SerializeField, NotNull] Transform _spriteMask; public Transform spriteMask => _spriteMask;
+
+        [SerializeField, NotNull] CustomSpriteRendererBase _backgroundCustomSpriteRendererBase; public CustomSpriteRendererBase backgroundCustomSpriteRendererBase => _backgroundCustomSpriteRendererBase;
+        [SerializeField, NotNull] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
+        [SerializeField, NotNull] CustomSpriteRendererBase _keyCustomSpriteRendererBase; public CustomSpriteRendererBase keyCustomSpriteRendererBase => _keyCustomSpriteRendererBase;
 
         public PlayField playField { get; private set; }
 
@@ -92,13 +97,25 @@ namespace SDJK.Ruleset.SDJK
 
             barEffectFile = playField.fieldEffectFile.barEffect[barIndex];
 
-            const string inputKeyOr = "ruleset.sdjk.{0}.{1}";
-            string inputKey = inputKeyOr.Replace("{0}", map.notes.Count.ToString()).Replace("{1}", barIndex.ToString());
+            string tag = map.notes.Count + "." + barIndex;
+            string inputKey = "ruleset.sdjk." + tag;
 
             if (InputManager.controlSettingList.TryGetValue(inputKey, out List<KeyCode> value) && value.Count > 0)
                 keyText.text = value[0].KeyCodeToString();
 
             NoteRefresh();
+
+            backgroundCustomSpriteRendererBase.spriteTag = tag;
+            customSpriteRendererBase.spriteTag = tag;
+            keyCustomSpriteRendererBase.spriteTag = tag;
+
+            for (int i = 0; i < createdNotes.Count; i++)
+            {
+                Note note = createdNotes[i];
+
+                note.customSpriteRendererBase.spriteTag = tag;
+                note.holdNoteCustomSpriteRendererBase.spriteTag = tag;
+            }
         }
 
         void NoteAllRemove()

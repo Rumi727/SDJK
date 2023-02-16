@@ -296,6 +296,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: bar
   _type: ruleset/sdjk/play_field
+  _spriteTag: global
   _index: 0
   _size: {x: 2.5, y: 0}
   _drawMode: 1
@@ -314,6 +315,9 @@ MonoBehaviour:
   _notes: {fileID: 2841449137490851935}
   _keyText: {fileID: 2214126686501816910}
   _spriteMask: {fileID: 6255959249335233482}
+  _backgroundCustomSpriteRendererBase: {fileID: 4260192410187221865}
+  _customSpriteRendererBase: {fileID: 2214126686961155397}
+  _keyCustomSpriteRendererBase: {fileID: 2214126687765201576}
 --- !u!114 &8144850358887932616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +471,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: bar
   _type: ruleset/sdjk/play_field
+  _spriteTag: global
   _index: 0
   _size: {x: 2.5, y: 2.5}
   _drawMode: 1
@@ -697,6 +702,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: bar_background
   _type: ruleset/sdjk/play_field
+  _spriteTag: global
   _index: 0
   _size: {x: 2.5, y: 0}
   _drawMode: 1
