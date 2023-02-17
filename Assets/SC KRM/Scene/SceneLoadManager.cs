@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using SCKRM.Loading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace SCKRM.Scene
 {
@@ -10,7 +9,7 @@ namespace SCKRM.Scene
         public static bool isDone { get; private set; } = true;
         public static bool isLoading { get; private set; } = false;
 
-        public static async UniTask LoadScene(string sceneName) => await loadScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName).buildIndex);
+        public static async UniTask LoadScene(string scenePath) => await loadScene(UnityEngine.SceneManagement.SceneManager.GetSceneByPath(scenePath).buildIndex);
         public static async UniTask LoadScene(int sceneBuildIndex) => await loadScene(sceneBuildIndex);
 
         static async UniTask loadScene(int sceneBuildIndex)
