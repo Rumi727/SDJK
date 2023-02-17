@@ -353,6 +353,9 @@ Build: const true"
         }
         static RectTransform _emptyRectTransform;
 
+
+
+        [WikiDescription("기본 메테리얼")]
         public static Material defaultMaterial
         {
             get
@@ -364,6 +367,22 @@ Build: const true"
             }
         }
         static Material _defaultMaterial;
+
+        [WikiDescription("단색 메테리얼")]
+        public static Material coloredMaterial
+        {
+            get
+            {
+                if (_coloredMaterial == null)
+                {
+                    Shader shader = Shader.Find("Hidden/Internal-Colored");
+                    _coloredMaterial = new Material(shader);
+                }
+
+                return _coloredMaterial;
+            }
+        }
+        static Material _coloredMaterial;
 
 
 
