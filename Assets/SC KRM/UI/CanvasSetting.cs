@@ -79,16 +79,7 @@ namespace SCKRM.UI
         {
             if (safeScreen == null)
             {
-                if (Kernel.isPlaying)
-                {
-                    if (Kernel.emptyRectTransform == null)
-                        return;
-
-                    _safeScreen = Instantiate(Kernel.emptyRectTransform, transform.parent);
-                }
-                else
-                    _safeScreen = new GameObject().AddComponent<RectTransform>();
-
+                _safeScreen = Instantiate(Kernel.emptyRectTransform, transform.parent);
                 safeScreen.name = "Safe Screen";
             }
 

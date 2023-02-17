@@ -329,8 +329,8 @@ Build: const true"
         {
             get
             {
-                if (!isPlaying)
-                    throw new NotPlayModePropertyException(nameof(emptyTransform));
+                if (_emptyTransform == null)
+                    _emptyTransform = Resources.Load<RectTransform>("Empty Transform");
 
                 return _emptyTransform;
             }
@@ -345,13 +345,25 @@ Build: const true"
         {
             get
             {
-                if (!isPlaying)
-                    throw new NotPlayModePropertyException(nameof(emptyTransform));
+                if (_emptyRectTransform == null)
+                    _emptyRectTransform = Resources.Load<RectTransform>("Empty Rect Transform");
 
                 return _emptyRectTransform;
             }
         }
         static RectTransform _emptyRectTransform;
+
+        public static Material defaultMaterial
+        {
+            get
+            {
+                if (_defaultMaterial == null)
+                    _defaultMaterial = Resources.Load<Material>("Default Material");
+
+                return _defaultMaterial;
+            }
+        }
+        static Material _defaultMaterial;
 
 
 
@@ -369,21 +381,10 @@ Build: const true"
             {
                 DontDestroyOnLoad(instance);
 
-                Transform emptyTransform = new GameObject().transform;
-                emptyTransform.SetParent(transform);
-                emptyTransform.name = "Empty Transform";
-
-                _emptyTransform = emptyTransform;
-
-                RectTransform emptyRectTransform = new GameObject().AddComponent<RectTransform>();
-                emptyRectTransform.SetParent(transform);
-                emptyRectTransform.name = "Empty Rect Transform";
-
-                _emptyRectTransform = emptyRectTransform;
-            }
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.pauseStateChanged += PauseStateChanged;
+                UnityEditor.EditorApplication.pauseStateChanged += PauseStateChanged;
 #endif
+            }
         }
 
 #if UNITY_EDITOR
