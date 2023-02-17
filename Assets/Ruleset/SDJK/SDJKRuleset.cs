@@ -60,7 +60,7 @@ namespace SDJK.Ruleset.SDJK
 
             base.GameStart(mapFilePath, replayFilePath, isEditor, modes);
 
-            await SceneManager.LoadScene(3);
+            await SceneManager.LoadScene("Ruleset/SDJK/SDJK");
             await UniTask.NextFrame();
 
             SDJKReplayFile replay = null;
