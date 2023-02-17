@@ -39,6 +39,9 @@
 	"options.main_menu.logoEffectEnable": "Enable Logo Effect",
 	"options.main_menu.logoEffectEnable.info": "Apply some effects to your logo",
 	
+	"notice.main_menu.no_map": "No map!",
+	"notice.main_menu.no_map.info": "None of the maps are in the selected ruleset",
+	
 	"notice.running_task.map_list_refresh.name":"Refreshing map list...",
 	"notice.running_task.replay_list_refresh.name":"Refreshing replay list...",
 	"notice.running_task.replay_list_refresh_sort.name":"Sorting replay list...",

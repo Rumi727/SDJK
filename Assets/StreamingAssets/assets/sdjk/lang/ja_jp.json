@@ -39,6 +39,9 @@
 	"options.main_menu.logoEffectEnable": "ロゴエフェクトを有効にする",
 	"options.main_menu.logoEffectEnable.info": "ロゴにいくつかのエフェクトを適用します",
 	
+	"notice.main_menu.no_map": "マップがありません！",
+	"notice.main_menu.no_map.info": "選択したルールセットにマップが1つもありません",
+	
 	"notice.running_task.map_list_refresh.name":"マップリストを更新中...",
 	"notice.running_task.replay_list_refresh.name":"リプレイリストを更新中...",
 	"notice.running_task.replay_list_refresh_sort.name":"リプレイリストを並べ替える...",

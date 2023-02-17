@@ -263,7 +263,10 @@ namespace SDJK.MainMenu
             if (currentScreenMode == ScreenMode.mapPackSelect || currentScreenMode == ScreenMode.mapSelect)
             {
                 if (MapManager.currentRulesetMapCount <= 0)
+                {
+                    NoticeManager.Notice("sdjk:notice.main_menu.no_map", "sdjk:notice.main_menu.no_map.info", NoticeManager.Type.warning);
                     NormalScreen();
+                }
                 else if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                 {
                     MapManager.RulesetNextMap();

@@ -39,6 +39,9 @@
 	"options.main_menu.logoEffectEnable": "로고 이펙트 활성화",
 	"options.main_menu.logoEffectEnable.info": "로고에 몇몇 이펙트를 적용합니다",
 	
+	"notice.main_menu.no_map": "맵이 없습니다!",
+	"notice.main_menu.no_map.info": "선택한 규칙 집합에 맵이 한개도 없습니다",
+	
 	"notice.running_task.map_list_refresh.name":"맵 리스트를 새로고치는 중...",
 	"notice.running_task.replay_list_refresh.name":"리플레이 리스트를 새로고치는 중...",
 	"notice.running_task.replay_list_refresh_sort.name":"리플레이 리스트를 정렬하는 중...",
