@@ -6,7 +6,7 @@ using SDJK.Mode.Difficulty;
 using SDJK.Ruleset.PauseScreen;
 using UnityEngine;
 
-namespace SDJK.Ruleset.SDJK.Effect
+namespace SDJK.Ruleset.SDJK.GameOver
 {
     public sealed class SDJKGameOverManager : ManagerBase<SDJKGameOverManager>
     {

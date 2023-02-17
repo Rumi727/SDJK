@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SDJK.Replay
+namespace SDJK.Replay.Ruleset.SDJK
 {
     public sealed class SDJKReplayFile : ReplayFile
     {

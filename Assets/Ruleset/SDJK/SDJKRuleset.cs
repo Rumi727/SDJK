@@ -10,6 +10,7 @@ using SDJK.Replay;
 using SDJK.Mode;
 using System.Collections.Generic;
 using SDJK.Mode.Automatic;
+using SDJK.Replay.Ruleset.SDJK;
 
 namespace SDJK.Ruleset.SDJK
 {

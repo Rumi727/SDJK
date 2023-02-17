@@ -3,16 +3,16 @@ using SCKRM.Input;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SDJK.Effect;
-using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Ruleset.SDJK.Input;
 using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using SDJK.Replay;
 using System;
 using SDJK.Mode;
 using SDJK.Mode.Difficulty;
+using SDJK.Ruleset.SDJK.GameOver;
+using SDJK.Replay.Ruleset.SDJK;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
