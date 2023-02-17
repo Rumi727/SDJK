@@ -15,8 +15,14 @@ namespace SCKRM.Editor
         public void OnGUI() => render();
         public static void Render(SCKRMWindowTabDefault window) => window.render();
 
-        void render()
+        Vector2 defaultScrollPos = Vector2.zero;
+        void render(int scrollYSize = 0)
         {
+            if (scrollYSize > 0)
+                defaultScrollPos = EditorGUILayout.BeginScrollView(defaultScrollPos, GUILayout.Height(scrollYSize));
+            else
+                defaultScrollPos = EditorGUILayout.BeginScrollView(defaultScrollPos);
+
             if (Kernel.isPlayingAndNotPaused)
             {
                 EditorGUILayout.LabelField("델타 타임 - " + Kernel.deltaTime);
@@ -155,6 +161,8 @@ namespace SCKRM.Editor
 
                 EditorGUILayout.LabelField("시스템 메모리 크기 (MB) - " + SystemInfo.systemMemorySize);
             }
+
+            EditorGUILayout.EndScrollView();
         }
     }
 }
