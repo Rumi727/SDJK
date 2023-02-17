@@ -53,8 +53,8 @@ namespace SDJK.MainMenu
                 StatusBarManager.allowStatusBarShow = false;
         }
 
-        void OnEnable() => UIManager.homeEvent += Esc;
-        void OnDisable() => UIManager.homeEvent -= Esc;
+        void OnEnable() => UIManager.homeEvent += EscScreen;
+        void OnDisable() => UIManager.homeEvent -= EscScreen;
 
         static float screenNormalAniT = 0;
         static Vector2 screenNormalStartPos = Vector2.zero;
@@ -64,53 +64,7 @@ namespace SDJK.MainMenu
         public static float barAlpha = 0;
         void Update()
         {
-            #region 곡 선택
-            if (currentScreenMode == ScreenMode.esc || currentScreenMode == ScreenMode.normal)
-            {
-                if (InputManager.GetKey("map_manager.pause_music"))
-                {
-                    if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && !BGMManager.bgm.soundPlayer.isRemoved)
-                    {
-                        if (!BGMManager.bgm.soundPlayer.isPaused)
-                        {
-                            BGMManager.bgm.soundPlayer.isPaused = true;
-                            SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.pause_music", "map_manager.pause_music");
-                        }
-                        else
-                        {
-                            BGMManager.bgm.soundPlayer.isPaused = false;
-                            SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.play_music", "map_manager.pause_music");
-                        }
-                    }
-                }
-                else if (InputManager.GetKey("map_manager.previous_music"))
-                {
-                    if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && !BGMManager.bgm.soundPlayer.isRemoved && BGMManager.bgm.soundPlayer.time > 10)
-                    {
-                        BGMManager.bgm.soundPlayer.time = 0;
-                        SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.restart_music", "map_manager.previous_music");
-                    }
-                    else
-                    {
-                        if (MapManager.selectedMapPackIndex - 1 < 0)
-                            MapManager.selectedMapPackIndex = MapManager.currentMapPacks.Count - 1;
-                        else
-                            MapManager.selectedMapPackIndex--;
-
-                        SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.previous_music", "map_manager.previous_music");
-                    }
-                }
-                if (InputManager.GetKey("map_manager.next_music"))
-                {
-                    if (MapManager.selectedMapPackIndex + 1 >= MapManager.currentMapPacks.Count)
-                        MapManager.selectedMapPackIndex = 0;
-                    else
-                        MapManager.selectedMapPackIndex++;
-
-                    SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.next_music", "map_manager.next_music");
-                }
-            }
-            #endregion
+            SongSelect();
 
             if (InputManager.GetKey(KeyCode.Space) || InputManager.GetKey(KeyCode.Return))
                 NextScreen();
@@ -199,29 +153,6 @@ namespace SDJK.MainMenu
                 }
             }
 
-            if (currentScreenMode == ScreenMode.mapPackSelect || currentScreenMode == ScreenMode.mapSelect)
-            {
-                if (MapManager.currentRulesetMapCount <= 0)
-                    Normal();
-
-                if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
-                {
-                    MapManager.RulesetNextMap();
-
-                    if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
-                    {
-                        RandomMapPack();
-                        MapPackSelect();
-                    }
-
-                    void RandomMapPack()
-                    {
-                        MapManager.selectedMapPackIndex = UnityEngine.Random.Range(0, MapManager.currentMapPacks.Count);
-                        MapManager.RulesetNextMapPack();
-                    }
-                }
-            }
-
             superBulr.interpolation = mapSelectScreen.alpha;
 
             if (logoVisualizer.activeSelf != SaveData.logoVisualizerShow)
@@ -281,19 +212,90 @@ namespace SDJK.MainMenu
             }
         }
 
+        void SongSelect()
+        {
+            if (currentScreenMode == ScreenMode.esc || currentScreenMode == ScreenMode.normal)
+            {
+                if (InputManager.GetKey("map_manager.pause_music"))
+                {
+                    if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && !BGMManager.bgm.soundPlayer.isRemoved)
+                    {
+                        if (!BGMManager.bgm.soundPlayer.isPaused)
+                        {
+                            BGMManager.bgm.soundPlayer.isPaused = true;
+                            SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.pause_music", "map_manager.pause_music");
+                        }
+                        else
+                        {
+                            BGMManager.bgm.soundPlayer.isPaused = false;
+                            SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.play_music", "map_manager.pause_music");
+                        }
+                    }
+                }
+                else if (InputManager.GetKey("map_manager.previous_music"))
+                {
+                    if (BGMManager.bgm != null && BGMManager.bgm.soundPlayer != null && !BGMManager.bgm.soundPlayer.isRemoved && BGMManager.bgm.soundPlayer.time > 10)
+                    {
+                        BGMManager.bgm.soundPlayer.time = 0;
+                        SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.restart_music", "map_manager.previous_music");
+                    }
+                    else
+                    {
+                        if (MapManager.selectedMapPackIndex - 1 < 0)
+                            MapManager.selectedMapPackIndex = MapManager.currentMapPacks.Count - 1;
+                        else
+                            MapManager.selectedMapPackIndex--;
+
+                        SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.previous_music", "map_manager.previous_music");
+                    }
+                }
+                if (InputManager.GetKey("map_manager.next_music"))
+                {
+                    if (MapManager.selectedMapPackIndex + 1 >= MapManager.currentMapPacks.Count)
+                        MapManager.selectedMapPackIndex = 0;
+                    else
+                        MapManager.selectedMapPackIndex++;
+
+                    SettingInfoManager.Show("sdjk:map_manager.music", "sdjk:map_manager.next_music", "map_manager.next_music");
+                }
+            }
+
+            if (currentScreenMode == ScreenMode.mapPackSelect || currentScreenMode == ScreenMode.mapSelect)
+            {
+                if (MapManager.currentRulesetMapCount <= 0)
+                    NormalScreen();
+                else if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
+                {
+                    MapManager.RulesetNextMap();
+
+                    if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
+                    {
+                        RandomMapPack();
+                        MapPackSelectScreen();
+                    }
+
+                    void RandomMapPack()
+                    {
+                        MapManager.selectedMapPackIndex = UnityEngine.Random.Range(0, MapManager.currentMapPacks.Count);
+                        MapManager.RulesetNextMapPack();
+                    }
+                }
+            }
+        }
+
         public static void NextScreen()
         {
             if (currentScreenMode == ScreenMode.esc)
-                Normal();
+                NormalScreen();
             else if (currentScreenMode == ScreenMode.normal)
-                MapPackSelect();
+                MapPackSelectScreen();
             else if (currentScreenMode == ScreenMode.mapPackSelect)
-                MapSelect();
+                MapSelectScreen();
             else if (currentScreenMode == ScreenMode.mapSelect)
                 RulesetManager.GameStart(MapManager.selectedMap.mapFilePath, null, false, ModeManager.selectedModeList.ToArray());
         }
 
-        public static void Esc()
+        public static void EscScreen()
         {
             currentScreenMode = ScreenMode.esc;
             StatusBarManager.allowStatusBarShow = false;
@@ -302,34 +304,34 @@ namespace SDJK.MainMenu
             screenEscStartPos = instance.logo.anchoredPosition - instance.logoEffect.pos;
         }
 
-        public static void Normal()
+        public static void NormalScreen()
         {
             currentScreenMode = ScreenMode.normal;
             StatusBarManager.allowStatusBarShow = true;
 
             ScreenChange(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-            UIManager.BackEventAdd(Esc);
+            UIManager.BackEventAdd(EscScreen);
 
             screenNormalStartPos = instance.logo.anchoredPosition;
             screenNormalStartSize = instance.logo.rect.size;
         }
 
-        public static void MapPackSelect()
+        public static void MapPackSelectScreen()
         {
             currentScreenMode = ScreenMode.mapPackSelect;
             StatusBarManager.allowStatusBarShow = true;
 
             ScreenChange(Vector2.right, Vector2.right);
-            UIManager.BackEventAdd(Normal);
+            UIManager.BackEventAdd(NormalScreen);
         }
 
-        public static void MapSelect()
+        public static void MapSelectScreen()
         {
             currentScreenMode = ScreenMode.mapSelect;
             StatusBarManager.allowStatusBarShow = true;
 
             ScreenChange(Vector2.right, Vector2.right);
-            UIManager.BackEventAdd(MapPackSelect);
+            UIManager.BackEventAdd(MapPackSelectScreen);
         }
 
         static void ScreenChange(Vector2 anchorMin, Vector2 anchorMax)
@@ -345,10 +347,10 @@ namespace SDJK.MainMenu
 
             instance.logo.localPosition = pos;
 
-            UIManager.BackEventRemove(Esc);
-            UIManager.BackEventRemove(Normal);
-            UIManager.BackEventRemove(MapPackSelect);
-            UIManager.BackEventRemove(MapSelect);
+            UIManager.BackEventRemove(EscScreen);
+            UIManager.BackEventRemove(NormalScreen);
+            UIManager.BackEventRemove(MapPackSelectScreen);
+            UIManager.BackEventRemove(MapSelectScreen);
         }
 
         public static void ApplicationQuit()
@@ -382,7 +384,7 @@ namespace SDJK.MainMenu
 
             await UniTask.WaitUntil(() => instance != null);
 
-            MapSelect();
+            MapSelectScreen();
         }
     }
 

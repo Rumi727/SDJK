@@ -222,44 +222,44 @@ namespace SDJK.MainMenu
         #region 가독성 씹창난 맵 이동 코드
         public static void RulesetBackMap()
         {
-            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            for (int i = 0; i < currentMapPacks.Count; i++)
             {
-                if (MapManager.selectedMapIndex - 1 < 0)
-                    MapManager.selectedMapIndex = MapManager.selectedMapPack.maps.Count - 1;
+                if (selectedMapIndex - 1 < 0)
+                    selectedMapIndex = selectedMapPack.maps.Count - 1;
                 else
-                    MapManager.selectedMapIndex--;
+                    selectedMapIndex--;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
                     break;
             }
         }
 
         public static void RulesetNextMap()
         {
-            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            for (int i = 0; i < currentMapPacks.Count; i++)
             {
-                if (MapManager.selectedMapIndex + 1 >= MapManager.selectedMapPack.maps.Count)
-                    MapManager.selectedMapIndex = 0;
+                if (selectedMapIndex + 1 >= selectedMapPack.maps.Count)
+                    selectedMapIndex = 0;
                 else
-                    MapManager.selectedMapIndex++;
+                    selectedMapIndex++;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
                     break;
             }
         }
 
         public static void RulesetBackMapPack()
         {
-            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            for (int i = 0; i < currentMapPacks.Count; i++)
             {
-                if (MapManager.selectedMapPackIndex - 1 < 0)
-                    MapManager.selectedMapPackIndex = MapManager.currentMapPacks.Count - 1;
+                if (selectedMapPackIndex - 1 < 0)
+                    selectedMapPackIndex = currentMapPacks.Count - 1;
                 else
-                    MapManager.selectedMapPackIndex--;
+                    selectedMapPackIndex--;
 
-                for (int j = 0; j < MapManager.selectedMapPack.maps.Count; j++)
+                for (int j = 0; j < selectedMapPack.maps.Count; j++)
                 {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.ruleset))
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[j].info.ruleset))
                         return;
                 }
             }
@@ -267,16 +267,16 @@ namespace SDJK.MainMenu
 
         public static void RulesetNextMapPack()
         {
-            for (int i = 0; i < MapManager.currentMapPacks.Count; i++)
+            for (int i = 0; i < currentMapPacks.Count; i++)
             {
-                if (MapManager.selectedMapPackIndex + 1 >= MapManager.currentMapPacks.Count)
-                    MapManager.selectedMapPackIndex = 0;
+                if (selectedMapPackIndex + 1 >= currentMapPacks.Count)
+                    selectedMapPackIndex = 0;
                 else
-                    MapManager.selectedMapPackIndex++;
+                    selectedMapPackIndex++;
 
-                for (int j = 0; j < MapManager.selectedMapPack.maps.Count; j++)
+                for (int j = 0; j < selectedMapPack.maps.Count; j++)
                 {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapPack.maps[j].info.ruleset))
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[j].info.ruleset))
                         return;
                 }
             }
