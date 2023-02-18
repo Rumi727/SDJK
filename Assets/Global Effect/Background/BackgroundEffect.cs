@@ -11,7 +11,7 @@ namespace SDJK.Effect
 {
     public sealed class BackgroundEffect : Effect
     {
-        [SerializeField, NotNull] Image image;
+        [SerializeField, NotNull] Image _image; public Image image => _image;
 
         [SerializeField] string _prefab = "background_effect.background"; public string prefab { get => _prefab; set => _prefab = value; }
         public BackgroundEffectPrefab background { get; private set; } = null;
