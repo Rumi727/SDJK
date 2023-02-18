@@ -57,10 +57,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 2.1474836e+9
+  far clip plane: 3.4028235e+38
   field of view: 59.48977
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: 100
   m_CullingMask:
     serializedVersion: 2
@@ -204,11 +204,12 @@ MonoBehaviour:
   _alwaysVisible: 1
   _customSetting: 0
   _customGuiSize: 0
+  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 1
   _safeScreenMultiple: {x: 0.5, y: 1}
-  safeScreen: {fileID: 1978199393529236611}
+  _safeScreen: {fileID: 1978199393529236611}
 --- !u!1 &741557608399283205
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,11 +427,12 @@ MonoBehaviour:
   _alwaysVisible: 1
   _customSetting: 0
   _customGuiSize: 0
+  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 1
   _safeScreenMultiple: {x: 0.5, y: 1}
-  safeScreen: {fileID: 5838857628693568193}
+  _safeScreen: {fileID: 5838857628693568193}
 --- !u!1 &1408405981375181743
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 1408405982577623746}
-  image: {fileID: 1967383904992561625}
+  _image: {fileID: 1967383904992561625}
   _prefab: background_effect.background
 --- !u!1 &1408405981619606512
 GameObject:
@@ -669,10 +671,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 2.1474836e+9
+  far clip plane: 3.4028235e+38
   field of view: 59.48977
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -967,10 +969,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 2.1474836e+9
+  far clip plane: 3.4028235e+38
   field of view: 59.48977
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -100
   m_CullingMask:
     serializedVersion: 2
@@ -1185,11 +1187,12 @@ MonoBehaviour:
   _alwaysVisible: 1
   _customSetting: 0
   _customGuiSize: 0
+  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 1
   _safeScreenMultiple: {x: 0.5, y: 1}
-  safeScreen: {fileID: 8147967673216287751}
+  _safeScreen: {fileID: 8147967673216287751}
 --- !u!1 &3806279430917769488
 GameObject:
   m_ObjectHideFlags: 0
