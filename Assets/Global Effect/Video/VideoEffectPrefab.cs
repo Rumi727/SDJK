@@ -4,13 +4,12 @@ using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
-using SDJK.Effect;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-namespace SDJK
+namespace SDJK.Effect
 {
     [RequireComponent(typeof(VideoPlayer)), RequireComponent(typeof(CanvasGroup))]
     public sealed class VideoEffectPrefab : UIObjectPoolingBase

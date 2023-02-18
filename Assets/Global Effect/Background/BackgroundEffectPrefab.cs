@@ -3,7 +3,6 @@ using SCKRM;
 using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.UI;
-using SDJK.Effect;
 using SDJK.Map;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK
+namespace SDJK.Effect
 {
     [RequireComponent(typeof(Image)), RequireComponent(typeof(CanvasGroup))]
     public sealed class BackgroundEffectPrefab : UIObjectPoolingBase

@@ -1,9 +1,8 @@
 using SCKRM;
 using SCKRM.Object;
 using SCKRM.Rhythm;
-using SDJK.Effect;
 
-namespace SDJK
+namespace SDJK.Effect
 {
     public abstract class YukiModeEffectPrefabParent : ObjectPoolingBase
     {
