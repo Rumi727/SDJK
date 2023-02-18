@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ruleset/SDJK/SDJK.unity
     guid: 20ca9ee1b43ca7b47b0da025e6b966ac
+  - enabled: 1
+    path: Assets/Ruleset/Super Heaxgon/Super Heaxgon.unity
+    guid: e416fd2061760d64f9b0c5cc2450205c
   m_configObjects: {}

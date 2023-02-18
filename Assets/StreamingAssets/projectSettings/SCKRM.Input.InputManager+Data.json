@@ -162,6 +162,12 @@
     ],
     "ruleset.sdjk.8.7": [
       59
+    ],
+    "ruleset.super_hexagon.left": [
+      276
+    ],
+    "ruleset.super_hexagon.right": [
+      275
     ]
   },
   "inputLockList": {
