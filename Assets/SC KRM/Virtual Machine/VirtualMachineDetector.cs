@@ -1,6 +1,4 @@
-using System;
 using System.Diagnostics;
-using Debug = UnityEngine.Debug;
 using System.Linq;
 using SCKRM.ProjectSetting;
 using Newtonsoft.Json;
