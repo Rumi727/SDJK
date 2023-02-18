@@ -377,6 +377,12 @@ Build: const true"
                 {
                     Shader shader = Shader.Find("Hidden/Internal-Colored");
                     _coloredMaterial = new Material(shader);
+                    _coloredMaterial.hideFlags = HideFlags.HideAndDontSave;
+                    
+                    _coloredMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    _coloredMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    _coloredMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
+                    _coloredMaterial.SetInt("_ZWrite", 0);
                 }
 
                 return _coloredMaterial;
