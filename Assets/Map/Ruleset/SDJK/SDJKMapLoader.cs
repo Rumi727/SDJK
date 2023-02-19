@@ -12,6 +12,7 @@ using SDJK.Mode;
 using SDJK.Mode.Converter;
 
 using Random = System.Random;
+using SDJK.Map.Ruleset.SuperHexagon.Map;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -133,6 +134,63 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToList();
 
             map.notes = newNoteLists;
+        }
+
+
+
+        public static SDJKMapFile SuperHexagonMapLoad(string mapFilePath, IMode[] modes)
+        {
+            SDJKMapFile sdjkMap = new SDJKMapFile();
+            sdjkMap.Init(mapFilePath);
+
+            SuperHexagonMapFile superHexagonMap = SuperHexagonLoader.MapLoad(mapFilePath, modes);
+
+            #region Global Info Copy
+            sdjkMap.info = superHexagonMap.info;
+            sdjkMap.globalEffect = superHexagonMap.globalEffect;
+            sdjkMap.visualizerEffect = superHexagonMap.visualizerEffect;
+
+            sdjkMap.info.ruleset = "sdjk";
+            #endregion
+
+            #region Note
+            for (int i = 0; i < superHexagonMap.notes.Count; i++)
+            {
+                sdjkMap.notes.Add(new List<SDJKNoteFile>());
+
+                List<SuperHexagonNoteFile> superHexagonNotes = superHexagonMap.notes[i];
+                for (int j = 0; j < superHexagonNotes.Count; j++)
+                {
+                    SuperHexagonNoteFile superHexagonNote = superHexagonNotes[j];
+                    sdjkMap.notes[i].Add(new SDJKNoteFile(superHexagonNote.beat, superHexagonNote.holdLength, SDJKNoteTypeFile.normal));
+                }
+            }
+            #endregion
+
+            #region Effect
+            sdjkMap.effect.fieldEffect.Add(new SDJKFieldEffectFile());
+            SDJKFieldEffectFile fieldEffect = sdjkMap.effect.fieldEffect[0];
+
+            for (int i = 0; i < superHexagonMap.notes.Count; i++)
+                fieldEffect.barEffect.Add(new SDJKBarEffectFile());
+
+            sdjkMap.effect.globalNoteDistance = superHexagonMap.effect.globalNoteDistance;
+            sdjkMap.effect.globalNoteSpeed = superHexagonMap.effect.globalNoteSpeed;
+            #endregion
+
+            #region Camera Zoom Effect To Field Height And UI Size Effect
+            for (int i = 0; i < sdjkMap.globalEffect.cameraZoom.Count; i++)
+            {
+                BeatValuePairAni<double> effect = sdjkMap.globalEffect.cameraZoom[i];
+                fieldEffect.height.Add(effect.beat, effect.length, effect.value * 16, effect.easingFunction, true);
+                sdjkMap.globalEffect.uiSize.Add(effect.beat, effect.length, 1 / effect.value, effect.easingFunction, true);
+            }
+
+            sdjkMap.globalEffect.cameraZoom.Clear();
+            #endregion
+
+            FixAllJudgmentBeat(sdjkMap);
+            return sdjkMap;
         }
 
 
