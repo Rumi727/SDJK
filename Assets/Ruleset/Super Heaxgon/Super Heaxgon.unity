@@ -1775,22 +1775,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1408405981619606514, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1408405981619606514, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-      propertyPath: near clip plane
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1408405981838115474, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1408405981838115474, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-      propertyPath: near clip plane
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1408405982577623747, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
       propertyPath: m_Name
       value: Effect Manager
@@ -1893,14 +1877,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5838857628693568193, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471380322842236753, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6471380322842236753, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-      propertyPath: near clip plane
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8147967673216287751, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
