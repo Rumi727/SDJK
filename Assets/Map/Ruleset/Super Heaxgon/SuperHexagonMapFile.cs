@@ -12,8 +12,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         /// </summary>
         public List<List<SuperHexagonNoteFile>> notes { get; set; } = new List<List<SuperHexagonNoteFile>>();
 
-        public BeatValuePairAniListDouble sides { get; } = new BeatValuePairAniListDouble(6);
-        public BeatValuePairAniListDouble playerSpeed { get; } = new BeatValuePairAniListDouble(10);
+        public BeatValuePairAniListDouble sides { get; set; } = new BeatValuePairAniListDouble(6);
+        public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(10);
 
         public SuperHexagonEffectFile effect { get; set; } = new SuperHexagonEffectFile();
     }
@@ -32,13 +32,19 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
     public sealed class SuperHexagonEffectFile
     {
-        public BeatValuePairAniListVector3 fieldRotation { get; } = new BeatValuePairAniListVector3(JVector3.zero);
-        public BeatValuePairAniListFloat fieldZRotationSpeed { get; } = new BeatValuePairAniListFloat(0);
+        public BeatValuePairAniListVector3 fieldRotation { get; set; } = new BeatValuePairAniListVector3(JVector3.zero);
+        public BeatValuePairAniListFloat fieldZRotationSpeed { get; set; } = new BeatValuePairAniListFloat(0);
 
-        public BeatValuePairAniListColor backgroundColor { get; } = new BeatValuePairAniListColor(new Color(0.125f, 0.125f, 0.125f));
-        public BeatValuePairAniListColor backgroundColorAlt { get; } = new BeatValuePairAniListColor(new Color(0.25f, 0.25f, 0.25f));
+        public BeatValuePairAniListColor backgroundColor { get; set; } = new BeatValuePairAniListColor(new Color(0.125f, 0.125f, 0.125f));
+        public BeatValuePairAniListColor backgroundColorAlt { get; set; } = new BeatValuePairAniListColor(new Color(0.25f, 0.25f, 0.25f));
 
-        public BeatValuePairAniListColor mainColor { get; } = new BeatValuePairAniListColor(Color.white);
-        public BeatValuePairAniListColor mainColorAlt { get; } = new BeatValuePairAniListColor(new Color(0.875f, 0.875f, 0.875f));
+        public BeatValuePairAniListColor mainColor { get; set; } = new BeatValuePairAniListColor(Color.white);
+        public BeatValuePairAniListColor mainColorAlt { get; set; } = new BeatValuePairAniListColor(new Color(0.875f, 0.875f, 0.875f));
+
+        public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
+        /// <summary>
+        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
+        /// </summary>
+        public BeatValuePairList<double> globalNoteSpeed { get; set; } = new(1);
     }
 }
