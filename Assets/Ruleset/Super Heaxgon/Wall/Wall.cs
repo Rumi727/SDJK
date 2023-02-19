@@ -32,7 +32,7 @@ namespace SDJK.Ruleset.SuperHexagon
         public void CrashVerdict()
         {
             float sidesAngle = (float)(360d / field.sides);
-            float playerWallRotation = (float)((index * sidesAngle) + player.rotation.Repeat(sidesAngle));
+            float playerWallRotation = (float)((index * sidesAngle) + (player.rotation - ((int)player.index * sidesAngle)));
 
             WallVector2 wallVector2 = wallRenderer.wallVector2;
             if (!missLock)
