@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Rhythm;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
+using SDJK.Ruleset.SuperHexagon.Judgement;
 using System.Threading;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ namespace SDJK.Ruleset.SuperHexagon
 {
     public sealed class Field : MonoBehaviour
     {
-        public SuperHexagonManager manager { get; private set; }
+        [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
+        [SerializeField] SuperHexagonJudgementManager _judgementManager; public SuperHexagonJudgementManager judgementManager => _judgementManager;
         public SuperHexagonMapFile map => manager.map;
 
         [SerializeField] Walls _walls; public Walls walls => _walls;
@@ -22,11 +24,7 @@ namespace SDJK.Ruleset.SuperHexagon
         public Color mainColor { get; private set; } = Color.clear;
         public Color mainColorAlt { get; private set; } = Color.clear;
 
-        public void Refresh(SuperHexagonManager manager)
-        {
-            this.manager = manager;
-            walls.Refresh();
-        }
+        public void Refresh() => walls.Refresh();
 
         bool onAudioFilterReadEventEnable = false;
         void Update()

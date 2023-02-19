@@ -18,6 +18,7 @@ using UnityEngine.UI;
 using SDJK.Replay.Ruleset.SuperHexagon;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using System.IO;
+using SDJK.Ruleset.SuperHexagon.Judgement;
 
 namespace SDJK.Ruleset.SuperHexagon
 {
@@ -113,7 +114,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.yukiMode, null, 3);
                 BGMPlay().Forget();
 
-                field.Refresh(this);
+                field.Refresh();
             }
         }
 
