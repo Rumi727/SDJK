@@ -91,7 +91,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             else
                 GetReplayFileValue(RhythmManager.currentBeatSound);
 
-            health -= instance.health -= map.globalEffect.hpMissValue.GetValue(beat);
+            health -= map.globalEffect.hpMissValue.GetValue(beat);
             judgementAction?.Invoke(true);
         }
 
