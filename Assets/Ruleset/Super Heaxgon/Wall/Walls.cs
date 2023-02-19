@@ -63,7 +63,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 if (distance <= 50)
                     wall.CrashVerdict();
 
-                if (distance + width >= 0)
+                if (distance + width < 0)
                 {
                     wall.Remove();
                     walls.RemoveAt(i);
