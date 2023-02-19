@@ -42,9 +42,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             return map;
         }
 
-        public static SuperHexagonMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.ADOFAIMapLoad(mapFilePath, modes));
-
         public static SuperHexagonMapFile SDJKMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.MapLoad(mapFilePath, modes));
+
+        public static SuperHexagonMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.ADOFAIMapLoad(mapFilePath, modes));
 
         static SuperHexagonMapFile SDJKMapToSuperHexagonMap(string mapFilePath, SDJKMapFile sdjkMap)
         {
