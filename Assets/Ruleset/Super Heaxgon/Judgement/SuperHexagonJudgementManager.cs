@@ -42,7 +42,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         }
         double _health = maxHealth;
 
-        public const double maxHealth = 50;
+        public const double maxHealth = 100;
 
 
 
@@ -119,8 +119,6 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 if (!manager.isReplay)
                     manager.createdReplay.maxCombo.Add(beat, maxCombo);
             }
-
-            health += map.globalEffect.hpAddValue.GetValue(beat);
 
             accuracys.Add(0);
             accuracy = accuracys.Average();
