@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SuperHexagon
 {
     public sealed class Field : MonoBehaviour
     {
-        [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
+        public SuperHexagonManager manager { get; private set; }
         public SuperHexagonMapFile map => manager.map;
 
         [SerializeField] Walls _walls; public Walls walls => _walls;
@@ -22,7 +22,11 @@ namespace SDJK.Ruleset.SuperHexagon
         public Color mainColor { get; private set; } = Color.clear;
         public Color mainColorAlt { get; private set; } = Color.clear;
 
-        public void Refresh() => walls.Refresh();
+        public void Refresh(SuperHexagonManager manager)
+        {
+            this.manager = manager;
+            walls.Refresh();
+        }
 
         bool onAudioFilterReadEventEnable = false;
         void Update()
