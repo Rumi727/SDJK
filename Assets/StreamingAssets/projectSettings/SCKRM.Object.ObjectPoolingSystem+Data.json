@@ -39,6 +39,7 @@
     "main_menu.mode_select_screen.mode_config": "Prefab/Main Menu/Mode Screen/Mode Config",
     "ruleset.result_screen": "Prefab/Ruleset/Result Screen/Result Screen",
     "ruleset.result_screen.mode": "Prefab/Ruleset/Result Screen/Result Screen Mode",
-    "ruleset.replay_result_ui": "Prefab/Ruleset/Replay Result UI/Replay Result UI"
+    "ruleset.replay_result_ui": "Prefab/Ruleset/Replay Result UI/Replay Result UI",
+    "ruleset.super_hexagon.wall": "Prefab/Ruleset/Super Hexagon/Wall"
   }
 }

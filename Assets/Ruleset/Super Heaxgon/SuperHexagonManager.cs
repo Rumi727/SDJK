@@ -27,6 +27,7 @@ namespace SDJK.Ruleset.SuperHexagon
         [SerializeField] PauseScreenUI _pauseScreen; public PauseScreenUI pauseScreen => _pauseScreen;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] Button _replaySaveButton; public Button replaySaveButton => _replaySaveButton;
+        [SerializeField] Field _field; public Field field => _field;
 
         public SuperHexagonRuleset ruleset { get; private set; }
         public SuperHexagonMapFile map { get; private set; }
@@ -111,6 +112,8 @@ namespace SDJK.Ruleset.SuperHexagon
 
                 RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.yukiMode, null, 3);
                 BGMPlay().Forget();
+
+                field.Refresh(this);
             }
         }
 
