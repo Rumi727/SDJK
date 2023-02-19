@@ -63,8 +63,27 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             superHexagonMap.info.ruleset = "super_hexagon";
             #endregion
 
+            #region Note
+            for (int i = 0; i < sdjkMap.notes.Count; i++)
+            {
+                superHexagonMap.notes.Add(new List<SuperHexagonNoteFile>());
+
+                List<SDJKNoteFile> sdjkNotes = sdjkMap.notes[i];
+                for (int j = 0; j < sdjkNotes.Count; j++)
+                {
+                    SDJKNoteFile sdjkNote = sdjkNotes[j];
+                    if (sdjkNote.type == SDJKNoteTypeFile.instantDeath)
+                        continue;
+
+                    superHexagonMap.notes[i].Add(new SuperHexagonNoteFile(sdjkNote.beat, sdjkNote.holdLength));
+                }
+            }
+            #endregion
+
+            #region Effect
             superHexagonMap.sides.Add(double.MinValue, 0, sdjkMap.notes.Count);
             superHexagonMap.effect.fieldZRotationSpeed.Add(double.MinValue, 0, 1);
+            #endregion
 
             return superHexagonMap;
         }
