@@ -68,6 +68,15 @@ namespace SDJK.Ruleset.SuperHexagon
             if (!base.Remove())
                 return false;
 
+            field = null;
+            player = null;
+
+            index = 0;
+            note = new SuperHexagonNoteFile();
+
+            missLock = false;
+            holdLock = false;
+
             wallRenderer.distance = 0;
             wallRenderer.width = 1;
             wallRenderer.color = Color.white;
