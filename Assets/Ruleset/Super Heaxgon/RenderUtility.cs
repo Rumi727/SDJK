@@ -1,6 +1,6 @@
 using SCKRM;
+using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace SDJK.Ruleset.SuperHexagon.Renderer
 {
@@ -61,25 +61,17 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
 
         public static void WallGLRender(this Transform transform, Color color, WallVector2 wallVector2)
         {
-            Material renderMaterial = Kernel.coloredMaterial;
-            GL.PushMatrix();
+            GL.MultMatrix(transform.localToWorldMatrix);
 
-            if (renderMaterial.SetPass(0))
-            {
-                GL.MultMatrix(transform.localToWorldMatrix);
-                
-                GL.Begin(GL.QUADS);
-                GL.Color(color);
+            GL.Begin(GL.QUADS);
+            GL.Color(color);
 
-                GL.Vertex(wallVector2.leftBottom);
-                GL.Vertex(wallVector2.rightBottom);
-                GL.Vertex(wallVector2.rightTop);
-                GL.Vertex(wallVector2.leftTop);
+            GL.Vertex(wallVector2.leftBottom);
+            GL.Vertex(wallVector2.rightBottom);
+            GL.Vertex(wallVector2.rightTop);
+            GL.Vertex(wallVector2.leftTop);
 
-                GL.End();
-            }
-
-            GL.PopMatrix();
+            GL.End();
         }
 
         public static WallVector2 GetWallVector2(this WallRenderer renderer) => GetWallVector2(renderer.index, renderer.distance, renderer.width, renderer.sides, renderer.min);
@@ -89,24 +81,30 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
             float distanceClamp = distance.Clamp(min);
             float distanceClampWidth = (distance + width.Clamp(0)).Clamp(min);
 
+            Vector2 pos = GetWallGLRenderPos(sides, index);
+            Vector2 pos2 = GetWallGLRenderPos(sides, index + 1);
+
             WallVector2 wallVector = new WallVector2();
-            wallVector.leftBottom = GetWallGLRenderPos(sides, index, distanceClamp);
-            wallVector.rightBottom = GetWallGLRenderPos(sides, index + 1, distanceClamp);
-            wallVector.rightTop = GetWallGLRenderPos(sides, index + 1, distanceClampWidth);
-            wallVector.leftTop = GetWallGLRenderPos(sides, index, distanceClampWidth);
+            wallVector.leftBottom = pos * distanceClamp;
+            wallVector.rightBottom = pos2 * distanceClamp;
+            wallVector.rightTop = pos2 * distanceClampWidth;
+            wallVector.leftTop = pos * distanceClampWidth;
 
             return wallVector;
         }
 
-        static Vector2 GetWallGLRenderPos(float sides, int index, float dis)
+        static Vector2 GetWallGLRenderPos(float sides, int index)
         {
             const float tau = MathUtility.pi * 2;
 
             index = index.Clamp(0);
 
             float radian = (index - (index - sides).Clamp(0)) / sides * tau;
-            float x = Mathf.Sin(radian) * dis;
-            float y = Mathf.Cos(radian) * dis;
+            float sin = radian.Sin();
+            float cos = radian.Cos();
+
+            float x = sin;
+            float y = cos;
 
             return new Vector2(x, y);
         }

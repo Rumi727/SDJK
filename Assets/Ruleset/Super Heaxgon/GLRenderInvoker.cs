@@ -1,3 +1,4 @@
+using SCKRM;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,23 +22,29 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
             if (Camera.current != targetCamera)
                 return;
 #endif
+            GL.PushMatrix();
 
-            if (backgroundRenderer != null)
-                backgroundRenderer.Render();
-
-            for (int i = 0; i < polygonRendererBases.Count; i++)
+            if (Kernel.coloredMaterial.SetPass(0))
             {
-                PolygonRendererBase polygonRendererBase = polygonRendererBases[i];
-                if (polygonRendererBase != null)
-                    polygonRendererBase.Render();
+                if (backgroundRenderer != null)
+                    backgroundRenderer.Render();
+
+                for (int i = 0; i < polygonRendererBases.Count; i++)
+                {
+                    PolygonRendererBase polygonRendererBase = polygonRendererBases[i];
+                    if (polygonRendererBase != null)
+                        polygonRendererBase.Render();
+                }
+
+                for (int i = 0; i < wallRenderers.Count; i++)
+                {
+                    PolygonRendererBase polygonRendererBase = wallRenderers[i];
+                    if (polygonRendererBase != null)
+                        polygonRendererBase.Render();
+                }
             }
 
-            for (int i = 0; i < wallRenderers.Count; i++)
-            {
-                PolygonRendererBase polygonRendererBase = wallRenderers[i];
-                if (polygonRendererBase != null)
-                    polygonRendererBase.Render();
-            }
+            GL.PopMatrix();
         }
     }
 }
