@@ -46,9 +46,9 @@ namespace SDJK.Ruleset.SDJK.Input
                 {
                     string keyString = InternalGetKeyString(i);
 
-                    inputsDown[i] = InputManager.GetKey(keyString, InputType.Down);
-                    inputs[i] = InputManager.GetKey(keyString, InputType.Alway);
-                    inputsUp[i] = InputManager.GetKey(keyString, InputType.Up);
+                    inputsDown[i] = InputManager.TryGetKey(keyString, InputType.Down);
+                    inputs[i] = InputManager.TryGetKey(keyString, InputType.Alway);
+                    inputsUp[i] = InputManager.TryGetKey(keyString, InputType.Up);
                 }
             }
         }
