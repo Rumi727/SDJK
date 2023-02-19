@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SDJK.Effect
     public class PlayFieldEffect : SDJKEffect
     {
         [SerializeField] PlayField playField;
-        FieldEffectFile fieldEffectFile => playField.fieldEffectFile;
+        SDJKFieldEffectFile fieldEffectFile => playField.fieldEffectFile;
 
         protected override void RealUpdate()
         {

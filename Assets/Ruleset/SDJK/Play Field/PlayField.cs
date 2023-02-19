@@ -12,7 +12,7 @@ namespace SDJK.Ruleset.SDJK
     {
         [SerializeField] Transform _bars; public Transform bars => _bars;
 
-        public FieldEffectFile fieldEffectFile { get; private set; }
+        public SDJKFieldEffectFile fieldEffectFile { get; private set; }
         public int fieldIndex { get; private set; } = 0;
         public double fieldHeight { get; private set; } = 16;
 

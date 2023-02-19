@@ -114,9 +114,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 //바 이펙트
                 for (int i = 0; i < map.effect.fieldEffect.Count; i++)
                 {
-                    FieldEffectFile fieldEffect = map.effect.fieldEffect[i];
+                    SDJKFieldEffectFile fieldEffect = map.effect.fieldEffect[i];
                     for (int j = 0; j < count - originalCount; j++)
-                        fieldEffect.barEffect.Add(new BarEffectFile());
+                        fieldEffect.barEffect.Add(new SDJKBarEffectFile());
                 }
             }
             else
@@ -236,11 +236,11 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             #region Camera Zoom Effect To Field Height And UI Size Effect
-            sdjkMapFile.effect.fieldEffect.Add(new FieldEffectFile());
-            FieldEffectFile fieldEffect = sdjkMapFile.effect.fieldEffect[0];
+            sdjkMapFile.effect.fieldEffect.Add(new SDJKFieldEffectFile());
+            SDJKFieldEffectFile fieldEffect = sdjkMapFile.effect.fieldEffect[0];
 
             for (int i = 0; i < notes.Count; i++)
-                fieldEffect.barEffect.Add(new BarEffectFile());
+                fieldEffect.barEffect.Add(new SDJKBarEffectFile());
 
             for (int i = 0; i < sdjkMapFile.globalEffect.cameraZoom.Count; i++)
             {
@@ -504,9 +504,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
                 #region Field, Bar Effect
                 {
-                    FieldEffectFile fieldEffect = new FieldEffectFile();
+                    SDJKFieldEffectFile fieldEffect = new SDJKFieldEffectFile();
                     for (int i = 0; i < map.notes.Count; i++)
-                        fieldEffect.barEffect.Add(new BarEffectFile());
+                        fieldEffect.barEffect.Add(new SDJKBarEffectFile());
 
                     map.effect.fieldEffect.Add(fieldEffect);
                 }
@@ -598,7 +598,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 EffectAdd3(oldMap.Effect.JudgmentSize, oldMap.Effect.JudgmentSizeEffect, map.globalEffect.judgmentSize);*/
 
                 {
-                    FieldEffectFile fieldEffect = map.effect.fieldEffect[0];
+                    SDJKFieldEffectFile fieldEffect = map.effect.fieldEffect[0];
                     EffectAdd3(oldMap.Effect.Camera.UiPos, oldMap.Effect.Camera.UiPosEffect, fieldEffect.pos);
                     EffectAdd3(oldMap.Effect.Camera.UiRotation, oldMap.Effect.Camera.UiRotationEffect, fieldEffect.rotation);
 
@@ -611,7 +611,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     }
 
                     {
-                        List<BarEffectFile> barEffect = fieldEffect.barEffect;
+                        List<SDJKBarEffectFile> barEffect = fieldEffect.barEffect;
                         bool capsLock = true;
                         bool a = true;
                         bool s = true;
@@ -667,7 +667,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
                     for (int i = 0; i < map.notes.Count; i++)
                     {
-                        BarEffectFile barEffect = fieldEffect.barEffect[i];
+                        SDJKBarEffectFile barEffect = fieldEffect.barEffect[i];
 
                         EffectAdd4(oldMap.Effect.BarColor, oldMap.Effect.BarColorEffect, barEffect.color);
                         EffectAdd4(oldMap.Effect.NoteColor, oldMap.Effect.NoteColorEffect, barEffect.noteColor);

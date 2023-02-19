@@ -39,7 +39,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
     public sealed class SDJKMapEffectFile
     {
-        public List<FieldEffectFile> fieldEffect { get; set; } = new();
+        public List<SDJKFieldEffectFile> fieldEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
         /// <summary>
@@ -48,7 +48,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public BeatValuePairList<double> globalNoteSpeed { get; set; } = new(1);
     }
 
-    public sealed class FieldEffectFile
+    public sealed class SDJKFieldEffectFile
     {
         public BeatValuePairAniListVector3 pos { get; set; } = new(JVector3.zero);
         public BeatValuePairAniListVector3 scale { get; set; } = new(new JVector3(1));
@@ -56,7 +56,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public BeatValuePairAniListDouble height { get; set; } = new(16);
 
-        public List<BarEffectFile> barEffect { get; set; } = new();
+        public List<SDJKBarEffectFile> barEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
         /// <summary>
@@ -65,7 +65,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
     }
 
-    public sealed class BarEffectFile
+    public sealed class SDJKBarEffectFile
     {
         public BeatValuePairAniListVector3 pos { get; set; } = new(JVector3.zero);
         public BeatValuePairAniListVector3 scale { get; set; } = new(new JVector3(1));

@@ -34,7 +34,7 @@ namespace SDJK.Ruleset.SDJK
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
         public EffectManager effectManager => SDJKManager.instance.effectManager;
 
-        public BarEffectFile barEffectFile { get; private set; }
+        public SDJKBarEffectFile barEffectFile { get; private set; }
         public int barIndex { get; private set; }
         public double noteDistance { get; private set; }
 
