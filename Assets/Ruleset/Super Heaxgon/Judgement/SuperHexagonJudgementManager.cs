@@ -62,16 +62,20 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 //게임 오버 상태 또는 일시정지 상태에선 판정하면 안됩니다
                 if (!gameOverManager.isGameOver && !manager.isPaused && Kernel.gameSpeed != 0 && currentNoteIndex < map.allJudgmentBeat.Count)
                 {
+                    bool hitsoundPlay = false;
                     double beat = map.allJudgmentBeat[currentNoteIndex];
                     for (int i = currentNoteIndex; beat < RhythmManager.currentBeatSound && i < map.allJudgmentBeat.Count; i++)
                     {
                         Perfect(beat);
-                        HitsoundPlay();
+                        hitsoundPlay = true;
 
                         currentNoteIndex++;
                         if (currentNoteIndex < map.allJudgmentBeat.Count)
                             beat = map.allJudgmentBeat[currentNoteIndex];
                     }
+
+                    if (hitsoundPlay)
+                        HitsoundPlay();
                 }
 
                 if (RhythmManager.currentBeatSound >= 0)
