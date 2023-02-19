@@ -7,6 +7,7 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
     public sealed class BackgroundColorRenderer : MonoBehaviour
     {
         [SerializeField] BackgroundEffect backgroundEffect;
+        [SerializeField] VideoEffect videoEffect;
 
         [SerializeField] float _sides = 6; public float sides { get => _sides; set => _sides = value; }
         [SerializeField] float _backgroundImageShowAlpha = 0.5f; public float backgroundImageShowAlpha { get => _backgroundImageShowAlpha; set => _backgroundImageShowAlpha = value; }
@@ -27,7 +28,10 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
                 else
                     color = this.color;
 
-                if (backgroundEffect != null && backgroundEffect.background != null && !backgroundEffect.background.isRemoved)
+                bool backgroundImageShow = backgroundEffect != null && backgroundEffect.background != null && !backgroundEffect.background.isRemoved;
+                bool videoShow = videoEffect != null && videoEffect.video != null && !videoEffect.video.isRemoved;
+
+                if (backgroundImageShow || videoShow)
                     color.a *= backgroundImageShowAlpha;
 
                 transform.WallGLRender(color, RenderUtility.GetWallVector2(i, 0, int.MaxValue, this.sides, 0));
