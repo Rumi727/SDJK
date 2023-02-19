@@ -264,8 +264,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 {
                     Input(currentPressUpBeatReplay);
                     SetDisSecond(currentNote.beat, true, out realDisSecond, out judgementDisSecond, currentPressBeatReplay);
-
-                    hitsoundPlay = true;
                 }
 
                 if (hitsoundPlay)
