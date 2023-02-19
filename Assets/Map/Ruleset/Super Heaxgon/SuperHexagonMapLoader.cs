@@ -34,6 +34,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                     //SDJK
                     if (extension == ".sdjk")
                         return SDJKMapLoad(mapFilePath, modes);
+                    else if (extension == ".adofai")
+                        return ADOFAIMapLoad(mapFilePath, modes);
                 }
 
                 return null;
@@ -49,12 +51,14 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             return map;
         }
 
-        public static SuperHexagonMapFile SDJKMapLoad(string mapFilePath, IMode[] modes)
+        public static SuperHexagonMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.ADOFAIMapLoad(mapFilePath, modes));
+
+        public static SuperHexagonMapFile SDJKMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.MapLoad(mapFilePath, modes));
+
+        static SuperHexagonMapFile SDJKMapToSuperHexagonMap(string mapFilePath, SDJKMapFile sdjkMap)
         {
             SuperHexagonMapFile superHexagonMap = new SuperHexagonMapFile();
             superHexagonMap.Init(mapFilePath);
-
-            SDJKMapFile sdjkMap = SDJKLoader.MapLoad(mapFilePath, modes);
 
             #region Global Info Copy
             superHexagonMap.info = sdjkMap.info;
