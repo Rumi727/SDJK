@@ -11,7 +11,7 @@ namespace SDJK.Ruleset.ReplayResult
         double accuracyAnimation = 1;
         public override void RealUpdate(float lerpValue)
         {
-            accuracyAnimation = accuracyAnimation.Lerp(replay.accuracys.GetValue(double.MaxValue), lerpValue);
+            accuracyAnimation = accuracyAnimation.Lerp(replay.accuracyAbses.GetValue(double.MaxValue), lerpValue);
             text.text = 100d.Lerp(0d, accuracyAnimation).Round(2).ToString() + "%";
         }
 

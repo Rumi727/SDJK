@@ -90,5 +90,27 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
             return superHexagonMap;
         }
+
+        static void FixAllJudgmentBeat(SuperHexagonMapFile map)
+        {
+            map.allJudgmentBeat.Clear();
+
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<SuperHexagonNoteFile> notes = map.notes[i];
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SuperHexagonNoteFile note = notes[j];
+
+                    //모든 판정 비트에 노트 추가
+                    map.allJudgmentBeat.Add(note.beat);
+                    if (note.holdLength > 0)
+                        map.allJudgmentBeat.Add(note.beat + note.holdLength);
+                }
+            }
+
+            map.allJudgmentBeat.Sort();
+        }
     }
 }

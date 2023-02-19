@@ -434,8 +434,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     sdjkManager.createdReplay.combos.Add(currentBeat, instance.combo);
                     sdjkManager.createdReplay.scores.Add(currentBeat, instance.score);
                     sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
-                    sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracyAbs);
-                    sdjkManager.createdReplay.accuracyUnclampeds.Add(currentBeat, instance.accuracy);
+                    sdjkManager.createdReplay.accuracyAbses.Add(currentBeat, instance.accuracyAbs);
+                    sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracy);
                 }
 
                 static void GetReplayFileValue()
@@ -452,10 +452,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         instance.score = replay.scores.GetValue(currentBeat);
                     if (replay.healths.Count > 0)
                         instance.health = replay.healths.GetValue(currentBeat);
+                    if (replay.accuracyAbses.Count > 0)
+                        instance.accuracyAbs = replay.accuracyAbses.GetValue(currentBeat);
                     if (replay.accuracys.Count > 0)
-                        instance.accuracyAbs = replay.accuracys.GetValue(currentBeat);
-                    if (replay.accuracyUnclampeds.Count > 0)
-                        instance.accuracy = replay.accuracyUnclampeds.GetValue(currentBeat);
+                        instance.accuracy = replay.accuracys.GetValue(currentBeat);
                 }
             }
 

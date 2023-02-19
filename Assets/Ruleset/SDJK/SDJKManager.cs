@@ -138,8 +138,8 @@ namespace SDJK.Ruleset.SDJK
                     currentReplay.combos.Add(double.MinValue, map.allJudgmentBeat.Count);
                     currentReplay.maxCombo.Add(double.MinValue, map.allJudgmentBeat.Count);
 
+                    currentReplay.accuracyAbses.Add(double.MinValue, 0);
                     currentReplay.accuracys.Add(double.MinValue, 0);
-                    currentReplay.accuracyUnclampeds.Add(double.MinValue, 0);
                 }
             }
             else

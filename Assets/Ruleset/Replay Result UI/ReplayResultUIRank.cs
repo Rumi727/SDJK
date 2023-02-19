@@ -13,7 +13,7 @@ namespace SDJK.Ruleset.ReplayResult
         double accuracyAnimation = 1;
         public override void RealUpdate(float lerpValue)
         {
-            double realAccuracy = replay.accuracys.GetValue(double.MaxValue);
+            double realAccuracy = replay.accuracyAbses.GetValue(double.MaxValue);
             accuracyAnimation = accuracyAnimation.Lerp(realAccuracy, lerpValue);
             if (accuracyAnimation.Distance(realAccuracy) <= 0.001)
                 accuracyAnimation = realAccuracy;
