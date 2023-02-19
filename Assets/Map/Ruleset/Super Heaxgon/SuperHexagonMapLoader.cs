@@ -45,6 +45,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             SuperHexagonMapFile map = JsonManager.JsonRead<SuperHexagonMapFile>(mapFilePath, true);
             map.Init(mapFilePath);
 
+            FixAllJudgmentBeat(map);
             return map;
         }
 
@@ -88,6 +89,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             superHexagonMap.effect.fieldZRotationSpeed.Add(double.MinValue, 0, 1);
             #endregion
 
+            FixAllJudgmentBeat(superHexagonMap);
             return superHexagonMap;
         }
 
