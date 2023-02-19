@@ -28,25 +28,27 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
             GL.PopMatrix();
         }
 
-        public static PlayerVector2 GetPlayerColliderPos(this PlayerRenderer renderer)
+        public static PlayerVector2 GetPlayerColliderPos(this PlayerRenderer renderer) => GetPlayerColliderPos(renderer.distance, renderer.rotation, renderer.width);
+        public static PlayerVector2 GetPlayerColliderPos(float distance, float rotation, float width)
         {
-            Vector2 top = renderer.GetPlayerRenderPos(new Vector2(0, -0.5f) * renderer.width);
-            Vector2 bottom = renderer.GetPlayerRenderPos(new Vector2(0, 0.5f) * renderer.width);
+            Vector2 top = GetPlayerRenderPos(distance, rotation, new Vector2(0, -0.5f) * width);
+            Vector2 bottom = GetPlayerRenderPos(distance, rotation, new Vector2(0, 0.5f) * width);
 
             return new PlayerVector2(top, bottom);
         }
 
-        static Vector2 GetPlayerRenderPos(this PlayerRenderer renderer, Vector2 pos)
+        static Vector2 GetPlayerRenderPos(this PlayerRenderer renderer, Vector2 pos) => GetPlayerRenderPos(renderer.distance, renderer.rotation, pos);
+        static Vector2 GetPlayerRenderPos(float distance, float rotation, Vector2 pos)
         {
-            float degRotation = renderer.rotation * MathUtility.deg2Rad;
+            float degRotation = rotation * MathUtility.deg2Rad;
             float sin = degRotation.Sin();
             float cos = degRotation.Cos();
 
             float x = (pos.y * sin) - (pos.x * cos);
             float y = (pos.x * sin) + (pos.y * cos);
 
-            x += renderer.distance * sin;
-            y += renderer.distance * cos;
+            x += distance * sin;
+            y += distance * cos;
 
             return new Vector2(x, y);
         }
