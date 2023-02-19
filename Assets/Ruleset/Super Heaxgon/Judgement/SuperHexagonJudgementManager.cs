@@ -44,6 +44,11 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
         public const double maxHealth = 1000;
 
+
+
+        public event JudgementAction judgementAction;
+        public delegate void JudgementAction(bool isMiss);
+
         public void Refresh() => SingletonCheck(this);
 
         int currentNoteIndex = 0;
@@ -82,6 +87,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 CreatedReplayFileAdd(RhythmManager.currentBeatSound);
             else
                 GetReplayFileValue(RhythmManager.currentBeatSound);
+
+            judgementAction?.Invoke(true);
         }
 
         public void Perfect(double beat)
@@ -114,6 +121,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 CreatedReplayFileAdd(beat);
             else
                 GetReplayFileValue(beat);
+
+            judgementAction?.Invoke(true);
         }
 
         void CreatedReplayFileAdd(double beat)
