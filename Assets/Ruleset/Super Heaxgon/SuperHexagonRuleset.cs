@@ -35,10 +35,10 @@ namespace SDJK.Ruleset.SuperHexagon
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[] { new JudgementMetaData(perfect, double.MaxValue, Color.white, 0.75) };
         public override JudgementMetaData missJudgementMetaData { get; } = new JudgementMetaData(miss, double.MaxValue, Color.white, 1, true);
 
-        public const string perfect = "ruleset.sdjk.perfect";
-        public const string miss = "ruleset.sdjk.miss";
+        public const string perfect = "ruleset.super_hexagon.perfect";
+        public const string miss = "ruleset.super_hexagon.miss";
 
-        public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/super hexagon", "icon");
+        public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/super_hexagon", "icon");
 
         public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {
