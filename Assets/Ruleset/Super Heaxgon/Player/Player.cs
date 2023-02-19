@@ -42,7 +42,7 @@ namespace SDJK.Ruleset.SuperHexagon
         void Refresh()
         {
             _index = rotation / (360f / field.sides);
-            player.rotation = (float)rotation;
+            player.rotation = (float)rotation.Repeat(360);
         }
 
         void Update()
