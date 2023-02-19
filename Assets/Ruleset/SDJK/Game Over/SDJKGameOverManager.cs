@@ -22,12 +22,12 @@ namespace SDJK.Ruleset.SDJK.GameOver
 
         public bool isGameOver { get; private set; } = false;
 
-        void Awake() => SingletonCheck(this);
+        public void Refresh() => SingletonCheck(this);
 
         float timer = 0;
         void Update()
         {
-            if (RhythmManager.isPlaying && isGameOver)
+            if (instance != null && RhythmManager.isPlaying && isGameOver)
             {
                 if (Kernel.gameSpeed > 0.001f)
                     Kernel.gameSpeed = Kernel.gameSpeed.Lerp(0, speed * Kernel.fpsUnscaledSmoothDeltaTime);

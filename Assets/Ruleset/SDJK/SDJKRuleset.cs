@@ -11,6 +11,7 @@ using SDJK.Mode;
 using System.Collections.Generic;
 using SDJK.Mode.Automatic;
 using SDJK.Replay.Ruleset.SDJK;
+using SDJK.Ruleset.SDJK.GameOver;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -75,6 +76,7 @@ namespace SDJK.Ruleset.SDJK
             Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
             Object.FindObjectOfType<SDJKJudgementManager>(true).Refresh();
+            Object.FindObjectOfType<SDJKGameOverManager>(true).Refresh();
 
             //나중에 다시 필요할 수도...
             /*System.Collections.Generic.List<SCKRM.Rhythm.BeatValuePairAni<double>> beats = new System.Collections.Generic.List<SCKRM.Rhythm.BeatValuePairAni<double>>();

@@ -21,12 +21,12 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
 
         public bool isGameOver { get; private set; } = false;
 
-        void Awake() => SingletonCheck(this);
+        public void Refresh() => SingletonCheck(this);
 
         float timer = 0;
         void Update()
         {
-            if (RhythmManager.isPlaying && isGameOver)
+            if (instance != null && RhythmManager.isPlaying && isGameOver)
             {
                 if (timer >= screenShowTime)
                     gameOverScreen.Show(false);

@@ -9,6 +9,8 @@ using SDJK.Replay;
 using SDJK.Map;
 using SDJK.Mode.Automatic;
 using SCKRM.UI.Overlay.MessageBox;
+using SDJK.Ruleset.SuperHexagon.Judgement;
+using SDJK.Ruleset.SuperHexagon.GameOver;
 
 namespace SDJK.Ruleset.SuperHexagon
 {
@@ -60,8 +62,8 @@ namespace SDJK.Ruleset.SuperHexagon
                 replay = GetAutoModeReplayFile(map, modes);
 
             Object.FindObjectOfType<SuperHexagonManager>(true).Refresh(map, replay, this, isEditor, modes);
-            /*Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
-            Object.FindObjectOfType<SDJKJudgementManager>(true).Refresh();*/
+            Object.FindObjectOfType<SuperHexagonJudgementManager>(true).Refresh();
+            Object.FindObjectOfType<SuperHexagonGameOverManager>(true).Refresh();
         }
 
         static SuperHexagonReplayFile GetAutoModeReplayFile(SuperHexagonMapFile map, params IMode[] modes)
