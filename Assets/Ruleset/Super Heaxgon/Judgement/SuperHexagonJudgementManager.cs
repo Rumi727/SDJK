@@ -42,7 +42,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         }
         double _health = maxHealth;
 
-        public const double maxHealth = 100;
+        public const double maxHealth = 50;
 
 
 
@@ -79,7 +79,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 }
 
                 if (RhythmManager.currentBeatSound >= 0)
-                    health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+                    health += map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
             }
         }
 
