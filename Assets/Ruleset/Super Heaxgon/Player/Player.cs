@@ -18,8 +18,10 @@ namespace SDJK.Ruleset.SuperHexagon
             get => _rotation;
             set
             {
-                _rotation = value;
-                Refresh();
+                _rotation = value.Repeat(360);
+                _index = _rotation / (360f / field.sides);
+
+                player.rotation = (float)rotation;
             }
         }
         double _rotation = 0;
@@ -29,8 +31,10 @@ namespace SDJK.Ruleset.SuperHexagon
             get => _index;
             set
             {
-                _rotation = index * (360f / field.sides);
-                Refresh();
+                _index = value.Repeat(field.sides);
+                _rotation = _index * (360f / field.sides);
+
+                player.rotation = (float)rotation;
             }
         }
         double _index = 0;
@@ -38,12 +42,6 @@ namespace SDJK.Ruleset.SuperHexagon
         [SerializeField] RegularPolygonRenderer _playerBackground; public RegularPolygonRenderer playerBackground => _playerBackground;
         [SerializeField] RegularPolygonRenderer _playerBorder; public RegularPolygonRenderer playerBorder => _playerBorder;
         [SerializeField] PlayerRenderer _player; public PlayerRenderer player => _player;
-
-        void Refresh()
-        {
-            _index = rotation / (360f / field.sides);
-            player.rotation = (float)rotation.Repeat(360);
-        }
 
         void Update()
         {
