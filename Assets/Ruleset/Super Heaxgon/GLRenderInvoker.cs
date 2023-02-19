@@ -40,7 +40,10 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
                 {
                     PolygonRendererBase polygonRendererBase = wallRenderers[i];
                     if (polygonRendererBase != null)
-                        polygonRendererBase.Render();
+                    {
+                        if (polygonRendererBase.distance >= 0 && polygonRendererBase.distance <= 50)
+                            polygonRendererBase.Render();
+                    }
                 }
             }
 
