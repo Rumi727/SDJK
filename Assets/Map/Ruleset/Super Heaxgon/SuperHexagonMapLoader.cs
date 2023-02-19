@@ -81,6 +81,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             #endregion
 
             #region Effect
+            superHexagonMap.effect.globalNoteDistance = sdjkMap.effect.globalNoteDistance;
+            superHexagonMap.effect.globalNoteSpeed = sdjkMap.effect.globalNoteSpeed;
+
             superHexagonMap.sides.Add(double.MinValue, 0, sdjkMap.notes.Count);
             superHexagonMap.effect.fieldZRotationSpeed.Add(double.MinValue, 0, 1);
             #endregion

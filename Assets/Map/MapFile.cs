@@ -15,7 +15,7 @@ namespace SDJK.Map
 {
     public sealed class MapPack
     {
-        public List<MapFile> maps { get; } = new List<MapFile>();
+        public List<MapFile> maps { get; set; } = new List<MapFile>();
     }
 
     public class MapFile
@@ -134,57 +134,57 @@ namespace SDJK.Map
 
     public sealed class MapGlobalEffect
     {
-        public BeatValuePairList<double> bpm { get; } = new(100);
-        public BeatValuePairList<bool> yukiMode { get; } = new(false);
+        public BeatValuePairList<double> bpm { get; set; } = new(100);
+        public BeatValuePairList<bool> yukiMode { get; set; } = new(false);
 
 
 
-        public BeatValuePairList<BackgroundEffectPair> background { get; } = new(new BackgroundEffectPair("", ""));
-        public BeatValuePairAniListColor backgroundColor { get; } = new(JColor.one);
+        public BeatValuePairList<BackgroundEffectPair> background { get; set; } = new(new BackgroundEffectPair("", ""));
+        public BeatValuePairAniListColor backgroundColor { get; set; } = new(JColor.one);
 
-        public BeatValuePairAniListColor videoColor { get; } = new(JColor.one);
-
-
-
-        public BeatValuePairAniListDouble cameraZoom { get; } = new(1);
-        public BeatValuePairAniListVector3 cameraPos { get; } = new(default);
-        public BeatValuePairAniListVector3 cameraRotation { get; } = new(default);
-
-        public BeatValuePairAniListColor backgroundFlash { get; } = new(default);
-        public BeatValuePairAniListColor fieldFlash { get; } = new(default);
-        public BeatValuePairAniListColor uiFlash { get; } = new(default);
+        public BeatValuePairAniListColor videoColor { get; set; } = new(JColor.one);
 
 
 
-        public BeatValuePairAniListDouble uiSize { get; } = new(1);
+        public BeatValuePairAniListDouble cameraZoom { get; set; } = new(1);
+        public BeatValuePairAniListVector3 cameraPos { get; set; } = new(default);
+        public BeatValuePairAniListVector3 cameraRotation { get; set; } = new(default);
+
+        public BeatValuePairAniListColor backgroundFlash { get; set; } = new(default);
+        public BeatValuePairAniListColor fieldFlash { get; set; } = new(default);
+        public BeatValuePairAniListColor uiFlash { get; set; } = new(default);
 
 
 
-        public BeatValuePairAniListDouble pitch { get; } = new(1);
-        public BeatValuePairAniListDouble tempo { get; } = new(1);
-
-        public BeatValuePairAniListDouble volume { get; } = new(1);
+        public BeatValuePairAniListDouble uiSize { get; set; } = new(1);
 
 
 
-        public BeatValuePairAniListDouble hpAddValue { get; } = new(2);
-        public BeatValuePairAniListDouble hpMissValue { get; } = new(10);
-        public BeatValuePairAniListDouble hpRemoveValue { get; } = new(2);
+        public BeatValuePairAniListDouble pitch { get; set; } = new(1);
+        public BeatValuePairAniListDouble tempo { get; set; } = new(1);
+
+        public BeatValuePairAniListDouble volume { get; set; } = new(1);
 
 
 
-        public BeatValuePairAniListDouble judgmentSize { get; } = new(1);
+        public BeatValuePairAniListDouble hpAddValue { get; set; } = new(2);
+        public BeatValuePairAniListDouble hpMissValue { get; set; } = new(10);
+        public BeatValuePairAniListDouble hpRemoveValue { get; set; } = new(2);
+
+
+
+        public BeatValuePairAniListDouble judgmentSize { get; set; } = new(1);
     }
 
     public sealed class MapVisualizerEffect
     {
-        public BeatValuePairAniListInt divide { get; } = new(5);
-        public BeatValuePairList<bool> leftMove { get; } = new(true);
+        public BeatValuePairAniListInt divide { get; set; } = new(5);
+        public BeatValuePairList<bool> leftMove { get; set; } = new(true);
 
-        public BeatValuePairAniListInt offset { get; } = new(0);
-        public BeatValuePairAniListFloat size { get; } = new(1);
+        public BeatValuePairAniListInt offset { get; set; } = new(0);
+        public BeatValuePairAniListFloat size { get; set; } = new(1);
 
-        public BeatValuePairAniListFloat moveDelay { get; } = new(0.001f);
+        public BeatValuePairAniListFloat moveDelay { get; set; } = new(0.001f);
     }
 
 
