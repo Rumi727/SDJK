@@ -13,7 +13,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public List<List<SuperHexagonNoteFile>> notes { get; set; } = new List<List<SuperHexagonNoteFile>>();
 
         public BeatValuePairAniListDouble sides { get; set; } = new BeatValuePairAniListDouble(6);
-        public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(10);
+        public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(12);
 
         public SuperHexagonEffectFile effect { get; set; } = new SuperHexagonEffectFile();
     }
