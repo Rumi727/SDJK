@@ -10,6 +10,7 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
 
         [SerializeField] BackgroundColorRenderer _backgroundRenderer; public BackgroundColorRenderer backgroundRenderer => _backgroundRenderer;
         [SerializeField] List<PolygonRendererBase> _polygonRendererBases = new List<PolygonRendererBase>(); public List<PolygonRendererBase> polygonRendererBases => _polygonRendererBases;
+        [SerializeField] List<PolygonRendererBase> _wallRenderers = new List<PolygonRendererBase>(); public List<PolygonRendererBase> wallRenderers => _wallRenderers;
 
         void OnRenderObject()
         {
@@ -27,6 +28,13 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
             for (int i = 0; i < polygonRendererBases.Count; i++)
             {
                 PolygonRendererBase polygonRendererBase = polygonRendererBases[i];
+                if (polygonRendererBase != null)
+                    polygonRendererBase.Render();
+            }
+
+            for (int i = 0; i < wallRenderers.Count; i++)
+            {
+                PolygonRendererBase polygonRendererBase = wallRenderers[i];
                 if (polygonRendererBase != null)
                     polygonRendererBase.Render();
             }

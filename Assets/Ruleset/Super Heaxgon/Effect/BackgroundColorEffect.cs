@@ -1,8 +1,7 @@
-using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Ruleset.SuperHexagon.Renderer;
 using UnityEngine;
 
-namespace SDJK.Ruleset.SuperHexagon
+namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class BackgroundColorEffect : SuperHexagonEffect
     {

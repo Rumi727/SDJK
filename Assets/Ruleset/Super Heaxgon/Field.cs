@@ -11,6 +11,8 @@ namespace SDJK.Ruleset.SuperHexagon
         [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
         public SuperHexagonMapFile map => manager.map;
 
+        [SerializeField] Walls _walls; public Walls walls => _walls;
+
         public double zoom { get; private set; }
         public double sides { get; private set; } = 6;
 
@@ -20,10 +22,12 @@ namespace SDJK.Ruleset.SuperHexagon
         public Color mainColor { get; private set; } = Color.clear;
         public Color mainColorAlt { get; private set; } = Color.clear;
 
+        public void Refresh() => walls.Refresh();
+
         bool onAudioFilterReadEventEnable = false;
         void Update()
         {
-            if (map == null)
+            if (!RhythmManager.isPlaying || map == null)
                 return;
 
             zoom = zoom.Lerp(audioZoom, 0.5f * Kernel.fpsUnscaledSmoothDeltaTime);

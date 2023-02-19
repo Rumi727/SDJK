@@ -1,10 +1,8 @@
 using SCKRM;
 using SCKRM.Rhythm;
-using SDJK.Map.Ruleset.SuperHexagon.Map;
-using SDJK.Ruleset.SDJK.Effect;
 using UnityEngine;
 
-namespace SDJK.Ruleset.SuperHexagon
+namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class FieldEffect : SuperHexagonEffect
     {

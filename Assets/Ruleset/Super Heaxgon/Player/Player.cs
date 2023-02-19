@@ -35,6 +35,8 @@ namespace SDJK.Ruleset.SuperHexagon
         }
         double _index = 0;
 
+        [SerializeField] RegularPolygonRenderer _playerBackground; public RegularPolygonRenderer playerBackground => _playerBackground;
+        [SerializeField] RegularPolygonRenderer _playerBorder; public RegularPolygonRenderer playerBorder => _playerBorder;
         [SerializeField] PlayerRenderer _player; public PlayerRenderer player => _player;
 
         void Refresh()
@@ -47,6 +49,13 @@ namespace SDJK.Ruleset.SuperHexagon
         {
             if (!RhythmManager.isPlaying || map == null)
                 return;
+
+            playerBackground.sides = (float)field.sides;
+            playerBorder.sides = (float)field.sides;
+
+            playerBackground.width = (float)(field.zoom - 0.15);
+            playerBorder.distance = (float)(field.zoom - 0.15);
+            player.distance = (float)(field.zoom + 0.5);
 
             double speed = map.playerSpeed.GetValue(RhythmManager.currentBeatScreen) * Kernel.fpsSmoothDeltaTime;
             if (InputManager.GetKey("ruleset.super_hexagon.left", InputType.Alway))
