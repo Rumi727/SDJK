@@ -36,6 +36,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 Wall wall = walls[i];
                 if (wall == null || wall.isRemoved)
                 {
+                    glRenderInvoker.wallRenderers.RemoveAt(i);
                     walls.RemoveAt(i);
                     i--;
 
@@ -73,6 +74,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 if (distance + width < 0)
                 {
                     wall.Remove();
+                    glRenderInvoker.wallRenderers.RemoveAt(i);
                     walls.RemoveAt(i);
                     i--;
 
