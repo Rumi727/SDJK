@@ -41,10 +41,21 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public BeatValuePairAniListColor mainColor { get; set; } = new BeatValuePairAniListColor(Color.white);
         public BeatValuePairAniListColor mainColorAlt { get; set; } = new BeatValuePairAniListColor(new Color(0.875f, 0.875f, 0.875f));
 
+        public List<SuperHexagonBarEffectFile> barEffect { get; set; } = new();
+
         public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
         /// <summary>
         /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
         /// </summary>
         public BeatValuePairList<double> globalNoteSpeed { get; set; } = new(1);
+    }
+
+    public sealed class SuperHexagonBarEffectFile
+    {
+        public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
+        /// <summary>
+        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
+        /// </summary>
+        public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
     }
 }

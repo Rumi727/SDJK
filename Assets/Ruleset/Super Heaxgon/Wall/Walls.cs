@@ -42,7 +42,14 @@ namespace SDJK.Ruleset.SuperHexagon
                     continue;
                 }
 
-                double noteSpeed = globalNoteDistance * map.effect.globalNoteSpeed.GetValue(wall.note.beat);
+                double localNoteSpeed = 1;
+                if (wall.index < map.effect.barEffect.Count)
+                {
+                    SuperHexagonBarEffectFile barEffect = map.effect.barEffect[wall.index];
+                    localNoteSpeed = barEffect.noteDistance.GetValue(currentBeat) * barEffect.noteSpeed.GetValue(wall.note.beat);
+                }
+
+                double noteSpeed = globalNoteDistance * map.effect.globalNoteSpeed.GetValue(wall.note.beat) * localNoteSpeed;
 
                 WallRenderer wallRenderer = wall.wallRenderer;
                 float distance = (float)(zoom + ((wall.note.beat - currentBeat) * noteSpeed));

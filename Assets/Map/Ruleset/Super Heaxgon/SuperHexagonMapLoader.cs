@@ -87,6 +87,21 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
             superHexagonMap.sides.Add(double.MinValue, 0, sdjkMap.notes.Count);
             superHexagonMap.effect.fieldZRotationSpeed.Add(double.MinValue, 0, 1);
+
+            if (0 < sdjkMap.effect.fieldEffect.Count)
+            {
+                SDJKFieldEffectFile sdjkFieldEffect = sdjkMap.effect.fieldEffect[0];
+                for (int i = 0; i < sdjkFieldEffect.barEffect.Count; i++)
+                {
+                    SDJKBarEffectFile sdjkBarEffect = sdjkFieldEffect.barEffect[i];
+                    SuperHexagonBarEffectFile superHexagonBarEffect = new SuperHexagonBarEffectFile();
+
+                    superHexagonBarEffect.noteDistance = sdjkBarEffect.noteDistance;
+                    superHexagonBarEffect.noteSpeed = sdjkBarEffect.noteSpeed;
+
+                    superHexagonMap.effect.barEffect.Add(superHexagonBarEffect);
+                }
+            }
             #endregion
 
             FixAllJudgmentBeat(superHexagonMap);
