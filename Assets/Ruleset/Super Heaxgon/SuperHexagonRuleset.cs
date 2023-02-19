@@ -8,6 +8,7 @@ using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Replay;
 using SDJK.Map;
 using SDJK.Mode.Automatic;
+using SCKRM.UI.Overlay.MessageBox;
 
 namespace SDJK.Ruleset.SuperHexagon
 {
@@ -39,6 +40,8 @@ namespace SDJK.Ruleset.SuperHexagon
 
         public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {
+            await MessageBoxManager.Show("sc-krm:gui.ok", 0, "sdjk:ruleset.super_hexagon.warning", "sc-krm:0:gui/icon/exclamation_mark");
+
             if (modes == null)
                 modes = IMode.emptyModes;
 

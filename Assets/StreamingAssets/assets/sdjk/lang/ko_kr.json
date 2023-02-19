@@ -50,6 +50,9 @@
 	"notice.running_task.drag_and_drop.map_load.name":"맵 로드 중...",
 	"notice.running_task.drag_and_drop.replay_list_load.name":"리플레이 로드 중...",
 	
+	
+	
+	"ruleset.super_hexagon.warning": "Super Hexagon 모드는 저작권 문제로 언제든지 삭제될 수 있다는 점 참고 바랍니다",
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice 모드는 저작권 문제로 인해 게임 플레이는 구현되지 않았습니다<size=10>\n\n</size><size=15>대신 맵을 변환할 수 있는 다른 모드로 플레이 해주세요</size>",
 	
 	

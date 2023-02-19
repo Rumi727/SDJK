@@ -50,6 +50,9 @@
 	"notice.running_task.drag_and_drop.map_load.name":"マップを読み込んでいます...",
 	"notice.running_task.drag_and_drop.replay_list_load.name":"リプレイを読み込んでいます...",
 	
+	
+	
+	"ruleset.super_hexagon.warning": "Super Hexagonモードは著作権の問題でいつでも削除される可能性があります",
 	"ruleset.adofai.unplayable": "A Dance of Fire and Ice ルールセットは著作権問題のためゲームプレイは実装されていません。<size=10>\n\n</size><size=15>代わりにマップを変換できる別のルールセットでプレイしてください</size>",
 	
 	
