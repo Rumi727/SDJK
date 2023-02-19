@@ -41,7 +41,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 if (LineIntersection(wallVector2.leftBottom, wallVector2.rightBottom, playerVector2.bottom * -10000, playerVector2.top, out _))
                 {
                     if (index == (int)player.index)
-                        field.judgementManager.Miss();
+                        field.judgementManager.Miss(RhythmManager.currentBeatScreen);
 
                     missLock = true;
                 }

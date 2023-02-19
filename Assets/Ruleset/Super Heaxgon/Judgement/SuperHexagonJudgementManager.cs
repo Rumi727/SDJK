@@ -42,7 +42,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         }
         double _health = maxHealth;
 
-        public const double maxHealth = 1000;
+        public const double maxHealth = 100;
 
 
 
@@ -75,11 +75,11 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 }
 
                 if (RhythmManager.currentBeatSound >= 0)
-                    health -= map.globalEffect.hpRemoveValue.GetValue() * RhythmManager.bpmDeltaTime;
+                    health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
             }
         }
 
-        public void Miss()
+        public void Miss(double beat)
         {
             combo = 0;
 
@@ -91,6 +91,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             else
                 GetReplayFileValue(RhythmManager.currentBeatSound);
 
+            health -= instance.health -= map.globalEffect.hpMissValue.GetValue(beat);
             judgementAction?.Invoke(true);
         }
 
