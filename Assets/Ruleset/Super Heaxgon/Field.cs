@@ -14,6 +14,7 @@ namespace SDJK.Ruleset.SuperHexagon
         public SuperHexagonMapFile map => manager.map;
 
         [SerializeField] Walls _walls; public Walls walls => _walls;
+        [SerializeField] float _audioSize = 1; public float audioSize { get => _audioSize; set => _audioSize = value; }
 
         public double zoom { get; private set; }
         public double sides { get; private set; } = 6;
@@ -101,7 +102,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 finalSample += sampleChannel / channels;
             }
 
-            audioZoom = 0.8f + (finalSample * 4);
+            audioZoom = 0.8f + (finalSample * audioSize);
         }
     }
 }

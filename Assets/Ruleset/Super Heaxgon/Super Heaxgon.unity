@@ -925,6 +925,7 @@ MonoBehaviour:
   _manager: {fileID: 1931147502}
   _judgementManager: {fileID: 1947265304}
   _walls: {fileID: 168774988}
+  _audioSize: 0.03125
 --- !u!114 &720993805
 MonoBehaviour:
   m_ObjectHideFlags: 0
