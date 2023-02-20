@@ -16,6 +16,23 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(12);
 
         public SuperHexagonEffectFile effect { get; set; } = new SuperHexagonEffectFile();
+
+        public override void SetVisualizerEffect()
+        {
+            visualizerEffect.divide.Clear();
+            for (int i = 0; i < sidesList.Count; i++)
+            {
+                BeatValuePairAni<double> sides = sidesList[i];
+                visualizerEffect.divide.Add(sides.beat, 0, (int)sides.value);
+            }
+
+            visualizerEffect.leftMove.Clear();
+            for (int i = 0; i < effect.fieldZRotationSpeed.Count; i++)
+            {
+                BeatValuePairAni<float> fieldZRotationSpeed = effect.fieldZRotationSpeed[i];
+                visualizerEffect.leftMove.Add(fieldZRotationSpeed.beat, fieldZRotationSpeed.value >= 0 ? true : false);
+            }
+        }
     }
 
     public struct SuperHexagonNoteFile
