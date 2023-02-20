@@ -95,8 +95,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 for (int j = i; j < data.Length; j += channels)
                 {
                     float sample = data[j].Abs();
-                    if (sample > sampleChannel)
-                        sampleChannel = sample;
+                    sampleChannel += sample;
                 }
 
                 finalSample += sampleChannel / channels;
