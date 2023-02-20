@@ -41,7 +41,7 @@ namespace SDJK.Ruleset.SuperHexagon
             mainColor = map.effect.mainColor.GetValue(RhythmManager.currentBeatScreen);
             mainColorAlt = map.effect.mainColorAlt.GetValue(RhythmManager.currentBeatScreen);
 
-            double realSides = map.sides.GetValue(RhythmManager.currentBeatScreen);
+            double realSides = map.sidesList.GetValue(RhythmManager.currentBeatScreen);
             if (realSides < sides)
                 sides = sides.MoveTowards(realSides, (sides.Ceil() - realSides) * (0.125f * Kernel.fpsSmoothDeltaTime));
             else
