@@ -31,8 +31,8 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
         public static PlayerVector2 GetPlayerColliderPos(this PlayerRenderer renderer) => GetPlayerColliderPos(renderer.distance, renderer.rotation, renderer.width);
         public static PlayerVector2 GetPlayerColliderPos(float distance, float rotation, float width)
         {
-            Vector2 top = GetPlayerRenderPos(distance, rotation, new Vector2(0, -0.5f) * width);
-            Vector2 bottom = GetPlayerRenderPos(distance, rotation, new Vector2(0, 0.5f) * width);
+            Vector2 top = GetPlayerRenderPos(distance, rotation, new Vector2(0, 0.5f) * width);
+            Vector2 bottom = GetPlayerRenderPos(distance, rotation, new Vector2(0, -0.5f) * width);
 
             return new PlayerVector2(top, bottom);
         }

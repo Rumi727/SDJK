@@ -38,7 +38,7 @@ namespace SDJK.Ruleset.SuperHexagon
             if (!missLock)
             {
                 PlayerVector2 playerVector2 = RenderUtility.GetPlayerColliderPos(player.player.distance, playerWallRotation, player.player.width);
-                if (LineIntersection(wallVector2.leftBottom, wallVector2.rightBottom, playerVector2.bottom * -10000, playerVector2.top, out _))
+                if (LineIntersection(wallVector2.leftBottom, wallVector2.rightBottom, playerVector2.top * -10000, playerVector2.top, out _))
                 {
                     if (index == (int)player.index)
                         field.judgementManager.Miss(RhythmManager.currentBeatScreen);
@@ -58,7 +58,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 }
 
                 PlayerVector2 playerVector2 = RenderUtility.GetPlayerColliderPos(player.player.distance, playerWallRotation, player.player.width);
-                if (LineIntersection(wallVector2.leftTop, wallVector2.rightTop, playerVector2.bottom * -10000, playerVector2.top, out _))
+                if (LineIntersection(wallVector2.leftTop, wallVector2.rightTop, playerVector2.bottom * -10000, playerVector2.bottom, out _))
                     holdLock = true;
             }
         }
