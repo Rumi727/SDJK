@@ -226,6 +226,7 @@ MonoBehaviour:
   - {fileID: 2077034594}
   - {fileID: 1118143199}
   - {fileID: 628342779}
+  _yukiModeRendererBases: []
   _wallRenderers: []
 --- !u!1 &392334374
 GameObject:
@@ -1174,6 +1175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118143198}
+  - component: {fileID: 1118143200}
   - component: {fileID: 1118143199}
   m_Layer: 0
   m_Name: Player Border
@@ -1214,6 +1216,28 @@ MonoBehaviour:
   _color: {r: 1, g: 1, b: 1, a: 1}
   _sides: 6
   _min: 0
+--- !u!114 &1118143200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118143197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09336f2105e36544ae8cfb13d79cd86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectManager: {fileID: 1446773605}
+  _leftPrefab: 
+  _rightPrefab: ruleset.super_hexagon.yuki_mode_effect
+  _onlyRight: 1
+  _count: 2
+  _width: 3
+  _forceShow: 0
+  _glRenderInvoker: {fileID: 374661687}
+  _field: {fileID: 720993804}
+  _regularPolygonRenderer: {fileID: 1118143199}
 --- !u!1 &1204433186
 GameObject:
   m_ObjectHideFlags: 0

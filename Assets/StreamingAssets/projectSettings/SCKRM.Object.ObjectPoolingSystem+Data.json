@@ -40,6 +40,7 @@
     "ruleset.result_screen": "Prefab/Ruleset/Result Screen/Result Screen",
     "ruleset.result_screen.mode": "Prefab/Ruleset/Result Screen/Result Screen Mode",
     "ruleset.replay_result_ui": "Prefab/Ruleset/Replay Result UI/Replay Result UI",
-    "ruleset.super_hexagon.wall": "Prefab/Ruleset/Super Hexagon/Wall"
+    "ruleset.super_hexagon.wall": "Prefab/Ruleset/Super Hexagon/Wall",
+    "ruleset.super_hexagon.yuki_mode_effect": "Prefab/Ruleset/Super Hexagon/Yuki Mode Effect Prefab"
   }
 }
