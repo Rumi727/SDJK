@@ -273,8 +273,7 @@ namespace SDJK.Effect
                     for (int j = i; j < data.Length; j += channels)
                     {
                         float sample = data[j].Abs();
-                        if (sample > sampleChannel)
-                            sampleChannel = sample;
+                        sampleChannel += sample;
                     }
 
                     finalSample += sampleChannel / channels;
@@ -286,12 +285,12 @@ namespace SDJK.Effect
                     if (index >= bars.Length)
                     {
                         if (index - bars.Length >= bars.Length)
-                            bars[0].size = finalSample * 1280 * size;
+                            bars[0].size = finalSample * size;
                         else
-                            bars[index - bars.Length].size = finalSample * 1280 * size;
+                            bars[index - bars.Length].size = finalSample * 1 * size;
                     }
                     else
-                        bars[index].size = finalSample * 1280 * size;
+                        bars[index].size = finalSample * size;
                 }
 
                 if (timer.Elapsed.TotalSeconds >= moveDelay)

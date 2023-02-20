@@ -2548,7 +2548,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 135.25
+  m_fontSize: 134.75
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5184,6 +5184,7 @@ MonoBehaviour:
   _effectManager: {fileID: 789537519}
   _leftPrefab: yuki_mode_effect.left_main_menu
   _rightPrefab: yuki_mode_effect.right_main_menu
+  _onlyRight: 0
   _count: 1.8
   _width: 100
   _forceShow: 0
@@ -6983,7 +6984,7 @@ MonoBehaviour:
   _left: 1
   _divide: 5
   _offset: 0
-  _size: 1
+  _size: 15
   _moveDelay: 0.001
   _length: 160
 --- !u!114 &1320217944
