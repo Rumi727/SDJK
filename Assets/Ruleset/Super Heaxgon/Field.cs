@@ -15,6 +15,7 @@ namespace SDJK.Ruleset.SuperHexagon
 
         [SerializeField] Walls _walls; public Walls walls => _walls;
         [SerializeField] float _audioSize = 1; public float audioSize { get => _audioSize; set => _audioSize = value; }
+        [SerializeField] float _audioSizeLerp = 0.5f; public float audioSizeLerp { get => _audioSizeLerp; set => _audioSizeLerp = value; }
 
         public double zoom { get; private set; }
         public double sides { get; private set; } = 6;
@@ -33,7 +34,7 @@ namespace SDJK.Ruleset.SuperHexagon
             if (!RhythmManager.isPlaying || map == null)
                 return;
 
-            zoom = zoom.Lerp(audioZoom, 0.5f * Kernel.fpsUnscaledSmoothDeltaTime);
+            zoom = zoom.Lerp(audioZoom, audioSizeLerp * Kernel.fpsUnscaledSmoothDeltaTime);
 
             backgroundColor = map.effect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
             backgroundColorAlt = map.effect.backgroundColorAlt.GetValue(RhythmManager.currentBeatScreen);
