@@ -182,7 +182,7 @@ namespace SDJK.Map
         public BeatValuePairList<bool> leftMove { get; set; } = new(true);
 
         public BeatValuePairAniListInt offset { get; set; } = new(0);
-        public BeatValuePairAniListFloat size { get; set; } = new(1);
+        public BeatValuePairAniListFloat size { get; set; } = new(12);
 
         public BeatValuePairAniListFloat moveDelay { get; set; } = new(0.001f);
     }

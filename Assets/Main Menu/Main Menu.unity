@@ -6984,7 +6984,7 @@ MonoBehaviour:
   _left: 1
   _divide: 5
   _offset: 0
-  _size: 15
+  _size: 12
   _moveDelay: 0.001
   _length: 160
 --- !u!114 &1320217944
