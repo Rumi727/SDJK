@@ -39,7 +39,7 @@ namespace SDJK.Effect
             lastCurrentBeatReapeat = offsetCurrentBeatReapeat;
         }
 
-        public void Refresh(YukiModeEffect yukiModeEffect, int indexOffset, bool isLeft)
+        public virtual void Refresh(YukiModeEffect yukiModeEffect, int indexOffset, bool isLeft)
         {
             this.yukiModeEffect = yukiModeEffect;
 
