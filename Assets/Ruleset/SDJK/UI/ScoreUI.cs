@@ -14,10 +14,10 @@ namespace SDJK.Ruleset.SDJK.UI
         double value = 0;
         void Update()
         {
-            if (!RhythmManager.isPlaying || SDJKJudgementManager.instance == null)
+            if (!RhythmManager.isPlaying)
                 return;
 
-            value = value.Lerp(SDJKJudgementManager.instance.score, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            value = value.Lerp(judgementManager.score, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             text.text = value.Round().ToString();
         }
     }

@@ -12,7 +12,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 
         void Update()
         {
-            if (!RhythmManager.isPlaying || SuperHexagonJudgementManager.instance == null)
+            if (!RhythmManager.isPlaying)
                 return;
 
             if (RhythmManager.time > 0)

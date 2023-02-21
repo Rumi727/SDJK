@@ -15,7 +15,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
         double end = 1;
         void Update()
         {
-            if (!RhythmManager.isPlaying || SuperHexagonJudgementManager.instance == null)
+            if (!RhythmManager.isPlaying)
                 return;
 
             fill.fillAmount = (float)end.InverseLerp(start, judgementManager.rankProgress);

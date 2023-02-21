@@ -1,4 +1,5 @@
 using SCKRM;
+using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
 using TMPro;
@@ -15,6 +16,9 @@ namespace SDJK.Ruleset.SuperHexagon.UI
         RankMetaData? lastRankMetaData;
         void Update()
         {
+            if (!RhythmManager.isPlaying)
+                return;
+
             RankMetaData rank = manager.ruleset.GetRank(judgementManager.rankProgress);
 
             text.text = rank.name;

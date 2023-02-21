@@ -14,7 +14,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
         double value = 0;
         void Update()
         {
-            if (!RhythmManager.isPlaying || SuperHexagonJudgementManager.instance == null)
+            if (!RhythmManager.isPlaying)
                 return;
 
             value = value.Lerp(SuperHexagonJudgementManager.instance.score, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
