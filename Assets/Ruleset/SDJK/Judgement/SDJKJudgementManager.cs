@@ -45,6 +45,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
         public double accuracy { get; private set; } = 0;
         List<double> accuracys { get; } = new List<double>();
 
+        public double rankProgress { get; private set; } = 0;
+
         public double health 
         { 
             get => _health; 
@@ -379,6 +381,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                         instance.accuracys.Add(accuracy * disSecond.Sign());
                         instance.accuracy = instance.accuracys.Average();
+
+                        instance.rankProgress = accuracy;
                     }
 
                     if (!sdjkManager.isReplay)
@@ -434,6 +438,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
                     sdjkManager.createdReplay.accuracyAbses.Add(currentBeat, instance.accuracyAbs);
                     sdjkManager.createdReplay.accuracys.Add(currentBeat, instance.accuracy);
+                    sdjkManager.createdReplay.rankProgresses.Add(currentBeat, instance.rankProgress);
                 }
 
                 static void GetReplayFileValue()
@@ -454,6 +459,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         instance.accuracyAbs = replay.accuracyAbses.GetValue(currentBeat);
                     if (replay.accuracys.Count > 0)
                         instance.accuracy = replay.accuracys.GetValue(currentBeat);
+                    if (replay.rankProgresses.Count > 0)
+                        instance.rankProgress = replay.rankProgresses.GetValue(currentBeat);
                 }
             }
 

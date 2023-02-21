@@ -32,10 +32,10 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         /// <summary>
         /// 0 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
-        public double accuracy { get; private set; } = 1;
+        public double accuracy { get; private set; } = 0;
+        List<double> accuracys = new List<double>();
 
-        public double realAccuracy { get; private set; }
-        List<double> realAccuracys = new List<double>();
+        public double rankProgress { get; private set; } = 1;
 
         public double health 
         { 
@@ -83,7 +83,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 if (RhythmManager.currentBeatSound >= 0)
                     health += map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
 
-                accuracy = 1 - (RhythmManager.currentBeat * (1 - realAccuracy) / map.info.clearBeat);
+                rankProgress = 1 - (RhythmManager.currentBeat * (1 - accuracy) / map.info.clearBeat);
             }
         }
 
@@ -91,10 +91,10 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         {
             combo = 0;
 
-            realAccuracys.Add(1);
-            realAccuracy = realAccuracys.Average();
+            accuracys.Add(1);
+            accuracy = accuracys.Average();
 
-            accuracy = 1 - (RhythmManager.currentBeat * (1 - realAccuracy) / map.info.clearBeat);
+            rankProgress = 1 - (RhythmManager.currentBeat * (1 - accuracy) / map.info.clearBeat);
             health -= map.globalEffect.hpMissValue.GetValue(beat);
 
             if (!manager.isReplay)
@@ -109,8 +109,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         {
             combo++;
 
-            realAccuracys.Add(0);
-            realAccuracy = realAccuracys.Average();
+            accuracys.Add(0);
+            accuracy = accuracys.Average();
 
             double comboMultiplier = 1;
             {
@@ -119,7 +119,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                     comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
             }
 
-            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - realAccuracy);
+            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - accuracy);
 
             if (maxCombo < combo)
             {
@@ -129,7 +129,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                     manager.createdReplay.maxCombo.Add(beat, maxCombo);
             }
 
-            accuracy = 1 - (RhythmManager.currentBeat * (1 - realAccuracy) / map.info.clearBeat);
+            accuracy = 1 - (RhythmManager.currentBeat * (1 - accuracy) / map.info.clearBeat);
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(beat);
@@ -144,8 +144,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             manager.createdReplay.combos.Add(beat, combo);
             manager.createdReplay.scores.Add(beat, score);
             manager.createdReplay.healths.Add(beat, health);
-            manager.createdReplay.accuracyAbses.Add(beat, realAccuracy);
+            manager.createdReplay.accuracyAbses.Add(beat, accuracy);
             manager.createdReplay.accuracys.Add(beat, accuracy);
+            manager.createdReplay.rankProgresses.Add(beat, rankProgress);
         }
 
         void GetReplayFileValue(double beat)
@@ -161,9 +162,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             if (replay.healths.Count > 0)
                 health = replay.healths.GetValue(beat);
             if (replay.accuracyAbses.Count > 0)
-                realAccuracy = replay.accuracyAbses.GetValue(beat);
-            if (replay.accuracys.Count > 0)
-                accuracy = replay.accuracys.GetValue(beat);
+                accuracy = replay.accuracyAbses.GetValue(beat);
+            if (replay.rankProgresses.Count > 0)
+                rankProgress = replay.rankProgresses.GetValue(beat);
         }
 
         public static void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);

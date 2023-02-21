@@ -16,7 +16,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
         RankMetaData? lastRankMetaData;
         protected override void JudgementAction(bool isMiss)
         {
-            RankMetaData rank = manager.ruleset.GetRank(judgementManager.accuracy);
+            RankMetaData rank = manager.ruleset.GetRank(judgementManager.rankProgress);
 
             text.text = rank.name;
             text.color = rank.color;

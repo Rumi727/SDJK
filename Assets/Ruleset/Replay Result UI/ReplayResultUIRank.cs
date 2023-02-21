@@ -10,15 +10,15 @@ namespace SDJK.Ruleset.ReplayResult
         [SerializeField, NotNull] Graphic background;
         [SerializeField, NotNull] TMP_Text text;
 
-        double accuracyAnimation = 1;
+        double rankProgressAnimation = 1;
         public override void RealUpdate(float lerpValue)
         {
-            double realAccuracy = replay.accuracyAbses.GetValue(double.MaxValue);
-            accuracyAnimation = accuracyAnimation.Lerp(realAccuracy, lerpValue);
-            if (accuracyAnimation.Distance(realAccuracy) <= 0.001)
-                accuracyAnimation = realAccuracy;
+            double realAccuracy = replay.rankProgresses.GetValue(double.MaxValue);
+            rankProgressAnimation = rankProgressAnimation.Lerp(realAccuracy, lerpValue);
+            if (rankProgressAnimation.Distance(realAccuracy) <= 0.001)
+                rankProgressAnimation = realAccuracy;
 
-            RankMetaData rank = ruleset.GetRank(accuracyAnimation);
+            RankMetaData rank = ruleset.GetRank(rankProgressAnimation);
             background.color = rank.color;
             text.text = rank.name;
         }
@@ -26,7 +26,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void ObjectReset()
         {
             base.ObjectReset();
-            accuracyAnimation = 1;
+            rankProgressAnimation = 1;
 
             background.color = Color.clear;
             text.text = "";

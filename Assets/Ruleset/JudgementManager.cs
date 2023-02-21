@@ -94,11 +94,11 @@ namespace SDJK.Ruleset
             return 0;
         }
 
-        public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs) => GetRank(ruleset, accuracyAbs, out _);
+        public static RankMetaData GetRank(this IRuleset ruleset, double rankProgress) => GetRank(ruleset, rankProgress, out _);
 
-        public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs, out int index)
+        public static RankMetaData GetRank(this IRuleset ruleset, double rankProgress, out int index)
         {
-            if (accuracyAbs == 0 && ruleset.rankMetaDatas.Length > 0)
+            if (rankProgress == 0 && ruleset.rankMetaDatas.Length > 0)
             {
                 index = 0;
                 return ruleset.rankMetaDatas[0];
@@ -108,7 +108,7 @@ namespace SDJK.Ruleset
             {
                 RankMetaData rankMetaData = ruleset.rankMetaDatas[i];
 
-                if (accuracyAbs < rankMetaData.size)
+                if (rankProgress < rankMetaData.size)
                 {
                     index = i;
                     return rankMetaData;

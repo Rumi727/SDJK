@@ -17,7 +17,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
             if (!RhythmManager.isPlaying)
                 return;
 
-            value = value.Lerp(judgementManager.realAccuracy, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            value = value.Lerp(judgementManager.accuracy, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             text.text = 100d.Lerp(0d, value).Floor(2).ToString("0.00") + suffix;
         }
     }

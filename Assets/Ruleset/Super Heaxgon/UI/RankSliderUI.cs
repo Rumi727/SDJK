@@ -20,13 +20,13 @@ namespace SDJK.Ruleset.SuperHexagon.UI
             if (!RhythmManager.isPlaying || SuperHexagonJudgementManager.instance == null)
                 return;
 
-            value = value.Lerp(judgementManager.accuracy, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            value = value.Lerp(judgementManager.rankProgress, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
             fill.fillAmount = (float)end.InverseLerp(start, value);
         }
 
         protected override void JudgementAction(bool isMiss)
         {
-            RankMetaData rank = manager.ruleset.GetRank(judgementManager.accuracy, out int index);
+            RankMetaData rank = manager.ruleset.GetRank(judgementManager.rankProgress, out int index);
             if (index > 0)
                 start = manager.ruleset.rankMetaDatas[index - 1].size;
             else
