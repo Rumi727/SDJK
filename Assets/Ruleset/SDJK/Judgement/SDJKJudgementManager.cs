@@ -382,7 +382,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         instance.accuracys.Add(accuracy * disSecond.Sign());
                         instance.accuracy = instance.accuracys.Average();
 
-                        instance.rankProgress = accuracy;
+                        instance.rankProgress = instance.accuracyAbs;
                     }
 
                     if (!sdjkManager.isReplay)
