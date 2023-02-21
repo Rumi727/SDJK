@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.SDJK.UI
                 return;
 
             value = value.Lerp(judgementManager.accuracyAbs, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
-            text.text = 100d.Lerp(0d, value).Round(2).ToString() + suffix;
+            text.text = 100d.Lerp(0d, value).Floor(2).ToString("0.##") + suffix;
         }
     }
 }

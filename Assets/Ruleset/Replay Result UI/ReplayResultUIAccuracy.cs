@@ -12,7 +12,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void RealUpdate(float lerpValue)
         {
             accuracyAnimation = accuracyAnimation.Lerp(replay.accuracyAbses.GetValue(double.MaxValue), lerpValue);
-            text.text = 100d.Lerp(0d, accuracyAnimation).Round(2).ToString() + "%";
+            text.text = 100d.Lerp(0d, accuracyAnimation).Floor(2).ToString("0.##") + "%";
         }
 
         public override void ObjectReset()
