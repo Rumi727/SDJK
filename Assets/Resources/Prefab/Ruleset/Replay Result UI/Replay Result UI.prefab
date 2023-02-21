@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 2705830980298259416}
   - component: {fileID: 2705830980298259419}
   - component: {fileID: 2705830980298259422}
+  - component: {fileID: 177251074110150297}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -489,11 +490,11 @@ RectTransform:
   m_Father: {fileID: 2705830981229176900}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2705830980298259417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,7 +547,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -623,6 +624,24 @@ MonoBehaviour:
   _awakeNoAni: 0
   _targetCanvasRenderer: {fileID: 2705830981229176910}
   _targetGraphic: {fileID: 2705830981229176905}
+--- !u!114 &177251074110150297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830980298259413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f504b954da298c9449596588830b618a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _xSize: 1
+  _ySize: 0
+  _offset: {x: 0, y: 0}
+  _minSize: {x: 44, y: 0}
+  _maxSize: {x: 0, y: 0}
 --- !u!1 &2705830980444297806
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +888,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 2705830980828090427}
 --- !u!1 &2705830980893349262
@@ -1281,6 +1301,7 @@ GameObject:
   - component: {fileID: 2705830981229176905}
   - component: {fileID: 2705830981229176904}
   - component: {fileID: 2705830981229176908}
+  - component: {fileID: 7524132506722899604}
   m_Layer: 5
   m_Name: Rank
   m_TagString: Untagged
@@ -1308,7 +1329,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -16}
-  m_SizeDelta: {x: 64, y: 32}
+  m_SizeDelta: {x: 0, y: 32}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2705830981229176907
 MonoBehaviour:
@@ -1378,6 +1399,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 2705830981229176905}
 --- !u!114 &2705830981229176908
@@ -1397,6 +1419,30 @@ MonoBehaviour:
   _awakeNoAni: 0
   background: {fileID: 2705830981229176905}
   text: {fileID: 2705830980298259419}
+--- !u!114 &7524132506722899604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705830981229176903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lerp: 1
+  _lerpValue: 0.2
+  _awakeNoAni: 0
+  _targetRectTransforms:
+  - {fileID: 2705830980298259418}
+  _xSize: 1
+  _ySize: 0
+  _offset: {x: 20, y: 0}
+  _min: {x: 0, y: 0}
+  _max: {x: 0, y: 0}
+  _reversal: 0
+  _disabledObjectIgnore: 0
 --- !u!1 &8119607495419093045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,6 +1770,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: x
   _type: gui/icon
+  _spriteTag: global
   _index: 0
   _image: {fileID: 5909506068217112711}
 --- !u!114 &4123163077782266579

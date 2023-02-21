@@ -109,6 +109,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: quit
   _type: main_menu
+  _spriteTag: global
   _index: 0
   _image: {fileID: 1740426214588186667}
 --- !u!114 &6362312029335119342
@@ -487,7 +488,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -64, y: -64}
+  m_SizeDelta: {x: -96, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &320259586004965262
 MonoBehaviour:
@@ -562,9 +563,9 @@ MonoBehaviour:
   m_fontSize: 96
   m_fontSizeBase: 96
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 96
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1078,6 +1079,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 320259586189597474}
 --- !u!114 &194871675068882884
@@ -1302,6 +1304,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 320259586537340525}
 --- !u!114 &320259586537339283
@@ -1535,6 +1538,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: rank_progress_background
   _type: result_screen
+  _spriteTag: global
   _index: 0
   _image: {fileID: 320259586703779383}
 --- !u!1 &320259586716785423
@@ -1897,6 +1901,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 320259586727086884}
 --- !u!114 &3641485325472857405
@@ -3280,6 +3285,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: rank_progress
   _type: result_screen
+  _spriteTag: global
   _index: 0
   _image: {fileID: 320259587862263665}
 --- !u!1 &762290106089220326
@@ -3394,6 +3400,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: circle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 4175793601430613271}
 --- !u!114 &1324517491599999146
@@ -3590,6 +3597,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: play
   _type: main_menu
+  _spriteTag: global
   _index: 0
   _image: {fileID: 2407074721707626051}
 --- !u!114 &786019585056653613
@@ -3723,6 +3731,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: circle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 2649352932624604514}
 --- !u!114 &5557761850196008684
