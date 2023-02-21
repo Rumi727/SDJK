@@ -24,10 +24,10 @@ namespace SDJK.Ruleset.SuperHexagon
         {
             new RankMetaData("AWESOME", 0, Color.white),
             new RankMetaData("HEXAGON", 0.75, Color.white),
-            new RankMetaData("PENTAGON", 1d - (45d / 60d * 0.25), Color.white),
-            new RankMetaData("SQUARE", 1d - (30d / 60d * 0.25), Color.white),
-            new RankMetaData("TRIANGLE", 1d - (20d / 60d * 0.25), Color.white),
-            new RankMetaData("LINE", 1d - (10d / 60d * 0.25), Color.white),
+            new RankMetaData("PENTAGON", 1d - (45d / 60d * 0.75), Color.white),
+            new RankMetaData("SQUARE", 1d - (30d / 60d * 0.75), Color.white),
+            new RankMetaData("TRIANGLE", 1d - (20d / 60d * 0.75), Color.white),
+            new RankMetaData("LINE", 1d - (10d / 60d * 0.75), Color.white),
             new RankMetaData("POINT", 1, Color.white)
         };
 
