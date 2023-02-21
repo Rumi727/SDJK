@@ -32,8 +32,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         /// <summary>
         /// 0 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
-        public double accuracy { get; private set; } = 0;
-        List<double> accuracys { get; } = new List<double>();
+        public double accuracy { get; private set; } = 1;
+        int missCount = 0;
 
         public double health 
         { 
@@ -86,9 +86,10 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         public void Miss(double beat)
         {
             combo = 0;
+            missCount++;
 
-            accuracys.Add(1);
-            accuracy = accuracys.Average();
+            accuracy += 0.01f;
+            accuracy = accuracy.Clamp01();
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(RhythmManager.currentBeatSound);
@@ -101,16 +102,21 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
         public void Perfect(double beat)
         {
-            combo += 1;
+            combo++;
 
-            double comboMultiplier = 0.25;
+            accuracy -= 0.001f / missCount.Clamp(1);
+            accuracy = accuracy.Clamp01();
+
+            missCount -= (int)(combo * 0.25);
+
+            double comboMultiplier = 1;
             {
                 IMode comboMultiplierMode;
                 if ((comboMultiplierMode = manager.modes.FindMode<ComboMultiplierModeBase>()) != null)
                     comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
             }
 
-            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier);
+            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - accuracy);
 
             if (maxCombo < combo)
             {
@@ -119,9 +125,6 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 if (!manager.isReplay)
                     manager.createdReplay.maxCombo.Add(beat, maxCombo);
             }
-
-            accuracys.Add(0);
-            accuracy = accuracys.Average();
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(beat);

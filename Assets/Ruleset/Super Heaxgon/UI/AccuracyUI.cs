@@ -11,7 +11,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
         [SerializeField] float lerpAniValue = 0.2f;
         [SerializeField] string suffix = "%";
 
-        double value = 0;
+        double value = 1;
         void Update()
         {
             if (!RhythmManager.isPlaying)
