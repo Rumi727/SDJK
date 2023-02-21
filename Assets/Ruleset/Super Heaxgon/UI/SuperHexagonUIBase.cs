@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.UI
 {
-    public abstract class SuperHexagonUI : UIBase
+    public abstract class SuperHexagonUIBase : UIBase
     {
         [SerializeField, NotNull] SuperHexagonJudgementManager _judgementManager; public SuperHexagonJudgementManager judgementManager => _judgementManager;
 

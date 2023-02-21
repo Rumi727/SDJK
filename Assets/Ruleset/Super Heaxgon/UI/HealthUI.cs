@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.UI
 {
-    public sealed class HealthUI : SuperHexagonUI
+    public sealed class HealthUI : SuperHexagonUIBase
     {
         [SerializeField] float lerpAniValue = 0.2f;
         [SerializeField, NotNull] RectTransform valueImage;

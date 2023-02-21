@@ -1,10 +1,11 @@
 using SCKRM;
+using SCKRM.UI;
 using TMPro;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.UI
 {
-    public sealed class RankUI : SuperHexagonUI
+    public sealed class RankUI : SuperHexagonUIBase
     {
         [SerializeField, NotNull] SuperHexagonManager manager;
         [SerializeField, NotNull] TMP_Text text;

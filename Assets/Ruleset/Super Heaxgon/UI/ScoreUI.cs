@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.UI
 {
-    public sealed class ScoreUI : SuperHexagonUI
+    public sealed class ScoreUI : SuperHexagonUIBase
     {
         [SerializeField, NotNull] TMP_Text text;
         [SerializeField] float lerpAniValue = 0.2f;
