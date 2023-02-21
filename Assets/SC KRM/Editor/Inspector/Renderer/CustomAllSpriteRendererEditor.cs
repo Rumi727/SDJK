@@ -1,6 +1,7 @@
 using UnityEditor;
 using SCKRM.Renderer;
 using SCKRM.Resource;
+using UnityEngine;
 
 namespace SCKRM.Editor
 {
@@ -41,6 +42,15 @@ namespace SCKRM.Editor
             UseProperty("_index", "스프라이트 인덱스");
 
             SpriteProjectSetting.DrawGUI(editor.nameSpace, editor.type, editor.path, editor.spriteTag, editor.index);
+
+            if (GUILayout.Button("새로고침"))
+                editor.Refresh();
+
+            if (GUI.changed)
+            {
+                editor.Refresh();
+                EditorUtility.SetDirty(editor);
+            }
         }
     }
 }
