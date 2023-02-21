@@ -27,7 +27,7 @@ namespace SDJK.Ruleset
             return forceFastMiss || disSecond >= 0;
         }
 
-        public static double GetScoreAddValue(this IRuleset ruleset, double disSecond, double length, double combo, double comboMultiplier = 0)
+        public static double GetScoreAddValue(this IRuleset ruleset, double disSecond, double length, double combo, double comboMultiplier = 1)
         {
             double scoreMultiplier = 1d.Lerp(0, disSecond.Abs() / ruleset.judgementMetaDatas.Last().sizeSecond);
 
