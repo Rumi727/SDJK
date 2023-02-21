@@ -6,7 +6,7 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class FieldEffect : SuperHexagonEffect
     {
-        [SerializeField] Field _field; public Field field => _field;
+        [SerializeField, NotNull] Field _field; public Field field => _field;
 
         float zRotationOffset = 0;
         protected override void RealUpdate()

@@ -1,3 +1,4 @@
+using SCKRM;
 using SDJK.Ruleset.SuperHexagon.Renderer;
 using UnityEngine;
 
@@ -5,11 +6,11 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class PlayerEffect : SuperHexagonEffect
     {
-        [SerializeField] Field field;
+        [SerializeField, NotNull] Field field;
 
-        [SerializeField] RegularPolygonRenderer playerBackground;
-        [SerializeField] RegularPolygonRenderer playerBorder;
-        [SerializeField] PlayerRenderer player;
+        [SerializeField, NotNull] RegularPolygonRenderer playerBackground;
+        [SerializeField, NotNull] RegularPolygonRenderer playerBorder;
+        [SerializeField, NotNull] PlayerRenderer player;
 
         protected override void RealUpdate()
         {

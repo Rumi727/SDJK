@@ -7,7 +7,7 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public class SuperHexagonYukiModeEffectPrefab : YukiModeEffectPrefabParent
     {
-        [SerializeField] RegularPolygonRenderer regularPolygonRenderer;
+        [SerializeField, NotNull] RegularPolygonRenderer regularPolygonRenderer;
         SuperHexagonYukiModeEffect superHexagonYukiModeEffect => (SuperHexagonYukiModeEffect)yukiModeEffect;
 
         public override void Refresh(YukiModeEffect yukiModeEffect, int indexOffset, bool isLeft)
