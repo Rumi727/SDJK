@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.Renderer
 {
-    [ExecuteAlways]
     public sealed class GLRenderInvoker : MonoBehaviour
     {
         [SerializeField] Camera _targetCamera; public Camera targetCamera => _targetCamera;
