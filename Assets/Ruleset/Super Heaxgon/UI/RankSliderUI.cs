@@ -10,18 +10,15 @@ namespace SDJK.Ruleset.SuperHexagon.UI
     {
         [SerializeField, NotNull] SuperHexagonManager manager;
         [SerializeField, NotNull] Image fill;
-        [SerializeField] float lerpAniValue = 0.2f;
 
         double start = 0;
-        double value = 0;
         double end = 1;
         void Update()
         {
             if (!RhythmManager.isPlaying || SuperHexagonJudgementManager.instance == null)
                 return;
 
-            value = value.Lerp(judgementManager.rankProgress, lerpAniValue * RhythmManager.bpmFpsDeltaTime);
-            fill.fillAmount = (float)end.InverseLerp(start, value);
+            fill.fillAmount = (float)end.InverseLerp(start, judgementManager.rankProgress);
         }
 
         protected override void JudgementAction(bool isMiss)
