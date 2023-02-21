@@ -83,9 +83,11 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 if (RhythmManager.currentBeatSound >= 0)
                     health += map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
 
-                rankProgress = 1 - (RhythmManager.currentBeat * (1 - accuracy) / map.info.clearBeat);
+                SetRankProgress();
             }
         }
+
+        void SetRankProgress() => rankProgress = (1 - (RhythmManager.currentBeatSound / map.info.clearBeat)).Clamp01();
 
         public void Miss(double beat)
         {
@@ -94,8 +96,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             accuracys.Add(1);
             accuracy = accuracys.Average();
 
-            rankProgress = 1 - (RhythmManager.currentBeat * (1 - accuracy) / map.info.clearBeat);
             health -= map.globalEffect.hpMissValue.GetValue(beat);
+
+            SetRankProgress();
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(RhythmManager.currentBeatSound);
@@ -129,7 +132,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                     manager.createdReplay.maxCombo.Add(beat, maxCombo);
             }
 
-            accuracy = 1 - (RhythmManager.currentBeat * (1 - accuracy) / map.info.clearBeat);
+            SetRankProgress();
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(beat);
@@ -146,7 +149,6 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             manager.createdReplay.healths.Add(beat, health);
             manager.createdReplay.accuracyAbses.Add(beat, accuracy);
             manager.createdReplay.accuracys.Add(beat, accuracy);
-            manager.createdReplay.rankProgresses.Add(beat, rankProgress);
         }
 
         void GetReplayFileValue(double beat)
@@ -163,8 +165,6 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 health = replay.healths.GetValue(beat);
             if (replay.accuracyAbses.Count > 0)
                 accuracy = replay.accuracyAbses.GetValue(beat);
-            if (replay.rankProgresses.Count > 0)
-                rankProgress = replay.rankProgresses.GetValue(beat);
         }
 
         public static void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
