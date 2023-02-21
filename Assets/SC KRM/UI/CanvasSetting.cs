@@ -118,7 +118,7 @@ namespace SCKRM.UI
             else
             {
                 safeScreen.offsetMin = Vector2.zero;
-                safeScreen.offsetMax = Vector2.one;
+                safeScreen.offsetMax = Vector2.zero;
             }
 
             safeScreen.pivot = Vector2.zero;
