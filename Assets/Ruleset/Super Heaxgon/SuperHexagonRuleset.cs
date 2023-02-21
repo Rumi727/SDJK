@@ -10,6 +10,7 @@ using SDJK.Map;
 using SDJK.Mode.Automatic;
 using SDJK.Ruleset.SuperHexagon.Judgement;
 using SDJK.Ruleset.SuperHexagon.GameOver;
+using SCKRM.Sound;
 
 namespace SDJK.Ruleset.SuperHexagon
 {
@@ -60,6 +61,8 @@ namespace SDJK.Ruleset.SuperHexagon
             Object.FindObjectOfType<SuperHexagonManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SuperHexagonJudgementManager>(true).Refresh();
             Object.FindObjectOfType<SuperHexagonGameOverManager>(true).Refresh();
+
+            SoundManager.PlaySound("ruleset.super_hexagon.begin", "sdjk");
         }
 
         static SuperHexagonReplayFile GetAutoModeReplayFile(SuperHexagonMapFile map, params IMode[] modes)

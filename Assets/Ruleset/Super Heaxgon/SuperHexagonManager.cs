@@ -145,6 +145,8 @@ namespace SDJK.Ruleset.SuperHexagon
                 replay = createdReplay;
             }
 
+            SoundManager.PlaySound("ruleset.super_hexagon.wonderful", "sdjk");
+
             ResultScreen.Show(ruleset, map, replay, Quit);
             isClear = true;
         }

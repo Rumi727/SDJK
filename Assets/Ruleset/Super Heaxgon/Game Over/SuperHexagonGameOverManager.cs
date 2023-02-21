@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
+using SCKRM.Sound;
 using SDJK.Mode;
 using SDJK.Mode.Difficulty;
 using SDJK.Ruleset.PauseScreen;
@@ -48,6 +49,9 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
 
             isGameOver = true;
             InputManager.SetInputLock("ruleset.sdjk.gameover", true);
+
+            SoundManager.PlaySound("ruleset.super_hexagon.game_over", "sdjk");
+            SoundManager.PlaySound("ruleset.super_hexagon.die", "sdjk");
         }
 
         void OnDestroy() => InputManager.SetInputLock("ruleset.sdjk.gameover", false);

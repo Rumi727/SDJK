@@ -105,6 +105,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             else
                 GetReplayFileValue(RhythmManager.currentBeatSound);
 
+            SoundManager.PlaySound("ruleset.super_hexagon.damage", "sdjk");
             judgementAction?.Invoke(true);
         }
 
