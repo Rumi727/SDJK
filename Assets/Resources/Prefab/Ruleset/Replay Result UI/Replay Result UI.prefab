@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a7581e4168deb419433c6a8240d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lerp: 1
+  _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
   _targetRectTransforms:
