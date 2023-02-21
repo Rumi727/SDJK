@@ -62,6 +62,7 @@ namespace SDJK.Ruleset.SuperHexagon
             Object.FindObjectOfType<SuperHexagonJudgementManager>(true).Refresh();
             Object.FindObjectOfType<SuperHexagonGameOverManager>(true).Refresh();
 
+            SoundManager.PlaySound("ruleset.super_hexagon.start", "sdjk");
             SoundManager.PlaySound("ruleset.super_hexagon.begin", "sdjk");
         }
 

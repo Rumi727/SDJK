@@ -28,20 +28,20 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 
                 switch (rank.name)
                 {
-                    case "line":
+                    case "LINE":
                         SoundManager.PlaySound("ruleset.super_hexagon.line", "sdjk");
                         break;
-                    case "triangle":
+                    case "TRIANGLE":
                         SoundManager.PlaySound("ruleset.super_hexagon.triangle", "sdjk");
                         break;
-                    case "square":
+                    case "SQUARE":
                         SoundManager.PlaySound("ruleset.super_hexagon.square", "sdjk");
                         break;
-                    case "pentagon":
+                    case "PENTAGON":
                         SoundManager.PlaySound("ruleset.super_hexagon.pentagon", "sdjk");
                         break;
-                    case "hexagon":
-                        SoundManager.PlaySound("ruleset.super_hexagon.", "sdjk");
+                    case "HEXAGON":
+                        SoundManager.PlaySound("ruleset.super_hexagon.hexagon", "sdjk");
                         break;
                 }
             }
