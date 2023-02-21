@@ -3,7 +3,7 @@
     "com.coffee.softmask-for-ugui": "https://github.com/mob-sakai/SoftMaskForUGUI.git",
     "com.looooong.asyncimageloader": "https://github.com/SimsimhanChobo/UnityAsyncImageLoader.git",
     "com.unity.feature.development": "1.0.1",
-    "com.unity.inputsystem": "1.4.4",
+    "com.unity.inputsystem": "1.5.0",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.postprocessing": "3.2.2",
     "com.unity.textmeshpro": "3.0.6",
