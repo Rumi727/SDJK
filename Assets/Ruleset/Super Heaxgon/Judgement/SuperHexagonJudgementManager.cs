@@ -33,7 +33,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         /// 0 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
         public double accuracy { get; private set; } = 1;
-        int missCount = 0;
+
+        public double realAccuracy { get; private set; }
+        List<double> realAccuracys = new List<double>();
 
         public double health 
         { 
@@ -80,23 +82,26 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
                 if (RhythmManager.currentBeatSound >= 0)
                     health += map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+
+                accuracy = 1 - (RhythmManager.currentBeat * (1 - realAccuracy) / map.info.clearBeat);
             }
         }
 
         public void Miss(double beat)
         {
             combo = 0;
-            missCount++;
 
-            accuracy += 0.01f;
-            accuracy = accuracy.Clamp01();
+            realAccuracys.Add(1);
+            realAccuracy = realAccuracys.Average();
+
+            accuracy = 1 - (RhythmManager.currentBeat * (1 - realAccuracy) / map.info.clearBeat);
+            health -= map.globalEffect.hpMissValue.GetValue(beat);
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(RhythmManager.currentBeatSound);
             else
                 GetReplayFileValue(RhythmManager.currentBeatSound);
 
-            health -= map.globalEffect.hpMissValue.GetValue(beat);
             judgementAction?.Invoke(true);
         }
 
@@ -104,10 +109,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         {
             combo++;
 
-            accuracy -= 0.001f / missCount.Clamp(1);
-            accuracy = accuracy.Clamp01();
-
-            missCount -= (int)(combo * 0.25);
+            realAccuracys.Add(0);
+            realAccuracy = realAccuracys.Average();
 
             double comboMultiplier = 1;
             {
@@ -116,7 +119,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                     comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
             }
 
-            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - accuracy);
+            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - realAccuracy);
 
             if (maxCombo < combo)
             {
@@ -125,6 +128,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 if (!manager.isReplay)
                     manager.createdReplay.maxCombo.Add(beat, maxCombo);
             }
+
+            accuracy = 1 - (RhythmManager.currentBeat * (1 - realAccuracy) / map.info.clearBeat);
 
             if (!manager.isReplay)
                 CreatedReplayFileAdd(beat);
@@ -139,7 +144,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             manager.createdReplay.combos.Add(beat, combo);
             manager.createdReplay.scores.Add(beat, score);
             manager.createdReplay.healths.Add(beat, health);
-            manager.createdReplay.accuracyAbses.Add(beat, accuracy);
+            manager.createdReplay.accuracyAbses.Add(beat, realAccuracy);
             manager.createdReplay.accuracys.Add(beat, accuracy);
         }
 
@@ -156,7 +161,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             if (replay.healths.Count > 0)
                 health = replay.healths.GetValue(beat);
             if (replay.accuracyAbses.Count > 0)
-                accuracy = replay.accuracyAbses.GetValue(beat);
+                realAccuracy = replay.accuracyAbses.GetValue(beat);
+            if (replay.accuracys.Count > 0)
+                accuracy = replay.accuracys.GetValue(beat);
         }
 
         public static void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
