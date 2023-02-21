@@ -8,7 +8,6 @@ using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Replay;
 using SDJK.Map;
 using SDJK.Mode.Automatic;
-using SCKRM.UI.Overlay.MessageBox;
 using SDJK.Ruleset.SuperHexagon.Judgement;
 using SDJK.Ruleset.SuperHexagon.GameOver;
 
@@ -23,13 +22,13 @@ namespace SDJK.Ruleset.SuperHexagon
 
         public override RankMetaData[] rankMetaDatas { get; } = new RankMetaData[]
         {
-            new RankMetaData("SS", 0, new Color32(255, 0, 255, 255)),
-            new RankMetaData("S", 0.0625, new Color32(0, 220, 255, 255)),
-            new RankMetaData("A", 0.125, new Color32(0, 170, 255, 255)),
-            new RankMetaData("B", 0.25, new Color32(100, 255, 100, 255)),
-            new RankMetaData("C", 0.5, new Color32(230, 230, 0, 255)),
-            new RankMetaData("F", 0.9, new Color32(166, 166, 166, 255)),
-            new RankMetaData("...", 1, new Color32(255, 255, 255, 255))
+            new RankMetaData("AWESOME", 0, Color.white),
+            new RankMetaData("HEXAGON", 0.75, Color.white),
+            new RankMetaData("PENTAGON", 1d - (45d / 60d * 0.25), Color.white),
+            new RankMetaData("SQUARE", 1d - (30d / 60d * 0.25), Color.white),
+            new RankMetaData("TRIANGLE", 1d - (20d / 60d * 0.25), Color.white),
+            new RankMetaData("LINE", 1d - (10d / 60d * 0.25), Color.white),
+            new RankMetaData("POINT", 1, Color.white)
         };
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[] { new JudgementMetaData(perfect, double.MaxValue, Color.white, 0.75) };
