@@ -1766,7 +1766,6 @@ MonoBehaviour:
   _judgementManager: {fileID: 1947265304}
   manager: {fileID: 1931147502}
   fill: {fileID: 1128795379}
-  lerpAniValue: 0.2
 --- !u!1 &1208482171
 GameObject:
   m_ObjectHideFlags: 0
