@@ -94,19 +94,28 @@ namespace SDJK.Ruleset
             return 0;
         }
 
-        public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs)
+        public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs) => GetRank(ruleset, accuracyAbs, out _);
+
+        public static RankMetaData GetRank(this IRuleset ruleset, double accuracyAbs, out int index)
         {
             if (accuracyAbs == 0 && ruleset.rankMetaDatas.Length > 0)
+            {
+                index = 0;
                 return ruleset.rankMetaDatas[0];
+            }
 
             for (int i = 0; i < ruleset.rankMetaDatas.Length; i++)
             {
                 RankMetaData rankMetaData = ruleset.rankMetaDatas[i];
 
                 if (accuracyAbs < rankMetaData.size)
+                {
+                    index = i;
                     return rankMetaData;
+                }
             }
 
+            index = ruleset.rankMetaDatas.Length - 1;
             return ruleset.rankMetaDatas.Last();
         }
     }
