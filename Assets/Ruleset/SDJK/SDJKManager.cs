@@ -204,7 +204,7 @@ namespace SDJK.Ruleset.SDJK
             string path = PathUtility.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
-                bgmClip = await ResourceManager.GetAudio(fullPath, true, false);
+                bgmClip = await ResourceManager.GetAudio(fullPath, true, true);
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, bgmClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
