@@ -55,8 +55,8 @@ namespace SDJK.Ruleset.SuperHexagon
 
             SuperHexagonMapFile map = MapLoader.MapLoad<SuperHexagonMapFile>(mapFilePath, modes);
 
-            if (modes.FindMode<AutoModeBase>() != null)
-                replay = GetAutoModeReplayFile(map, modes);
+            /*if (modes.FindMode<AutoModeBase>() != null)
+                replay = GetAutoModeReplayFile(map, modes);*/
 
             Object.FindObjectOfType<SuperHexagonManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SuperHexagonJudgementManager>(true).Refresh();
@@ -66,11 +66,9 @@ namespace SDJK.Ruleset.SuperHexagon
             SoundManager.PlaySound("ruleset.super_hexagon.begin", "sdjk");
         }
 
-        static SuperHexagonReplayFile GetAutoModeReplayFile(SuperHexagonMapFile map, params IMode[] modes)
+        /*static SuperHexagonReplayFile GetAutoModeReplayFile(SuperHexagonMapFile map, params IMode[] modes)
         {
-            return ReplayLoader.CreateReplay<SuperHexagonReplayFile>(map, modes);
-
-            /*for (int i = 0; i < map.notes.Count; i++)
+            for (int i = 0; i < map.notes.Count; i++)
             {
                 replay.pressBeat.Add(new List<double>());
                 replay.pressUpBeat.Add(new List<double>());
@@ -87,7 +85,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 }
             }
 
-            return replay;*/
-        }
+            return replay;
+        }*/
     }
 }
