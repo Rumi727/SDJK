@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using SDJK.Mode;
 using SDJK.Map.Ruleset.SDJK.Map;
+using System.Linq;
+using SCKRM.Rhythm;
 
 namespace SDJK.Map.Ruleset.SuperHexagon.Map
 {
@@ -40,6 +42,68 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
             FixAllJudgmentBeat(map);
             return map;
+        }
+
+        static void KeyCountChange(SuperHexagonMapFile map, int count)
+        {
+            int originalCount = map.notes.Count;
+            if (count == originalCount)
+                return;
+
+            double offsetCount = (double)count / originalCount;
+
+            List<List<SuperHexagonNoteFile>> newNoteLists = new List<List<SuperHexagonNoteFile>>();
+            for (int i = 0; i < count; i++)
+                newNoteLists.Add(new List<SuperHexagonNoteFile>());
+
+            if (count > originalCount)
+            {
+                //기존 노트 키 인덱스 늘리기
+                for (int i = 0; i < originalCount; i++)
+                    newNoteLists[(i * offsetCount).RoundToInt().Clamp(0, count - 1)] = map.notes[i];
+
+                Random random = new Random(map.info.randomSeed);
+                for (int i = 0; i < originalCount; i++)
+                {
+                    int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
+                    List<SuperHexagonNoteFile> newNoteList = newNoteLists[keyIndex];
+
+                    for (int j = 0; j < newNoteList.Count; j++)
+                    {
+                        //늘려진 노트들을 랜덤으로 쪼개기
+                        int moveTargetKeyIndex = random.Next(keyIndex, (keyIndex + 1 + offsetCount).RoundToInt().Clamp(0, count));
+                        if (keyIndex == moveTargetKeyIndex)
+                            continue;
+
+                        newNoteLists[moveTargetKeyIndex].Add(newNoteList[j]);
+                        newNoteList.RemoveAt(j);
+                        j--;
+                    }
+                }
+            }
+            else
+            {
+                //줄이는건 간-단
+                for (int i = 0; i < originalCount; i++)
+                {
+                    int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
+                    newNoteLists[keyIndex] = newNoteLists[keyIndex].Union(map.notes[i]).ToList();
+                }
+            }
+
+            //Sides 이펙트
+            for (int i = 0; i < map.sidesList.Count; i++)
+            {
+                BeatValuePairAni<double> sides = map.sidesList[i];
+                sides.value = (sides.value * offsetCount).Round();
+
+                map.sidesList[i] = sides;
+            }
+
+            for (int i = 0; i < newNoteLists.Count; i++)
+                newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToList();
+
+            map.notes = newNoteLists;
         }
 
         public static SuperHexagonMapFile SDJKMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.MapLoad(mapFilePath, modes));
