@@ -6,20 +6,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine.UIElements;
 
 namespace SDJK.Mode
 {
     public static class ModeManager
     {
         public static List<IMode> modeList { get; } = new List<IMode>();
+        public static List<IMode> allModeList { get; } = new List<IMode>();
         public static List<IMode> selectedModeList { get; private set; } = new List<IMode>();
 
         public static event Action isModeRefresh;
         public static bool isModeRefreshEnd { get; private set; } = false;
 
         [Awaken]
-        static void Awaken() => RulesetManager.isRulesetChanged += () => selectedModeList.Clear();
+        static void Awaken()
+        {
+            RulesetManager.isRulesetChanged += () =>
+            {
+                selectedModeList.Clear();
+                modeList.Clear();
+
+                for (int i = 0; i < allModeList.Count; i++)
+                {
+                    IMode mode = allModeList[i];
+                    if (mode.targetRuleset == RulesetManager.selectedRuleset.name)
+                        modeList.Add(mode);
+                }
+
+                //정렬
+                {
+                    List<IMode> elements = modeList.OrderBy(x => x.order).ToList();
+
+                    modeList.Clear();
+                    modeList.AddRange(elements);
+                }
+            };
+        }
 
         [Starten]
         public static void ModeListRefresh()
@@ -36,7 +58,11 @@ namespace SDJK.Mode
                         Type interfaceType = interfaces[interfaceIndex];
                         if (interfaceType == typeof(IMode))
                         {
-                            modeList.Add((IMode)Activator.CreateInstance(type));
+                            IMode mode = (IMode)Activator.CreateInstance(type);
+                            if (mode.targetRuleset == RulesetManager.selectedRuleset.name)
+                                modeList.Add(mode);
+
+                            allModeList.Add(mode);
                             break;
                         }
                     }
@@ -54,21 +80,6 @@ namespace SDJK.Mode
             selectedModeList.Clear();
             isModeRefreshEnd = true;
             isModeRefresh?.Invoke();
-        }
-
-        /// <summary>
-        /// 선택한 규칙 집합이랑 호환되는 모드인지 확인합니다
-        /// </summary>
-        /// <param name="mode"></param>
-        /// <param name="targetModeNames"></param>
-        /// <returns></returns>
-        [WikiDescription("선택한 규칙 집합이랑 호환되는 모드인지 확인합니다")]
-        public static bool IsCompatibleMode(this IMode mode, string targetRulesetName)
-        {
-            if (mode.targetRuleset == targetRulesetName)
-                return true;
-
-            return false;
         }
 
         public static void SelectMode(IMode mode)
