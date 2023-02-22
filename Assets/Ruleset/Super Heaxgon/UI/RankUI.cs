@@ -48,6 +48,8 @@ namespace SDJK.Ruleset.SuperHexagon.UI
                         SoundManager.PlaySound("ruleset.super_hexagon.hexagon", "sdjk");
                         break;
                 }
+
+                SoundManager.PlaySound("ruleset.super_hexagon.rankup", "sdjk");
             }
 
             lastRankMetaData = rank;
