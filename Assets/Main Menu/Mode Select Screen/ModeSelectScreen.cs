@@ -88,8 +88,11 @@ namespace SDJK.MainMenu.ModeSelectScreen
                 modeToggle.mode = mode;
 
                 modeToggle.icon.nameSpaceIndexTypePathPair = mode.icon;
+                modeToggle.icon.Refresh();
 
                 modeToggle.nameText.nameSpacePathReplacePair = mode.displayName;
+                modeToggle.nameText.Refresh();
+
                 modeToggle.nameTooltip.nameSpacePathPair = mode.info;
 
                 modeToggle.toggle.isOn = ModeManager.selectedModeList.Contains(mode);
