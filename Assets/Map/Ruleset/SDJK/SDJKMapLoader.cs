@@ -195,7 +195,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
 
 
-        public static SDJKMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes)
+        public static SDJKMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes, bool cameraZoomEffectChange = true)
         {
             SDJKMapFile sdjkMapFile = new SDJKMapFile();
             sdjkMapFile.Init(mapFilePath);
@@ -293,21 +293,26 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             }
             #endregion
 
-            #region Camera Zoom Effect To Field Height And UI Size Effect
+            #region Effect
             sdjkMapFile.effect.fieldEffect.Add(new SDJKFieldEffectFile());
             SDJKFieldEffectFile fieldEffect = sdjkMapFile.effect.fieldEffect[0];
 
             for (int i = 0; i < notes.Count; i++)
                 fieldEffect.barEffect.Add(new SDJKBarEffectFile());
 
+            #region Camera Zoom Effect To Field Height And UI Size Effect
             for (int i = 0; i < sdjkMapFile.globalEffect.cameraZoom.Count; i++)
             {
                 BeatValuePairAni<double> effect = sdjkMapFile.globalEffect.cameraZoom[i];
-                fieldEffect.height.Add(effect.beat, effect.length, effect.value * 16, effect.easingFunction, true);
+                if (cameraZoomEffectChange)
+                    fieldEffect.height.Add(effect.beat, effect.length, effect.value * 16, effect.easingFunction, true);
+
                 sdjkMapFile.globalEffect.uiSize.Add(effect.beat, effect.length, 1 / effect.value, effect.easingFunction, true);
             }
 
-            sdjkMapFile.globalEffect.cameraZoom.Clear();
+            if (cameraZoomEffectChange)
+                sdjkMapFile.globalEffect.cameraZoom.Clear();
+            #endregion
             #endregion
 
             FixMap(sdjkMapFile);
