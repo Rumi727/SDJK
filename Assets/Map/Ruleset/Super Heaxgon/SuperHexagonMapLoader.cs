@@ -6,6 +6,7 @@ using SDJK.Mode;
 using SDJK.Map.Ruleset.SDJK.Map;
 using System.Linq;
 using SCKRM.Rhythm;
+using SDJK.Mode.Converter;
 
 namespace SDJK.Map.Ruleset.SuperHexagon.Map
 {
@@ -35,13 +36,30 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             };
         }
 
+
+
         public static SuperHexagonMapFile MapLoad(string mapFilePath, IMode[] modes)
         {
             SuperHexagonMapFile map = JsonManager.JsonRead<SuperHexagonMapFile>(mapFilePath, true);
             map.Init(mapFilePath);
 
+            FixMode(map, modes);
             FixAllJudgmentBeat(map);
+
             return map;
+        }
+
+        static void FixMode(SuperHexagonMapFile map, IMode[] modes)
+        {
+            if (modes == null)
+                return;
+
+            IMode keyCountMode;
+            if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
+                KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
+
+            if (modes.FindMode<HoldOffModeBase>() != null)
+                HoldOff(map);
         }
 
         static void KeyCountChange(SuperHexagonMapFile map, int count)
@@ -106,11 +124,32 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             map.notes = newNoteLists;
         }
 
-        public static SuperHexagonMapFile SDJKMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.MapLoad(mapFilePath, modes));
+        static void HoldOff(SuperHexagonMapFile map)
+        {
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<SuperHexagonNoteFile> notes = map.notes[i];
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SuperHexagonNoteFile note = notes[j];
+                    note.holdLength = 0;
 
-        public static SuperHexagonMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.ADOFAIMapLoad(mapFilePath, modes, false));
+                    notes[j] = note;
+                }
+            }
+        }
 
-        static SuperHexagonMapFile SDJKMapToSuperHexagonMap(string mapFilePath, SDJKMapFile sdjkMap)
+
+
+        public static SuperHexagonMapFile SDJKMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.MapLoad(mapFilePath, modes), modes);
+
+
+
+        public static SuperHexagonMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.ADOFAIMapLoad(mapFilePath, modes, false), modes);
+
+
+
+        static SuperHexagonMapFile SDJKMapToSuperHexagonMap(string mapFilePath, SDJKMapFile sdjkMap, IMode[] modes)
         {
             SuperHexagonMapFile superHexagonMap = new SuperHexagonMapFile();
             superHexagonMap.Init(mapFilePath);
@@ -163,9 +202,13 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             }
             #endregion
 
+            FixMode(superHexagonMap, modes);
             FixAllJudgmentBeat(superHexagonMap);
+
             return superHexagonMap;
         }
+
+
 
         static void FixAllJudgmentBeat(SuperHexagonMapFile map)
         {

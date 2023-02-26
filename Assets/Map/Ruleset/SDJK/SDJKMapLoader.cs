@@ -65,14 +65,25 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     return null;
             }
 
-            IMode keyCountMode;
-            if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
-                KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
+            FixMode(map, modes);
 
             FixMap(map);
             FixAllJudgmentBeat(map);
 
             return map;
+        }
+
+        static void FixMode(SDJKMapFile map, IMode[] modes)
+        {
+            if (modes == null)
+                return;
+
+            IMode keyCountMode;
+            if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
+                KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
+
+            if (modes.FindMode<HoldOffModeBase>() != null)
+                HoldOff(map);
         }
 
         static void KeyCountChange(SDJKMapFile map, int count)
@@ -136,6 +147,21 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             map.notes = newNoteLists;
         }
 
+        static void HoldOff(SDJKMapFile map)
+        {
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                List<SDJKNoteFile> notes = map.notes[i];
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+                    note.holdLength = 0;
+
+                    notes[j] = note;
+                }
+            }
+        }
+
 
 
         public static SDJKMapFile SuperHexagonMapLoad(string mapFilePath, IMode[] modes)
@@ -189,7 +215,11 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             sdjkMap.globalEffect.cameraZoom.Clear();
             #endregion
 
+            FixMode(sdjkMap, modes);
+
+            FixMap(sdjkMap);
             FixAllJudgmentBeat(sdjkMap);
+
             return sdjkMap;
         }
 
@@ -314,6 +344,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 sdjkMapFile.globalEffect.cameraZoom.Clear();
             #endregion
             #endregion
+
+            FixMode(sdjkMapFile, modes);
 
             FixMap(sdjkMapFile);
             FixAllJudgmentBeat(sdjkMapFile);
