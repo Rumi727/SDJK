@@ -32,6 +32,7 @@ namespace SCKRM.Editor
 
                 UseProperty("_forceSafeScreenEnable", "강제로 안전 스크린 활성화");
                 UseProperty("_safeScreenMultiple", "안전 스크린 배수");
+                UseProperty("_safeScreenOffset", "안전 스크린 오프셋");
             }
 
             if (!editor.customSetting || editor.canvas.renderMode != UnityEngine.RenderMode.WorldSpace)

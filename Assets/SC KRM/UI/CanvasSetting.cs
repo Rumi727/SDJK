@@ -1,5 +1,4 @@
 using SCKRM.UI.StatusBar;
-using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,23 +12,107 @@ namespace SCKRM.UI
     [AddComponentMenu("SC KRM/UI/Canvas Setting")]
     public sealed class CanvasSetting : UIBase
     {
+        public bool customSetting
+        {
+            get => _customSetting;
+            set
+            {
+                _customSetting = value;
+                Refresh();
+            }
+        }
+        [SerializeField] bool _customSetting = false;
+
+        public bool worldRenderMode
+        {
+            get => _worldRenderMode;
+            set
+            {
+                _worldRenderMode = value;
+                Refresh();
+            }
+        }
+        [SerializeField] bool _worldRenderMode = false;
+
+        public float planeDistance
+        {
+            get => _planeDistance;
+            set
+            {
+                _planeDistance = value;
+                Refresh();
+            }
+        }
+        [SerializeField] float _planeDistance = 14;
+
+
+
+        public bool forceSafeScreenEnable
+        {
+            get => _forceSafeScreenEnable;
+            set
+            {
+                _forceSafeScreenEnable = value;
+                Refresh();
+            }
+        }
+
+        [SerializeField] bool _forceSafeScreenEnable = false;
+        public Vector2 safeScreenMultiple
+        {
+            get => _safeScreenMultiple;
+            set
+            {
+                _safeScreenMultiple = value;
+                Refresh();
+            }
+        }
+        [SerializeField] Vector2 _safeScreenMultiple = Vector2.one;
+
+        public Rect safeScreenOffset
+        {
+            get => _safeScreenOffset;
+            set
+            {
+                _safeScreenOffset = value;
+                Refresh();
+            }
+        }
+        [SerializeField] Rect _safeScreenOffset = Rect.zero;
+
+
+
+        public bool customGuiSize
+        {
+            get => _customGuiSize;
+            set
+            {
+                _customGuiSize = value;
+                Refresh();
+            }
+        }
+        [SerializeField] bool _customGuiSize = false; 
+        public float guiSize
+        {
+            get => _guiSize;
+            set
+            {
+                _guiSize = value;
+                Refresh();
+            }
+        }
+        [SerializeField] float _guiSize = 1; 
+
         /// <summary>
         /// 이 변수를 활성화 하면 에디터에서 씬 가시성이 항상 활성화 됩니다.
         /// 이 프로퍼티는 런타임에 영향을 미치지 않습니다.
         /// </summary>
-        public bool alwaysVisible { get => _alwaysVisible; set => _alwaysVisible = value; }
-        [SerializeField] bool _alwaysVisible = false;
-        [SerializeField] bool _customSetting = false; public bool customSetting { get => _customSetting; set => _customSetting = value; }
-        [SerializeField] bool _customGuiSize = false; public bool customGuiSize { get => _customGuiSize; set => _customGuiSize = value; }
-        [SerializeField] float _guiSize = 1; public float guiSize { get => _guiSize; set => _guiSize = value; }
-        [SerializeField] bool _worldRenderMode = false; public bool worldRenderMode { get => _worldRenderMode; set => _worldRenderMode = value; }
-        [SerializeField] float _planeDistance = 14; public float planeDistance { get => _planeDistance; set => _planeDistance = value; }
-        [SerializeField] bool _forceSafeScreenEnable = false; public bool forceSafeScreenEnable { get => _forceSafeScreenEnable; set => _forceSafeScreenEnable = value; }
-        [SerializeField] Vector2 _safeScreenMultiple = Vector2.one; public Vector2 safeScreenMultiple { get => _safeScreenMultiple; set => _safeScreenMultiple = value; }
+        public bool alwaysVisible { get => _alwaysVisible; set => _alwaysVisible = value; } [SerializeField] bool _alwaysVisible = false;
+       
 
 
 
-        [SerializeField, HideInInspector, FormerlySerializedAs("safeScreen")] RectTransform _safeScreen; public RectTransform safeScreen => _safeScreen;
+        public RectTransform safeScreen => _safeScreen; [SerializeField, HideInInspector, FormerlySerializedAs("safeScreen")] RectTransform _safeScreen;
 
         DrivenRectTransformTracker tracker;
 
@@ -55,7 +138,7 @@ namespace SCKRM.UI
                     canvas.scaleFactor = guiSize;
             }
 
-            if (!customSetting)
+            if (!customSetting && StatusBarManager.cropTheScreen)
             {
                 if (!worldRenderMode)
                 {
@@ -73,6 +156,8 @@ namespace SCKRM.UI
                     WorldRenderCamera();
                 }
             }
+            else
+                SafeScreenDestroy();
         }
 
         void SafeScreenSetting()
@@ -120,6 +205,9 @@ namespace SCKRM.UI
                 safeScreen.offsetMin = Vector2.zero;
                 safeScreen.offsetMax = Vector2.zero;
             }
+
+            safeScreen.offsetMin += safeScreenOffset.min;
+            safeScreen.offsetMax += safeScreenOffset.max;
 
             safeScreen.pivot = Vector2.zero;
 
@@ -181,6 +269,8 @@ namespace SCKRM.UI
 #else
             DestroyImmediate(safeScreen.gameObject);
 #endif
+
+            _safeScreen = null;
         }
 
         void WorldRenderCamera()
