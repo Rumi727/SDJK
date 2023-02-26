@@ -25,9 +25,10 @@ namespace SCKRM.Editor
             if (!editor.customSetting)
             {
                 UseProperty("_normalizedViewPortRect");
+                UseProperty("_safeScreenMultiple", "안전 스크린 배수");
 
                 if (!Kernel.isPlaying)
-                    editor.camera.rect = editor.normalizedViewPortRect = editor.normalizedViewPortRect;
+                    editor.camera.rect = editor.normalizedViewPortRect;
             }
         }
     }

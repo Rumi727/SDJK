@@ -16,6 +16,7 @@ namespace SCKRM.Camera
 #pragma warning restore CS0108 // 멤버가 상속된 멤버를 숨깁니다. new 키워드가 없습니다.
 
         public Rect normalizedViewPortRect { get => _normalizedViewPortRect; set => _normalizedViewPortRect = value; } [SerializeField] Rect _normalizedViewPortRect = new Rect(0, 0, 1, 1);
+        public Vector2 safeScreenMultiple { get => _safeScreenMultiple; set => _safeScreenMultiple = value; } [SerializeField] Vector2 _safeScreenMultiple = Vector2.one;
 
         /// <summary>
         /// 스크립트가 카메라의 설정을 변경하지 못하게 막습니다
@@ -35,10 +36,17 @@ namespace SCKRM.Camera
 
                 if (StatusBarManager.cropTheScreen)
                 {
-                    float minX = StatusBarManager.cropedRect.min.x * UIManager.currentGuiSize / ScreenManager.width;
-                    float maxX = StatusBarManager.cropedRect.max.x * UIManager.currentGuiSize / ScreenManager.width;
-                    float minY = StatusBarManager.cropedRect.min.y * UIManager.currentGuiSize / ScreenManager.height;
-                    float maxY = StatusBarManager.cropedRect.max.y * UIManager.currentGuiSize / ScreenManager.height;
+                    Rect cropedRect = StatusBarManager.cropedRect;
+                    cropedRect.x *= 2;
+                    cropedRect.y *= 2;
+
+                    cropedRect.min *= safeScreenMultiple;
+                    cropedRect.max *= safeScreenMultiple;
+
+                    float minX = cropedRect.min.x * UIManager.currentGuiSize / ScreenManager.width;
+                    float maxX = cropedRect.max.x * UIManager.currentGuiSize / ScreenManager.width;
+                    float minY = cropedRect.min.y * UIManager.currentGuiSize / ScreenManager.height;
+                    float maxY = cropedRect.max.y * UIManager.currentGuiSize / ScreenManager.height;
 
                     Rect rect = normalizedViewPortRect;
                     rect.min = new Vector2(normalizedViewPortRect.min.x + minX, normalizedViewPortRect.min.y + minY);
