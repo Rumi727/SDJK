@@ -5,7 +5,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace SDJK
 {
-    public sealed class PostProcessingDisable : MonoBehaviour
+    public sealed class PostProcessDisable : MonoBehaviour
     {
         [SerializeField] PostProcessLayer postProcessLayer;
 
