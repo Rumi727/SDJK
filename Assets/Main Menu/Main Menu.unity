@@ -529,14 +529,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80878873c0b26984e95c5338a1297994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _alwaysVisible: 0
   _customSetting: 0
-  _customGuiSize: 1
-  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
+  _safeScreenOffset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  _customGuiSize: 1
+  _guiSize: 1
+  _alwaysVisible: 0
   _safeScreen: {fileID: 518970847}
 --- !u!114 &52792038
 MonoBehaviour:
@@ -2548,7 +2554,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 134.75
+  m_fontSize: 135.95
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3647,14 +3653,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80878873c0b26984e95c5338a1297994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _alwaysVisible: 1
   _customSetting: 0
-  _customGuiSize: 0
-  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
+  _safeScreenOffset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  _customGuiSize: 0
+  _guiSize: 1
+  _alwaysVisible: 1
   _safeScreen: {fileID: 1605662048}
 --- !u!114 &791535483
 MonoBehaviour:
@@ -4160,14 +4172,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80878873c0b26984e95c5338a1297994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _alwaysVisible: 0
   _customSetting: 0
-  _customGuiSize: 1
-  _guiSize: 1
   _worldRenderMode: 0
   _planeDistance: 0
   _forceSafeScreenEnable: 0
   _safeScreenMultiple: {x: 1, y: 1}
+  _safeScreenOffset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  _customGuiSize: 1
+  _guiSize: 1
+  _alwaysVisible: 0
   _safeScreen: {fileID: 1726261265}
 --- !u!114 &839120023
 MonoBehaviour:
@@ -4246,7 +4264,7 @@ MonoBehaviour:
   barLayout: {fileID: 873753398}
   barLayoutHorizontalLayout: {fileID: 873753399}
   mapSelectScreen: {fileID: 52792043}
-  superBulr: {fileID: 1661972260}
+  superBulr: {fileID: 1408405982192361525}
   logoVisualizer: {fileID: 1320217941}
   logoEffect: {fileID: 365730765}
 --- !u!114 &839120027
@@ -8437,17 +8455,6 @@ MonoBehaviour:
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 1605662048}
   _graphic: {fileID: 0}
---- !u!114 &1661972260 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4020381602348857020, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
-  m_PrefabInstance: {fileID: 1408405982192361517}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1978413811842c74481436f1561bb62d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1678536913
 GameObject:
   m_ObjectHideFlags: 0
@@ -10237,6 +10244,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8455317547016038484, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+      propertyPath: m_ShowToolkit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8455317547016038484, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
 --- !u!20 &1408405982192361518 stripped
@@ -10244,6 +10259,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1408405981619606514, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
   m_PrefabInstance: {fileID: 1408405982192361517}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1408405982192361525 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8611825505683490126, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+  m_PrefabInstance: {fileID: 1408405982192361517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1978413811842c74481436f1561bb62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2705830979809166578
 PrefabInstance:
   m_ObjectHideFlags: 0

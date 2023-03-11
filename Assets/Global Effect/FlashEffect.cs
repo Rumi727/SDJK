@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace SDJK.Effect
 {
     [RequireComponent(typeof(Image))]
-    public class FlashEffect : Effect
+    public sealed class FlashEffect : Effect
     {
         [SerializeField] Image _image; public Image image => _image = this.GetComponentFieldSave(_image);
         [SerializeField] FlashOrder _flashOrder = FlashOrder.background; public FlashOrder flashOrder => _flashOrder;

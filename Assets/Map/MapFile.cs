@@ -23,6 +23,7 @@ namespace SDJK.Map
         public MapInfo info { get; set; } = new MapInfo();
         public MapGlobalEffect globalEffect { get; set; } = new MapGlobalEffect();
         public MapVisualizerEffect visualizerEffect { get; set; } = new MapVisualizerEffect();
+        public MapPostProcessEffect postProcessEffect { get; set; } = new MapPostProcessEffect();
 
         [JsonIgnore] public List<double> allJudgmentBeat { get; set; } = new List<double>();
 
