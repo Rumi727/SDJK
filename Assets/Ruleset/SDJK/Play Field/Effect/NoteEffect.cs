@@ -2,11 +2,14 @@ using SCKRM.Rhythm;
 using SDJK.Ruleset.SDJK.Effect;
 using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
+using SDJK.Effect;
 
 namespace SDJK.Ruleset.SDJK
 {
     public class NoteEffect : SDJKEffect
     {
+        public override EffectManager effectManager => bar.effectManager;
+
         [SerializeField] Note note;
         [SerializeField] Transform holdNote;
         [SerializeField] SpriteRenderer spriteRenderer;
@@ -15,13 +18,7 @@ namespace SDJK.Ruleset.SDJK
         Bar bar => note.bar;
         SDJKNoteTypeFile type => note.type;
 
-        protected override void RealUpdate()
-        {
-            if (effectManager == null)
-                effectManager = note.effectManager;
-
-            ColorUpdate();
-        }
+        protected override void RealUpdate() => ColorUpdate();
 
         void ColorUpdate()
         {

@@ -1,8 +1,6 @@
 using SCKRM;
 using SCKRM.Rhythm;
 using SCKRM.UI;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +8,7 @@ namespace SDJK.Effect
 {
     public abstract class Effect : MonoBehaviour
     {
-        [SerializeField] EffectManager _effectManager; public virtual EffectManager effectManager { get => _effectManager; protected set => _effectManager = value; }
+        [SerializeField] EffectManager _effectManager; public virtual EffectManager effectManager => _effectManager;
 
         public virtual Map.MapPack mapPack => effectManager.selectedMapPack;
         public virtual Map.MapFile map => effectManager.selectedMap;

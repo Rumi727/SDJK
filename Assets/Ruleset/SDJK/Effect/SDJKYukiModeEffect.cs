@@ -5,14 +5,7 @@ namespace SDJK.Ruleset.SDJK.Effect
 {
     public class SDJKYukiModeEffect : YukiModeEffect
     {
+        public override EffectManager effectManager => bar.effectManager;
         [SerializeField] Bar _bar; public Bar bar => _bar;
-
-        protected override void RealUpdate()
-        {
-            if (effectManager == null)
-                effectManager = bar.effectManager;
-
-            base.RealUpdate();
-        }
     }
 }

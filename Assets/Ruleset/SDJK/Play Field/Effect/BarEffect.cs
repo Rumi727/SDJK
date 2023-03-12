@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Rhythm;
+using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Judgement;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace SDJK.Ruleset.SDJK.Effect
 {
     public sealed class BarEffect : SDJKEffect
     {
+        public override EffectManager effectManager => bar.effectManager;
+
         [SerializeField] SpriteRenderer spriteRenderer;
         [SerializeField] SpriteRenderer backgroundSpriteRenderer;
         [SerializeField] SpriteRenderer keySpriteRenderer;
@@ -53,9 +56,6 @@ namespace SDJK.Ruleset.SDJK.Effect
         bool isKeyEnable = false;
         protected override void RealUpdate()
         {
-            if (effectManager == null)
-                effectManager = bar.effectManager;
-            
             PosUpdate();
             SizeUpdate();
             ColorUpdate();

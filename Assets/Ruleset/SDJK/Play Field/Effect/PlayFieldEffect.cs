@@ -7,14 +7,13 @@ namespace SDJK.Ruleset.SDJK.Effect
 {
     public class PlayFieldEffect : SDJKEffect
     {
+        public override EffectManager effectManager => playField.effectManager;
+
         [SerializeField] PlayField playField;
         SDJKFieldEffectFile fieldEffectFile => playField.fieldEffectFile;
 
         protected override void RealUpdate()
         {
-            if (effectManager == null)
-                effectManager = playField.effectManager;
-
             PosUpdate();
             SizeUpdate();
         }
