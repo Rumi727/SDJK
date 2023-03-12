@@ -19,7 +19,7 @@ namespace SDJK.Effect
 
         void Update()
         {
-            if (!RhythmManager.isPlaying || effectManager == null || effectManager.selectedMapPack == null || effectManager.selectedMap == null)
+            if (!RhythmManager.isPlaying || effectManager == null || effectManager.selectedMap == null)
                 return;
 
             RealUpdate();
