@@ -4264,7 +4264,7 @@ MonoBehaviour:
   barLayout: {fileID: 873753398}
   barLayoutHorizontalLayout: {fileID: 873753399}
   mapSelectScreen: {fileID: 52792043}
-  superBulr: {fileID: 1408405982192361525}
+  superBulr: {fileID: 1408405982192361519}
   logoVisualizer: {fileID: 1320217941}
   logoEffect: {fileID: 365730765}
 --- !u!114 &839120027
@@ -10259,9 +10259,9 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1408405981619606514, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
   m_PrefabInstance: {fileID: 1408405982192361517}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1408405982192361525 stripped
+--- !u!114 &1408405982192361519 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8611825505683490126, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2053048610950571253, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
   m_PrefabInstance: {fileID: 1408405982192361517}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
