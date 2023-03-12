@@ -715,7 +715,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 1408405982577623746}
-  _image: {fileID: 1967383904992561625}
   _prefab: background_effect.background
 --- !u!1 &1408405981619606512
 GameObject:
@@ -1169,7 +1168,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2000
   m_TargetDisplay: 0
 --- !u!114 &1408405982779672848
 MonoBehaviour:
