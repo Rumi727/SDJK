@@ -67,7 +67,7 @@ namespace SCKRM.Sound
             get => _isPaused;
             set
             {
-                if (_isPaused != value)
+                if (_isPaused != value && !isSpeedZero)
                 {
                     if (value)
                         audioSource.Pause();
@@ -227,6 +227,8 @@ namespace SCKRM.Sound
         public int frequency { get; private set; }
         public int lengthSamples { get; private set; }
 
+        public bool isSpeedZero { get; private set; }
+
 
 
         bool lastUseTempo = true;
@@ -278,7 +280,7 @@ namespace SCKRM.Sound
                 lastTime = time;
             }
 
-            if (!isPaused && !audioSource.isPlaying && !ResourceManager.isAudioReset)
+            if (!isPaused && !isSpeedZero && !audioSource.isPlaying && !ResourceManager.isAudioReset)
                 Remove();
         }
 
@@ -356,7 +358,7 @@ namespace SCKRM.Sound
                 SoundManager.soundList.Add(this);
 
             {
-                if (!audioSource.isPlaying && !isPaused)
+                if (!audioSource.isPlaying)
                 {
                     if (audioSource.pitch < 0 && !metaData.stream && lastTime == 0)
                         time = length - 0.001;
@@ -365,10 +367,14 @@ namespace SCKRM.Sound
 
                     lastTime = time;
                     audioSource.Play();
+
+                    if (isPaused || isSpeedZero)
+                        audioSource.Pause();
                 }
             }
         }
 
+        bool lastIsSpeedZero = false;
         public void RefreshTempoAndPitch()
         {
             if (soundData == null || metaData == null)
@@ -377,7 +383,28 @@ namespace SCKRM.Sound
                 return;
             }
 
-            if (soundData == null || soundData.isBGM && SoundManager.SaveData.useTempo)
+            isSpeedZero = realSpeed * Kernel.gameSpeed == 0;
+
+            if (lastIsSpeedZero != isSpeedZero)
+            {
+                if (isSpeedZero)
+                {
+                    audioSource.pitch = 0;
+                    audioSource.Pause();
+
+                    lastIsSpeedZero = isSpeedZero;
+                    return;
+                }
+                else
+                {
+                    if (!isPaused)
+                        audioSource.UnPause();
+
+                    lastIsSpeedZero = isSpeedZero;
+                }
+            }
+
+            if (soundData.isBGM && SoundManager.SaveData.useTempo)
             {
                 if (metaData.stream)
                     base.tempo = base.tempo.Clamp(0);
