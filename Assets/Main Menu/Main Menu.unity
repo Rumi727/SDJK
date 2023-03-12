@@ -258,7 +258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 789537519}
-  _image: {fileID: 16504485}
   _prefab: map_select_screen.background
 --- !u!114 &16504484
 MonoBehaviour:
