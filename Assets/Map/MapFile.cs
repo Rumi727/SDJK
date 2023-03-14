@@ -20,6 +20,26 @@ namespace SDJK.Map
 
     public class MapFile
     {
+        public MapFile(string mapFilePath)
+        {
+            if (File.Exists(mapFilePath))
+            {
+                mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
+                this.mapFilePath = mapFilePath;
+            }
+            else
+            {
+                mapFilePathParent = "";
+                this.mapFilePath = "";
+            }
+
+            info.sckrmVersion = Kernel.sckrmVersion;
+            info.sdjkVersion = (Version)Kernel.version;
+
+            info.ResetMapID();
+            SetVisualizerEffect();
+        }
+
         public MapInfo info { get; set; } = new MapInfo();
         public MapGlobalEffect globalEffect { get; set; } = new MapGlobalEffect();
         public MapVisualizerEffect visualizerEffect { get; set; } = new MapVisualizerEffect();
@@ -29,22 +49,6 @@ namespace SDJK.Map
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
         [JsonIgnore] public string mapFilePath { get; set; } = null;
-
-        [JsonIgnore] public bool isInit { get; private set; } = false;
-
-        public virtual void Init(string mapFilePath)
-        {
-            mapFilePathParent = Directory.GetParent(mapFilePath).ToString();
-            this.mapFilePath = mapFilePath;
-
-            info.sckrmVersion = Kernel.sckrmVersion;
-            info.sdjkVersion = (Version)Kernel.version;
-
-            info.ResetMapID(mapFilePath);
-            SetVisualizerEffect();
-
-            isInit = true;
-        }
 
         public virtual void SetVisualizerEffect() { }
     }
@@ -121,13 +125,13 @@ namespace SDJK.Map
 
 
 
-        public void ResetMapID(string mapFilePath)
+        public void ResetMapID()
         {
             using SHA256 sha256 = SHA256.Create();
-            using FileStream stream = File.OpenRead(mapFilePath);
+            byte[] bytes = Encoding.UTF8.GetBytes(JsonManager.ObjectToJson(this));
 
-            _id = BitConverter.ToString(sha256.ComputeHash(stream));
-            _randomSeed = BitConverter.ToInt32(Encoding.UTF8.GetBytes(_id));
+            _id = BitConverter.ToString(sha256.ComputeHash(bytes));
+            _randomSeed = BitConverter.ToInt32(bytes);
 
             idIsReseted = true;
         }

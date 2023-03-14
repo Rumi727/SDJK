@@ -13,6 +13,7 @@ using SDJK.Mode.Converter;
 
 using Random = System.Random;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
+using System.IO;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -44,26 +45,30 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public static SDJKMapFile MapLoad(string mapFilePath, IMode[] modes)
         {
-            JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
             SDJKMapFile map;
 
-            if (OldSDJKMapDistinction(jObjectMap))
+            if (File.Exists(mapFilePath))
             {
-                map = OldSDJKMapLoad(mapFilePath, jObjectMap);
-                if (map == null)
-                    return null;
+                JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
+
+                if (OldSDJKMapDistinction(jObjectMap))
+                {
+                    map = OldSDJKMapLoad(mapFilePath, jObjectMap);
+                    if (map == null)
+                        return null;
+                }
+                else
+                {
+                    map = jObjectMap.ToObject<SDJKMapFile>();
+                    if (map == null)
+                        return null;
+
+                    if (map.info.ruleset != "sdjk")
+                        return null;
+                }
             }
             else
-            {
-                map = jObjectMap.ToObject<SDJKMapFile>();
-                if (map == null)
-                    return null;
-
-                map.Init(mapFilePath);
-
-                if (map.info.ruleset != "sdjk")
-                    return null;
-            }
+                map = new SDJKMapFile("");
 
             FixMode(map, modes);
 
@@ -166,9 +171,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public static SDJKMapFile SuperHexagonMapLoad(string mapFilePath, IMode[] modes)
         {
-            SDJKMapFile sdjkMap = new SDJKMapFile();
-            sdjkMap.Init(mapFilePath);
-
+            SDJKMapFile sdjkMap = new SDJKMapFile(mapFilePath);
             SuperHexagonMapFile superHexagonMap = SuperHexagonLoader.MapLoad(mapFilePath, modes);
 
             #region Global Info Copy
@@ -227,9 +230,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public static SDJKMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes, bool cameraZoomEffectChange = true)
         {
-            SDJKMapFile sdjkMapFile = new SDJKMapFile();
-            sdjkMapFile.Init(mapFilePath);
-
+            SDJKMapFile sdjkMapFile = new SDJKMapFile(mapFilePath);
             ADOFAIMapFile adofaiMap = ADOFAIMapLoader.MapLoad(mapFilePath);
 
             #region Global Info Copy
@@ -490,9 +491,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         {
             try
             {
-                SDJKMapFile map = new SDJKMapFile();
-                map.Init(mapFilePath);
-
+                SDJKMapFile map = new SDJKMapFile(mapFilePath);
                 OldSDJK oldMap = jObjectMap.ToObject<OldSDJK>();
 
                 if (oldMap == null)

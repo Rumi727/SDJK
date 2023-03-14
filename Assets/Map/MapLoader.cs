@@ -47,7 +47,7 @@ namespace SDJK.Map
             return pack;
         }
 
-        public static T MapLoad<T>(string mapFilePath, params IMode[] modes) where T : MapFile, new()
+        public static T MapLoad<T>(string mapFilePath, params IMode[] modes) where T : MapFile
         {
             if (modes == null)
                 modes = IMode.emptyModes;
@@ -60,12 +60,6 @@ namespace SDJK.Map
                 if (map != null)
                 {
                     T sdjkMap = (T)map;
-                    if (!sdjkMap.isInit)
-                    {
-                        Debug.LogError(typeof(T).FullName + " is not init");
-                        return null;
-                    }
-
                     return sdjkMap;
                 }
             }

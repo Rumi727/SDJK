@@ -41,8 +41,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public static SuperHexagonMapFile MapLoad(string mapFilePath, IMode[] modes)
         {
             SuperHexagonMapFile map = JsonManager.JsonRead<SuperHexagonMapFile>(mapFilePath, true);
-            map.Init(mapFilePath);
-
+            
             FixMode(map, modes);
             FixAllJudgmentBeat(map);
 
@@ -151,9 +150,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
         static SuperHexagonMapFile SDJKMapToSuperHexagonMap(string mapFilePath, SDJKMapFile sdjkMap, IMode[] modes)
         {
-            SuperHexagonMapFile superHexagonMap = new SuperHexagonMapFile();
-            superHexagonMap.Init(mapFilePath);
-
+            SuperHexagonMapFile superHexagonMap = new SuperHexagonMapFile(mapFilePath);
+            
             #region Global Info Copy
             superHexagonMap.info = sdjkMap.info;
             superHexagonMap.globalEffect = sdjkMap.globalEffect;

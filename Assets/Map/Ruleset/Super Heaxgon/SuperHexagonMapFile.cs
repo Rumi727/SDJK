@@ -7,6 +7,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 {
     public sealed class SuperHexagonMapFile : MapFile
     {
+        public SuperHexagonMapFile(string mapFilePath) : base(mapFilePath) { }
+
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>

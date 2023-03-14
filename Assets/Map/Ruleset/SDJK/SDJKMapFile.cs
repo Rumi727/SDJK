@@ -6,6 +6,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 {
     public sealed class SDJKMapFile : MapFile
     {
+        public SDJKMapFile(string mapFilePath) : base(mapFilePath) { }
+
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>

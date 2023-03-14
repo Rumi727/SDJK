@@ -4,6 +4,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 {
     public sealed class ADOFAIMapFile : MapFile
     {
+        public ADOFAIMapFile(string mapFilePath) : base(mapFilePath) { }
+
         public List<double> tiles { get; } = new List<double>();
         public List<ADOFAITileEffectFile<double>> holds { get; } = new List<ADOFAITileEffectFile<double>>();
 
