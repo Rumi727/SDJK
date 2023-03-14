@@ -7,6 +7,7 @@ using SDJK.Map.Ruleset.SDJK.Map;
 using System.Linq;
 using SCKRM.Rhythm;
 using SDJK.Mode.Converter;
+using System.IO;
 
 namespace SDJK.Map.Ruleset.SuperHexagon.Map
 {
@@ -19,8 +20,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
             {
                 bool typeIsSuperHexagonMap = type == typeof(SuperHexagonMapFile);
-                if (extension == ".super_hexagon" && (type == typeof(MapFile) || typeIsSuperHexagonMap))
-                    return MapLoad(mapFilePath, modes);
+                if (typeIsSuperHexagonMap && !File.Exists(mapFilePath))
+                    return new SuperHexagonMapFile("");
 
                 //Ruleset 호환성
                 if (typeIsSuperHexagonMap)

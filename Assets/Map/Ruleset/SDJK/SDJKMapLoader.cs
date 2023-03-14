@@ -26,6 +26,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
             {
                 bool typeIsSDJKMap = type == typeof(SDJKMapFile);
+                if (typeIsSDJKMap && !File.Exists(mapFilePath))
+                    return new SDJKMapFile("");
+
                 if (extension == ".sdjk" && (type == typeof(MapFile) || typeIsSDJKMap))
                     return MapLoad(mapFilePath, modes);
 

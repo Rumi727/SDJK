@@ -56,7 +56,7 @@ namespace SDJK.Map
     public sealed class MapInfo
     {
         [JsonIgnore] bool idIsReseted = false;
-        public string id
+        [JsonIgnore] public string id
         {
             get
             {
@@ -66,7 +66,7 @@ namespace SDJK.Map
                 return _id;
             }
         }
-        [JsonIgnore] private string _id;
+        [JsonIgnore] private string _id = "";
         [JsonIgnore] public int randomSeed
         {
             get
@@ -77,7 +77,7 @@ namespace SDJK.Map
                 return _randomSeed;
             }
         }
-        private int _randomSeed;
+        [JsonIgnore] private int _randomSeed;
 
 
 
@@ -132,6 +132,9 @@ namespace SDJK.Map
 
             _id = BitConverter.ToString(sha256.ComputeHash(bytes));
             _randomSeed = BitConverter.ToInt32(bytes);
+
+            if (_id == null)
+                _id = "";
 
             idIsReseted = true;
         }

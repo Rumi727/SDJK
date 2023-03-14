@@ -92,6 +92,15 @@ namespace SDJK.Replay
 
         static void InternalReplayFileSetting<T>(this T replay, MapFile map, IMode[] modes) where T : ReplayFile, new()
         {
+            if (replay == null)
+                Debug.Log("asdf");
+            if (map == null)
+                Debug.Log("asdf");
+            if (map.info == null)
+                Debug.Log("asdf");
+            if (map.info.id == null)
+                Debug.Log("asdf");
+
             replay.mapId = map.info.id;
 
             replay.sckrmVersion = Kernel.sckrmVersion;
