@@ -127,10 +127,14 @@ namespace SDJK.Map
 
 
 
-        public void ResetMapID()
+        public void ResetMapID(string mapFilePath)
         {
             using SHA256 sha256 = SHA256.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes(JsonManager.ObjectToJson(this));
+            byte[] bytes;
+            if (File.Exists(mapFilePath))
+                bytes = File.ReadAllBytes(mapFilePath);
+            else
+                bytes = Encoding.UTF8.GetBytes(JsonManager.ObjectToJson(this));
 
             _id = BitConverter.ToString(sha256.ComputeHash(bytes));
             _randomSeed = BitConverter.ToInt32(bytes);
