@@ -6,12 +6,15 @@ using System.Collections.Generic;
 namespace SCKRM.Rhythm
 {
     #region Beat Value Pair List
+    //리플랙션 용
+    public interface IBeatValuePairList { }
+
     public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
     {
         public BeatValuePairList(T defaultValue) : base(defaultValue) { }
     }
 
-    public class BeatValuePairList<TValue, TPair> : List<TPair> where TPair : IBeatValuePair<TValue>, new()
+    public class BeatValuePairList<TValue, TPair> : List<TPair>, IBeatValuePairList where TPair : IBeatValuePair<TValue>, new()
     {
         public BeatValuePairList(TValue defaultValue) => this.defaultValue = defaultValue;
 
@@ -133,12 +136,15 @@ namespace SCKRM.Rhythm
     #endregion
 
     #region Beat Value Pair Ani List
+    //리플랙션 용
+    public interface IBeatValuePairAniList { }
+
     public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>>
     {
         public BeatValuePairAniList(T defaultValue) : base(defaultValue) { }
     }
 
-    public abstract class BeatValuePairAniList<TValue, TPair> : BeatValuePairList<TValue, TPair> where TPair : IBeatValuePairAni<TValue>, new()
+    public abstract class BeatValuePairAniList<TValue, TPair> : BeatValuePairList<TValue, TPair>, IBeatValuePairAniList where TPair : IBeatValuePairAni<TValue>, new()
     {
         public BeatValuePairAniList(TValue defaultValue) : base(defaultValue) { }
 
@@ -311,12 +317,17 @@ namespace SCKRM.Rhythm
 
 
     #region Beat Value Pair
-    public interface IBeatValuePair<TValue>
+    public interface IBeatValuePair
     {
         double beat { get; set; }
-        TValue value { get; set; }
+        object value { get; }
 
         bool disturbance { get; set; }
+    }
+
+    public interface IBeatValuePair<TValue> : IBeatValuePair
+    {
+        new TValue value { get; set; }
     }
 
     public interface IBeatValuePairAni<TValue> : IBeatValuePair<TValue>
@@ -330,7 +341,9 @@ namespace SCKRM.Rhythm
     public struct BeatValuePair<TValue> : IBeatValuePair<TValue>
     {
         public double beat { get; set; }
+
         public TValue value { get; set; }
+        object IBeatValuePair.value => value;
 
         public bool disturbance { get; set; }
 
@@ -346,7 +359,9 @@ namespace SCKRM.Rhythm
     public struct BeatValuePairAni<TValue> : IBeatValuePairAni<TValue>
     {
         public double beat { get; set; }
+
         public TValue value { get; set; }
+        object IBeatValuePair.value => value;
 
         public double length { get; set; }
         public EasingFunction.Ease easingFunction { get; set; }
