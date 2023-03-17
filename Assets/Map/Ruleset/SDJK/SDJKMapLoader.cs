@@ -14,6 +14,7 @@ using SDJK.Mode.Converter;
 using Random = System.Random;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using System.IO;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -63,6 +64,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 else
                 {
                     map = jObjectMap.ToObject<SDJKMapFile>();
+                    map.Init(mapFilePath);
+
                     if (map == null)
                         return null;
 

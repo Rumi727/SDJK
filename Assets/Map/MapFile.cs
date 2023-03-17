@@ -20,7 +20,9 @@ namespace SDJK.Map
 
     public class MapFile
     {
-        public MapFile(string mapFilePath)
+        public MapFile(string mapFilePath) => Init(mapFilePath);
+
+        public void Init(string mapFilePath)
         {
             if (File.Exists(mapFilePath))
             {
