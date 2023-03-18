@@ -1,9 +1,8 @@
 using SCKRM;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK.MapEditor
+namespace SDJK
 {
     public sealed class CameraRenderImage : MonoBehaviour
     {

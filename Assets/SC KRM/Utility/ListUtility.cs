@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Numerics;
 using System;
 using System.Linq;
+using System.Collections;
 
 namespace SCKRM
 {
     public static class ListUtility
     {
-        public static void Move<T>(this IList<T> list, int oldIndex, int newIndex)
+        public static void Move(this IList list, int oldIndex, int newIndex)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            T temp = list[oldIndex];
+            object temp = list[oldIndex];
             list.RemoveAt(oldIndex);
             list.Insert(newIndex, temp);
         }
 
-        public static void Change<T>(this IList<T> list, int oldIndex, int newIndex)
+        public static void Change(this IList list, int oldIndex, int newIndex)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
-            T temp = list[newIndex];
+            object temp = list[newIndex];
             list[newIndex] = list[oldIndex];
             list[oldIndex] = temp;
         }

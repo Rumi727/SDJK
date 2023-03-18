@@ -1,4 +1,3 @@
-using SCKRM.Json;
 using System;
 using UnityEngine;
 
@@ -6,9 +5,9 @@ namespace SCKRM
 {
     public struct Version : IEquatable<Version>
     {
-        public ulong major;
-        public ulong minor;
-        public ulong patch;
+        public ulong major { get; set; }
+        public ulong minor { get; set; }
+        public ulong patch { get; set; }
 
 
         public Version(string value)
@@ -22,21 +21,30 @@ namespace SCKRM
             }
             else if (versions.Length == 1)
             {
-                ulong.TryParse(versions[0], out major);
+                ulong.TryParse(versions[0], out ulong major);
+
+                this.major = major;
                 minor = 0;
                 patch = 0;
             }
             else if (versions.Length == 2)
             {
-                ulong.TryParse(versions[0], out major);
-                ulong.TryParse(versions[1], out minor);
+                ulong.TryParse(versions[0], out ulong major);
+                ulong.TryParse(versions[1], out ulong minor);
+
+                this.major = major;
+                this.minor = minor;
                 patch = 0;
             }
             else
             {
-                ulong.TryParse(versions[0], out major);
-                ulong.TryParse(versions[1], out minor);
-                ulong.TryParse(versions[2], out patch);
+                ulong.TryParse(versions[0], out ulong major);
+                ulong.TryParse(versions[1], out ulong minor);
+                ulong.TryParse(versions[2], out ulong patch);
+
+                this.major = major;
+                this.minor = minor;
+                this.patch = patch;
             }
         }
         public Version(ulong major, ulong minor, ulong patch)
@@ -99,6 +107,9 @@ namespace SCKRM
 
         public static explicit operator string(Version value) => value.ToString();
         public static explicit operator Version(string value) => new Version(value);
+
+        public static explicit operator Vector3Int(Version value) => new Vector3Int((int)value.major, (int)value.minor, (int)value.patch);
+        public static explicit operator Version(Vector3Int value) => new Version((ulong)value.x, (ulong)value.y, (ulong)value.z);
 
 
 

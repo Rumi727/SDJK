@@ -16,7 +16,7 @@ using SDJK.Replay.Ruleset.SDJK;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
-    public sealed class SDJKJudgementManager : ManagerBase<SDJKJudgementManager>
+    public sealed class SDJKJudgementManager : ManagerBase<SDJKJudgementManager>, IJudgementManager
     {
         [SerializeField] SDJKManager _sdjkManager; public SDJKManager sdjkManager => _sdjkManager;
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
@@ -464,7 +464,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
             }
 
-            public void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+            public void HitsoundPlay() => HitsoundEffect.HitsoundPlay();
 
             public double GetDisSecond(double beat, bool maxClamp, double currentBeat)
             {

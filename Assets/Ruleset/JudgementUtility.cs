@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SDJK.Ruleset
 {
-    public static class JudgementManager
+    public static class JudgementUtility
     {
         public const double maxScore = 10000000;
 

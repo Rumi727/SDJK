@@ -1,13 +1,17 @@
 using SCKRM.Easing;
 using SCKRM.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace SCKRM.Rhythm
 {
     #region Beat Value Pair List
     //리플랙션 용
-    public interface IBeatValuePairList { }
+    public interface IBeatValuePairList : IList
+    {
+        Type pairType { get; }
+    }
 
     public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
     {
@@ -19,6 +23,7 @@ namespace SCKRM.Rhythm
         public BeatValuePairList(TValue defaultValue) => this.defaultValue = defaultValue;
 
         public TValue defaultValue { get; } = default;
+        public Type pairType => typeof(TPair);
 
         public TValue GetValue() => GetValue(RhythmManager.currentBeat, out _);
         public TValue GetValue(double currentBeat) => GetValue(currentBeat, out _);
@@ -137,7 +142,7 @@ namespace SCKRM.Rhythm
 
     #region Beat Value Pair Ani List
     //리플랙션 용
-    public interface IBeatValuePairAniList { }
+    public interface IBeatValuePairAniList : IBeatValuePairList { }
 
     public abstract class BeatValuePairAniList<T> : BeatValuePairAniList<T, BeatValuePairAni<T>>
     {
@@ -320,7 +325,7 @@ namespace SCKRM.Rhythm
     public interface IBeatValuePair
     {
         double beat { get; set; }
-        object value { get; }
+        object value { get; set; }
 
         bool disturbance { get; set; }
     }
@@ -330,20 +335,20 @@ namespace SCKRM.Rhythm
         new TValue value { get; set; }
     }
 
-    public interface IBeatValuePairAni<TValue> : IBeatValuePair<TValue>
+    public interface IBeatValuePairAni : IBeatValuePair
     {
         double length { get; set; }
         EasingFunction.Ease easingFunction { get; set; }
     }
 
-
+    public interface IBeatValuePairAni<TValue> : IBeatValuePair<TValue>, IBeatValuePairAni { }
 
     public struct BeatValuePair<TValue> : IBeatValuePair<TValue>
     {
         public double beat { get; set; }
 
         public TValue value { get; set; }
-        object IBeatValuePair.value => value;
+        object IBeatValuePair.value { get => value; set => this.value = (TValue)value; }
 
         public bool disturbance { get; set; }
 
@@ -361,7 +366,7 @@ namespace SCKRM.Rhythm
         public double beat { get; set; }
 
         public TValue value { get; set; }
-        object IBeatValuePair.value => value;
+        object IBeatValuePair.value { get => value; set => this.value = (TValue)value; }
 
         public double length { get; set; }
         public EasingFunction.Ease easingFunction { get; set; }

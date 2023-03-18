@@ -133,7 +133,7 @@ namespace SDJK.Ruleset.SDJK
 
                 if (modes.FindMode<AutoModeBase>() != null)
                 {
-                    currentReplay.scores.Add(double.MinValue, JudgementManager.maxScore);
+                    currentReplay.scores.Add(double.MinValue, JudgementUtility.maxScore);
 
                     currentReplay.combos.Add(double.MinValue, map.allJudgmentBeat.Count);
                     currentReplay.maxCombo.Add(double.MinValue, map.allJudgmentBeat.Count);

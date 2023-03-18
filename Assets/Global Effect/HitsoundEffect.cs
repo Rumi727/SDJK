@@ -11,8 +11,10 @@ namespace SDJK.Effect
         {
             int count = GetHitsoundPlayCount(map, RhythmManager.currentBeatSound, ref lastValue);
             for (int i = 0; i < count; i++)
-                SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+                HitsoundPlay();
         }
+
+        public static void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
 
         public static int GetHitsoundPlayCount(MapFile map, double currentBeat, ref double lastValue) => GetHitsoundPlayCount(map, currentBeat, ref lastValue, out _);
 

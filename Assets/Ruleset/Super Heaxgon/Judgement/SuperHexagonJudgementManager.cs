@@ -13,7 +13,7 @@ using SDJK.Replay.Ruleset.SuperHexagon;
 
 namespace SDJK.Ruleset.SuperHexagon.Judgement
 {
-    public sealed class SuperHexagonJudgementManager : ManagerBase<SuperHexagonJudgementManager>
+    public sealed class SuperHexagonJudgementManager : ManagerBase<SuperHexagonJudgementManager>, IJudgementManager
     {
         [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
@@ -168,6 +168,6 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 accuracy = replay.accuracyAbses.GetValue(beat);
         }
 
-        public static void HitsoundPlay() => SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+        public static void HitsoundPlay() => HitsoundEffect.HitsoundPlay();
     }
 }

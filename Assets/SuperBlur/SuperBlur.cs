@@ -7,7 +7,6 @@ namespace SuperBlur
 	[AddComponentMenu("Effects/Super Blur", -1)]
 	public class SuperBlur : SuperBlurBase
 	{
-		
 		void OnRenderImage (RenderTexture source, RenderTexture destination) 
 		{
 			if (blurMaterial == null || UIMaterial == null) return;

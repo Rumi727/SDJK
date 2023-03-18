@@ -50,7 +50,7 @@ namespace SCKRM.Rhythm
             {
                 if (!isPlaying)
                     return;
-                else if (soundPlayer == null || soundPlayer.isRemoved)
+                else if (soundPlayer == null || soundPlayer.isRemoved || soundPlayer.IsDestroyed())
                     _time = value;
                 else //사운드 플레이어의 구현이 정상적이라면 사운드 플레이어의 시간이 변경됨과 동시에 이벤트로 인해 time의 시간도 바뀌게 됩니다
                     soundPlayer.time = (float)value;
@@ -65,7 +65,7 @@ namespace SCKRM.Rhythm
             {
                 _isPaused = value;
 
-                if (soundPlayer != null && time >= 0 && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
+                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed() && time >= 0 && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     soundPlayer.isPaused = value;
             }
         }
@@ -78,7 +78,7 @@ namespace SCKRM.Rhythm
             {
                 _speed = value;
 
-                if (soundPlayer != null)
+                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed())
                     soundPlayer.speed = (float)value;
             }
         }
@@ -113,7 +113,7 @@ namespace SCKRM.Rhythm
             {
                 if (soundPlayer != null)
                 {
-                    if (soundPlayer.isActived)
+                    if (soundPlayer.isActived && !soundPlayer.IsDestroyed())
                         soundPlayer.speed = (float)speed;
                     else
                         soundPlayer = null;
@@ -335,6 +335,17 @@ namespace SCKRM.Rhythm
             isPlaying = false;
             isStart = false;
             isEnd = false;
+        }
+
+        public static void Rewind(double value)
+        {
+            timeChangedEventLock = true;
+
+            _time -= value * 2;
+            if (soundPlayer != null)
+                soundPlayer.time = _time.Clamp(0, soundPlayer.length - 0.01f);
+
+            timeChangedEventLock = false;
         }
 
         public static void SoundPlayerChange(ISoundPlayer soundPlayer)

@@ -13,7 +13,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void RealUpdate(float lerpValue)
         {
             scoreAnimation = scoreAnimation.Lerp(replay.scores.GetValue(double.MaxValue), lerpValue);
-            float fillAmout = (float)(scoreAnimation / JudgementManager.maxScore);
+            float fillAmout = (float)(scoreAnimation / JudgementUtility.maxScore);
 
             background.fillAmount = 1 - fillAmout;
             color.fillAmount = fillAmout;

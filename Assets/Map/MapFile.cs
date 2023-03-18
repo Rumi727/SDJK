@@ -38,7 +38,7 @@ namespace SDJK.Map
             info.sckrmVersion = Kernel.sckrmVersion;
             info.sdjkVersion = (Version)Kernel.version;
 
-            info.ResetMapID();
+            info.ResetMapID(mapFilePath);
             SetVisualizerEffect();
         }
 
@@ -206,13 +206,24 @@ namespace SDJK.Map
     #region Effect Class And Struct
     public struct BackgroundEffectPair
     {
-        public string backgroundFile { get; set; }
-        public string backgroundNightFile { get; set; }
+        public string backgroundFile
+        {
+            get => _backgroundFile ?? "";
+            set => _backgroundFile = value;
+        }
+        string _backgroundFile;
+
+        public string backgroundNightFile
+        {
+            get => _backgroundNightFile ?? "";
+            set => _backgroundNightFile = value;
+        }
+        string _backgroundNightFile;
 
         public BackgroundEffectPair(string backgroundFile, string backgroundNightFile)
         {
-            this.backgroundFile = backgroundFile;
-            this.backgroundNightFile = backgroundNightFile;
+            _backgroundFile = backgroundFile;
+            _backgroundNightFile = backgroundNightFile;
         }
     }
 

@@ -70,16 +70,6 @@ namespace SDJK.Ruleset.SuperHexagon
 
                 if (distance <= 50)
                     wall.CrashVerdict();
-
-                if (distance + width < 0)
-                {
-                    wall.Remove();
-                    glRenderInvoker.wallRenderers.RemoveAt(i);
-                    walls.RemoveAt(i);
-                    i--;
-
-                    continue;
-                }
             }
         }
 

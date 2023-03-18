@@ -13,10 +13,10 @@ namespace SCKRM.Editor
         public int sortIndex => 400;
 
 
-        public void OnGUI() => render();
-        public static void Render(SCKRMWindowTabRhythm window) => window.render();
+        public void OnGUI() => render(false);
+        public static void Render(SCKRMWindowTabRhythm window, bool simple = false) => window.render(simple);
 
-        void render()
+        void render(bool simple)
         {
             if (RhythmManager.isPlaying)
                 EditorGUILayout.LabelField("플레이 중");
@@ -27,38 +27,45 @@ namespace SCKRM.Editor
 
             EditorGUILayout.LabelField("현재 시간 - " + RhythmManager.time);
 
-            CustomInspectorEditor.DrawLine();
+            if (!simple)
+                CustomInspectorEditor.DrawLine();
 
             EditorGUILayout.LabelField("현재 비트 - " + RhythmManager.currentBeat);
 
-            CustomInspectorEditor.Space();
+            if (!simple)
+            {
+                CustomInspectorEditor.Space();
 
-            EditorGUILayout.LabelField("현재 비트 (화면) - " + RhythmManager.currentBeatScreen);
-            EditorGUILayout.LabelField("현재 비트 (소리) - " + RhythmManager.currentBeatSound);
+                EditorGUILayout.LabelField("현재 비트 (화면) - " + RhythmManager.currentBeatScreen);
+                EditorGUILayout.LabelField("현재 비트 (소리) - " + RhythmManager.currentBeatSound);
 
-            CustomInspectorEditor.DrawLine();
+                CustomInspectorEditor.DrawLine();
 
-            EditorGUILayout.LabelField("현재 속도 - " + RhythmManager.speed);
+                EditorGUILayout.LabelField("현재 속도 - " + RhythmManager.speed);
 
-            CustomInspectorEditor.DrawLine();
+                CustomInspectorEditor.DrawLine();
 
-            if (RhythmManager.screenYukiMode)
-                EditorGUILayout.LabelField("유키 모드 O");
-            else
-                EditorGUILayout.LabelField("유키 모드 X");
+                if (RhythmManager.screenYukiMode)
+                    EditorGUILayout.LabelField("유키 모드 O");
+                else
+                    EditorGUILayout.LabelField("유키 모드 X");
 
-            CustomInspectorEditor.DrawLine();
+                CustomInspectorEditor.DrawLine();
+            }
 
             EditorGUILayout.LabelField("BPM - " + RhythmManager.bpm);
 
-            CustomInspectorEditor.Space();
+            if (!simple)
+            {
+                CustomInspectorEditor.Space();
 
-            EditorGUILayout.LabelField("BPM 델타 타임 - " + RhythmManager.bpmDeltaTime);
-            EditorGUILayout.LabelField("BPM FPS 델타 타임 - " + RhythmManager.bpmFpsDeltaTime);
-            EditorGUILayout.LabelField("BPM 스케일 되지 않은 델타 타임 - " + RhythmManager.bpmUnscaledDeltaTime);
-            EditorGUILayout.LabelField("BPM 스케일 되지 않은 FPS 델타 타임 - " + RhythmManager.bpmUnscaledDeltaTime);
+                EditorGUILayout.LabelField("BPM 델타 타임 - " + RhythmManager.bpmDeltaTime);
+                EditorGUILayout.LabelField("BPM FPS 델타 타임 - " + RhythmManager.bpmFpsDeltaTime);
+                EditorGUILayout.LabelField("BPM 스케일 되지 않은 델타 타임 - " + RhythmManager.bpmUnscaledDeltaTime);
+                EditorGUILayout.LabelField("BPM 스케일 되지 않은 FPS 델타 타임 - " + RhythmManager.bpmUnscaledDeltaTime);
 
-            CustomInspectorEditor.DrawLine();
+                CustomInspectorEditor.DrawLine();
+            }
 
             EditorGUILayout.LabelField("오프셋 - " + RhythmManager.offset);
 
