@@ -1,5 +1,6 @@
 using ExtendedNumerics;
 using Newtonsoft.Json;
+using SCKRM;
 using SCKRM.Easing;
 using SCKRM.Editor;
 using SCKRM.Json;
@@ -14,7 +15,6 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-
 using Vector2 = UnityEngine.Vector2;
 
 namespace SDJK.MapEditor
@@ -51,68 +51,40 @@ namespace SDJK.MapEditor
             {
                 object targetObject = treeView.selectedItem.targetObject;
                 PropertyInfo propertyInfo = treeView.selectedItem.propertyInfo;
+                Recursion(targetObject, propertyInfo, 0);
 
-                Recursion(targetObject, propertyInfo);
-
-                void Recursion(object targetObject, PropertyInfo propertyInfo)
+                void Recursion(object targetObject, PropertyInfo propertyInfo, int tab)
                 {
+                    EditorGUILayout.BeginHorizontal();
+                    CustomInspectorEditor.TabSpace(tab);
+
                     GUILayout.Label(propertyInfo.Name, EditorStyles.boldLabel);
+
+                    EditorGUILayout.EndHorizontal();
 
                     if (propertyInfo.GetCustomAttributes<JsonIgnoreAttribute>().Count() > 0 || !propertyInfo.CanWrite)
                         GUI.enabled = false;
 
-                    if (typeof(IList).IsAssignableFrom(propertyInfo.PropertyType) && typeof(ITypeList).IsAssignableFrom(propertyInfo.PropertyType))
+                    if (Field(propertyInfo.Name, propertyInfo.GetValue(targetObject), out object value, false, tab + 1))
                     {
-                        object value = propertyInfo.GetValue(targetObject);
-
-                        IList list = (IList)value;
-                        ITypeList listType = (ITypeList)value;
-
-                        displayRestrictionsIndex = CustomInspectorEditor.DrawList(listType.listType, list, "", Top, Bottom, StringDefault, 0, 0, true, 25, displayRestrictionsIndex);
-
-                        object Top(object currentObject)
-                        {
-                            Field("", currentObject, out object result, true, true);
-                            return result;
-                        }
-
-                        object Bottom(object currentObject)
-                        {
-                            Field("", currentObject, out object result, false, true);
-                            return result;
-                        }
-
-                        bool StringDefault(int index)
-                        {
-                            object value = list[index];
-
-                            if (value.GetType() == typeof(string))
-                                return string.IsNullOrWhiteSpace((string)value);
-                            else
-                                return true;
-                        }
-
                         if (propertyInfo.CanWrite)
-                            propertyInfo.SetValue(targetObject, list);
-                    }
-                    else if (!typeof(ICollection).IsAssignableFrom(propertyInfo.PropertyType))
-                    {
-                        if (Field(propertyInfo.Name, propertyInfo.GetValue(targetObject), out object value, true, false))
-                        {
-                            if (propertyInfo.CanWrite)
-                                propertyInfo.SetValue(targetObject, value);
-                        }
+                            propertyInfo.SetValue(targetObject, value);
                     }
 
                     GUI.enabled = true;
 
-                    bool Field(string fieldName, object currentObject, out object outObject, bool top, bool isList)
+                    bool Field(string fieldName, object currentObject, out object outObject, bool isList, int tab)
                     {
                         Type type = currentObject.GetType();
-                        
+
                         if (type == typeof(bool))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = EditorGUILayout.Toggle(fieldName, (bool)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(byte)
@@ -137,71 +109,166 @@ namespace SDJK.MapEditor
                         }
                         else if (type == typeof(string))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             if (!string.IsNullOrEmpty(fieldName))
                                 GUILayout.Label(fieldName, GUILayout.ExpandWidth(false));
 
                             outObject = EditorGUILayout.TextArea((string)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(JVector2))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = (JVector2)EditorGUILayout.Vector2Field(fieldName, (JVector2)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(JVector3))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = (JVector3)EditorGUILayout.Vector3Field(fieldName, (JVector3)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(JVector4))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = (JVector4)EditorGUILayout.Vector4Field(fieldName, (JVector4)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(JRect))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = (JRect)EditorGUILayout.RectField(fieldName, (JRect)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(JColor))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = (JColor)EditorGUILayout.ColorField(fieldName, (JColor)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(JColor32))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = (JColor32)EditorGUILayout.ColorField(fieldName, (JColor32)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
                         }
                         else if (type == typeof(AnimationCurve))
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             outObject = EditorGUILayout.CurveField(fieldName, (AnimationCurve)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
                             return true;
+                        }
+                        else if (typeof(Enum).IsAssignableFrom(type))
+                        {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
+                            outObject = EditorGUILayout.EnumPopup(fieldName, (Enum)currentObject);
+
+                            EditorGUILayout.EndHorizontal();
+                            return true;
+                        }
+                        else if (typeof(IList).IsAssignableFrom(type) && typeof(ITypeList).IsAssignableFrom(type))
+                        {
+                            object value = currentObject;
+
+                            IList list = (IList)value;
+                            ITypeList listType = (ITypeList)value;
+                            
+                            displayRestrictionsIndex = CustomInspectorEditor.DrawList(listType.listType, list, "", Top, StringDefault, tab, tab + 1, true, 30, displayRestrictionsIndex);
+
+                            object Top(object currentObject)
+                            {
+                                Field("", currentObject, out object result, true, tab + 1);
+                                return result;
+                            }
+
+                            bool StringDefault(int index)
+                            {
+                                object value = list[index];
+
+                                if (value.GetType() == typeof(string))
+                                    return string.IsNullOrWhiteSpace((string)value);
+                                else
+                                    return true;
+                            }
+
+                            outObject = value;
+                            return true;
+                        }
+                        else if (typeof(ICollection).IsAssignableFrom(type))
+                        {
+                            outObject = currentObject;
+                            return false;
                         }
                         else if (typeof(IBeatValuePairAni).IsAssignableFrom(type))
                         {
                             IBeatValuePairAni pair = (IBeatValuePairAni)currentObject;
 
-                            if (top)
-                            {
-                                pair.beat = EditorGUILayout.DoubleField(nameof(pair.beat), pair.beat);
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
 
-                                GUILayout.Label(nameof(pair.disturbance), GUILayout.ExpandWidth(false));
-                                pair.disturbance = EditorGUILayout.Toggle(pair.disturbance, GUILayout.ExpandWidth(false));
+                            pair.beat = EditorGUILayout.DoubleField(nameof(pair.beat), pair.beat);
 
-                                EditorGUILayout.EndHorizontal();
-                                EditorGUILayout.BeginHorizontal();
+                            EditorGUILayout.EndHorizontal();
 
-                                pair.length = EditorGUILayout.DoubleField(nameof(pair.length), pair.length);
+                            Field(nameof(pair.value), pair.value, out object outValue, isList, tab);
+                            pair.value = outValue;
 
-                                GUILayout.Label(nameof(pair.easingFunction), GUILayout.ExpandWidth(false));
-                                pair.easingFunction = (EasingFunction.Ease)EditorGUILayout.EnumPopup(pair.easingFunction);
-                            }
-                            else
-                            {
-                                Field(nameof(pair.value), pair.value, out object outValue, top, isList);
-                                pair.value = outValue;
-                            }
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
+                            pair.length = EditorGUILayout.DoubleField(nameof(pair.length), pair.length);
+
+                            EditorGUILayout.EndHorizontal();
+
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
+                            GUILayout.Label(nameof(pair.easingFunction), GUILayout.ExpandWidth(false));
+                            pair.easingFunction = (EasingFunction.Ease)EditorGUILayout.EnumPopup(pair.easingFunction);
+
+                            EditorGUILayout.EndHorizontal();
+
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
+                            GUILayout.Label(nameof(pair.disturbance), GUILayout.ExpandWidth(false));
+                            pair.disturbance = EditorGUILayout.Toggle(pair.disturbance, GUILayout.ExpandWidth(false));
+
+                            EditorGUILayout.EndHorizontal();
 
                             outObject = pair;
                             return true;
@@ -210,18 +277,23 @@ namespace SDJK.MapEditor
                         {
                             IBeatValuePair pair = (IBeatValuePair)currentObject;
 
-                            if (top)
-                            {
-                                pair.beat = EditorGUILayout.DoubleField(nameof(pair.beat), pair.beat);
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
 
-                                GUILayout.Label(nameof(pair.disturbance), GUILayout.ExpandWidth(false));
-                                pair.disturbance = EditorGUILayout.Toggle(pair.disturbance, GUILayout.ExpandWidth(false));
-                            }
-                            else
-                            {
-                                Field(nameof(pair.value), pair.value, out object outValue, top, isList);
-                                pair.value = outValue;
-                            }
+                            pair.beat = EditorGUILayout.DoubleField(nameof(pair.beat), pair.beat);
+
+                            EditorGUILayout.EndHorizontal();
+
+                            Field(nameof(pair.value), pair.value, out object outValue, isList, tab);
+                            pair.value = outValue;
+
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
+                            GUILayout.Label(nameof(pair.disturbance), GUILayout.ExpandWidth(false));
+                            pair.disturbance = EditorGUILayout.Toggle(pair.disturbance, GUILayout.ExpandWidth(false));
+
+                            EditorGUILayout.EndHorizontal();
 
                             outObject = pair;
                             return true;
@@ -232,7 +304,7 @@ namespace SDJK.MapEditor
                             for (int i = 0; i < propertyInfos.Length; i++)
                             {
                                 PropertyInfo propertyInfo2 = propertyInfos[i];
-                                Recursion(currentObject, propertyInfo2);
+                                Recursion(currentObject, propertyInfo2, tab);
 
                                 if (i < propertyInfos.Length - 1 && !isList)
                                     CustomInspectorEditor.DrawLine(2);
@@ -244,22 +316,48 @@ namespace SDJK.MapEditor
                         
                         object IntField()
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             int value = (int)Convert.ChangeType(currentObject, typeof(int));
 
                             if (!string.IsNullOrEmpty(fieldName))
-                                return Convert.ChangeType(EditorGUILayout.IntField(fieldName, value), type);
+                            {
+                                int value2 = EditorGUILayout.IntField(fieldName, value);
+
+                                EditorGUILayout.EndHorizontal();
+                                return Convert.ChangeType(value2, type);
+                            }
                             else
-                                return Convert.ChangeType(EditorGUILayout.IntField(value), type);
+                            {
+                                int value2 = EditorGUILayout.IntField(value);
+
+                                EditorGUILayout.EndHorizontal();
+                                return Convert.ChangeType(value2, type);
+                            }
                         }
 
                         object DecimalField()
                         {
+                            EditorGUILayout.BeginHorizontal();
+                            CustomInspectorEditor.TabSpace(tab);
+
                             double value = (double)Convert.ChangeType(currentObject, typeof(double));
 
                             if (!string.IsNullOrEmpty(fieldName))
-                                return Convert.ChangeType(EditorGUILayout.DoubleField(fieldName, value), type);
+                            {
+                                double value2 = EditorGUILayout.DoubleField(fieldName, value);
+
+                                EditorGUILayout.EndHorizontal();
+                                return Convert.ChangeType(value2, type);
+                            }
                             else
-                                return Convert.ChangeType(EditorGUILayout.DoubleField(value), type);
+                            {
+                                double value2 = EditorGUILayout.DoubleField(value);
+
+                                EditorGUILayout.EndHorizontal();
+                                return Convert.ChangeType(value2, type);
+                            }
                         }
                     }
                 }

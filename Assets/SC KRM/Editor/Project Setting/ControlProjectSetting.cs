@@ -190,8 +190,17 @@ namespace SCKRM.Editor
                             List<KeyCode> keyCodes = item.Value;
 
                             {
-                                CustomInspectorEditor.DrawList(typeof(KeyCode), keyCodes, "키 코드", enumPopup, null, 1, 1, deleteSafety);
-                                static object enumPopup(object value) => (KeyCode)EditorGUILayout.EnumPopup((KeyCode)value);
+                                CustomInspectorEditor.DrawList(typeof(KeyCode), keyCodes, "키 코드", enumPopup, 1, 1, deleteSafety);
+                                static object enumPopup(object value)
+                                {
+                                    EditorGUILayout.BeginHorizontal();
+                                    CustomInspectorEditor.TabSpace(2);
+
+                                    object value2 = (KeyCode)EditorGUILayout.EnumPopup((KeyCode)value);
+
+                                    EditorGUILayout.EndHorizontal();
+                                    return value2;
+                                }
                             }
 
                             valueList.Add(keyCodes);

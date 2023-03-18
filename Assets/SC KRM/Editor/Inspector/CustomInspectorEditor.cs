@@ -144,38 +144,77 @@ namespace SCKRM.Editor
 
 
         public static void Space() => EditorGUILayout.Space();
-
-
+        public static void TabSpace(int tab)
+        {
+            if (tab > 0)
+                GUILayout.Space(30 * tab);
+        }
 
         public delegate object DrawListFunc(object value);
         public delegate bool DrawListDefaultValueFunc(int index);
 
         public static int DrawList(List<int> list, string label, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, false, Vector2.zero, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
         public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(List<int> list, string label, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, true, scrollViewPos, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex);
-        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<int> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(int), list, label, (object value) => EditorGUILayout.IntField((int)value), null, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(0), displayRestrictions, displayRestrictionsIndex);
+        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<int> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(int), list, label, (object value) =>
+        {
+            EditorGUILayout.BeginHorizontal();
+            TabSpace(tab + tab2);
+
+            string value2 = EditorGUILayout.TextField((string)value);
+
+            EditorGUILayout.EndHorizontal();
+            return value2;
+        }, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(0), displayRestrictions, displayRestrictionsIndex);
 
         public static int DrawList(List<float> list, string label, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, false, Vector2.zero, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
         public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(List<float> list, string label, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, true, scrollViewPos, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex);
-        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<float> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(float), list, label, (object value) => EditorGUILayout.FloatField((float)value), null, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(0), displayRestrictions, displayRestrictionsIndex);
+        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<float> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(float), list, label, (object value) =>
+        {
+            EditorGUILayout.BeginHorizontal();
+            TabSpace(tab + tab2);
+
+            float value2 = EditorGUILayout.FloatField((float)value);
+
+            EditorGUILayout.EndHorizontal();
+            return value2;
+        }, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(0), displayRestrictions, displayRestrictionsIndex);
 
         public static int DrawList(List<double> list, string label, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, false, Vector2.zero, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
         public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(List<double> list, string label, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, true, scrollViewPos, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex);
-        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<double> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(double), list, label, (object value) => EditorGUILayout.DoubleField((double)value), null, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(0), displayRestrictions, displayRestrictionsIndex);
+        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<double> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(double), list, label, (object value) =>
+        {
+            EditorGUILayout.BeginHorizontal();
+            TabSpace(tab + tab2);
+
+            double value2 = EditorGUILayout.DoubleField((double)value);
+
+            EditorGUILayout.EndHorizontal();
+            return value2;
+        }, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(0), displayRestrictions, displayRestrictionsIndex);
 
         public static int DrawList(List<string> list, string label, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, false, Vector2.zero, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
         public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(List<string> list, string label, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(list, label, true, scrollViewPos, tab, tab2, deleteSafety, displayRestrictions, displayRestrictionsIndex);
-        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<string> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(string), list, label, (object value) => EditorGUILayout.TextField((string)value), null, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => string.IsNullOrWhiteSpace(list[index]), displayRestrictions, displayRestrictionsIndex);
+        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(List<string> list, string label, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(string), list, label, (object value) =>
+        {
+            EditorGUILayout.BeginHorizontal();
+            TabSpace(tab + tab2);
 
-        public static int DrawList<T>(IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, bottomFunc, false, Vector2.zero, tab, tab2, deleteSafety, (int index) => list[index].Equals(default(T)), displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
-        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList<T>(IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, bottomFunc, true, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(default(T)), displayRestrictions, displayRestrictionsIndex);
-        public static int DrawList<T>(IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, DrawListDefaultValueFunc defaultValueFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, bottomFunc, false, Vector2.zero, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
-        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList<T>(IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, DrawListDefaultValueFunc defaultValueFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, bottomFunc, true, scrollViewPos, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex);
+            string value2 = EditorGUILayout.TextField((string)value);
 
-        public static int DrawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, bottomFunc, false, Vector2.zero, tab, tab2, deleteSafety, (int index) => list[index].Equals(type.GetDefaultValue()), displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
-        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, bottomFunc, true, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(type.GetDefaultValue()), displayRestrictions, displayRestrictionsIndex);
-        public static int DrawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, DrawListDefaultValueFunc defaultValueFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, bottomFunc, false, Vector2.zero, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
-        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, DrawListDefaultValueFunc defaultValueFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, bottomFunc, true, scrollViewPos, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex);
-        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListFunc bottomFunc, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, DrawListDefaultValueFunc defaultValueFunc, int displayRestrictions, int displayRestrictionsIndex)
+            EditorGUILayout.EndHorizontal();
+            return value2;
+        }, scrollView, scrollViewPos, tab, tab2, deleteSafety, (int index) => string.IsNullOrWhiteSpace(list[index]), displayRestrictions, displayRestrictionsIndex);
+
+        public static int DrawList<T>(IList list, string label, DrawListFunc topFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, false, Vector2.zero, tab, tab2, deleteSafety, (int index) => list[index].Equals(default(T)), displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
+        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList<T>(IList list, string label, DrawListFunc topFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, true, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(default(T)), displayRestrictions, displayRestrictionsIndex);
+        public static int DrawList<T>(IList list, string label, DrawListFunc topFunc, DrawListDefaultValueFunc defaultValueFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, false, Vector2.zero, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
+        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList<T>(IList list, string label, DrawListFunc topFunc, DrawListDefaultValueFunc defaultValueFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(typeof(T), list, label, topFunc, true, scrollViewPos, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex);
+
+        public static int DrawList(Type type, IList list, string label, DrawListFunc topFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, false, Vector2.zero, tab, tab2, deleteSafety, (int index) => list[index].Equals(type.GetDefaultValue()), displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
+        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(Type type, IList list, string label, DrawListFunc topFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, true, scrollViewPos, tab, tab2, deleteSafety, (int index) => list[index].Equals(type.GetDefaultValue()), displayRestrictions, displayRestrictionsIndex);
+        public static int DrawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListDefaultValueFunc defaultValueFunc, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, false, Vector2.zero, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex).displayRestrictionsIndex;
+        public static (Vector2 scrollViewPos, int displayRestrictionsIndex) DrawList(Type type, IList list, string label, DrawListFunc topFunc, DrawListDefaultValueFunc defaultValueFunc, Vector2 scrollViewPos, int tab = 0, int tab2 = 0, bool deleteSafety = true, int displayRestrictions = int.MaxValue, int displayRestrictionsIndex = 0) => drawList(type, list, label, topFunc, true, scrollViewPos, tab, tab2, deleteSafety, defaultValueFunc, displayRestrictions, displayRestrictionsIndex);
+        static (Vector2 scrollViewPos, int displayRestrictionsIndex) drawList(Type type, IList list, string label, DrawListFunc topFunc, bool scrollView, Vector2 scrollViewPos, int tab, int tab2, bool deleteSafety, DrawListDefaultValueFunc defaultValueFunc, int displayRestrictions, int displayRestrictionsIndex)
         {
             if (label == null)
                 label = "";
@@ -184,8 +223,7 @@ namespace SCKRM.Editor
             {
                 EditorGUILayout.BeginHorizontal();
 
-                if (tab > 0)
-                    GUILayout.Space(30 * tab);
+                TabSpace(tab);
 
                 {
                     int count = EditorGUILayout.IntField("리스트 길이", list.Count, GUILayout.Height(21));
@@ -228,8 +266,7 @@ namespace SCKRM.Editor
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.BeginHorizontal();
 
-                if (tab > 0)
-                    GUILayout.Space(30 * tab);
+                TabSpace(tab);
 
                 {
                     int count = EditorGUILayout.IntField("화면 인덱스", displayRestrictionsIndex, GUILayout.Height(21));
@@ -283,24 +320,26 @@ namespace SCKRM.Editor
                 scrollViewPos = EditorGUILayout.BeginScrollView(scrollViewPos);
 
             int loopCount = 0;
-            for (int i = (displayRestrictions) * displayRestrictionsIndex; i < list.Count; i++)
+            for (int i = displayRestrictions * displayRestrictionsIndex; i < list.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
 
-                if (tab + tab2 > 0)
-                    GUILayout.Space(30 * (tab + tab2));
+                TabSpace(tab + tab2);
 
                 if (!string.IsNullOrEmpty(label))
                     GUILayout.Label(label, GUILayout.ExpandWidth(false));
 
+                EditorGUILayout.EndHorizontal();
+
                 if (topFunc != null)
                     list[i] = topFunc.Invoke(list[i]);
-                else
-                    EditorGUILayout.Space();
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.Space();
 
                 {
-                    if (GUILayout.Button("삽입", GUILayout.ExpandWidth(false)))
-                        list.Insert(i, type.GetDefaultValue());
+                    if (GUILayout.Button("추가", GUILayout.ExpandWidth(false)))
+                        list.Insert(i + 1, type.GetDefaultValue());
                 }
 
                 {
@@ -312,17 +351,6 @@ namespace SCKRM.Editor
 
                     GUI.enabled = true;
                 }
-
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.BeginHorizontal();
-
-                if (tab + tab2 > 0)
-                    GUILayout.Space(30 * (tab + tab2));
-
-                if (bottomFunc != null)
-                    list[i] = bottomFunc.Invoke(list[i]);
-                else
-                    EditorGUILayout.Space();
 
                 {
                     if (i - 1 < 0)

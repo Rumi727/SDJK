@@ -23,6 +23,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 if (typeIsSuperHexagonMap && !File.Exists(mapFilePath))
                     return new SuperHexagonMapFile("");
 
+                if (extension == ".super_hexagon" && (type == typeof(MapFile) || typeIsSuperHexagonMap))
+                    return MapLoad(mapFilePath, modes);
+
                 //Ruleset 호환성
                 if (typeIsSuperHexagonMap)
                 {
