@@ -8,22 +8,18 @@ namespace SCKRM.Rhythm
 {
     #region Beat Value Pair List
     //리플랙션 용
-    public interface IBeatValuePairList : IList
-    {
-        Type pairType { get; }
-    }
+    public interface IBeatValuePairList : IList { }
 
     public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
     {
         public BeatValuePairList(T defaultValue) : base(defaultValue) { }
     }
 
-    public class BeatValuePairList<TValue, TPair> : List<TPair>, IBeatValuePairList where TPair : IBeatValuePair<TValue>, new()
+    public class BeatValuePairList<TValue, TPair> : TypeList<TPair>, IBeatValuePairList where TPair : IBeatValuePair<TValue>, new()
     {
         public BeatValuePairList(TValue defaultValue) => this.defaultValue = defaultValue;
 
         public TValue defaultValue { get; } = default;
-        public Type pairType => typeof(TPair);
 
         public TValue GetValue() => GetValue(RhythmManager.currentBeat, out _);
         public TValue GetValue(double currentBeat) => GetValue(currentBeat, out _);

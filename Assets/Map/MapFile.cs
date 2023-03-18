@@ -15,7 +15,7 @@ namespace SDJK.Map
 {
     public sealed class MapPack
     {
-        public List<MapFile> maps { get; set; } = new List<MapFile>();
+        public TypeList<MapFile> maps { get; set; } = new TypeList<MapFile>();
     }
 
     public class MapFile
@@ -47,7 +47,7 @@ namespace SDJK.Map
         public MapVisualizerEffect visualizerEffect { get; set; } = new MapVisualizerEffect();
         public MapPostProcessEffect postProcessEffect { get; set; } = new MapPostProcessEffect();
 
-        [JsonIgnore] public List<double> allJudgmentBeat { get; set; } = new List<double>();
+        [JsonIgnore] public TypeList<double> allJudgmentBeat { get; set; } = new TypeList<double>();
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
         [JsonIgnore] public string mapFilePath { get; set; } = null;

@@ -141,7 +141,7 @@ namespace SDJK.Ruleset.SDJK
                 replay.pressBeat.Add(new List<double>());
                 replay.pressUpBeat.Add(new List<double>());
 
-                List<SDJKNoteFile> notes = map.notes[i];
+                TypeList<SDJKNoteFile> notes = map.notes[i];
                 for (int j = 0; j < notes.Count; j++)
                 {
                     SDJKNoteFile note = notes[j];

@@ -61,10 +61,14 @@ namespace SDJK.MapEditor
                     if (propertyInfo.GetCustomAttributes<JsonIgnoreAttribute>().Count() > 0 || !propertyInfo.CanWrite)
                         GUI.enabled = false;
 
-                    if (typeof(IBeatValuePairList).IsAssignableFrom(propertyInfo.PropertyType))
+                    if (typeof(IList).IsAssignableFrom(propertyInfo.PropertyType) && typeof(ITypeList).IsAssignableFrom(propertyInfo.PropertyType))
                     {
-                        IBeatValuePairList list = (IBeatValuePairList)propertyInfo.GetValue(targetObject);
-                        displayRestrictionsIndex = CustomInspectorEditor.DrawList(list.pairType, list, "", Top, Bottom, StringDefault, 0, 0, true, 25, displayRestrictionsIndex);
+                        object value = propertyInfo.GetValue(targetObject);
+
+                        IList list = (IList)value;
+                        ITypeList listType = (ITypeList)value;
+
+                        displayRestrictionsIndex = CustomInspectorEditor.DrawList(listType.listType, list, "", Top, Bottom, StringDefault, 0, 0, true, 25, displayRestrictionsIndex);
 
                         object Top(object currentObject)
                         {

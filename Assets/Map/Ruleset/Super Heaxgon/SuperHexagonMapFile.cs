@@ -12,7 +12,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>
-        public List<List<SuperHexagonNoteFile>> notes { get; set; } = new List<List<SuperHexagonNoteFile>>();
+        public TypeList<TypeList<SuperHexagonNoteFile>> notes { get; set; } = new();
 
         public BeatValuePairAniListDouble sidesList { get; set; } = new BeatValuePairAniListDouble(6);
         public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(12);
@@ -39,8 +39,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
     public struct SuperHexagonNoteFile
     {
-        public double beat;
-        public double holdLength;
+        public double beat { get; set; }
+        public double holdLength { get; set; }
 
         public SuperHexagonNoteFile(double beat, double holdLength)
         {
@@ -60,7 +60,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public BeatValuePairAniListColor mainColor { get; set; } = new BeatValuePairAniListColor(Color.white);
         public BeatValuePairAniListColor mainColorAlt { get; set; } = new BeatValuePairAniListColor(new Color(0.875f, 0.875f, 0.875f));
 
-        public List<SuperHexagonBarEffectFile> barEffect { get; set; } = new();
+        public TypeList<SuperHexagonBarEffectFile> barEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
         /// <summary>

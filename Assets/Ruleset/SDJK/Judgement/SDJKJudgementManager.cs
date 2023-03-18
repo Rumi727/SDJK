@@ -163,7 +163,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     NextPressUpBeatReplay();
                 }
 
-                List<SDJKNoteFile> notes = map.notes[keyIndex];
+                TypeList<SDJKNoteFile> notes = map.notes[keyIndex];
                 if (currentNoteIndex < notes.Count)
                     currentNote = notes[currentNoteIndex];
 
@@ -200,7 +200,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 SDJKManager sdjkManager = instance.sdjkManager;
                 SDJKRuleset ruleset = sdjkManager.ruleset;
-                List<SDJKNoteFile> notes = map.notes[keyIndex];
+                TypeList<SDJKNoteFile> notes = map.notes[keyIndex];
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
                 double currentBeat = RhythmManager.currentBeatSound;
                 bool hitsoundPlay = false;
@@ -320,7 +320,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
             {
                 SDJKManager sdjkManager = instance.sdjkManager;
                 SDJKRuleset ruleset = instance.sdjkManager.ruleset;
-                List<SDJKNoteFile> notes = map.notes[keyIndex];
+                TypeList<SDJKNoteFile> notes = map.notes[keyIndex];
                 double missSecond = ruleset.judgementMetaDatas.Last().sizeSecond;
 
                 double currentBeat = RhythmManager.currentBeatSound;
@@ -482,7 +482,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             void NextNote()
             {
-                List<SDJKNoteFile> notes = map.notes[keyIndex];
+                TypeList<SDJKNoteFile> notes = map.notes[keyIndex];
 
                 for (int i = currentNoteIndex; i <= notes.Count; i++)
                 {

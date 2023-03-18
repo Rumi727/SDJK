@@ -6,12 +6,12 @@ namespace SDJK.Map.Ruleset.ADOFAI
     {
         public ADOFAIMapFile(string mapFilePath) : base(mapFilePath) { }
 
-        public List<double> tiles { get; } = new List<double>();
-        public List<ADOFAITileEffectFile<double>> holds { get; } = new List<ADOFAITileEffectFile<double>>();
+        public TypeList<double> tiles { get; } = new();
+        public TypeList<ADOFAITileEffectFile<double>> holds { get; } = new();
 
-        public List<ADOFAITileEffectFile<bool>> twirls { get; } = new List<ADOFAITileEffectFile<bool>>();
+        public TypeList<ADOFAITileEffectFile<bool>> twirls { get; } = new();
 
-        public List<ADOFAITileEffectFile<bool>> autoTiles { get; } = new List<ADOFAITileEffectFile<bool>>();
+        public TypeList<ADOFAITileEffectFile<bool>> autoTiles { get; } = new();
 
         public override void SetVisualizerEffect()
         {
@@ -33,8 +33,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
     public struct ADOFAITileEffectFile<T>
     {
-        public int targetTileIndex { get; }
-        public T value { get; }
+        public int targetTileIndex { get; set; }
+        public T value { get; set; }
 
         public ADOFAITileEffectFile(int targetTileIndex, T value)
         {

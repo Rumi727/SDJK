@@ -77,7 +77,7 @@ namespace SDJK.Ruleset.SuperHexagon
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<SuperHexagonNoteFile> notes = map.notes[i];
+                TypeList<SuperHexagonNoteFile> notes = map.notes[i];
                 for (int j = 0; j < notes.Count; j++)
                 {
                     SuperHexagonNoteFile note = notes[j];

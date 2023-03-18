@@ -71,9 +71,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
             double offsetCount = (double)count / originalCount;
 
-            List<List<SuperHexagonNoteFile>> newNoteLists = new List<List<SuperHexagonNoteFile>>();
+            TypeList<TypeList<SuperHexagonNoteFile>> newNoteLists = new TypeList<TypeList<SuperHexagonNoteFile>>();
             for (int i = 0; i < count; i++)
-                newNoteLists.Add(new List<SuperHexagonNoteFile>());
+                newNoteLists.Add(new TypeList<SuperHexagonNoteFile>());
 
             if (count > originalCount)
             {
@@ -85,7 +85,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 for (int i = 0; i < originalCount; i++)
                 {
                     int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
-                    List<SuperHexagonNoteFile> newNoteList = newNoteLists[keyIndex];
+                    TypeList<SuperHexagonNoteFile> newNoteList = newNoteLists[keyIndex];
 
                     for (int j = 0; j < newNoteList.Count; j++)
                     {
@@ -106,7 +106,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 for (int i = 0; i < originalCount; i++)
                 {
                     int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
-                    newNoteLists[keyIndex] = newNoteLists[keyIndex].Union(map.notes[i]).ToList();
+                    newNoteLists[keyIndex] = newNoteLists[keyIndex].Union(map.notes[i]).ToTypeList();
                 }
             }
 
@@ -120,7 +120,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             }
 
             for (int i = 0; i < newNoteLists.Count; i++)
-                newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToList();
+                newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToTypeList();
 
             map.notes = newNoteLists;
         }
@@ -129,7 +129,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<SuperHexagonNoteFile> notes = map.notes[i];
+                TypeList<SuperHexagonNoteFile> notes = map.notes[i];
                 for (int j = 0; j < notes.Count; j++)
                 {
                     SuperHexagonNoteFile note = notes[j];
@@ -165,9 +165,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             #region Note
             for (int i = 0; i < sdjkMap.notes.Count; i++)
             {
-                superHexagonMap.notes.Add(new List<SuperHexagonNoteFile>());
+                superHexagonMap.notes.Add(new TypeList<SuperHexagonNoteFile>());
 
-                List<SDJKNoteFile> sdjkNotes = sdjkMap.notes[i];
+                TypeList<SDJKNoteFile> sdjkNotes = sdjkMap.notes[i];
                 for (int j = 0; j < sdjkNotes.Count; j++)
                 {
                     SDJKNoteFile sdjkNote = sdjkNotes[j];
@@ -216,7 +216,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<SuperHexagonNoteFile> notes = map.notes[i];
+                TypeList<SuperHexagonNoteFile> notes = map.notes[i];
 
                 for (int j = 0; j < notes.Count; j++)
                 {

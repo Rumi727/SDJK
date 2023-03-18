@@ -132,7 +132,7 @@ namespace SDJK.Ruleset.SDJK
 
             if (map.notes.Count > barIndex)
             {
-                List<SDJKNoteFile> noteFiles = map.notes[barIndex];
+                TypeList<SDJKNoteFile> noteFiles = map.notes[barIndex];
                 for (int i = 0; i < noteFiles.Count; i++)
                 {
                     SDJKNoteFile noteFile = noteFiles[i];

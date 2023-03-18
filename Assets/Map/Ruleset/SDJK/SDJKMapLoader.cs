@@ -105,9 +105,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             double offsetCount = (double)count / originalCount;
 
-            List<List<SDJKNoteFile>> newNoteLists = new List<List<SDJKNoteFile>>();
+            TypeList<TypeList<SDJKNoteFile>> newNoteLists = new TypeList<TypeList<SDJKNoteFile>>();
             for (int i = 0; i < count; i++)
-                newNoteLists.Add(new List<SDJKNoteFile>());
+                newNoteLists.Add(new TypeList<SDJKNoteFile>());
 
             if (count > originalCount)
             {
@@ -119,7 +119,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 for (int i = 0; i < originalCount; i++)
                 {
                     int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
-                    List<SDJKNoteFile> newNoteList = newNoteLists[keyIndex];
+                    TypeList<SDJKNoteFile> newNoteList = newNoteLists[keyIndex];
 
                     for (int j = 0; j < newNoteList.Count; j++)
                     {
@@ -148,12 +148,12 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 for (int i = 0; i < originalCount; i++)
                 {
                     int keyIndex = (i * offsetCount).RoundToInt().Clamp(0, count - 1);
-                    newNoteLists[keyIndex] = newNoteLists[keyIndex].Union(map.notes[i]).ToList();
+                    newNoteLists[keyIndex] = newNoteLists[keyIndex].Union(map.notes[i]).ToTypeList();
                 }
             }
 
             for (int i = 0; i < newNoteLists.Count; i++)
-                newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToList();
+                newNoteLists[i] = newNoteLists[i].OrderBy(x => x.beat).ToTypeList();
 
             map.notes = newNoteLists;
         }
@@ -162,7 +162,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<SDJKNoteFile> notes = map.notes[i];
+                TypeList<SDJKNoteFile> notes = map.notes[i];
                 for (int j = 0; j < notes.Count; j++)
                 {
                     SDJKNoteFile note = notes[j];
@@ -191,9 +191,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #region Note
             for (int i = 0; i < superHexagonMap.notes.Count; i++)
             {
-                sdjkMap.notes.Add(new List<SDJKNoteFile>());
+                sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
 
-                List<SuperHexagonNoteFile> superHexagonNotes = superHexagonMap.notes[i];
+                TypeList<SuperHexagonNoteFile> superHexagonNotes = superHexagonMap.notes[i];
                 for (int j = 0; j < superHexagonNotes.Count; j++)
                 {
                     SuperHexagonNoteFile superHexagonNote = superHexagonNotes[j];
@@ -249,7 +249,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             #region Note
             Random random = new Random(sdjkMapFile.info.randomSeed);
-            List<List<SDJKNoteFile>> notes = sdjkMapFile.notes;
+            TypeList<TypeList<SDJKNoteFile>> notes = sdjkMapFile.notes;
             Dictionary<int, double> secondDistances = new Dictionary<int, double>();
 
             {
@@ -259,7 +259,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     count = ((KeyCountModeBase.Data)keyCountMode.modeConfig).count;
 
                 for (int i = 0; i < count; i++)
-                   sdjkMapFile.notes.Add(new List<SDJKNoteFile>());
+                   sdjkMapFile.notes.Add(new TypeList<SDJKNoteFile>());
             }
 
             {
@@ -371,7 +371,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<SDJKNoteFile> notes = map.notes[i];
+                TypeList<SDJKNoteFile> notes = map.notes[i];
 
                 double lastBeat = double.MinValue;
                 bool holdNoteStart = false;
@@ -461,7 +461,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             for (int i = 0; i < map.notes.Count; i++)
             {
-                List<SDJKNoteFile> notes = map.notes[i];
+                TypeList<SDJKNoteFile> notes = map.notes[i];
 
                 for (int j = 0; j < notes.Count; j++)
                 {
@@ -579,7 +579,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     if (list.Count <= 0)
                         return;
 
-                    List<SDJKNoteFile> notes = new List<SDJKNoteFile>();
+                    TypeList<SDJKNoteFile> notes = new TypeList<SDJKNoteFile>();
                     for (int i = 0; i < list.Count; i++)
                     {
                         double beat = list[i];
@@ -711,7 +711,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     }
 
                     {
-                        List<SDJKBarEffectFile> barEffect = fieldEffect.barEffect;
+                        TypeList<SDJKBarEffectFile> barEffect = fieldEffect.barEffect;
                         bool capsLock = true;
                         bool a = true;
                         bool s = true;

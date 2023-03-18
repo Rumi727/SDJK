@@ -11,17 +11,17 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// <summary>
         /// notes[bar_index][note_index] = note
         /// </summary>
-        public List<List<SDJKNoteFile>> notes { get; set; } = new List<List<SDJKNoteFile>>();
+        public TypeList<TypeList<SDJKNoteFile>> notes { get; set; } = new TypeList<TypeList<SDJKNoteFile>>();
 
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
     }
 
     public struct SDJKNoteFile
     {
-        public double beat;
-        public double holdLength;
+        public double beat { get; set; }
+        public double holdLength { get; set; }
 
-        public SDJKNoteTypeFile type;
+        public SDJKNoteTypeFile type { get; set; }
 
         public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type)
         {
@@ -41,7 +41,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
     public sealed class SDJKMapEffectFile
     {
-        public List<SDJKFieldEffectFile> fieldEffect { get; set; } = new();
+        public TypeList<SDJKFieldEffectFile> fieldEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
         /// <summary>
@@ -58,7 +58,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public BeatValuePairAniListDouble height { get; set; } = new(16);
 
-        public List<SDJKBarEffectFile> barEffect { get; set; } = new();
+        public TypeList<SDJKBarEffectFile> barEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
         /// <summary>
