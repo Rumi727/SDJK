@@ -20,6 +20,8 @@ namespace SDJK.Ruleset.SuperHexagon
         public double zoom { get; private set; }
         public double sides { get; private set; } = 6;
 
+        public float globalWallOffset { get; set; } = 0;
+
         public Color backgroundColor { get; private set; } = Color.clear;
         public Color backgroundColorAlt { get; private set; } = Color.clear;
 

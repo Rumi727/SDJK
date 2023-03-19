@@ -56,7 +56,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 float distance = (float)(zoom + ((wall.note.beat - currentBeat) * noteSpeed));
                 float width;
 
-                wallRenderer.distance = distance;
+                wallRenderer.distance = distance + field.globalWallOffset;
                 if (wall.note.holdLength > 0)
                     width = (float)(wall.note.holdLength * noteSpeed);
                 else
@@ -68,8 +68,18 @@ namespace SDJK.Ruleset.SuperHexagon
                 wallRenderer.min = zoom;
                 wallRenderer.color = mainColor;
 
-                if (distance <= 50)
+                if (distance <= 50 && !field.manager.gameOverManager.isGameOver)
                     wall.CrashVerdict();
+
+                if (distance + width < 0 && field.manager.gameOverManager.isGameOver)
+                {
+                    wall.Remove();
+                    glRenderInvoker.wallRenderers.RemoveAt(i);
+                    walls.RemoveAt(i);
+                    i--;
+
+                    continue;
+                }
             }
         }
 

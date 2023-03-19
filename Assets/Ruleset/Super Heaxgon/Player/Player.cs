@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
+using SCKRM.UI;
 using SDJK.Effect;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Ruleset.SuperHexagon.Renderer;
@@ -55,11 +56,14 @@ namespace SDJK.Ruleset.SuperHexagon
             playerBorder.distance = (float)(field.zoom - 0.15);
             player.distance = (float)(field.zoom + 0.5);
 
-            double speed = map.playerSpeed.GetValue(RhythmManager.currentBeatScreen) * Kernel.fpsSmoothDeltaTime;
-            if (InputManager.GetKey("ruleset.super_hexagon.left", InputType.Alway))
-                rotation -= speed;
-            if (InputManager.GetKey("ruleset.super_hexagon.right", InputType.Alway))
-                rotation += speed;
+            if (!field.manager.gameOverManager.isGameOver && !field.manager.isPaused && Kernel.gameSpeed != 0)
+            {
+                double speed = map.playerSpeed.GetValue(RhythmManager.currentBeatScreen) * Kernel.fpsSmoothDeltaTime;
+                if (InputManager.GetKey("ruleset.super_hexagon.left", InputType.Alway))
+                    rotation -= speed;
+                if (InputManager.GetKey("ruleset.super_hexagon.right", InputType.Alway))
+                    rotation += speed;
+            }
         }
     }
 }

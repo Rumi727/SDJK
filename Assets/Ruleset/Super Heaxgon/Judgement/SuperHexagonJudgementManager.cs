@@ -107,6 +107,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
             SoundManager.PlaySound("ruleset.super_hexagon.damage", "sdjk");
             judgementAction?.Invoke(true);
+
+            if (health <= 0)
+                gameOverManager.GameOver();
         }
 
         public void Perfect(double beat)

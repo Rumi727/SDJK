@@ -47,7 +47,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 }
             }
 
-            if (missLock && !holdLock)
+            if (missLock && !holdLock && !field.manager.gameOverManager.isGameOver)
             {
                 if (index == (int)player.index)
                 {

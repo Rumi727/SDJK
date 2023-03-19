@@ -8,11 +8,12 @@ using SDJK.Ruleset.PauseScreen;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.GameOver
-{
+{ 
     public sealed class SuperHexagonGameOverManager : ManagerBase<SuperHexagonGameOverManager>
     {
         [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
         [SerializeField] PauseScreenUI _pauseScreen; public PauseScreenUI gameOverScreen => _pauseScreen;
+        [SerializeField] Field _field; public Field field => _field;
 
         [SerializeField] float screenShowTime = 3;
 
@@ -30,9 +31,15 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
             if (instance != null && RhythmManager.isPlaying && isGameOver)
             {
                 if (timer >= screenShowTime)
+                {
                     gameOverScreen.Show(false);
+                    field.globalWallOffset += 0.75f * Kernel.fpsUnscaledDeltaTime;
+                }
                 else
+                {
                     timer += Kernel.unscaledDeltaTime;
+                    RhythmManager.isPaused = true;
+                }
             }
         }
 
