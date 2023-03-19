@@ -363,6 +363,9 @@ namespace SDJK.MapEditor
                 }
             }
 
+            if (GUI.changed)
+                RhythmManager.MapChange(mapFile.globalEffect.bpm, mapFile.info.songOffset, mapFile.globalEffect.yukiMode);
+
             EditorGUILayout.EndScrollView();
 
             splitView.EndSplitView();

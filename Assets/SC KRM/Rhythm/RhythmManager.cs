@@ -60,7 +60,13 @@ namespace SCKRM.Rhythm
 
         public static bool isPaused
         {
-            get => _isPaused;
+            get
+            {
+                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed() && time >= 0 && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
+                    _isPaused = soundPlayer.isPaused;
+
+                return _isPaused;
+            }
             set
             {
                 _isPaused = value;
@@ -341,7 +347,7 @@ namespace SCKRM.Rhythm
         {
             timeChangedEventLock = true;
 
-            _time -= value * 2;
+            _time -= value;
             if (soundPlayer != null)
                 soundPlayer.time = _time.Clamp(0, soundPlayer.length - 0.01f);
 
@@ -370,6 +376,41 @@ namespace SCKRM.Rhythm
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
                 RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
             }
+        }
+
+        public static void MapChange(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> yukiModeList)
+        {
+            Debug.Log("Map Changed");
+
+            if (RhythmManager.bpmList != bpmList || RhythmManager.bpmList.Count != bpmList.Count)
+            {
+                RhythmManager.bpmList = bpmList;
+                FixBPM();
+            }
+            else
+            {
+                for (int i = 0; i < RhythmManager.bpmList.Count; i++)
+                {
+                    BeatValuePair<double> originalValue = RhythmManager.bpmList[i];
+                    BeatValuePair<double> newValue = bpmList[i];
+
+                    if (originalValue.beat != newValue.beat || originalValue.value != newValue.value || originalValue.disturbance != newValue.disturbance)
+                    {
+                        RhythmManager.bpmList = bpmList;
+                        FixBPM();
+
+                        break;
+                    }
+                }
+            }
+
+            if (RhythmManager.offset != offset)
+            {
+                RhythmManager.offset = offset;
+                FixBPM();
+            }
+
+            RhythmManager.yukiModeList = yukiModeList;
         }
 
         static bool timeChangedEventLock = false;

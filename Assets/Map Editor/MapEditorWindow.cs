@@ -198,32 +198,29 @@ namespace SDJK.MapEditor
             if (!Kernel.isPlaying || !RhythmManager.isPlaying)
                 return;
 
-            if (RhythmManager.soundPlayer != null && !RhythmManager.soundPlayer.isRemoved && !RhythmManager.soundPlayer.IsDestroyed())
+            double speed = 1;
+            if (ctrl && shift)
+                speed = 8;
+            else if (shift)
+                speed = 4;
+            else if (ctrl)
+                speed = 2;
+
+            if (alt)
+                speed = 1d / speed;
+
+            if (mapFile != null)
+                speed *= mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+
+            if (down)
             {
-                double speed = 1;
-                if (ctrl && shift)
-                    speed = 8;
-                else if (shift)
-                    speed = 4;
-                else if (ctrl)
-                    speed = 2;
-
-                if (alt)
-                    speed = 1d / speed;
-
-                if (mapFile != null)
-                    speed *= mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
-
-                if (down)
-                {
-                    RhythmManager.soundPlayer.isPaused = true;
-                    RhythmManager.Rewind(Kernel.deltaTimeDouble * speed);
-                }
-                else if (up || space)
-                    RhythmManager.soundPlayer.isPaused = false;
-                else
-                    RhythmManager.soundPlayer.isPaused = true;
+                RhythmManager.isPaused = true;
+                RhythmManager.Rewind(Kernel.deltaTimeDouble * speed);
             }
+            else if (up || space)
+                RhythmManager.isPaused = false;
+            else
+                RhythmManager.isPaused = true;
 
             for (int i = 0; i < judgementManagers.Count; i++)
                 judgementManagers[i].gameObject.SetActive(false);

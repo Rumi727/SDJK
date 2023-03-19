@@ -26,7 +26,6 @@ namespace SDJK.Effect
 
         public EffectManager effectManager { get; private set; } = null;
         public Map.MapFile map => effectManager.selectedMap;
-        public ISoundPlayer soundPlayer => effectManager.soundPlayer;
 
 
 
@@ -118,7 +117,7 @@ namespace SDJK.Effect
                 rawImage.color = map.globalEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
 
                 double time = RhythmManager.time + offset;
-                if (time < videoPlayer.length - 0.1f)
+                if (time >= 0 && time < videoPlayer.length - 0.1f)
                 {
                     double dis = time - videoPlayer.time;
                     float speed = (float)(RhythmManager.speed * Kernel.gameSpeed);
@@ -140,9 +139,9 @@ namespace SDJK.Effect
                             videoPlayer.time = time;
                     }
 
-                    if (soundPlayer != null && videoPlayer.isPaused != (soundPlayer.isPaused && RhythmManager.time >= 0))
+                    if (videoPlayer.isPaused != (RhythmManager.isPaused && RhythmManager.time >= 0))
                     {
-                        if (soundPlayer.isPaused && RhythmManager.time >= 0)
+                        if (RhythmManager.isPaused && RhythmManager.time >= 0)
                             videoPlayer.Pause();
                         else
                             videoPlayer.Play();

@@ -4,6 +4,7 @@ using SCKRM;
 using SCKRM.DragAndDrop;
 using SCKRM.Renderer;
 using SCKRM.Resource;
+using SCKRM.Rhythm;
 using SCKRM.Threads;
 using SCKRM.UI.Overlay.MessageBox;
 using SDJK.Map;
@@ -54,6 +55,8 @@ namespace SDJK.MainMenu
                     _selectedMap = selectedMapPack.maps[value];
                     selectedMapInfo = selectedMap.info;
                     selectedMapEffect = selectedMap.globalEffect;
+
+                    RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode);
                 }
             }
         }
@@ -71,6 +74,8 @@ namespace SDJK.MainMenu
                 {
                     selectedMapInfo = value.info;
                     selectedMapEffect = value.globalEffect;
+
+                    RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode);
                 }
                 else
                 {
