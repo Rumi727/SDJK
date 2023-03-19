@@ -8,6 +8,7 @@ using System.Linq;
 using SCKRM.Rhythm;
 using SDJK.Mode.Converter;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace SDJK.Map.Ruleset.SuperHexagon.Map
 {
@@ -44,7 +45,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
         public static SuperHexagonMapFile MapLoad(string mapFilePath, IMode[] modes)
         {
-            SuperHexagonMapFile map = JsonManager.JsonRead<SuperHexagonMapFile>(mapFilePath, true);
+            SuperHexagonMapFile map = JsonManager.JsonRead<JObject>(mapFilePath, true).ToObject<SuperHexagonMapFile>();
             map.Init(mapFilePath);
 
             FixMode(map, modes);
@@ -114,12 +115,12 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             }
 
             //Sides 이펙트
-            for (int i = 0; i < map.sidesList.Count; i++)
+            for (int i = 0; i < map.effect.sidesList.Count; i++)
             {
-                BeatValuePairAni<double> sides = map.sidesList[i];
+                BeatValuePairAni<double> sides = map.effect.sidesList[i];
                 sides.value = (sides.value * offsetCount).Round();
 
-                map.sidesList[i] = sides;
+                map.effect.sidesList[i] = sides;
             }
 
             for (int i = 0; i < newNoteLists.Count; i++)
@@ -187,7 +188,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             superHexagonMap.effect.globalNoteDistance = sdjkMap.effect.globalNoteDistance;
             superHexagonMap.effect.globalNoteSpeed = sdjkMap.effect.globalNoteSpeed;
 
-            superHexagonMap.sidesList.Add(double.MinValue, 0, sdjkMap.notes.Count);
+            superHexagonMap.effect.sidesList.Add(double.MinValue, 0, sdjkMap.notes.Count);
             superHexagonMap.effect.fieldZRotationSpeed.Add(double.MinValue, 0, 1);
 
             if (0 < sdjkMap.effect.fieldEffect.Count)

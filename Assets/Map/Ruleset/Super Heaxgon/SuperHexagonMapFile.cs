@@ -14,17 +14,14 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         /// </summary>
         public TypeList<TypeList<SuperHexagonNoteFile>> notes { get; set; } = new();
 
-        public BeatValuePairAniListDouble sidesList { get; set; } = new BeatValuePairAniListDouble(6);
-        public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(12);
-
         public SuperHexagonEffectFile effect { get; set; } = new SuperHexagonEffectFile();
 
         public override void SetVisualizerEffect()
         {
             visualizerEffect.divide.Clear();
-            for (int i = 0; i < sidesList.Count; i++)
+            for (int i = 0; i < effect.sidesList.Count; i++)
             {
-                BeatValuePairAni<double> sides = sidesList[i];
+                BeatValuePairAni<double> sides = effect.sidesList[i];
                 visualizerEffect.divide.Add(sides.beat, 0, (int)sides.value);
             }
 
@@ -51,6 +48,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
     public sealed class SuperHexagonEffectFile
     {
+        public BeatValuePairAniListDouble sidesList { get; set; } = new BeatValuePairAniListDouble(6);
+        public BeatValuePairAniListDouble playerSpeed { get; set; } = new BeatValuePairAniListDouble(12);
+
         public BeatValuePairAniListVector3 fieldRotation { get; set; } = new BeatValuePairAniListVector3(JVector3.zero);
         public BeatValuePairAniListFloat fieldZRotationSpeed { get; set; } = new BeatValuePairAniListFloat(0);
 

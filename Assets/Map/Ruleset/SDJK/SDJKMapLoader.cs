@@ -39,6 +39,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     //ADOFAI
                     if (extension == ".adofai")
                         return ADOFAIMapLoad(mapFilePath, modes);
+                    else if (extension == ".super_hexagon") //Super Hexagon
+                        return SuperHexagonMapLoad(mapFilePath, modes);
                 }
 
                 return null;
