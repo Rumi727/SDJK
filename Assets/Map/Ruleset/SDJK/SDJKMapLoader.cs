@@ -184,6 +184,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             sdjkMap.info = superHexagonMap.info;
             sdjkMap.globalEffect = superHexagonMap.globalEffect;
             sdjkMap.visualizerEffect = superHexagonMap.visualizerEffect;
+            sdjkMap.postProcessEffect = superHexagonMap.postProcessEffect;
 
             sdjkMap.info.ruleset = "sdjk";
             #endregion

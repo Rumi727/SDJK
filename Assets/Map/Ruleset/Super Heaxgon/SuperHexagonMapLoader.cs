@@ -161,6 +161,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             superHexagonMap.info = sdjkMap.info;
             superHexagonMap.globalEffect = sdjkMap.globalEffect;
             superHexagonMap.visualizerEffect = sdjkMap.visualizerEffect;
+            superHexagonMap.postProcessEffect = sdjkMap.postProcessEffect;
 
             superHexagonMap.info.ruleset = "super_hexagon";
             #endregion
