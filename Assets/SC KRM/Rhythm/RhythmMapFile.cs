@@ -8,7 +8,11 @@ namespace SCKRM.Rhythm
 {
     #region Beat Value Pair List
     //리플랙션 용
-    public interface IBeatValuePairList : IList { }
+    public interface IBeatValuePairList : IList
+    {
+        void Add();
+        void Insert(int index);
+    }
 
     public class BeatValuePairList<T> : BeatValuePairList<T, BeatValuePair<T>>
     {
@@ -136,9 +140,15 @@ namespace SCKRM.Rhythm
             }
         }
 
+        void IBeatValuePairList.Add() => Add();
         public virtual void Add(double beat = double.MinValue, bool disturbance = false) => Add(new TPair() { beat = beat, value = defaultValue, disturbance = disturbance });
         public virtual void Add(TValue value, bool disturbance = false) => Add(new TPair() { beat = double.MinValue, value = value, disturbance = disturbance });
         public virtual void Add(double beat, TValue value, bool disturbance = false) => Add(new TPair() { beat = beat, value = value, disturbance = disturbance });
+
+        void IBeatValuePairList.Insert(int index) => Insert(index);
+        public virtual void Insert(int index, double beat = double.MinValue, bool disturbance = false) => Insert(index, new TPair() { beat = beat, value = defaultValue, disturbance = disturbance });
+        public virtual void Insert(int index, TValue value, bool disturbance = false) => Insert(index, new TPair() { beat = double.MinValue, value = value, disturbance = disturbance });
+        public virtual void Insert(int index, double beat, TValue value, bool disturbance = false) => Insert(index, new TPair() { beat = beat, value = value, disturbance = disturbance });
 
         public virtual int GetValueIndexBinarySearch(double beat)
         {

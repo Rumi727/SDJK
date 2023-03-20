@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using SCKRM.Resource;
 using System.Collections;
+using SCKRM.Rhythm;
 
 namespace SCKRM.Editor
 {
@@ -234,7 +235,12 @@ namespace SCKRM.Editor
                     if (count > list.Count)
                     {
                         for (int i = list.Count; i < count; i++)
-                            list.Add(type.GetDefaultValue());
+                        {
+                            if (typeof(IBeatValuePairList).IsAssignableFrom(list.GetType()))
+                                ((IBeatValuePairList)list).Add();
+                            else
+                                list.Add(type.GetDefaultValueNotNull());
+                        }
                     }
                     else if (count < list.Count)
                     {
@@ -250,7 +256,12 @@ namespace SCKRM.Editor
 
                 {
                     if (GUILayout.Button("추가", GUILayout.ExpandWidth(false)))
-                        list.Add(type.GetDefaultValue());
+                    {
+                        if (typeof(IBeatValuePairList).IsAssignableFrom(list.GetType()))
+                            ((IBeatValuePairList)list).Add();
+                        else
+                            list.Add(type.GetDefaultValueNotNull());
+                    }
                 }
 
                 {
@@ -339,7 +350,12 @@ namespace SCKRM.Editor
 
                 {
                     if (GUILayout.Button("추가", GUILayout.ExpandWidth(false)))
-                        list.Insert(i + 1, type.GetDefaultValue());
+                    {
+                        if (typeof(IBeatValuePairList).IsAssignableFrom(list.GetType()))
+                            ((IBeatValuePairList)list).Insert(i + 1);
+                        else
+                            list.Insert(i + 1, type.GetDefaultValueNotNull());
+                    }
                 }
 
                 {
