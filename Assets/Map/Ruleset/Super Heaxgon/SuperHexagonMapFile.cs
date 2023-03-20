@@ -70,8 +70,8 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public BeatValuePairAniListFloat fieldYRotation { get; set; } = new(0);
         public BeatValuePairAniListFloat fieldZRotation { get; set; } = new(0);
 
-        public BeatValuePairAniListFloat autoZRotationSpeed { get; set; } = new(1);
-        public BeatValuePairList<bool> autoZRotationDisable { get; set; } = new(false);
+        public BeatValuePairAniListFloat fieldAutoZRotationSpeed { get; set; } = new(1);
+        public BeatValuePairList<bool> fieldAutoZRotationDisable { get; set; } = new(false);
 
         public BeatValuePairAniListColor backgroundColor { get; set; } = new(new Color(0.125f, 0.125f, 0.125f));
         public BeatValuePairAniListColor backgroundColorAlt { get; set; } = new(new Color(0.25f, 0.25f, 0.25f));

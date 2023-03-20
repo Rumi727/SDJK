@@ -91,6 +91,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
         public void Miss(double beat)
         {
+            if (!gameObject.activeSelf)
+                return;
+
             combo = 0;
 
             accuracys.Add(1);
@@ -114,6 +117,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
         public void Perfect(double beat)
         {
+            if (!gameObject.activeSelf)
+                return;
+
             combo++;
 
             accuracys.Add(0);

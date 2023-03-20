@@ -14,13 +14,15 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
         ThemeEffect<BeatValuePairAniListFloat, float> fieldYRotation = new();
         ThemeEffect<BeatValuePairAniListFloat, float> fieldZRotation = new();
 
+        ThemeEffect<BeatValuePairAniListFloat, float> fieldAutoZRotationSpeed = new();
+
         ThemeEffect<BeatValuePairAniListColor, JColor> backgroundColor = new();
         ThemeEffect<BeatValuePairAniListColor, JColor> backgroundColorAlt = new();
 
         ThemeEffect<BeatValuePairAniListColor, JColor> mainColor = new();
         ThemeEffect<BeatValuePairAniListColor, JColor> mainColorAlt = new();
 
-        float autoZRotation = 0;
+        float fieldAutoZRotation = 0;
         protected override void RealUpdate()
         {
             double currentBeat = RhythmManager.currentBeatScreen;
@@ -31,20 +33,20 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
             float fieldYRotation = this.fieldYRotation.Update(theme, beat, theme.fieldYRotation);
             float fieldZRotation = this.fieldZRotation.Update(theme, beat, theme.fieldZRotation);
 
-            if (theme.autoZRotationDisable.GetValue(currentBeat))
+            if (theme.fieldAutoZRotationDisable.GetValue(currentBeat))
             {
-                if (0 < autoZRotation)
-                    autoZRotation = autoZRotation.MoveTowards(0, (autoZRotation.Ceil() - 0) * (0.25f * Kernel.fpsSmoothDeltaTime));
+                if (0 < fieldAutoZRotation)
+                    fieldAutoZRotation = fieldAutoZRotation.MoveTowards(0, (fieldAutoZRotation.Ceil() - 0) * (0.25f * Kernel.fpsSmoothDeltaTime));
                 else
-                    autoZRotation = autoZRotation.MoveTowards(0, (0 - autoZRotation.Floor()) * (0.25f * Kernel.fpsSmoothDeltaTime));
+                    fieldAutoZRotation = fieldAutoZRotation.MoveTowards(0, (0 - fieldAutoZRotation.Floor()) * (0.25f * Kernel.fpsSmoothDeltaTime));
             }
             else
             {
-                autoZRotation += theme.autoZRotationSpeed.GetValue(currentBeat) * Kernel.fpsSmoothDeltaTime;
-                autoZRotation = autoZRotation.Repeat(360);
+                fieldAutoZRotation += fieldAutoZRotationSpeed.Update(theme, beat, theme.fieldAutoZRotationSpeed) * Kernel.fpsSmoothDeltaTime * (float)RhythmManager.speed;
+                fieldAutoZRotation = fieldAutoZRotation.Repeat(360);
             }
 
-            field.transform.localEulerAngles = new Vector3(fieldXRotation, fieldYRotation, fieldZRotation + autoZRotation);
+            field.transform.localEulerAngles = new Vector3(fieldXRotation, fieldYRotation, fieldZRotation + fieldAutoZRotation);
             #endregion
 
             #region Background Color
@@ -82,39 +84,32 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 
         class ThemeEffect<TList, TListType> where TList : BeatValuePairAniList<TListType> where TListType : struct
         {
-            public SuperHexagonThemeFile lastTheme;
             public SuperHexagonThemeFile theme;
+            public SuperHexagonThemeFile lastTheme;
+
             public double startBeat;
 
             public TListType currentValue;
-
-            public double? lastStartBeat;
             public TListType? lastValue;
 
             public TListType Update(SuperHexagonThemeFile theme, double startBeat, TList list)
             {
                 if (lastTheme != theme)
                 {
-                    if (lastStartBeat == null)
-                        lastStartBeat = startBeat;
-                    else
-                        lastStartBeat = this.startBeat;
-
                     if (lastValue == null)
                         lastValue = list.GetValue(double.MinValue);
                     else
                         lastValue = this.currentValue;
 
                     this.theme = theme;
-                    this.startBeat = startBeat;
-
                     lastTheme = theme;
                 }
 
-                double currentBeat = (RhythmManager.currentBeatScreen - startBeat).Repeat(list.Last().beat);
-                TListType currentValue = list.GetValue(currentBeat);
+                double currentBeat = RhythmManager.currentBeatScreen - startBeat;
+                double currentBeatRepeat = currentBeat.Repeat(list.Last().beat);
+                TListType currentValue = list.GetValue(currentBeatRepeat);
 
-                double t = ((currentBeat - (double)lastStartBeat) / theme.transitionLength).Clamp01();
+                double t = (currentBeat / theme.transitionLength).Clamp01();
                 if (!double.IsNormal(t))
                     t = 0;
 
