@@ -28,7 +28,7 @@ namespace SCKRM.Rhythm
         public TPair First()
         {
             if (Count > 0)
-                return this[Count - 1];
+                return this[0];
             else
             {
                 TPair pair = new TPair();
@@ -43,7 +43,7 @@ namespace SCKRM.Rhythm
         public TPair Last()
         {
             if (Count > 0)
-                return this[0];
+                return this[Count - 1];
             else
             {
                 TPair pair = new TPair();
@@ -205,11 +205,16 @@ namespace SCKRM.Rhythm
                 TPair beatValuePair = this[index];
                 beat = beatValuePair.beat;
 
-                if (index <= 0 || beatValuePair.length == 0)
+                if (beatValuePair.length == 0)
                     value = beatValuePair.value;
                 else
                 {
-                    TPair previousBeatValuePair = this[index - 1];
+                    TPair previousBeatValuePair;
+                    if (index <= 0)
+                        previousBeatValuePair = Last();
+                    else
+                        previousBeatValuePair = this[index - 1];
+
                     double t = ((currentBeat - beatValuePair.beat) / beatValuePair.length).Clamp01();
                     if (!double.IsNormal(t))
                         t = 0;
