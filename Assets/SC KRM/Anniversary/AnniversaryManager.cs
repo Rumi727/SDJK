@@ -36,7 +36,7 @@ namespace SCKRM
             {
                 NameSpacePathReplacePair title = "sc-krm:notice.school_live.birthday.title";
                 NameSpacePathReplacePair description = "sc-krm:notice.school_live.birthday.description";
-                ReplaceOldNewPair replace = new ReplaceOldNewPair("%value%", (dateTime.Year - 2012).ToString());
+                ReplaceOldNewPair replace = new ReplaceOldNewPair("%value%", (dateTime.year - 2012).ToString());
 
                 title.replace = new ReplaceOldNewPair[] { replace };
                 description.replace = new ReplaceOldNewPair[] { replace };
@@ -49,7 +49,7 @@ namespace SCKRM
             {
                 NameSpacePathReplacePair title = "sc-krm:notice.school_live_ani.birthday.title";
                 NameSpacePathReplacePair description = "sc-krm:notice.school_live_ani.birthday.description";
-                ReplaceOldNewPair replace = new ReplaceOldNewPair("%value%", (dateTime.Year - 2015).ToString());
+                ReplaceOldNewPair replace = new ReplaceOldNewPair("%value%", (dateTime.year - 2015).ToString());
 
                 title.replace = new ReplaceOldNewPair[] { replace };
                 description.replace = new ReplaceOldNewPair[] { replace };
@@ -92,7 +92,7 @@ namespace SCKRM
             {
                 NameSpacePathReplacePair title = "sc-krm:notice.onell0.birthday.title";
                 NameSpacePathReplacePair description = "sc-krm:notice.onell0.birthday.description";
-                ReplaceOldNewPair replace = new ReplaceOldNewPair("%value%", (dateTime.Year - 2010).ToString());
+                ReplaceOldNewPair replace = new ReplaceOldNewPair("%value%", (dateTime.year - 2010).ToString());
 
                 title.replace = new ReplaceOldNewPair[] { replace };
                 description.replace = new ReplaceOldNewPair[] { replace };
@@ -122,7 +122,7 @@ namespace SCKRM
 
     public class Anniversary
     {
-        public Action<DateTime> action;
+        public Action<UnlimitedDateTime> action;
 
         public int month;
         public int day;
@@ -131,7 +131,7 @@ namespace SCKRM
         public bool isUtc;
         public TimeSpan utcOffset;
 
-        public Anniversary(Action<DateTime> action, int month, int day, bool lunar = false)
+        public Anniversary(Action<UnlimitedDateTime> action, int month, int day, bool lunar = false)
         {
             this.action = action;
 
@@ -148,7 +148,7 @@ namespace SCKRM
             lastDay = 0;
         }
 
-        public Anniversary(Action<DateTime> action, int month, int day, bool lunar, TimeSpan utcOffset)
+        public Anniversary(Action<UnlimitedDateTime> action, int month, int day, bool lunar, TimeSpan utcOffset)
         {
             this.action = action;
 
@@ -170,24 +170,27 @@ namespace SCKRM
         int lastDay;
         public void Execute()
         {
-            DateTime dateTime;
+            DateTime now;
             if (isUtc)
-                dateTime = NTPDateTime.utcNow + utcOffset;
+                now = NTPDateTime.utcNow + utcOffset;
             else
-                dateTime = NTPDateTime.now;
+                now = NTPDateTime.now;
 
+            UnlimitedDateTime result;
             if (lunar)
-                dateTime = dateTime.ToLunarDate(out _);
+                result = now.ToLunarDate(out _);
+            else
+                result = now;
 
             //최적화를 위해 년, 월, 일이 변경되어야 실행됩니다
-            if (lastYear != dateTime.Year || lastMonth != dateTime.Month || lastDay != dateTime.Day)
+            if (lastYear != result.year || lastMonth != result.month || lastDay != result.day)
             {
-                if (dateTime.Month == month && dateTime.Day == day)
-                    action?.Invoke(dateTime);
+                if (result.month == month && result.day == day)
+                    action?.Invoke(now);
 
-                lastYear = dateTime.Year;
-                lastMonth = dateTime.Month;
-                lastDay = dateTime.Day;
+                lastYear = result.year;
+                lastMonth = result.month;
+                lastDay = result.day;
             }
         }
     }
