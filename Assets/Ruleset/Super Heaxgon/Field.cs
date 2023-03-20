@@ -25,8 +25,12 @@ namespace SDJK.Ruleset.SuperHexagon
         public Color backgroundColor { get; set; } = Color.clear;
         public Color backgroundColorAlt { get; set; } = Color.clear;
 
+        public bool isBackgroundAltReversal { get; set; } = false;
+
         public Color mainColor { get; set; } = Color.clear;
         public Color mainColorAlt { get; set; } = Color.clear;
+
+        public bool isMainColorAltReversal { get; set; } = false;
 
         public void Refresh() => walls.Refresh();
 

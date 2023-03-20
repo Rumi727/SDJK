@@ -29,6 +29,7 @@ namespace SDJK.Ruleset.SuperHexagon
             float sides = (float)field.sides;
             float zoom = (float)field.zoom;
             Color mainColor = field.mainColor;
+            Color mainColorAlt = field.mainColorAlt;
             double globalNoteDistance = map.effect.globalNoteDistance.GetValue(currentBeat);
 
             for (int i = 0; i < walls.Count; i++)
@@ -66,7 +67,17 @@ namespace SDJK.Ruleset.SuperHexagon
 
                 wallRenderer.sides = sides;
                 wallRenderer.min = zoom;
-                wallRenderer.color = mainColor;
+
+                if (field.isMainColorAltReversal)
+                {
+                    wallRenderer.color = mainColor;
+                    wallRenderer.colorAlt = mainColorAlt;
+                }
+                else
+                {
+                    wallRenderer.color = mainColorAlt;
+                    wallRenderer.colorAlt = mainColor;
+                }
 
                 if (distance <= 50 && !field.manager.gameOverManager.isGameOver)
                     wall.CrashVerdict();

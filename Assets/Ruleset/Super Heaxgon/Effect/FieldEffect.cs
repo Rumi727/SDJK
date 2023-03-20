@@ -53,32 +53,20 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
             JColor backgroundColor = this.backgroundColor.Update(theme, beat, theme.backgroundColor);
             JColor backgroundColorAlt = this.backgroundColorAlt.Update(theme, beat, theme.backgroundColorAlt);
 
-            if (theme.mainColorAltReversal.GetValue((currentBeat - beat).Repeat(theme.backgroundColorAltReversal.Last().beat)))
-            {
-                field.backgroundColor = backgroundColorAlt;
-                field.backgroundColorAlt = backgroundColor;
-            }
-            else
-            {
-                field.backgroundColor = backgroundColor;
-                field.backgroundColorAlt = backgroundColorAlt;
-            }
+            field.isBackgroundAltReversal = theme.backgroundColorAltReversal.GetValue((currentBeat - beat).Repeat(theme.backgroundColorAltReversal.Last().beat));
+
+            field.backgroundColor = backgroundColor;
+            field.backgroundColorAlt = backgroundColorAlt;
             #endregion
 
             #region Main Color
             JColor mainColor = this.mainColor.Update(theme, beat, theme.mainColor);
             JColor mainColorAlt = this.mainColorAlt.Update(theme, beat, theme.mainColorAlt);
 
-            if (theme.mainColorAltReversal.GetValue((currentBeat - beat).Repeat(theme.mainColorAltReversal.Last().beat)))
-            {
-                field.mainColor = mainColorAlt;
-                field.mainColorAlt = mainColor;
-            }
-            else
-            {
-                field.mainColor = mainColor;
-                field.mainColorAlt = mainColorAlt;
-            }
+            field.isMainColorAltReversal = theme.mainColorAltReversal.GetValue((currentBeat - beat).Repeat(theme.mainColorAltReversal.Last().beat));
+
+            field.mainColor = mainColor;
+            field.mainColorAlt = mainColorAlt;
             #endregion
         }
 

@@ -13,8 +13,16 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
         {
             background.sides = (float)field.sides;
 
-            background.color = field.backgroundColor;
-            background.colorAlt = field.backgroundColorAlt;
+            if (field.isBackgroundAltReversal)
+            {
+                background.color = field.backgroundColorAlt;
+                background.colorAlt = field.backgroundColor;
+            }
+            else
+            {
+                background.color = field.backgroundColor;
+                background.colorAlt = field.backgroundColorAlt;
+            }
         }
     }
 }
