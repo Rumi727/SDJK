@@ -78,10 +78,10 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
                     if (hitsoundPlay)
                         HitsoundPlay();
-                }
 
-                if (RhythmManager.currentBeatSound >= 0)
-                    health += map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+                    if (RhythmManager.currentBeatSound >= 0)
+                        health += map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+                }
 
                 SetRankProgress();
             }

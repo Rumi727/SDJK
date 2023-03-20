@@ -811,7 +811,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         if (effect.beat + effect.length > nextEffect.beat && (nextEffect.beat - effect.beat) / effect.length < 0.25)
                         {
                             double t = ((nextEffect.beat - effect.beat) / effect.length).Clamp01();
-                            T calculatedValue = list.ValueCalculate(t, effect.easingFunction, previousEffect, effect);
+                            T calculatedValue = list.ValueCalculate(t, effect.easingFunction, previousEffect.value, effect.value);
 
                             var modifyedEffect = list[i];
                             modifyedEffect.length = nextEffect.beat - effect.beat;

@@ -22,11 +22,11 @@ namespace SDJK.Ruleset.SuperHexagon
 
         public float globalWallOffset { get; set; } = 0;
 
-        public Color backgroundColor { get; private set; } = Color.clear;
-        public Color backgroundColorAlt { get; private set; } = Color.clear;
+        public Color backgroundColor { get; set; } = Color.clear;
+        public Color backgroundColorAlt { get; set; } = Color.clear;
 
-        public Color mainColor { get; private set; } = Color.clear;
-        public Color mainColorAlt { get; private set; } = Color.clear;
+        public Color mainColor { get; set; } = Color.clear;
+        public Color mainColorAlt { get; set; } = Color.clear;
 
         public void Refresh() => walls.Refresh();
 
@@ -37,12 +37,6 @@ namespace SDJK.Ruleset.SuperHexagon
                 return;
 
             zoom = zoom.Lerp(audioZoom, audioSizeLerp * Kernel.fpsUnscaledSmoothDeltaTime);
-
-            backgroundColor = map.effect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
-            backgroundColorAlt = map.effect.backgroundColorAlt.GetValue(RhythmManager.currentBeatScreen);
-
-            mainColor = map.effect.mainColor.GetValue(RhythmManager.currentBeatScreen);
-            mainColorAlt = map.effect.mainColorAlt.GetValue(RhythmManager.currentBeatScreen);
 
             double realSides = map.effect.sidesList.GetValue(RhythmManager.currentBeatScreen);
             if (realSides < sides)

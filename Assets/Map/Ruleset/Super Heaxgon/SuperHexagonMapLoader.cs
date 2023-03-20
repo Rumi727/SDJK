@@ -189,7 +189,6 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             superHexagonMap.effect.globalNoteSpeed = sdjkMap.effect.globalNoteSpeed;
 
             superHexagonMap.effect.sidesList.Add(double.MinValue, 0, sdjkMap.notes.Count);
-            superHexagonMap.effect.fieldZRotationSpeed.Add(double.MinValue, 0, 1);
 
             if (0 < sdjkMap.effect.fieldEffect.Count)
             {
