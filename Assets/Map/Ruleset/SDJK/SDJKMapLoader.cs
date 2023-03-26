@@ -384,7 +384,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             sdjkMap.effect.fieldEffect.Add(new SDJKFieldEffectFile());
             sdjkMap.effect.fieldEffect[0].height.Add(double.MinValue, 0, 24);
 
-            sdjkMap.effect.globalNoteDistance.Add(double.MinValue, 0, 10);
+            sdjkMap.effect.globalNoteDistance.Add(double.MinValue, 0, 14);
 
             bool startLine = true;
             string section = "";
