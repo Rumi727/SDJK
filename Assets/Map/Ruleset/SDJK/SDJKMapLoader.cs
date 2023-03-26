@@ -377,8 +377,14 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             StreamReader streamReader = File.OpenText(mapFilePath);
 
             sdjkMap.info.ruleset = "sdjk";
-            sdjkMap.effect.fieldEffect.Add(new SDJKFieldEffectFile());
+
             sdjkMap.globalEffect.volume.Add(double.MinValue, 0, 0.5f);
+            sdjkMap.globalEffect.uiSize.Add(double.MinValue, 0, 0.6666666667);
+
+            sdjkMap.effect.fieldEffect.Add(new SDJKFieldEffectFile());
+            sdjkMap.effect.fieldEffect[0].height.Add(double.MinValue, 0, 24);
+
+            sdjkMap.effect.globalNoteDistance.Add(double.MinValue, 0, 10);
 
             bool startLine = true;
             string section = "";
