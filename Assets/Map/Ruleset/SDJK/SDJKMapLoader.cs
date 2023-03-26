@@ -24,14 +24,20 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         static void Awaken()
         {
             MapLoader.extensionToLoad.Add("sdjk");
+            MapLoader.extensionToLoad.Add("osu");
             MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
             {
                 bool typeIsSDJKMap = type == typeof(SDJKMapFile);
                 if (typeIsSDJKMap && !File.Exists(mapFilePath))
                     return new SDJKMapFile("");
 
-                if (extension == ".sdjk" && (type == typeof(MapFile) || typeIsSDJKMap))
-                    return MapLoad(mapFilePath, modes);
+                if (type == typeof(MapFile) || typeIsSDJKMap)
+                {
+                    if (extension == ".sdjk") //SDJK
+                        return MapLoad(mapFilePath, modes);
+                    else if (extension == ".osu") //osu!mania
+                        return OsuManiaBeatmapLoad(mapFilePath, modes);
+                }
 
                 //Ruleset 호환성
                 if (typeIsSDJKMap)
@@ -239,20 +245,20 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public static SDJKMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes, bool cameraZoomEffectChange = true)
         {
-            SDJKMapFile sdjkMapFile = new SDJKMapFile(mapFilePath);
+            SDJKMapFile sdjkMap = new SDJKMapFile(mapFilePath);
             ADOFAIMapFile adofaiMap = ADOFAIMapLoader.MapLoad(mapFilePath);
 
             #region Global Info Copy
-            sdjkMapFile.info = adofaiMap.info;
-            sdjkMapFile.globalEffect = adofaiMap.globalEffect;
-            sdjkMapFile.visualizerEffect = adofaiMap.visualizerEffect;
+            sdjkMap.info = adofaiMap.info;
+            sdjkMap.globalEffect = adofaiMap.globalEffect;
+            sdjkMap.visualizerEffect = adofaiMap.visualizerEffect;
 
-            sdjkMapFile.info.ruleset = "sdjk";
+            sdjkMap.info.ruleset = "sdjk";
             #endregion
 
             #region Note
-            Random random = new Random(sdjkMapFile.info.randomSeed);
-            TypeList<TypeList<SDJKNoteFile>> notes = sdjkMapFile.notes;
+            Random random = new Random(sdjkMap.info.randomSeed);
+            TypeList<TypeList<SDJKNoteFile>> notes = sdjkMap.notes;
             Dictionary<int, double> secondDistances = new Dictionary<int, double>();
 
             {
@@ -262,7 +268,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     count = ((KeyCountModeBase.Data)keyCountMode.modeConfig).count;
 
                 for (int i = 0; i < count; i++)
-                   sdjkMapFile.notes.Add(new TypeList<SDJKNoteFile>());
+                   sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
             }
 
             {
@@ -334,33 +340,293 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             #region Effect
-            sdjkMapFile.effect.fieldEffect.Add(new SDJKFieldEffectFile());
-            SDJKFieldEffectFile fieldEffect = sdjkMapFile.effect.fieldEffect[0];
+            sdjkMap.effect.fieldEffect.Add(new SDJKFieldEffectFile());
+            SDJKFieldEffectFile fieldEffect = sdjkMap.effect.fieldEffect[0];
 
             for (int i = 0; i < notes.Count; i++)
                 fieldEffect.barEffect.Add(new SDJKBarEffectFile());
 
             #region Camera Zoom Effect To Field Height And UI Size Effect
-            for (int i = 0; i < sdjkMapFile.globalEffect.cameraZoom.Count; i++)
+            for (int i = 0; i < sdjkMap.globalEffect.cameraZoom.Count; i++)
             {
-                BeatValuePairAni<double> effect = sdjkMapFile.globalEffect.cameraZoom[i];
+                BeatValuePairAni<double> effect = sdjkMap.globalEffect.cameraZoom[i];
                 if (cameraZoomEffectChange)
                     fieldEffect.height.Add(effect.beat, effect.length, effect.value * 16, effect.easingFunction, true);
 
-                sdjkMapFile.globalEffect.uiSize.Add(effect.beat, effect.length, 1 / effect.value, effect.easingFunction, true);
+                sdjkMap.globalEffect.uiSize.Add(effect.beat, effect.length, 1 / effect.value, effect.easingFunction, true);
             }
 
             if (cameraZoomEffectChange)
-                sdjkMapFile.globalEffect.cameraZoom.Clear();
+                sdjkMap.globalEffect.cameraZoom.Clear();
             #endregion
             #endregion
 
-            FixMode(sdjkMapFile, modes);
+            FixMode(sdjkMap, modes);
 
-            FixMap(sdjkMapFile);
-            FixAllJudgmentBeat(sdjkMapFile);
+            FixMap(sdjkMap);
+            FixAllJudgmentBeat(sdjkMap);
 
-            return sdjkMapFile;
+            return sdjkMap;
+        }
+
+
+
+        public static SDJKMapFile OsuManiaBeatmapLoad(string mapFilePath, IMode[] modes)
+        {
+            SDJKMapFile sdjkMap = new SDJKMapFile(mapFilePath);
+            StreamReader streamReader = File.OpenText(mapFilePath);
+
+            sdjkMap.info.ruleset = "sdjk";
+            sdjkMap.effect.fieldEffect.Add(new SDJKFieldEffectFile());
+            sdjkMap.globalEffect.volume.Add(double.MinValue, 0, 0.5f);
+
+            bool startLine = true;
+            string section = "";
+
+            bool eventsSectionBackgroundIgnore = false;
+            bool eventsSectionVideoIgnore = false;
+
+            bool timingPointsSectionStartLine = true;
+            double timingPointsSectionLastTime = 0;
+            double timingPointsSectionLastBeat = 0;
+            double timingPointsSectionBPM = 60;
+
+            bool isDifficultyCalculated = false;
+            bool isTimingPointsCalculated = false;
+
+            int keyCount = 4;
+            while (!streamReader.EndOfStream)
+            {
+                string text = streamReader.ReadLine();
+
+                try
+                {
+                    if (startLine)
+                    {
+                        if (text != "osu file format v14")
+                            Debug.LogWarning($"Not osu file format or not v14\nThis beatmap cannot be guaranteed to work properly\n\n{mapFilePath}");
+
+                        startLine = false;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        if (text.StartsWith('[') && text.EndsWith("]"))
+                        {
+                            section = text;
+                            continue;
+                        }
+
+                        switch (section)
+                        {
+                            #region General Section
+                            case "[General]":
+                            {
+                                string[] splitText = text.QuotedSplit(":");
+                                string key = splitText[0].Trim();
+                                string value = splitText[1].Trim();
+
+                                switch (key)
+                                {
+                                    case "AudioFilename":
+                                        sdjkMap.info.songFile = PathUtility.GetPathWithExtension(value);
+                                        break;
+                                    case "PreviewTime":
+                                        sdjkMap.info.mainMenuStartTime = int.Parse(value) * 0.001f;
+                                        break;
+                                    case "Mode":
+                                    {
+                                        if (value != "3")
+                                            throw new NotSupportedException("Only supports osu!mania beatmap");
+
+                                        break;
+                                    }
+                                }
+
+                                break;
+                            }
+                            #endregion
+
+                            #region MetaData Section
+                            case "[Metadata]":
+                            {
+                                string[] splitText = text.QuotedSplit(":");
+                                string key = splitText[0].Trim();
+                                if (splitText.Length < 2)
+                                    continue;
+
+                                string value = splitText[1].Trim();
+
+                                switch (key)
+                                {
+                                    case "Title":
+                                        sdjkMap.info.songName = value;
+                                        break;
+                                    case "Artist":
+                                        sdjkMap.info.artist = value;
+                                        break;
+                                    case "Creator":
+                                        sdjkMap.info.author = value;
+                                        break;
+                                    case "Version":
+                                        sdjkMap.info.difficultyLabel = value + " (osu!)";
+                                        break;
+                                    case "Source":
+                                        sdjkMap.info.original = value;
+                                        break;
+                                    case "Tags":
+                                        sdjkMap.info.tag = value.QuotedSplit(" ");
+                                        break;
+                                }
+
+                                break;
+                            }
+                            #endregion
+
+                            #region Difficulty Section
+                            case "[Difficulty]":
+                            {
+                                string[] splitText = text.QuotedSplit(":");
+                                string key = splitText[0].Trim();
+                                string value = splitText[1].Trim();
+
+                                if (key == "CircleSize")
+                                {
+                                    keyCount = int.Parse(value);
+                                    sdjkMap.notes.Clear();
+
+                                    for (int i = 0; i < keyCount; i++)
+                                    {
+                                        sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
+                                        sdjkMap.effect.fieldEffect[0].barEffect.Add(new SDJKBarEffectFile());
+                                    }
+                                }
+
+                                isDifficultyCalculated = true;
+                                break;
+                            }
+                            #endregion
+
+                            #region Events Section
+                            case "[Events]":
+                            {
+                                string[] splitText = text.QuotedSplit(",");
+                                string eventType = splitText[0];
+
+                                switch (eventType)
+                                {
+                                    case "0":
+                                    {
+                                        if (!eventsSectionBackgroundIgnore)
+                                        {
+                                            sdjkMap.globalEffect.background.Add(new BackgroundEffectPair(PathUtility.GetPathWithExtension(splitText[2].Trim('"')), ""));
+                                            eventsSectionBackgroundIgnore = true;
+                                        }
+
+                                        break;
+                                    }
+                                    case "1":
+                                    case "Video":
+                                    {
+                                        if (!eventsSectionVideoIgnore)
+                                        {
+                                            sdjkMap.info.videoBackgroundFile = PathUtility.GetPathWithExtension(splitText[2].Trim('"'));
+                                            sdjkMap.info.videoOffset = double.Parse(splitText[1]);
+
+                                            eventsSectionVideoIgnore = true;
+                                        }
+
+                                        break;
+                                    }
+                                }
+
+                                break;
+                            }
+                            #endregion
+
+                            #region Timing Points Section
+                            case "[TimingPoints]":
+                            {
+                                string[] splitText = text.QuotedSplit(",");
+                                double time = int.Parse(splitText[0]) * 0.001;
+                                double bpm = (1d / double.Parse(splitText[1]) * 1000d * 60d).Floor();
+                                bool uninherited = splitText[6] == "0";
+
+                                if (timingPointsSectionStartLine)
+                                {
+                                    sdjkMap.info.songOffset = time + 0.04;
+                                    sdjkMap.info.videoOffset -= time;
+
+                                    timingPointsSectionBPM = bpm;
+                                    timingPointsSectionLastTime = time;
+
+                                    timingPointsSectionStartLine = false;
+                                }
+
+                                double beat = RhythmManager.SecondToBeat(time - timingPointsSectionLastTime, timingPointsSectionBPM) + timingPointsSectionLastBeat;
+                                if (!uninherited)
+                                {
+                                    sdjkMap.globalEffect.bpm.Add(beat, bpm);
+                                    timingPointsSectionBPM = bpm;
+                                }
+
+                                sdjkMap.globalEffect.yukiMode.Add(beat, splitText[7] != "0");
+
+                                timingPointsSectionLastBeat = beat;
+                                timingPointsSectionLastTime = time;
+                                isTimingPointsCalculated = true;
+
+                                break;
+                            }
+                            #endregion
+
+                            #region Hit Objects Section
+                            case "[HitObjects]":
+                            {
+                                if (!isDifficultyCalculated)
+                                    throw new NotSupportedException("Notes cannot be processed while Difficulty are not calculated!");
+                                else if (!isTimingPointsCalculated)
+                                    throw new NotSupportedException("Notes cannot be processed while Timing Points are not calculated!");
+
+                                string[] splitText = text.QuotedSplit(",");
+
+                                int index = (int.Parse(splitText[0]) * keyCount / 512d).FloorToInt();
+                                double time = int.Parse(splitText[2]) * 0.001;
+                                double holdTime = int.Parse(splitText[5].Split(':')[0]) * 0.001;
+
+                                BeatValuePairList<double> bpmList = sdjkMap.globalEffect.bpm;
+
+                                double bpm = RhythmManager.TimeUseBPMChangeCalulate(bpmList, time, sdjkMap.info.songOffset, out double hitObjectsSectionBPMOffsetBeat, out double hitObjectsSectionBPMOffsetTime);
+                                double beat = RhythmManager.SecondToBeat(time - hitObjectsSectionBPMOffsetTime - sdjkMap.info.songOffset, bpm) + hitObjectsSectionBPMOffsetBeat;
+
+                                double holdBeat = 0;
+                                if (time < holdTime)
+                                {
+                                    double holdBPM = RhythmManager.TimeUseBPMChangeCalulate(bpmList, time, sdjkMap.info.songOffset, out double hitObjectsSectionBPMOffsetBeatHold, out double hitObjectsSectionBPMOffsetTimeHold);
+                                    holdBeat = RhythmManager.SecondToBeat(holdTime - hitObjectsSectionBPMOffsetTimeHold - sdjkMap.info.songOffset, holdBPM) + hitObjectsSectionBPMOffsetBeatHold - beat;
+                                }
+
+                                sdjkMap.notes[index].Add(new SDJKNoteFile(beat, holdBeat, SDJKNoteTypeFile.normal));
+                                break;
+                            }
+                            #endregion
+                        }
+                    }
+                }
+                catch
+                {
+                    Debug.LogError("[Text] " + text);
+                    Debug.LogError("[Path] " + mapFilePath);
+
+                    throw;
+                }
+            }
+
+            FixMode(sdjkMap, modes);
+
+            FixMap(sdjkMap);
+            FixAllJudgmentBeat(sdjkMap);
+
+            return sdjkMap;
         }
 
 

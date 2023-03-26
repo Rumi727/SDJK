@@ -1,6 +1,9 @@
 using System.Text;
 using System;
 using UnityEngine;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SCKRM
 {
@@ -520,6 +523,54 @@ namespace SCKRM
             space = dataSizeType.ToString().ToUpper();
 
             return size;
+        }
+
+        public static string[] QuotedSplit(this string text, string separator) => text.QuotedSplit2(separator).ToArray();
+
+        //https://codereview.stackexchange.com/a/166801
+        static IEnumerable<string> QuotedSplit2(this string text, string separator)
+        {
+            const char quote = '\"';
+
+            StringBuilder sb = new StringBuilder(text.Length);
+            int counter = 0;
+            while (counter < text.Length)
+            {
+                // if starts with delmiter if so read ahead to see if matches
+                if (separator[0] == text[counter] && separator.SequenceEqual(ReadNext(text, counter, separator.Length)))
+                {
+                    yield return sb.ToString();
+
+                    sb.Clear();
+                    counter += separator.Length; // Move the counter past the delimiter 
+                }
+                else if (text[counter] == quote) // if we hit a quote read until we hit another quote or end of string
+                {
+                    sb.Append(text[counter++]);
+                    while (counter < text.Length && text[counter] != quote)
+                        sb.Append(text[counter++]);
+
+                    // if not end of string then we hit a quote add the quote
+                    if (counter < text.Length)
+                        sb.Append(text[counter++]);
+                }
+                else
+                    sb.Append(text[counter++]);
+            }
+
+            if (sb.Length > 0)
+                yield return sb.ToString();
+        }
+
+        static IEnumerable<char> ReadNext(string str, int currentPosition, int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                if (currentPosition + i >= str.Length)
+                    yield break;
+                else
+                    yield return str[currentPosition + i];
+            }
         }
 
         public enum DataSizeType

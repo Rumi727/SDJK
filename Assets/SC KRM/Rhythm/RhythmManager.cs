@@ -238,29 +238,10 @@ namespace SCKRM.Rhythm
 
         static void BPMChange(double bpm, double offsetBeat)
         {
-            offsetBeat = offsetBeat.Clamp(0);
-            bpmOffsetBeat = offsetBeat;
+            BPMChangeCalculate(offsetBeat, bpmList, out double bpmOffsetBeat, out double bpmOffsetTime);
 
-            bpmOffsetTime = 0;
-            double tempBeat = 0;
-            for (int i = 0; i < bpmList.Count; i++)
-            {
-                double beat = bpmList[i].beat.Clamp(0);
-                if (bpmList[0].beat.Clamp(0) >= offsetBeat)
-                    break;
-
-                double tempBPM;
-                if (i - 1 < 0)
-                    tempBPM = bpmList[0].value;
-                else
-                    tempBPM = bpmList[i - 1].value;
-
-                bpmOffsetTime += (beat - tempBeat) * (60d / tempBPM);
-                tempBeat = beat;
-
-                if (beat >= offsetBeat)
-                    break;
-            }
+            RhythmManager.bpmOffsetBeat = bpmOffsetBeat;
+            RhythmManager.bpmOffsetTime = bpmOffsetTime;
 
             RhythmManager.bpm = bpm;
 
@@ -268,7 +249,32 @@ namespace SCKRM.Rhythm
             Debug.Log("BPM: " + bpm);
             Debug.Log("BPM Offset Beat: " + bpmOffsetBeat);
             Debug.Log("BPM Offset Time: " + bpmOffsetTime);
+        }
 
+        public static void BPMChangeCalculate(double changeBeat, BeatValuePairList<double> bpmList, out double bpmOffsetBeat, out double bpmOffsetTime)
+        {
+            changeBeat = changeBeat.Clamp(0);
+            bpmOffsetBeat = changeBeat;
+
+            bpmOffsetTime = 0;
+            double tempBeat = 0;
+            for (int i = 0; i < bpmList.Count; i++)
+            {
+                double beat = bpmList[i].beat.Clamp(0);
+                if (bpmList[0].beat.Clamp(0) >= changeBeat)
+                    break;
+
+                double tempBPM;
+                if (i - 1 < 0)
+                    tempBPM = bpmList[0].value;
+                else
+                    tempBPM = bpmList[i - 1].value;
+                bpmOffsetTime += (beat - tempBeat) * (60d / tempBPM);
+                tempBeat = beat;
+
+                if (beat >= changeBeat)
+                    break;
+            }
         }
 
         [WikiDescription("리듬 재생")]
@@ -431,29 +437,52 @@ namespace SCKRM.Rhythm
         static void FixBPM()
         {
             Debug.Log("Fix BPM");
+            bpm = TimeUseBPMChangeCalulate(bpmList, time, offset, out double bpmOffsetBeat, out double bpmOffsetTime);
+
+            RhythmManager.bpmOffsetBeat = bpmOffsetBeat;
+            RhythmManager.bpmOffsetTime = bpmOffsetTime;
+
+            Debug.Log("BPM Changed");
+            Debug.Log("BPM: " + bpm);
+            Debug.Log("BPM Offset Beat: " + bpmOffsetBeat);
+            Debug.Log("BPM Offset Time: " + bpmOffsetTime);
+
+            SetCurrentBeat();
+        }
+
+        public static double TimeUseBPMChangeCalulate(BeatValuePairList<double> bpmList, double time, double offset, out double bpmOffsetBeat, out double bpmOffsetTime)
+        {
+            double bpm = 0;
+            bpmOffsetTime = 0;
+            bpmOffsetBeat = 0;
 
             for (int i = 0; i < bpmList.Count; i++)
             {
                 {
-                    BeatValuePair<double> bpm = bpmList[i];
-                    BPMChange(bpm.value, bpm.beat);
+                    BeatValuePair<double> bpmPair = bpmList[i];
+                    BPMChangeCalculate(bpmPair.beat, bpmList, out bpmOffsetBeat, out bpmOffsetTime);
+
+                    bpm = bpmPair.value;
                 }
 
                 if (bpmOffsetTime > time - offset)
                 {
                     if (i - 1 >= 0)
                     {
-                        BeatValuePair<double> bpm = bpmList[i - 1];
-                        BPMChange(bpm.value, bpm.beat);
+                        BeatValuePair<double> bpmPair = bpmList[i - 1];
+                        BPMChangeCalculate(bpmPair.beat, bpmList, out bpmOffsetBeat, out bpmOffsetTime);
+
+                        bpm = bpmPair.value;
                     }
 
                     break;
                 }
             }
 
-            SetCurrentBeat();
+            return bpm;
         }
 
+        public static double SecondToBeat(double second, double bpm) => second * (bpm / 60);
         public static double BeatToSecond(double beat, double bpm) => beat / (bpm / 60);
     }
 }
