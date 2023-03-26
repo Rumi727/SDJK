@@ -403,8 +403,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 {
                     if (startLine)
                     {
-                        if (text != "osu file format v14")
-                            Debug.LogWarning($"Not osu file format or not v14\nThis beatmap cannot be guaranteed to work properly\n\n{mapFilePath}");
+                        if (!text.StartsWith("osu file format v"))
+                            return null;
 
                         startLine = false;
                     }
@@ -625,6 +625,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             FixMap(sdjkMap);
             FixAllJudgmentBeat(sdjkMap);
+
+            if (sdjkMap.allJudgmentBeat.Count > 0)
+                sdjkMap.info.clearBeat = sdjkMap.allJudgmentBeat.Last() + 4;
 
             return sdjkMap;
         }
