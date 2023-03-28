@@ -616,9 +616,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                             }
                             #endregion
                         }
-
-                        //어떤 이유에선지 몰라도 오디오가 ogg 인 상태인데도 불구하고 0.04초 정도 음악이 느린 모습을 보임
-                        sdjkMap.info.songOffset += 0.04;
                     }
                 }
                 catch
@@ -629,6 +626,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     throw;
                 }
             }
+
+            //어떤 이유에선지 몰라도 오디오가 ogg 인 상태인데도 불구하고 0.04초 정도 음악이 느린 모습을 보임
+            sdjkMap.info.songOffset += 0.04;
 
             FixMode(sdjkMap, modes);
 
