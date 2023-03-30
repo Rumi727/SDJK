@@ -9,11 +9,11 @@ namespace SDJK.Ruleset.ReplayResult
         [SerializeField, NotNull] Image background;
         [SerializeField, NotNull] Image color;
 
-        double scoreAnimation = 0;
+        double scoreAnimation = 1;
         public override void RealUpdate(float lerpValue)
         {
-            scoreAnimation = scoreAnimation.Lerp(replay.scores.GetValue(double.MaxValue), lerpValue);
-            float fillAmout = (float)(scoreAnimation / JudgementUtility.maxScore);
+            scoreAnimation = scoreAnimation.Lerp(replay.rankProgresses.GetValue(double.MaxValue), lerpValue);
+            float fillAmout = (float)(1 - scoreAnimation);
 
             background.fillAmount = 1 - fillAmout;
             color.fillAmount = fillAmout;
@@ -22,7 +22,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void ObjectReset()
         {
             base.ObjectReset();
-            scoreAnimation = 0;
+            scoreAnimation = 1;
 
             background.fillAmount = 1;
             color.fillAmount = 0;
