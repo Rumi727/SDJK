@@ -61,10 +61,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public TypeList<SDJKBarEffectFile> barEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
-        /// <summary>
-        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
-        /// </summary>
-        public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
     }
 
     public sealed class SDJKBarEffectFile
@@ -77,12 +73,15 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public BeatValuePairAniListColor noteColor { get; set; } = new(new JColor(0, 1, 0));
 
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
-        /// <summary>
-        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
-        /// </summary>
-        public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
+
+        public BeatValuePairList<SDJKNoteConfigFile> noteConfig { get; set; } = new(new SDJKNoteConfigFile());
 
         public BeatValuePairList<bool> noteStop { get; set; } = new(false);
         public BeatValuePairAniListDouble noteOffset { get; set; } = new(0);
+    }
+
+    public class SDJKNoteConfigFile
+    {
+        public BeatValuePairAniListDouble noteSpeed { get; set; } = new BeatValuePairAniListDouble(1);
     }
 }

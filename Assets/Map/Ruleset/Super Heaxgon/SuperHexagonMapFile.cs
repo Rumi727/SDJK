@@ -1,5 +1,6 @@
 using SCKRM.Easing;
 using SCKRM.Rhythm;
+using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,19 +50,18 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public TypeList<SuperHexagonBarEffectFile> barEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
-        /// <summary>
-        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
-        /// </summary>
-        public BeatValuePairList<double> globalNoteSpeed { get; set; } = new(1);
     }
 
     public sealed class SuperHexagonBarEffectFile
     {
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
-        /// <summary>
-        /// 현재 비트가 아닌 노트의 비트를 기준으로 이펙트를 재생시켜야합니다
-        /// </summary>
-        public BeatValuePairList<double> noteSpeed { get; set; } = new(1);
+
+        public BeatValuePairList<SuperHexagonNoteConfigFile> noteConfig { get; set; } = new(new SuperHexagonNoteConfigFile());
+    }
+
+    public sealed class SuperHexagonNoteConfigFile
+    {
+        public BeatValuePairAniListDouble noteSpeed { get; set; } = new BeatValuePairAniListDouble(1);
     }
 
     public sealed class SuperHexagonThemeFile

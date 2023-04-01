@@ -44,14 +44,20 @@ namespace SDJK.Ruleset.SuperHexagon
                     continue;
                 }
 
-                double localNoteSpeed = 1;
+                SuperHexagonBarEffectFile barEffect = null;
+                SuperHexagonNoteConfigFile config = null;
+
                 if (wall.index < map.effect.barEffect.Count)
                 {
-                    SuperHexagonBarEffectFile barEffect = map.effect.barEffect[wall.index];
-                    localNoteSpeed = barEffect.noteDistance.GetValue(currentBeat) * barEffect.noteSpeed.GetValue(wall.note.beat);
+                    barEffect = map.effect.barEffect[wall.index];
+                    config = barEffect.noteConfig.GetValue(wall.note.beat);
                 }
 
-                double noteSpeed = globalNoteDistance * map.effect.globalNoteSpeed.GetValue(wall.note.beat) * localNoteSpeed;
+                if (barEffect == null || config == null)
+                    continue;
+
+                double localNoteSpeed = barEffect.noteDistance.GetValue(currentBeat) * config.noteSpeed.GetValue(wall.note.beat);
+                double noteSpeed = globalNoteDistance * localNoteSpeed;
 
                 WallRenderer wallRenderer = wall.wallRenderer;
                 float distance = (float)(zoom + ((wall.note.beat - currentBeat) * noteSpeed));

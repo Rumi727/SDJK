@@ -216,10 +216,23 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             SDJKFieldEffectFile fieldEffect = sdjkMap.effect.fieldEffect[0];
 
             for (int i = 0; i < superHexagonMap.notes.Count; i++)
-                fieldEffect.barEffect.Add(new SDJKBarEffectFile());
+            {
+                SDJKBarEffectFile barEffect = new SDJKBarEffectFile();
+                fieldEffect.barEffect.Add(barEffect);
+
+                BeatValuePairList<SuperHexagonNoteConfigFile> hexagonConfigs = superHexagonMap.effect.barEffect[i].noteConfig;
+
+                for (int j = 0; j < hexagonConfigs.Count; j++)
+                {
+                    BeatValuePair<SuperHexagonNoteConfigFile> hexagonConfig = hexagonConfigs[j];
+                    SDJKNoteConfigFile config = new SDJKNoteConfigFile();
+
+                    config.noteSpeed = hexagonConfig.value.noteSpeed;
+                    barEffect.noteConfig.Add(hexagonConfig.beat, config, hexagonConfig.disturbance);
+                }
+            }
 
             sdjkMap.effect.globalNoteDistance = superHexagonMap.effect.globalNoteDistance;
-            sdjkMap.effect.globalNoteSpeed = superHexagonMap.effect.globalNoteSpeed;
             #endregion
 
             #region Camera Zoom Effect To Field Height And UI Size Effect

@@ -186,8 +186,6 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
             #region Effect
             superHexagonMap.effect.globalNoteDistance = sdjkMap.effect.globalNoteDistance;
-            superHexagonMap.effect.globalNoteSpeed = sdjkMap.effect.globalNoteSpeed;
-
             superHexagonMap.effect.sidesList.Add(double.MinValue, 0, sdjkMap.notes.Count);
 
             if (0 < sdjkMap.effect.fieldEffect.Count)
@@ -199,7 +197,16 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                     SuperHexagonBarEffectFile superHexagonBarEffect = new SuperHexagonBarEffectFile();
 
                     superHexagonBarEffect.noteDistance = sdjkBarEffect.noteDistance;
-                    superHexagonBarEffect.noteSpeed = sdjkBarEffect.noteSpeed;
+
+                    BeatValuePairList<SDJKNoteConfigFile> sdjkConfigs = sdjkBarEffect.noteConfig;
+                    for (int j = 0; j < sdjkConfigs.Count; j++)
+                    {
+                        BeatValuePair<SDJKNoteConfigFile> sdjkConfig = sdjkConfigs[j];
+                        SuperHexagonNoteConfigFile config = new SuperHexagonNoteConfigFile();
+
+                        config.noteSpeed = sdjkConfig.value.noteSpeed;
+                        superHexagonBarEffect.noteConfig.Add(sdjkConfig.beat, config, sdjkConfig.disturbance);
+                    }
 
                     superHexagonMap.effect.barEffect.Add(superHexagonBarEffect);
                 }

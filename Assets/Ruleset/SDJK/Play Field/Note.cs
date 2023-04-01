@@ -17,6 +17,7 @@ namespace SDJK.Ruleset.SDJK
         public int barIndex => bar.barIndex;
 
         public SDJKNoteFile noteFile { get; private set; }
+        public SDJKNoteConfigFile config => playField.fieldEffectFile.barEffect[barIndex].noteConfig.GetValue(beat);
 
         public double beat => noteFile.beat;
         public double holdLength => noteFile.holdLength;
@@ -36,9 +37,8 @@ namespace SDJK.Ruleset.SDJK
         public double GetNoteDis()
         {
             double globalNoteSpeed = map.effect.globalNoteSpeed.GetValue(beat);
-            double fieldNoteSpeed = playField.fieldEffectFile.noteSpeed.GetValue(beat);
-            double localNoteSpeed = bar.barEffectFile.noteSpeed.GetValue(beat);
-            double noteDis = bar.noteDistance * globalNoteSpeed * fieldNoteSpeed * localNoteSpeed;
+            double localNoteSpeed = config.noteSpeed.GetValue(beat);
+            double noteDis = bar.noteDistance * globalNoteSpeed * localNoteSpeed;
 
             return noteDis;
         }
