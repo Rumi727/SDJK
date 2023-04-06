@@ -32,12 +32,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     return new SDJKMapFile("");
 
                 if (type == typeof(MapFile) || typeIsSDJKMap)
-                {
-                    if (extension == ".sdjk") //SDJK
-                        return MapLoad(mapFilePath, modes);
-                    else if (extension == ".osu") //osu!mania
-                        return OsuManiaBeatmapLoad(mapFilePath, modes);
-                }
+                    return MapLoad(mapFilePath, modes);
 
                 //Ruleset 호환성
                 if (typeIsSDJKMap)
@@ -61,6 +56,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             if (File.Exists(mapFilePath))
             {
+                if (Path.GetExtension(mapFilePath) == ".osu")
+                    return OsuManiaBeatmapLoad(mapFilePath, modes);
+                
                 JObject jObjectMap = JsonManager.JsonRead<JObject>(mapFilePath, true);
 
                 if (OldSDJKMapDistinction(jObjectMap))

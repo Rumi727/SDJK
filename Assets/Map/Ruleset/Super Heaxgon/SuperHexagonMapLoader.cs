@@ -31,7 +31,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 if (typeIsSuperHexagonMap)
                 {
                     //SDJK
-                    if (extension == ".sdjk")
+                    if (extension == ".sdjk" || extension == ".osu")
                         return SDJKMapLoad(mapFilePath, modes);
                     else if (extension == ".adofai")
                         return ADOFAIMapLoad(mapFilePath, modes);
@@ -137,7 +137,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 for (int j = 0; j < notes.Count; j++)
                 {
                     SuperHexagonNoteFile note = notes[j];
-                    note.holdLength = 0;
+                    note.holdLength = 1;
 
                     notes[j] = note;
                 }
