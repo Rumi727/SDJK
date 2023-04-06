@@ -31,7 +31,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 if (typeIsSDJKMap && !File.Exists(mapFilePath))
                     return new SDJKMapFile("");
 
-                if (type == typeof(MapFile) || typeIsSDJKMap)
+                if ((extension == ".sdjk" || extension == ".osu") && (type == typeof(MapFile) || typeIsSDJKMap))
                     return MapLoad(mapFilePath, modes);
 
                 //Ruleset 호환성
