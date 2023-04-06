@@ -70,6 +70,8 @@
 	"mode.difficulty.fast.info": "Dormammu i've come to bargain",
 	"mode.difficulty.slow": "Slow",
 	"mode.difficulty.slow.info": "Slows down by the amount of time it takes for a turtle to win a game of rock-paper-scissors with an ant passing by",
+	"mode.difficulty.pinpoint_accuracy": "Pinpoint Accuracy",
+	"mode.difficulty.pinpoint_accuracy.info": "Doesn't roughly calculate accuracy",
 	
 	"mode.difficulty.no_fail": "No Fail",
 	"mode.difficulty.no_fail.info": "Kurumi-chan never dies!",

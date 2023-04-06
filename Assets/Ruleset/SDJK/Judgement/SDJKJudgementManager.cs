@@ -334,7 +334,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     //정확도
                     double accuracy;
                     {
-                        accuracy = ruleset.GetGenerousAccuracy(disSecond, metaData); //disSecond.Abs().Clamp(0, missSecond) / missSecond;
+                        if (sdjkManager.modes.FindMode<PinpointAccuracyModeBase>() != null)
+                            accuracy = ruleset.GetAccuracy(disSecond);
+                        else
+                            accuracy = ruleset.GetGenerousAccuracy(disSecond, metaData);
 
                         instance.accuracyAbsList.Add(accuracy.Abs());
                         instance.accuracyAbs = instance.accuracyAbsList.Average();
@@ -424,7 +427,13 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         else
                             GetReplayFileValue();
 
-                        instance.judgementAction?.Invoke(instantDisSecond, true, ruleset.GetAccuracy(instantDisSecond), ruleset.GetGenerousAccuracy(disSecond, metaData), ruleset.instantDeathJudgementMetaData);
+                        double accuracy;
+                        if (sdjkManager.modes.FindMode<PinpointAccuracyModeBase>() != null)
+                            accuracy = ruleset.GetAccuracy(instantDisSecond);
+                        else
+                            accuracy = ruleset.GetGenerousAccuracy(instantDisSecond, metaData);
+
+                        instance.judgementAction?.Invoke(instantDisSecond, true, ruleset.GetAccuracy(instantDisSecond), ruleset.GetGenerousAccuracy(instantDisSecond, metaData), ruleset.instantDeathJudgementMetaData);
                     }
                 }
 

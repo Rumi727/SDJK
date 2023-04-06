@@ -70,6 +70,8 @@
 	"mode.difficulty.fast.info": "ドルマムゥ 取引に来たぞ",
 	"mode.difficulty.slow": "ゆっくり",
 	"mode.difficulty.slow.info": "カメが通り過ぎていたアリとはさみロックを見て勝つのにかかる時間と同じくらい遅くなります",
+	"mode.difficulty.pinpoint_accuracy": "正確な精度",
+	"mode.difficulty.pinpoint_accuracy.info": "精度を大体計算しない",
 	
 	"mode.difficulty.no_fail": "無敵",
 	"mode.difficulty.no_fail.info": "くるみは死なない！",

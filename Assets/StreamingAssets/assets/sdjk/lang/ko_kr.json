@@ -70,6 +70,8 @@
 	"mode.difficulty.fast.info": "도르마무 거래를 하러 왔다",
 	"mode.difficulty.slow": "느리게",
 	"mode.difficulty.slow.info": "거북이가 지나가던 개미랑 가위바위보 해서 이기는 데 걸리는 시간만큼 느려집니다",
+	"mode.difficulty.pinpoint_accuracy": "정확한 정확도",
+	"mode.difficulty.pinpoint_accuracy.info": "정확도를 대강 계산하지 않습니다",
 	
 	"mode.difficulty.no_fail": "무적",
 	"mode.difficulty.no_fail.info": "쿠루미쨩은 죽지 않아!",
