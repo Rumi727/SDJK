@@ -84,6 +84,9 @@
 	"mode.converter.key_count": "キー数",
 	"mode.converter.key_count.info": "やはりキー数が多いと難しいと思います。 そうですか？",
 	
+	"mode.converter.hold_off": "ホールド除去",
+	"mode.converter.hold_off.info": "ホールドノートを打つ途中でノートを打つのは本当に難しい！",
+	
 	
 	
 	"mode.setting": "モード設定"

@@ -84,6 +84,9 @@
 	"mode.converter.key_count": "Key Count",
 	"mode.converter.key_count.info": "I think it will be difficult if there are too many keys. Yes?",
 	
+	"mode.converter.hold_off": "Hold Off",
+	"mode.converter.hold_off.info": "It's really hard to hit a note in the middle of a hold note!",
+	
 	
 	
 	"mode.setting": "Mode setting"
