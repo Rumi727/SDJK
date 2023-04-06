@@ -54,7 +54,7 @@ namespace SDJK.Ruleset.SDJK.UI
             arrow.anchorMax = new Vector2((float)anchorPos, arrow.anchorMax.y);
         }
 
-        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
+        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, double generousAccuracy, JudgementMetaData metaData)
         {
             float anchorPos = (float)GetAnchorPos(accuracy);
             AccuracyBarRod accuracyBarRod = (AccuracyBarRod)ObjectPoolingSystem.ObjectCreate(rodObject, bar).monoBehaviour;

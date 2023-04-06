@@ -20,7 +20,7 @@ namespace SDJK.Ruleset.SDJK.UI
             judgementManager.judgementAction += JudgementAction;
         }
 
-        protected virtual void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData) { }
+        protected virtual void JudgementAction(double disSecond, bool isMiss, double accuracy, double generousAccuracy, JudgementMetaData metaData) { }
 
         /// <summary>
         /// Please put base.OnDisable() when overriding

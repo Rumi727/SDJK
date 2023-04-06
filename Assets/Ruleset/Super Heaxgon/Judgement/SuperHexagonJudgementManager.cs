@@ -132,7 +132,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                     comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
             }
 
-            score += ruleset.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - accuracy);
+            score += JudgementUtility.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - accuracy);
 
             if (maxCombo < combo)
             {

@@ -37,7 +37,7 @@ namespace SDJK.Ruleset.SDJK.UI
                 timer += Kernel.deltaTime;
         }
 
-        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
+        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, double generousAccuracy, JudgementMetaData metaData)
         {
             int combo = judgementManager.combo;
             if (combo <= 0)

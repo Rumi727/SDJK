@@ -9,7 +9,7 @@ namespace SDJK.Ruleset.SDJK.UI
         [SerializeField, NotNull] SDJKManager manager;
         [SerializeField, NotNull] TMP_Text text;
 
-        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData)
+        protected override void JudgementAction(double disSecond, bool isMiss, double accuracy, double generousAccuracy, JudgementMetaData metaData)
         {
             RankMetaData rank = manager.ruleset.GetRank(judgementManager.rankProgress);
 

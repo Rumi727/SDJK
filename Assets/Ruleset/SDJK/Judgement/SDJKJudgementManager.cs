@@ -37,7 +37,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
         /// 0 ~ 1 (0에 가까울수록 정확함)
         /// </summary>
         public double accuracyAbs { get; private set; } = 0;
-        List<double> accuracyAbss { get; } = new List<double>();
+        List<double> accuracyAbsList { get; } = new List<double>();
 
         /// <summary>
         /// -1 ~ 1 (0에 가까울수록 정확함)
@@ -81,7 +81,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
         public List<Action> pressAction = new List<Action>();
         public List<Action> pressUpAction = new List<Action>();
         public event JudgementAction judgementAction;
-        public delegate void JudgementAction(double disSecond, bool isMiss, double accuracy, JudgementMetaData metaData);
+        public delegate void JudgementAction(double disSecond, bool isMiss, double accuracy, double generousAcccuracy, JudgementMetaData metaData);
 
 
 
@@ -331,9 +331,23 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     lastJudgementBeat[keyIndex] = lastJudgementBeat[keyIndex].Max(beat);
                     bool isMiss = metaData.nameKey == SDJKRuleset.miss;
 
-                    //콤보
+                    //정확도
+                    double accuracy;
+                    {
+                        accuracy = ruleset.GetGenerousAccuracy(disSecond, metaData); //disSecond.Abs().Clamp(0, missSecond) / missSecond;
+
+                        instance.accuracyAbsList.Add(accuracy.Abs());
+                        instance.accuracyAbs = instance.accuracyAbsList.Average();
+
+                        instance.accuracys.Add(accuracy);
+                        instance.accuracy = instance.accuracys.Average();
+
+                        instance.rankProgress = instance.accuracyAbs;
+                    }
+
                     if (!isMiss)
                     {
+                        //콤보
                         instance.combo += 1;
 
                         double comboMultiplier = 0.25;
@@ -343,14 +357,17 @@ namespace SDJK.Ruleset.SDJK.Judgement
                                 comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
                         }
 
-                        instance.score += ruleset.GetScoreAddValue(disSecond, map.allJudgmentBeat.Count, instance.combo, comboMultiplier);
-
-                        if (instance.maxCombo < instance.combo)
+                        //점수
                         {
-                            instance.maxCombo = instance.combo;
+                            instance.score += JudgementUtility.GetScoreAddValue(accuracy.Abs(), map.allJudgmentBeat.Count, instance.combo, comboMultiplier);
 
-                            if (!sdjkManager.isReplay)
-                                sdjkManager.createdReplay.maxCombo.Add(currentBeat, instance.maxCombo);
+                            if (instance.maxCombo < instance.combo)
+                            {
+                                instance.maxCombo = instance.combo;
+
+                                if (!sdjkManager.isReplay)
+                                    sdjkManager.createdReplay.maxCombo.Add(currentBeat, instance.maxCombo);
+                            }
                         }
                     }
                     else
@@ -371,26 +388,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else if (currentBeat >= sdjkManager.currentReplay.gameOverBeat)
                         instance.gameOverManager.GameOver();
 
-                    //정확도
-                    double accuracy;
-                    {
-                        accuracy = disSecond.Abs().Clamp(0, missSecond) / missSecond;
-
-                        instance.accuracyAbss.Add(accuracy);
-                        instance.accuracyAbs = instance.accuracyAbss.Average();
-
-                        instance.accuracys.Add(accuracy * disSecond.Sign());
-                        instance.accuracy = instance.accuracys.Average();
-
-                        instance.rankProgress = instance.accuracyAbs;
-                    }
-
                     if (!sdjkManager.isReplay)
                         CreatedReplayFileAdd();
                     else
                         GetReplayFileValue();
 
-                    instance.judgementAction?.Invoke(disSecond, isMiss, accuracy * disSecond.Sign(), metaData);
+                    instance.judgementAction?.Invoke(disSecond, isMiss, ruleset.GetAccuracy(disSecond), accuracy, metaData);
                     return true;
                 }
                 else if (instantDeathNoteBeats.Count > 0) //즉사 노트가 존재하며 노트를 치지 않았을때
@@ -421,8 +424,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         else
                             GetReplayFileValue();
 
-                        double accuracy = instantDisSecond.Abs().Clamp(0, missSecond) / missSecond;
-                        instance.judgementAction?.Invoke(instantDisSecond, true, accuracy * instantDisSecond.Sign(), ruleset.instantDeathJudgementMetaData);
+                        instance.judgementAction?.Invoke(instantDisSecond, true, ruleset.GetAccuracy(instantDisSecond), ruleset.GetGenerousAccuracy(disSecond, metaData), ruleset.instantDeathJudgementMetaData);
                     }
                 }
 
