@@ -62,9 +62,6 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             IMode keyCountMode;
             if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
                 KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
-
-            if (modes.FindMode<HoldOffModeBase>() != null)
-                HoldOff(map);
         }
 
         static void KeyCountChange(SuperHexagonMapFile map, int count)
