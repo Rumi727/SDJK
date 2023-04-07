@@ -143,6 +143,10 @@ namespace SCKRM.Loading
             return true;
         }
 
-        void OnDestroy() => LoadingAniManager.loadingAnis.Remove(this);
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            LoadingAniManager.loadingAnis.Remove(this);
+        }
     }
 }

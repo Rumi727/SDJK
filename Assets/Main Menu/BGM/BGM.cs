@@ -147,7 +147,11 @@ namespace SDJK.MainMenu
             return false;
         }
 
-        void OnDestroy() => AudioDestroy();
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            AudioDestroy();
+        }
 
         void AudioDestroy()
         {

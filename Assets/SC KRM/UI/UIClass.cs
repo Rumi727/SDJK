@@ -1,4 +1,5 @@
 using SCKRM.Object;
+using SCKRM.Scene;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -77,6 +78,20 @@ namespace SCKRM.UI
         /// Please put base.Remove() when overriding
         /// </summary>
         public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
+
+        /// <summary>
+        /// Please put base.ActiveSceneChanged() when overriding
+        /// </summary>
+        public virtual void ActiveSceneChanged()
+        {
+            if (!isRemoved && gameObject.scene.name != "DontDestroyOnLoad")
+                Remove();
+        }
+
+        /// <summary>
+        /// Please put base.OnDestroy() when overriding
+        /// </summary>
+        protected override void OnDestroy() => SceneManager.activeSceneChanged -= ActiveSceneChanged;
     }
 
     public class UIManagerBase<T> : UIBase where T : MonoBehaviour

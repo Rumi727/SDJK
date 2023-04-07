@@ -1,3 +1,4 @@
+using SCKRM.Scene;
 using System;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace SCKRM.Object
 
         bool IsDestroyed();
 
+        void ActiveSceneChanged();
+
         [WikiDescription("오브젝트를 생성할때의 기본 스크립트")]
         public static void OnCreateDefault(Transform transform, IObjectPooling objectPooling)
         {
@@ -24,6 +27,8 @@ namespace SCKRM.Object
 
             transform.localEulerAngles = Vector3.zero;
             transform.localScale = Vector3.one;
+
+            SceneManager.activeSceneChanged += objectPooling.ActiveSceneChanged;
         }
 
         [WikiDescription("오브젝트를 삭제할때의 기본 스크립트")]
@@ -41,6 +46,8 @@ namespace SCKRM.Object
             monoBehaviour.transform.localScale = Vector3.one;
 
             monoBehaviour.StopAllCoroutines();
+
+            SceneManager.activeSceneChanged -= objectPooling.ActiveSceneChanged;
             return true;
         }
 
@@ -62,6 +69,8 @@ namespace SCKRM.Object
             ui.rectTransform.localScale = Vector3.one;
 
             ui.StopAllCoroutines();
+
+            SceneManager.activeSceneChanged -= objectPooling.ActiveSceneChanged;
             return true;
         }
     }
@@ -96,5 +105,19 @@ namespace SCKRM.Object
         public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
 
         public bool IsDestroyed() => this == null;
+
+        /// <summary>
+        /// Please put base.ActiveSceneChanged() when overriding
+        /// </summary>
+        public virtual void ActiveSceneChanged()
+        {
+            if (!isRemoved && gameObject.scene.name != "DontDestroyOnLoad")
+                Remove();
+        }
+
+        /// <summary>
+        /// Please put base.OnDestroy() when overriding
+        /// </summary>
+        protected virtual void OnDestroy() => SceneManager.activeSceneChanged -= ActiveSceneChanged;
     }
 }

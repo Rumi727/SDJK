@@ -227,8 +227,10 @@ namespace SCKRM.Sound
             return true;
         }
 
-        public virtual void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             _looped = null;
             _timeChanged = null;
             _onAudioFilterReadEvent = null;
