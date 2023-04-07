@@ -100,14 +100,14 @@ namespace SDJK.MainMenu
 
             isReplayListRefreshing = true;
 
+            Debug.ForceLog("Refreshing replay list...", nameof(ReplayManager));
+
+            AsyncTask asyncTask = new AsyncTask("sdjk:notice.running_task.replay_list_refresh.name", "", false, false);
+            if (ResourceManager.isResourceRefesh)
+                ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
+
             try
             {
-                Debug.ForceLog("Refreshing replay list...", nameof(ReplayManager));
-
-                AsyncTask asyncTask = new AsyncTask("sdjk:notice.running_task.replay_list_refresh.name", "");
-                if (ResourceManager.isResourceRefesh)
-                    ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
-
                 Dictionary<string, List<ReplayFile>> list = await UniTask.RunOnThreadPool(Load);
                 if (list != null)
                     currentReplayFiles = list;
@@ -168,6 +168,9 @@ namespace SDJK.MainMenu
             }
             finally
             {
+                if (!ResourceManager.isResourceRefesh)
+                    asyncTask.Remove(true);
+
                 isReplayListRefreshing = false;
             }
         }

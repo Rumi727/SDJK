@@ -170,14 +170,14 @@ namespace SDJK.MainMenu
 
             isMapListRefreshing = true;
 
+            Debug.ForceLog("Refreshing map list...", nameof(MapManager));
+
+            AsyncTask asyncTask = new AsyncTask("sdjk:notice.running_task.map_list_refresh.name", "", false, true);
+            if (ResourceManager.isResourceRefesh)
+                ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
+
             try
             {
-                Debug.ForceLog("Refreshing map list...", nameof(MapManager));
-
-                AsyncTask asyncTask = new AsyncTask("sdjk:notice.running_task.map_list_refresh.name", "");
-                if (ResourceManager.isResourceRefesh)
-                    ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
-
                 List<MapPack> mapPacks = new List<MapPack>();
                 string mapFolderPath = PathUtility.Combine(Kernel.persistentDataPath, "Map");
                 if (!Directory.Exists(mapFolderPath))
@@ -220,6 +220,9 @@ namespace SDJK.MainMenu
             }
             finally
             {
+                if (!ResourceManager.isResourceRefesh)
+                    asyncTask.Remove(true);
+
                 isMapListRefreshing = false;
             }
         }
