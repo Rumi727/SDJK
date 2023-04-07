@@ -174,7 +174,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 {
                     SDJKNoteFile note = notes[j];
 
-                    if (!removeHoldNoteEndBeat)
+                    if (!removeHoldNoteEndBeat && note.holdLength > 0)
                         notes.Add(new SDJKNoteFile(note.beat + note.holdLength, 0, SDJKNoteTypeFile.normal));
 
                     note.holdLength = 0;
