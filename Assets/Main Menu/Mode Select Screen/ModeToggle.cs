@@ -33,8 +33,8 @@ namespace SDJK.MainMenu.ModeSelectScreen
             if (!base.Remove())
                 return false;
 
-            toggle.isOn = false;
             onValueChanged.RemoveAllListeners();
+            toggle.isOn = false;
 
             return true;
         }
