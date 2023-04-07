@@ -1,4 +1,5 @@
 using SCKRM.Renderer;
+using SCKRM.Resource;
 using SCKRM.Threads;
 using System;
 using System.Collections.Generic;
@@ -49,31 +50,9 @@ namespace SCKRM
     [WikiDescription("비동기 작업 클래스")]
     public class AsyncTask : IRemoveableForce
     {
-        public AsyncTask()
-        {
-            name = "";
-            info = "";
-            loop = false;
-            cantCancel = true;
+        public AsyncTask() : this("", "", false, true) { }
 
-            AsyncTaskManager.asyncTasks.Add(this);
-
-            AsyncTaskManager.AsyncTaskAddEventInvoke();
-            AsyncTaskManager.AsyncTaskChangeEventInvoke();
-        }
-
-        public AsyncTask(NameSpacePathReplacePair name)
-        {
-            this.name = name;
-            info = "";
-            loop = false;
-            cantCancel = true;
-
-            AsyncTaskManager.asyncTasks.Add(this);
-
-            AsyncTaskManager.AsyncTaskAddEventInvoke();
-            AsyncTaskManager.AsyncTaskChangeEventInvoke();
-        }
+        public AsyncTask(NameSpacePathReplacePair name) : this(name, "", false, true) { }
 
         public AsyncTask(NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool cantCancel = true)
         {
@@ -86,6 +65,11 @@ namespace SCKRM
 
             AsyncTaskManager.AsyncTaskAddEventInvoke();
             AsyncTaskManager.AsyncTaskChangeEventInvoke();
+
+            if (Kernel.isPlaying && ResourceManager.isInitialLoadLanguageEnd)
+                Debug.Log($"{ResourceManager.SearchLanguage(name.path, name.nameSpace)} async task created");
+            else
+                Debug.Log($"{name} async task created");
         }
 
 
@@ -357,6 +341,11 @@ namespace SCKRM
                 AsyncTaskManager.AsyncTaskRemoveEventInvoke();
 
                 _cancel.Cancel();
+
+                if (Kernel.isPlaying && ResourceManager.isInitialLoadLanguageEnd)
+                    Debug.Log($"{ResourceManager.SearchLanguage(name.path, name.nameSpace)} async task ended");
+                else
+                    Debug.Log($"{name} async task ended");
 
                 return true;
             }

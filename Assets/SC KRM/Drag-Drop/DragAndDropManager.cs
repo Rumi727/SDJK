@@ -198,6 +198,7 @@ namespace SCKRM.DragAndDrop
                             string uuid = Guid.NewGuid().ToString();
                             tempFolderPath = PathUtility.Combine(Kernel.temporaryCachePath, uuid);
                             string decompressFolerPath = Path.Combine(tempFolderPath, Path.GetFileNameWithoutExtension(path));
+
                             if (!CompressFileManager.DecompressZipFile(path, decompressFolerPath, "", threadMetaData))
                             {
                                 if (Directory.Exists(tempFolderPath))
@@ -205,6 +206,8 @@ namespace SCKRM.DragAndDrop
 
                                 return;
                             }
+
+                            Debug.Log($"Unzipped temporary folder path:{decompressFolerPath}", nameof(DragAndDropManager));
 
                             path = decompressFolerPath;
                             isFolder = true;
@@ -231,7 +234,10 @@ namespace SCKRM.DragAndDrop
                     }
 
                     if (isCompressedFile && Directory.Exists(tempFolderPath))
+                    {
                         Directory.Delete(tempFolderPath, true);
+                        Debug.Log($"Deleted temporary folder path: {tempFolderPath}", nameof(DragAndDropManager));
+                    }
                 }
             }
         }

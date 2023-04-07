@@ -69,31 +69,9 @@ namespace SCKRM.Threads
     public sealed class ThreadMetaData : AsyncTask
     {
         #region 생성자
-        public ThreadMetaData(ThreadStart method) : base()
-        {
-            autoRemoveDisable = false;
+        public ThreadMetaData(ThreadStart method) : this(method, "", "", false, false, true) { }
 
-            thread = new Thread(method);
-            thread.Start();
-
-            ThreadManager.runningThreads.Add(this);
-
-            ThreadManager.ThreadAddEventInvoke();
-            ThreadManager.ThreadChangeEventInvoke();
-        }
-
-        public ThreadMetaData(ThreadStart method, NameSpacePathReplacePair name) : base(name)
-        {
-            autoRemoveDisable = false;
-
-            thread = new Thread(method);
-            thread.Start();
-
-            ThreadManager.runningThreads.Add(this);
-
-            ThreadManager.ThreadAddEventInvoke();
-            ThreadManager.ThreadChangeEventInvoke();
-        }
+        public ThreadMetaData(ThreadStart method, NameSpacePathReplacePair name) : this(method, name, "", false, false, true) { }
 
         public ThreadMetaData(ThreadStart method, NameSpacePathReplacePair name, NameSpacePathReplacePair info, bool loop = false, bool autoRemoveDisable = false, bool cantCancel = true) : base(name, info, loop, cantCancel)
         {
@@ -106,6 +84,11 @@ namespace SCKRM.Threads
 
             ThreadManager.ThreadAddEventInvoke();
             ThreadManager.ThreadChangeEventInvoke();
+
+            if (Kernel.isPlaying && ResourceManager.isInitialLoadLanguageEnd)
+                Debug.Log($"{ResourceManager.SearchLanguage(name.path, name.nameSpace)} thread meta data created");
+            else
+                Debug.Log($"{name} thread meta data created");
         }
 
 
