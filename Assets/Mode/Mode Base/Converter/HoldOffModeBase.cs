@@ -11,5 +11,16 @@ namespace SDJK.Mode.Converter
         public override NameSpacePathPair info { get; } = "sdjk:mode.converter.hold_off.info";
 
         public override NameSpaceIndexTypePathPair icon { get; } = "sdjk:0:mode/converter_hold_off";
+
+
+
+        [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.converter.hold_off")]
+        public sealed class Data : IModeConfig
+        {
+            [SaveLoadUIToggleConfig("sdjk:mode.converter.hold_off.remove_hold_note_end_beat", "")]
+            public bool removeHoldNoteEndBeat { get; set; } = false;
+        }
+
+        protected override IModeConfig CreateModeConfig() => new Data();
     }
 }

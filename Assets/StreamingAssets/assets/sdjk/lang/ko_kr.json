@@ -88,6 +88,7 @@
 	
 	"mode.converter.hold_off": "홀드 제거",
 	"mode.converter.hold_off.info": "홀드 노트를 치는 도중에 노트를 치는건 정말 어려워!",
+	"mode.converter.hold_off.remove_hold_note_end_beat": "홀드 노트 끝 박자 제거",
 	
 	
 	

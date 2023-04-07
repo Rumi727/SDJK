@@ -99,8 +99,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
                 KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
 
-            if (modes.FindMode<HoldOffModeBase>() != null)
-                HoldOff(map);
+            IMode holdOffMode;
+            if ((holdOffMode = modes.FindMode<HoldOffModeBase>()) != null)
+                HoldOff(map, ((HoldOffModeBase.Data)holdOffMode.modeConfig).removeHoldNoteEndBeat);
         }
 
         static void KeyCountChange(SDJKMapFile map, int count)
@@ -164,7 +165,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             map.notes = newNoteLists;
         }
 
-        static void HoldOff(SDJKMapFile map)
+        static void HoldOff(SDJKMapFile map, bool removeHoldNoteEndBeat)
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
@@ -172,8 +173,11 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 for (int j = 0; j < notes.Count; j++)
                 {
                     SDJKNoteFile note = notes[j];
-                    note.holdLength = 0;
 
+                    if (!removeHoldNoteEndBeat)
+                        notes.Add(new SDJKNoteFile(note.beat + note.holdLength, 0, SDJKNoteTypeFile.normal));
+
+                    note.holdLength = 0;
                     notes[j] = note;
                 }
             }
@@ -656,7 +660,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
 
         /// <summary>
-        /// 노트 겹침 방지, 마이너스 홀드 방지, 중복 비트 방지
+        /// 노트 겹침 방지, 마이너스 홀드 방지, 중복 비트 방지, 노트 정렬
         /// </summary>
         /// <param name="map"></param>
         static void FixMap(SDJKMapFile map)
@@ -705,6 +709,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     note.holdLength = note.holdLength.Clamp(0);
                     notes[j] = note;
                 }
+
+                notes.OrderBy(x => x.beat);
             }
         }
 

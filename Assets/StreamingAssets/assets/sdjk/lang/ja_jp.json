@@ -88,6 +88,7 @@
 	
 	"mode.converter.hold_off": "ホールド除去",
 	"mode.converter.hold_off.info": "ホールドノートを打つ途中でノートを打つのは本当に難しい！",
+	"mode.converter.hold_off.remove_hold_note_end_beat": "ホールドノートエンドビート除去",
 	
 	
 	

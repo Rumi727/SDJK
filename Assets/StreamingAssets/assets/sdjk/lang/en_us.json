@@ -88,6 +88,7 @@
 	
 	"mode.converter.hold_off": "Hold Off",
 	"mode.converter.hold_off.info": "It's really hard to hit a note in the middle of a hold note!",
+	"mode.converter.hold_off.remove_hold_note_end_beat": "Remove hold note end beat",
 	
 	
 	
