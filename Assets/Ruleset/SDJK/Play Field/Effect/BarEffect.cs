@@ -26,7 +26,7 @@ namespace SDJK.Ruleset.SDJK.Effect
         PlayField playField => bar.playField;
         SDJKJudgementManager judgementManager => SDJKJudgementManager.instance;
 
-        async UniTaskVoid Awake()
+        async UniTaskVoid OnEnable()
         {
             if (await UniTask.WaitUntil(() => judgementManager != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
                 return;
@@ -35,13 +35,13 @@ namespace SDJK.Ruleset.SDJK.Effect
             judgementManager.pressUpAction[bar.barIndex] += PressUp;
         }
 
-        async UniTaskVoid OnDestroy()
+        void OnDisable()
         {
-            if (await UniTask.WaitUntil(() => judgementManager != null, PlayerLoopTiming.Update, this.GetCancellationTokenOnDestroy()).SuppressCancellationThrow())
-                return;
-
-            judgementManager.pressAction[bar.barIndex] -= Press;
-            judgementManager.pressUpAction[bar.barIndex] -= PressUp;
+            if (judgementManager != null)
+            {
+                judgementManager.pressAction[bar.barIndex] -= Press;
+                judgementManager.pressUpAction[bar.barIndex] -= PressUp;
+            }
         }
 
         void Press()
