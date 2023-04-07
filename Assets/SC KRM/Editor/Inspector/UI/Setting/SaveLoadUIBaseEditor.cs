@@ -64,9 +64,9 @@ namespace SCKRM.Editor
             UseProperty("_tooltip", "툴팁");
 
             if (editor.propertyInfo != null)
-                EditorGUILayout.LabelField(editor.type + " " + editor.propertyInfo.Name + " = " + editor.propertyInfo.GetValue(editor.type));
+                EditorGUILayout.LabelField(editor.type + " " + editor.propertyInfo.Name + " = " + editor.propertyInfo.GetValue(editor.instance));
             else if (editor.fieldInfo != null)
-                EditorGUILayout.LabelField(editor.type + " " + editor.fieldInfo.Name + " = " + editor.fieldInfo.GetValue(editor.type));
+                EditorGUILayout.LabelField(editor.type + " " + editor.fieldInfo.Name + " = " + editor.fieldInfo.GetValue(editor.instance));
 
             if (GUI.changed)
                 EditorUtility.SetDirty(target);
