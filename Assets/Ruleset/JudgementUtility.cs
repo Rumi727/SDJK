@@ -81,12 +81,12 @@ namespace SDJK.Ruleset
                         return 0;
                     else
                     {
-                        double t = judgementMetaData.sizeSecond.Lerp(ruleset.judgementMetaDatas[i - 1].sizeSecond, 0.5) / ruleset.judgementMetaDatas.Last().sizeSecond;
+                        double result = judgementMetaData.sizeSecond.Lerp(ruleset.judgementMetaDatas[i - 1].sizeSecond, 1) / ruleset.judgementMetaDatas.Last().sizeSecond;
 
                         if (disSecond < 0)
-                            return -0d.Lerp(1, t); //놀랍게도 이거 (-1).Lerp가 아니라 -(1.Lerp) 판정이다
+                            return -0d.Lerp(1, result); //놀랍게도 이거 (-1).Lerp가 아니라 -(1.Lerp) 판정이다
                         else
-                            return 0d.Lerp(1, t);
+                            return 0d.Lerp(1, result);
                     }
                 }
             }
