@@ -15,12 +15,10 @@ namespace SCKRM.Renderer
         [WikiDescription("새로고침")]
         public override void Refresh()
         {
-            Sprite sprite = GetSprite(type, path, index, nameSpace, spriteTag);
-
             if (ThreadManager.isMainThread)
-                image.sprite = sprite;
+                image.sprite = GetSprite();
             else
-                K4UnityThreadDispatcher.Execute(() => image.sprite = sprite);
+                K4UnityThreadDispatcher.Execute(() => image.sprite = GetSprite());
         }
     }
 }

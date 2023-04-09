@@ -15,11 +15,10 @@ namespace SCKRM.Renderer
         [WikiDescription("새로고침")]
         public override void Refresh()
         {
-            string text = GetText();
             if (ThreadManager.isMainThread)
-                textMeshPro.text = text;
+                textMeshPro.text = GetText();
             else
-                K4UnityThreadDispatcher.Execute(() => textMeshPro.text = text);
+                K4UnityThreadDispatcher.Execute(() => textMeshPro.text = GetText());
         }
     }
 }

@@ -21,10 +21,9 @@ namespace SCKRM.Renderer
 
         public override void Refresh()
         {
-            Sprite sprite = GetSprite(type, path, index, nameSpace, spriteTag);
             if (ThreadManager.isMainThread)
             {
-                spriteRenderer.sprite = sprite;
+                spriteRenderer.sprite = GetSprite();
                 spriteRenderer.drawMode = drawMode;
                 spriteRenderer.size = size;
             }
@@ -32,7 +31,7 @@ namespace SCKRM.Renderer
             {
                 K4UnityThreadDispatcher.Execute(() =>
                 {
-                    spriteRenderer.sprite = sprite;
+                    spriteRenderer.sprite = GetSprite();
                     spriteRenderer.drawMode = drawMode;
                     spriteRenderer.size = size;
                 });

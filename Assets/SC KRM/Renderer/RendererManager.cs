@@ -53,7 +53,6 @@ namespace SCKRM.Renderer
                     return;
 
                 refreshableObjects[i].Refresh();
-
                 threadMetaData.progress = i;
             }
 

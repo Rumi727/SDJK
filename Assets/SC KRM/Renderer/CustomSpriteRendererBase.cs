@@ -113,6 +113,8 @@ namespace SCKRM.Renderer
             queue.Enqueue();
         }*/
 
+        public Sprite GetSprite() => GetSprite(type, path, index, nameSpace, spriteTag);
+
         public static Sprite GetSprite(string type, string name, int index, string nameSpace = "", string tag = ResourceManager.spriteDefaultTag, bool forceLocalSprite = false)
         {
             if (Kernel.isPlaying && InitialLoadManager.isInitialLoadEnd && !forceLocalSprite)

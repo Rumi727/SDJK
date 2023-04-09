@@ -14,11 +14,10 @@ namespace SCKRM.Renderer
         [WikiDescription("새로고침")]
         public override void Refresh()
         {
-            string text = GetText();
             if (ThreadManager.isMainThread)
-                this.text.text = text;
+                text.text = GetText();
             else
-                K4UnityThreadDispatcher.Execute(() => this.text.text = text);
+                K4UnityThreadDispatcher.Execute(() => text.text = GetText());
         }
     }
 }

@@ -30,16 +30,21 @@ namespace SCKRM.Renderer
         {
             base.Refresh();
 
+            if (ThreadManager.isMainThread)
+                selectable.spriteState = GetSpriteState();
+            else
+                K4UnityThreadDispatcher.Execute(() => selectable.spriteState = GetSpriteState());
+        }
+
+        public SpriteState GetSpriteState()
+        {
             SpriteState spriteState = new SpriteState();
             spriteState.highlightedSprite = GetSprite(highlightedSprite.type, highlightedSprite.name, highlightedSprite.index, highlightedSprite.nameSpace, highlightedSprite.tag);
             spriteState.pressedSprite = GetSprite(pressedSprite.type, pressedSprite.name, pressedSprite.index, pressedSprite.nameSpace, pressedSprite.tag);
             spriteState.selectedSprite = GetSprite(selectedSprite.type, selectedSprite.name, selectedSprite.index, selectedSprite.nameSpace, selectedSprite.tag);
             spriteState.disabledSprite = GetSprite(disabledSprite.type, disabledSprite.name, disabledSprite.index, disabledSprite.nameSpace, disabledSprite.tag);
 
-            if (ThreadManager.isMainThread)
-                selectable.spriteState = spriteState;
-            else
-                K4UnityThreadDispatcher.Execute(() => selectable.spriteState = spriteState);
+            return spriteState;
         }
 
         [System.Serializable]
