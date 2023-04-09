@@ -18,16 +18,10 @@ namespace SDJK.Effect
         public Image image => this.GetComponentFieldSave(_image); [SerializeField] Image _image;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;
 
-        public bool padeOut { get; set; } = false;
-
         public EffectManager effectManager { get; private set; } = null;
-        public MapFile map => effectManager.selectedMap;
+        public MapFile map { get; private set; }
 
-        public override void OnCreate()
-        {
-            base.OnCreate();
-            transform.SetSiblingIndex(0);
-        }
+        public bool isRemoveQueue { get; set; } = false;
 
         bool refreshed = false;
         public void Refresh(EffectManager effectManager)
@@ -38,61 +32,67 @@ namespace SDJK.Effect
                 return;
             }
 
+            map = effectManager.selectedMap;
             refreshed = true;
 
             this.effectManager = effectManager;
             TextureLoad().Forget();
         }
 
+        float timeoutTimer = 0;
         string tempTexturePath = "";
         Dictionary<string, Sprite> loadedSprites = new Dictionary<string, Sprite>();
         void Update()
         {
-            if (!padeOut)
+            if (!isRemoveQueue && loadedSprites.Count > 0)
             {
-                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-
-                if (loadedSprites.Count > 0)
+                //1초동안 배경이 로딩되지 않았으면 알파값이 1이 될때까지 텍스쳐를 변경하지 않음
+                if (timeoutTimer < 1 || (timeoutTimer >= 1 && canvasGroup.alpha >= 1))
                 {
+                    DateTime now = DateTime.Now;
+                    string texturePath;
+                    if (now.Hour >= 0 && now.Hour < 4)
                     {
-                        DateTime now = DateTime.Now;
-                        string texturePath;
-                        if (now.Hour >= 0 && now.Hour < 4)
-                        {
-                            texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundNightFile;
+                        texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundNightFile;
 
-                            if (string.IsNullOrEmpty(texturePath))
-                                texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundFile;
-                        }
-                        else
+                        if (string.IsNullOrEmpty(texturePath))
                             texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundFile;
+                    }
+                    else
+                        texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundFile;
 
-                        if (texturePath != tempTexturePath)
-                        {
-                            tempTexturePath = texturePath;
+                    if (texturePath != tempTexturePath)
+                    {
+                        tempTexturePath = texturePath;
 
-                            textureChangeCancelSource.Cancel();
-                            textureChangeCancelSource = new CancellationTokenSource();
+                        textureChangeCancelSource.Cancel();
+                        textureChangeCancelSource = new CancellationTokenSource();
 
-                            TextureChange(texturePath).Forget();
-                        }
+                        TextureChange(texturePath).Forget();
                     }
                 }
+            }
 
-                if (image.sprite != null)
-                    image.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
-                else
-                    image.color = Color.black;
+            if (loadedSprites.Count > 0 && image.sprite != null)
+            {
+                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
+                image.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
             }
             else
             {
-                canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-
-                if (canvasGroup.alpha <= 0)
-                    Remove();
+                //배경이 로딩된 후 1초가 지나게 되면 알파값을 강제로 변경
+                if (timeoutTimer >= 1)
+                {
+                    canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
+                    image.color = Color.black;
+                }
+                else
+                {
+                    image.color = Color.clear;
+                    timeoutTimer += Kernel.unscaledDeltaTime;
+                }
             }
         }
-
 
         bool isTextureLoading = false;
         async UniTaskVoid TextureLoad()
@@ -150,12 +150,13 @@ namespace SDJK.Effect
                 return false;
 
             tempTexturePath = "";
-            padeOut = false;
             image.color = Color.black;
             canvasGroup.alpha = 0;
             refreshed = false;
             effectManager = null;
             isTextureLoading = false;
+            isRemoveQueue = false;
+            timeoutTimer = 0;
 
             TextureDestroy().Forget();
 

@@ -12,17 +12,31 @@ namespace SDJK.Effect
     public sealed class BackgroundEffect : Effect
     {
         [SerializeField] string _prefab = "background_effect.background"; public string prefab { get => _prefab; set => _prefab = value; }
+
         public BackgroundEffectPrefab background { get; private set; } = null;
+        Queue<BackgroundEffectPrefab> backgroundRemoveQueue = new Queue<BackgroundEffectPrefab>();
+
+        void Update()
+        {
+            if (background == null || background.isRemoved || background.canvasGroup.alpha >= 1)
+            {
+                while (backgroundRemoveQueue.TryDequeue(out BackgroundEffectPrefab result))
+                    result.Remove();
+            }
+        }
 
         MapPack lastMapPack;
         BeatValuePairList<BackgroundEffectPair> lastBackgrounds = new BeatValuePairList<BackgroundEffectPair>(default);
         public override void Refresh(bool force = false)
         {
-            if (background != null && !background.isRemoved)
-                background.padeOut = true;
-
             if (force || BackgroundCheck() || lastMapPack != mapPack)
             {
+                if (background != null)
+                {
+                    backgroundRemoveQueue.Enqueue(background);
+                    background.isRemoveQueue = true;
+                }
+
                 background = (BackgroundEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
                 background.Refresh(effectManager);
 

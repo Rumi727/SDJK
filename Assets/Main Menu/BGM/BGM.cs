@@ -33,6 +33,7 @@ namespace SDJK.MainMenu
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
                 audioClip = await ResourceManager.GetAudio(fullPath, true, true);
+
                 if (!Kernel.isPlaying || this == null)
                 {
                     AudioDestroy();
