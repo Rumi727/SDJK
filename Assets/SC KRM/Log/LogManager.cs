@@ -38,7 +38,7 @@ namespace SCKRM.Log
                 invokeIgnore = false;
             }
         }
-        static bool _errorOrWarningShow = true;
+        static bool _errorOrWarningShow = false;
         static bool invokeIgnore = false;
 
 
