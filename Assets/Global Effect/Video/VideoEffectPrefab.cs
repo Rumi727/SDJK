@@ -80,7 +80,7 @@ namespace SDJK.Effect
                 if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
                     videoPath = "";
             }
-
+            
             if (videoPath != "")
             {
                 offset = map.info.videoOffset;
@@ -109,7 +109,7 @@ namespace SDJK.Effect
                 return;
             }
 
-            if (!isPadeOut && videoPlayer.isPrepared && videoPlayer.canStep)
+            if (!isPadeOut && videoPlayer.isPrepared && videoPlayer.canStep && map == effectManager.selectedMap)
             {
                 isPlaying = true;
 

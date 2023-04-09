@@ -44,7 +44,7 @@ namespace SDJK.Effect
         Dictionary<string, Sprite> loadedSprites = new Dictionary<string, Sprite>();
         void Update()
         {
-            if (!isRemoveQueue && loadedSprites.Count > 0)
+            if (!isRemoveQueue && loadedSprites.Count > 0 && map == effectManager.selectedMap)
             {
                 //1초동안 배경이 로딩되지 않았으면 알파값이 1이 될때까지 텍스쳐를 변경하지 않음
                 if (timeoutTimer < 1 || (timeoutTimer >= 1 && canvasGroup.alpha >= 1))
