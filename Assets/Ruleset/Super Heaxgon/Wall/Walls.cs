@@ -1,6 +1,7 @@
 using SCKRM;
 using SCKRM.Object;
 using SCKRM.Rhythm;
+using SDJK.Map;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Ruleset.SuperHexagon.Renderer;
 using System.Collections.Generic;
@@ -45,15 +46,14 @@ namespace SDJK.Ruleset.SuperHexagon
                 }
 
                 SuperHexagonBarEffectFile barEffect = null;
-                SuperHexagonNoteConfigFile config = null;
-
+                NoteConfigFile config;
                 if (wall.index < map.effect.barEffect.Count)
                 {
                     barEffect = map.effect.barEffect[wall.index];
                     config = barEffect.noteConfig.GetValue(wall.note.beat);
                 }
 
-                if (barEffect == null || config == null)
+                if (barEffect == null)
                     continue;
 
                 double localNoteSpeed = barEffect.noteDistance.GetValue(currentBeat) * config.noteSpeed.GetValue(wall.note.beat);

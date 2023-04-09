@@ -6,6 +6,7 @@ using SDJK.Ruleset.SDJK.Judgement;
 using SDJK.Map.Ruleset.SDJK.Map;
 using UnityEngine;
 using SCKRM.Renderer;
+using SDJK.Map;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -17,7 +18,7 @@ namespace SDJK.Ruleset.SDJK
         public int barIndex => bar.barIndex;
 
         public SDJKNoteFile noteFile { get; private set; }
-        public SDJKNoteConfigFile config => playField.fieldEffectFile.barEffect[barIndex].noteConfig.GetValue(beat);
+        public NoteConfigFile config => playField.fieldEffectFile.barEffect[barIndex].noteConfig.GetValue(beat);
 
         public double beat => noteFile.beat;
         public double holdLength => noteFile.holdLength;

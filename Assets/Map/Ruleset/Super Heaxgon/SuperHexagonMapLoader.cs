@@ -192,20 +192,10 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 {
                     SDJKBarEffectFile sdjkBarEffect = sdjkFieldEffect.barEffect[i];
                     SuperHexagonBarEffectFile superHexagonBarEffect = new SuperHexagonBarEffectFile();
+                    superHexagonMap.effect.barEffect.Add(superHexagonBarEffect);
 
                     superHexagonBarEffect.noteDistance = sdjkBarEffect.noteDistance;
-
-                    BeatValuePairList<SDJKNoteConfigFile> sdjkConfigs = sdjkBarEffect.noteConfig;
-                    for (int j = 0; j < sdjkConfigs.Count; j++)
-                    {
-                        BeatValuePair<SDJKNoteConfigFile> sdjkConfig = sdjkConfigs[j];
-                        SuperHexagonNoteConfigFile config = new SuperHexagonNoteConfigFile();
-
-                        config.noteSpeed = sdjkConfig.value.noteSpeed;
-                        superHexagonBarEffect.noteConfig.Add(sdjkConfig.beat, config, sdjkConfig.disturbance);
-                    }
-
-                    superHexagonMap.effect.barEffect.Add(superHexagonBarEffect);
+                    superHexagonBarEffect.noteConfig = sdjkBarEffect.noteConfig;
                 }
             }
             #endregion

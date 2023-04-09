@@ -220,18 +220,11 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             for (int i = 0; i < superHexagonMap.notes.Count; i++)
             {
                 SDJKBarEffectFile barEffect = new SDJKBarEffectFile();
+                SuperHexagonBarEffectFile superHexagonBarEffect = superHexagonMap.effect.barEffect[i];
                 fieldEffect.barEffect.Add(barEffect);
 
-                BeatValuePairList<SuperHexagonNoteConfigFile> hexagonConfigs = superHexagonMap.effect.barEffect[i].noteConfig;
-
-                for (int j = 0; j < hexagonConfigs.Count; j++)
-                {
-                    BeatValuePair<SuperHexagonNoteConfigFile> hexagonConfig = hexagonConfigs[j];
-                    SDJKNoteConfigFile config = new SDJKNoteConfigFile();
-
-                    config.noteSpeed = hexagonConfig.value.noteSpeed;
-                    barEffect.noteConfig.Add(hexagonConfig.beat, config, hexagonConfig.disturbance);
-                }
+                barEffect.noteDistance = superHexagonBarEffect.noteDistance;
+                barEffect.noteConfig = superHexagonBarEffect.noteConfig;
             }
 
             sdjkMap.effect.globalNoteDistance = superHexagonMap.effect.globalNoteDistance;

@@ -56,12 +56,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
     {
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
 
-        public BeatValuePairList<SuperHexagonNoteConfigFile> noteConfig { get; set; } = new(new SuperHexagonNoteConfigFile());
-    }
-
-    public sealed class SuperHexagonNoteConfigFile
-    {
-        public BeatValuePairAniListDouble noteSpeed { get; set; } = new BeatValuePairAniListDouble(1);
+        public BeatValuePairList<NoteConfigFile> noteConfig { get; set; } = new(new NoteConfigFile(new(1)));
     }
 
     public sealed class SuperHexagonThemeFile
