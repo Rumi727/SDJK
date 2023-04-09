@@ -25,7 +25,7 @@ namespace SDJK.Effect
         public RenderTexture renderTexture { get; private set; } = null;
 
         public EffectManager effectManager { get; private set; } = null;
-        public Map.MapFile map => effectManager.selectedMap;
+        public Map.MapFile map { get; private set; } = null;
 
 
 
@@ -58,6 +58,8 @@ namespace SDJK.Effect
 
             refreshed = true;
             this.effectManager = effectManager;
+
+            map = effectManager.selectedMap;
 
             DateTime now = DateTime.Now;
             string videoPath;
