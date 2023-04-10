@@ -2553,7 +2553,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 135.95
+  m_fontSize: 129.6
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3517,6 +3517,63 @@ MonoBehaviour:
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 746872856}
   _graphic: {fileID: 746872858}
+--- !u!1001 &758402116
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634483, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_Name
+      value: SDJK Discord Presence
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
 --- !u!1 &760714548
 GameObject:
   m_ObjectHideFlags: 0
