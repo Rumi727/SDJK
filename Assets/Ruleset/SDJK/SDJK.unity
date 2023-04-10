@@ -252,6 +252,67 @@ MonoBehaviour:
   _pauseScreen: {fileID: 817987630}
   _effectManager: {fileID: 1657977506}
   _replaySaveButton: {fileID: 882973373}
+--- !u!1001 &443973327
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313075162845634483, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: m_Name
+      value: SDJK Discord Presence
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323340401151237712, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: _effectManager
+      value: 
+      objectReference: {fileID: 1657977506}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
 --- !u!1 &521749794
 GameObject:
   m_ObjectHideFlags: 0
