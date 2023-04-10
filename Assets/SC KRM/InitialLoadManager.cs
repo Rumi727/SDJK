@@ -283,14 +283,14 @@ namespace SCKRM
 
         [WikiDescription("프로그램의 강제 종료 여부")] public static bool isForceQuit { get; private set; }
         [WikiDescription("프로그램을 강제 종료하지만 로그는 띄워야할때 사용하는 메소드 입니다")]
-        public static async void ApplicationForceQuit(string message)
+        public static async void ApplicationForceQuit(string message, string className = null)
         {
             if (!Kernel.isPlaying)
                 throw new NotPlayModeMethodException();
             else if (isForceQuit)
                 return;
 
-            string typeName = Debug.NameOfCallingClass();
+            string typeName = className ?? Debug.NameOfCallingClass();
             isForceQuit = true;
 
             await UniTask.WaitUntil(() => UIManager.instance != null);
