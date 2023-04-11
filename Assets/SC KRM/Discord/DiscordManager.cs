@@ -118,10 +118,13 @@ namespace SCKRM.Discord
 
             if (timer >= 4)
             {
-                updateAction?.Invoke();
-                updateAction = null;
+                if (updateAction != null)
+                {
+                    updateAction?.Invoke();
+                    updateAction = null;
 
-                timer = 0;
+                    timer = 0;
+                }
             }
             else
                 timer += Kernel.unscaledDeltaTime;

@@ -3572,6 +3572,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SDJK Discord Presence
       objectReference: {fileID: 0}
+    - target: {fileID: 5323340401151237712, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: _isMainMenu
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323340401151237712, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
+      propertyPath: _effectManager
+      value: 
+      objectReference: {fileID: 789537519}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
 --- !u!1 &760714548
