@@ -28,13 +28,13 @@ namespace SDJK.Ruleset
                 selectedRuleset = rulesetList[value];
                 _selectedRulesetIndex = value;
 
-                isRulesetChanged?.Invoke();
+                rulesetChanged?.Invoke();
             }
         }
         static int _selectedRulesetIndex;
 
-        public static event Action isRulesetChanged;
-        public static event Action isRulesetRefresh;
+        public static event Action rulesetChanged;
+        public static event Action rulesetRefresh;
 
         public static bool isRulesetRefreshEnd { get; private set; } = false;
 
@@ -70,7 +70,7 @@ namespace SDJK.Ruleset
 
             selectedRulesetIndex = 0;
             isRulesetRefreshEnd = true;
-            isRulesetRefresh?.Invoke();
+            rulesetRefresh?.Invoke();
         }
 
         /// <summary>

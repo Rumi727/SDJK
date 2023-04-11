@@ -31,7 +31,7 @@ namespace SDJK.MainMenu.MapSelectScreen
 
         protected override void Awake()
         {
-            RulesetManager.isRulesetChanged += ReloadData;
+            RulesetManager.rulesetChanged += ReloadData;
             MapManager.mapLoadingEnd += ReloadData;
 
             ReloadData();
@@ -85,7 +85,7 @@ namespace SDJK.MainMenu.MapSelectScreen
 
         protected override void OnDestroy()
         {
-            RulesetManager.isRulesetChanged -= ReloadData;
+            RulesetManager.rulesetChanged -= ReloadData;
             MapManager.mapLoadingEnd -= ReloadData;
         }
 

@@ -101,7 +101,7 @@ namespace SDJK.MainMenu
             DragAndDropManager.dragAndDropEvent += DragAndDropEvent;
 
             ResourceManager.resourceRefreshEvent += MapListLoad;
-            RulesetManager.isRulesetChanged += RulesetMapCountRefresh;
+            RulesetManager.rulesetChanged += RulesetMapCountRefresh;
         }
 
         static bool DragAndDropEvent(string path, bool isFolder, ThreadMetaData threadMetaData)

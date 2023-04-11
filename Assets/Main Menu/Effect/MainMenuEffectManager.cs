@@ -13,14 +13,14 @@ namespace SDJK.MainMenu
 
         void OnEnable()
         {
-            RulesetManager.isRulesetChanged += RulesetChange;
-            ModeManager.isModeRefresh += ModeChange;
+            RulesetManager.rulesetChanged += RulesetChange;
+            ModeManager.modeRefresh += ModeChange;
         }
 
         void OnDisable()
         {
-            RulesetManager.isRulesetChanged += RulesetChange;
-            ModeManager.isModeRefresh += ModeChange;
+            RulesetManager.rulesetChanged += RulesetChange;
+            ModeManager.modeRefresh += ModeChange;
         }
 
         void RulesetChange() => effectManager.selectedRuleset = RulesetManager.selectedRuleset;

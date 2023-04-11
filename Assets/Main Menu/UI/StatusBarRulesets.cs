@@ -16,7 +16,7 @@ namespace SDJK.MainMenu.UI
 
         void Awake()
         {
-            RulesetManager.isRulesetRefresh += Refresh;
+            RulesetManager.rulesetRefresh += Refresh;
             if (RulesetManager.isRulesetRefreshEnd)
                 Refresh();
         }

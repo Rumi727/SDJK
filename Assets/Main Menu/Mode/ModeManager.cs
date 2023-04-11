@@ -16,7 +16,7 @@ namespace SDJK.Mode
         public static List<IMode> selectedModeList { get; private set; } = new List<IMode>();
 
 
-        public static event Action isModeRefresh;
+        public static event Action modeRefresh;
         public static event Action modeChanged;
 
         public static bool isModeRefreshEnd { get; private set; } = false;
@@ -24,7 +24,7 @@ namespace SDJK.Mode
         [Awaken]
         static void Awaken()
         {
-            RulesetManager.isRulesetChanged += () =>
+            RulesetManager.rulesetChanged += () =>
             {
                 selectedModeList.Clear();
                 modeList.Clear();
@@ -82,7 +82,7 @@ namespace SDJK.Mode
 
             selectedModeList.Clear();
             isModeRefreshEnd = true;
-            isModeRefresh?.Invoke();
+            modeRefresh?.Invoke();
         }
 
         public static void SelectMode(IMode mode)
