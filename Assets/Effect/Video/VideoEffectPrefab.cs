@@ -171,8 +171,7 @@ namespace SDJK.Effect
         public async UniTaskVoid PadeOut()
         {
             isPadeOut = true;
-            Debug.Log(isPadeOut);
-
+            
             while (canvasGroup.alpha > 0)
             {
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
