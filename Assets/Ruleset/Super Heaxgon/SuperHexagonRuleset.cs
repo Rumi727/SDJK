@@ -39,6 +39,7 @@ namespace SDJK.Ruleset.SuperHexagon
         public const string miss = "ruleset.super_hexagon.miss";
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/super_hexagon", "icon");
+        public override string discordIconKey => "ruleset_super_hexagon";
 
         public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {

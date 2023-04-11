@@ -13,6 +13,7 @@ namespace SDJK.Ruleset.ADOFAI
         public override string displayName { get; } = "A Dance of Fire and Ice";
 
         public override NameSpaceIndexTypePathPair icon { get; } = new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");
+        public override string discordIconKey => "ruleset_adofai";
 
         public override RankMetaData[] rankMetaDatas { get; }
 

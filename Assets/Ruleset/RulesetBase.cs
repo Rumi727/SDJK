@@ -26,6 +26,8 @@ namespace SDJK.Ruleset
         public string displayName { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
+        public string discordIconKey { get; }
+
         public string[] compatibleRulesets { get; }
 
         /// <summary>
@@ -73,6 +75,8 @@ namespace SDJK.Ruleset
         public abstract string displayName { get; }
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
+        public abstract string discordIconKey { get; }
+
         public virtual string[] compatibleRulesets => null;
 
         public abstract RankMetaData[] rankMetaDatas { get; }

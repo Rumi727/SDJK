@@ -55,6 +55,7 @@ namespace SDJK.Ruleset.SDJK
         public const string instantDeath = "ruleset.sdjk.instantDeath";
 
         public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
+        public override string discordIconKey => "ruleset_sdjk";
 
         public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {
