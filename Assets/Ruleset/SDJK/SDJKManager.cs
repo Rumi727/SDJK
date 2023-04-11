@@ -107,6 +107,8 @@ namespace SDJK.Ruleset.SDJK
 
                 this.ruleset = ruleset;
                 this.map = map;
+
+                effectManager.selectedRuleset = ruleset;
                 effectManager.selectedMap = map;
                 effectManager.AllRefresh();
 
