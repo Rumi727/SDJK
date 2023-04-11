@@ -1,4 +1,5 @@
 using SCKRM.Sound;
+using SDJK.Mode;
 using SDJK.Ruleset;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace SDJK.Effect
     public sealed class EffectManager : MonoBehaviour
     {
         public IRuleset selectedRuleset { get; set; }
+        public IMode[] selectedModes { get; set; }
+
         public Map.MapPack selectedMapPack { get; set; }
         public Map.MapFile selectedMap { get; set; }
 

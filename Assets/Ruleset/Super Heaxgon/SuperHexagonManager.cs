@@ -110,6 +110,8 @@ namespace SDJK.Ruleset.SuperHexagon
                 this.map = map;
 
                 effectManager.selectedRuleset = ruleset;
+                effectManager.selectedModes = modes;
+
                 effectManager.selectedMap = map;
                 effectManager.AllRefresh();
 

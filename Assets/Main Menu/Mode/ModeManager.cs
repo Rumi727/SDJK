@@ -15,7 +15,10 @@ namespace SDJK.Mode
         public static List<IMode> allModeList { get; } = new List<IMode>();
         public static List<IMode> selectedModeList { get; private set; } = new List<IMode>();
 
+
         public static event Action isModeRefresh;
+        public static event Action modeChanged;
+
         public static bool isModeRefreshEnd { get; private set; } = false;
 
         [Awaken]
@@ -105,12 +108,15 @@ namespace SDJK.Mode
 
                 selectedModeList.Add(mode);
                 selectedModeList = selectedModeList.OrderBy(x => x.order).ToList();
+
+                modeChanged?.Invoke();
             }
         }
 
         public static void DeselectMode(IMode mode)
         {
             selectedModeList.Remove(mode);
+            modeChanged?.Invoke();
 
             if (mode.modeConfigSlc != null)
             {
