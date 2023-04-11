@@ -482,13 +482,13 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                         Texture2D texture = textures[i];
                         textures2[i] = texture;
                         textureNames[i] = texture.name;
-                        width += texture.width + 10;
-                        height += texture.height + 10;
+                        width += texture.width + 8;
+                        height += texture.height + 8;
 
                         if (i == textures.Length - 1)
                         {
-                            width -= 10;
-                            height -= 10;
+                            width -= 8;
+                            height -= 8;
                         }
                     }
 
@@ -500,8 +500,9 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                     Texture2D background = new Texture2D(width, height);
                     Dictionary<string, Rect> fileName_rect = new Dictionary<string, Rect>();
 
-                    Rect[] rects = background.PackTextures(textures2, 10, int.MaxValue);
+                    Rect[] rects = background.PackTextures(textures2, 8, int.MaxValue);
                     background.filterMode = textureMetaData.filterMode;
+                    background.mipMapBias = -0.4f;
 
                     if (textureMetaData.compressionType == TextureMetaData.CompressionType.normal)
                         background.Compress(false);
@@ -1276,12 +1277,13 @@ Import image files as Texture2D type"
 
             if (exists)
             {
-                Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
+                Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse, false);
                 allLoadedResources.Add(texture);
 
                 texture.filterMode = filterMode;
                 texture.name = Path.GetFileNameWithoutExtension(path);
                 texture.hideFlags = hideFlags;
+                texture.mipMapBias = -0.5f;
 
                 AsyncImageLoader.LoaderSettings loaderSettings = AsyncImageLoader.LoaderSettings.Default;
                 loaderSettings.generateMipmap = mipmapUse;
@@ -1417,6 +1419,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
 
                 texture.filterMode = filterMode;
                 texture.name = Path.GetFileNameWithoutExtension(path);
+                texture.mipMapBias = -0.5f;
 
                 AsyncImageLoader.LoaderSettings loaderSettings = AsyncImageLoader.LoaderSettings.Default;
                 loaderSettings.generateMipmap = mipmapUse;
