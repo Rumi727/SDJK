@@ -171,6 +171,7 @@ namespace SDJK.Effect
         public async UniTaskVoid PadeOut()
         {
             isPadeOut = true;
+            Debug.Log(isPadeOut);
 
             while (canvasGroup.alpha > 0)
             {
