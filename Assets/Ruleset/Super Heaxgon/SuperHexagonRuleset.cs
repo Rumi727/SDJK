@@ -7,7 +7,6 @@ using SDJK.Replay.Ruleset.SuperHexagon;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Replay;
 using SDJK.Map;
-using SDJK.Mode.Automatic;
 using SDJK.Ruleset.SuperHexagon.Judgement;
 using SDJK.Ruleset.SuperHexagon.GameOver;
 using SCKRM.Sound;
