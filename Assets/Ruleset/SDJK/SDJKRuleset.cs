@@ -20,6 +20,8 @@ namespace SDJK.Ruleset.SDJK
         public override int order { get; } = int.MinValue;
 
         public override string name { get; } = "sdjk";
+        public override string displayName { get; } = "SDJK";
+
         public override string[] compatibleRulesets { get; } = new string[] { "adofai", "super_hexagon" };
 
         public override RankMetaData[] rankMetaDatas { get; } = new RankMetaData[]

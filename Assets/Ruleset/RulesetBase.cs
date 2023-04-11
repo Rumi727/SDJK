@@ -21,7 +21,9 @@ namespace SDJK.Ruleset
     public interface IRuleset
     {
         public int order { get; }
+
         public string name { get; }
+        public string displayName { get; }
 
         public NameSpaceIndexTypePathPair icon { get; }
         public string[] compatibleRulesets { get; }
@@ -66,7 +68,9 @@ namespace SDJK.Ruleset
     public abstract class RulesetBase : IRuleset
     {
         public abstract int order { get; }
+
         public abstract string name { get; }
+        public abstract string displayName { get; }
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
         public virtual string[] compatibleRulesets => null;

@@ -19,6 +19,8 @@ namespace SDJK.Ruleset.SuperHexagon
         public override int order { get; } = 0;
 
         public override string name { get; } = "super_hexagon";
+        public override string displayName { get; } = "Super Hexagon";
+
         public override string[] compatibleRulesets { get; } = new string[] { "sdjk", "adofai" };
 
         public override RankMetaData[] rankMetaDatas { get; } = new RankMetaData[]
