@@ -8,16 +8,29 @@
 이 부분이 문제가 된다면 잔말 없이 바로 수정하갰습니다
 
 ## 라이선스
-TEAM Bucket 블랙리스트에 등록된 사람은 등록된 기간의 모든 커밋 또는 릴리즈 등 제 모든 창작물을 이용, 변경 등을 할 수 없습니다 (2022-07-28 0:53 시간 이후의 만들어진 창작물만 해당)  
-(예: a라는 사람이 2022-8-01부터 2022-8-23까지 블랙리스트에 등록되어있으면 그 기간 동안 생성된 커밋과 릴리즈를 등 올라온 모든 창작물을 사용할 수 없다는 뜻)
+[TEAM Bucket 블랙리스트]: https://github.com/SimsimhanChobo/SDJK
+[SC KRM]: https://github.com/SimsimhanChobo/SC-KRM-1.0
+[SDJK]: https://github.com/SimsimhanChobo/SDJK
+[Simsimhan Chobo]: https://github.com/SimsimhanChobo
+[discord_check.dll]: Assets/SC%20KRM/Discord/Library/discord_check.dll
+[C++ Namu]: https://namu.wiki/w/C%2B%2B
+[C++]: https://ko.wikipedia.org/wiki/C%2B%2B
+[MIT]: https://opensource.org/licenses/mit
 
-위에 해당하지 않는다면, 파일에 작성되어있는 라이선스를 따르게 됩니다
+[TEAM Bucket 블랙리스트]에 등록된 사람은 [SC KRM] 및 [SC KRM]의 파생 저작물을 (예: [SDJK]) 이용할 수 없습니다.
 
-[TEAM Bucket 블랙리스트에 등록된 사용자 목록](https://docs.google.com/document/d/1A8kz4DJOdLEtf-kybrKnGR51XDNZVHmojCU86KaDgKg)
+또한 [discord_check.dll] 파일을 디컴파일하거나 (내용을 보거나) 수정할 수 없습니다.  
+[discord_check.dll] 파일은 [C++][C++ Namu] 프로그래밍 언어로 작성되었으며 저작권은 [Simsimhan Chobo] 에게 있습니다.
 
-이러한 라이선스가 [오픈 소스 정의](https://opensource.org/osd)와 일치하지 않다는것을 알고있습니다  
-하지만 상관 없습니다  
-블랙리스트에 등록될려면 적어도 테러 정돈 해야 등록될 정도로 매우 빡빡하며 등록된 사람들 전부 대부분의 사람들이 납득 가능한 이유가 있습니다
+위의 내용에 영향을 받지 않는다면 [SC KRM]은 [MIT 라이선스][MIT]를 따르게 됩니다.
+
+## English Translation
+[SC KRM] and derivative works of [SC KRM] (e.g. [SDJK]) cannot be used by persons on the [TEAM Bucket Blacklist]
+
+Also, you cannot decompile (view contents) or modify the file [discord_check.dll]
+The [discord_check.dll] file is written in [C++] programming language and copyrighted by [Simsimhan Chobo].
+
+Unless affected by the above, [SC KRM] is under the [MIT License][MIT]
 
 ## 사용된 패키지와 DLL, 오픈 소스
 - [SC KRM 1.0](https://github.com/SimsimhanChobo/SC-KRM-1.0)
