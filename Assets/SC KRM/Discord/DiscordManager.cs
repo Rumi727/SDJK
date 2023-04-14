@@ -140,6 +140,9 @@ namespace SCKRM.Discord
         static Action updateAction;
         public static void UpdateActivity(string details = null, string state = null, string largeImage = null, string largeText = null, string smallImage = null, string smallText = null, long? startTime = null, long? endTime = null)
         {
+            if (!discordIsRunning)
+                return;
+
             /*if (largeImage == null) largeImage = basicActivity.largeImage;
             if (smallImage == null) smallImage = basicActivity.smallImage;
 
