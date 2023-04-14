@@ -23,7 +23,7 @@ namespace SCKRM
             [JsonProperty] public static string lastVersion { get; set; } = version;
         }
 
-        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 20, 4);
+        [WikiDescription("현재 SC KRM 버전")] public static Version sckrmVersion { get; } = new Version(0, 21, 0);
 
 
 
