@@ -56,7 +56,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 if (barEffect == null)
                     continue;
 
-                double localNoteSpeed = barEffect.noteDistance.GetValue(currentBeat) * config.noteSpeed.GetValue(wall.note.beat);
+                double localNoteSpeed = barEffect.noteDistance.GetValue(currentBeat) * map.effect.globalNoteSpeed.GetValue(wall.note.beat) * config.noteSpeed.GetValue(wall.note.beat);
                 double noteSpeed = globalNoteDistance * localNoteSpeed;
 
                 WallRenderer wallRenderer = wall.wallRenderer;

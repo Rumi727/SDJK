@@ -50,6 +50,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public TypeList<SuperHexagonBarEffectFile> barEffect { get; set; } = new();
 
         public BeatValuePairAniListDouble globalNoteDistance { get; set; } = new(8);
+        public BeatValuePairList<double> globalNoteSpeed { get; set; } = new(1);
     }
 
     public sealed class SuperHexagonBarEffectFile
