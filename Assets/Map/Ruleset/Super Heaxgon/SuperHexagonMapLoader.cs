@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SDJK.Map.Ruleset.SuperHexagon.Map
 {
-    public static class SuperHexagonLoader
+    public static class SuperHexagonMapLoader
     {
         [Awaken]
         static void Awaken()
