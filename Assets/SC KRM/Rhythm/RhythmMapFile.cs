@@ -157,7 +157,7 @@ namespace SCKRM.Rhythm
             else if (beat < this[0].beat)
                 return 0;
             else if (beat >= this[Count - 1].beat)
-                return Count;
+                return Count - 1;
 
             int low = 0;
             int high = Count - 1;
