@@ -422,6 +422,32 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                         ADOFAI.Effect effect = new ADOFAI.Effect(beat, eventTag, null, false);
 
+                        void EffectAddMethod<T>(BeatValuePairList<T> list, double beat, T value)
+                        {
+                            if (list.Count > 0)
+                            {
+                                int startIndex = list.GetValueIndexBinarySearch(beat);
+
+                                if (beat <= list[startIndex].beat)
+                                    list.RemoveRange(startIndex, list.Count - startIndex - 1);
+                            }
+
+                            list.Add(beat, value);
+                        }
+
+                        void EffectAddMethod2<T>(BeatValuePairAniList<T> list, double beat, double length, T value, EasingFunction.Ease easingFunction)
+                        {
+                            if (list.Count > 0)
+                            {
+                                int startIndex = list.GetValueIndexBinarySearch(beat);
+
+                                if (beat <= list[startIndex].beat)
+                                    list.RemoveRange(startIndex, list.Count - startIndex - 1);
+                            }
+
+                            list.Add(beat, length, value, easingFunction, true);
+                        }
+
                         #region Effect
                         if (eventType == "RepeatEvents")
                         {
@@ -437,18 +463,18 @@ namespace SDJK.Map.Ruleset.ADOFAI
                                 if (action["speedType"].Value<string>() == "Bpm")
                                 {
                                     bpm = action["beatsPerMinute"].Value<float>();
-                                    effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(beat, bpm);
+                                    effect.action += (double beat) => EffectAddMethod(adofaiMap.globalEffect.bpm, beat, bpm);
                                 }
                                 else
                                 {
                                     bpm = lastBpm * action["bpmMultiplier"].Value<float>();
-                                    effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(beat, bpm);
+                                    effect.action += (double beat) => EffectAddMethod(adofaiMap.globalEffect.bpm, beat, bpm);
                                 }
                             }
                             else
                             {
                                 bpm = action["beatsPerMinute"].Value<float>();
-                                effect.action += (double beat) => adofaiMap.globalEffect.bpm.Add(beat, bpm);
+                                effect.action += (double beat) => EffectAddMethod(adofaiMap.globalEffect.bpm, beat, bpm);
                             }
 
                             effect.isTileEffect = true;
@@ -459,19 +485,19 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             if (action.ContainsKey("position"))
                             {
                                 float[] pos = action["position"].Values<float>().ToArray();
-                                effect.action += (double beat) => adofaiMap.globalEffect.cameraPos.Add(beat, duration, new JVector3(pos[0], pos[1], -14), ease, true);
+                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.cameraPos, beat, duration, new JVector3(pos[0], pos[1], -14), ease);
                             }
 
                             if (action.ContainsKey("rotation"))
                             {
                                 float rotation = action["rotation"].Value<float>();
-                                effect.action += (double beat) => adofaiMap.globalEffect.cameraRotation.Add(beat, duration, new JVector3(0, 0, rotation), ease, true);
+                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.cameraRotation, beat, duration, new JVector3(0, 0, rotation), ease);
                             }
 
                             if (action.ContainsKey("zoom"))
                             {
                                 double zoom = action["zoom"].Value<float>() * 0.01;
-                                effect.action += (double beat) => adofaiMap.globalEffect.cameraZoom.Add(beat, duration, zoom, ease, true);
+                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.cameraZoom, beat, duration, zoom, ease);
                             }
                         }
                         else if (eventType == "CustomBackground")
@@ -479,15 +505,15 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             if (action.ContainsKey("imageColor"))
                             {
                                 if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
-                                    effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, color, EasingFunction.Ease.Linear, true);
+                                    effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, color, EasingFunction.Ease.Linear);
                                 else
-                                    effect.action += (double beat) => adofaiMap.globalEffect.backgroundColor.Add(beat, 0, JColor.one, EasingFunction.Ease.Linear, true);
+                                    effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, JColor.one, EasingFunction.Ease.Linear);
                             }
 
                             if (action.ContainsKey("bgImage"))
                             {
                                 string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
-                                effect.action += (double beat) => adofaiMap.globalEffect.background.Add(beat, new BackgroundEffectPair(background, ""));
+                                effect.action += (double beat) => EffectAddMethod(adofaiMap.globalEffect.background, beat, new BackgroundEffectPair(background, ""));
                             }
                         }
                         else if (eventType == "Flash")
@@ -505,16 +531,22 @@ namespace SDJK.Map.Ruleset.ADOFAI
                                         BeatValuePairAni<JColor> start = new BeatValuePairAni<JColor>(beat, startColor, 0, EasingFunction.Ease.Linear, true);
                                         BeatValuePairAni<JColor> end = new BeatValuePairAni<JColor>(beat, endColor, duration, EasingFunction.Ease.Linear, true);
 
+                                        BeatValuePairAniListColor list;
                                         if (plane == "Foreground")
-                                        {
-                                            adofaiMap.globalEffect.fieldFlash.Add(start);
-                                            adofaiMap.globalEffect.fieldFlash.Add(end);
-                                        }
+                                            list = adofaiMap.globalEffect.fieldFlash;
                                         else
+                                            list = adofaiMap.globalEffect.backgroundFlash;
+
+                                        if (list.Count > 0)
                                         {
-                                            adofaiMap.globalEffect.backgroundFlash.Add(start);
-                                            adofaiMap.globalEffect.backgroundFlash.Add(end);
+                                            int startIndex = list.GetValueIndexBinarySearch(beat);
+
+                                            if (beat <= list[startIndex].beat)
+                                                list.RemoveRange(startIndex, list.Count - startIndex - 1);
                                         }
+
+                                        list.Add(start);
+                                        list.Add(end);
                                     };
                                 }
                             }
