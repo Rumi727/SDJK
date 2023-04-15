@@ -14,13 +14,20 @@ using SDJK.Mode.Converter;
 using Random = System.Random;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using System.IO;
-using static UnityEngine.UI.CanvasScaler;
 using SDJK.Map.Ruleset.OsuMania;
+using SCKRM.SaveLoad;
+using Newtonsoft.Json;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
     public static class SDJKLoader
     {
+        [GeneralSaveLoad]
+        public sealed class SaveData
+        {
+            [JsonProperty] public static double osuManiaNoteSpeed { get; set; } = 48;
+        }
+
         [Awaken]
         static void Awaken()
         {
@@ -419,7 +426,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             for (int i = 0; i < sdjkMap.globalEffect.bpm.Count; i++)
             {
                 BeatValuePair<double> bpm = sdjkMap.globalEffect.bpm[i];
-                sdjkMap.effect.globalNoteSpeed.Add(bpm.beat, 60 / bpm.value * 48);
+                sdjkMap.effect.globalNoteSpeed.Add(bpm.beat, 60 / bpm.value * SaveData.osuManiaNoteSpeed);
             }
 
             sdjkMap.effect.globalNoteDistance.Add(double.MinValue, 0, 1);

@@ -39,6 +39,10 @@
 	"options.main_menu.logoEffectEnable": "ロゴエフェクトを有効にする",
 	"options.main_menu.logoEffectEnable.info": "ロゴにいくつかのエフェクトを適用します",
 	
+	"options.sdjk_map_loader.title": "SDJKマップローダー",
+	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!maniaノートスピード",
+	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!maniaマップをSDJKマップに読み込むときのノートの速度を決定します",
+	
 	"notice.main_menu.no_map": "マップがありません！",
 	"notice.main_menu.no_map.info": "選択したルールセットにマップが1つもありません",
 	
