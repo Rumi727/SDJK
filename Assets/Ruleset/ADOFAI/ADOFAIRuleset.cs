@@ -15,6 +15,8 @@ namespace SDJK.Ruleset.ADOFAI
         public override NameSpaceIndexTypePathPair icon { get; } = new NameSpaceIndexTypePathPair("sdjk", "ruleset/adofai", "icon");
         public override string discordIconKey => "ruleset_adofai";
 
+        public override bool hidden => true;
+
         public override RankMetaData[] rankMetaDatas { get; }
 
         public override JudgementMetaData[] judgementMetaDatas => null;

@@ -32,6 +32,9 @@ namespace SDJK.MainMenu.UI
             for (int i = 0; i < RulesetManager.rulesetList.Count; i++)
             {
                 IRuleset ruleset = RulesetManager.rulesetList[i];
+                if (ruleset.hidden)
+                    continue;
+
                 StatusBarRuleset statusBarRuleset = (StatusBarRuleset)ObjectPoolingSystem.ObjectCreate("status_bar_rulesets_ruleset", transform).monoBehaviour;
                 statusBarRuleset.icon.nameSpaceIndexTypePathPair = ruleset.icon;
                 statusBarRuleset.index = i;

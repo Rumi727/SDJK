@@ -20,7 +20,7 @@ namespace SDJK.Ruleset.SuperHexagon
         public override string name { get; } = "super_hexagon";
         public override string displayName { get; } = "Super Hexagon";
 
-        public override string[] compatibleRulesets { get; } = new string[] { "sdjk", "adofai" };
+        public override string[] compatibleRulesets { get; } = new string[] { "sdjk", "adofai", "osu!mania" };
 
         public override RankMetaData[] rankMetaDatas { get; } = new RankMetaData[]
         {

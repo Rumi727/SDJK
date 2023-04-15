@@ -28,6 +28,8 @@ namespace SDJK.Ruleset
         public NameSpaceIndexTypePathPair icon { get; }
         public string discordIconKey { get; }
 
+        public bool hidden { get; }
+
         public string[] compatibleRulesets { get; }
 
         /// <summary>
@@ -76,6 +78,8 @@ namespace SDJK.Ruleset
 
         public abstract NameSpaceIndexTypePathPair icon { get; }
         public abstract string discordIconKey { get; }
+
+        public virtual bool hidden => false;
 
         public virtual string[] compatibleRulesets => null;
 

@@ -22,7 +22,10 @@ namespace SDJK.Ruleset.SDJK
         public override string name { get; } = "sdjk";
         public override string displayName { get; } = "SDJK";
 
-        public override string[] compatibleRulesets { get; } = new string[] { "adofai", "super_hexagon" };
+        public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
+        public override string discordIconKey => "ruleset_sdjk";
+
+        public override string[] compatibleRulesets { get; } = new string[] { "super_hexagon", "adofai", "osu!mania" };
 
         public override RankMetaData[] rankMetaDatas { get; } = new RankMetaData[]
         {
@@ -53,9 +56,6 @@ namespace SDJK.Ruleset.SDJK
         public const string early = "ruleset.sdjk.early";
         public const string miss = "ruleset.sdjk.miss";
         public const string instantDeath = "ruleset.sdjk.instantDeath";
-
-        public override NameSpaceIndexTypePathPair icon => new NameSpaceIndexTypePathPair("sdjk", "ruleset/sdjk", "icon");
-        public override string discordIconKey => "ruleset_sdjk";
 
         public override async void GameStart(string mapFilePath, string replayFilePath, bool isEditor, params IMode[] modes)
         {

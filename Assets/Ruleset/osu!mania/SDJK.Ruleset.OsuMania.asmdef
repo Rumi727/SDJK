@@ -1,0 +1,18 @@
+{
+    "name": "SDJK.Ruleset.OsuMania",
+    "rootNamespace": "SDJK.Ruleset.OsuMania",
+    "references": [
+        "GUID:9c1f978837ad80d49ae31d1cd963a280",
+        "GUID:d3874f4918e80154fab2009de9e5ea2c",
+        "GUID:ec55cd8e1668f8e4c9c6f03edd05c2c4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

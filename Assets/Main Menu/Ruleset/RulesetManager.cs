@@ -1,17 +1,9 @@
 using SCKRM;
 using SCKRM.Reflection;
-using SCKRM.Renderer;
-using SCKRM.Rhythm;
-using SCKRM.Sound;
-using SCKRM.UI;
-using SCKRM.UI.SideBar;
-using SCKRM.UI.StatusBar;
 using SDJK.Mode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace SDJK.Ruleset
 {

@@ -31,10 +31,12 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
                 if (typeIsSuperHexagonMap)
                 {
                     //SDJK
-                    if (extension == ".sdjk" || extension == ".osu")
+                    if (extension == ".sdjk") //SDJK
                         return SDJKMapLoad(mapFilePath, modes);
-                    else if (extension == ".adofai")
+                    else if (extension == ".adofai") //ADOFAI
                         return ADOFAIMapLoad(mapFilePath, modes);
+                    else if (extension == ".osu") //osu!mania
+                        return OsuManiaMapLoad(mapFilePath, modes);
                 }
 
                 return null;
@@ -148,6 +150,10 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
 
         public static SuperHexagonMapFile ADOFAIMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.ADOFAIMapLoad(mapFilePath, modes, false), modes);
+
+
+
+        public static SuperHexagonMapFile OsuManiaMapLoad(string mapFilePath, IMode[] modes) => SDJKMapToSuperHexagonMap(mapFilePath, SDJKLoader.OsuManiaMapLoad(mapFilePath, modes), modes);
 
 
 
