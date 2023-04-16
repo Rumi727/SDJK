@@ -7,6 +7,17 @@
 대부분의 UI는 [osu!lazer](https://github.com/ppy/osu)에서 영감을 받았습니다 ~~(라기엔 사실상 복사)~~  
 이 부분이 문제가 된다면 잔말 없이 바로 수정하갰습니다
 
+## Ruleset
+* SDJK
+  * .sdjk
+  * .sdjk (SDJK 1.0 file format)
+* Super Hexagon
+  * .super_hexagon
+* A Dance of Fire and Ice (Hidden)
+  * .adofai (ADOFAI file format)
+* osu!mania (Hidden)
+  * .osu (osu!mania file format v14)
+  
 ## 라이선스
 [Blacklist]: https://github.com/SimsimhanChobo/SDJK
 [SC KRM]: https://github.com/SimsimhanChobo/SC-KRM-1.0
