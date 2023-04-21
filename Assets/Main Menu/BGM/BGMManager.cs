@@ -1,14 +1,8 @@
-using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Object;
 using SCKRM.Resource;
 using SCKRM.Rhythm;
-using SCKRM.Sound;
-using SCKRM.Splash;
 using SDJK.Map;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace SDJK.MainMenu
 {
@@ -46,7 +40,7 @@ namespace SDJK.MainMenu
             if (bgm != null && !bgm.isRemoved)
             {
                 bgm.padeOut = true;
-                lastTime = bgm.soundPlayer.time;
+                lastTime = RhythmManager.time;
             }
 
             RhythmManager.Stop();

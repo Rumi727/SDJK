@@ -67,9 +67,9 @@ namespace SDJK.MainMenu
             if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
             {
                 if (lastMapPack != MapManager.selectedMapPack)
-                    RhythmManager.time = (float)map.info.mainMenuStartTime;
+                    RhythmManager.internalTime = (float)map.info.mainMenuStartTime;
                 else
-                    RhythmManager.time = lastTime.Clamp(0, soundPlayer.length - 0.01f);
+                    RhythmManager.time = lastTime;
             }
         }
 
@@ -117,7 +117,12 @@ namespace SDJK.MainMenu
         void Looped()
         {
             if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                soundPlayer.time = (float)map.info.mainMenuStartTime;
+                RhythmManager.internalTime = (float)map.info.mainMenuStartTime;
+            else
+            {
+                MapManager.RulesetNextMapPack();
+                Remove();
+            }
         }
 
         public override bool Remove()
