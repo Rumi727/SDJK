@@ -12,7 +12,7 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
-using SDJK.MainMenuLoader;
+using SDJK.MainMenu;
 using SDJK.Mode;
 using SDJK.Replay;
 using SDJK.Ruleset;

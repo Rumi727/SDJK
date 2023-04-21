@@ -3,7 +3,7 @@ using SCKRM.Reflection;
 using System.Reflection;
 using System;
 
-namespace SDJK.MainMenuLoader
+namespace SDJK.MainMenu
 {
     public static class MainMenuLoader
     {

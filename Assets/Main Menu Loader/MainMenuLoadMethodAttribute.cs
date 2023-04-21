@@ -1,6 +1,6 @@
 using System;
 
-namespace SDJK.MainMenuLoader
+namespace SDJK.MainMenu
 {
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class MainMenuLoadMethodAttribute : Attribute { }
