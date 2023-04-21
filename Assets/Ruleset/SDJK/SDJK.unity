@@ -248,10 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8269be4e22d9b8459df109e8af0e95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameOverManager: {fileID: 1561121225}
   _pauseScreen: {fileID: 817987630}
   _effectManager: {fileID: 1657977506}
   _replaySaveButton: {fileID: 882973373}
+  _gameOverManager: {fileID: 1561121225}
 --- !u!1001 &443973327
 PrefabInstance:
   m_ObjectHideFlags: 0

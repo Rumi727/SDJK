@@ -23,7 +23,7 @@ namespace SDJK.Ruleset.SDJK
 
         public override bool Refresh(MapFile map, ReplayFile replay, IRuleset ruleset, bool isEditor, IMode[] modes)
         {
-            if (map is not SDJKMapFile || replay is not SDJKReplayFile || ruleset is not SDJKRuleset)
+            if (map is not SDJKMapFile || (replay != null && replay is not SDJKReplayFile) || ruleset is not SDJKRuleset)
                 return false;
 
             if (base.Refresh(map, replay, ruleset, isEditor, modes))
