@@ -175,15 +175,8 @@ namespace SDJK.MainMenu
             }
         }
 
-        public static List<ReplayFile> ReplayListSort(List<ReplayFile> replays)
-        {
-            return replays.OrderBy(x =>
-            {
-                if (x.scores.Count > 0)
-                    return x.scores.Last().value;
-                else
-                    return x.scores.defaultValue;
-            }, OrderByDirection.Descending).ThenBy(x => x.clearUTCTime, OrderByDirection.Descending).ToList();
-        }
+        public static List<ReplayFile> ReplayListSort(List<ReplayFile> replays) =>
+            replays.OrderBy(x => x.scores.Last().value.Distance(JudgementUtility.maxScore))
+                .ThenBy(x => x.clearUTCTime, OrderByDirection.Descending).ToList();
     }
 }
