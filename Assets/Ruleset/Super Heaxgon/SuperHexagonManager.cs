@@ -22,7 +22,7 @@ namespace SDJK.Ruleset.SuperHexagon
 
         public override bool Refresh(MapFile map, ReplayFile replay, IRuleset ruleset, bool isEditor, IMode[] modes)
         {
-            if (map is not SuperHexagonMapFile || replay is not SuperHexagonReplayFile || ruleset is not SuperHexagonRuleset)
+            if (map is not SuperHexagonMapFile || (replay != null && replay is not SuperHexagonReplayFile) || ruleset is not SuperHexagonRuleset)
                 return false;
 
             if (base.Refresh(map, replay, ruleset, isEditor, modes))
