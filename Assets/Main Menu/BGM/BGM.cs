@@ -28,7 +28,9 @@ namespace SDJK.MainMenu
         MapFile map;
         public async UniTaskVoid Refresh(MapPack lastMapPack, double lastTime)
         {
+            isLoaded = false;
             map = MapManager.selectedMap;
+
             string path = PathUtility.Combine(map.mapFilePathParent, map.info.songFile);
             if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
             {
@@ -44,8 +46,7 @@ namespace SDJK.MainMenu
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
                 soundPlayer = SoundManager.PlaySound(soundData, 0);
-                soundPlayer.removed += Removed;
-
+                
                 RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
             }
@@ -56,8 +57,7 @@ namespace SDJK.MainMenu
                 SoundData<NBSMetaData> soundData = ResourceManager.CreateSoundData("", true, nbsMetaData);
 
                 soundPlayer = SoundManager.PlayNBS(soundData, 0);
-                soundPlayer.removed += Removed;
-
+                
                 RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
             }
@@ -75,6 +75,9 @@ namespace SDJK.MainMenu
 
         void Update()
         {
+            if (!padeOut && RhythmManager.isPlaying && (soundPlayer.IsDestroyed() || soundPlayer.isRemoved))
+                SoundPlayerRemoved();
+
             if (!isLoaded || ResourceManager.isAudioReset)
                 return;
 
@@ -108,30 +111,22 @@ namespace SDJK.MainMenu
             }
         }
 
-        void Removed()
+        void SoundPlayerRemoved()
         {
-            if (!padeOut)
-            {
-                AudioDestroy();
+            AudioDestroy();
 
-                if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                    Refresh(null, 0).Forget();
-                else
-                    MapManager.RulesetNextMapPack();
-            }
+            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                Refresh(null, 0).Forget();
+            else
+                MapManager.RulesetNextMapPack();
         }
 
         public override bool Remove()
         {
             if (base.Remove())
             {
-                if (soundPlayer != null)
-                {
-                    soundPlayer.removed -= Removed;
-
-                    if (!soundPlayer.isRemoved)
-                        soundPlayer.Remove();
-                }
+                if (soundPlayer != null && !soundPlayer.IsDestroyed() && !soundPlayer.isRemoved)
+                    soundPlayer.Remove();
 
                 isLoaded = false;
 
