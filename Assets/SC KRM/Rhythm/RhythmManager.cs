@@ -20,6 +20,7 @@ namespace SCKRM.Rhythm
         [WikiDescription("현재 사운드 플레이어")] public static ISoundPlayer soundPlayer { get; private set; }
         [WikiDescription("현재 BPM 리스트")] public static BeatValuePairList<double> bpmList { get; private set; }
         [WikiDescription("현재 오프셋")] public static double offset { get; private set; }
+        [WikiDescription("시작 딜레이")] public static double startDelay { get; private set; }
         [WikiDescription("현재 유키 모드 리스트")] public static BeatValuePairList<bool> yukiModeList { get; private set; }
 
 
@@ -294,6 +295,7 @@ namespace SCKRM.Rhythm
 
             RhythmManager.bpmList = bpmList;
             RhythmManager.offset = offset;
+            RhythmManager.startDelay = startDelay;
             RhythmManager.yukiModeList = yukiModeList;
 
             if (RhythmManager.soundPlayer != null)
