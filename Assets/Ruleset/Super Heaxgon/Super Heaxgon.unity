@@ -1162,7 +1162,7 @@ MonoBehaviour:
   _judgementManager: {fileID: 1947265304}
   _walls: {fileID: 168774988}
   _audioSize: 0.046875
-  _audioSizeLerp: 0.75
+  _audioSizeLerp: 0.5
 --- !u!114 &720993805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3462,10 +3462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abd550e42ac04b43a3bc1167a6dbb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameOverManager: {fileID: 1268462601}
   _pauseScreen: {fileID: 1480359698}
   _effectManager: {fileID: 1446773605}
   _replaySaveButton: {fileID: 593616700}
+  _gameOverManager: {fileID: 1268462601}
   _field: {fileID: 720993804}
 --- !u!1 &1947265303
 GameObject:
