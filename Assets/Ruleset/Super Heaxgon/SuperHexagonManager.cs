@@ -8,31 +8,18 @@ using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon
 {
-    public sealed class SuperHexagonManager : RulesetManagerBase
+    public sealed class SuperHexagonManager : RulesetManagerBase<SuperHexagonRuleset, SuperHexagonMapFile, SuperHexagonReplayFile>
     {
         [SerializeField] SuperHexagonGameOverManager _gameOverManager; public SuperHexagonGameOverManager gameOverManager => _gameOverManager;
-
-        public new SuperHexagonRuleset ruleset { get; private set; } = null;
-        public new SuperHexagonMapFile map { get; private set; } = null;
-
-        public new SuperHexagonReplayFile currentReplay { get; private set; } = null;
-        public new SuperHexagonReplayFile createdReplay { get; private set; } = null;
+        [SerializeField] Field _field; public Field field => _field;
 
         public override bool isGameOver => gameOverManager.isGameOver;
 
-        public override bool Refresh(MapFile map, ReplayFile replay, IRuleset ruleset, bool isEditor, IMode[] modes)
+        public override bool Refresh(SuperHexagonMapFile map, SuperHexagonReplayFile replay, SuperHexagonRuleset ruleset, bool isEditor, IMode[] modes)
         {
-            if (map is not SuperHexagonMapFile || (replay != null && replay is not SuperHexagonReplayFile) || ruleset is not SuperHexagonRuleset)
-                return false;
-
             if (base.Refresh(map, replay, ruleset, isEditor, modes))
             {
-                this.ruleset = (SuperHexagonRuleset)base.ruleset;
-                this.map = (SuperHexagonMapFile)base.map;
-
-                currentReplay = (SuperHexagonReplayFile)base.currentReplay;
-                createdReplay = (SuperHexagonReplayFile)base.createdReplay;
-
+                field.Refresh();
                 return true;
             }
 

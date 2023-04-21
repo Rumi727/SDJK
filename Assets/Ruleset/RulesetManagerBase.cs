@@ -12,7 +12,6 @@ using SDJK.Mode;
 using SDJK.Mode.Automatic;
 using SDJK.Mode.Difficulty;
 using SDJK.Replay;
-using SDJK.Replay.Ruleset.SDJK;
 using SDJK.Ruleset.PauseScreen;
 using System.IO;
 using UnityEngine;
@@ -20,19 +19,19 @@ using UnityEngine.UI;
 
 namespace SDJK.Ruleset
 {
-    public abstract class RulesetManagerBase : ManagerBase<RulesetManagerBase>
+    public abstract class RulesetManagerBase<TRuleset, TMapFile, TReplayFile> : ManagerBase<RulesetManagerBase<TRuleset, TMapFile, TReplayFile>> where TRuleset : IRuleset where TMapFile : MapFile where TReplayFile : ReplayFile, new()
     {
         [SerializeField] PauseScreenUI _pauseScreen; public PauseScreenUI pauseScreen => _pauseScreen;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] Button _replaySaveButton; public Button replaySaveButton => _replaySaveButton;
 
-        public IRuleset ruleset { get; private set; }
-        public MapFile map { get; private set; }
+        public TRuleset ruleset { get; private set; }
+        public TMapFile map { get; private set; }
 
         public bool isReplay { get; private set; } = false;
-        public ReplayFile currentReplay { get; private set; } = null;
+        public TReplayFile currentReplay { get; private set; } = null;
 
-        public ReplayFile createdReplay { get; private set; } = null;
+        public TReplayFile createdReplay { get; set; }
 
         public ISoundPlayer soundPlayer { get; private set; }
         public AudioClip bgmClip { get; private set; }
@@ -78,7 +77,7 @@ namespace SDJK.Ruleset
                 Destroy(bgmClip, 1);
         }
 
-        public virtual bool Refresh(MapFile map, ReplayFile replay, IRuleset ruleset, bool isEditor, IMode[] modes)
+        public virtual bool Refresh(TMapFile map, TReplayFile replay, TRuleset ruleset, bool isEditor, IMode[] modes)
         {
             if (SingletonCheck(this))
             {
@@ -97,7 +96,7 @@ namespace SDJK.Ruleset
                     currentReplay = null;
 
                     replaySaveButton.interactable = true;
-                    createdReplay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
+                    createdReplay = ReplayLoader.CreateReplay<TReplayFile>(map, modes);
                 }
 
                 this.modes = modes;
