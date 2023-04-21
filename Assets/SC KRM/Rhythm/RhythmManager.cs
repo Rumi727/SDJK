@@ -46,24 +46,31 @@ namespace SCKRM.Rhythm
         [WikiDescription("현재 시간")]
         public static double time
         {
-            get => _time;
+            get => internalTime - offset;
+            set => internalTime = value + offset;
+        }
+
+        [WikiDescription("내부 시간")]
+        public static double internalTime
+        {
+            get => _internalTime;
             set
             {
                 if (!isPlaying)
                     return;
                 else if (soundPlayer == null || soundPlayer.isRemoved || soundPlayer.IsDestroyed())
-                    _time = value;
+                    _internalTime = value;
                 else //사운드 플레이어의 구현이 정상적이라면 사운드 플레이어의 시간이 변경됨과 동시에 이벤트로 인해 time의 시간도 바뀌게 됩니다
                     soundPlayer.time = (float)value;
             }
         }
-        static double _time;
+        static double _internalTime;
 
         public static bool isPaused
         {
             get
             {
-                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed() && time >= 0 && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
+                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed() && internalTime >= 0 && internalTime <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     _isPaused = soundPlayer.isPaused;
 
                 return _isPaused;
@@ -72,7 +79,7 @@ namespace SCKRM.Rhythm
             {
                 _isPaused = value;
 
-                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed() && time >= 0 && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
+                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed() && internalTime >= 0 && internalTime <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     soundPlayer.isPaused = value;
             }
         }
@@ -129,8 +136,8 @@ namespace SCKRM.Rhythm
                 double timePlusValue = Kernel.deltaTime * speed;
                 if (soundPlayer != null && soundPlayer.isActived)
                 {
-                    double sync = soundPlayer.time - time;
-                    if (time < 0)
+                    double sync = soundPlayer.time - internalTime;
+                    if (internalTime < 0)
                     {
                         if (soundPlayer.time != 0)
                         {
@@ -143,12 +150,12 @@ namespace SCKRM.Rhythm
                         isStart = true;
 
                         if (!isPaused)
-                            _time += timePlusValue;
+                            _internalTime += timePlusValue;
                     }
-                    else if (time > soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
+                    else if (internalTime > soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     {
                         if (soundPlayer.loop)
-                            _time = 0;
+                            _internalTime = 0;
                         else
                         {
                             soundPlayer.isPaused = true;
@@ -156,34 +163,34 @@ namespace SCKRM.Rhythm
                         }
 
                         if (!isPaused)
-                            _time += timePlusValue;
+                            _internalTime += timePlusValue;
                     }
                     else if (sync.Abs() >= 0.015625)
                     {
                         if (sync * speed.Sign() >= 0)
                         {
-                            _time = soundPlayer.time;
+                            _internalTime = soundPlayer.time;
 
                             if (sync.Abs() >= 1)
                                 FixBPM();
                         }
                     }
                     else if (!isPaused)
-                        _time += timePlusValue;
+                        _internalTime += timePlusValue;
 
-                    if (isStart && time >= 0)
+                    if (isStart && internalTime >= 0)
                     {
                         soundPlayer.isPaused = false;
                         isStart = false;
                     }
-                    else if (isEnd && time <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
+                    else if (isEnd && internalTime <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
                     {
                         soundPlayer.isPaused = false;
                         isEnd = false;
                     }
                 }
                 else
-                    _time += timePlusValue;
+                    _internalTime += timePlusValue;
 
                 SetCurrentBeat();
 
@@ -227,7 +234,7 @@ namespace SCKRM.Rhythm
 
         static void SetCurrentBeat()
         {
-            double soundTime = (double)time - offset - bpmOffsetTime;
+            double soundTime = (double)time - bpmOffsetTime;
             double bpmDivide60 = bpm / 60d;
 
             currentBeat = (soundTime * bpmDivide60) + bpmOffsetBeat;
@@ -283,7 +290,7 @@ namespace SCKRM.Rhythm
         {
             Debug.Log("Play");
 
-            _time = -(startDelay - offset).Clamp(0);
+            _internalTime = -(startDelay - offset).Clamp(0);
 
             currentBeat = double.MinValue;
             currentBeatScreen1Beat = 0;
@@ -325,7 +332,7 @@ namespace SCKRM.Rhythm
         {
             Debug.Log("Stop");
 
-            _time = 0;
+            _internalTime = 0;
 
             currentBeat = double.MinValue;
             currentBeatScreen1Beat = 0;
@@ -355,9 +362,9 @@ namespace SCKRM.Rhythm
         {
             timeChangedEventLock = true;
 
-            _time -= value;
+            _internalTime -= value;
             if (soundPlayer != null)
-                soundPlayer.time = _time.Clamp(0, soundPlayer.length - 0.01f);
+                soundPlayer.time = _internalTime.Clamp(0, soundPlayer.length - 0.01f);
 
             timeChangedEventLock = false;
         }
@@ -379,7 +386,7 @@ namespace SCKRM.Rhythm
 
             if (RhythmManager.soundPlayer != null)
             {
-                soundPlayer.time = time.Clamp(0, soundPlayer.length - 0.01f);
+                soundPlayer.time = internalTime.Clamp(0, soundPlayer.length - 0.01f);
 
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
                 RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
@@ -431,7 +438,7 @@ namespace SCKRM.Rhythm
             {
                 Debug.Log("Sound Player Time Changed");
 
-                _time = soundPlayer.time;
+                _internalTime = soundPlayer.time;
                 FixBPM();
             }
         }
