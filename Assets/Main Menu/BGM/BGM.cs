@@ -43,8 +43,8 @@ namespace SDJK.MainMenu
                 SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip);
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
-                soundPlayer = SoundManager.PlaySound(soundData, 0, true);
-                soundPlayer.looped += Looped;
+                soundPlayer = SoundManager.PlaySound(soundData, 0);
+                soundPlayer.removed += Removed;
 
                 RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
@@ -55,8 +55,8 @@ namespace SDJK.MainMenu
                 NBSMetaData nbsMetaData = ResourceManager.CreateNBSMetaData(1, 1, nbsFile);
                 SoundData<NBSMetaData> soundData = ResourceManager.CreateSoundData("", true, nbsMetaData);
 
-                soundPlayer = SoundManager.PlayNBS(soundData, 0, true);
-                soundPlayer.looped += Looped;
+                soundPlayer = SoundManager.PlayNBS(soundData, 0);
+                soundPlayer.removed += Removed;
 
                 RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
@@ -77,12 +77,6 @@ namespace SDJK.MainMenu
         {
             if (!isLoaded || ResourceManager.isAudioReset)
                 return;
-
-            if (soundPlayer.isRemoved)
-            {
-                Remove();
-                return;
-            }
 
             if (padeOut)
             {
@@ -114,14 +108,16 @@ namespace SDJK.MainMenu
             }
         }
 
-        void Looped()
+        void Removed()
         {
-            if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
-                RhythmManager.internalTime = (float)map.info.mainMenuStartTime;
-            else
+            if (!padeOut)
             {
-                MapManager.RulesetNextMapPack();
-                Remove();
+                AudioDestroy();
+
+                if (MainMenu.currentScreenMode == ScreenMode.mapPackSelect || MainMenu.currentScreenMode == ScreenMode.mapSelect)
+                    Refresh(null, 0).Forget();
+                else
+                    MapManager.RulesetNextMapPack();
             }
         }
 
@@ -131,7 +127,7 @@ namespace SDJK.MainMenu
             {
                 if (soundPlayer != null)
                 {
-                    soundPlayer.looped -= Looped;
+                    soundPlayer.removed -= Removed;
 
                     if (!soundPlayer.isRemoved)
                         soundPlayer.Remove();
