@@ -79,7 +79,7 @@ namespace SCKRM.Rhythm
             }
             else
             {
-                TPair beatValuePair = this[(GetValueIndexBinarySearch(currentBeat) - 1).Clamp(0)];
+                TPair beatValuePair = this[GetValueIndexBinarySearch(currentBeat).Clamp(0)];
 
                 beat = beatValuePair.beat;
                 value = beatValuePair.value;
@@ -171,7 +171,7 @@ namespace SCKRM.Rhythm
                     high = index;
             }
 
-            return low;
+            return low - 1;
         }
     }
     #endregion
@@ -201,7 +201,7 @@ namespace SCKRM.Rhythm
             }
             else
             {
-                int index = (GetValueIndexBinarySearch(currentBeat) - 1).Clamp(0);
+                int index = GetValueIndexBinarySearch(currentBeat).Clamp(0);
                 TPair beatValuePair = this[index];
                 beat = beatValuePair.beat;
 
