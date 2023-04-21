@@ -12,6 +12,8 @@ namespace SCKRM.Object
 
         IRefreshable[] refreshableObjects { get; }
 
+        Action removed { get; set; }
+
         void OnCreate();
 
         bool IsDestroyed();
@@ -36,6 +38,11 @@ namespace SCKRM.Object
         {
             if (!objectPooling.isActived)
                 return false;
+            if (!Kernel.isPlaying)
+                return false;
+
+            objectPooling.removed?.Invoke();
+            objectPooling.removed = null;
 
             ObjectPoolingSystem.ObjectRemove(objectPooling.objectKey, monoBehaviour, objectPooling);
             monoBehaviour.name = objectPooling.objectKey;
@@ -56,10 +63,13 @@ namespace SCKRM.Object
         {
             if (!objectPooling.isActived)
                 return false;
-
-            ObjectPoolingSystem.ObjectRemove(objectPooling.objectKey, ui, objectPooling);
             if (!Kernel.isPlaying)
                 return false;
+
+            objectPooling.removed?.Invoke();
+            objectPooling.removed = null;
+
+            ObjectPoolingSystem.ObjectRemove(objectPooling.objectKey, ui, objectPooling);
 
             ui.name = objectPooling.objectKey;
 
@@ -90,6 +100,9 @@ namespace SCKRM.Object
 
         IRefreshable[] _refreshableObjects;
         [WikiDescription("새로고침 가능한 오브젝트들을 가져옵니다")] public IRefreshable[] refreshableObjects => _refreshableObjects = this.GetComponentsInChildrenFieldSave(_refreshableObjects, true);
+
+        Action IObjectPooling.removed { get => _removed; set => _removed = value; }
+        public event Action removed { add => _removed += value; remove => _removed -= value; } Action _removed = null;
 
 
 

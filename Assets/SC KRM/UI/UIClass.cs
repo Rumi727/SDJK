@@ -67,6 +67,9 @@ namespace SCKRM.UI
         IRefreshable[] _refreshableObjects;
         public IRefreshable[] refreshableObjects => _refreshableObjects = this.GetComponentsInChildrenFieldSave(_refreshableObjects, true);
 
+        Action IObjectPooling.removed { get => _removed; set => _removed = value; }
+        public event Action removed { add => _removed += value; remove => _removed -= value; } Action _removed = null;
+
 
 
         /// <summary>
