@@ -421,7 +421,7 @@ MonoBehaviour:
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
-  _spacing: 0
+  _spacing: 5
   _disabledObjectIgnore: 1
   _ignore: []
   _allLerp: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
   _lerp: 0
   _lerpValue: 0.2
   _awakeNoAni: 0
-  _spacing: 0
+  _spacing: 5
   _disabledObjectIgnore: 1
   _ignore: []
   _xSize: 1
@@ -493,7 +493,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 44, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2705830980298259417
 MonoBehaviour:
@@ -1329,7 +1329,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -16}
-  m_SizeDelta: {x: 0, y: 32}
+  m_SizeDelta: {x: 64, y: 32}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2705830981229176907
 MonoBehaviour:
