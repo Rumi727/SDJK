@@ -561,6 +561,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                     if (allBeat.Count > 0)
                         adofaiMap.info.clearBeat = allBeat.Last() + 4;
+
+                    adofaiMap.Init(mapFilePath);
                 }
 
                 return adofaiMap;
