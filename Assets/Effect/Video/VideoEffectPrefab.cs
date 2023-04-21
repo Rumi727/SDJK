@@ -118,7 +118,7 @@ namespace SDJK.Effect
 
                 rawImage.color = map.globalEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
 
-                double time = RhythmManager.time + offset;
+                double time = RhythmManager.internalTime + offset;
                 if (time >= 0 && time < videoPlayer.length - 0.1f)
                 {
                     double dis = time - videoPlayer.time;
