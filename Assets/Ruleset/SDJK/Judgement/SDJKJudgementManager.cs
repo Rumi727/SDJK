@@ -353,7 +353,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         //콤보
                         instance.combo += 1;
 
-                        double comboMultiplier = 0.25;
+                        double comboMultiplier = 0.75;
                         {
                             IMode comboMultiplierMode;
                             if ((comboMultiplierMode = sdjkManager.modes.FindMode<ComboMultiplierModeBase>()) != null)
