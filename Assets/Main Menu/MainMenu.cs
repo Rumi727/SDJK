@@ -12,6 +12,7 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
+using SDJK.MainMenuLoader;
 using SDJK.Mode;
 using SDJK.Replay;
 using SDJK.Ruleset;
@@ -365,6 +366,7 @@ namespace SDJK.MainMenu
 #endif
         }
 
+        [MainMenuLoadMethod]
         public static async UniTaskVoid MainMenuLoad()
         {
             StatusBarManager.statusBarForceHide = false;
