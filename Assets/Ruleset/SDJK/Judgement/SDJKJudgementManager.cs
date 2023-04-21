@@ -1,7 +1,6 @@
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
-using SCKRM.Sound;
 using SDJK.Effect;
 using SDJK.Ruleset.SDJK.Input;
 using SDJK.Map.Ruleset.SDJK.Map;
@@ -16,8 +15,10 @@ using SDJK.Replay.Ruleset.SDJK;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
-    public sealed class SDJKJudgementManager : ManagerBase<SDJKJudgementManager>, IJudgementManager
+    public sealed class SDJKJudgementManager : JudgementManagerBase
     {
+        public static new SDJKJudgementManager instance => (SDJKJudgementManager)JudgementManagerBase.instance;
+
         [SerializeField] SDJKManager _sdjkManager; public SDJKManager sdjkManager => _sdjkManager;
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
@@ -25,36 +26,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] bool auto = false;
 
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
-
-
-
-        public int combo { get; private set; }
-        public int maxCombo { get; private set; }
-
-        public double score { get; private set; }
-
-        /// <summary>
-        /// 0 ~ 1 (0에 가까울수록 정확함)
-        /// </summary>
-        public double accuracyAbs { get; private set; } = 0;
-        List<double> accuracyAbsList { get; } = new List<double>();
-
-        /// <summary>
-        /// -1 ~ 1 (0에 가까울수록 정확함)
-        /// </summary>
-        public double accuracy { get; private set; } = 0;
-        List<double> accuracys { get; } = new List<double>();
-
-        public double rankProgress { get; private set; } = 0;
-
-        public double health 
-        { 
-            get => _health; 
-            private set => _health = value.Clamp(0, maxHealth); 
-        }
-        double _health = maxHealth;
-
-        public const double maxHealth = 100;
 
 
 
@@ -80,16 +51,19 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
         public List<Action> pressAction = new List<Action>();
         public List<Action> pressUpAction = new List<Action>();
-        public event JudgementAction judgementAction;
+
+
+
+        public JudgementAction judgementAction;
         public delegate void JudgementAction(double disSecond, bool isMiss, double accuracy, double generousAcccuracy, JudgementMetaData metaData);
 
 
 
         List<JudgementObject> judgements = new List<JudgementObject>();
         List<HoldJudgementObject> holdJudgements = new List<HoldJudgementObject>();
-        public void Refresh()
+        public override bool Refresh()
         {
-            if (SingletonCheck(this))
+            if (base.Refresh())
             {
                 judgements.Clear();
 
@@ -119,7 +93,11 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         sdjkManager.createdReplay.pressUpBeat.Add(new List<double>());
                     }
                 }
+
+                return true;
             }
+
+            return false;
         }
 
         void Update()

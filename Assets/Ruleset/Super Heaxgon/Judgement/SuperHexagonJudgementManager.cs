@@ -13,8 +13,10 @@ using SDJK.Replay.Ruleset.SuperHexagon;
 
 namespace SDJK.Ruleset.SuperHexagon.Judgement
 {
-    public sealed class SuperHexagonJudgementManager : ManagerBase<SuperHexagonJudgementManager>, IJudgementManager
+    public sealed class SuperHexagonJudgementManager : JudgementManagerBase
     {
+        public static new SuperHexagonJudgementManager instance => (SuperHexagonJudgementManager)JudgementManagerBase.instance;
+
         [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] SuperHexagonGameOverManager _gameOverManager; public SuperHexagonGameOverManager gameOverManager => _gameOverManager;
@@ -24,34 +26,10 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
 
 
-        public int combo { get; private set; }
-        public int maxCombo { get; private set; }
-
-        public double score { get; private set; }
-
-        /// <summary>
-        /// 0 ~ 1 (0에 가까울수록 정확함)
-        /// </summary>
-        public double accuracy { get; private set; } = 0;
-        List<double> accuracys = new List<double>();
-
-        public double rankProgress { get; private set; } = 1;
-
-        public double health 
-        { 
-            get => _health; 
-            private set => _health = value.Clamp(0, maxHealth); 
-        }
-        double _health = maxHealth;
-
-        public const double maxHealth = 100;
-
-
-
         public event JudgementAction judgementAction;
         public delegate void JudgementAction(bool isMiss);
 
-        public void Refresh() => SingletonCheck(this);
+
 
         int currentNoteIndex = 0;
         void Update()

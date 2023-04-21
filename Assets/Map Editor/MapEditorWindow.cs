@@ -49,7 +49,7 @@ namespace SDJK.MapEditor
             for (int i = 0; i < monoBehaviours.Length; i++)
             {
                 MonoBehaviour monoBehaviour = monoBehaviours[i];
-                if (monoBehaviour is IJudgementManager)
+                if (monoBehaviour is JudgementManagerBase)
                     judgementManagers.Add(monoBehaviour);
             }
         }
