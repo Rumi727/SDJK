@@ -123,23 +123,25 @@ namespace SDJK.Effect
                 {
                     double dis = time - videoPlayer.time;
                     float speed = (float)(RhythmManager.speed * Kernel.gameSpeed);
-                    videoPlayer.playbackSpeed = speed;
 
-                    if (time >= 0)
+                    if (!videoPlayer.isPaused)
+                        videoPlayer.playbackSpeed = speed;
+
+                    if (dis.Abs() < 1)
                     {
-                        if (dis.Abs() < 1)
-                        {
-                            canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
+                        canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
 
+                        if (!videoPlayer.isPaused)
+                        {
                             if (dis >= 0.015625)
                                 videoPlayer.playbackSpeed = speed * 4;
 
                             if (dis <= -0.015625)
                                 videoPlayer.playbackSpeed = speed * 0.25f;
                         }
-                        else
-                            videoPlayer.time = time;
                     }
+                    else if (!videoPlayer.isPaused)
+                        videoPlayer.time = time;
 
                     if (videoPlayer.isPaused != (RhythmManager.isPaused && RhythmManager.time >= 0))
                     {
