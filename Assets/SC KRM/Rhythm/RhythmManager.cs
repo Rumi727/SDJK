@@ -119,7 +119,6 @@ namespace SCKRM.Rhythm
 
         static int tempCurrentBeat = 0;
         static bool isStart = false;
-        static bool isEnd = false;
         static double lastBPM = 0;
         void Update()
         {
@@ -156,11 +155,6 @@ namespace SCKRM.Rhythm
                     {
                         if (soundPlayer.loop)
                             _internalTime = 0;
-                        else
-                        {
-                            soundPlayer.isPaused = true;
-                            isEnd = true;
-                        }
 
                         if (!isPaused)
                             _internalTime += timePlusValue;
@@ -182,11 +176,6 @@ namespace SCKRM.Rhythm
                     {
                         soundPlayer.isPaused = false;
                         isStart = false;
-                    }
-                    else if (isEnd && internalTime <= soundPlayer.length - MathUtility.epsilonFloatWithAccuracy)
-                    {
-                        soundPlayer.isPaused = false;
-                        isEnd = false;
                     }
                 }
                 else
@@ -322,7 +311,6 @@ namespace SCKRM.Rhythm
             isPlaying = true;
             isPaused = false;
             isStart = false;
-            isEnd = false;
 
             FixBPM();
         }
@@ -355,7 +343,6 @@ namespace SCKRM.Rhythm
 
             isPlaying = false;
             isStart = false;
-            isEnd = false;
         }
 
         public static void Rewind(double value)
