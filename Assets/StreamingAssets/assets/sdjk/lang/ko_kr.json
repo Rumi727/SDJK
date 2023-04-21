@@ -39,6 +39,10 @@
 	"options.main_menu.logoEffectEnable": "로고 이펙트 활성화",
 	"options.main_menu.logoEffectEnable.info": "로고에 몇몇 이펙트를 적용합니다",
 	
+	"options.background.title": "배경",
+	"options.background.backgroundTransparency": "배경 투명도",
+	"options.background.backgroundTransparency.info": "배경이 어두운 정도",
+	
 	"options.sdjk_map_loader.title": "SDJK 맵 로더",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!mania 노트 속도",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!mania 맵을 SDJK 맵으로 불러올때 노트의 속도를 결정합니다",

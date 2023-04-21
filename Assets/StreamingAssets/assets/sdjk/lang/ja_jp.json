@@ -39,6 +39,10 @@
 	"options.main_menu.logoEffectEnable": "ロゴエフェクトを有効にする",
 	"options.main_menu.logoEffectEnable.info": "ロゴにいくつかのエフェクトを適用します",
 	
+	"options.background.title": "背景",
+	"options.background.backgroundTransparency": "背景透明度",
+	"options.background.backgroundTransparency.info": "背景が暗い程度",
+	
 	"options.sdjk_map_loader.title": "SDJKマップローダー",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!maniaノートスピード",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!maniaマップをSDJKマップに読み込むときのノートの速度を決定します",

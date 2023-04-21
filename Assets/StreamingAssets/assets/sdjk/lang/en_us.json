@@ -39,6 +39,10 @@
 	"options.main_menu.logoEffectEnable": "Enable Logo Effect",
 	"options.main_menu.logoEffectEnable.info": "Apply some effects to your logo",
 	
+	"options.background.title": "Background",
+	"options.background.backgroundTransparency": "Background Transparency",
+	"options.background.backgroundTransparency.info": "How dark the background is",
+	
 	"options.sdjk_map_loader.title": "SDJK Map Loder",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!mania Note Speed",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "Determines the speed of notes when loading osu!mania maps as SDJK maps",
