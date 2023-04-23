@@ -1,6 +1,6 @@
 namespace System.Collections.Generic
 {
-    public interface ITypeList
+    public interface ITypeList : IList
     {
         Type listType { get; }
     }

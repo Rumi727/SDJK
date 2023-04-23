@@ -200,14 +200,12 @@ namespace SDJK.MapEditor
                             EditorGUILayout.EndHorizontal();
                             return true;
                         }
-                        else if (typeof(IList).IsAssignableFrom(type) && typeof(ITypeList).IsAssignableFrom(type))
+                        else if (typeof(ITypeList).IsAssignableFrom(type))
                         {
                             object value = currentObject;
-
-                            IList list = (IList)value;
-                            ITypeList listType = (ITypeList)value;
+                            ITypeList list = (ITypeList)value;
                             
-                            displayRestrictionsIndex = CustomInspectorEditor.DrawList(listType.listType, list, "", Top, StringDefault, tab, tab + 1, true, 30, displayRestrictionsIndex);
+                            displayRestrictionsIndex = CustomInspectorEditor.DrawList(list.listType, list, "", Top, StringDefault, tab, tab + 1, true, 30, displayRestrictionsIndex);
 
                             object Top(object currentObject)
                             {
