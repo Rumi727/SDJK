@@ -16,6 +16,21 @@ namespace SDJK.Effect
         [SerializeField, Min(0)] float _width = 10; public float width => _width;
         [SerializeField] bool _forceShow = false; public bool forceShow => _forceShow;
 
+        void OnEnable()
+        {
+            PrefabRefresh();
+            lastCount = count.CeilToInt();
+        }
+
+        void OnDisable()
+        {
+            for (int i = 0; i < prefabs.Count; i++)
+                prefabs[i].Remove();
+
+            prefabs.Clear();
+            lastCount = -1;
+        }
+
         int lastCount = -1;
         protected override void RealUpdate()
         {
@@ -31,6 +46,8 @@ namespace SDJK.Effect
         {
             for (int i = 0; i < prefabs.Count; i++)
                 prefabs[i].Remove();
+
+            prefabs.Clear();
 
             for (int i = 0; i < count.Ceil(); i++)
             {
