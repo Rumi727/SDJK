@@ -212,6 +212,7 @@ namespace SDJK.Map.Ruleset.OsuMania
                                     double time = int.Parse(splitText[0]) * 0.001;
                                     double bpm = (1d / double.Parse(splitText[1]) * 1000d * 60d).Floor();
                                     bool uninherited = splitText[6] == "0";
+                                    bool kiai = splitText[7] == "1";
 
                                     if (timingPointsSectionStartLine)
                                     {
@@ -231,7 +232,7 @@ namespace SDJK.Map.Ruleset.OsuMania
                                         timingPointsSectionBPM = bpm;
                                     }
 
-                                    osuManiaMap.globalEffect.yukiMode.Add(beat, splitText[7] != "0");
+                                    osuManiaMap.globalEffect.yukiMode.Add(beat, kiai, false);
 
                                     timingPointsSectionLastBeat = beat;
                                     timingPointsSectionLastTime = time;
