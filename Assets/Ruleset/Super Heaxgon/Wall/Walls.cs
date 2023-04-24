@@ -46,7 +46,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 }
 
                 SuperHexagonBarEffectFile barEffect = null;
-                NoteConfigFile config;
+                NoteConfigFile config = new NoteConfigFile();
                 if (wall.index < map.effect.barEffect.Count)
                 {
                     barEffect = map.effect.barEffect[wall.index];
