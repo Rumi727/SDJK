@@ -42,6 +42,8 @@ namespace SDJK.Ruleset.SDJK.Effect
                 judgementManager.pressAction[bar.barIndex] -= Press;
                 judgementManager.pressUpAction[bar.barIndex] -= PressUp;
             }
+
+            isKeyEnable = false;
         }
 
         void Press()
