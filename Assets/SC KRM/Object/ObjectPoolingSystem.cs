@@ -168,12 +168,12 @@ namespace SCKRM.Object
             if (objectPooling == null)
                 throw new NullReferenceException(nameof(objectPooling));
 
-            monoBehaviour.gameObject.SetActive(false);
-            monoBehaviour.transform.SetParent(instance.transform);
-
 #pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
             objectPooling.isActived = false;
 #pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+
+            monoBehaviour.gameObject.SetActive(false);
+            monoBehaviour.transform.SetParent(instance.transform);
 
             objectList.objectKey.Add(objectKey);
             objectList.objectPooling.Add((monoBehaviour, objectPooling));
