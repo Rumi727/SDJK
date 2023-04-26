@@ -22,15 +22,6 @@ namespace SDJK.Effect
             lastCount = count.CeilToInt();
         }
 
-        void OnDisable()
-        {
-            for (int i = 0; i < prefabs.Count; i++)
-                prefabs[i].Remove();
-
-            prefabs.Clear();
-            lastCount = -1;
-        }
-
         int lastCount = -1;
         protected override void RealUpdate()
         {
