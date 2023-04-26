@@ -155,8 +155,8 @@ namespace SDJK.MapEditor
             if (GUILayout.Button("다른 이름으로 저장", GUILayout.ExpandWidth(false)))
             {
                 string path = EditorUtility.SaveFilePanel("다른 이름으로 저장", Kernel.saveDataPath, "map.sdjk", "sdjk");
-                if (File.Exists(path))
-                    File.WriteAllText(mapFile.mapFilePath, JsonManager.ObjectToJson(mapFile));
+                if (!string.IsNullOrEmpty(path))
+                    File.WriteAllText(path, JsonManager.ObjectToJson(mapFile));
             }
 
             GUILayout.Label("K8: " + up, GUILayout.ExpandWidth(false));

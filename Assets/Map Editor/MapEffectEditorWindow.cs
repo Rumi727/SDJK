@@ -437,7 +437,7 @@ namespace SDJK.MapEditor
                         || propertyType == typeof(JColor)
                         || propertyType == typeof(JColor32)
                         || propertyType == typeof(AnimationCurve)
-                        || typeof(IList).IsAssignableFrom(propertyType))
+                        || typeof(ITypeList).IsAssignableFrom(propertyType))
                         AddChild(ref id);
                     else if (typeof(ICollection).IsAssignableFrom(propertyType))
                         continue;
