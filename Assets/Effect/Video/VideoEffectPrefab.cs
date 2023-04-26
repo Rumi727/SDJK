@@ -4,6 +4,7 @@ using SCKRM.Resource;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
+using SDJK.Map;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,9 @@ namespace SDJK.Effect
         public RenderTexture renderTexture { get; private set; } = null;
 
         public EffectManager effectManager { get; private set; } = null;
-        public Map.MapFile map { get; private set; } = null;
+
+        public MapPack mapPack { get; private set; } = null;
+        public MapFile map { get; private set; } = null;
 
 
 
@@ -59,6 +62,7 @@ namespace SDJK.Effect
             refreshed = true;
             this.effectManager = effectManager;
 
+            mapPack = effectManager.selectedMapPack;
             map = effectManager.selectedMap;
 
             DateTime now = DateTime.Now;
@@ -109,7 +113,13 @@ namespace SDJK.Effect
                 return;
             }
 
-            if (!isPadeOut && videoPlayer.isPrepared && videoPlayer.canStep && map == effectManager.selectedMap)
+            if (!isPadeOut &&
+                videoPlayer.isPrepared &&
+                videoPlayer.canStep &&
+                mapPack == effectManager.selectedMapPack &&
+                map.info.videoBackgroundFile == effectManager.selectedMap.info.videoBackgroundFile &&
+                map.info.videoBackgroundNightFile == effectManager.selectedMap.info.videoBackgroundNightFile &&
+                map.info.videoOffset == effectManager.selectedMap.info.videoOffset)
             {
                 isPlaying = true;
 

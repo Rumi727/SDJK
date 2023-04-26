@@ -15,11 +15,11 @@ namespace SDJK.Effect
         double lastVideoOffset;
         public override void Refresh(bool force = false)
         {
-            if (video != null && !video.isRemoved)
-                video.PadeOut().Forget();
-
             if (force || lastMapPack != mapPack || lastVideoBackgroundFile != map.info.videoBackgroundFile || lastVideoBackgroundNightFile != map.info.videoBackgroundNightFile || lastVideoOffset != map.info.videoOffset)
             {
+                if (video != null && !video.isRemoved)
+                    video.PadeOut().Forget();
+
                 video = (VideoEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
                 video.Refresh(effectManager);
 
