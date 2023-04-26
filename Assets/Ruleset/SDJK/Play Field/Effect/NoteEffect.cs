@@ -22,7 +22,9 @@ namespace SDJK.Ruleset.SDJK
 
         void ColorUpdate()
         {
-            Color color = bar.barEffectFile.noteColor.GetValue(RhythmManager.currentBeatSound);
+            double currentBeat = RhythmManager.currentBeatSound;
+            Color color = bar.barEffectFile.noteColor.GetValue(currentBeat) * (Color)note.config.noteColor.GetValue(currentBeat);
+
             if (type == SDJKNoteTypeFile.instantDeath)
                 color = new Color(1, 0, 0, color.a);
             else if (type == SDJKNoteTypeFile.auto)

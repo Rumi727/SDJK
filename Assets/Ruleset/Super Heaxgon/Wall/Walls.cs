@@ -62,6 +62,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 WallRenderer wallRenderer = wall.wallRenderer;
                 float distance = (float)(zoom + ((wall.note.beat - currentBeat) * noteSpeed));
                 float width;
+                Color color = config.noteColor.GetValue(currentBeat);
 
                 wallRenderer.distance = distance + field.globalWallOffset;
                 if (wall.note.holdLength > 0)
@@ -76,13 +77,13 @@ namespace SDJK.Ruleset.SuperHexagon
 
                 if (field.isMainColorAltReversal)
                 {
-                    wallRenderer.color = mainColor;
-                    wallRenderer.colorAlt = mainColorAlt;
+                    wallRenderer.color = mainColor * color;
+                    wallRenderer.colorAlt = mainColorAlt * color;
                 }
                 else
                 {
-                    wallRenderer.color = mainColorAlt;
-                    wallRenderer.colorAlt = mainColor;
+                    wallRenderer.color = mainColorAlt * color;
+                    wallRenderer.colorAlt = mainColor * color;
                 }
 
                 if (distance <= 50 && !field.manager.gameOverManager.isGameOver)

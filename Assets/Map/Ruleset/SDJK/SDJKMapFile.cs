@@ -74,7 +74,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
 
-        public BeatValuePairList<NoteConfigFile> noteConfig { get; set; } = new(new NoteConfigFile(new(1)));
+        public BeatValuePairList<NoteConfigFile> noteConfig { get; set; } = new(new NoteConfigFile());
 
         public BeatValuePairList<bool> noteStop { get; set; } = new(false);
         public BeatValuePairAniListDouble noteOffset { get; set; } = new(0);
