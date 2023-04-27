@@ -15,11 +15,9 @@ jobs:
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
           - Android # Build an Android .apk standalone app.
     steps:
-      # Checkout
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          lfs: true
+      # Checkout (without LFS)
+      - name: Checkout repository
+        uses: actions/checkout@v2
           
       # Git LFS
       - name: Create LFS file list
@@ -47,6 +45,7 @@ jobs:
             Library-
       
       # Build
+      - name: Build project
       - uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
