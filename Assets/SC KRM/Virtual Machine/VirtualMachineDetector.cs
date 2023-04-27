@@ -36,7 +36,7 @@ namespace SCKRM.VM
 
             return false;
 #else
-            throw new NotSupportedException();
+            throw new System.NotSupportedException();
 #endif
         }
 
@@ -46,7 +46,7 @@ namespace SCKRM.VM
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             return Process.GetProcesses().Any(x => x.ProcessName == "vmtoolsd" || x.ProcessName == "VBoxTray" || x.ProcessName == "VBoxService");
 #else
-            throw new NotSupportedException();
+            throw new System.NotSupportedException();
 #endif
         }
 
@@ -56,7 +56,7 @@ namespace SCKRM.VM
 #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             return Directory.Exists("C:/Program Files/VMware/VMware Tools") || Directory.Exists("C:/Program Files/Oracle/VirtualBox Guest Additions");
 #else
-            throw new NotSupportedException();
+            throw new System.NotSupportedException();
 #endif
         }
     }
