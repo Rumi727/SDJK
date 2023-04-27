@@ -18,6 +18,45 @@
 * osu!mania (Hidden)
   * .osu (osu!mania file format v14)
   
+## [MapFile](Assets/Map/MapFile.cs) 클래스가 지원하는 타입
+[ITypeList]: Assets/SC%20KRM/TypeList.cs#L3
+[object]: https://learn.microsoft.com/ko-kr/dotnet/api/System.Object
+
+* [object]
+* [ValueType](https://learn.microsoft.com/ko-kr/dotnet/api/System.ValueType)
+* [bool](https://learn.microsoft.com/ko-kr/dotnet/api/System.Boolean)
+* [byte](https://learn.microsoft.com/ko-kr/dotnet/api/System.Byte)
+* [sbyte](https://learn.microsoft.com/ko-kr/dotnet/api/System.SByte)
+* [short](https://learn.microsoft.com/ko-kr/dotnet/api/System.Int16)
+* [ushort](https://learn.microsoft.com/ko-kr/dotnet/api/System.UInt16)
+* [int](https://learn.microsoft.com/ko-kr/dotnet/api/System.Int32)
+* [uint](https://learn.microsoft.com/ko-kr/dotnet/api/System.UInt32)
+* [long](https://learn.microsoft.com/ko-kr/dotnet/api/System.Int64)
+* [ulong](https://learn.microsoft.com/ko-kr/dotnet/api/System.UInt64)
+* [float](https://learn.microsoft.com/ko-kr/dotnet/api/System.Single)
+* [double](https://learn.microsoft.com/ko-kr/dotnet/api/System.Double)
+* [decimal](https://learn.microsoft.com/ko-kr/dotnet/api/System.Decimal)
+* [nint](https://learn.microsoft.com/ko-kr/dotnet/api/System.IntPtr)
+* [unint](https://learn.microsoft.com/ko-kr/dotnet/api/System.UIntPtr)
+* [char](https://learn.microsoft.com/ko-kr/dotnet/api/System.Char)
+* [string](https://learn.microsoft.com/ko-kr/dotnet/api/System.String)
+* [BigInteger](https://learn.microsoft.com/ko-kr/dotnet/api/System.Numerics.BigInteger)
+* [BigDecimal](https://github.com/AdamWhiteHat/BigDecimal)
+* [JVector2](Assets/SC%20KRM/Json/JsonManager.cs#L90)
+* [JVector3](Assets/SC%20KRM/Json/JsonManager.cs#L126)
+* [JVector4](Assets/SC%20KRM/Json/JsonManager.cs#L169)
+* [JRect](Assets/SC%20KRM/Json/JsonManager.cs#L221)
+* [JColor](Assets/SC%20KRM/Json/JsonManager.cs#L278)
+* [JColor32](Assets/SC%20KRM/Json/JsonManager.cs#L340)
+* [AnimationCurve](https://docs.unity3d.com/ScriptReference/AnimationCurve.html)
+* [Enum](https://learn.microsoft.com/ko-kr/dotnet/api/System.Enum)
+* [IBeatValuePair](Assets/SC%20KRM/Rhythm/RhythmMapFile.cs#L356)
+* [IBeatValuePairAni](Assets/SC%20KRM/Rhythm/RhythmMapFile.cs#L369)
+* [ITypeList]
+
+위에 서술 된 타입이 아니더라도 정상 작동은 하나, 에디터에서 표시되지 않음  
+(주의: [ITypeList] 인터페이스를 상속하지 않았지만 [ICollection](https://learn.microsoft.com/ko-kr/dotnet/api/System.Collections.ICollection) 인터페이스는 상속한 경우 [object] 클래스를 상속했더라도 제외됩니다)
+  
 ## 라이선스
 [Blacklist]: https://github.com/SimsimhanChobo/SDJK
 [SC KRM]: https://github.com/SimsimhanChobo/SC-KRM-1.0
