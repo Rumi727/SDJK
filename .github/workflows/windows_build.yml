@@ -52,7 +52,8 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: Windows
+          targetPlatform: StandaloneWindows
+          versioning: Semantic
 
       # Output
       - uses: actions/upload-artifact@v2
