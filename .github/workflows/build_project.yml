@@ -21,11 +21,11 @@ jobs:
           lfs: true
 
       # Cache
-      #- uses: actions/cache@v2
-        #with:
-          #path: Library
-          #key: Library-${{ matrix.targetPlatform }}
-          #restore-keys: Library-
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
       
       # Build
       - name: Build project
@@ -36,6 +36,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+          allowDirtyBuild: true
       
       # Output
       - uses: actions/upload-artifact@v2
