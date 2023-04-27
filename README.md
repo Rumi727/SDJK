@@ -18,7 +18,7 @@
 * osu!mania (Hidden)
   * .osu (osu!mania file format v14)
   
-## [MapFile](Assets/Map/MapFile.cs) 클래스가 지원하는 타입
+## [MapFile](Assets/Map/MapFile.cs#L21) 클래스가 지원하는 타입
 [ITypeList]: Assets/SC%20KRM/TypeList.cs#L3
 [object]: https://learn.microsoft.com/ko-kr/dotnet/api/System.Object
 
