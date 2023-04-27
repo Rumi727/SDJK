@@ -216,7 +216,7 @@ namespace SCKRM.Cursor
         [WikiIgnore]
         public static Vector2Int GetCursorPosition(float xDatumPoint, float yDatumPoint)
         {
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+#if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             bool success = GetCursorPos(out POINT lpPoint);
             if (!success)
                 return Vector2Int.zero;
@@ -233,7 +233,7 @@ namespace SCKRM.Cursor
         [WikiIgnore]
         public static Vector2Int GetClientCursorPosition(float xDatumPoint, float yDatumPoint)
         {
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+#if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             bool success = GetCursorPos(out POINT lpPoint);
             if (!success)
                 return Vector2Int.zero;
@@ -255,7 +255,7 @@ namespace SCKRM.Cursor
 
         static void setCursorPosition(int x, int y, float xDatumPoint, float yDatumPoint, bool force)
         {
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+#if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             if (!SaveData.ignoreMouseAcceleration || force)
                 SetCursorPos((x + ((ScreenManager.currentResolution.width - 1) * xDatumPoint)).RoundToInt(), (y + ((ScreenManager.currentResolution.height - 1) * yDatumPoint)).RoundToInt());
             else
@@ -270,7 +270,7 @@ namespace SCKRM.Cursor
         [WikiIgnore] public static void SetClientCursorPosition(int x, int y, float xDatumPoint = 0, float yDatumPoint = 0) => setClientCursorPosition(x, y, xDatumPoint, yDatumPoint, false);
         static void setClientCursorPosition(int x, int y, float xDatumPoint, float yDatumPoint, bool force)
         {
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+#if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN
             Vector2Int clientSize = WindowManager.GetClientSize();
             Vector2 border = (Vector2)(WindowManager.GetWindowSize() - clientSize) * 0.5f;
             Vector2Int offset = WindowManager.GetWindowPos(Vector2.zero, Vector2.zero) + new Vector2Int((border.x).RoundToInt(), (border.y).RoundToInt());
