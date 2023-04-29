@@ -37,6 +37,7 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           allowDirtyBuild: true
+          buildName: SDJK
       
       # Output
       - uses: actions/upload-artifact@v2
