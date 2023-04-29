@@ -58,7 +58,7 @@
 (주의: [ITypeList] 인터페이스를 상속하지 않았지만 [ICollection](https://learn.microsoft.com/ko-kr/dotnet/api/System.Collections.ICollection) 인터페이스는 상속한 경우 [object] 클래스를 상속했더라도 제외됩니다)
   
 ## 라이선스
-[Blacklist]: https://github.com/SimsimhanChobo/SDJK
+[Blacklist]: https://docs.google.com/document/d/1A8kz4DJOdLEtf-kybrKnGR51XDNZVHmojCU86KaDgKg
 [SC KRM]: https://github.com/SimsimhanChobo/SC-KRM-1.0
 [SDJK]: https://github.com/SimsimhanChobo/SDJK
 [Simsimhan Chobo]: https://github.com/SimsimhanChobo
