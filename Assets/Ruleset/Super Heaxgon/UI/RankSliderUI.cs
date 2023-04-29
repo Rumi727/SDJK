@@ -18,11 +18,6 @@ namespace SDJK.Ruleset.SuperHexagon.UI
             if (!RhythmManager.isPlaying)
                 return;
 
-            fill.fillAmount = (float)end.InverseLerp(start, judgementManager.rankProgress);
-        }
-
-        protected override void JudgementAction(bool isMiss)
-        {
             RankMetaData rank = manager.ruleset.GetRank(judgementManager.rankProgress, out int index);
             if (index > 0)
                 start = manager.ruleset.rankMetaDatas[index - 1].size;
@@ -30,6 +25,8 @@ namespace SDJK.Ruleset.SuperHexagon.UI
                 start = 0;
 
             end = rank.size;
+
+            fill.fillAmount = (float)end.InverseLerp(start, judgementManager.rankProgress);
         }
     }
 }
