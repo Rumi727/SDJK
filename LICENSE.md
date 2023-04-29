@@ -1,5 +1,5 @@
 ## 라이선스
-[Blacklist]: https://github.com/SimsimhanChobo/SDJK
+[Blacklist]: https://docs.google.com/document/d/1A8kz4DJOdLEtf-kybrKnGR51XDNZVHmojCU86KaDgKg
 [SC KRM]: https://github.com/SimsimhanChobo/SC-KRM-1.0
 [SDJK]: https://github.com/SimsimhanChobo/SDJK
 [Simsimhan Chobo]: https://github.com/SimsimhanChobo
