@@ -75,7 +75,7 @@ namespace SDJK.MainMenu
 
         void Update()
         {
-            if (!padeOut && RhythmManager.isPlaying && (soundPlayer.IsDestroyed() || soundPlayer.isRemoved))
+            if (!padeOut && RhythmManager.isPlaying && (soundPlayer == null || soundPlayer.IsDestroyed() || soundPlayer.isRemoved))
                 SoundPlayerRemoved();
 
             if (!isLoaded || ResourceManager.isAudioReset)
