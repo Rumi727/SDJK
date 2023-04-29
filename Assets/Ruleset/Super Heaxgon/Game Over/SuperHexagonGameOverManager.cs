@@ -32,7 +32,7 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
             {
                 if (timer >= screenShowTime)
                 {
-                    gameOverScreen.Show(false);
+                    manager.Clear();
                     field.globalWallOffset += 0.75f * Kernel.fpsUnscaledDeltaTime;
                 }
                 else
@@ -51,7 +51,7 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
             if (!manager.isReplay)
             {
                 manager.createdReplay.gameOverBeat = RhythmManager.currentBeatSound;
-                manager.createdReplay.isGameOver = true;
+                //manager.createdReplay.isGameOver = true;
             }
 
             isGameOver = true;
