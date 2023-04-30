@@ -36,9 +36,9 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
             if (theme.fieldAutoZRotationDisable.GetValue(currentBeat))
             {
                 if (0 < fieldAutoZRotation)
-                    fieldAutoZRotation = fieldAutoZRotation.MoveTowards(0, (fieldAutoZRotation.Ceil() - 0) * (0.25f * Kernel.fpsSmoothDeltaTime));
+                    fieldAutoZRotation = fieldAutoZRotation.MoveTowards(0, (fieldAutoZRotation.Ceil() - 0) * (0.0625f * Kernel.fpsSmoothDeltaTime));
                 else
-                    fieldAutoZRotation = fieldAutoZRotation.MoveTowards(0, (0 - fieldAutoZRotation.Floor()) * (0.25f * Kernel.fpsSmoothDeltaTime));
+                    fieldAutoZRotation = fieldAutoZRotation.MoveTowards(0, (0 - fieldAutoZRotation.Floor()) * (0.0625f * Kernel.fpsSmoothDeltaTime));
             }
             else
             {
