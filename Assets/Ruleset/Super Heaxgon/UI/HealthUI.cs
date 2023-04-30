@@ -1,14 +1,19 @@
 using SCKRM;
 using SCKRM.Rhythm;
-using SDJK.Ruleset.SuperHexagon.Judgement;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public sealed class HealthUI : SuperHexagonUIBase
     {
+        [SerializeField] Field field;
+
+        [SerializeField, NotNull] Image backgroundImage;
+        [SerializeField, NotNull] Image valueImage;
+        [SerializeField, NotNull] RectTransform valueRectTransform;
+
         [SerializeField] float lerpAniValue = 0.2f;
-        [SerializeField, NotNull] RectTransform valueImage;
 
         float value = 1;
         void Update()
@@ -16,8 +21,11 @@ namespace SDJK.Ruleset.SuperHexagon.UI
             if (!RhythmManager.isPlaying)
                 return;
 
-            value = value.Lerp((float)(judgementManager.health / SuperHexagonJudgementManager.maxHealth), lerpAniValue * RhythmManager.bpmFpsDeltaTime);
-            valueImage.anchorMax = new Vector2(1, value);
+            backgroundImage.color = field.backgroundColor * new Color(0.25f, 0.25f, 0.25f);
+            valueImage.color = field.mainColor;
+
+            value = value.Lerp((float)(judgementManager.health / JudgementManagerBase.maxHealth), lerpAniValue * RhythmManager.bpmFpsDeltaTime);
+            valueRectTransform.anchorMax = new Vector2(1, value);
         }
     }
 }
