@@ -1162,7 +1162,7 @@ MonoBehaviour:
   _judgementManager: {fileID: 1947265304}
   _walls: {fileID: 168774988}
   _audioSize: 0.046875
-  _audioSizeLerp: 0.5
+  _audioSizeLerp: 0.3333333
 --- !u!114 &720993805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3349,7 +3349,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1077.5, y: 606.25}
+  m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
