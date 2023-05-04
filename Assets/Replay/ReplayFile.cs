@@ -28,6 +28,8 @@ namespace SDJK.Replay
 
         public BeatValuePairList<double> rankProgresses { get; set; } = new(0);
 
+        public int mapMaxCombo { get; set; } = 0;
+
         public bool isGameOver { get; set; } = false;
         public double gameOverBeat { get; set; } = double.MaxValue;
 

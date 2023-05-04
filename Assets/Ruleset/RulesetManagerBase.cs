@@ -111,6 +111,8 @@ namespace SDJK.Ruleset
                 effectManager.selectedMap = map;
                 effectManager.AllRefresh();
 
+                createdReplay.mapMaxCombo = map.allJudgmentBeat.Count;
+
                 RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.yukiMode, null, 2);
                 BGMPlay().Forget();
 
