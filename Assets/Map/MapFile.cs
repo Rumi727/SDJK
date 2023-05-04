@@ -83,7 +83,7 @@ namespace SDJK.Map
         /// </summary>
         public virtual double GetDifficulty() => DifficultyCalculation(allJudgmentBeat);
 
-        public double DifficultyCalculation(IList<double> beatList, double size = 0.56, double ignoreBeat = 0.0625)
+        public double DifficultyCalculation(IList<double> beatList, double size = 0.56, double ignoreBeat = 0.03125)
         {
             double diff = 0;
 
