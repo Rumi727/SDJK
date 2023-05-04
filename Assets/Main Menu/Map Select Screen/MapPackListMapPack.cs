@@ -128,7 +128,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                 rulesetIcon.Refresh();
 
                 difficultyBackground.color = difficultyGradient.Evaluate((float)(map.difficulty / 10d));
-                difficultyText.text = map.difficulty.Round(2).ToString();
+                difficultyText.text = map.difficulty.ToString("0.00");
             }
 
             if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
