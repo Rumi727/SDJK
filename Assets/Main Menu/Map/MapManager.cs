@@ -12,6 +12,7 @@ using SDJK.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace SDJK.MainMenu
@@ -19,7 +20,7 @@ namespace SDJK.MainMenu
     public static class MapManager
     {
         public static List<MapPack> currentMapPacks { get; private set; } = new List<MapPack>();
-        public static int currentRulesetMapCount { get; private set; } = 0;
+        public static List<MapPack> currentRulesetMapPacks { get; private set; } = new List<MapPack>();
 
         public static int selectedMapPackIndex
         {
@@ -101,7 +102,7 @@ namespace SDJK.MainMenu
             DragAndDropManager.dragAndDropEvent += DragAndDropEvent;
 
             ResourceManager.resourceRefreshEvent += MapListLoad;
-            RulesetManager.rulesetChanged += RulesetMapCountRefresh;
+            RulesetManager.rulesetChanged += RulesetMapRefresh;
         }
 
         static bool DragAndDropEvent(string path, bool isFolder, ThreadMetaData threadMetaData)
@@ -147,19 +148,12 @@ namespace SDJK.MainMenu
 
         //void OnDestroy() => ResourceManager.audioResetEnd -= MapListLoad;
 
-        public static void RulesetMapCountRefresh()
+        public static void RulesetMapRefresh()
         {
-            currentRulesetMapCount = 0;
+            currentRulesetMapPacks.Clear();
 
             for (int i = 0; i < currentMapPacks.Count; i++)
-            {
-                MapPack mapPack = currentMapPacks[i];
-                for (int j = 0; j < mapPack.maps.Count; j++)
-                {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(mapPack.maps[j].info.ruleset))
-                        currentRulesetMapCount++;
-                }
-            }
+                currentRulesetMapPacks.Add(currentMapPacks[i]);
         }
 
         static bool isMapListRefreshing = false;
@@ -201,7 +195,10 @@ namespace SDJK.MainMenu
                     asyncTask.progress++;
                 }
 
+                mapPacks = mapPacks.OrderBy(x => x.maps[0].info.songName).ThenBy(x => x.maps[0].info.artist).ToList();
                 currentMapPacks = mapPacks;
+
+                RulesetMapRefresh();
 
                 if (mapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= mapPacks.Count))
                     selectedMapPackIndex = UnityEngine.Random.Range(0, mapPacks.Count);
