@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 7531830512348278198}
   _icon: {fileID: 4941023730935317624}
+  _iconBackground: {fileID: 3155713757586256824}
 --- !u!114 &5142785271467577042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +117,6 @@ GameObject:
   - component: {fileID: 2571063698967810070}
   - component: {fileID: 385002512507294695}
   - component: {fileID: 4941023730935317624}
-  - component: {fileID: 8099444503576284198}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -212,25 +212,9 @@ MonoBehaviour:
   _nameSpace: 
   _path: 
   _type: 
+  _spriteTag: global
   _index: 0
   _image: {fileID: 385002512507294695}
---- !u!114 &8099444503576284198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2555878202404490447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cba592989150be745953d1b3f4dca6df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lerp: 1
-  _lerpValue: 0.2
-  _awakeNoAni: 0
-  _targetCanvasRenderer: {fileID: 8618710046582009447}
-  _targetGraphic: {fileID: 3155713757586256824}
 --- !u!1 &3108783080727939829
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +228,6 @@ GameObject:
   - component: {fileID: 8618710046582009447}
   - component: {fileID: 3155713757586256824}
   - component: {fileID: 3043866706181260969}
-  - component: {fileID: 5378853462446987805}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -340,21 +323,9 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: circle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 3155713757586256824}
---- !u!114 &5378853462446987805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3108783080727939829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d92930f31b91fe418cd866a90ecc28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6007687448781795984
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +339,6 @@ GameObject:
   - component: {fileID: 6274305659980739280}
   - component: {fileID: 7228581153830272590}
   - component: {fileID: 6901095520082062318}
-  - component: {fileID: 7589365108156551882}
   m_Layer: 5
   m_Name: Background Outline
   m_TagString: Untagged
@@ -464,22 +434,6 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: icon_background
   _type: ruleset
+  _spriteTag: global
   _index: 0
   _image: {fileID: 7228581153830272590}
---- !u!114 &7589365108156551882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6007687448781795984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cba592989150be745953d1b3f4dca6df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lerp: 1
-  _lerpValue: 0.2
-  _awakeNoAni: 0
-  _targetCanvasRenderer: {fileID: 8618710046582009447}
-  _targetGraphic: {fileID: 3155713757586256824}

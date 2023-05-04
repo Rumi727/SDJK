@@ -26,13 +26,14 @@ namespace SDJK.MainMenu.MapSelectScreen
         [SerializeField, NotNull] TMP_Text songName;
         [SerializeField, NotNull] TMP_Text artist;
         [SerializeField] CustomSpriteRendererBase rulesetIcon;
+        [SerializeField] Image rulesetIconBackground;
         [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
         [SerializeField] Transform rulesetList;
 
         [SerializeField, NotNull] ColorBand difficultyGradient;
-        [SerializeField, NotNull] Image difficultyBackground;
-        [SerializeField, NotNull] TMP_Text difficultyText;
+        [SerializeField] Image difficultyBackground;
+        [SerializeField] TMP_Text difficultyText;
 
         public GameObject viewport;
 
@@ -106,7 +107,8 @@ namespace SDJK.MainMenu.MapSelectScreen
                 //Ruleset 아이콘
                 for (int i = 0; i < mapPack.maps.Count; i++)
                 {
-                    string ruleset = mapPack.maps[i].info.ruleset;
+                    MapFile map2 = mapPack.maps[i];
+                    string ruleset = map2.info.ruleset;
                     MapPackListRulesetIcon icon = (MapPackListRulesetIcon)ObjectPoolingSystem.ObjectCreate("map_select_screen.map_pack_ruleset_icon", rulesetList).monoBehaviour;
 
                     if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(ruleset))
@@ -115,6 +117,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     icon.icon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(ruleset)?.icon ?? "";
                     icon.icon.Refresh();
 
+                    icon.iconBackground.color = difficultyGradient.Evaluate((float)(map2.difficulty / 10d));
                     mapPackListRulesetIcons.Add(icon);
                 }
             }
@@ -127,7 +130,10 @@ namespace SDJK.MainMenu.MapSelectScreen
                 rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset)?.icon ?? "";
                 rulesetIcon.Refresh();
 
-                difficultyBackground.color = difficultyGradient.Evaluate((float)(map.difficulty / 10d));
+                Color color = difficultyGradient.Evaluate((float)(map.difficulty / 10d));
+                difficultyBackground.color = color;
+                rulesetIconBackground.color = color;
+
                 difficultyText.text = map.difficulty.ToString("0.00");
             }
 

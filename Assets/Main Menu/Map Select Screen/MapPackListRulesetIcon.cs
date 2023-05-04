@@ -8,7 +8,9 @@ namespace SDJK.MainMenu
     public sealed class MapPackListRulesetIcon : UIObjectPoolingBase
     {
         [SerializeField] CanvasGroup _canvasGroup; public CanvasGroup canvasGroup => _canvasGroup;
+
         [SerializeField] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon => _icon;
+        [SerializeField] Image _iconBackground; public Image iconBackground => _iconBackground;
 
         public override bool Remove()
         {

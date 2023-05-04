@@ -369,9 +369,13 @@ MonoBehaviour:
   songName: {fileID: 2416322190844784860}
   artist: {fileID: 2416322189155291007}
   rulesetIcon: {fileID: 0}
+  rulesetIconBackground: {fileID: 0}
   rulesetIconRectTransform: {fileID: 0}
   isMap: 0
   rulesetList: {fileID: 3946438051095062918}
+  difficultyGradient: {fileID: 11400000, guid: 55ae38f6bccbe204b9a9b9188c7c6d70, type: 2}
+  difficultyBackground: {fileID: 0}
+  difficultyText: {fileID: 0}
   viewport: {fileID: 4532922307609694909}
 --- !u!114 &1827080034895037608
 MonoBehaviour:
