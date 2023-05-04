@@ -7,7 +7,6 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SDJK.Map;
 using SDJK.Ruleset;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using TMPro;
@@ -30,6 +29,11 @@ namespace SDJK.MainMenu.MapSelectScreen
         [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
         [SerializeField] Transform rulesetList;
+
+        [SerializeField, NotNull] ColorBand difficultyGradient;
+        [SerializeField, NotNull] Image difficultyBackground;
+        [SerializeField, NotNull] TMP_Text difficultyText;
+
         public GameObject viewport;
 
         public override void OnCreate()
@@ -122,6 +126,9 @@ namespace SDJK.MainMenu.MapSelectScreen
                 //Ruleset 아이콘
                 rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset)?.icon ?? "";
                 rulesetIcon.Refresh();
+
+                difficultyBackground.color = difficultyGradient.Evaluate((float)(map.difficulty / 10d));
+                difficultyText.text = map.difficulty.Round(2).ToString();
             }
 
             if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
