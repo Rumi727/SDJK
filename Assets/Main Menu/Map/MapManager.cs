@@ -201,7 +201,7 @@ namespace SDJK.MainMenu
                 RulesetMapRefresh();
 
                 if (mapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= mapPacks.Count))
-                    selectedMapPackIndex = UnityEngine.Random.Range(0, mapPacks.Count);
+                    RulesetRandomMap();
                 else
                 {
                     int mapIndex = selectedMapIndex;
@@ -222,6 +222,12 @@ namespace SDJK.MainMenu
 
                 isMapListRefreshing = false;
             }
+        }
+
+        public static void RulesetRandomMap()
+        {
+            int index = UnityEngine.Random.Range(0, currentRulesetMapPacks.Count);
+            selectedMapPackIndex = currentMapPacks.FindIndex(x => x == currentRulesetMapPacks[index]);
         }
 
         #region 가독성 씹창난 맵 이동 코드
