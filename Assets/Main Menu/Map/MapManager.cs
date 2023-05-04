@@ -153,7 +153,17 @@ namespace SDJK.MainMenu
             currentRulesetMapPacks.Clear();
 
             for (int i = 0; i < currentMapPacks.Count; i++)
-                currentRulesetMapPacks.Add(currentMapPacks[i]);
+            {
+                MapPack mapPack = currentMapPacks[i];
+                for (int j = 0; j < mapPack.maps.Count; j++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(mapPack.maps[j].info.ruleset))
+                    {
+                        currentRulesetMapPacks.Add(currentMapPacks[i]);
+                        continue;
+                    }
+                }
+            }
         }
 
         static bool isMapListRefreshing = false;
