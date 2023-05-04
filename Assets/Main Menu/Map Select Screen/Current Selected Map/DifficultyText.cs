@@ -20,7 +20,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             if (lastMap != map)
             {
                 background.color = gradient.Evaluate((float)(map.difficulty / 10d));
-                text.text = map.difficulty.Round(2).ToString();
+                text.text = map.difficulty.ToString("#.00");
 
                 lastMap = map;
             }
