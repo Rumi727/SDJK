@@ -85,7 +85,7 @@ namespace SDJK.Map
 
         public double DifficultyCalculation(IList<double> beatList, double size = 0.56, double ignoreBeat = 0.0625)
         {
-            List<double> diff = new List<double>();
+            double diff = 0;
 
             for (int i = 0; i < beatList.Count - 1; i++)
             {
@@ -97,12 +97,10 @@ namespace SDJK.Map
                 double delay = RhythmManager.BeatToSecond(delayBeat, bpm);
 
                 if (delayBeat >= ignoreBeat)
-                    diff.Add(size / delay);
-                else
-                    diff.Add(0);
+                    diff += size / delay;
             }
 
-            return diff.Average();
+            return diff / (beatList.Count - 1);
         }
 
         public abstract void FixAllJudgmentBeat();
