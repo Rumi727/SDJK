@@ -87,6 +87,7 @@ Unless affected by the above, [SDJK] is under the [GPL 3.0 License][GPL]
 - [SC KRM 1.0](https://github.com/SimsimhanChobo/SC-KRM-1.0)
 - [UI Soft Mask](https://github.com/mob-sakai/SoftMaskForUGUI)
 - [Super Blur](https://github.com/PavelDoGreat/Super-Blur)
+- [ColorBands](https://github.com/rstecca/ColorBands)
 
 제가 멍청해서 빼먹은 출처가 있을 수 있습니다...  
 만약 그럴 경우, 이슈에 올려주세요
