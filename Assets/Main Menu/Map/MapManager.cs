@@ -208,18 +208,21 @@ namespace SDJK.MainMenu
                 mapPacks = mapPacks.OrderBy(x => x.maps[0].info.songName).ThenBy(x => x.maps[0].info.artist).ToList();
                 currentMapPacks = mapPacks;
 
-                RulesetMapRefresh();
-
-                if (mapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= mapPacks.Count))
-                    RulesetRandomMap();
-                else
+                if (RulesetManager.selectedRuleset != null)
                 {
-                    int mapIndex = selectedMapIndex;
-                    selectedMapPackIndex = selectedMapPackIndex;
-                    if (selectedMapIndex < selectedMapPack.maps.Count)
-                        selectedMapIndex = mapIndex;
+                    RulesetMapRefresh();
+
+                    if (mapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= mapPacks.Count))
+                        RulesetRandomMap();
                     else
-                        selectedMapIndex = 0;
+                    {
+                        int mapIndex = selectedMapIndex;
+                        selectedMapPackIndex = selectedMapPackIndex;
+                        if (selectedMapIndex < selectedMapPack.maps.Count)
+                            selectedMapIndex = mapIndex;
+                        else
+                            selectedMapIndex = 0;
+                    }
                 }
 
                 if (InitialLoadManager.isInitialLoadEnd)

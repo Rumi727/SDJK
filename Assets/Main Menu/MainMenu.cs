@@ -12,13 +12,10 @@ using SCKRM.UI;
 using SCKRM.UI.Layout;
 using SCKRM.UI.SideBar;
 using SCKRM.UI.StatusBar;
-using SDJK.MainMenu;
 using SDJK.Mode;
-using SDJK.Replay;
 using SDJK.Ruleset;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace SDJK.MainMenu
 {
@@ -65,6 +62,9 @@ namespace SDJK.MainMenu
         public static float barAlpha = 0;
         void Update()
         {
+            if (MapManager.selectedMap == null)
+                MapManager.RulesetRandomMap();
+
             SongSelect();
 
             if (InputManager.GetKey(KeyCode.Space) || InputManager.GetKey(KeyCode.Return))
