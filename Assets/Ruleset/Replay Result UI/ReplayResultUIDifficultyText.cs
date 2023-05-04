@@ -19,7 +19,7 @@ namespace SDJK.Ruleset.ReplayResult
             base.Refresh(ruleset, map, replay);
 
             background.color = gradient.Evaluate((float)(map.difficulty / 10d));
-            text.text = map.difficulty.ToString("#.00");
+            text.text = map.difficulty.ToString("0.00");
         }
 
         public override void ObjectReset()
