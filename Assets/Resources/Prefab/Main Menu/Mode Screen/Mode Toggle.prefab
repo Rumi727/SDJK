@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -185,6 +185,7 @@ MonoBehaviour:
   _nameSpace: 
   _path: 
   _type: 
+  _spriteTag: global
   _index: 0
   _image: {fileID: 3344811195437469254}
 --- !u!114 &2730943384978213423
@@ -279,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -492,6 +493,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 4330497594671372452}
 --- !u!114 &4093611748065223572
@@ -677,6 +679,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: border_rounded_rectangle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 8212350002239948316}
 --- !u!114 &5354848473720171232
