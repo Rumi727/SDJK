@@ -1,6 +1,7 @@
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -15,7 +16,33 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
 
-        public override double DifficultyCalculation() => 0;
+        /*public override double GetDifficulty()
+        {
+            List<double> diff = new List<double>();
+
+            for (int i = 0; i < notes.Count; i++)
+            {
+                TypeList<SDJKNoteFile> notes = this.notes[i];
+                List<double> beats = new List<double>();
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+
+                    if (note.type != SDJKNoteTypeFile.instantDeath)
+                    {
+                        beats.Add(note.beat);
+                        beats.Add(note.beat + note.holdLength);
+                    }
+                }
+
+                beats.Sort();
+                diff.Add(DifficultyCalculation(beats));
+            }
+
+            return diff.Average();
+        }*/
+
         public override void FixAllJudgmentBeat()
         {
             TypeList<double> allJudgmentBeat = new TypeList<double>();

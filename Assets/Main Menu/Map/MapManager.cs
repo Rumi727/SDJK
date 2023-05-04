@@ -58,6 +58,7 @@ namespace SDJK.MainMenu
                     selectedMapEffect = selectedMap.globalEffect;
 
                     RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode);
+                    Debug.Log(selectedMap.difficulty);
                 }
             }
         }

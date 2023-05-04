@@ -5,6 +5,7 @@ using SCKRM.Rhythm;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -60,11 +61,49 @@ namespace SDJK.Map
         }
         [JsonIgnore] TypeList<double> _allJudgmentBeat = null;
 
+        [JsonIgnore]
+        public double difficulty
+        {
+            get
+            {
+                _difficulty ??= GetDifficulty();
+                return (double)_difficulty;
+            }
+            protected set => _difficulty = value;
+        }
+        [JsonIgnore] double? _difficulty = null;
+
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
         [JsonIgnore] public string mapFilePath { get; set; } = null;
 
         public virtual void SetVisualizerEffect() { }
-        public virtual double DifficultyCalculation() => 0;
+
+        /// <summary>
+        /// 0 ~ 10 ~
+        /// </summary>
+        public virtual double GetDifficulty() => DifficultyCalculation(allJudgmentBeat);
+
+        public double DifficultyCalculation(IList<double> beatList, double size = 0.56, double ignoreBeat = 0.0625)
+        {
+            List<double> diff = new List<double>();
+
+            for (int i = 0; i < beatList.Count - 1; i++)
+            {
+                double beat = beatList[i];
+                double nextBeat = beatList[i + 1];
+                double bpm = globalEffect.bpm.GetValue(beat);
+
+                double delayBeat = nextBeat - beat;
+                double delay = RhythmManager.BeatToSecond(delayBeat, bpm);
+
+                if (delayBeat >= ignoreBeat)
+                    diff.Add(size / delay);
+                else
+                    diff.Add(0);
+            }
+
+            return diff.Average();
+        }
 
         public abstract void FixAllJudgmentBeat();
     }

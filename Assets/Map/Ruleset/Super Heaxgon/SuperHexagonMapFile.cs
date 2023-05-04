@@ -17,7 +17,6 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
         public SuperHexagonEffectFile effect { get; set; } = new();
 
-        public override double DifficultyCalculation() => 0;
         public override void FixAllJudgmentBeat()
         {
             TypeList<double> allJudgmentBeat = new TypeList<double>();
