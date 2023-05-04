@@ -13,6 +13,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
         public TypeList<ADOFAITileEffectFile<bool>> autoTiles { get; } = new();
 
+        public override void FixAllJudgmentBeat() => allJudgmentBeat = tiles;
+
         public override void SetVisualizerEffect()
         {
             visualizerEffect.leftMove.Clear();

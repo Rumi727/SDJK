@@ -286,8 +286,7 @@ namespace SDJK.Map.Ruleset.OsuMania
 
                 //어떤 이유에선지 몰라도 오디오가 ogg 인 상태인데도 불구하고 0.04초 정도 음악이 느린 모습을 보임
                 osuManiaMap.info.songOffset += 0.04;
-                FixAllJudgmentBeat(osuManiaMap);
-
+                
                 if (osuManiaMap.allJudgmentBeat.Count > 0)
                     osuManiaMap.info.clearBeat = osuManiaMap.allJudgmentBeat.Last() + 4;
 
@@ -295,28 +294,6 @@ namespace SDJK.Map.Ruleset.OsuMania
             }
 
             return osuManiaMap;
-        }
-
-        static void FixAllJudgmentBeat(OsuManiaMapFile map)
-        {
-            map.allJudgmentBeat.Clear();
-
-            for (int i = 0; i < map.notes.Count; i++)
-            {
-                TypeList<OsuManiaNoteFile> notes = map.notes[i];
-
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    OsuManiaNoteFile note = notes[j];
-
-                    //모든 판정 비트에 노트 추가
-                    map.allJudgmentBeat.Add(note.beat);
-                    if (note.holdLength > 0)
-                        map.allJudgmentBeat.Add(note.beat + note.holdLength);
-                }
-            }
-
-            map.allJudgmentBeat.Sort();
         }
     }
 }

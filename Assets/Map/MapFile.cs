@@ -18,7 +18,7 @@ namespace SDJK.Map
         public TypeList<MapFile> maps { get; set; } = new TypeList<MapFile>();
     }
 
-    public class MapFile
+    public abstract class MapFile
     {
         public MapFile(string mapFilePath) => Init(mapFilePath);
 
@@ -47,12 +47,26 @@ namespace SDJK.Map
         public MapVisualizerEffect visualizerEffect { get; set; } = new MapVisualizerEffect();
         public MapPostProcessEffect postProcessEffect { get; set; } = new MapPostProcessEffect();
 
-        [JsonIgnore] public TypeList<double> allJudgmentBeat { get; set; } = new TypeList<double>();
+        [JsonIgnore] public TypeList<double> allJudgmentBeat
+        {
+            get
+            {
+                if (_allJudgmentBeat == null)
+                    FixAllJudgmentBeat();
+
+                return _allJudgmentBeat;
+            }
+            protected set => _allJudgmentBeat = value;
+        }
+        [JsonIgnore] TypeList<double> _allJudgmentBeat = null;
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
         [JsonIgnore] public string mapFilePath { get; set; } = null;
 
         public virtual void SetVisualizerEffect() { }
+        public virtual double DifficultyCalculation() => 0;
+
+        public abstract void FixAllJudgmentBeat();
     }
 
     public sealed class MapInfo

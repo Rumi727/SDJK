@@ -51,8 +51,6 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             map.Init(mapFilePath);
 
             FixMode(map, modes);
-            FixAllJudgmentBeat(map);
-
             return map;
         }
 
@@ -209,33 +207,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
             #endregion
 
             FixMode(superHexagonMap, modes);
-            FixAllJudgmentBeat(superHexagonMap);
-
             return superHexagonMap;
-        }
-
-
-
-        static void FixAllJudgmentBeat(SuperHexagonMapFile map)
-        {
-            map.allJudgmentBeat.Clear();
-
-            for (int i = 0; i < map.notes.Count; i++)
-            {
-                TypeList<SuperHexagonNoteFile> notes = map.notes[i];
-
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    SuperHexagonNoteFile note = notes[j];
-
-                    //모든 판정 비트에 노트 추가
-                    map.allJudgmentBeat.Add(note.beat);
-                    if (note.holdLength > 0)
-                        map.allJudgmentBeat.Add(note.beat + note.holdLength);
-                }
-            }
-
-            map.allJudgmentBeat.Sort();
         }
     }
 }

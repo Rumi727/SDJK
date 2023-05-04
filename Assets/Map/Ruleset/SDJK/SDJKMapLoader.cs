@@ -88,9 +88,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 map = new SDJKMapFile("");
 
             FixMode(map, modes);
-
             FixMap(map);
-            FixAllJudgmentBeat(map);
 
             return map;
         }
@@ -247,9 +245,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             FixMode(sdjkMap, modes);
-
             FixMap(sdjkMap);
-            FixAllJudgmentBeat(sdjkMap);
 
             return sdjkMap;
         }
@@ -375,9 +371,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             FixMode(sdjkMap, modes);
-
             FixMap(sdjkMap);
-            FixAllJudgmentBeat(sdjkMap);
 
             return sdjkMap;
         }
@@ -433,9 +427,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             #endregion
 
             FixMode(sdjkMap, modes);
-
             FixMap(sdjkMap);
-            FixAllJudgmentBeat(sdjkMap);
 
             return sdjkMap;
         }
@@ -536,31 +528,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 }
             }
         }*/
-
-        static void FixAllJudgmentBeat(SDJKMapFile map)
-        {
-            map.allJudgmentBeat.Clear();
-
-            for (int i = 0; i < map.notes.Count; i++)
-            {
-                TypeList<SDJKNoteFile> notes = map.notes[i];
-
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    SDJKNoteFile note = notes[j];
-
-                    //모든 판정 비트에 노트 추가
-                    if (note.type != SDJKNoteTypeFile.instantDeath)
-                    {
-                        map.allJudgmentBeat.Add(note.beat);
-                        if (note.holdLength > 0)
-                            map.allJudgmentBeat.Add(note.beat + note.holdLength);
-                    }
-                }
-            }
-
-            map.allJudgmentBeat.Sort();
-        }
 
 
 

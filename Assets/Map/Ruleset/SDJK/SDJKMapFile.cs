@@ -14,6 +14,33 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public TypeList<TypeList<SDJKNoteFile>> notes { get; set; } = new TypeList<TypeList<SDJKNoteFile>>();
 
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
+
+        public override double DifficultyCalculation() => 0;
+        public override void FixAllJudgmentBeat()
+        {
+            TypeList<double> allJudgmentBeat = new TypeList<double>();
+
+            for (int i = 0; i < notes.Count; i++)
+            {
+                TypeList<SDJKNoteFile> notes = this.notes[i];
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+
+                    //모든 판정 비트에 노트 추가
+                    if (note.type != SDJKNoteTypeFile.instantDeath)
+                    {
+                        allJudgmentBeat.Add(note.beat);
+                        if (note.holdLength > 0)
+                            allJudgmentBeat.Add(note.beat + note.holdLength);
+                    }
+                }
+            }
+
+            allJudgmentBeat.Sort();
+            this.allJudgmentBeat = allJudgmentBeat;
+        }
     }
 
     public struct SDJKNoteFile

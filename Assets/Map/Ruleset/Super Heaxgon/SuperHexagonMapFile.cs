@@ -17,6 +17,30 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
         public SuperHexagonEffectFile effect { get; set; } = new();
 
+        public override double DifficultyCalculation() => 0;
+        public override void FixAllJudgmentBeat()
+        {
+            TypeList<double> allJudgmentBeat = new TypeList<double>();
+
+            for (int i = 0; i < notes.Count; i++)
+            {
+                TypeList<SuperHexagonNoteFile> notes = this.notes[i];
+
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SuperHexagonNoteFile note = notes[j];
+
+                    //모든 판정 비트에 노트 추가
+                    allJudgmentBeat.Add(note.beat);
+                    if (note.holdLength > 0)
+                        allJudgmentBeat.Add(note.beat + note.holdLength);
+                }
+            }
+
+            allJudgmentBeat.Sort();
+            this.allJudgmentBeat = allJudgmentBeat;
+        }
+
         public override void SetVisualizerEffect()
         {
             visualizerEffect.divide.Clear();

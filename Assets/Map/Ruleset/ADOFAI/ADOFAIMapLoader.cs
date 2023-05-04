@@ -301,7 +301,6 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             void BeatAdd(double beat, double angle)
                             {
                                 adofaiMap.tiles.Add(beat);
-                                adofaiMap.allJudgmentBeat.Add(beat);
                                 allBeat.Add(beat);
 
                                 lastAngle = angle;
