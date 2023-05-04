@@ -5,6 +5,7 @@ using SDJK.Mode;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Version = SCKRM.Version;
 
 namespace SDJK.Map
@@ -44,6 +45,7 @@ namespace SDJK.Map
                     return null;
             }
 
+            pack.maps = pack.maps.OrderBy(x => x.info.difficultyLabel).ToTypeList();
             return pack;
         }
 
