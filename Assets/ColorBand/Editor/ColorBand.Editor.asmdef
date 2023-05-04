@@ -1,14 +1,12 @@
 {
-    "name": "SDJK.MainMenu",
-    "rootNamespace": "SDJK.MainMenu",
+    "name": "ColorBand.Editor",
+    "rootNamespace": "",
     "references": [
-        "GUID:9c1f978837ad80d49ae31d1cd963a280",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:42ec50f206125f04894d9168eeb43a0f",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:d59bec0b62ffc61458e25c2a5b827518"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
