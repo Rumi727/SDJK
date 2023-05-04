@@ -5,6 +5,7 @@ using SCKRM.Sound;
 using SDJK.Mode;
 using SDJK.Mode.Difficulty;
 using SDJK.Ruleset.PauseScreen;
+using SDJK.Ruleset.SuperHexagon.Judgement;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.GameOver
@@ -12,6 +13,7 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
     public sealed class SuperHexagonGameOverManager : ManagerBase<SuperHexagonGameOverManager>
     {
         [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
+        [SerializeField] SuperHexagonJudgementManager _judgementManager; public SuperHexagonJudgementManager judgementManager => _judgementManager;
         [SerializeField] PauseScreenUI _pauseScreen; public PauseScreenUI gameOverScreen => _pauseScreen;
         [SerializeField] Field _field; public Field field => _field;
 
@@ -51,6 +53,8 @@ namespace SDJK.Ruleset.SuperHexagon.GameOver
             if (!manager.isReplay)
             {
                 manager.createdReplay.gameOverBeat = RhythmManager.currentBeatSound;
+                manager.createdReplay.rankProgresses.Add(RhythmManager.currentBeatSound, judgementManager.rankProgress);
+
                 //manager.createdReplay.isGameOver = true;
             }
 
