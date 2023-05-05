@@ -63,7 +63,7 @@ namespace SDJK.MainMenu
         void Update()
         {
             if (MapManager.selectedMap == null)
-                MapManager.RulesetRandomMap();
+                MapManager.RulesetRandomMapPack();
 
             SongSelect();
 
@@ -274,14 +274,8 @@ namespace SDJK.MainMenu
 
                     if (!RulesetManager.selectedRuleset.IsCompatibleRuleset(MapManager.selectedMapInfo.ruleset))
                     {
-                        RandomMapPack();
+                        MapManager.RulesetRandomMapPack();
                         MapPackSelectScreen();
-                    }
-
-                    void RandomMapPack()
-                    {
-                        MapManager.selectedMapPackIndex = UnityEngine.Random.Range(0, MapManager.currentMapPacks.Count);
-                        MapManager.RulesetNextMapPack();
                     }
                 }
             }
@@ -365,6 +359,8 @@ namespace SDJK.MainMenu
             Application.Quit();
 #endif
         }
+
+        public static void RulesetRandomMapPack() => MapManager.RulesetRandomMapPack();
 
         [MainMenuLoadMethod]
         public static async UniTaskVoid MainMenuLoad()
