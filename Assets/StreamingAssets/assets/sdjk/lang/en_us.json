@@ -25,6 +25,10 @@
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!mania Note Speed",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "Determines the speed of notes when loading osu!mania maps as SDJK maps",
 	
+	"options.replay.title": "Replay",
+	"options.replay.replayAsyncLoad": "Enable Replay Asynchronous Loading",
+	"options.replay.replayAsyncLoad.info": "Load the replay when the initial loading is done",
+	
 	"notice.main_menu.no_map": "No map!",
 	"notice.main_menu.no_map.info": "None of the maps are in the selected ruleset",
 	

@@ -25,6 +25,10 @@
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!maniaノートスピード",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!maniaマップをSDJKマップに読み込むときのノートの速度を決定します",
 	
+	"options.replay.title": "リプレイ",
+	"options.replay.replayAsyncLoad": "リプレイ非同期ロードを有効にする",
+	"options.replay.replayAsyncLoad.info": "リプレイを初期ロードが終了したときにロードします",
+	
 	"notice.main_menu.no_map": "マップがありません！",
 	"notice.main_menu.no_map.info": "選択したルールセットにマップが1つもありません",
 	

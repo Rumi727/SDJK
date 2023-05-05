@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
 using K4.Threading;
 using MoreLinq;
+using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.DragAndDrop;
 using SCKRM.Resource;
+using SCKRM.SaveLoad;
 using SCKRM.Threads;
 using SDJK.Map;
 using SDJK.Replay;
@@ -17,14 +19,21 @@ namespace SDJK.MainMenu
 {
     public static class ReplayManager
     {
+        [GeneralSaveLoad]
+        public sealed class SaveData
+        {
+            [JsonProperty] public static bool replayAsyncLoad { get; set; } = false;
+        }
+
         public static Dictionary<string, List<ReplayFile>> currentReplayFiles { get; private set; } = new Dictionary<string, List<ReplayFile>>();
 
         [Awaken]
         public static void Awaken()
         {
-            DragAndDropManager.dragAndDropEvent += DragAndDropEvent;
+            if (!SaveData.replayAsyncLoad)
+                ResourceManager.resourceRefreshEvent += Refresh;
 
-            ResourceManager.resourceRefreshEvent += Refresh;
+            DragAndDropManager.dragAndDropEvent += DragAndDropEvent;
             ReplayLoader.replaySaveEvent += x =>
             {
                 if (!currentReplayFiles.TryGetValue(x.mapId, out List<ReplayFile> value))
@@ -45,6 +54,16 @@ namespace SDJK.MainMenu
                     replayLoadingEnd?.Invoke();
                 }
             };
+        }
+
+        [Starten]
+        public static void Starten()
+        {
+            if (SaveData.replayAsyncLoad)
+            {
+                ResourceManager.resourceRefreshEvent += Refresh;
+                Refresh().Forget();
+            }
         }
 
         static bool DragAndDropEvent(string path, bool isFolder, ThreadMetaData threadMetaData)
@@ -141,8 +160,6 @@ namespace SDJK.MainMenu
 
                         asyncTask.progress++;
                     }
-
-                    asyncTask.name = "sdjk:notice.running_task.replay_list_refresh.name";
 
                     {
                         List<KeyValuePair<string, List<ReplayFile>>> replays = resultReplays.ToList();

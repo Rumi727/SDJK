@@ -24,6 +24,10 @@
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!mania 노트 속도",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!mania 맵을 SDJK 맵으로 불러올때 노트의 속도를 결정합니다",
 	
+	"options.replay.title": "리플레이",
+	"options.replay.replayAsyncLoad": "리플레이 비동기 로드 활성화",
+	"options.replay.replayAsyncLoad.info": "리플레이를 초기 로딩이 끝났을때 로드합니다",
+	
 	"notice.main_menu.no_map": "맵이 없습니다!",
 	"notice.main_menu.no_map.info": "선택한 규칙 집합에 맵이 한개도 없습니다",
 	
