@@ -214,7 +214,7 @@ namespace SDJK.MainMenu
                     RulesetMapRefresh();
 
                     if (mapPacks.Count > 0 && ((selectedMapPack == null && selectedMap == null) || selectedMapPackIndex >= mapPacks.Count))
-                        RulesetRandomMap();
+                        RulesetRandomMapPack();
                     else
                     {
                         int mapIndex = selectedMapIndex;
@@ -238,7 +238,7 @@ namespace SDJK.MainMenu
             }
         }
 
-        public static void RulesetRandomMap()
+        public static void RulesetRandomMapPack()
         {
             int index = UnityEngine.Random.Range(0, currentRulesetMapPacks.Count);
             selectedMapPackIndex = currentMapPacks.FindIndex(x => x == currentRulesetMapPacks[index]);
