@@ -57,13 +57,13 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         {
                             int difficulty = adofai.settings.difficulty;
                             if (difficulty >= 1 && difficulty <= 3)
-                                adofaiMap.info.difficultyLabel = "Easy (ADOFAI)";
+                                adofaiMap.info.difficultyLabel = "Easy";
                             else if (difficulty >= 4 && difficulty <= 6)
-                                adofaiMap.info.difficultyLabel = "Normal (ADOFAI)";
+                                adofaiMap.info.difficultyLabel = "Normal";
                             else if (difficulty >= 7 && difficulty <= 9)
-                                adofaiMap.info.difficultyLabel = "Hard (ADOFAI)";
+                                adofaiMap.info.difficultyLabel = "Hard";
                             else if (difficulty >= 10)
-                                adofaiMap.info.difficultyLabel = "Insane (ADOFAI)";
+                                adofaiMap.info.difficultyLabel = "Insane";
                             else
                                 adofaiMap.info.difficultyLabel = "ADOFAI";
                         }
