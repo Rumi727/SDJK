@@ -91,7 +91,7 @@ namespace SDJK.Map
             {
                 double beat = beatList[i];
                 double nextBeat = beatList[i + 1];
-                double bpm = globalEffect.bpm.GetValue(beat);
+                double bpm = globalEffect.bpm.GetValue(beat) * globalEffect.tempo.GetValue(beat);
 
                 double delayBeat = nextBeat - beat;
                 double delay = RhythmManager.BeatToSecond(delayBeat, bpm);
