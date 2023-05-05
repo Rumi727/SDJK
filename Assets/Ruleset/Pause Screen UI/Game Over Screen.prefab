@@ -112,6 +112,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: circle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 6137233174859276500}
 --- !u!114 &7387764964787154259
@@ -197,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.replay_save
 --- !u!1 &5765649250232007077
 GameObject:
@@ -364,6 +365,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: quit
   _type: main_menu
+  _spriteTag: global
   _index: 0
   _image: {fileID: 5765649250437399712}
 --- !u!1 &5765649250551961986
@@ -562,6 +564,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: circle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 5765649250618424693}
 --- !u!114 &5765649250618424691
@@ -647,7 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.restart
 --- !u!1 &5765649250889843782
 GameObject:
@@ -757,6 +760,7 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: restart
   _type: main_menu
+  _spriteTag: global
   _index: 0
   _image: {fileID: 5765649250889843801}
 --- !u!1 &5765649251304247475
@@ -923,7 +927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.game_over
   _textMeshPro: {fileID: 5765649251304247477}
 --- !u!1 &5765649252114726766
@@ -1144,6 +1148,7 @@ MonoBehaviour:
   _nameSpace: sc-krm
   _path: circle
   _type: gui
+  _spriteTag: global
   _index: 0
   _image: {fileID: 5765649252210383209}
 --- !u!114 &5765649252210383127
@@ -1229,7 +1234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.quit
 --- !u!1 &8708395466458094004
 GameObject:
@@ -1339,5 +1344,6 @@ MonoBehaviour:
   _nameSpace: sdjk
   _path: download
   _type: main_menu
+  _spriteTag: global
   _index: 0
   _image: {fileID: 595796701016010411}

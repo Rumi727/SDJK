@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.score
 --- !u!114 &2705830979678947302
 MonoBehaviour:
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.max_combo
 --- !u!114 &2705830980893349232
 MonoBehaviour:
@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.accuracy
 --- !u!114 &2705830980910336685
 MonoBehaviour:
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.game_over
 --- !u!114 &3203616022188449810
 MonoBehaviour:

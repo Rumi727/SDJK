@@ -1562,7 +1562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.mode
   _textMeshPro: {fileID: 232523646}
 --- !u!1 &252796735
@@ -3772,7 +3772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.not_implemented
 --- !u!114 &742838651
 MonoBehaviour:
@@ -5288,7 +5288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.last_replay
   _textMeshPro: {fileID: 938628127}
 --- !u!114 &938628127
@@ -7843,7 +7843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.quit
   _textMeshPro: {fileID: 1349896249}
 --- !u!114 &1349896249
@@ -8808,7 +8808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.edit
   _textMeshPro: {fileID: 1560796718}
 --- !u!114 &1560796718
@@ -9671,8 +9671,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
-  _path: gui.mode
+  _nameSpace: sc-krm
+  _path: gui.random
   _textMeshPro: {fileID: 1798492945}
 --- !u!114 &1798492945
 MonoBehaviour:
@@ -9694,7 +9694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mode
+  m_text: Random
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70326e25170c0754db3e2c1a70c9cd88, type: 2}
   m_sharedMaterial: {fileID: 7639992929945359739, guid: 70326e25170c0754db3e2c1a70c9cd88, type: 2}
@@ -9883,7 +9883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7454300007855195360, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
       propertyPath: _nameSpace
-      value: sdjk
+      value: sc-krm
       objectReference: {fileID: 0}
     - target: {fileID: 8329085634325549933, guid: 3e080e20585effb468ed27d98cba6412, type: 3}
       propertyPath: m_Name
@@ -9959,7 +9959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.play
   _textMeshPro: {fileID: 1856406157}
 --- !u!114 &1856406157
@@ -11091,6 +11091,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1098667906}
     m_Modifications:
+    - target: {fileID: 683500317504670580, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}
+      propertyPath: _nameSpace
+      value: sc-krm
+      objectReference: {fileID: 0}
     - target: {fileID: 2705830980298259418, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -11186,6 +11190,18 @@ PrefabInstance:
     - target: {fileID: 2705830981229176900, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758259598281550227, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}
+      propertyPath: _nameSpace
+      value: sc-krm
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123163077782266579, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}
+      propertyPath: _nameSpace
+      value: sc-krm
+      objectReference: {fileID: 0}
+    - target: {fileID: 6751579001310649151, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}
+      propertyPath: _nameSpace
+      value: sc-krm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8865c03507fa701478a5050e4cb9a6b2, type: 3}

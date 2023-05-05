@@ -3015,7 +3015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.max_combo
   _textMeshPro: {fileID: 320259587634474516}
 --- !u!1 &320259587789863155
@@ -3182,7 +3182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cac8d683abe0dc4582f0b611c7ff77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _path: gui.accuracy
   _textMeshPro: {fileID: 320259587789863116}
 --- !u!1 &320259587862263668
@@ -3479,7 +3479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.replay_delete
 --- !u!114 &8236205072638135905
 MonoBehaviour:
@@ -3810,7 +3810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8527ec7ada8d9b479de63d11b184975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameSpace: sdjk
+  _nameSpace: sc-krm
   _text: gui.replay_play
 --- !u!114 &2824097228946615254
 MonoBehaviour:
