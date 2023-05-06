@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SDJK
 {
     public class NoteEffect : SDJKEffect
     {
-        public override EffectManager effectManager => bar.effectManager;
+        public override EffectManager effectManager => bar != null ? bar.effectManager : null;
 
         [SerializeField] Note note;
         [SerializeField] Transform holdNote;
@@ -17,6 +17,11 @@ namespace SDJK.Ruleset.SDJK
 
         Bar bar => note.bar;
         SDJKNoteTypeFile type => note.type;
+
+        void OnEnable()
+        {
+            Update();
+        }
 
         protected override void RealUpdate() => ColorUpdate();
 
@@ -32,6 +37,12 @@ namespace SDJK.Ruleset.SDJK
 
             spriteRenderer.color = color;
             holdNoteSpriteRenderer.color = color;
+        }
+
+        void OnDisable()
+        {
+            spriteRenderer.color = Color.green;
+            holdNoteSpriteRenderer.color = Color.green;
         }
     }
 }

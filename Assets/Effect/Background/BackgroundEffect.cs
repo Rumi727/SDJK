@@ -16,7 +16,7 @@ namespace SDJK.Effect
         public BackgroundEffectPrefab background { get; private set; } = null;
         Queue<BackgroundEffectPrefab> backgroundRemoveQueue = new Queue<BackgroundEffectPrefab>();
 
-        void Update()
+        protected override void Update()
         {
             if (background == null || background.isRemoved || background.canvasGroup.alpha >= 1)
             {

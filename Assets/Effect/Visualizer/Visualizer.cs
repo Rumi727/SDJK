@@ -174,7 +174,7 @@ namespace SDJK.Effect
 
         ISoundPlayer lastSoundPlayer;
         bool tempCircle = false;
-        void Update()
+        protected override void Update()
         {
             if (effectManager != null && lastSoundPlayer != effectManager.soundPlayer && effectManager.soundPlayer != null)
             {

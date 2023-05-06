@@ -15,7 +15,7 @@ namespace SDJK.Effect
 
         public virtual void Refresh(bool force = false) { }
 
-        void Update()
+        protected virtual void Update()
         {
             if (!RhythmManager.isPlaying || effectManager == null || effectManager.selectedMap == null)
                 return;

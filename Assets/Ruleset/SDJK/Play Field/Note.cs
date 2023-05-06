@@ -120,6 +120,8 @@ namespace SDJK.Ruleset.SDJK
             noteFile = default;
 
             transform.localPosition = Vector3.zero;
+            gameObject.SetActive(false);
+
             return true;
         }
     }
