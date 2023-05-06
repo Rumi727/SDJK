@@ -43,6 +43,8 @@ namespace SDJK.MainMenu.MapSelectScreen
 
             rectTransform.offsetMin = new Vector2(100, rectTransform.offsetMin.y);
             rectTransform.offsetMax = new Vector2(40, rectTransform.offsetMax.y);
+
+            background.color = Color.gray;
         }
 
         MapPackList mapPackList;
@@ -167,7 +169,16 @@ namespace SDJK.MainMenu.MapSelectScreen
                         return;
                     }
 
-                    background.sprite = ResourceManager.GetSprite(texture);
+                    if (texture != null)
+                    {
+                        background.sprite = ResourceManager.GetSprite(texture);
+                        background.color = Color.white;
+                    }
+                    else
+                    {
+                        background.sprite = null;
+                        background.color = Color.gray;
+                    }
                 }
             }
             catch (System.Exception e)
@@ -205,6 +216,8 @@ namespace SDJK.MainMenu.MapSelectScreen
             TextureDestroy();
 
             background.sprite = null;
+            background.color = Color.gray;
+
             songName.text = "";
             artist.text = "";
 

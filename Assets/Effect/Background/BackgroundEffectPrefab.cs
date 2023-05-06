@@ -187,7 +187,9 @@ namespace SDJK.Effect
             }
 
             loadedSprites.Clear();
-            image.sprite = null;
+
+            if (Kernel.isPlaying)
+                image.sprite = null;
         }
     }
 }
