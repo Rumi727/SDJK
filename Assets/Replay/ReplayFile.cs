@@ -29,6 +29,7 @@ namespace SDJK.Replay
         public BeatValuePairList<double> rankProgresses { get; set; } = new(0);
 
         public int mapMaxCombo { get; set; } = 0;
+
         public TypeList<double> mapDifficulty { get; set; } = new TypeList<double>();
         public double mapDifficultyAverage { get; set; } = 0;
 
