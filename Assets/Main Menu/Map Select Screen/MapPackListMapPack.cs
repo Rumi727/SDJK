@@ -8,6 +8,7 @@ using SCKRM.UI.Layout;
 using SDJK.Map;
 using SDJK.Ruleset;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -119,7 +120,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     icon.icon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(ruleset)?.icon ?? "";
                     icon.icon.Refresh();
 
-                    icon.iconBackground.color = difficultyGradient.Evaluate((float)(map2.difficulty / 10d));
+                    icon.iconBackground.color = difficultyGradient.Evaluate((float)(map2.difficulty.Average() / 10d));
                     mapPackListRulesetIcons.Add(icon);
                 }
             }
@@ -132,11 +133,13 @@ namespace SDJK.MainMenu.MapSelectScreen
                 rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset)?.icon ?? "";
                 rulesetIcon.Refresh();
 
-                Color color = difficultyGradient.Evaluate((float)(map.difficulty / 10d));
+                double difficulty = map.difficulty.Average();
+
+                Color color = difficultyGradient.Evaluate((float)(difficulty / 10d));
                 difficultyBackground.color = color;
                 rulesetIconBackground.color = color;
 
-                difficultyText.text = map.difficulty.ToString("0.00");
+                difficultyText.text = difficulty.ToString("0.00");
             }
 
             if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())

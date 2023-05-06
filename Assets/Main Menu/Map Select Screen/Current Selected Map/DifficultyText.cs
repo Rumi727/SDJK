@@ -1,5 +1,6 @@
 using SCKRM;
 using SDJK.Map;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,8 +20,10 @@ namespace SDJK.MainMenu.MapSelectScreen
             MapFile map = MapManager.selectedMap;
             if (lastMap != map)
             {
-                background.color = gradient.Evaluate((float)(map.difficulty / 10d));
-                text.text = map.difficulty.ToString("0.00");
+                double difficulty = map.difficulty.Average();
+
+                background.color = gradient.Evaluate((float)(difficulty / 10d));
+                text.text = difficulty.ToString("0.00");
 
                 lastMap = map;
             }

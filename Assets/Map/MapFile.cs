@@ -62,16 +62,12 @@ namespace SDJK.Map
         [JsonIgnore] TypeList<double> _allJudgmentBeat = null;
 
         [JsonIgnore]
-        public double difficulty
+        public TypeList<double> difficulty
         {
-            get
-            {
-                _difficulty ??= GetDifficulty();
-                return (double)_difficulty;
-            }
+            get => _difficulty ??= GetDifficulty();
             protected set => _difficulty = value;
         }
-        [JsonIgnore] double? _difficulty = null;
+        [JsonIgnore] TypeList<double> _difficulty = null;
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
         [JsonIgnore] public string mapFilePath { get; set; } = null;
@@ -81,11 +77,11 @@ namespace SDJK.Map
         /// <summary>
         /// 0 ~ 10 ~
         /// </summary>
-        public virtual double GetDifficulty() => DifficultyCalculation(allJudgmentBeat);
+        public virtual TypeList<double> GetDifficulty() => DifficultyCalculation(allJudgmentBeat);
 
-        public double DifficultyCalculation(IList<double> beatList, double size = 0.56, double ignoreBeat = 0.03125)
+        public TypeList<double> DifficultyCalculation(IList<double> beatList, double size = 0.56, double ignoreBeat = 0.03125)
         {
-            double diff = 0;
+            TypeList<double> diff = new TypeList<double>();
 
             for (int i = 0; i < beatList.Count - 1; i++)
             {
@@ -97,10 +93,10 @@ namespace SDJK.Map
                 double delay = RhythmManager.BeatToSecond(delayBeat, bpm);
 
                 if (delayBeat >= ignoreBeat)
-                    diff += size / delay;
+                    diff.Add(size / delay);
             }
 
-            return diff / (beatList.Count - 1);
+            return diff;
         }
 
         public abstract void FixAllJudgmentBeat();

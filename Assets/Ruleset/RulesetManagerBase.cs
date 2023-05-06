@@ -99,6 +99,7 @@ namespace SDJK.Ruleset
 
                     createdReplay = ReplayLoader.CreateReplay<TReplayFile>(map, modes);
                     createdReplay.mapMaxCombo = map.allJudgmentBeat.Count;
+                    createdReplay.mapDifficulty = map.difficulty;
                 }
 
                 this.modes = modes;

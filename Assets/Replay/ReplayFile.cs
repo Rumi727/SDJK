@@ -3,7 +3,7 @@ using SCKRM;
 using SCKRM.NTP;
 using SCKRM.Rhythm;
 using System;
-
+using System.Collections.Generic;
 using Version = SCKRM.Version;
 
 namespace SDJK.Replay
@@ -29,6 +29,7 @@ namespace SDJK.Replay
         public BeatValuePairList<double> rankProgresses { get; set; } = new(0);
 
         public int mapMaxCombo { get; set; } = 0;
+        public TypeList<double> mapDifficulty { get; set; } = new TypeList<double>();
 
         public bool isGameOver { get; set; } = false;
         public double gameOverBeat { get; set; } = double.MaxValue;
