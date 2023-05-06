@@ -94,20 +94,30 @@ namespace SCKRM.Object
             if (instance == null)
                 throw new NullScriptMethodException(nameof(ObjectPoolingSystem));
 
-            if (objectList.objectKey.Contains(objectKey))
+            int objectIndex = -1;
+            for (int i = 0; i < objectList.objectKey.Count; i++)
             {
-                (MonoBehaviour monoBehaviour, IObjectPooling objectPooling) = objectList.objectPooling[objectList.objectKey.IndexOf(objectKey)];
+                if (objectList.objectKey[i] == objectKey)
+                {
+                    if (!objectList.objectPooling[i].objectPooling.disableCreation)
+                    {
+                        objectIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (objectIndex >= 0)
+            {
+                (MonoBehaviour monoBehaviour, IObjectPooling objectPooling) = objectList.objectPooling[objectIndex];
 
                 monoBehaviour.transform.SetParent(parent, false);
                 monoBehaviour.gameObject.SetActive(true);
 
                 objectPooling.objectKey = objectKey;
 
-                {
-                    int i = objectList.objectKey.IndexOf(objectKey);
-                    objectList.objectKey.RemoveAt(i);
-                    objectList.objectPooling.RemoveAt(i);
-                }
+                objectList.objectKey.RemoveAt(objectIndex);
+                objectList.objectPooling.RemoveAt(objectIndex);
 
 #pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
                 objectPooling.isActived = true;

@@ -10,6 +10,8 @@ namespace SCKRM.Object
         string objectKey { get; set; }
         bool isActived { get; [Obsolete("It is managed by the ObjectPoolingSystem class. Please do not touch it.")] internal set; }
 
+        bool disableCreation { get; set; }
+
         IRefreshable[] refreshableObjects { get; }
 
         Action removed { get; set; }
@@ -95,6 +97,9 @@ namespace SCKRM.Object
 
         [WikiDescription("활성화 여부")] public bool isActived { get; private set; }
         bool IObjectPooling.isActived { get => isActived; set => isActived = value; }
+
+        [WikiDescription("생성 비활성화 여부")] public bool disableCreation { get; protected set; }
+        bool IObjectPooling.disableCreation { get => disableCreation; set => disableCreation = value; }
 
 
 

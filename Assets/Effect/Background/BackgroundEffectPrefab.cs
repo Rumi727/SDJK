@@ -94,47 +94,47 @@ namespace SDJK.Effect
             }
         }
 
-        bool isTextureLoading = false;
         async UniTaskVoid TextureLoad()
         {
-            isTextureLoading = true;
-
-            for (int i = 0; i < map.globalEffect.background.Count; i++)
+            try
             {
-                BackgroundEffectPair backgroundEffect = map.globalEffect.background[i].value;
-                string background = backgroundEffect.backgroundFile;
-                string backgroundNight = backgroundEffect.backgroundNightFile;
+                disableCreation = true;
 
-                string texturePath = PathUtility.Combine(map.mapFilePathParent, background);
-                Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
-
-                if (texture != null && !loadedSprites.ContainsKey(background))
-                    loadedSprites.Add(background, ResourceManager.GetSprite(texture));
-
-                if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                for (int i = 0; i < map.globalEffect.background.Count; i++)
                 {
-                    isTextureLoading = false;
-                    TextureDestroy().Forget();
+                    BackgroundEffectPair backgroundEffect = map.globalEffect.background[i].value;
+                    string background = backgroundEffect.backgroundFile;
+                    string backgroundNight = backgroundEffect.backgroundNightFile;
 
-                    return;
-                }
+                    string texturePath = PathUtility.Combine(map.mapFilePathParent, background);
+                    Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
-                string nightTexturePath = PathUtility.Combine(map.mapFilePathParent, backgroundNight);
-                Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
+                    if (texture != null && !loadedSprites.ContainsKey(background))
+                        loadedSprites.Add(background, ResourceManager.GetSprite(texture));
 
-                if (nightTexture != null && !loadedSprites.ContainsKey(backgroundNight))
-                    loadedSprites.Add(backgroundNight, ResourceManager.GetSprite(nightTexture));
+                    if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                    {
+                        TextureDestroy();
+                        return;
+                    }
 
-                if (!Kernel.isPlaying || isRemoved || IsDestroyed())
-                {
-                    isTextureLoading = false;
-                    TextureDestroy().Forget();
+                    string nightTexturePath = PathUtility.Combine(map.mapFilePathParent, backgroundNight);
+                    Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
 
-                    return;
+                    if (nightTexture != null && !loadedSprites.ContainsKey(backgroundNight))
+                        loadedSprites.Add(backgroundNight, ResourceManager.GetSprite(nightTexture));
+
+                    if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                    {
+                        TextureDestroy();
+                        return;
+                    }
                 }
             }
-
-            isTextureLoading = false;
+            finally
+            {
+                disableCreation = false;
+            }
         }
 
         CancellationTokenSource textureChangeCancelSource = new CancellationTokenSource();
@@ -154,21 +154,18 @@ namespace SDJK.Effect
             canvasGroup.alpha = 0;
             refreshed = false;
             effectManager = null;
-            isTextureLoading = false;
             isRemoveQueue = false;
             timeoutTimer = 0;
 
-            TextureDestroy().Forget();
+            TextureDestroy();
 
             return true;
         }
 
-        protected override void OnDestroy() => TextureDestroy().Forget();
+        protected override void OnDestroy() => TextureDestroy();
 
-        async UniTaskVoid TextureDestroy()
+        void TextureDestroy()
         {
-            await UniTask.WaitUntil(() => !isTextureLoading);
-
             foreach (var item in loadedSprites)
             {
                 if (item.Value != null)

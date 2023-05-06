@@ -62,6 +62,9 @@ namespace SCKRM.UI
         public bool isActived { get; private set; }
         bool IObjectPooling.isActived { get => isActived; set => isActived = value; }
 
+        public bool disableCreation { get; protected set; }
+        bool IObjectPooling.disableCreation { get => disableCreation; set => disableCreation = value; }
+
 
 
         IRefreshable[] _refreshableObjects;

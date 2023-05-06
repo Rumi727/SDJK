@@ -76,6 +76,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             }
         }
 
+        Sprite backgroundSprite;
         List<MapPackListRulesetIcon> mapPackListRulesetIcons = new List<MapPackListRulesetIcon>();
         CancellationTokenSource cancelSource = new CancellationTokenSource();
         public async UniTaskVoid ConfigureCell(MapPackList mapPackList, MapPack mapPack, int mapPackIndex, MapFile map, int mapIndex)
@@ -142,22 +143,24 @@ namespace SDJK.MainMenu.MapSelectScreen
                 difficultyText.text = difficulty.ToString("0.00");
             }
 
-            if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
-            {
-                TextureDestroy();
-                return;
-            }
-
-            if (!Kernel.isPlaying || isRemoved || IsDestroyed())
-            {
-                TextureDestroy();
-                return;
-            }
-
-            isTextureLoading = true;
-
             try
             {
+                disableCreation = true;
+
+                if (await UniTask.WaitUntil(() => !Kernel.isPlaying || isRemoved || IsDestroyed() || (!isTextureLoading && !IsOccluded()), PlayerLoopTiming.Update, cancelSource.Token).SuppressCancellationThrow())
+                {
+                    TextureDestroy();
+                    return;
+                }
+
+                if (!Kernel.isPlaying || isRemoved || IsDestroyed())
+                {
+                    TextureDestroy();
+                    return;
+                }
+
+                isTextureLoading = true;
+
                 TextureDestroy();
 
                 if (selectedMap.globalEffect.background.Count > 0)
@@ -174,7 +177,9 @@ namespace SDJK.MainMenu.MapSelectScreen
 
                     if (texture != null)
                     {
-                        background.sprite = ResourceManager.GetSprite(texture);
+                        backgroundSprite = ResourceManager.GetSprite(texture);
+
+                        background.sprite = backgroundSprite;
                         background.color = Color.white;
                     }
                     else
@@ -191,6 +196,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             finally
             {
                 isTextureLoading = false;
+                disableCreation = false;
             }
         }
 
@@ -247,10 +253,12 @@ namespace SDJK.MainMenu.MapSelectScreen
 
         void TextureDestroy()
         {
-            if (background.sprite != null)
+            if (backgroundSprite != null)
             {
-                DestroyImmediate(background.sprite.texture);
-                DestroyImmediate(background.sprite);
+                DestroyImmediate(backgroundSprite.texture);
+                DestroyImmediate(backgroundSprite);
+
+                backgroundSprite = null;
             }
         }
     }
