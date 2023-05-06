@@ -20,7 +20,7 @@ namespace SDJK.MainMenu.MapSelectScreen
             MapFile map = MapManager.selectedMap;
             if (lastMap != map)
             {
-                double difficulty = map.difficulty.Average();
+                double difficulty = map.difficultyAverage;
 
                 background.color = gradient.Evaluate((float)(difficulty / 10d));
                 text.text = difficulty.ToString("0.00");

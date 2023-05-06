@@ -18,7 +18,7 @@ namespace SDJK.Ruleset.ReplayResult
         public override void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay)
         {
             base.Refresh(ruleset, map, replay);
-            double difficulty = replay.mapDifficulty.Average();
+            double difficulty = replay.mapDifficultyAverage;
 
             background.color = gradient.Evaluate((float)(difficulty / 10d));
             text.text = difficulty.ToString("0.00");

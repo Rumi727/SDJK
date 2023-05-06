@@ -30,6 +30,7 @@ namespace SDJK.Replay
 
         public int mapMaxCombo { get; set; } = 0;
         public TypeList<double> mapDifficulty { get; set; } = new TypeList<double>();
+        public double mapDifficultyAverage { get; set; } = 0;
 
         public bool isGameOver { get; set; } = false;
         public double gameOverBeat { get; set; } = double.MaxValue;

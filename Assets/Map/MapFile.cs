@@ -61,13 +61,11 @@ namespace SDJK.Map
         }
         [JsonIgnore] TypeList<double> _allJudgmentBeat = null;
 
-        [JsonIgnore]
-        public TypeList<double> difficulty
-        {
-            get => _difficulty ??= GetDifficulty();
-            protected set => _difficulty = value;
-        }
+        [JsonIgnore] public TypeList<double> difficulty => _difficulty ??= GetDifficulty();
         [JsonIgnore] TypeList<double> _difficulty = null;
+
+        [JsonIgnore] public double difficultyAverage => _difficultyAverage ??= difficulty.Average();
+        [JsonIgnore] double? _difficultyAverage = null;
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
         [JsonIgnore] public string mapFilePath { get; set; } = null;

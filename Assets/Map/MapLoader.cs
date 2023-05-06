@@ -45,7 +45,7 @@ namespace SDJK.Map
                     return null;
             }
 
-            pack.maps = pack.maps.OrderBy(x => x.difficulty.Average()).ThenBy(x => x.info.difficultyLabel).ToTypeList();
+            pack.maps = pack.maps.OrderBy(x => x.difficultyAverage).ThenBy(x => x.info.difficultyLabel).ToTypeList();
             return pack;
         }
 
