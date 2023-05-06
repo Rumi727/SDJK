@@ -96,12 +96,7 @@ namespace SDJK.Ruleset
                     currentReplay = null;
 
                     replaySaveButton.interactable = true;
-
                     createdReplay = ReplayLoader.CreateReplay<TReplayFile>(map, modes);
-                    createdReplay.mapMaxCombo = map.allJudgmentBeat.Count;
-
-                    createdReplay.mapDifficulty = map.difficulty;
-                    createdReplay.mapDifficultyAverage = map.difficultyAverage;
                 }
 
                 this.modes = modes;

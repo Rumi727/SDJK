@@ -100,6 +100,11 @@ namespace SDJK.Replay
             replay.clearUTCTime = NTPDateTime.utcNow;
             replay.ruleset = map.info.ruleset;
 
+            replay.mapMaxCombo = map.allJudgmentBeat.Count;
+
+            replay.mapDifficulty = map.difficulty;
+            replay.mapDifficultyAverage = map.difficultyAverage;
+
             {
                 replay.modes = new ReplayModeFile[modes.Length];
                 ReplayModeFile[] replayModeFiles = replay.modes;
