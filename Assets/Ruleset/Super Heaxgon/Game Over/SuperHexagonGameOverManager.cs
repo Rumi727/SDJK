@@ -4,8 +4,8 @@ using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SDJK.Mode;
 using SDJK.Mode.Difficulty;
-using SDJK.Ruleset.PauseScreen;
 using SDJK.Ruleset.SuperHexagon.Judgement;
+using SDJK.Ruleset.UI.PauseScreen;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SuperHexagon.GameOver

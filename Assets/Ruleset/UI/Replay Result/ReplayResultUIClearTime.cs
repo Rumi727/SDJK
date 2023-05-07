@@ -5,7 +5,7 @@ using SCKRM.Tooltip;
 using System;
 using UnityEngine;
 
-namespace SDJK.Ruleset.ReplayResult
+namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIClearTime : ReplayResultUIBase
     {

@@ -2,7 +2,7 @@ using SCKRM;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SDJK.Ruleset.ReplayResult
+namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIRankProgress : ReplayResultUIBase
     {

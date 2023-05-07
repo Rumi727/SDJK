@@ -2,10 +2,9 @@ using SCKRM;
 using SCKRM.Input;
 using SCKRM.Rhythm;
 using SCKRM.UI;
-using System;
 using UnityEngine;
 
-namespace SDJK.Ruleset.PauseScreen
+namespace SDJK.Ruleset.UI.PauseScreen
 {
     public sealed class PauseScreenUI : UIBase
     {

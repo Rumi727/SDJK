@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace SDJK.Ruleset
+namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUI : UIObjectPoolingBase
     {

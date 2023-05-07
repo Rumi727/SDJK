@@ -4,22 +4,20 @@ using SDJK.Replay;
 using TMPro;
 using UnityEngine;
 
-namespace SDJK.Ruleset.ReplayResult
+namespace SDJK.Ruleset.UI.ReplayResult
 {
-    public sealed class ReplayResultUISongName : ReplayResultUIBase
+    public sealed class ReplayResultUIGameOver : ReplayResultUIBase
     {
-        [SerializeField, NotNull] TMP_Text text;
-
         public override void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay)
         {
             base.Refresh(ruleset, map, replay);
-            text.text = map.info.songName;
+            gameObject.SetActive(replay.isGameOver);
         }
 
         public override void ObjectReset()
         {
             base.ObjectReset();
-            text.text = "";
+            gameObject.SetActive(false);
         }
     }
 }

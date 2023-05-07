@@ -3,7 +3,7 @@ using SCKRM.Input;
 using SCKRM.Rhythm;
 using SDJK.Mode;
 using SDJK.Mode.Difficulty;
-using SDJK.Ruleset.PauseScreen;
+using SDJK.Ruleset.UI.PauseScreen;
 using UnityEngine;
 
 namespace SDJK.Ruleset.SDJK.GameOver

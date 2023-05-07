@@ -10,7 +10,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using SCKRM.Resource;
 
-namespace SDJK.Ruleset.ReplayResult
+namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIModes : ReplayResultUIBase
     {

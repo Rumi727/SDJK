@@ -4,6 +4,7 @@ using SCKRM.Object;
 using SCKRM.UI;
 using SDJK.Map;
 using SDJK.Replay;
+using SDJK.Ruleset.UI.ReplayResult;
 using System;
 using UnityEngine;
 using UnityEngine.UI;

@@ -2,7 +2,7 @@ using SCKRM;
 using TMPro;
 using UnityEngine;
 
-namespace SDJK.Ruleset.ReplayResult
+namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIMaxCombo : ReplayResultUIBase
     {

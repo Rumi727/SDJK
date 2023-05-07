@@ -4,6 +4,7 @@ using SCKRM.UI;
 using SDJK.Map;
 using SDJK.Replay;
 using SDJK.Ruleset;
+using SDJK.Ruleset.UI.ReplayResult;
 using System;
 using System.Collections.Generic;
 using System.Threading;

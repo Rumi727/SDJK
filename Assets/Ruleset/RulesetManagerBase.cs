@@ -12,7 +12,7 @@ using SDJK.Mode;
 using SDJK.Mode.Automatic;
 using SDJK.Mode.Difficulty;
 using SDJK.Replay;
-using SDJK.Ruleset.PauseScreen;
+using SDJK.Ruleset.UI.PauseScreen;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
