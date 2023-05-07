@@ -711,7 +711,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
                 double LerpToBeat(double lerp, double beat)
                 {
-                    if (lerp >= 1)
+                    if (lerp <= 0 || lerp >= 1)
                         return 0;
                     else
                         return (0.1 / lerp) * (map.globalEffect.bpm.GetValue(beat) / 60);
@@ -833,7 +833,14 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         for (int j = 0; j < oldMap.Effect.NoteOffsetEffect.Count; j++)
                         {
                             var effect = oldMap.Effect.NoteOffsetEffect[j];
-                            if (effect.Add)
+
+                            /*
+                             * 원래는 !(effect.Lerp <= 0 || effect.Lerp >= 1) 이 코드가 없는게 정상이지만
+                             * Old SDJK에선 Lerp 값이 0이나 1일 경우 Add 값을 무시하고 값을 더하지 않는 버그가 있기 때문에
+                             * 이렇게 해주어야합니다
+                             */
+
+                            if (effect.Add && !(effect.Lerp <= 0 || effect.Lerp >= 1))
                             {
                                 barEffect.noteOffset.Add(effect.Beat - 1, LerpToBeat(effect.Lerp, effect.Beat - 1), previousValue + effect.Value.y, EasingFunction.Ease.EaseOutExpo);
                                 previousValue = previousValue + effect.Value.y;
