@@ -443,7 +443,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         {
             for (int i = 0; i < map.notes.Count; i++)
             {
-                TypeList<SDJKNoteFile> notes = map.notes[i];
+                TypeList<SDJKNoteFile> notes = map.notes[i] = map.notes[i].OrderBy(x => x.beat).ToTypeList();
 
                 double lastBeat = double.MinValue;
                 bool holdNoteStart = false;
@@ -464,29 +464,36 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
                     lastBeat = note.beat;
 
-                    //노트 겹침 방지
-                    if (!holdNoteStart)
-                    {
-                        if (note.holdLength > 0)
-                        {
-                            holdNoteStart = true;
-                            holdNoteEndBeat = note.beat + note.holdLength;
-                        }
-                    }
-                    else
-                    {
-                        if (note.beat < holdNoteEndBeat)
-                            note.type = SDJKNoteTypeFile.auto;
-                        else
-                            holdNoteStart = false;
-                    }
-
                     //마이너스 홀드 방지
                     note.holdLength = note.holdLength.Clamp(0);
+
+                    //노트 겹침 방지
+                    if (note.type != SDJKNoteTypeFile.instantDeath && note.type != SDJKNoteTypeFile.auto)
+                    {
+                        if (!holdNoteStart)
+                        {
+                            if (note.holdLength > 0)
+                            {
+                                holdNoteStart = true;
+                                holdNoteEndBeat = note.beat + note.holdLength;
+                            }
+                        }
+                        else
+                        {
+                            if (note.beat < holdNoteEndBeat)
+                                note.type = SDJKNoteTypeFile.auto;
+                            else
+                            {
+                                if (note.holdLength > 0)
+                                    holdNoteEndBeat = note.beat + note.holdLength;
+                                else
+                                    holdNoteStart = false;
+                            }
+                        }
+                    }
+
                     notes[j] = note;
                 }
-
-                notes.OrderBy(x => x.beat);
             }
         }
 
