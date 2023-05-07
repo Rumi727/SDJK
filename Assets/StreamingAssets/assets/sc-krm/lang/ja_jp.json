@@ -48,6 +48,7 @@
 	"gui.restart": "再試行",
 	"gui.count": "数",
 	"gui.random": "ランダム",
+	"gui.skip": "スキップ",
 	
 	"gui.ago.years": "%value%年前",
 	"gui.ago.months": "%value%ヶ月前",

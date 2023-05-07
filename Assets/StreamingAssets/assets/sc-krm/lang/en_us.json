@@ -48,6 +48,7 @@
 	"gui.restart": "Restart",
 	"gui.count": "Count",
 	"gui.random": "Random",
+	"gui.skip": "Skip",
 	
 	"gui.ago.years": "%value%y ago",
 	"gui.ago.months": "%value%m ago",

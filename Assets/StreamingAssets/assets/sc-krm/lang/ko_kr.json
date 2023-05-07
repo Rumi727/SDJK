@@ -48,6 +48,7 @@
 	"gui.restart": "재시작",
 	"gui.count": "개수",
 	"gui.random": "랜덤",
+	"gui.skip": "스킵",
 	
 	"gui.ago.years": "%value%년 전",
 	"gui.ago.months": "%value%달 전",

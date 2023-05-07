@@ -60,8 +60,17 @@ namespace SCKRM.Rhythm
                     return;
                 else if (soundPlayer == null || soundPlayer.isRemoved || soundPlayer.IsDestroyed())
                     _internalTime = value;
-                else //사운드 플레이어의 구현이 정상적이라면 사운드 플레이어의 시간이 변경됨과 동시에 이벤트로 인해 time의 시간도 바뀌게 됩니다
-                    soundPlayer.time = (float)value;
+                else
+                {
+                    timeChangedEventLock = true;
+
+                    _internalTime = value;
+                    soundPlayer.time = (float)_internalTime.Clamp(0, soundPlayer.length - 0.01f);
+
+                    FixBPM();
+
+                    timeChangedEventLock = false;
+                }
             }
         }
         static double _internalTime;
