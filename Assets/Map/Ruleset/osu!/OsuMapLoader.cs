@@ -172,8 +172,14 @@ namespace SDJK.Map.Ruleset.Osu
                                     osuMap.info.author = value;
                                     break;
                                 case "Version":
-                                    osuMap.info.difficultyLabel = value + " (osu!)";
+                                {
+                                    if (isOsuMania)
+                                        osuMap.info.difficultyLabel = value + " (osu!mania)";
+                                    else
+                                        osuMap.info.difficultyLabel = value;
+
                                     break;
+                                }
                                 case "Source":
                                     osuMap.info.original = value;
                                     break;
