@@ -432,8 +432,8 @@ namespace SCKRM.FileDialog
 
 
 
-            GameObject previousTabSelectGameObject = StatusBarManager.tabSelectGameObject;
-            StatusBarManager.tabSelectGameObject = null;
+            bool previousTabAllow = StatusBarManager.tabAllow;
+            StatusBarManager.tabAllow = false;
 
             GameObject previouslySelectedGameObject = EventSystem.current.currentSelectedGameObject;
             EventSystem.current.SetSelectedGameObject(null);
@@ -500,7 +500,7 @@ namespace SCKRM.FileDialog
             isFileDialogShow = false;
             UIOverlayManager.showedOverlays.Remove(instance);
 
-            StatusBarManager.tabSelectGameObject = previousTabSelectGameObject;
+            StatusBarManager.tabAllow = previousTabAllow;
             EventSystem.current.SetSelectedGameObject(previouslySelectedGameObject);
 
             InputManager.forceInputLock = previousForceInputLock;

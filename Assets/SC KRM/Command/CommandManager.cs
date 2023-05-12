@@ -115,7 +115,7 @@ namespace SCKRM.Command
 
             isChatShow = true;
 
-            previouslyForceInputLock = StatusBarManager.tabSelectGameObject;
+            previouslyTabSelectGameObject = StatusBarManager.tabSelectGameObject;
             previouslyForceInputLock = InputManager.forceInputLock;
             previouslySelectedGameObject = EventSystem.current.currentSelectedGameObject;
 
