@@ -14,9 +14,10 @@ using SDJK.Mode.Converter;
 using Random = System.Random;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using System.IO;
-using SDJK.Map.Ruleset.OsuMania;
 using SCKRM.SaveLoad;
 using Newtonsoft.Json;
+using SDJK.Map.Ruleset.Osu;
+using UnityEngine;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -48,8 +49,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         return SuperHexagonMapLoad(mapFilePath, modes);
                     else if (extension == ".adofai") //ADOFAI
                         return ADOFAIMapLoad(mapFilePath, modes);
-                    else if (extension == ".osu") //osu!mania
-                        return OsuManiaMapLoad(mapFilePath, modes);
+                    else if (extension == ".osu") //osu!
+                        return OsuMapLoad(mapFilePath, modes);
                 }
 
                 return null;
@@ -378,30 +379,100 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
 
 
-        public static SDJKMapFile OsuManiaMapLoad(string mapFilePath, IMode[] modes)
+        public static SDJKMapFile OsuMapLoad(string mapFilePath, IMode[] modes)
         {
             SDJKMapFile sdjkMap = new SDJKMapFile(mapFilePath);
-            OsuManiaMapFile osuManiaMap = OsuManiaMapLoader.MapLoad(mapFilePath);
+            OsuMapFile osuMap = OsuMapLoader.MapLoad(mapFilePath);
             
             #region Global Info Copy
-            sdjkMap.info = osuManiaMap.info;
-            sdjkMap.globalEffect = osuManiaMap.globalEffect;
-            sdjkMap.visualizerEffect = osuManiaMap.visualizerEffect;
-            sdjkMap.postProcessEffect = osuManiaMap.postProcessEffect;
+            sdjkMap.info = osuMap.info;
+            sdjkMap.globalEffect = osuMap.globalEffect;
+            sdjkMap.visualizerEffect = osuMap.visualizerEffect;
+            sdjkMap.postProcessEffect = osuMap.postProcessEffect;
 
             sdjkMap.info.ruleset = "sdjk";
             #endregion
 
             #region Note
-            for (int i = 0; i < osuManiaMap.notes.Count; i++)
+            if (osuMap is OsuManiaMapFile)
             {
-                sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
-
-                TypeList<OsuManiaNoteFile> osuManiaNotes = osuManiaMap.notes[i];
-                for (int j = 0; j < osuManiaNotes.Count; j++)
+                OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
+                for (int i = 0; i < osuManiaMap.notes.Count; i++)
                 {
-                    OsuManiaNoteFile osuManiaNote = osuManiaNotes[j];
-                    sdjkMap.notes[i].Add(new SDJKNoteFile(osuManiaNote.beat, osuManiaNote.holdLength, SDJKNoteTypeFile.normal));
+                    sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
+
+                    TypeList<OsuManiaNoteFile> osuManiaNotes = osuManiaMap.notes[i];
+                    for (int j = 0; j < osuManiaNotes.Count; j++)
+                    {
+                        OsuManiaNoteFile osuManiaNote = osuManiaNotes[j];
+                        sdjkMap.notes[i].Add(new SDJKNoteFile(osuManiaNote.beat, osuManiaNote.holdLength, SDJKNoteTypeFile.normal));
+                    }
+                }
+            }
+            else
+            {
+                Random random = new Random(sdjkMap.info.randomSeed);
+                TypeList<TypeList<SDJKNoteFile>> notes = sdjkMap.notes;
+                Dictionary<int, double> secondDistances = new Dictionary<int, double>();
+
+                {
+                    int count = 4;
+                    IMode keyCountMode;
+                    if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
+                        count = ((KeyCountModeBase.Data)keyCountMode.modeConfig).count;
+
+                    for (int i = 0; i < count; i++)
+                        sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
+                }
+
+                {
+                    int keyIndex = 0;
+                    for (int i = 0; i < osuMap.beats.Count; i++)
+                    {
+                        double beat = osuMap.beats[i];
+
+                        //키 인덱스
+                        {
+                            double keyIndexDouble = keyIndex;
+                            double randomKeyIndex = random.NextDouble() * (notes.Count - 1);
+
+                            if (random.Next(0, 2) <= 0)
+                                keyIndexDouble += randomKeyIndex;
+                            else
+                                keyIndexDouble -= randomKeyIndex;
+
+                            keyIndex = keyIndexDouble.Repeat(notes.Count - 1).RoundToInt();
+                        }
+
+                        //중복 방지
+                        {
+                            secondDistances.Clear();
+
+                            for (int j = 0; j < notes.Count + 1; j++)
+                            {
+                                //만약 모든 키 인덱스가 조건에 만족하지 않았을경우, 최대한 먼 키 인덱스를 고르게 합니다
+                                if (j >= notes.Count)
+                                {
+                                    keyIndex = secondDistances.MaxBy(x => x.Value).First().Key;
+                                    break;
+                                }
+                                else if (notes[keyIndex].Count <= 0)
+                                    break;
+
+                                double lastBeat = notes[keyIndex].Last().beat;
+                                double lastBpm = osuMap.globalEffect.bpm.GetValue(lastBeat);
+                                double secondDistance = RhythmManager.BeatToSecond(lastBeat.Distance(beat), lastBpm);
+
+                                if (secondDistance >= 0.25f)
+                                    break;
+
+                                secondDistances[keyIndex] = secondDistance;
+                                keyIndex = (keyIndex + 1).RepeatWhile(notes.Count - 1);
+                            }
+                        }
+
+                        notes[keyIndex].Add(new SDJKNoteFile(beat, 0, SDJKNoteTypeFile.normal));
+                    }
                 }
             }
             #endregion
@@ -413,7 +484,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             SDJKFieldEffectFile fieldEffect = sdjkMap.effect.fieldEffect[0];
             fieldEffect.height.Add(double.MinValue, 0, 24);
 
-            for (int i = 0; i < osuManiaMap.notes.Count; i++)
+            for (int i = 0; i < osuMap.beats.Count; i++)
                 fieldEffect.barEffect.Add(new SDJKBarEffectFile());
 
             //Note Speed

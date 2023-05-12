@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace SDJK.Map.Ruleset.OsuMania
+namespace SDJK.Map.Ruleset.Osu
 {
-    public sealed class OsuManiaMapFile : MapFile
+    public sealed class OsuManiaMapFile : OsuMapFile
     {
         public OsuManiaMapFile(string mapFilePath) : base(mapFilePath) { }
 

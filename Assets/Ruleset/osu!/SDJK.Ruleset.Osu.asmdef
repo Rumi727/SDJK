@@ -1,6 +1,6 @@
 {
-    "name": "SDJK.Ruleset.OsuMania",
-    "rootNamespace": "SDJK.Ruleset.OsuMania",
+    "name": "SDJK.Ruleset.Osu",
+    "rootNamespace": "SDJK.Ruleset.Osu",
     "references": [
         "GUID:9c1f978837ad80d49ae31d1cd963a280",
         "GUID:42ec50f206125f04894d9168eeb43a0f"

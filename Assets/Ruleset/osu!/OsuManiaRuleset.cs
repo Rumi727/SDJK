@@ -2,7 +2,7 @@ using SCKRM.Renderer;
 using SDJK.Mode;
 using System;
 
-namespace SDJK.Ruleset.OsuMania
+namespace SDJK.Ruleset.Osu
 {
     public sealed class OsuManiaRuleset : RulesetBase
     {
