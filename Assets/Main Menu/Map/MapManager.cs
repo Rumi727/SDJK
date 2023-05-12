@@ -39,7 +39,7 @@ namespace SDJK.MainMenu
             set
             {
                 _selectedMapPack = value;
-                selectedMapIndex = 0;
+                selectedMapIndex = selectedMapPack.maps.Count - 1;
             }
         }
         static MapPack _selectedMapPack = null;
