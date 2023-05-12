@@ -259,6 +259,7 @@ MonoBehaviour:
   _nameSpace: 
   _path: 
   _type: 
+  _spriteTag: global
   _index: 0
   _image: {fileID: 5345183977130996942}
 --- !u!1 &5363471388134061507
