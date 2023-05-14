@@ -26,7 +26,13 @@
 * A Dance of Fire and Ice (Hidden)
   * .adofai (ADOFAI file format)
 * osu!mania (Hidden)
+  * .osu (osu! file format v14)
   * .osu (osu!mania file format v14)
+
+### 주의
+osu! 맵을 변환시킬때 시간 기준을 초에서 비트로 변환하는데  
+이 코드가 매우 불안정해서 싱크가 어긋나는 맵이 대다수 입니다  
+나중에 맵 별로 오프셋을 직접 설정하는 기능을 추가할태니 지금은 수동으로 오프셋을 맞춰주세요...
   
 ## [MapFile](Assets/Map/MapFile.cs#L21) 클래스가 지원하는 타입
 [ITypeList]: Assets/SC%20KRM/TypeList.cs#L3
