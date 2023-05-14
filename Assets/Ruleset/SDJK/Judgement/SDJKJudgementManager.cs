@@ -23,7 +23,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] SDJKGameOverManager _gameOverManager; public SDJKGameOverManager gameOverManager => _gameOverManager;
-        [SerializeField] bool auto = false;
 
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
 
@@ -185,7 +184,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentPressBeatReplay);
 
-                if (autoNote || instance.auto)
+                if (autoNote)
                 {
                     if (currentNoteIndex < notes.Count && currentBeat >= currentNote.beat)
                     {
@@ -290,7 +289,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 realDisSecond = GetDisSecond(beat, maxClamp, currentBeat);
                 judgementDisSecond = realDisSecond;
 
-                if (autoNote || instance.auto)
+                if (autoNote)
                     judgementDisSecond = 0;
             }
 
@@ -563,7 +562,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double currentBeat = RhythmManager.currentBeatSound;
 
                 bool input;
-                if (autoNote || instance.auto)
+                if (autoNote)
                     input = currentBeat <= currentHoldNoteBeat;
                 else if (sdjkManager.isReplay)
                     input = currentBeat <= replayInputBeat;
