@@ -25,6 +25,8 @@
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!maniaノートスピード",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!maniaマップをSDJKマップに読み込むときのノートの速度を決定します",
 	
+	
+	
 	"options.replay.title": "リプレイ",
 	"options.replay.replayAsyncLoad": "リプレイ非同期ロードを有効にする",
 	"options.replay.replayAsyncLoad.info": "リプレイを初期ロードが終了したときにロードします",
@@ -39,6 +41,9 @@
 	"notice.running_task.drag_and_drop.map_load.warning": "マップにロードしますか？",
 	"notice.running_task.drag_and_drop.map_load.name":"マップを読み込んでいます...",
 	"notice.running_task.drag_and_drop.replay_list_load.name":"リプレイを読み込んでいます...",
+	
+	"notice.map_loader.fall_map_load": "ロードに失敗したマップがあります",
+	"notice.map_loader.long_path": "この例外は、パス全体が長すぎるために発生した可能性があります",
 	
 	
 	

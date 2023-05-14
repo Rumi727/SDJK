@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using SCKRM.Input;
 using SCKRM.Object;
 using SCKRM.Renderer;
@@ -65,17 +66,17 @@ namespace SCKRM.UI.SideBar
 
         public void AllAsyncTaskCancel() => AsyncTaskManager.AllAsyncTaskCancel();
 
-        public static void Notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info) => notice(name, info, Type.none);
-        public static void Notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info, Type type) => notice(name, info, type);
+        public static void Notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info) => notice(name, info, Type.none).Forget();
+        public static void Notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info, Type type) => notice(name, info, type).Forget();
 
-        static void notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info, Type type)
+        static async UniTaskVoid notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info, Type type)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
             if (!Kernel.isPlaying)
                 throw new NotPlayModeMethodException();
-            if (!InitialLoadManager.isInitialLoadEnd)
-                throw new NotInitialLoadEndMethodException();
+
+            await UniTask.WaitUntil(() => InitialLoadManager.isInitialLoadEnd, PlayerLoopTiming.Update, AsyncTaskManager.cancelToken);
 
             if (noticeList.Count >= 10)
                 FirstRemove();

@@ -1,4 +1,5 @@
-{"map_manager.music": "음악",
+{
+	"map_manager.music": "음악",
 	"map_manager.previous_music": "이전 음악",
 	"map_manager.restart_music": "음악 재시작",
 	"map_manager.next_music": "다음 음악",
@@ -28,6 +29,8 @@
 	"options.replay.replayAsyncLoad": "리플레이 비동기 로드 활성화",
 	"options.replay.replayAsyncLoad.info": "리플레이를 초기 로딩이 끝났을때 로드합니다",
 	
+	
+	
 	"notice.main_menu.no_map": "맵이 없습니다!",
 	"notice.main_menu.no_map.info": "선택한 규칙 집합에 맵이 한개도 없습니다",
 	
@@ -38,6 +41,9 @@
 	"notice.running_task.drag_and_drop.map_load.warning": "맵으로 로드하시겠습니까?",
 	"notice.running_task.drag_and_drop.map_load.name":"맵 로드 중...",
 	"notice.running_task.drag_and_drop.replay_list_load.name":"리플레이 로드 중...",
+	
+	"notice.map_loader.fall_map_load": "로드에 실패한 맵이 있습니다",
+	"notice.map_loader.long_path": "이 예외는 전체 경로가 너무 길어서 발생했을 가능성이 큽니다",
 	
 	
 	

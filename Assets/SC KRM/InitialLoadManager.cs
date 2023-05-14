@@ -276,7 +276,7 @@ namespace SCKRM
                     Debug.ForceLogError("Initial loading failed", nameof(InitialLoadManager));
 
                     if (isInitialLoadStart)
-                        ApplicationForceQuit("Initial loading failed\n\n" + e.GetType().Name + ": " + e.Message + "\n\n" + e.StackTrace.Substring(5));
+                        ApplicationForceQuit("Initial loading failed\n\n" + e.ToSummaryString());
                 }
             }
         }

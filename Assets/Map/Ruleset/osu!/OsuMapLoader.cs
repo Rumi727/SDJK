@@ -133,9 +133,7 @@ namespace SDJK.Map.Ruleset.Osu
                         }
                         catch
                         {
-                            Debug.LogError("[Text] " + text);
-                            Debug.LogError("[Path] " + mapFilePath);
-
+                            Debug.ForceLogError("[Text] " + text);
                             throw;
                         }
                     }
@@ -190,9 +188,7 @@ namespace SDJK.Map.Ruleset.Osu
                         }
                         catch
                         {
-                            Debug.LogError("[Text] " + text);
-                            Debug.LogError("[Path] " + mapFilePath);
-
+                            Debug.ForceLogError("[Text] " + text);
                             throw;
                         }
                     }
@@ -229,9 +225,7 @@ namespace SDJK.Map.Ruleset.Osu
                             }
                             catch
                             {
-                                Debug.LogError("[Text] " + text);
-                                Debug.LogError("[Path] " + mapFilePath);
-
+                                Debug.ForceLogError("[Text] " + text);
                                 throw;
                             }
                         }
@@ -282,9 +276,7 @@ namespace SDJK.Map.Ruleset.Osu
                         }
                         catch
                         {
-                            Debug.LogError("[Text] " + text);
-                            Debug.LogError("[Path] " + mapFilePath);
-
+                            Debug.ForceLogError("[Text] " + text);
                             throw;
                         }
                     }
@@ -332,9 +324,7 @@ namespace SDJK.Map.Ruleset.Osu
                         }
                         catch
                         {
-                            Debug.LogError("[Text] " + text);
-                            Debug.LogError("[Path] " + mapFilePath);
-
+                            Debug.ForceLogError("[Text] " + text);
                             throw;
                         }
                     }
@@ -380,9 +370,7 @@ namespace SDJK.Map.Ruleset.Osu
                         }
                         catch
                         {
-                            Debug.LogError("[Text] " + text);
-                            Debug.LogError("[Path] " + mapFilePath);
-
+                            Debug.ForceLogError("[Text] " + text);
                             throw;
                         }
                     }

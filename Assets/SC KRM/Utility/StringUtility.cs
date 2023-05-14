@@ -585,5 +585,7 @@ namespace SCKRM
             zb,
             yb
         }
+
+        public static string ToSummaryString(this Exception e) => $"{e.GetType().Name}: {e.Message}\n\n{e.StackTrace.Substring(5)}";
     }
 }

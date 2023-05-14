@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.FileDialog;
+using SCKRM.Renderer;
+using SCKRM.Resource;
+using SCKRM.UI.SideBar;
 using SDJK.Mode;
 using System;
 using System.Collections.Generic;
@@ -54,16 +57,53 @@ namespace SDJK.Map
             if (modes == null)
                 modes = IMode.emptyModes;
 
-            Delegate[] delegates = mapLoaderFunc.GetInvocationList();
-            for (int i = 0; i < delegates.Length; i++)
+            try
             {
-                MapLoaderFunc action = (MapLoaderFunc)delegates[i];
-                object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), modes);
-                if (map != null)
+                Delegate[] delegates = mapLoaderFunc.GetInvocationList();
+                for (int i = 0; i < delegates.Length; i++)
                 {
-                    T sdjkMap = (T)map;
-                    return sdjkMap;
+                    MapLoaderFunc action = (MapLoaderFunc)delegates[i];
+                    object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), modes);
+
+                    if (map != null)
+                    {
+                        T sdjkMap = (T)map;
+                        return sdjkMap;
+                    }
                 }
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                string longPathText = ResourceManager.SearchLanguage("notice.map_loader.long_path", "sdjk");
+
+                Debug.ForceLogError("[Path] " + mapFilePath);
+                Debug.ForceLogWarning(longPathText);
+
+                Debug.LogException(e);
+
+                //NameSpacePathReplacePair 구조체로 따로 빼는 이유는 경로에 ':' 문자가 들어가서 앞 부분을 네임스페이스로 인식하기 때문입니다
+                string noticeText = $@"[Path]
+{mapFilePath}
+
+[Info]
+{longPathText}
+
+[Exception]
+{e.ToSummaryString()}";
+                NoticeManager.Notice("sdjk:notice.map_loader.fall_map_load", new NameSpacePathReplacePair(noticeText), NoticeManager.Type.warning);
+            }
+            catch (Exception e)
+            {
+                Debug.ForceLogError("[Path] " + mapFilePath);
+                Debug.LogException(e);
+
+                //NameSpacePathReplacePair 구조체로 따로 빼는 이유는 경로에 ':' 문자가 들어가서 앞 부분을 네임스페이스로 인식하기 때문입니다
+                string noticeText = $@"[Path]
+{mapFilePath}
+
+[Exception]
+{e.ToSummaryString()}";
+                NoticeManager.Notice("sdjk:notice.map_loader.fall_map_load", new NameSpacePathReplacePair(noticeText), NoticeManager.Type.warning);
             }
 
             return null;
