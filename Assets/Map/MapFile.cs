@@ -233,6 +233,10 @@ namespace SDJK.Map
 
 
         public BeatValuePairAniListDouble judgmentSize { get; set; } = new(1);
+
+
+
+        public BeatValuePairList<HitsoundFile[]> hitsoundFile { get; set; } = new(new HitsoundFile[1] { HitsoundFile.defaultHitsound });
     }
 
     public sealed class MapVisualizerEffect
@@ -278,6 +282,24 @@ namespace SDJK.Map
         background,
         field,
         ui
+    }
+
+    public struct HitsoundFile
+    {
+        public static HitsoundFile defaultHitsound = new HitsoundFile("normal", 0.5f, 0.95f);
+
+        public HitsoundFile(string path, float volume, float pitch)
+        {
+            this.path = path;
+
+            this.volume = volume;
+            this.pitch = pitch;
+        }
+
+        public string path { get; set; }
+
+        public float volume { get; set; }
+        public float pitch { get; set; }
     }
     #endregion
 }

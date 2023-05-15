@@ -12,6 +12,7 @@ using SDJK.Mode;
 using SDJK.Mode.Difficulty;
 using SDJK.Ruleset.SDJK.GameOver;
 using SDJK.Replay.Ruleset.SDJK;
+using SDJK.Map;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -182,6 +183,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double currentBeat = RhythmManager.currentBeatSound;
                 bool hitsoundPlay = false;
 
+                HitsoundFile[] hitsoundFiles = map.globalEffect.hitsoundFile.GetValue(currentNote.beat);
                 SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentPressBeatReplay);
 
                 if (autoNote)
@@ -246,7 +248,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
 
                 if (hitsoundPlay)
-                    HitsoundPlay();
+                    HitsoundPlay(hitsoundFiles);
 
                 void Input(double pressUpBeatReplay = 0)
                 {
@@ -262,7 +264,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                             if (!isMiss) //미스가 아닐경우 홀드 노트 진행
                             {
-                                HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, keyIndex, autoNote, holdBeat, pressUpBeatReplay);
+                                HoldJudgementObject holdJudgementObject = new HoldJudgementObject(this, inputManager, map, keyIndex, autoNote, holdBeat, pressUpBeatReplay);
                                 instance.holdJudgements.Add(holdJudgementObject);
 
                                 holdJudgementObject.Update();
@@ -452,7 +454,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
             }
 
-            public void HitsoundPlay() => HitsoundEffect.HitsoundPlay();
+            public void HitsoundPlay(HitsoundFile[] hitsoundFiles)
+            {
+                SDJKManager manager = instance.sdjkManager;
+                for (int i = 0; i < hitsoundFiles.Length; i++)
+                    manager.HitsoundPlay(hitsoundFiles[i]);
+            }
 
             public double GetDisSecond(double beat, bool maxClamp, double currentBeat)
             {
@@ -529,10 +536,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
         class HoldJudgementObject
         {
-            public HoldJudgementObject(JudgementObject judgementObject, SDJKInputManager inputManager, int keyIndex, bool autoNote, double currentHoldNoteBeat, double replayInputBeat)
+            public HoldJudgementObject(JudgementObject judgementObject, SDJKInputManager inputManager, MapFile map, int keyIndex, bool autoNote, double currentHoldNoteBeat, double replayInputBeat)
             {
                 this.judgementObject = judgementObject;
                 this.inputManager = inputManager;
+                this.map = map;
+
                 this.keyIndex = keyIndex;
 
                 this.autoNote = autoNote;
@@ -542,6 +551,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
             JudgementObject judgementObject;
             SDJKInputManager inputManager;
+            MapFile map;
+
             int keyIndex = 0;
 
             bool autoNote;
@@ -573,8 +584,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 if (realDisSecond >= missSecond || !input)
                 {
+                    HitsoundFile[] hitsoundFiles = map.globalEffect.hitsoundFile.GetValue(currentHoldNoteBeat);
+
                     judgementObject.Judgement(currentHoldNoteBeat, judgementDisSecond, true, out _, replayInputBeat);
-                    judgementObject.HitsoundPlay();
+                    judgementObject.HitsoundPlay(hitsoundFiles);
 
                     instance.holdJudgements.Remove(this);
                     isRemove = true;

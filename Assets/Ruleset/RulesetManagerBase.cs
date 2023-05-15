@@ -13,6 +13,8 @@ using SDJK.Mode.Automatic;
 using SDJK.Mode.Difficulty;
 using SDJK.Replay;
 using SDJK.Ruleset.UI.PauseScreen;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +43,8 @@ namespace SDJK.Ruleset
 
         public bool isPaused => pauseScreen.isShow;
         public abstract bool isGameOver { get; }
+
+        public Dictionary<string, HitsoundEffect.HitsoundInfo> loadedHitsounds { get; } = new Dictionary<string, HitsoundEffect.HitsoundInfo>();
 
         bool isClear = false;
         protected virtual void Update()
@@ -72,9 +76,7 @@ namespace SDJK.Ruleset
         protected virtual void OnDestroy()
         {
             UIManager.BackEventRemove(Pause);
-
-            if (bgmClip != null)
-                Destroy(bgmClip, 1);
+            AudioDestroy();
         }
 
         public virtual bool Refresh(TMapFile map, TReplayFile replay, TRuleset ruleset, bool isEditor, IMode[] modes)
@@ -166,9 +168,7 @@ namespace SDJK.Ruleset
                 return;
 
             isRestart = true;
-
-            if (bgmClip != null)
-                Destroy(bgmClip, 1);
+            AudioDestroy();
 
             ruleset.GameStart(map.mapFilePath, isReplay ? currentReplay.replayFilePath : null, isEditor, modes);
         }
@@ -180,9 +180,7 @@ namespace SDJK.Ruleset
                 return;
 
             isQuit = true;
-
-            if (bgmClip != null)
-                Destroy(bgmClip, 1);
+            AudioDestroy();
 
             MainMenuLoader.Load();
             UIManager.BackEventRemove(Pause);
@@ -196,6 +194,17 @@ namespace SDJK.Ruleset
                 return;
 
             pauseScreen.Show();
+        }
+
+        public void HitsoundPlay(HitsoundFile hitsound) => HitsoundEffect.CustomHitsoundPlay(loadedHitsounds, map, this, hitsound);
+
+        void AudioDestroy()
+        {
+            if (bgmClip != null)
+            {
+                Destroy(bgmClip, 1);
+                bgmClip = null;
+            }
         }
 
         async UniTaskVoid BGMPlay()

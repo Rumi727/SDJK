@@ -75,7 +75,7 @@ namespace SDJK.MainMenu
                 if (pointer)
                 {
                     for (int i = 0; i < count; i++)
-                        HitsoundEffect.HitsoundPlay();
+                        HitsoundEffect.DefaultHitsoundPlay();
                 }
 
                 {

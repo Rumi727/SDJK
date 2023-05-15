@@ -155,6 +155,6 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 accuracy = replay.accuracyAbses.GetValue(beat);
         }
 
-        public static void HitsoundPlay() => HitsoundEffect.HitsoundPlay();
+        public static void HitsoundPlay() => HitsoundEffect.DefaultHitsoundPlay();
     }
 }

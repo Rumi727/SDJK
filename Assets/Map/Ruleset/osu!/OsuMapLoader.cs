@@ -49,6 +49,12 @@ namespace SDJK.Map.Ruleset.Osu
                 int keyCount = 4;
                 bool isOsuMania = false;
 
+                int beatmapSampleSet = 0;
+
+                BeatValuePairList<int> timingPointsSampleSet = new BeatValuePairList<int>(0);
+                BeatValuePairList<int> timingPointsSampleIndex = new BeatValuePairList<int>(0);
+                BeatValuePairList<int> timingPointsVolume = new BeatValuePairList<int>(100);
+
                 Dictionary<string, StringBuilder> sections = new Dictionary<string, StringBuilder>();
 
                 #region Stream Reader
@@ -107,6 +113,17 @@ namespace SDJK.Map.Ruleset.Osu
                                 case "PreviewTime":
                                     osuMap.info.mainMenuStartTime = int.Parse(value) * 0.001f;
                                     break;
+                                case "SampleSet":
+                                {
+                                    if (value == "Soft")
+                                        beatmapSampleSet = 1;
+                                    else if (value == "Drum")
+                                        beatmapSampleSet = 2;
+                                    else
+                                        beatmapSampleSet = 0;
+
+                                    break;
+                                }
                                 case "Mode":
                                 {
                                     if (value == "0")
@@ -297,6 +314,9 @@ namespace SDJK.Map.Ruleset.Osu
                             string[] splitText = text.Split(',');
                             double time = int.Parse(splitText[0]) * 0.001;
                             double bpm = (1d / double.Parse(splitText[1]) * 1000d * 60d).Floor();
+                            int sampleSet = int.Parse(splitText[3]);
+                            int sampleIndex = int.Parse(splitText[4]);
+                            int volume = int.Parse(splitText[5]);
                             bool uninherited = splitText[6] == "0";
                             bool kiai = splitText[7] == "1";
 
@@ -317,6 +337,14 @@ namespace SDJK.Map.Ruleset.Osu
                                 timingPointsSectionBPM = bpm;
                             }
 
+                            if (sampleSet == 0)
+                                timingPointsSampleSet.Add(beat, beatmapSampleSet);
+                            else
+                                timingPointsSampleSet.Add(beat, sampleSet - 1);
+
+                            timingPointsSampleIndex.Add(beat, sampleIndex);
+                            timingPointsVolume.Add(beat, volume);
+
                             osuMap.globalEffect.yukiMode.Add(beat, kiai, false);
 
                             timingPointsSectionLastBeat = beat;
@@ -334,6 +362,7 @@ namespace SDJK.Map.Ruleset.Osu
                 #region Hit Objects Section
                 using (StringReader stringReader = new StringReader(sections["[HitObjects]"].ToString()))
                 {
+                    //HitsoundFile? lastHitsoundFile = null;
                     while (true)
                     {
                         string text = stringReader.ReadLine();
@@ -350,7 +379,11 @@ namespace SDJK.Map.Ruleset.Osu
 
                             if (isOsuMania)
                             {
-                                double holdTime = int.Parse(splitText[5].Split(':')[0]) * 0.001;
+                                double holdTime = 0;
+                                bool isHold = splitText.Length == 11;
+                                if (isHold)
+                                    holdTime = int.Parse(splitText[5]) * 0.001;
+
                                 int index = (int.Parse(splitText[0]) * keyCount / 512d).FloorToInt();
 
                                 double holdBeat = 0;
@@ -358,6 +391,88 @@ namespace SDJK.Map.Ruleset.Osu
                                     holdBeat = GetBeat(holdTime) - beat;
 
                                 ((OsuManiaMapFile)osuMap).notes[index].Add(new OsuManiaNoteFile(beat, holdBeat));
+
+                                //Hitsound
+                                //너무 이상해서 폐기
+                                //오스 맵 구조 진짜 개같이 짜여져 있네
+                                /*
+                                int hitsound = int.Parse(splitText[4]).Clamp(0, 3);
+                                int sampleSet = timingPointsSampleSet.GetValue(beat);
+                                int sampleIndex = timingPointsSampleIndex.GetValue(beat);
+                                int sampleVolume = timingPointsVolume.GetValue(beat);
+                                string fileName;
+
+                                if (hitsound == 0)
+                                {
+                                    int value = int.Parse(splitText[splitText.Length - 5]);
+                                    if (value != 0)
+                                        sampleSet = value - 1;
+                                }
+                                else if (hitsound != 0)
+                                {
+                                    int value = int.Parse(splitText[splitText.Length - 4]);
+                                    if (value != 0)
+                                        sampleSet = value - 1;
+                                }
+
+                                {
+                                    int value = int.Parse(splitText[splitText.Length - 3]);
+                                    if (value != 0)
+                                        sampleIndex = value;
+                                }
+
+                                {
+                                    int value = int.Parse(splitText[splitText.Length - 2]);
+                                    if (value != 0)
+                                        sampleVolume = value;
+                                }
+
+                                fileName = splitText[splitText.Length - 1];
+
+                                {
+                                    string sampleSetText = "normal";
+                                    if (sampleSet == 1)
+                                        sampleSetText = "soft";
+                                    else if (sampleSet == 2)
+                                        sampleSetText = "drum";
+
+                                    string hitsoundText = "normal";
+                                    if (hitsound == 1)
+                                        hitsoundText = "whistle";
+                                    else if (hitsound == 2)
+                                        hitsoundText = "finish";
+                                    else if (hitsound == 3)
+                                        hitsoundText = "clap";
+
+                                    HitsoundFile hitsoundFile;
+                                    if (sampleIndex == 0 || sampleIndex == 1)
+                                        hitsoundFile = new HitsoundFile($"{sampleSetText}-hit{hitsoundText}", sampleVolume * 0.01f, 1);
+                                    else
+                                        hitsoundFile = new HitsoundFile($"{sampleSetText}-hit{hitsoundText}{sampleIndex}", sampleVolume * 0.01f, 1);
+
+                                    HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
+                                    if (!lastHitsoundFile.Equals(hitsoundFile))
+                                    {
+                                        bool isCustomHitsound = File.Exists(PathUtility.Combine(osuMap.mapFilePathParent, customHitsoundFile.path + ".wav"));
+
+                                        if (File.Exists(PathUtility.Combine(osuMap.mapFilePathParent, hitsoundFile.path + ".wav")))
+                                        {
+                                            if (isCustomHitsound)
+                                                osuMap.globalEffect.hitsoundFile.Add(beat, new HitsoundFile[] { hitsoundFile, customHitsoundFile });
+                                            else
+                                                osuMap.globalEffect.hitsoundFile.Add(beat, new HitsoundFile[] { hitsoundFile });
+                                        }
+                                        else
+                                        {
+                                            if (isCustomHitsound)
+                                                osuMap.globalEffect.hitsoundFile.Add(beat, new HitsoundFile[] { HitsoundFile.defaultHitsound, customHitsoundFile });
+                                            else
+                                                osuMap.globalEffect.hitsoundFile.Add(beat);
+                                        }
+
+                                        lastHitsoundFile = hitsoundFile;
+                                    }
+                                }*/
                             }
 
                             osuMap.beats.Add(beat);

@@ -254,7 +254,7 @@ namespace SDJK.MapEditor
                     }
 
                     if (HitsoundEffect.GetHitsoundPlayCount(mapFile, RhythmManager.currentBeatSound, ref hitsoundBeat) > 0)
-                        HitsoundEffect.HitsoundPlay();
+                        HitsoundEffect.DefaultHitsoundPlay();
                 }
 
                 if (await UniTask.NextFrame(PlayerLoopTiming.LastUpdate, cancel.Token).SuppressCancellationThrow())
