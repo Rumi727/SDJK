@@ -49,6 +49,10 @@
 	"gui.count": "数",
 	"gui.random": "ランダム",
 	"gui.skip": "スキップ",
+	"gui.coefficient": "係数",
+	"gui.coefficient_per_second": "秒あたりの係数",
+	"gui.min": "最小",
+	"gui.max": "最大",
 	
 	"gui.ago.years": "%value%年前",
 	"gui.ago.months": "%value%ヶ月前",

@@ -84,6 +84,20 @@
 	"mode.converter.hold_off": "홀드 제거",
 	"mode.converter.hold_off.info": "홀드 노트를 치는 도중에 노트를 치는건 정말 어려워!",
 	"mode.converter.hold_off.remove_hold_note_end_beat": "홀드 노트 끝 박자 제거",
+
+
+
+	"mode.fun": "재미",
+	
+	"mode.fun.acceleration": "가속",
+	"mode.fun.acceleration.info": "당신의 연타 실력을 한번 보자구요?",
+	"mode.fun.acceleration.resetIfMiss": "놓치면 리셋",
+	"mode.fun.deceleration": "감속",
+	"mode.fun.deceleration.info": "느리게랑 무엇이 다른걸까요?",
+	"mode.fun.deceleration.resetIfMiss": "놓치면 리셋",
+
+	"mode.fun.adaptive_speed": "적응 속도",
+	"mode.fun.adaptive_speed.info": "얼마나 잘하는지에 따라 속도가 달라집니다",
 	
 	
 	

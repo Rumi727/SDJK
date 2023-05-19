@@ -49,6 +49,10 @@
 	"gui.count": "개수",
 	"gui.random": "랜덤",
 	"gui.skip": "스킵",
+	"gui.coefficient": "계수",
+	"gui.coefficient_per_second": "초당 계수",
+	"gui.min": "최소",
+	"gui.max": "최대",
 	
 	"gui.ago.years": "%value%년 전",
 	"gui.ago.months": "%value%달 전",

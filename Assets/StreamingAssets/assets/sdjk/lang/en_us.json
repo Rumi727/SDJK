@@ -85,6 +85,20 @@
 	"mode.converter.hold_off.info": "It's really hard to hit a note in the middle of a hold note!",
 	"mode.converter.hold_off.remove_hold_note_end_beat": "Remove hold note end beat",
 	
+
+	
+	"mode.fun": "Fun",
+	
+	"mode.fun.acceleration": "Acceleration",
+	"mode.fun.acceleration.info": "Let's see your battering skills?",
+	"mode.fun.acceleration.resetIfMiss": "Reset If Miss",
+	"mode.fun.deceleration": "Deceleration",
+	"mode.fun.deceleration.info": "What is the difference between slow?",
+	"mode.fun.deceleration.resetIfMiss": "Reset If Miss",
+
+	"mode.fun.adaptive_speed": "Adaptive Speed",
+	"mode.fun.adaptive_speed.info": "The speed of the music changes depending on how good you are",
+	
 	
 	
 	"mode.setting": "Mode setting"

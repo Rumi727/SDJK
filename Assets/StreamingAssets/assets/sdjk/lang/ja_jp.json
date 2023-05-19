@@ -86,6 +86,20 @@
 	"mode.converter.hold_off.remove_hold_note_end_beat": "ホールドノートエンドビート除去",
 	
 	
+
+	"mode.fun": "楽しい",
+	
+	"mode.fun.acceleration": "加速",
+	"mode.fun.acceleration.info": "あなたの連打の実力を一度見てみましょうか？",
+	"mode.fun.acceleration.resetIfMiss": "逃したらリセット",
+	"mode.fun.deceleration": "減速",
+	"mode.fun.deceleration.info": "ゆっくりと何が違うのですか？",
+	"mode.fun.deceleration.resetIfMiss": "逃したらリセット",
+
+	"mode.fun.adaptive_speed": "適応速度",
+	"mode.fun.adaptive_speed.info": "どれだけうまくいくかによって速度が変わります",
+	
+	
 	
 	"mode.setting": "モード設定"
 }

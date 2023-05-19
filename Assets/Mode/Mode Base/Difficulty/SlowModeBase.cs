@@ -1,5 +1,6 @@
 using SCKRM;
 using SCKRM.Renderer;
+using SDJK.Mode.Fun;
 using System;
 
 namespace SDJK.Mode.Difficulty
