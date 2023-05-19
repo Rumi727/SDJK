@@ -15,12 +15,12 @@ namespace SDJK.Mode.Converter
 
 
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.converter.hold_off")]
-        public sealed class Data : IModeConfig
+        public sealed class Config : IModeConfig
         {
             [SaveLoadUIToggleConfig("sdjk:mode.converter.hold_off.remove_hold_note_end_beat", "")]
             public bool removeHoldNoteEndBeat { get; set; } = true;
         }
 
-        protected override IModeConfig CreateModeConfig() => new Data();
+        protected override IModeConfig CreateModeConfig() => new Config();
     }
 }

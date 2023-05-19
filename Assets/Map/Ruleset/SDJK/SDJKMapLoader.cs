@@ -101,11 +101,11 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             IMode keyCountMode;
             if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
-                KeyCountChange(map, ((KeyCountModeBase.Data)keyCountMode.modeConfig).count);
+                KeyCountChange(map, ((KeyCountModeBase.Config)keyCountMode.modeConfig).count);
 
             IMode holdOffMode;
             if ((holdOffMode = modes.FindMode<HoldOffModeBase>()) != null)
-                HoldOff(map, ((HoldOffModeBase.Data)holdOffMode.modeConfig).removeHoldNoteEndBeat);
+                HoldOff(map, ((HoldOffModeBase.Config)holdOffMode.modeConfig).removeHoldNoteEndBeat);
         }
 
         static void KeyCountChange(SDJKMapFile map, int count)
@@ -275,7 +275,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 int count = 4;
                 IMode keyCountMode;
                 if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
-                    count = ((KeyCountModeBase.Data)keyCountMode.modeConfig).count;
+                    count = ((KeyCountModeBase.Config)keyCountMode.modeConfig).count;
 
                 for (int i = 0; i < count; i++)
                    sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
@@ -419,7 +419,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     int count = 4;
                     IMode keyCountMode;
                     if ((keyCountMode = modes.FindMode<KeyCountModeBase>()) != null)
-                        count = ((KeyCountModeBase.Data)keyCountMode.modeConfig).count;
+                        count = ((KeyCountModeBase.Config)keyCountMode.modeConfig).count;
 
                     for (int i = 0; i < count; i++)
                         sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());

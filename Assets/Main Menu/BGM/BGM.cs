@@ -104,9 +104,9 @@ namespace SDJK.MainMenu
                 {
                     IMode speedMode;
                     if ((speedMode = ModeManager.selectedModeList.FindMode<FastModeBase>()) != null)
-                        RhythmManager.speed *= (float)((FastModeBase.Data)speedMode.modeConfig).speed;
+                        RhythmManager.speed *= (float)((FastModeBase.Config)speedMode.modeConfig).speed;
                     else if ((speedMode = ModeManager.selectedModeList.FindMode<SlowModeBase>()) != null)
-                        RhythmManager.speed *= (float)((SlowModeBase.Data)speedMode.modeConfig).speed;
+                        RhythmManager.speed *= (float)((SlowModeBase.Config)speedMode.modeConfig).speed;
                 }
             }
         }

@@ -15,13 +15,13 @@ namespace SDJK.Mode.Difficulty
 
 
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.difficulty.combo_multiplier")]
-        public sealed class Data : IModeConfig
+        public sealed class Config : IModeConfig
         {
             [SaveLoadUISliderConfig("sc-krm:gui.multiplier", "", -2, 2, 0.002f, 4)]
             public double multiplier { get => _multiplier; set => _multiplier = value; }
             double _multiplier = 0.75;
         }
 
-        protected override IModeConfig CreateModeConfig() => new Data();
+        protected override IModeConfig CreateModeConfig() => new Config();
     }
 }

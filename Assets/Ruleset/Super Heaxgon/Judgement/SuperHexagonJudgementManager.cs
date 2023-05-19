@@ -107,7 +107,7 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             {
                 IMode comboMultiplierMode;
                 if ((comboMultiplierMode = manager.modes.FindMode<ComboMultiplierModeBase>()) != null)
-                    comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
+                    comboMultiplier = (float)((ComboMultiplierModeBase.Config)comboMultiplierMode.modeConfig).multiplier;
             }
 
             score += JudgementUtility.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier) * (1 - accuracy);

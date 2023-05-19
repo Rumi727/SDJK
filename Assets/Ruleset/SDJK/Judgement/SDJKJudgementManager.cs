@@ -336,7 +336,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         {
                             IMode comboMultiplierMode;
                             if ((comboMultiplierMode = sdjkManager.modes.FindMode<ComboMultiplierModeBase>()) != null)
-                                comboMultiplier = (float)((ComboMultiplierModeBase.Data)comboMultiplierMode.modeConfig).multiplier;
+                                comboMultiplier = (float)((ComboMultiplierModeBase.Config)comboMultiplierMode.modeConfig).multiplier;
                         }
 
                         //점수
