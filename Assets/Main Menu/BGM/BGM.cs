@@ -8,6 +8,7 @@ using SCKRM.Sound;
 using SDJK.Map;
 using SDJK.Mode;
 using SDJK.Mode.Difficulty;
+using SDJK.Mode.Fun;
 using System.IO;
 using UnityEngine;
 
@@ -73,6 +74,7 @@ namespace SDJK.MainMenu
             }
         }
 
+        double accelerationDeceleration = 1;
         void Update()
         {
             if (!padeOut && RhythmManager.isPlaying && (soundPlayer == null || soundPlayer.IsDestroyed() || soundPlayer.isRemoved))
@@ -102,11 +104,35 @@ namespace SDJK.MainMenu
 
                 //모드
                 {
-                    IMode speedMode;
-                    if ((speedMode = ModeManager.selectedModeList.FindMode<FastModeBase>()) != null)
-                        RhythmManager.speed *= (float)((FastModeBase.Config)speedMode.modeConfig).speed;
-                    else if ((speedMode = ModeManager.selectedModeList.FindMode<SlowModeBase>()) != null)
-                        RhythmManager.speed *= (float)((SlowModeBase.Config)speedMode.modeConfig).speed;
+                    IMode mode;
+                    if ((mode = ModeManager.selectedModeList.FindMode<FastModeBase>()) != null)
+                        RhythmManager.speed *= (float)((FastModeBase.Config)mode.modeConfig).speed;
+                    else if ((mode = ModeManager.selectedModeList.FindMode<SlowModeBase>()) != null)
+                        RhythmManager.speed *= (float)((SlowModeBase.Config)mode.modeConfig).speed;
+
+                    if (RhythmManager.currentBeatSound >= 0)
+                    {
+                        if ((mode = ModeManager.selectedModeList.FindMode<AccelerationModeBase>()) != null)
+                        {
+                            AccelerationModeBase.Config config = (AccelerationModeBase.Config)mode.modeConfig;
+
+                            accelerationDeceleration += config.coefficient * Kernel.deltaTimeDouble;
+                            accelerationDeceleration = accelerationDeceleration.Clamp(0, config.max);
+
+                            RhythmManager.speed *= accelerationDeceleration;
+                        }
+                        else if ((mode = ModeManager.selectedModeList.FindMode<DecelerationModeBase>()) != null)
+                        {
+                            DecelerationModeBase.Config config = (DecelerationModeBase.Config)mode.modeConfig;
+
+                            accelerationDeceleration -= config.coefficient * Kernel.deltaTimeDouble;
+                            accelerationDeceleration = accelerationDeceleration.Clamp(config.min);
+
+                            RhythmManager.speed *= accelerationDeceleration;
+                        }
+                        else
+                            accelerationDeceleration = 1;
+                    }
                 }
             }
         }
@@ -138,6 +164,8 @@ namespace SDJK.MainMenu
                 AudioDestroy();
 
                 audioClip = null;
+                accelerationDeceleration = 1;
+
                 return true;
             }
 

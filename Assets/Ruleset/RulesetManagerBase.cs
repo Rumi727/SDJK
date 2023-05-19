@@ -11,6 +11,7 @@ using SDJK.Map;
 using SDJK.Mode;
 using SDJK.Mode.Automatic;
 using SDJK.Mode.Difficulty;
+using SDJK.Mode.Fun;
 using SDJK.Replay;
 using SDJK.Ruleset.UI.PauseScreen;
 using System;
@@ -44,9 +45,12 @@ namespace SDJK.Ruleset
         public bool isPaused => pauseScreen.isShow;
         public abstract bool isGameOver { get; }
 
+        public double accelerationDeceleration { get; set; } = 1;
+
         public Dictionary<string, HitsoundEffect.HitsoundInfo> loadedHitsounds { get; } = new Dictionary<string, HitsoundEffect.HitsoundInfo>();
 
         bool isClear = false;
+        double realAccelerationDeceleration = 1;
         protected virtual void Update()
         {
             if (!RhythmManager.isPlaying || map == null)
@@ -62,11 +66,45 @@ namespace SDJK.Ruleset
 
             //모드
             {
-                IMode speedMode;
-                if ((speedMode = modes.FindMode<FastModeBase>()) != null)
-                    RhythmManager.speed *= (float)((FastModeBase.Config)speedMode.modeConfig).speed;
-                else if ((speedMode = modes.FindMode<SlowModeBase>()) != null)
-                    RhythmManager.speed *= (float)((SlowModeBase.Config)speedMode.modeConfig).speed;
+                IMode mode;
+                if ((mode = modes.FindMode<FastModeBase>()) != null)
+                    RhythmManager.speed *= (float)((FastModeBase.Config)mode.modeConfig).speed;
+                else if ((mode = modes.FindMode<SlowModeBase>()) != null)
+                    RhythmManager.speed *= (float)((SlowModeBase.Config)mode.modeConfig).speed;
+
+                if (RhythmManager.currentBeatSound >= 0)
+                {
+                    if ((mode = modes.FindMode<AccelerationModeBase>()) != null)
+                    {
+                        AccelerationModeBase.Config config = (AccelerationModeBase.Config)mode.modeConfig;
+                        double value = config.coefficient * Kernel.deltaTimeDouble;
+
+                        accelerationDeceleration += value;
+                        realAccelerationDeceleration -= value;
+
+                        realAccelerationDeceleration = realAccelerationDeceleration.Clamp(0, config.max);
+                        accelerationDeceleration = accelerationDeceleration.Clamp(0, config.max);
+
+                        realAccelerationDeceleration = realAccelerationDeceleration.Lerp(accelerationDeceleration, 0.0625f * Kernel.fpsUnscaledDeltaTime);
+                        RhythmManager.speed *= realAccelerationDeceleration;
+                    }
+                    else if ((mode = modes.FindMode<DecelerationModeBase>()) != null)
+                    {
+                        DecelerationModeBase.Config config = (DecelerationModeBase.Config)mode.modeConfig;
+                        double value = config.coefficient * Kernel.deltaTimeDouble;
+
+                        accelerationDeceleration -= value;
+                        realAccelerationDeceleration -= value;
+
+                        realAccelerationDeceleration = realAccelerationDeceleration.Clamp(config.min);
+                        accelerationDeceleration = accelerationDeceleration.Clamp(config.min);
+
+                        realAccelerationDeceleration = realAccelerationDeceleration.Lerp(accelerationDeceleration, 0.0625f * Kernel.fpsUnscaledDeltaTime);
+                        RhythmManager.speed *= realAccelerationDeceleration;
+                    }
+                    else
+                        accelerationDeceleration = 1;
+                }
             }
 
             if (map.info.clearBeat <= RhythmManager.currentBeatSound)

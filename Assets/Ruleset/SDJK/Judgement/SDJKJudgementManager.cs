@@ -13,6 +13,7 @@ using SDJK.Mode.Difficulty;
 using SDJK.Ruleset.SDJK.GameOver;
 using SDJK.Replay.Ruleset.SDJK;
 using SDJK.Map;
+using SDJK.Mode.Fun;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -353,7 +354,14 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         }
                     }
                     else
+                    {
                         instance.combo = 0;
+
+                        IMode mode;
+                        if (((mode = sdjkManager.modes.FindMode<AccelerationModeBase>()) != null && ((AccelerationModeBase.Config)mode.modeConfig).resetIfMiss) ||
+                            ((mode = sdjkManager.modes.FindMode<DecelerationModeBase>()) != null && ((DecelerationModeBase.Config)mode.modeConfig).resetIfMiss))
+                            sdjkManager.accelerationDeceleration = 1;
+                    }
 
                     //체력
                     if (isMiss || metaData.missHp)

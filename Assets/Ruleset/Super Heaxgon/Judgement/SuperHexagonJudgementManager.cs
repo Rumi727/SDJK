@@ -10,6 +10,7 @@ using SDJK.Mode.Difficulty;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Ruleset.SuperHexagon.GameOver;
 using SDJK.Replay.Ruleset.SuperHexagon;
+using SDJK.Mode.Fun;
 
 namespace SDJK.Ruleset.SuperHexagon.Judgement
 {
@@ -91,6 +92,11 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
 
             if (health <= 0)
                 gameOverManager.GameOver();
+
+            IMode mode;
+            if (((mode = manager.modes.FindMode<AccelerationModeBase>()) != null && ((AccelerationModeBase.Config)mode.modeConfig).resetIfMiss) ||
+                ((mode = manager.modes.FindMode<DecelerationModeBase>()) != null && ((DecelerationModeBase.Config)mode.modeConfig).resetIfMiss))
+                manager.accelerationDeceleration = 1;
         }
 
         public void Perfect(double beat)
