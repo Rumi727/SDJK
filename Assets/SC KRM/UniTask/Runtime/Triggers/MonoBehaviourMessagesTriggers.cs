@@ -2197,9 +2197,9 @@ namespace Cysharp.Threading.Tasks.Triggers
     [DisallowMultipleComponent]
     public sealed class AsyncParticleUpdateJobScheduledTrigger : AsyncTriggerBase<UnityEngine.ParticleSystemJobs.ParticleSystemJobData>
     {
-        void OnParticleUpdateJobScheduled(UnityEngine.ParticleSystemJobs.ParticleSystemJobData particles)
+        void OnParticleUpdateJobScheduled()
         {
-            RaiseEvent((particles));
+            RaiseEvent(new UnityEngine.ParticleSystemJobs.ParticleSystemJobData());
         }
 
         public IAsyncOnParticleUpdateJobScheduledHandler GetOnParticleUpdateJobScheduledAsyncHandler()
