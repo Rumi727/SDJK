@@ -23,9 +23,9 @@
   * .sdjk (SDJK 1.0 file format)
 * Super Hexagon
   * .super_hexagon
-* A Dance of Fire and Ice (Hidden)
+* A Dance of Fire and Ice (Hidden) (Unplayable)
   * .adofai (ADOFAI file format)
-* osu!mania (Hidden)
+* osu!mania (Hidden) (Unplayable)
   * .osu (osu! file format v14)
   * .osu (osu!mania file format v14)
 
