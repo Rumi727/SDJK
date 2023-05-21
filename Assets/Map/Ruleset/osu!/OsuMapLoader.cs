@@ -493,7 +493,7 @@ namespace SDJK.Map.Ruleset.Osu
 
                 #endregion
 
-                osuMap.globalEffect.volume.Add(double.MinValue, 0, 0.5f);
+                osuMap.globalEffect.volume.Add(double.MinValue, 0, 0.35f);
 
                 //어떤 이유에선지 몰라도 오디오가 ogg 인 상태인데도 불구하고 0.04초 정도 음악이 느린 모습을 보임
                 if (isOsuMania)
