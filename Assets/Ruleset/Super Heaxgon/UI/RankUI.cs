@@ -9,8 +9,8 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public sealed class RankUI : SuperHexagonUIBase
     {
-        [SerializeField, NotNull] SuperHexagonManager manager;
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] SuperHexagonManager manager;
+        [SerializeField, FieldNotNull] TMP_Text text;
         [SerializeField] float startX = -130;
 
         RankMetaData? lastRankMetaData;

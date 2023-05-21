@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public sealed class TimeSliderUI : SuperHexagonUIBase
     {
-        [SerializeField, NotNull] Image fill;
+        [SerializeField, FieldNotNull] Image fill;
 
         void Update()
         {

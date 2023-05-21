@@ -14,15 +14,15 @@ namespace SCKRM.UI
 
 
 
-        [SerializeField, NotNull] CanvasGroup settingInfo;
-        [SerializeField, NotNull] TargetSizeFitter targetSizeFitterX;
-        [SerializeField, NotNull] TargetSizeFitter targetSizeFitterY;
-        [SerializeField, NotNull] TMP_Text labelText;
-        [SerializeField, NotNull] TMP_Text valueText;
-        [SerializeField, NotNull] TMP_Text shortcutKeysText;
-        [SerializeField, NotNull] BetterContentSizeFitter labelTextBetterContentSizeFitter;
-        [SerializeField, NotNull] BetterContentSizeFitter valueTextBetterContentSizeFitter;
-        [SerializeField, NotNull] BetterContentSizeFitter shortcutKeysTextBetterContentSizeFitter;
+        [SerializeField, FieldNotNull] CanvasGroup settingInfo;
+        [SerializeField, FieldNotNull] TargetSizeFitter targetSizeFitterX;
+        [SerializeField, FieldNotNull] TargetSizeFitter targetSizeFitterY;
+        [SerializeField, FieldNotNull] TMP_Text labelText;
+        [SerializeField, FieldNotNull] TMP_Text valueText;
+        [SerializeField, FieldNotNull] TMP_Text shortcutKeysText;
+        [SerializeField, FieldNotNull] BetterContentSizeFitter labelTextBetterContentSizeFitter;
+        [SerializeField, FieldNotNull] BetterContentSizeFitter valueTextBetterContentSizeFitter;
+        [SerializeField, FieldNotNull] BetterContentSizeFitter shortcutKeysTextBetterContentSizeFitter;
 
         void Awake() => SingletonCheck(this);
 

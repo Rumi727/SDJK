@@ -6,8 +6,8 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class BackgroundColorEffect : SuperHexagonEffect
     {
-        [SerializeField, NotNull] Field field;
-        [SerializeField, NotNull] BackgroundColorRenderer background;
+        [SerializeField, FieldNotNull] Field field;
+        [SerializeField, FieldNotNull] BackgroundColorRenderer background;
 
         protected override void RealUpdate()
         {

@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIDifficultyLabel : ReplayResultUIBase
     {
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         public override void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay)
         {

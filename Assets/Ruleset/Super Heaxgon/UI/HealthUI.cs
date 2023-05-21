@@ -9,9 +9,9 @@ namespace SDJK.Ruleset.SuperHexagon.UI
     {
         [SerializeField] Field field;
 
-        [SerializeField, NotNull] Image backgroundImage;
-        [SerializeField, NotNull] Image valueImage;
-        [SerializeField, NotNull] RectTransform valueRectTransform;
+        [SerializeField, FieldNotNull] Image backgroundImage;
+        [SerializeField, FieldNotNull] Image valueImage;
+        [SerializeField, FieldNotNull] RectTransform valueRectTransform;
 
         [SerializeField] float lerpAniValue = 0.2f;
 

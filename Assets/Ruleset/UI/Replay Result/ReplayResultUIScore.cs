@@ -6,7 +6,7 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIScore : ReplayResultUIBase
     {
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         double scoreAnimation = 0;
         public override void RealUpdate(float lerpValue)

@@ -9,8 +9,8 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIClearTime : ReplayResultUIBase
     {
-        [SerializeField, NotNull] CustomTextRendererBase text;
-        [SerializeField, NotNull] Tooltip tooltip;
+        [SerializeField, FieldNotNull] CustomTextRendererBase text;
+        [SerializeField, FieldNotNull] Tooltip tooltip;
 
         public override void RealUpdate(float lerpValue)
         {

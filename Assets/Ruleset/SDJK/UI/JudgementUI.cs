@@ -8,8 +8,8 @@ namespace SDJK.Ruleset.SDJK.UI
 {
     public sealed class JudgementUI : SDJKUI
     {
-        [SerializeField, NotNull] CustomImageRenderer image;
-        [SerializeField, NotNull] TMP_Text delayText;
+        [SerializeField, FieldNotNull] CustomImageRenderer image;
+        [SerializeField, FieldNotNull] TMP_Text delayText;
         [SerializeField] string delayTextSuffix;
         [SerializeField] float jumpValue;
         [SerializeField] float gravityValue;

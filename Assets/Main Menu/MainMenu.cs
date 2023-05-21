@@ -33,15 +33,15 @@ namespace SDJK.MainMenu
 
 
 
-        [SerializeField, NotNull] RectTransform logo;
-        [SerializeField, NotNull] RectTransform bar;
-        [SerializeField, NotNull] CanvasGroup barCanvasGroup;
-        [SerializeField, NotNull] RectTransform barLayout;
-        [SerializeField, NotNull] HorizontalLayout barLayoutHorizontalLayout;
-        [SerializeField, NotNull] CanvasGroup mapSelectScreen;
-        [SerializeField, NotNull] SuperBlur.SuperBlur superBulr;
-        [SerializeField, NotNull] GameObject logoVisualizer;
-        [SerializeField, NotNull] LogoEffect logoEffect;
+        [SerializeField, FieldNotNull] RectTransform logo;
+        [SerializeField, FieldNotNull] RectTransform bar;
+        [SerializeField, FieldNotNull] CanvasGroup barCanvasGroup;
+        [SerializeField, FieldNotNull] RectTransform barLayout;
+        [SerializeField, FieldNotNull] HorizontalLayout barLayoutHorizontalLayout;
+        [SerializeField, FieldNotNull] CanvasGroup mapSelectScreen;
+        [SerializeField, FieldNotNull] SuperBlur.SuperBlur superBulr;
+        [SerializeField, FieldNotNull] GameObject logoVisualizer;
+        [SerializeField, FieldNotNull] LogoEffect logoEffect;
 
 
 

@@ -7,7 +7,7 @@ namespace SDJK.Ruleset.SDJK.UI
 {
     public sealed class ComboUI : SDJKUI
     {
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         float timer = 0;
         bool gray = false;

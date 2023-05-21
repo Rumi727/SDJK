@@ -21,10 +21,10 @@ namespace SCKRM.Loading
 
         public bool isLongLoadingAniEnd { get; private set; } = true;
 
-        [SerializeField, NotNull] GameObject background;
-        [SerializeField, NotNull] RectTransform aniImage;
-        [SerializeField, NotNull] CanvasGroup canvasGroup;
-        [SerializeField, NotNull] ProgressBar progressBar;
+        [SerializeField, FieldNotNull] GameObject background;
+        [SerializeField, FieldNotNull] RectTransform aniImage;
+        [SerializeField, FieldNotNull] CanvasGroup canvasGroup;
+        [SerializeField, FieldNotNull] ProgressBar progressBar;
 
         public event Action startAniEndAction;
         public event Action endAniEndAction;

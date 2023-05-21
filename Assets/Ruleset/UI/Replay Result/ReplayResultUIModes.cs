@@ -14,7 +14,7 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIModes : ReplayResultUIBase
     {
-        [SerializeField, NotNull] Transform targetTransform;
+        [SerializeField, FieldNotNull] Transform targetTransform;
         [SerializeField] string modePrefab = "ruleset.result_screen.mode";
 
         List<ReplayResultUIMode> resultScreenModes = new List<ReplayResultUIMode>();

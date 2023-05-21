@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public sealed class TimeUI : SuperHexagonUIBase
     {
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         void Update()
         {

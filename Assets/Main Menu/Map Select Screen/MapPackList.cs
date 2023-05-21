@@ -19,11 +19,11 @@ namespace SDJK.MainMenu.MapSelectScreen
 
 
 
-        [SerializeField, NotNull] ScrollRect scrollRect;
+        [SerializeField, FieldNotNull] ScrollRect scrollRect;
 
-        [SerializeField, NotNull] VerticalLayout _verticalLayout; public VerticalLayout verticalLayout => _verticalLayout;
-        [SerializeField, NotNull] RectTransform _viewport; public RectTransform viewport => _viewport;
-        [SerializeField, NotNull] RectTransform _content; public RectTransform content => _content;
+        [SerializeField, FieldNotNull] VerticalLayout _verticalLayout; public VerticalLayout verticalLayout => _verticalLayout;
+        [SerializeField, FieldNotNull] RectTransform _viewport; public RectTransform viewport => _viewport;
+        [SerializeField, FieldNotNull] RectTransform _content; public RectTransform content => _content;
 
         [SerializeField] bool isMapList = false;
 

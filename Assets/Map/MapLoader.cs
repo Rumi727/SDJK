@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Version = SCKRM.Version;
 
 namespace SDJK.Map
 {
@@ -59,16 +58,19 @@ namespace SDJK.Map
 
             try
             {
-                Delegate[] delegates = mapLoaderFunc.GetInvocationList();
-                for (int i = 0; i < delegates.Length; i++)
+                if (mapLoaderFunc != null)
                 {
-                    MapLoaderFunc action = (MapLoaderFunc)delegates[i];
-                    object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), modes);
-
-                    if (map != null)
+                    Delegate[] delegates = mapLoaderFunc.GetInvocationList();
+                    for (int i = 0; i < delegates.Length; i++)
                     {
-                        T sdjkMap = (T)map;
-                        return sdjkMap;
+                        MapLoaderFunc action = (MapLoaderFunc)delegates[i];
+                        object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), modes);
+
+                        if (map != null)
+                        {
+                            T sdjkMap = (T)map;
+                            return sdjkMap;
+                        }
                     }
                 }
             }

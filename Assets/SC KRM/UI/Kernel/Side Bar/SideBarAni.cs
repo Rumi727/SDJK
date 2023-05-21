@@ -63,7 +63,7 @@ namespace SCKRM.UI.SideBar
 
 
         #region variable
-        public RectTransform viewPort => _viewPort; [SerializeField, NotNull] RectTransform _viewPort;
+        public RectTransform viewPort => _viewPort; [SerializeField, FieldNotNull] RectTransform _viewPort;
         public RectTransform content => _content; [SerializeField] RectTransform _content;
 
         public RectTransform scrollBarParentRectTransform => _scrollBarParentRectTransform; [SerializeField] RectTransform _scrollBarParentRectTransform;

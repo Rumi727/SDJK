@@ -6,9 +6,9 @@ namespace SDJK
 {
     public sealed class CameraRenderImage : MonoBehaviour
     {
-        [SerializeField, NotNull] RectTransform targetRectTransform;
-        [SerializeField, NotNull] RawImage targetRawImage;
-        [SerializeField, NotNull] Camera targetCamera;
+        [SerializeField, FieldNotNull] RectTransform targetRectTransform;
+        [SerializeField, FieldNotNull] RawImage targetRawImage;
+        [SerializeField, FieldNotNull] Camera targetCamera;
         [SerializeField] AspectRatioFitter aspectRatioFitter;
 
         RenderTexture renderTexture;

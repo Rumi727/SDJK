@@ -9,9 +9,9 @@ namespace SCKRM.FileDialog.ShortcurBar
     [AddComponentMenu("SC KRM/File Dialog/UI/Object Pooling/Shortcur Bar Button")]
     public sealed class FileDialogShortcutBarButton : UIObjectPoolingBase
     {
-        [SerializeField, NotNull] Button _button; public Button button { get => _button; }
-        [SerializeField, NotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
-        [SerializeField, NotNull] CustomTextRendererBase _text; public CustomTextRendererBase text { get => _text; }
+        [SerializeField, FieldNotNull] Button _button; public Button button { get => _button; }
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
+        [SerializeField, FieldNotNull] CustomTextRendererBase _text; public CustomTextRendererBase text { get => _text; }
 
         [WikiDescription("버튼 삭제")]
         public override bool Remove()

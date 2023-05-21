@@ -30,10 +30,10 @@ namespace SDJK.Ruleset.SDJK
         public EffectManager effectManager => SDJKManager.instance.effectManager;
         public PlayField playField => bar.playField;
 
-        [SerializeField, NotNull] Transform _holdNote; public Transform holdNote => _holdNote;
+        [SerializeField, FieldNotNull] Transform _holdNote; public Transform holdNote => _holdNote;
 
-        [SerializeField, NotNull] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
-        [SerializeField, NotNull] CustomSpriteRendererBase _customSpriteRendererBaseHoldNote; public CustomSpriteRendererBase holdNoteCustomSpriteRendererBase => _customSpriteRendererBaseHoldNote;
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _customSpriteRendererBaseHoldNote; public CustomSpriteRendererBase holdNoteCustomSpriteRendererBase => _customSpriteRendererBaseHoldNote;
 
         public double GetNoteDis()
         {

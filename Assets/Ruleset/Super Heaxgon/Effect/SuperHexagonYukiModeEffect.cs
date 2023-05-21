@@ -7,9 +7,9 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public class SuperHexagonYukiModeEffect : YukiModeEffect
     {
-        [SerializeField, NotNull] GLRenderInvoker _glRenderInvoker; public GLRenderInvoker glRenderInvoker => _glRenderInvoker;
+        [SerializeField, FieldNotNull] GLRenderInvoker _glRenderInvoker; public GLRenderInvoker glRenderInvoker => _glRenderInvoker;
 
-        [SerializeField, NotNull] Field _field; public Field field => _field;
-        [SerializeField, NotNull] RegularPolygonRenderer _regularPolygonRenderer; public RegularPolygonRenderer regularPolygonRenderer => _regularPolygonRenderer;
+        [SerializeField, FieldNotNull] Field _field; public Field field => _field;
+        [SerializeField, FieldNotNull] RegularPolygonRenderer _regularPolygonRenderer; public RegularPolygonRenderer regularPolygonRenderer => _regularPolygonRenderer;
     }
 }

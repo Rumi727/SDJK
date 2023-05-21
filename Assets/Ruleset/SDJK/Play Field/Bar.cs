@@ -21,13 +21,13 @@ namespace SDJK.Ruleset.SDJK
         public const float barBottomKeyHeight = 2.5f;
         public const float barBottomKeyHeightHalf = 1.25f;
 
-        [SerializeField, NotNull] Transform _notes; public Transform notes => _notes;
-        [SerializeField, NotNull] TMP_Text _keyText; public TMP_Text keyText => _keyText;
-        [SerializeField, NotNull] Transform _spriteMask; public Transform spriteMask => _spriteMask;
+        [SerializeField, FieldNotNull] Transform _notes; public Transform notes => _notes;
+        [SerializeField, FieldNotNull] TMP_Text _keyText; public TMP_Text keyText => _keyText;
+        [SerializeField, FieldNotNull] Transform _spriteMask; public Transform spriteMask => _spriteMask;
 
-        [SerializeField, NotNull] CustomSpriteRendererBase _backgroundCustomSpriteRendererBase; public CustomSpriteRendererBase backgroundCustomSpriteRendererBase => _backgroundCustomSpriteRendererBase;
-        [SerializeField, NotNull] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
-        [SerializeField, NotNull] CustomSpriteRendererBase _keyCustomSpriteRendererBase; public CustomSpriteRendererBase keyCustomSpriteRendererBase => _keyCustomSpriteRendererBase;
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _backgroundCustomSpriteRendererBase; public CustomSpriteRendererBase backgroundCustomSpriteRendererBase => _backgroundCustomSpriteRendererBase;
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _customSpriteRendererBase; public CustomSpriteRendererBase customSpriteRendererBase => _customSpriteRendererBase;
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _keyCustomSpriteRendererBase; public CustomSpriteRendererBase keyCustomSpriteRendererBase => _keyCustomSpriteRendererBase;
 
         public PlayField playField { get; private set; }
 

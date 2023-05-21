@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public abstract class SuperHexagonUIBase : UIBase
     {
-        [SerializeField, NotNull] SuperHexagonJudgementManager _judgementManager; public SuperHexagonJudgementManager judgementManager => _judgementManager;
+        [SerializeField, FieldNotNull] SuperHexagonJudgementManager _judgementManager; public SuperHexagonJudgementManager judgementManager => _judgementManager;
 
         /// <summary>
         /// Please put base.OnEnable() when overriding

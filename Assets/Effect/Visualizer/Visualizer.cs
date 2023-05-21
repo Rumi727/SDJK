@@ -10,7 +10,7 @@ namespace SDJK.Effect
 {
     public class Visualizer : UIEffect
     {
-        [SerializeField, NotNull] VisualizerBar barPrefab;
+        [SerializeField, FieldNotNull] VisualizerBar barPrefab;
         int barsLock = 0;
         VisualizerBar[] bars = new VisualizerBar[0];
 

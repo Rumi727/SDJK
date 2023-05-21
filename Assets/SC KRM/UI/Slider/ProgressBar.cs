@@ -10,13 +10,13 @@ namespace SCKRM.UI
 
 
 
-        [SerializeField, NotNull] RectTransform _fillArea;
+        [SerializeField, FieldNotNull] RectTransform _fillArea;
         public RectTransform fillArea => _fillArea;
 
-        [SerializeField, NotNull] RectTransform _fill;
+        [SerializeField, FieldNotNull] RectTransform _fill;
         public RectTransform fill => _fill;
 
-        [SerializeField, NotNull] SlicedFilledImage _fillSlicedFilledImage;
+        [SerializeField, FieldNotNull] SlicedFilledImage _fillSlicedFilledImage;
         public SlicedFilledImage fillSlicedFilledImage => _fillSlicedFilledImage;
 
         [SerializeField] bool _right = false;

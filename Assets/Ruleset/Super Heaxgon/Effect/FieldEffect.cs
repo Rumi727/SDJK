@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class FieldEffect : SuperHexagonEffect
     {
-        [SerializeField, NotNull] Field _field; public Field field => _field;
+        [SerializeField, FieldNotNull] Field _field; public Field field => _field;
 
         ThemeEffect<BeatValuePairAniListFloat, float> fieldXRotation = new();
         ThemeEffect<BeatValuePairAniListFloat, float> fieldYRotation = new();

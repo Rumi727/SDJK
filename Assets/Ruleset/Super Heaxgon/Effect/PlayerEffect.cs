@@ -6,11 +6,11 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 {
     public sealed class PlayerEffect : SuperHexagonEffect
     {
-        [SerializeField, NotNull] Field field;
+        [SerializeField, FieldNotNull] Field field;
 
-        [SerializeField, NotNull] RegularPolygonRenderer playerBackground;
-        [SerializeField, NotNull] RegularPolygonRenderer playerBorder;
-        [SerializeField, NotNull] PlayerRenderer player;
+        [SerializeField, FieldNotNull] RegularPolygonRenderer playerBackground;
+        [SerializeField, FieldNotNull] RegularPolygonRenderer playerBorder;
+        [SerializeField, FieldNotNull] PlayerRenderer player;
 
         protected override void RealUpdate()
         {

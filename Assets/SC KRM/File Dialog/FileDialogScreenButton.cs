@@ -13,10 +13,10 @@ namespace SCKRM.FileDialog.Screen
     [AddComponentMenu("SC KRM/File Dialog/UI/File Dialog Screen Button")]
     public sealed class FileDialogScreenButton : UI.UIBase, ICell, IPointerClickHandler
     {
-        [SerializeField, NotNull] Toggle _toggle; public Toggle toggle { get => _toggle; }
+        [SerializeField, FieldNotNull] Toggle _toggle; public Toggle toggle { get => _toggle; }
 
-        [SerializeField, NotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
-        [SerializeField, NotNull] TMP_Text _text; public TMP_Text text { get => _text; }
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
+        [SerializeField, FieldNotNull] TMP_Text _text; public TMP_Text text { get => _text; }
 
 
 

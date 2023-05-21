@@ -7,7 +7,7 @@ namespace SDJK.Ruleset.SDJK.UI
 {
     public abstract class SDJKUI : SCKRM.UI.UIBase
     {
-        [SerializeField, NotNull] SDJKJudgementManager _judgementManager; public SDJKJudgementManager judgementManager => _judgementManager;
+        [SerializeField, FieldNotNull] SDJKJudgementManager _judgementManager; public SDJKJudgementManager judgementManager => _judgementManager;
 
         /// <summary>
         /// Please put base.OnEnable() when overriding

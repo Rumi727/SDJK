@@ -9,7 +9,7 @@ namespace SCKRM.SaveLoad.UI
     [AddComponentMenu("SC KRM/Save Load/UI/Toggle (Save file linkage)")]
     public class SaveLoadUIToggle : SaveLoadUIBase
     {
-        [SerializeField, NotNull] Toggle _toggle; public Toggle toggle { get => _toggle; set => _toggle = value; }
+        [SerializeField, FieldNotNull] Toggle _toggle; public Toggle toggle { get => _toggle; set => _toggle = value; }
         [SerializeField] UnityEvent _onValueChanged = new UnityEvent(); public UnityEvent onValueChanged { get => _onValueChanged; set => _onValueChanged = value; }
 
         public virtual void OnValueChanged()

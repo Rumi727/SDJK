@@ -6,7 +6,7 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIAccuracy : ReplayResultUIBase
     {
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         double accuracyAnimation = 1;
         public override void RealUpdate(float lerpValue)

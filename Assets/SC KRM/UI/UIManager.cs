@@ -37,10 +37,10 @@ namespace SCKRM.UI
         [WikiDescription("현재 GUI 크기")] public static float currentGuiSize { get; private set; } = 1;
         public static float scaleAccordingToScreenSize { get; private set; } = 1;
 
-        [SerializeField, NotNull] Canvas _kernelCanvas; public Canvas kernelCanvas => _kernelCanvas;
-        [SerializeField, NotNull] Graphic _kernelCanvasBackground; public Graphic kernelCanvasBackground => _kernelCanvasBackground;
-        [SerializeField, NotNull] RectTransform _kernelSideBarRectTransform; public RectTransform kernelCanvasUI => _kernelSideBarRectTransform;
-        [SerializeField, NotNull] TMP_Text _exceptionText; public TMP_Text exceptionText => _exceptionText;
+        [SerializeField, FieldNotNull] Canvas _kernelCanvas; public Canvas kernelCanvas => _kernelCanvas;
+        [SerializeField, FieldNotNull] Graphic _kernelCanvasBackground; public Graphic kernelCanvasBackground => _kernelCanvasBackground;
+        [SerializeField, FieldNotNull] RectTransform _kernelSideBarRectTransform; public RectTransform kernelCanvasUI => _kernelSideBarRectTransform;
+        [SerializeField, FieldNotNull] TMP_Text _exceptionText; public TMP_Text exceptionText => _exceptionText;
 
 
 

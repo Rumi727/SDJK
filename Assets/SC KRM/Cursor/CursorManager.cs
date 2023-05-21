@@ -56,7 +56,7 @@ namespace SCKRM.Cursor
 
 
         [WikiDescription("붙어있는 캔버스 그룹을 가져옵니다")]
-        public CanvasGroup canvasGroup => _canvasGroup = this.GetComponentFieldSave(_canvasGroup); [SerializeField, NotNull] CanvasGroup _canvasGroup;
+        public CanvasGroup canvasGroup => _canvasGroup = this.GetComponentFieldSave(_canvasGroup); [SerializeField, FieldNotNull] CanvasGroup _canvasGroup;
 
 
 

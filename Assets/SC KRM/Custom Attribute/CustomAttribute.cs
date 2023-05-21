@@ -20,7 +20,7 @@ namespace SCKRM.CustomProperty
     }
 
     [WikiIgnore]
-    [CustomPropertyDrawer(typeof(NotNullAttribute), true)]
+    [CustomPropertyDrawer(typeof(FieldNotNullAttribute), true)]
     public sealed class NotNullAttributeDrawer : PropertyDrawer
     {
         //public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => EditorGUI.GetPropertyHeight(property, label, true);
@@ -58,7 +58,7 @@ namespace SCKRM
     }
 
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class NotNullAttribute : PropertyAttribute
+    public sealed class FieldNotNullAttribute : PropertyAttribute
     {
 
     }

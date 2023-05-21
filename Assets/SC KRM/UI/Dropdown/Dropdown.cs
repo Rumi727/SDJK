@@ -38,14 +38,14 @@ namespace SCKRM.UI
         [SerializeField] UnityEvent<int> _onValueChanged = new UnityEvent<int>();
         public UnityEvent<int> onValueChanged { get => _onValueChanged; }
 
-        [SerializeField, NotNull] TMP_Text label;
-        [SerializeField, NotNull] RectTransform listRectTransform;
-        [SerializeField, NotNull] TargetSizeFitter listTargetSizeFitter;
-        [SerializeField, NotNull] DropdownItem template;
-        [SerializeField, NotNull] RectTransform viewport;
-        [SerializeField, NotNull] Transform content;
-        [SerializeField, NotNull] RectTransform scrollbar;
-        [SerializeField, NotNull] GameObject scrollbarHandle;
+        [SerializeField, FieldNotNull] TMP_Text label;
+        [SerializeField, FieldNotNull] RectTransform listRectTransform;
+        [SerializeField, FieldNotNull] TargetSizeFitter listTargetSizeFitter;
+        [SerializeField, FieldNotNull] DropdownItem template;
+        [SerializeField, FieldNotNull] RectTransform viewport;
+        [SerializeField, FieldNotNull] Transform content;
+        [SerializeField, FieldNotNull] RectTransform scrollbar;
+        [SerializeField, FieldNotNull] GameObject scrollbarHandle;
 
         bool pointer;
         bool invokeLock = false;

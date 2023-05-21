@@ -7,7 +7,7 @@ namespace SDJK.Ruleset.SuperHexagon
 {
     public class UIEffect : SuperHexagonEffect
     {
-        [SerializeField, NotNull] Canvas canvas;
+        [SerializeField, FieldNotNull] Canvas canvas;
 
         protected override void RealUpdate()
         {

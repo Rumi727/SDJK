@@ -23,11 +23,11 @@ namespace SCKRM.Input.UI
 
 
 
-        [SerializeField, NotNull] RectTransform controlPanelRectTransform;
-        [SerializeField, NotNull] CanvasGroup resetButton;
-        [SerializeField, NotNull] RectTransform nameRectTransform;
-        [SerializeField, NotNull] Image controlButtonImage;
-        [SerializeField, NotNull] TMP_Text controlButtonText;
+        [SerializeField, FieldNotNull] RectTransform controlPanelRectTransform;
+        [SerializeField, FieldNotNull] CanvasGroup resetButton;
+        [SerializeField, FieldNotNull] RectTransform nameRectTransform;
+        [SerializeField, FieldNotNull] Image controlButtonImage;
+        [SerializeField, FieldNotNull] TMP_Text controlButtonText;
 
         protected override async void Awake()
         {

@@ -24,7 +24,7 @@ namespace SDJK.MainMenu
         float pointerScale = 1;
         float clickScale = 1;
 
-        [SerializeField, NotNull] LogoEffect logoEffect;
+        [SerializeField, FieldNotNull] LogoEffect logoEffect;
 
         int lastCurrentBeat = 0;
         double lastBPMOffsetBeat = 0;

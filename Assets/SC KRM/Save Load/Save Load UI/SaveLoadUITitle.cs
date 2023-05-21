@@ -6,7 +6,7 @@ namespace SCKRM
 {
     public class SaveLoadUITitle : UIObjectPoolingBase
     {
-        [SerializeField, NotNull] CustomTextMeshProRenderer _customTextMeshProRenderer; public CustomTextMeshProRenderer customTextMeshProRenderer => _customTextMeshProRenderer;
+        [SerializeField, FieldNotNull] CustomTextMeshProRenderer _customTextMeshProRenderer; public CustomTextMeshProRenderer customTextMeshProRenderer => _customTextMeshProRenderer;
 
         public override bool Remove()
         {

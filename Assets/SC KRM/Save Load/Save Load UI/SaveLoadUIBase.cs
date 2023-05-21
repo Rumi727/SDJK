@@ -30,10 +30,10 @@ namespace SCKRM.SaveLoad.UI
         [SerializeField] int _roundingDigits = 2; public int roundingDigits { get => _roundingDigits; set => _roundingDigits = value; }
         [SerializeField] string[] _hotkeyToDisplay = new string[0]; public string[] hotkeyToDisplays { get => _hotkeyToDisplay; set => _hotkeyToDisplay = value; }
 
-        [SerializeField, NotNull] CanvasGroup _resetButton; public CanvasGroup resetButton => _resetButton;
-        [SerializeField, NotNull] RectTransform _nameText; public RectTransform nameText => _nameText;
-        [SerializeField, NotNull] CustomTextRendererBase _nameTextRenderer; public CustomTextRendererBase nameTextRenderer => _nameTextRenderer;
-        [SerializeField, NotNull] Tooltip.Tooltip _tooltip; public Tooltip.Tooltip tooltip => _tooltip;
+        [SerializeField, FieldNotNull] CanvasGroup _resetButton; public CanvasGroup resetButton => _resetButton;
+        [SerializeField, FieldNotNull] RectTransform _nameText; public RectTransform nameText => _nameText;
+        [SerializeField, FieldNotNull] CustomTextRendererBase _nameTextRenderer; public CustomTextRendererBase nameTextRenderer => _nameTextRenderer;
+        [SerializeField, FieldNotNull] Tooltip.Tooltip _tooltip; public Tooltip.Tooltip tooltip => _tooltip;
 
 
 

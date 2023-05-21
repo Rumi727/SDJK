@@ -18,8 +18,8 @@ namespace SCKRM.SaveLoad.UI
 
 
 
-        [SerializeField, NotNull] TMP_InputField _inputField; public TMP_InputField inputField { get => _inputField; set => _inputField = value; }
-        [SerializeField, NotNull] CustomTextMeshProRenderer _placeholder; public CustomTextMeshProRenderer placeholder { get => _placeholder; set => _placeholder = value; }
+        [SerializeField, FieldNotNull] TMP_InputField _inputField; public TMP_InputField inputField { get => _inputField; set => _inputField = value; }
+        [SerializeField, FieldNotNull] CustomTextMeshProRenderer _placeholder; public CustomTextMeshProRenderer placeholder { get => _placeholder; set => _placeholder = value; }
 
 
         [SerializeField] UnityEvent _onEndEdit = new UnityEvent(); public UnityEvent onEndEdit { get => _onEndEdit; set => _onEndEdit = value; }

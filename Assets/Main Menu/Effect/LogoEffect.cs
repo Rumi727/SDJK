@@ -9,9 +9,9 @@ namespace SDJK.MainMenu
     {
         public Vector2 pos;
 
-        [SerializeField, NotNull] Camera mainCamera;
-        [SerializeField, NotNull] RectTransform text;
-        [SerializeField, NotNull] RectTransform visualizer;
+        [SerializeField, FieldNotNull] Camera mainCamera;
+        [SerializeField, FieldNotNull] RectTransform text;
+        [SerializeField, FieldNotNull] RectTransform visualizer;
 
         protected override void RealUpdate()
         {

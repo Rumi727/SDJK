@@ -15,11 +15,11 @@ namespace SCKRM.Tooltip
 
 
 
-        [SerializeField, NotNull] RectTransform toolTip;
-        [SerializeField, NotNull] TargetSizeFitter toolTipTargetSizeFitter;
-        [SerializeField, NotNull] CanvasGroup toolTipCanvasGroup;
-        [SerializeField, NotNull] TMP_Text toolTipText;
-        [SerializeField, NotNull] BetterContentSizeFitter toolTipTextBetterContentSizeFitter;
+        [SerializeField, FieldNotNull] RectTransform toolTip;
+        [SerializeField, FieldNotNull] TargetSizeFitter toolTipTargetSizeFitter;
+        [SerializeField, FieldNotNull] CanvasGroup toolTipCanvasGroup;
+        [SerializeField, FieldNotNull] TMP_Text toolTipText;
+        [SerializeField, FieldNotNull] BetterContentSizeFitter toolTipTextBetterContentSizeFitter;
 
 
 

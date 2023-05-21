@@ -7,8 +7,8 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIRank : ReplayResultUIBase
     {
-        [SerializeField, NotNull] Graphic background;
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] Graphic background;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         double rankProgressAnimation = 1;
         public override void RealUpdate(float lerpValue)

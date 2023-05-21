@@ -21,10 +21,10 @@ namespace SDJK.Ruleset
             return resultScreen;
         }
 
-        [SerializeField, NotNull] Graphic background;
-        [SerializeField, NotNull] ReplayResultUI replayResultUI;
+        [SerializeField, FieldNotNull] Graphic background;
+        [SerializeField, FieldNotNull] ReplayResultUI replayResultUI;
         [SerializeField] float alphaAni = 0.15f;
-        [SerializeField, NotNull] CanvasGroup canvasGroup;
+        [SerializeField, FieldNotNull] CanvasGroup canvasGroup;
 
         IRuleset ruleset;
         MapFile map = null;

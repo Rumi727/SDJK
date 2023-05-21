@@ -5,8 +5,8 @@ namespace SDJK.MainMenu
 {
     public class BottomBar : MonoBehaviour
     {
-        [SerializeField, NotNull] RectTransform layout;
-        [SerializeField, NotNull] CanvasGroup canvasGroup;
+        [SerializeField, FieldNotNull] RectTransform layout;
+        [SerializeField, FieldNotNull] CanvasGroup canvasGroup;
 
         void Update()
         {

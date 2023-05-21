@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SDJK.UI
     public sealed class HealthUI : SDJKUI
     {
         [SerializeField] float lerpAniValue = 0.2f;
-        [SerializeField, NotNull] RectTransform valueImage;
+        [SerializeField, FieldNotNull] RectTransform valueImage;
 
         float value = 1;
         void Update()

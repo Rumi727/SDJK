@@ -10,10 +10,10 @@ namespace SDJK.Ruleset.UI.ReplayResult
 {
     public sealed class ReplayResultUIDifficultyText : ReplayResultUIBase
     {
-        [SerializeField, NotNull] ColorBand gradient;
+        [SerializeField, FieldNotNull] ColorBand gradient;
 
-        [SerializeField, NotNull] Image background;
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] Image background;
+        [SerializeField, FieldNotNull] TMP_Text text;
 
         public override void Refresh(IRuleset ruleset, MapFile map, ReplayFile replay)
         {

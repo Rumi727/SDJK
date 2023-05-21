@@ -8,7 +8,7 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public sealed class ScoreUI : SuperHexagonUIBase
     {
-        [SerializeField, NotNull] TMP_Text text;
+        [SerializeField, FieldNotNull] TMP_Text text;
         [SerializeField] float lerpAniValue = 0.2f;
 
         double value = 0;

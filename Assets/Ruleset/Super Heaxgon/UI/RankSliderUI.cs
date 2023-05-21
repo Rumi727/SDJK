@@ -8,8 +8,8 @@ namespace SDJK.Ruleset.SuperHexagon.UI
 {
     public sealed class RankSliderUI : SuperHexagonUIBase
     {
-        [SerializeField, NotNull] SuperHexagonManager manager;
-        [SerializeField, NotNull] Image fill;
+        [SerializeField, FieldNotNull] SuperHexagonManager manager;
+        [SerializeField, FieldNotNull] Image fill;
 
         double start = 0;
         double end = 1;

@@ -18,8 +18,8 @@ namespace SDJK.Effect
         public VideoPlayer videoPlayer => this.GetComponentFieldSave(_videoPlayer); [SerializeField] VideoPlayer _videoPlayer;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;
 
-        public RawImage rawImage => _rawImage; [SerializeField, NotNull] RawImage _rawImage;
-        public AspectRatioFitter aspectRatioFitter => _aspectRatioFitter; [SerializeField, NotNull] AspectRatioFitter _aspectRatioFitter;
+        public RawImage rawImage => _rawImage; [SerializeField, FieldNotNull] RawImage _rawImage;
+        public AspectRatioFitter aspectRatioFitter => _aspectRatioFitter; [SerializeField, FieldNotNull] AspectRatioFitter _aspectRatioFitter;
 
 
 

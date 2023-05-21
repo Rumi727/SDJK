@@ -10,13 +10,13 @@ namespace SCKRM.FileDialog.MyPC
     [AddComponentMenu("SC KRM/File Dialog/UI/Object Pooling/File Dialog My PC Button")]
     public sealed class FileDialogMyPCButton : UIObjectPoolingBase
     {
-        [SerializeField, NotNull] Button _button; public Button button { get => _button; }
-        [SerializeField, NotNull] Slider _capacitySlider; public Slider capacitySlider { get => _capacitySlider; }
-        [SerializeField, NotNull] Image _capacitySliderFill; public Image capacitySliderFill { get => _capacitySliderFill; }
+        [SerializeField, FieldNotNull] Button _button; public Button button { get => _button; }
+        [SerializeField, FieldNotNull] Slider _capacitySlider; public Slider capacitySlider { get => _capacitySlider; }
+        [SerializeField, FieldNotNull] Image _capacitySliderFill; public Image capacitySliderFill { get => _capacitySliderFill; }
 
-        [SerializeField, NotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
-        [SerializeField, NotNull] TMP_Text _nameText; public TMP_Text nameText { get => _nameText; }
-        [SerializeField, NotNull] CustomTextRendererBase _capacityText; public CustomTextRendererBase capacityText { get => _capacityText; }
+        [SerializeField, FieldNotNull] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon { get => _icon; }
+        [SerializeField, FieldNotNull] TMP_Text _nameText; public TMP_Text nameText { get => _nameText; }
+        [SerializeField, FieldNotNull] CustomTextRendererBase _capacityText; public CustomTextRendererBase capacityText { get => _capacityText; }
 
         [WikiDescription("버튼 삭제")]
         public override bool Remove()

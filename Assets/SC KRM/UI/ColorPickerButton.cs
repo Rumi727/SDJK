@@ -21,9 +21,9 @@ namespace SCKRM.UI
             }
         }
 
-        [SerializeField, NotNull] RectTransform colorPickerMask;
-        [SerializeField, NotNull] RectTransform colorPickerRectTransform;
-        [SerializeField, NotNull] ColorPicker colorPicker;
+        [SerializeField, FieldNotNull] RectTransform colorPickerMask;
+        [SerializeField, FieldNotNull] RectTransform colorPickerRectTransform;
+        [SerializeField, FieldNotNull] ColorPicker colorPicker;
 
         bool pointer;
 

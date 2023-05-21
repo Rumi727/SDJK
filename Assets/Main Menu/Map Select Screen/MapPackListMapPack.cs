@@ -21,18 +21,18 @@ namespace SDJK.MainMenu.MapSelectScreen
     {
         public static bool isTextureLoading { get; private set; } = false;
 
-        [SerializeField, NotNull] VerticalLayout verticalLayout;
-        [SerializeField, NotNull] Image outline;
-        [SerializeField, NotNull] Image background;
-        [SerializeField, NotNull] TMP_Text songName;
-        [SerializeField, NotNull] TMP_Text artist;
+        [SerializeField, FieldNotNull] VerticalLayout verticalLayout;
+        [SerializeField, FieldNotNull] Image outline;
+        [SerializeField, FieldNotNull] Image background;
+        [SerializeField, FieldNotNull] TMP_Text songName;
+        [SerializeField, FieldNotNull] TMP_Text artist;
         [SerializeField] CustomSpriteRendererBase rulesetIcon;
         [SerializeField] Image rulesetIconBackground;
         [SerializeField] RectTransform rulesetIconRectTransform;
         [SerializeField] bool isMap = false;
         [SerializeField] Transform rulesetList;
 
-        [SerializeField, NotNull] ColorBand difficultyGradient;
+        [SerializeField, FieldNotNull] ColorBand difficultyGradient;
         [SerializeField] Image difficultyBackground;
         [SerializeField] TMP_Text difficultyText;
 
