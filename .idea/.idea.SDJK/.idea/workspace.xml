@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee5697a5-6b4a-4ac7-9ed3-0e6074075f68" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/SC KRM/Debug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SC KRM/Debug.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SC KRM/Editor/SC KRM Window/SCKRMWindowTabRhythm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SC KRM/Editor/SC KRM Window/SCKRMWindowTabRhythm.cs" afterDir="false" />
-    </list>
+    <list default="true" id="ee5697a5-6b4a-4ac7-9ed3-0e6074075f68" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +30,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "git-widget-placeholder": "main",
+    "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "preferences.sourceCode.C#"
   }
 }]]></component>
