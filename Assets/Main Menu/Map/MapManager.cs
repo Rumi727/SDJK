@@ -39,7 +39,15 @@ namespace SDJK.MainMenu
             set
             {
                 _selectedMapPack = value;
-                selectedMapIndex = selectedMapPack.maps.Count - 1;
+
+                for (int i = 0; i < selectedMapPack.maps.Count; i++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[i].info.ruleset))
+                    {
+                        selectedMapIndex = i;
+                        return;
+                    }
+                }
             }
         }
         static MapPack _selectedMapPack = null;
@@ -61,7 +69,7 @@ namespace SDJK.MainMenu
                 }
             }
         }
-        public static int _selectedMapIndex = 0;
+        static int _selectedMapIndex = 0;
 
         public static MapFile selectedMap
         {
@@ -280,12 +288,6 @@ namespace SDJK.MainMenu
                     selectedMapPackIndex = currentMapPacks.Count - 1;
                 else
                     selectedMapPackIndex--;
-
-                for (int j = 0; j < selectedMapPack.maps.Count; j++)
-                {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[j].info.ruleset))
-                        return;
-                }
             }
         }
 
@@ -297,12 +299,6 @@ namespace SDJK.MainMenu
                     selectedMapPackIndex = 0;
                 else
                     selectedMapPackIndex++;
-
-                for (int j = 0; j < selectedMapPack.maps.Count; j++)
-                {
-                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[j].info.ruleset))
-                        return;
-                }
             }
         }
         #endregion
