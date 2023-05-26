@@ -471,7 +471,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                             }
                         }
 
-                        notes[keyIndex].Add(new SDJKNoteFile(beat, 0, SDJKNoteTypeFile.normal));
+                        notes[keyIndex].Add(new SDJKNoteFile(beat, 0, SDJKNoteTypeFile.normal, HitsoundFile.defaultHitsounds, HitsoundFile.defaultHitsounds));
                     }
                 }
             }

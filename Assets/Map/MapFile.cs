@@ -282,8 +282,8 @@ namespace SDJK.Map
 
     public struct HitsoundFile : IEquatable<HitsoundFile>
     {
-        public static HitsoundFile[] defaultHitsounds = new HitsoundFile[] { defaultHitsound };
-        public static HitsoundFile defaultHitsound = new HitsoundFile("normal", 0.5f, 0.95f);
+        public static TypeList<HitsoundFile> defaultHitsounds => new TypeList<HitsoundFile> { defaultHitsound };
+        public static HitsoundFile defaultHitsound { get; } = new HitsoundFile("normal", 0.5f, 0.95f);
 
         public HitsoundFile(string path, float volume, float pitch)
         {

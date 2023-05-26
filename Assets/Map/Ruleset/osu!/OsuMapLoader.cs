@@ -502,8 +502,8 @@ namespace SDJK.Map.Ruleset.Osu
                                     holdBeat = GetBeat(holdTime) - beat;
 
                                 //Hitsound
-                                HitsoundFile[] hitsoundFiles = HitsoundFile.defaultHitsounds;
-                                HitsoundFile[] holdHitsoundFiles = HitsoundFile.defaultHitsounds;
+                                TypeList<HitsoundFile> hitsoundFiles = HitsoundFile.defaultHitsounds;
+                                TypeList<HitsoundFile> holdHitsoundFiles = HitsoundFile.defaultHitsounds;
 
                                 {
                                     int hitsound = int.Parse(splitTexts[4]);
@@ -565,8 +565,8 @@ namespace SDJK.Map.Ruleset.Osu
 
                                         HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
 
-                                        hitsoundFiles = new HitsoundFile[] { hitsoundFile, customHitsoundFile };
-                                        holdHitsoundFiles = Array.Empty<HitsoundFile>();
+                                        hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile, customHitsoundFile };
+                                        holdHitsoundFiles = new TypeList<HitsoundFile>();
                                     }
                                 }
 

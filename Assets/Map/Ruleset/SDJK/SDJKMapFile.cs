@@ -76,8 +76,11 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public SDJKNoteTypeFile type { get; set; }
 
-        public HitsoundFile[] hitsoundFiles { get; set; }
-        public HitsoundFile[] holdHitsoundFiles { get; set; }
+        public TypeList<HitsoundFile> hitsoundFiles { get => _hitsoundFiles ??= HitsoundFile.defaultHitsounds; set => _hitsoundFiles = value; }
+        TypeList<HitsoundFile> _hitsoundFiles;
+
+        public TypeList<HitsoundFile> holdHitsoundFiles { get => _holdHitsoundFiles ??= HitsoundFile.defaultHitsounds; set => _holdHitsoundFiles = value; }
+        TypeList<HitsoundFile> _holdHitsoundFiles;
 
         public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type)
         {
@@ -86,19 +89,19 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             this.type = type;
 
-            hitsoundFiles = HitsoundFile.defaultHitsounds;
-            holdHitsoundFiles = HitsoundFile.defaultHitsounds;
+            _hitsoundFiles = HitsoundFile.defaultHitsounds;
+            _holdHitsoundFiles = HitsoundFile.defaultHitsounds;
         }
 
-        public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type, HitsoundFile[] hitsoundFiles, HitsoundFile[] holdHitsoundFiles)
+        public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type, TypeList<HitsoundFile> hitsoundFiles, TypeList<HitsoundFile> holdHitsoundFiles)
         {
             this.beat = beat;
             this.holdLength = holdLength;
 
             this.type = type;
 
-            this.hitsoundFiles = hitsoundFiles;
-            this.holdHitsoundFiles = holdHitsoundFiles;
+            _hitsoundFiles = hitsoundFiles;
+            _holdHitsoundFiles = holdHitsoundFiles;
         }
     }
 

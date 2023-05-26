@@ -46,7 +46,7 @@ namespace SDJK.Map.Ruleset.Osu
             holdHitsoundFiles = HitsoundFile.defaultHitsounds;
         }
 
-        public OsuManiaNoteFile(double beat, double holdLength, HitsoundFile[] hitsoundFiles, HitsoundFile[] holdHitsoundFiles)
+        public OsuManiaNoteFile(double beat, double holdLength, TypeList<HitsoundFile> hitsoundFiles, TypeList<HitsoundFile> holdHitsoundFiles)
         {
             this.beat = beat;
             this.holdLength = holdLength;
@@ -58,7 +58,7 @@ namespace SDJK.Map.Ruleset.Osu
         public double beat { get; set; }
         public double holdLength { get; set; }
 
-        public HitsoundFile[] hitsoundFiles { get; set; }
-        public HitsoundFile[] holdHitsoundFiles { get; set; }
+        public TypeList<HitsoundFile> hitsoundFiles { get; set; }
+        public TypeList<HitsoundFile> holdHitsoundFiles { get; set; }
     }
 }

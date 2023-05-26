@@ -184,7 +184,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 double currentBeat = RhythmManager.currentBeatSound;
                 bool hitsoundPlay = false;
 
-                HitsoundFile[] hitsoundFiles = currentNote.hitsoundFiles;
+                TypeList<HitsoundFile> hitsoundFiles = currentNote.hitsoundFiles;
                 SetDisSecond(currentNote.beat, true, out double realDisSecond, out double judgementDisSecond, currentPressBeatReplay);
 
                 if (autoNote)
@@ -462,10 +462,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
             }
 
-            public void HitsoundPlay(HitsoundFile[] hitsoundFiles)
+            public void HitsoundPlay(TypeList<HitsoundFile> hitsoundFiles)
             {
                 SDJKManager manager = instance.sdjkManager;
-                for (int i = 0; i < hitsoundFiles.Length; i++)
+                for (int i = 0; i < hitsoundFiles.Count; i++)
                     manager.HitsoundPlay(hitsoundFiles[i]);
             }
 
