@@ -1,3 +1,4 @@
+using SCKRM.Rhythm;
 using System.Collections.Generic;
 
 namespace SDJK.Map.Ruleset.Osu
@@ -7,6 +8,28 @@ namespace SDJK.Map.Ruleset.Osu
         public OsuManiaMapFile(string mapFilePath) : base(mapFilePath) { }
 
         public TypeList<TypeList<OsuManiaNoteFile>> notes { get; } = new();
+
+
+
+        public TypeList<BeatValuePairList<HitsoundFile[]>> hitsoundFiles
+        {
+            get
+            {
+                if (_hitsoundFiles == null)
+                    return null;
+
+                int loopCount = notes.Count - _hitsoundFiles.Count;
+                for (int i = 0; i < loopCount; i++)
+                    _hitsoundFiles.Add(new(new HitsoundFile[] { HitsoundFile.defaultHitsound }));
+
+                return _hitsoundFiles;
+            }
+            set => _hitsoundFiles = value;
+        }
+        TypeList<BeatValuePairList<HitsoundFile[]>> _hitsoundFiles = new();
+
+
+
 
         public override void FixAllJudgmentBeat()
         {

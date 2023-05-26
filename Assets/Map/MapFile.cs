@@ -233,10 +233,6 @@ namespace SDJK.Map
 
 
         public BeatValuePairAniListDouble judgmentSize { get; set; } = new(1);
-
-
-
-        public BeatValuePairList<HitsoundFile[]> hitsoundFile { get; set; } = new(new HitsoundFile[1] { HitsoundFile.defaultHitsound });
     }
 
     public sealed class MapVisualizerEffect

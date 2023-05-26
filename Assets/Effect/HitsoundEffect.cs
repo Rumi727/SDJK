@@ -54,6 +54,8 @@ namespace SDJK.Effect
                     string path = PathUtility.Combine(map.mapFilePathParent, hitsound.path);
                     if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
                     {
+                        loadedHitsounds.Add(hitsound.path, new HitsoundInfo());
+
                         AudioClip audioClip2 = await ResourceManager.GetAudio(fullPath, true);
                         if (!Kernel.isPlaying || instance == null)
                         {
@@ -64,7 +66,7 @@ namespace SDJK.Effect
                         SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip2);
                         SoundData<SoundMetaData> soundData = new SoundData<SoundMetaData>("", false, soundMetaData);
 
-                        loadedHitsounds.Add(hitsound.path, new HitsoundInfo(soundData));
+                        loadedHitsounds[hitsound.path] = new HitsoundInfo(soundData);
                     }
                     else if (File.Exists(path + ".nbs"))
                     {
@@ -76,6 +78,8 @@ namespace SDJK.Effect
                     }
                     else
                         loadedHitsounds.Add(hitsound.path, new HitsoundInfo());
+
+                    CustomHitsoundPlay(loadedHitsounds, map, instance, hitsound);
                 }
             }
             catch (Exception e)

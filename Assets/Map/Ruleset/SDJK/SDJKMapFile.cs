@@ -1,7 +1,6 @@
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -13,6 +12,19 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// notes[bar_index][note_index] = note
         /// </summary>
         public TypeList<TypeList<SDJKNoteFile>> notes { get; set; } = new TypeList<TypeList<SDJKNoteFile>>();
+
+        public TypeList<BeatValuePairList<HitsoundFile[]>> hitsoundFiles
+        {
+            get
+            {
+                for (int i = 0; i < notes.Count - _hitsoundFiles.Count; i++)
+                    _hitsoundFiles.Add(new(new HitsoundFile[] { HitsoundFile.defaultHitsound }));
+
+                return _hitsoundFiles;
+            }
+            set => _hitsoundFiles = value;
+        }
+        TypeList<BeatValuePairList<HitsoundFile[]>> _hitsoundFiles = new TypeList<BeatValuePairList<HitsoundFile[]>>();
 
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
 

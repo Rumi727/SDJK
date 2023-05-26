@@ -408,6 +408,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         sdjkMap.notes[i].Add(new SDJKNoteFile(osuManiaNote.beat, osuManiaNote.holdLength, SDJKNoteTypeFile.normal));
                     }
                 }
+
+                sdjkMap.hitsoundFiles = osuManiaMap.hitsoundFiles;
             }
             else
             {

@@ -3492,6 +3492,485 @@ namespace SCKRM
         }
         #endregion
 
+        #region Repeat While Other
+        public static sbyte RepeatWhileOther(this sbyte t, sbyte start, sbyte length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static byte RepeatWhileOther(this byte t, byte start, byte length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static short RepeatWhileOther(this short t, short start, short length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static ushort RepeatWhileOther(this ushort t, ushort start, ushort length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static int RepeatWhileOther(this int t, int start, int length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static uint RepeatWhileOther(this uint t, uint start, uint length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static long RepeatWhileOther(this long t, long start, long length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static ulong RepeatWhileOther(this ulong t, ulong start, ulong length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static float RepeatWhileOther(this float t, float start, float length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static double RepeatWhileOther(this double t, double start, double length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static decimal RepeatWhileOther(this decimal t, decimal start, decimal length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static BigInteger RepeatWhileOther(this BigInteger t, BigInteger start, BigInteger length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static BigDecimal RepeatWhileOther(this BigDecimal t, BigDecimal start, BigDecimal length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static nint RepeatWhileOther(this nint t, nint start, nint length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static nuint RepeatWhileOther(this nuint t, nuint start, nuint length)
+        {
+            if (t >= start)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < start)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static sbyte RepeatWhileOther(this sbyte t, sbyte length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static byte RepeatWhileOther(this byte t, byte length)
+        {
+            while (t >= length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static short RepeatWhileOther(this short t, short length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static ushort RepeatWhileOther(this ushort t, ushort length)
+        {
+            while (t >= length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static int RepeatWhileOther(this int t, int length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static uint RepeatWhileOther(this uint t, uint length)
+        {
+            while (t >= length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static long RepeatWhileOther(this long t, long length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static ulong RepeatWhileOther(this ulong t, ulong length)
+        {
+            while (t >= length)
+                t -= length;
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static float RepeatWhileOther(this float t, float length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static double RepeatWhileOther(this double t, double length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static decimal RepeatWhileOther(this decimal t, decimal length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static BigInteger RepeatWhileOther(this BigInteger t, BigInteger length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static BigDecimal RepeatWhileOther(this BigDecimal t, BigDecimal length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static nint RepeatWhileOther(this nint t, nint length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+
+        [WikiIgnore]
+        public static nuint RepeatWhileOther(this nuint t, nuint length)
+        {
+            if (t >= 0)
+            {
+                while (t >= length)
+                    t -= length;
+            }
+            else
+            {
+                while (t < 0)
+                    t += length;
+            }
+
+            return t;
+        }
+        #endregion
+
         #region Round
         public static float Round(this float value) => (float)Math.Round(value);
         [WikiIgnore] public static double Round(this double value) => Math.Round(value);
