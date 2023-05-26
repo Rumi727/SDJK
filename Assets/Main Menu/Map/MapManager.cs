@@ -48,6 +48,8 @@ namespace SDJK.MainMenu
                         return;
                     }
                 }
+
+                selectedMapIndex = 0;
             }
         }
         static MapPack _selectedMapPack = null;
@@ -288,6 +290,9 @@ namespace SDJK.MainMenu
                     selectedMapPackIndex = currentMapPacks.Count - 1;
                 else
                     selectedMapPackIndex--;
+
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
+                    break;
             }
         }
 
@@ -299,6 +304,9 @@ namespace SDJK.MainMenu
                     selectedMapPackIndex = 0;
                 else
                     selectedMapPackIndex++;
+
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
+                    break;
             }
         }
         #endregion
