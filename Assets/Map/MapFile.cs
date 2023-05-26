@@ -280,7 +280,7 @@ namespace SDJK.Map
         ui
     }
 
-    public struct HitsoundFile
+    public struct HitsoundFile : IEquatable<HitsoundFile>
     {
         public static HitsoundFile defaultHitsound = new HitsoundFile("normal", 0.5f, 0.95f);
 
@@ -296,6 +296,11 @@ namespace SDJK.Map
 
         public float volume { get; set; }
         public float pitch { get; set; }
+
+        public bool Equals(HitsoundFile other) => path == other.path && volume == other.volume && pitch == other.pitch;
+
+        public override bool Equals(object obj) => obj is HitsoundFile other && Equals(other);
+        public override int GetHashCode() => HashCode.Combine(path, volume, pitch);
     }
     #endregion
 }
