@@ -13,19 +13,6 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// </summary>
         public TypeList<TypeList<SDJKNoteFile>> notes { get; set; } = new TypeList<TypeList<SDJKNoteFile>>();
 
-        public TypeList<BeatValuePairList<HitsoundFile[]>> hitsoundFiles
-        {
-            get
-            {
-                for (int i = 0; i < notes.Count - _hitsoundFiles.Count; i++)
-                    _hitsoundFiles.Add(new(new HitsoundFile[] { HitsoundFile.defaultHitsound }));
-
-                return _hitsoundFiles;
-            }
-            set => _hitsoundFiles = value;
-        }
-        TypeList<BeatValuePairList<HitsoundFile[]>> _hitsoundFiles = new TypeList<BeatValuePairList<HitsoundFile[]>>();
-
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
 
         /*public override double GetDifficulty()
@@ -89,12 +76,29 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public SDJKNoteTypeFile type { get; set; }
 
+        public HitsoundFile[] hitsoundFiles { get; set; }
+        public HitsoundFile[] holdHitsoundFiles { get; set; }
+
         public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type)
         {
             this.beat = beat;
             this.holdLength = holdLength;
 
             this.type = type;
+
+            hitsoundFiles = HitsoundFile.defaultHitsounds;
+            holdHitsoundFiles = HitsoundFile.defaultHitsounds;
+        }
+
+        public SDJKNoteFile(double beat, double holdLength, SDJKNoteTypeFile type, HitsoundFile[] hitsoundFiles, HitsoundFile[] holdHitsoundFiles)
+        {
+            this.beat = beat;
+            this.holdLength = holdLength;
+
+            this.type = type;
+
+            this.hitsoundFiles = hitsoundFiles;
+            this.holdHitsoundFiles = holdHitsoundFiles;
         }
     }
 

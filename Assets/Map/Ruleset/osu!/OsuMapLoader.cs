@@ -501,72 +501,76 @@ namespace SDJK.Map.Ruleset.Osu
                                 if (time < holdTime)
                                     holdBeat = GetBeat(holdTime) - beat;
 
-                                osuManiaMap.notes[index].Add(new OsuManiaNoteFile(beat, holdBeat));
-
                                 //Hitsound
-                                int hitsound = int.Parse(splitTexts[4]);
-                                int sampleSet = timingPointsSampleSet.GetValue(beat);
-                                int sampleIndex = timingPointsSampleIndex.GetValue(beat);
-                                int sampleVolume = timingPointsVolume.GetValue(beat);
-                                string fileName;
-
-                                if (hitsound == 0)
-                                {
-                                    int value = int.Parse(splitTexts[splitTexts.Count - 5]);
-                                    if (value != 0)
-                                        sampleSet = value - 1;
-                                }
-                                else
-                                {
-                                    int value = int.Parse(splitTexts[splitTexts.Count - 4]);
-                                    if (value != 0)
-                                        sampleSet = value - 1;
-                                }
+                                HitsoundFile[] hitsoundFiles = HitsoundFile.defaultHitsounds;
+                                HitsoundFile[] holdHitsoundFiles = HitsoundFile.defaultHitsounds;
 
                                 {
-                                    int value = int.Parse(splitTexts[splitTexts.Count - 3]);
-                                    if (value != 0)
-                                        sampleIndex = value;
-                                }
+                                    int hitsound = int.Parse(splitTexts[4]);
+                                    int sampleSet = timingPointsSampleSet.GetValue(beat);
+                                    int sampleIndex = timingPointsSampleIndex.GetValue(beat);
+                                    int sampleVolume = timingPointsVolume.GetValue(beat);
+                                    string fileName;
 
-                                {
-                                    int value = int.Parse(splitTexts[splitTexts.Count - 2]);
-                                    if (value != 0)
-                                        sampleVolume = value;
-                                }
-
-                                fileName = splitTexts[splitTexts.Count - 1];
-
-                                {
-                                    string sampleSetText = "normal";
-                                    if (sampleSet == 1)
-                                        sampleSetText = "soft";
-                                    else if (sampleSet == 2)
-                                        sampleSetText = "drum";
-
-                                    string hitsoundText = "normal";
-                                    if (hitsound == 1 || hitsound == 4)
-                                        hitsoundText = "finish";
-                                    else if (hitsound == 2)
-                                        hitsoundText = "whistle";
-                                    else if (hitsound == 3 || hitsound == 8)
-                                        hitsoundText = "clap";
-
-                                    HitsoundFile hitsoundFile;
-                                    HitsoundFile defaultHitsound = HitsoundFile.defaultHitsound;
-                                    defaultHitsound.volume = sampleVolume;
-
-                                    if (sampleIndex == 0 || sampleIndex == 1)
-                                        hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
+                                    if (hitsound == 0)
+                                    {
+                                        int value = int.Parse(splitTexts[splitTexts.Count - 5]);
+                                        if (value != 0)
+                                            sampleSet = value - 1;
+                                    }
                                     else
-                                        hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
+                                    {
+                                        int value = int.Parse(splitTexts[splitTexts.Count - 4]);
+                                        if (value != 0)
+                                            sampleSet = value - 1;
+                                    }
 
-                                    HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
-                                    osuManiaMap.hitsoundFiles[index].Add(beat, new HitsoundFile[] { hitsoundFile, customHitsoundFile });
+                                    {
+                                        int value = int.Parse(splitTexts[splitTexts.Count - 3]);
+                                        if (value != 0)
+                                            sampleIndex = value;
+                                    }
 
-                                    if (holdBeat > 0)
-                                        osuManiaMap.hitsoundFiles[index].Add(beat + holdBeat, new HitsoundFile[0]);
+                                    {
+                                        int value = int.Parse(splitTexts[splitTexts.Count - 2]);
+                                        if (value != 0)
+                                            sampleVolume = value;
+                                    }
+
+                                    fileName = splitTexts[splitTexts.Count - 1];
+
+                                    {
+                                        string sampleSetText = "normal";
+                                        if (sampleSet == 1)
+                                            sampleSetText = "soft";
+                                        else if (sampleSet == 2)
+                                            sampleSetText = "drum";
+
+                                        string hitsoundText = "normal";
+                                        if (hitsound == 1 || hitsound == 4)
+                                            hitsoundText = "finish";
+                                        else if (hitsound == 2)
+                                            hitsoundText = "whistle";
+                                        else if (hitsound == 3 || hitsound == 8)
+                                            hitsoundText = "clap";
+
+                                        HitsoundFile hitsoundFile;
+                                        HitsoundFile defaultHitsound = HitsoundFile.defaultHitsound;
+                                        defaultHitsound.volume = sampleVolume;
+
+                                        if (sampleIndex == 0 || sampleIndex == 1)
+                                            hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
+                                        else
+                                            hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
+
+                                        HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
+
+                                        hitsoundFiles = new HitsoundFile[] { hitsoundFile, customHitsoundFile };
+                                        holdHitsoundFiles = Array.Empty<HitsoundFile>();
+                                    }
                                 }
+
+                                osuManiaMap.notes[index].Add(new OsuManiaNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
                             }
 
                             osuMap.beats.Add(beat);

@@ -11,26 +11,6 @@ namespace SDJK.Map.Ruleset.Osu
 
 
 
-        public TypeList<BeatValuePairList<HitsoundFile[]>> hitsoundFiles
-        {
-            get
-            {
-                if (_hitsoundFiles == null)
-                    return null;
-
-                int loopCount = notes.Count - _hitsoundFiles.Count;
-                for (int i = 0; i < loopCount; i++)
-                    _hitsoundFiles.Add(new(new HitsoundFile[] { HitsoundFile.defaultHitsound }));
-
-                return _hitsoundFiles;
-            }
-            set => _hitsoundFiles = value;
-        }
-        TypeList<BeatValuePairList<HitsoundFile[]>> _hitsoundFiles = new();
-
-
-
-
         public override void FixAllJudgmentBeat()
         {
             TypeList<double> allJudgmentBeat = new TypeList<double>();
@@ -61,9 +41,24 @@ namespace SDJK.Map.Ruleset.Osu
         {
             this.beat = beat;
             this.holdLength = holdLength;
+
+            hitsoundFiles = HitsoundFile.defaultHitsounds;
+            holdHitsoundFiles = HitsoundFile.defaultHitsounds;
+        }
+
+        public OsuManiaNoteFile(double beat, double holdLength, HitsoundFile[] hitsoundFiles, HitsoundFile[] holdHitsoundFiles)
+        {
+            this.beat = beat;
+            this.holdLength = holdLength;
+
+            this.hitsoundFiles = hitsoundFiles;
+            this.holdHitsoundFiles = holdHitsoundFiles;
         }
 
         public double beat { get; set; }
         public double holdLength { get; set; }
+
+        public HitsoundFile[] hitsoundFiles { get; set; }
+        public HitsoundFile[] holdHitsoundFiles { get; set; }
     }
 }

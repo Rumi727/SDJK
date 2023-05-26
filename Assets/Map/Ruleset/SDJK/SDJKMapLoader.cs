@@ -405,11 +405,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     for (int j = 0; j < osuManiaNotes.Count; j++)
                     {
                         OsuManiaNoteFile osuManiaNote = osuManiaNotes[j];
-                        sdjkMap.notes[i].Add(new SDJKNoteFile(osuManiaNote.beat, osuManiaNote.holdLength, SDJKNoteTypeFile.normal));
+                        sdjkMap.notes[i].Add(new SDJKNoteFile(osuManiaNote.beat, osuManiaNote.holdLength, SDJKNoteTypeFile.normal, osuManiaNote.hitsoundFiles, osuManiaNote.holdHitsoundFiles));
                     }
                 }
-
-                sdjkMap.hitsoundFiles = osuManiaMap.hitsoundFiles;
             }
             else
             {
