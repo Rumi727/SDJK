@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using static SDJK.Map.Ruleset.Osu.OsuMapLoader;
 
 namespace SDJK.Map.Ruleset.Osu
 {
@@ -57,6 +56,9 @@ namespace SDJK.Map.Ruleset.Osu
 
                 Dictionary<string, StringBuilder> sections = new Dictionary<string, StringBuilder>();
 
+                StringBuilder splitStringBuilder = new StringBuilder();
+                List<string> splitTexts = new List<string>();
+
                 #region Stream Reader
                 using (StreamReader streamReader = File.OpenText(mapFilePath))
                 {
@@ -101,9 +103,27 @@ namespace SDJK.Map.Ruleset.Osu
 
                         try
                         {
-                            string[] splitText = text.Split(":");
-                            string key = splitText[0].Trim();
-                            string value = splitText[1].Trim();
+                            splitTexts.Clear();
+                            splitStringBuilder.Clear();
+
+                            for (int i = 0; i < text.Length; i++)
+                            {
+                                char currentChar = text[i];
+                                if (currentChar != ':')
+                                {
+                                    splitStringBuilder.Append(currentChar);
+                                    continue;
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+                            }
+
+                            splitTexts.Add(splitStringBuilder.ToString());
+                            splitStringBuilder.Clear();
+
+                            string key = splitTexts[0].Trim();
+                            string value = splitTexts[1].Trim();
 
                             switch (key)
                             {
@@ -168,12 +188,30 @@ namespace SDJK.Map.Ruleset.Osu
 
                         try
                         {
-                            string[] splitText = text.QuotedSplit(":");
-                            string key = splitText[0].Trim();
-                            if (splitText.Length < 2)
+                            splitTexts.Clear();
+                            splitStringBuilder.Clear();
+
+                            for (int i = 0; i < text.Length; i++)
+                            {
+                                char currentChar = text[i];
+                                if (currentChar != ':')
+                                {
+                                    splitStringBuilder.Append(currentChar);
+                                    continue;
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+                            }
+
+                            splitTexts.Add(splitStringBuilder.ToString());
+                            splitStringBuilder.Clear();
+
+                            string key = splitTexts[0].Trim();
+                            if (splitTexts.Count < 2)
                                 continue;
 
-                            string value = splitText[1].Trim();
+                            string value = splitTexts[1].Trim();
 
                             switch (key)
                             {
@@ -225,19 +263,37 @@ namespace SDJK.Map.Ruleset.Osu
 
                             try
                             {
-                                string[] splitText = text.Split(':');
-                                string key = splitText[0].Trim();
-                                string value = splitText[1].Trim();
+                                splitTexts.Clear();
+                                splitStringBuilder.Clear();
+
+                                for (int i = 0; i < text.Length; i++)
+                                {
+                                    char currentChar = text[i];
+                                    if (currentChar != ':')
+                                    {
+                                        splitStringBuilder.Append(currentChar);
+                                        continue;
+                                    }
+
+                                    splitTexts.Add(splitStringBuilder.ToString());
+                                    splitStringBuilder.Clear();
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+
+                                string key = splitTexts[0].Trim();
+                                string value = splitTexts[1].Trim();
 
                                 if (key == "CircleSize")
                                 {
                                     keyCount = int.Parse(value);
-                                    
-                                    OsuManiaMapFile osuMania = (OsuManiaMapFile)osuMap;
-                                    osuMania.notes.Clear();
+
+                                    OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
+                                    osuManiaMap.notes.Clear();
 
                                     for (int i = 0; i < keyCount; i++)
-                                        osuMania.notes.Add(new TypeList<OsuManiaNoteFile>());
+                                        osuManiaMap.notes.Add(new TypeList<OsuManiaNoteFile>());
                                 }
                             }
                             catch
@@ -261,8 +317,26 @@ namespace SDJK.Map.Ruleset.Osu
 
                         try
                         {
-                            string[] splitText = text.Split(',');
-                            string eventType = splitText[0];
+                            splitTexts.Clear();
+                            splitStringBuilder.Clear();
+
+                            for (int i = 0; i < text.Length; i++)
+                            {
+                                char currentChar = text[i];
+                                if (currentChar != ',')
+                                {
+                                    splitStringBuilder.Append(currentChar);
+                                    continue;
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+                            }
+
+                            splitTexts.Add(splitStringBuilder.ToString());
+                            splitStringBuilder.Clear();
+
+                            string eventType = splitTexts[0];
 
                             switch (eventType)
                             {
@@ -270,7 +344,7 @@ namespace SDJK.Map.Ruleset.Osu
                                 {
                                     if (!eventsSectionBackgroundIgnore)
                                     {
-                                        osuMap.globalEffect.background.Add(new BackgroundEffectPair(PathUtility.GetPathWithExtension(splitText[2].Trim('"')), ""));
+                                        osuMap.globalEffect.background.Add(new BackgroundEffectPair(PathUtility.GetPathWithExtension(splitTexts[2].Trim('"')), ""));
                                         eventsSectionBackgroundIgnore = true;
                                     }
 
@@ -281,8 +355,8 @@ namespace SDJK.Map.Ruleset.Osu
                                 {
                                     if (!eventsSectionVideoIgnore)
                                     {
-                                        osuMap.info.videoBackgroundFile = PathUtility.GetPathWithExtension(splitText[2].Trim('"'));
-                                        osuMap.info.videoOffset = double.Parse(splitText[1]);
+                                        osuMap.info.videoBackgroundFile = PathUtility.GetPathWithExtension(splitTexts[2].Trim('"'));
+                                        osuMap.info.videoOffset = double.Parse(splitTexts[1]);
 
                                         eventsSectionVideoIgnore = true;
                                     }
@@ -311,14 +385,32 @@ namespace SDJK.Map.Ruleset.Osu
 
                         try
                         {
-                            string[] splitText = text.Split(',');
-                            double time = int.Parse(splitText[0]) * 0.001;
-                            double bpm = (1d / double.Parse(splitText[1]) * 1000d * 60d).Floor();
-                            int sampleSet = int.Parse(splitText[3]);
-                            int sampleIndex = int.Parse(splitText[4]);
-                            int volume = int.Parse(splitText[5]);
-                            bool uninherited = splitText[6] == "0";
-                            bool kiai = splitText[7] == "1";
+                            splitTexts.Clear();
+                            splitStringBuilder.Clear();
+
+                            for (int i = 0; i < text.Length; i++)
+                            {
+                                char currentChar = text[i];
+                                if (currentChar != ',')
+                                {
+                                    splitStringBuilder.Append(currentChar);
+                                    continue;
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+                            }
+
+                            splitTexts.Add(splitStringBuilder.ToString());
+                            splitStringBuilder.Clear();
+
+                            double time = int.Parse(splitTexts[0]) * 0.001;
+                            double bpm = (1d / double.Parse(splitTexts[1]) * 1000d * 60d).Floor();
+                            int sampleSet = int.Parse(splitTexts[3]);
+                            int sampleIndex = int.Parse(splitTexts[4]);
+                            int volume = int.Parse(splitTexts[5]);
+                            bool uninherited = splitTexts[6] == "0";
+                            bool kiai = splitTexts[7] == "1";
 
                             if (timingPointsSectionStartLine)
                             {
@@ -362,7 +454,6 @@ namespace SDJK.Map.Ruleset.Osu
                 #region Hit Objects Section
                 using (StringReader stringReader = new StringReader(sections["[HitObjects]"].ToString()))
                 {
-                    //HitsoundFile? lastHitsoundFile = null;
                     while (true)
                     {
                         string text = stringReader.ReadLine();
@@ -371,32 +462,49 @@ namespace SDJK.Map.Ruleset.Osu
 
                         try
                         {
-                            string[] splitText = text.Split(',', ':', '|');
-                            double time = int.Parse(splitText[2]) * 0.001;
+                            splitTexts.Clear();
+                            splitStringBuilder.Clear();
+
+                            for (int i = 0; i < text.Length; i++)
+                            {
+                                char currentChar = text[i];
+                                if (currentChar != ',' && currentChar != ':' && currentChar != '|')
+                                {
+                                    splitStringBuilder.Append(currentChar);
+                                    continue;
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+                            }
+
+                            splitTexts.Add(splitStringBuilder.ToString());
+                            splitStringBuilder.Clear();
+
+                            double time = int.Parse(splitTexts[2]) * 0.001;
 
                             BeatValuePairList<double> bpmList = osuMap.globalEffect.bpm;
                             double beat = GetBeat(time);
 
                             if (isOsuMania)
                             {
-                                double holdTime = 0;
-                                bool isHold = splitText.Length == 11;
-                                if (isHold)
-                                    holdTime = int.Parse(splitText[5]) * 0.001;
+                                OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
 
-                                int index = (int.Parse(splitText[0]) * keyCount / 512d).FloorToInt();
+                                double holdTime = 0;
+                                bool isHold = splitTexts.Count == 11;
+                                if (isHold)
+                                    holdTime = int.Parse(splitTexts[5]) * 0.001;
+
+                                int index = (int.Parse(splitTexts[0]) * keyCount / 512d).FloorToInt();
 
                                 double holdBeat = 0;
                                 if (time < holdTime)
                                     holdBeat = GetBeat(holdTime) - beat;
 
-                                ((OsuManiaMapFile)osuMap).notes[index].Add(new OsuManiaNoteFile(beat, holdBeat));
+                                osuManiaMap.notes[index].Add(new OsuManiaNoteFile(beat, holdBeat));
 
                                 //Hitsound
-                                //너무 이상해서 폐기
-                                //오스 맵 구조 진짜 개같이 짜여져 있네
-                                /*
-                                int hitsound = int.Parse(splitText[4]).Clamp(0, 3);
+                                int hitsound = int.Parse(splitTexts[4]);
                                 int sampleSet = timingPointsSampleSet.GetValue(beat);
                                 int sampleIndex = timingPointsSampleIndex.GetValue(beat);
                                 int sampleVolume = timingPointsVolume.GetValue(beat);
@@ -404,30 +512,30 @@ namespace SDJK.Map.Ruleset.Osu
 
                                 if (hitsound == 0)
                                 {
-                                    int value = int.Parse(splitText[splitText.Length - 5]);
+                                    int value = int.Parse(splitTexts[splitTexts.Count - 5]);
                                     if (value != 0)
                                         sampleSet = value - 1;
                                 }
-                                else if (hitsound != 0)
+                                else
                                 {
-                                    int value = int.Parse(splitText[splitText.Length - 4]);
+                                    int value = int.Parse(splitTexts[splitTexts.Count - 4]);
                                     if (value != 0)
                                         sampleSet = value - 1;
                                 }
 
                                 {
-                                    int value = int.Parse(splitText[splitText.Length - 3]);
+                                    int value = int.Parse(splitTexts[splitTexts.Count - 3]);
                                     if (value != 0)
                                         sampleIndex = value;
                                 }
 
                                 {
-                                    int value = int.Parse(splitText[splitText.Length - 2]);
+                                    int value = int.Parse(splitTexts[splitTexts.Count - 2]);
                                     if (value != 0)
                                         sampleVolume = value;
                                 }
 
-                                fileName = splitText[splitText.Length - 1];
+                                fileName = splitTexts[splitTexts.Count - 1];
 
                                 {
                                     string sampleSetText = "normal";
@@ -437,42 +545,28 @@ namespace SDJK.Map.Ruleset.Osu
                                         sampleSetText = "drum";
 
                                     string hitsoundText = "normal";
-                                    if (hitsound == 1)
-                                        hitsoundText = "whistle";
-                                    else if (hitsound == 2)
+                                    if (hitsound == 1 || hitsound == 4)
                                         hitsoundText = "finish";
-                                    else if (hitsound == 3)
+                                    else if (hitsound == 2)
+                                        hitsoundText = "whistle";
+                                    else if (hitsound == 3 || hitsound == 8)
                                         hitsoundText = "clap";
 
                                     HitsoundFile hitsoundFile;
+                                    HitsoundFile defaultHitsound = HitsoundFile.defaultHitsound;
+                                    defaultHitsound.volume = sampleVolume;
+
                                     if (sampleIndex == 0 || sampleIndex == 1)
-                                        hitsoundFile = new HitsoundFile($"{sampleSetText}-hit{hitsoundText}", sampleVolume * 0.01f, 1);
+                                        hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
                                     else
-                                        hitsoundFile = new HitsoundFile($"{sampleSetText}-hit{hitsoundText}{sampleIndex}", sampleVolume * 0.01f, 1);
+                                        hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
 
                                     HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
-                                    if (!lastHitsoundFile.Equals(hitsoundFile))
-                                    {
-                                        bool isCustomHitsound = File.Exists(PathUtility.Combine(osuMap.mapFilePathParent, customHitsoundFile.path + ".wav"));
+                                    osuManiaMap.hitsoundFiles[index].Add(beat, new HitsoundFile[] { hitsoundFile, customHitsoundFile });
 
-                                        if (File.Exists(PathUtility.Combine(osuMap.mapFilePathParent, hitsoundFile.path + ".wav")))
-                                        {
-                                            if (isCustomHitsound)
-                                                osuMap.globalEffect.hitsoundFile.Add(beat, new HitsoundFile[] { hitsoundFile, customHitsoundFile });
-                                            else
-                                                osuMap.globalEffect.hitsoundFile.Add(beat, new HitsoundFile[] { hitsoundFile });
-                                        }
-                                        else
-                                        {
-                                            if (isCustomHitsound)
-                                                osuMap.globalEffect.hitsoundFile.Add(beat, new HitsoundFile[] { HitsoundFile.defaultHitsound, customHitsoundFile });
-                                            else
-                                                osuMap.globalEffect.hitsoundFile.Add(beat);
-                                        }
-
-                                        lastHitsoundFile = hitsoundFile;
-                                    }
-                                }*/
+                                    if (holdBeat > 0)
+                                        osuManiaMap.hitsoundFiles[index].Add(beat + holdBeat, new HitsoundFile[0]);
+                                }
                             }
 
                             osuMap.beats.Add(beat);
