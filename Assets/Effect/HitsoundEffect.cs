@@ -47,7 +47,13 @@ namespace SDJK.Effect
                             DefaultHitsoundPlay(hitsound.volume, hitsound.pitch);
                     }
                     else
-                        SoundManager.PlaySound("hitsound." + hitsound.path, "sdjk", hitsound.volume, false, hitsound.pitch);
+                    {
+                        string key = "hitsound." + hitsound.path;
+                        if (ResourceManager.SearchSoundData(key, "sdjk") != null)
+                            SoundManager.PlaySound(key, "sdjk", hitsound.volume, false, hitsound.pitch);
+                        else
+                            DefaultHitsoundPlay(hitsound.volume, hitsound.pitch);
+                    }
                 }
                 else
                 {
