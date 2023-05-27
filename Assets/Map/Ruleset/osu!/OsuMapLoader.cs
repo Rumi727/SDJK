@@ -293,7 +293,7 @@ namespace SDJK.Map.Ruleset.Osu
                                     osuManiaMap.notes.Clear();
 
                                     for (int i = 0; i < keyCount; i++)
-                                        osuManiaMap.notes.Add(new TypeList<OsuManiaNoteFile>());
+                                        osuManiaMap.notes.Add(new TypeList<OsuNoteFile>());
                                 }
                             }
                             catch
@@ -454,6 +454,8 @@ namespace SDJK.Map.Ruleset.Osu
                 #region Hit Objects Section
                 using (StringReader stringReader = new StringReader(sections["[HitObjects]"].ToString()))
                 {
+                    List<string> splitHitsoundTexts = new List<string>();
+
                     while (true)
                     {
                         string text = stringReader.ReadLine();
@@ -485,26 +487,40 @@ namespace SDJK.Map.Ruleset.Osu
 
                             BeatValuePairList<double> bpmList = osuMap.globalEffect.bpm;
                             double beat = GetBeat(time);
+                            double holdBeat = 0;
 
-                            if (isOsuMania)
+                            //Hitsound
+                            TypeList<HitsoundFile> hitsoundFiles = HitsoundFile.defaultHitsounds;
+                            TypeList<HitsoundFile> holdHitsoundFiles = HitsoundFile.defaultHitsounds;
+
+                            #region Hitsound Loader
                             {
-                                OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
+                                {
+                                    int hitsoundColonCount = 0;
+                                    for (int i = text.Length - 1; i >= 0; i--)
+                                    {
+                                        char currentChar = text[i];
+                                        if (currentChar == ',' || currentChar == '|')
+                                            break;
+                                        else if (currentChar != ':')
+                                        {
+                                            splitStringBuilder.Append(new char[] { currentChar }, 0, 1);
+                                            continue;
+                                        }
 
-                                double holdTime = 0;
-                                bool isHold = splitTexts.Count == 11;
-                                if (isHold)
-                                    holdTime = int.Parse(splitTexts[5]) * 0.001;
+                                        hitsoundColonCount++;
+                                        if (hitsoundColonCount >= 5)
+                                            break;
+                                        
+                                        splitHitsoundTexts.Insert(0, splitStringBuilder.ToString());
+                                        splitStringBuilder.Clear();
+                                    }
 
-                                int index = (int.Parse(splitTexts[0]) * keyCount / 512d).FloorToInt();
+                                    splitHitsoundTexts.Insert(0, splitStringBuilder.ToString());
+                                    splitStringBuilder.Clear();
+                                }
 
-                                double holdBeat = 0;
-                                if (time < holdTime)
-                                    holdBeat = GetBeat(holdTime) - beat;
-
-                                //Hitsound
-                                TypeList<HitsoundFile> hitsoundFiles = HitsoundFile.defaultHitsounds;
-                                TypeList<HitsoundFile> holdHitsoundFiles = HitsoundFile.defaultHitsounds;
-
+                                if (splitHitsoundTexts.Count == 5)
                                 {
                                     int hitsound = int.Parse(splitTexts[4]);
                                     int sampleSet = timingPointsSampleSet.GetValue(beat);
@@ -514,45 +530,46 @@ namespace SDJK.Map.Ruleset.Osu
 
                                     if (hitsound == 0)
                                     {
-                                        int value = int.Parse(splitTexts[splitTexts.Count - 5]);
+                                        int value = int.Parse(splitHitsoundTexts[0]);
                                         if (value != 0)
                                             sampleSet = value - 1;
                                     }
                                     else
                                     {
-                                        int value = int.Parse(splitTexts[splitTexts.Count - 4]);
+                                        int value = int.Parse(splitHitsoundTexts[0]);
                                         if (value != 0)
                                             sampleSet = value - 1;
                                     }
 
                                     {
-                                        int value = int.Parse(splitTexts[splitTexts.Count - 3]);
+                                        int value = int.Parse(splitHitsoundTexts[1]);
                                         if (value != 0)
                                             sampleIndex = value;
                                     }
 
                                     {
-                                        int value = int.Parse(splitTexts[splitTexts.Count - 2]);
+                                        int value = int.Parse(splitHitsoundTexts[2]);
                                         if (value != 0)
                                             sampleVolume = value;
                                     }
 
-                                    fileName = splitTexts[splitTexts.Count - 1];
+                                    fileName = splitHitsoundTexts[3];
 
                                     {
-                                        string sampleSetText = "normal";
-                                        if (sampleSet == 1)
-                                            sampleSetText = "soft";
-                                        else if (sampleSet == 2)
-                                            sampleSetText = "drum";
+                                        string sampleSetText = sampleSet switch
+                                        {
+                                            1 => "soft",
+                                            2 => "drum",
+                                            _ => "normal",
+                                        };
 
-                                        string hitsoundText = "normal";
-                                        if (hitsound == 1 || hitsound == 4)
-                                            hitsoundText = "finish";
-                                        else if (hitsound == 2)
-                                            hitsoundText = "whistle";
-                                        else if (hitsound == 3 || hitsound == 8)
-                                            hitsoundText = "clap";
+                                        string hitsoundText = hitsound switch
+                                        {
+                                            1 or 4 => "finish",
+                                            2 => "whistle",
+                                            3 or 8 => "clap",
+                                            _ => "normal",
+                                        };
 
                                         HitsoundFile hitsoundFile;
                                         HitsoundFile defaultHitsound = HitsoundFile.defaultHitsound;
@@ -569,11 +586,29 @@ namespace SDJK.Map.Ruleset.Osu
                                         holdHitsoundFiles = new TypeList<HitsoundFile>();
                                     }
                                 }
+                            }
+                            #endregion
 
-                                osuManiaMap.notes[index].Add(new OsuManiaNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
+
+                            //Mania Note Loader
+                            if (isOsuMania)
+                            {
+                                OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
+
+                                double holdTime = 0;
+                                bool isHold = splitTexts.Count == 11;
+                                if (isHold)
+                                    holdTime = int.Parse(splitTexts[5]) * 0.001;
+
+                                int index = (int.Parse(splitTexts[0]) * keyCount / 512d).FloorToInt();
+
+                                if (time < holdTime)
+                                    holdBeat = GetBeat(holdTime) - beat;
+
+                                osuManiaMap.notes[index].Add(new OsuNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
                             }
 
-                            osuMap.beats.Add(beat);
+                            osuMap.beats.Add(new OsuNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
 
                             double GetBeat(double time)
                             {

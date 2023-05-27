@@ -7,7 +7,7 @@ namespace SDJK.Map.Ruleset.Osu
     {
         public OsuManiaMapFile(string mapFilePath) : base(mapFilePath) { }
 
-        public TypeList<TypeList<OsuManiaNoteFile>> notes { get; } = new();
+        public TypeList<TypeList<OsuNoteFile>> notes { get; } = new();
 
 
 
@@ -17,11 +17,11 @@ namespace SDJK.Map.Ruleset.Osu
 
             for (int i = 0; i < notes.Count; i++)
             {
-                TypeList<OsuManiaNoteFile> notes = this.notes[i];
+                TypeList<OsuNoteFile> notes = this.notes[i];
 
                 for (int j = 0; j < notes.Count; j++)
                 {
-                    OsuManiaNoteFile note = notes[j];
+                    OsuNoteFile note = notes[j];
 
                     //모든 판정 비트에 노트 추가
                     allJudgmentBeat.Add(note.beat);
@@ -33,32 +33,5 @@ namespace SDJK.Map.Ruleset.Osu
             allJudgmentBeat.Sort();
             this.allJudgmentBeat = allJudgmentBeat;
         }
-    }
-
-    public struct OsuManiaNoteFile
-    {
-        public OsuManiaNoteFile(double beat, double holdLength)
-        {
-            this.beat = beat;
-            this.holdLength = holdLength;
-
-            hitsoundFiles = HitsoundFile.defaultHitsounds;
-            holdHitsoundFiles = HitsoundFile.defaultHitsounds;
-        }
-
-        public OsuManiaNoteFile(double beat, double holdLength, TypeList<HitsoundFile> hitsoundFiles, TypeList<HitsoundFile> holdHitsoundFiles)
-        {
-            this.beat = beat;
-            this.holdLength = holdLength;
-
-            this.hitsoundFiles = hitsoundFiles;
-            this.holdHitsoundFiles = holdHitsoundFiles;
-        }
-
-        public double beat { get; set; }
-        public double holdLength { get; set; }
-
-        public TypeList<HitsoundFile> hitsoundFiles { get; set; }
-        public TypeList<HitsoundFile> holdHitsoundFiles { get; set; }
     }
 }

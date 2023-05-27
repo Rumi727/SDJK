@@ -401,10 +401,10 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 {
                     sdjkMap.notes.Add(new TypeList<SDJKNoteFile>());
 
-                    TypeList<OsuManiaNoteFile> osuManiaNotes = osuManiaMap.notes[i];
+                    TypeList<OsuNoteFile> osuManiaNotes = osuManiaMap.notes[i];
                     for (int j = 0; j < osuManiaNotes.Count; j++)
                     {
-                        OsuManiaNoteFile osuManiaNote = osuManiaNotes[j];
+                        OsuNoteFile osuManiaNote = osuManiaNotes[j];
                         sdjkMap.notes[i].Add(new SDJKNoteFile(osuManiaNote.beat, osuManiaNote.holdLength, SDJKNoteTypeFile.normal, osuManiaNote.hitsoundFiles, osuManiaNote.holdHitsoundFiles));
                     }
                 }
@@ -429,7 +429,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     int keyIndex = 0;
                     for (int i = 0; i < osuMap.beats.Count; i++)
                     {
-                        double beat = osuMap.beats[i];
+                        OsuNoteFile note = osuMap.beats[i];
+                        double beat = note.beat;
+                        double holdLength = note.holdLength;
 
                         //키 인덱스
                         {
@@ -471,7 +473,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                             }
                         }
 
-                        notes[keyIndex].Add(new SDJKNoteFile(beat, 0, SDJKNoteTypeFile.normal, HitsoundFile.defaultHitsounds, HitsoundFile.defaultHitsounds));
+                        notes[keyIndex].Add(new SDJKNoteFile(beat, holdLength, SDJKNoteTypeFile.normal, note.hitsoundFiles, note.holdHitsoundFiles));
                     }
                 }
             }
