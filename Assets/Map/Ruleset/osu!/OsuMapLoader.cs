@@ -356,7 +356,7 @@ namespace SDJK.Map.Ruleset.Osu
                                     if (!eventsSectionVideoIgnore)
                                     {
                                         osuMap.info.videoBackgroundFile = PathUtility.GetPathWithExtension(splitTexts[2].Trim('"'));
-                                        osuMap.info.videoOffset = double.Parse(splitTexts[1]);
+                                        osuMap.info.videoOffset = double.Parse(splitTexts[1]) * 0.001;
 
                                         eventsSectionVideoIgnore = true;
                                     }
