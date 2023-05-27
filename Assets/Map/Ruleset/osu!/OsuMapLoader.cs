@@ -575,9 +575,6 @@ namespace SDJK.Map.Ruleset.Osu
                                         };
 
                                         HitsoundFile hitsoundFile;
-                                        HitsoundFile defaultHitsound = HitsoundFile.defaultHitsound;
-                                        defaultHitsound.volume = sampleVolume;
-
                                         if (sampleIndex == 0 || sampleIndex == 1)
                                             hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
                                         else
