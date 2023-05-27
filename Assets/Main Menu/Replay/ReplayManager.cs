@@ -11,9 +11,11 @@ using SDJK.Map;
 using SDJK.Replay;
 using SDJK.Ruleset;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace SDJK.MainMenu
 {
@@ -40,7 +42,7 @@ namespace SDJK.MainMenu
                     value = new List<ReplayFile>();
 
                 value.Add(x);
-                value = ReplayListSort(value);
+                value = ReplayListSort(value).ToList();
 
                 currentReplayFiles[x.mapId] = value;
                 replayLoadingEnd?.Invoke();
@@ -127,13 +129,12 @@ namespace SDJK.MainMenu
 
             try
             {
-                Dictionary<string, List<ReplayFile>> list = await UniTask.RunOnThreadPool(Load);
+                Dictionary<string, List<ReplayFile>> list = await Load();
                 if (list != null)
                     currentReplayFiles = list;
 
-                Dictionary<string, List<ReplayFile>> Load()
+                async UniTask<Dictionary<string, List<ReplayFile>>> Load()
                 {
-                    Dictionary<string, List<ReplayFile>> resultReplays = new Dictionary<string, List<ReplayFile>>();
                     string replayFolderPath = PathUtility.Combine(Kernel.persistentDataPath, "Replay");
                     if (!Directory.Exists(replayFolderPath))
                         Directory.CreateDirectory(replayFolderPath);
@@ -144,40 +145,66 @@ namespace SDJK.MainMenu
 
                     asyncTask.maxProgress = replayPaths.Length;
 
-                    for (int i = 0; i < replayPaths.Length; i++)
+                    //병렬 처리
                     {
-                        ReplayFile replay = ReplayLoader.ReplayLoad<ReplayFile>(replayPaths[i]);
-                        if (replay != null)
+                        ConcurrentDictionary<string, SynchronizedCollection<ReplayFile>> syncResultReplays = new ConcurrentDictionary<string, SynchronizedCollection<ReplayFile>>();
+                        int loadedReplayCount = 0;
+
+                        for (int i = 0; i < replayPaths.Length; i++)
                         {
-                            if (resultReplays.ContainsKey(replay.mapId))
-                                resultReplays[replay.mapId].Add(replay);
-                            else
-                                resultReplays[replay.mapId] = new List<ReplayFile>() { replay };
+                            string path = replayPaths[i];
+                            UniTask.RunOnThreadPool(() => ReplayLoad(path)).Forget();
+
+                            void ReplayLoad(string path)
+                            {
+                                try
+                                {
+                                    ReplayFile replay = ReplayLoader.ReplayLoad<ReplayFile>(path);
+                                    if (replay != null)
+                                    {
+                                        if (syncResultReplays.ContainsKey(replay.mapId))
+                                            syncResultReplays[replay.mapId].Add(replay);
+                                        else
+                                            syncResultReplays[replay.mapId] = new SynchronizedCollection<ReplayFile>() { replay };
+                                    }
+
+                                    if (asyncTask.isRemoved)
+                                        return;
+
+                                    asyncTask.progress++;
+                                }
+                                finally
+                                {
+                                    Interlocked.Increment(ref loadedReplayCount);
+                                }
+                            }
                         }
 
-                        if (asyncTask.isRemoved)
+                        if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedReplayCount, 0) >= replayPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
+                            || asyncTask.isRemoved
+                            || !Kernel.isPlaying)
                             return null;
 
-                        asyncTask.progress++;
-                    }
-
-                    {
-                        List<KeyValuePair<string, List<ReplayFile>>> replays = resultReplays.ToList();
+                        //스레드 리스트를 일반 리스트로
+                        Dictionary<string, List<ReplayFile>> resultReplays = new Dictionary<string, List<ReplayFile>>();
+                        List<KeyValuePair<string, SynchronizedCollection<ReplayFile>>> replays = syncResultReplays.ToList();
 
                         asyncTask.progress = 0;
                         asyncTask.maxProgress = replays.Count;
 
                         for (int i = 0; i < replays.Count; i++)
                         {
-                            KeyValuePair<string, List<ReplayFile>> replay = replays[i];
-                            resultReplays[replay.Key] = ReplayListSort(replay.Value);
+                            KeyValuePair<string, SynchronizedCollection<ReplayFile>> replay = replays[i];
+                            resultReplays[replay.Key] = ReplayListSort(replay.Value).ToList();
 
                             asyncTask.progress++;
-                        }
-                    }
 
-                    asyncTask.progress++;
-                    return resultReplays;
+                            if (await UniTask.NextFrame(asyncTask.cancel).SuppressCancellationThrow() || asyncTask.isRemoved || !Kernel.isPlaying)
+                                return null;
+                        }
+
+                        return resultReplays;
+                    }
                 }
 
                 if (InitialLoadManager.isInitialLoadEnd)
@@ -192,8 +219,8 @@ namespace SDJK.MainMenu
             }
         }
 
-        public static List<ReplayFile> ReplayListSort(List<ReplayFile> replays) =>
+        public static IOrderedEnumerable<ReplayFile> ReplayListSort(IList<ReplayFile> replays) =>
             replays.OrderBy(x => x.scores.Last().value.Distance(JudgementUtility.maxScore))
-                .ThenBy(x => x.clearUTCTime, OrderByDirection.Descending).ToList();
+                .ThenBy(x => x.clearUTCTime, OrderByDirection.Descending);
     }
 }
