@@ -20,16 +20,24 @@
 	"options.background.title": "背景",
 	"options.background.backgroundTransparency": "背景透明度",
 	"options.background.backgroundTransparency.info": "背景が暗い程度",
+
+	"options.map_loader.title": "マップローダー",
+	"options.map_loader.map_manager.loadInParallel": "複数のマップパックを並列にロード",
+	"options.map_loader.map_manager.loadInParallel.info": "複数のマップパックをロードするときに並列にロードします",
+	"options.map_loader.map_loader.loadInParallel": "マップパックを並列にロード",
+	"options.map_loader.map_loader.loadInParallel.info": "1つのマップパックをロードすると、マップを並列にロードします",
 	
 	"options.sdjk_map_loader.title": "SDJKマップローダー",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!maniaノートスピード",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!maniaマップをSDJKマップに読み込むときのノートの速度を決定します",
 	
-	
-	
-	"options.replay.title": "リプレイ",
-	"options.replay.replayAsyncLoad": "リプレイ非同期ロードを有効にする",
-	"options.replay.replayAsyncLoad.info": "リプレイを初期ロードが終了したときにロードします",
+	"options.replay_loader.title": "リプレイローダー",
+	"options.replay_loader.replayAsyncLoad": "リプレイ非同期ロードを有効にする",
+	"options.replay_loader.replayAsyncLoad.info": "リプレイを初期ロードが終了したときにロードします",
+	"options.replay_loader.loadInParallel": "複数のリプレイを並列にロード",
+	"options.replay_loader.loadInParallel.info": "複数のリプレイをロードするときに並列にロードします",
+
+
 	
 	"notice.main_menu.no_map": "マップがありません！",
 	"notice.main_menu.no_map.info": "選択したルールセットにマップが1つもありません",

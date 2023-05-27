@@ -1,10 +1,12 @@
 using Cysharp.Threading.Tasks;
 using K4.Threading;
+using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.DragAndDrop;
 using SCKRM.Renderer;
 using SCKRM.Resource;
 using SCKRM.Rhythm;
+using SCKRM.SaveLoad;
 using SCKRM.Threads;
 using SCKRM.UI.Overlay.MessageBox;
 using SDJK.Map;
@@ -19,6 +21,12 @@ namespace SDJK.MainMenu
 {
     public static class MapManager
     {
+        [GeneralSaveLoad]
+        public sealed class SaveData
+        {
+            [JsonProperty] public static bool loadInParallel { get; set; } = true;
+        }
+
         public static List<MapPack> currentMapPacks { get; private set; } = new List<MapPack>();
         public static List<MapPack> currentRulesetMapPacks { get; private set; } = new List<MapPack>();
 
@@ -211,7 +219,17 @@ namespace SDJK.MainMenu
                     for (int i = 0; i < mapPackPaths.Length; i++)
                     {
                         string path = mapPackPaths[i];
-                        UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
+
+                        if (SaveData.loadInParallel)
+                        {
+                            UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
+                            await UniTask.NextFrame();
+                        }
+                        else
+                            await UniTask.RunOnThreadPool(() => MapLoad(path));
+
+                        if (asyncTask.isRemoved || !Kernel.isPlaying)
+                            return;
 
                         async UniTaskVoid MapLoad(string path)
                         {
@@ -233,11 +251,13 @@ namespace SDJK.MainMenu
                         }
                     }
 
-                    if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= mapPackPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow())
-                        return;
-
-                    if (!Kernel.isPlaying)
-                        return;
+                    if (SaveData.loadInParallel)
+                    {
+                        if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= mapPackPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
+                            || asyncTask.isRemoved
+                            || !Kernel.isPlaying)
+                            return;
+                    }
 
                     mapPacks = syncMapPacks.ToList();
                 }

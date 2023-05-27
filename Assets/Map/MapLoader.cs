@@ -1,8 +1,10 @@
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 using SCKRM;
 using SCKRM.FileDialog;
 using SCKRM.Renderer;
 using SCKRM.Resource;
+using SCKRM.SaveLoad;
 using SCKRM.UI.SideBar;
 using SDJK.Mode;
 using System;
@@ -15,6 +17,12 @@ namespace SDJK.Map
 {
     public static class MapLoader
     {
+        [GeneralSaveLoad]
+        public sealed class SaveData
+        {
+            [JsonProperty] public static bool loadInParallel { get; set; } = true;
+        }
+
         /// <summary>
         ///
         /// </summary>
@@ -47,7 +55,17 @@ namespace SDJK.Map
                 for (int i = 0; i < packPaths.Length; i++)
                 {
                     string path = packPaths[i];
-                    UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
+
+                    if (SaveData.loadInParallel)
+                    {
+                        UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
+                        await UniTask.NextFrame();
+                    }
+                    else
+                        await UniTask.RunOnThreadPool(() => MapLoad(path));
+
+                    if (asyncTask.isRemoved || !Kernel.isPlaying)
+                        return null;
 
                     void MapLoad(string path)
                     {
@@ -64,10 +82,13 @@ namespace SDJK.Map
                     }
                 }
 
-                if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= packPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
-                    || asyncTask.isCanceled
-                    || !Kernel.isPlaying)
-                    return null;
+                if (SaveData.loadInParallel)
+                {
+                    if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= packPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
+                        || asyncTask.isCanceled
+                        || !Kernel.isPlaying)
+                        return null;
+                }
 
                 pack.maps = maps.ToTypeList();
             }

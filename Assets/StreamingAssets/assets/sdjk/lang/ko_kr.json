@@ -20,14 +20,22 @@
 	"options.background.title": "배경",
 	"options.background.backgroundTransparency": "배경 투명도",
 	"options.background.backgroundTransparency.info": "배경이 어두운 정도",
+
+	"options.map_loader.title": "맵 로더",
+	"options.map_loader.map_manager.loadInParallel": "여러 맵 팩을 병렬로 로드",
+	"options.map_loader.map_manager.loadInParallel.info": "여러개의 맵 팩들을 로드할때 병렬로 로드합니다",
+	"options.map_loader.map_loader.loadInParallel": "맵 팩을 병렬로 로드",
+	"options.map_loader.map_loader.loadInParallel.info": "한 개의 맵 팩을 로드할때 맵들을 병렬로 로드합니다",
 	
 	"options.sdjk_map_loader.title": "SDJK 맵 로더",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!mania 노트 속도",
 	"options.sdjk_map_loader.osuManiaNoteSpeed.info": "osu!mania 맵을 SDJK 맵으로 불러올때 노트의 속도를 결정합니다",
 	
-	"options.replay.title": "리플레이",
-	"options.replay.replayAsyncLoad": "리플레이 비동기 로드 활성화",
-	"options.replay.replayAsyncLoad.info": "리플레이를 초기 로딩이 끝났을때 로드합니다",
+	"options.replay_loader.title": "리플레이 로더",
+	"options.replay_loader.replayAsyncLoad": "리플레이 비동기 로드 활성화",
+	"options.replay_loader.replayAsyncLoad.info": "리플레이를 초기 로딩이 끝났을때 로드합니다",
+	"options.replay_loader.loadInParallel": "여러 리플레이를 병렬로 로드",
+	"options.replay_loader.loadInParallel.info": "여러개의 리플레이 들을 로드할때 병렬로 로드합니다",
 	
 	
 	

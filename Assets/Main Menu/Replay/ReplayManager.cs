@@ -25,6 +25,7 @@ namespace SDJK.MainMenu
         public sealed class SaveData
         {
             [JsonProperty] public static bool replayAsyncLoad { get; set; } = false;
+            [JsonProperty] public static bool loadInParallel { get; set; } = true;
         }
 
         public static Dictionary<string, List<ReplayFile>> currentReplayFiles { get; private set; } = new Dictionary<string, List<ReplayFile>>();
@@ -153,7 +154,18 @@ namespace SDJK.MainMenu
                         for (int i = 0; i < replayPaths.Length; i++)
                         {
                             string path = replayPaths[i];
-                            UniTask.RunOnThreadPool(() => ReplayLoad(path)).Forget();
+
+                            //기다리게 되면 병렬 처리가 되지 않음
+                            if (SaveData.loadInParallel)
+                            {
+                                UniTask.RunOnThreadPool(() => ReplayLoad(path)).Forget();
+                                await UniTask.NextFrame();
+                            }
+                            else
+                                await UniTask.RunOnThreadPool(() => ReplayLoad(path));
+
+                            if (asyncTask.isRemoved || !Kernel.isPlaying)
+                                return null;
 
                             void ReplayLoad(string path)
                             {
@@ -180,10 +192,13 @@ namespace SDJK.MainMenu
                             }
                         }
 
-                        if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedReplayCount, 0) >= replayPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
-                            || asyncTask.isRemoved
-                            || !Kernel.isPlaying)
-                            return null;
+                        if (SaveData.loadInParallel)
+                        {
+                            if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedReplayCount, 0) >= replayPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
+                                || asyncTask.isRemoved
+                                || !Kernel.isPlaying)
+                                return null;
+                        }
 
                         //스레드 리스트를 일반 리스트로
                         Dictionary<string, List<ReplayFile>> resultReplays = new Dictionary<string, List<ReplayFile>>();
