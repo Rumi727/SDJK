@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace SDJK.Map
 {
@@ -37,14 +38,39 @@ namespace SDJK.Map
                 return null;
 
             MapPack pack = new MapPack();
-            for (int i = 0; i < packPaths.Length; i++)
-            {
-                MapFile map = MapLoad<MapFile>(packPaths[i].Replace("\\", "/"), modes);
-                if (map != null)
-                    pack.maps.Add(map);
 
-                if (await UniTask.NextFrame(asyncTask.cancel).SuppressCancellationThrow())
+            {
+                //병렬 로드
+                SynchronizedCollection<MapFile> maps = new SynchronizedCollection<MapFile>();
+                int loadedMapCount = 0;
+
+                for (int i = 0; i < packPaths.Length; i++)
+                {
+                    string path = packPaths[i];
+                    UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
+
+                    void MapLoad(string path)
+                    {
+                        try
+                        {
+                            MapFile map = MapLoad<MapFile>(path.Replace("\\", "/"), modes);
+                            if (map != null)
+                                maps.Add(map);
+                        }
+                        finally
+                        {
+                            Interlocked.Increment(ref loadedMapCount);
+                        }
+                    }
+                }
+
+                if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= packPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow())
                     return null;
+
+                if (!Kernel.isPlaying)
+                    return null;
+
+                pack.maps = maps.ToTypeList();
             }
 
             pack.maps = pack.maps.OrderBy(x => x.difficultyAverage).ThenBy(x => x.info.difficultyLabel).ToTypeList();

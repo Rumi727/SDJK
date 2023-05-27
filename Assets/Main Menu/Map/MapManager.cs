@@ -203,16 +203,43 @@ namespace SDJK.MainMenu
 
                 asyncTask.maxProgress = mapPackPaths.Length;
 
-                for (int i = 0; i < mapPackPaths.Length; i++)
                 {
-                    MapPack sdjkMapPack = await MapLoader.MapPackLoad(mapPackPaths[i].Replace("\\", "/"), asyncTask);
-                    if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
-                        mapPacks.Add(sdjkMapPack);
+                    //병렬 로드
+                    SynchronizedCollection<MapPack> syncMapPacks = new SynchronizedCollection<MapPack>();
+                    int loadedMapCount = 0;
 
-                    if (asyncTask.isCanceled)
+                    for (int i = 0; i < mapPackPaths.Length; i++)
+                    {
+                        string path = mapPackPaths[i];
+                        UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
+
+                        async UniTaskVoid MapLoad(string path)
+                        {
+                            try
+                            {
+                                MapPack sdjkMapPack = await MapLoader.MapPackLoad(path.Replace("\\", "/"), asyncTask);
+                                if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
+                                    syncMapPacks.Add(sdjkMapPack);
+
+                                if (asyncTask.isCanceled)
+                                    return;
+
+                                asyncTask.progress++;
+                            }
+                            finally
+                            {
+                                Interlocked.Increment(ref loadedMapCount);
+                            }
+                        }
+                    }
+
+                    if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= mapPackPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow())
                         return;
 
-                    asyncTask.progress++;
+                    if (!Kernel.isPlaying)
+                        return;
+
+                    mapPacks = syncMapPacks.ToList();
                 }
 
                 mapPacks = mapPacks.OrderBy(x => x.maps[0].info.songName).ThenBy(x => x.maps[0].info.artist).ToList();

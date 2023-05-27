@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using K4.Threading;
 using SCKRM.Input;
 using SCKRM.Object;
 using SCKRM.Renderer;
@@ -72,7 +73,10 @@ namespace SCKRM.UI.SideBar
         static async UniTaskVoid notice(NameSpacePathReplacePair name, NameSpacePathReplacePair info, Type type)
         {
             if (!ThreadManager.isMainThread)
-                throw new NotMainThreadMethodException();
+            {
+                K4UnityThreadDispatcher.Execute(() => Notice(name, info, type)).Forget();
+                return;
+            }
             if (!Kernel.isPlaying)
                 throw new NotPlayModeMethodException();
 
