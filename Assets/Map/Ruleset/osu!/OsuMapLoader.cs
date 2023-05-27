@@ -495,6 +495,8 @@ namespace SDJK.Map.Ruleset.Osu
 
                             #region Hitsound Loader
                             {
+                                splitHitsoundTexts.Clear();
+
                                 {
                                     int hitsoundColonCount = 0;
                                     for (int i = text.Length - 1; i >= 0; i--)
