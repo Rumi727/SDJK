@@ -495,9 +495,10 @@ namespace SDJK.Map.Ruleset.Osu
 
                             #region Hitsound Loader
                             {
-                                splitHitsoundTexts.Clear();
-
                                 {
+                                    splitHitsoundTexts.Clear();
+                                    splitStringBuilder.Clear();
+
                                     int hitsoundColonCount = 0;
                                     for (int i = text.Length - 1; i >= 0; i--)
                                     {
@@ -506,7 +507,7 @@ namespace SDJK.Map.Ruleset.Osu
                                             break;
                                         else if (currentChar != ':')
                                         {
-                                            splitStringBuilder.Append(new char[] { currentChar }, 0, 1);
+                                            splitStringBuilder.Append(currentChar);
                                             continue;
                                         }
 
@@ -514,11 +515,11 @@ namespace SDJK.Map.Ruleset.Osu
                                         if (hitsoundColonCount >= 5)
                                             break;
                                         
-                                        splitHitsoundTexts.Insert(0, splitStringBuilder.ToString());
+                                        splitHitsoundTexts.Insert(0, new string(splitStringBuilder.ToString().Reverse().ToArray()));
                                         splitStringBuilder.Clear();
                                     }
 
-                                    splitHitsoundTexts.Insert(0, splitStringBuilder.ToString());
+                                    splitHitsoundTexts.Insert(0, new string(splitStringBuilder.ToString().Reverse().ToArray()));
                                     splitStringBuilder.Clear();
                                 }
 
@@ -538,24 +539,24 @@ namespace SDJK.Map.Ruleset.Osu
                                     }
                                     else
                                     {
-                                        int value = int.Parse(splitHitsoundTexts[0]);
+                                        int value = int.Parse(splitHitsoundTexts[1]);
                                         if (value != 0)
                                             sampleSet = value - 1;
                                     }
 
                                     {
-                                        int value = int.Parse(splitHitsoundTexts[1]);
+                                        int value = int.Parse(splitHitsoundTexts[2]);
                                         if (value != 0)
                                             sampleIndex = value;
                                     }
 
                                     {
-                                        int value = int.Parse(splitHitsoundTexts[2]);
+                                        int value = int.Parse(splitHitsoundTexts[3]);
                                         if (value != 0)
                                             sampleVolume = value;
                                     }
 
-                                    fileName = splitHitsoundTexts[3];
+                                    fileName = splitHitsoundTexts[4];
 
                                     {
                                         string sampleSetText = sampleSet switch
@@ -582,9 +583,14 @@ namespace SDJK.Map.Ruleset.Osu
                                         else
                                             hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
 
-                                        HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
+                                        if (!string.IsNullOrWhiteSpace(fileName))
+                                        {
+                                            HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
+                                            hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile, customHitsoundFile };
+                                        }
+                                        else
+                                            hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile };
 
-                                        hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile, customHitsoundFile };
                                         holdHitsoundFiles = new TypeList<HitsoundFile>();
                                     }
                                 }
