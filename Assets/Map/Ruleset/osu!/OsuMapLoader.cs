@@ -634,7 +634,7 @@ namespace SDJK.Map.Ruleset.Osu
                 if (isOsuMania)
                     osuMap.info.songOffset += 0.02;
                 else
-                    osuMap.info.songOffset += 0.06;
+                    osuMap.info.songOffset += 0.07;
 
                 if (osuMap.allJudgmentBeat.Count > 0)
                     osuMap.info.clearBeat = osuMap.allJudgmentBeat.Last() + 4;
