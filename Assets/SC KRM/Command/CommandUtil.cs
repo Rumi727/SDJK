@@ -23,7 +23,7 @@ namespace SCKRM.Command
     {
         public static NameSpacePathPair ReadNameSpacePathPair(this IStringReader reader)
         {
-            string text = reader.ReadString().Replace(".", "/");
+            string text = reader.ReadString();
             MatchCollection matches = Regex.Matches(text, ":");
             int count = matches.Count;
 
@@ -34,7 +34,7 @@ namespace SCKRM.Command
                 if (reader.Cursor < reader.TotalLength && reader.Peek() == ':')
                 {
                     reader.Cursor++;
-                    return new NameSpacePathPair(text, reader.ReadString().Replace(".", "/"));
+                    return new NameSpacePathPair(text, reader.ReadString());
                 }
                 else
                     return new NameSpacePathPair(text);
@@ -45,18 +45,18 @@ namespace SCKRM.Command
 
         public static NameSpaceTypePathPair ReadNameSpaceTypePathPair(this IStringReader reader)
         {
-            string text = reader.ReadString().Replace(".", "/");
+            string text = reader.ReadString();
             MatchCollection matches = Regex.Matches(text, ":");
             int count = matches.Count;
 
             if (count == 1)
                 return text;
             else if (count == 0)
-            {
+            { 
                 if (reader.Cursor < reader.TotalLength && reader.Peek() == ':')
                 {
                     reader.Cursor++;
-                    return new NameSpaceTypePathPair(text, ResourceManager.GetTextureType(reader.ReadString().Replace(".", "/"), out string value), value);
+                    return new NameSpaceTypePathPair(text, ResourceManager.GetTextureType(reader.ReadString(), out string value), value);
                 }
                 else
                     return new NameSpaceTypePathPair(ResourceManager.GetTextureType(text, out string value), value);
@@ -67,7 +67,7 @@ namespace SCKRM.Command
 
         public static NameSpaceIndexTypePathPair ReadNameSpaceIndexTypePathPair(this IStringReader reader)
         {
-            string text = reader.ReadString().Replace(".", "/");
+            string text = reader.ReadString();
             MatchCollection matches = Regex.Matches(text, ":");
             int count = matches.Count;
 
@@ -97,7 +97,7 @@ namespace SCKRM.Command
                             throw CommandSyntaxException.BuiltInExceptions.ReaderInvalidInt().CreateWithContext(reader, value);
                     }
 
-                    string type = ResourceManager.GetTextureType(reader.ReadString().Replace(".", "/"), out value);
+                    string type = ResourceManager.GetTextureType(reader.ReadString(), out value);
                     return new NameSpaceIndexTypePathPair(nameSpace, index, type, value);
                 }
                 else
@@ -111,14 +111,14 @@ namespace SCKRM.Command
                 {
                     reader.Cursor++;
 
-                    string typePath = reader.ReadString().Replace(".", "/");
+                    string typePath = reader.ReadString();
                     if (reader.Cursor < reader.TotalLength && reader.Peek() == ':')
                     {
                         reader.Cursor -= typePath.Length;
                         int index = reader.ReadInt();
                         reader.Cursor++;
 
-                        typePath = ResourceManager.GetTextureType(reader.ReadString().Replace(".", "/"), out string value);
+                        typePath = ResourceManager.GetTextureType(reader.ReadString(), out string value);
                         return new NameSpaceIndexTypePathPair(nameSpace, index, typePath, value);
                     }
                     else
