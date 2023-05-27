@@ -68,8 +68,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
 
                     adofaiMap.globalEffect.background.Add(new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""));
 
-                    if (ColorUtility.TryParseHtmlString("#" + adofai.settings.bgImageColor, out Color color))
-                        adofaiMap.globalEffect.backgroundColor.Add(color);
+                    if (("#" + adofai.settings.bgImageColor).TryHexToColor(out Color result))
+                        adofaiMap.globalEffect.backgroundColor.Add(result);
                     else
                         adofaiMap.globalEffect.backgroundColor.Add(JColor.one);
 
@@ -501,8 +501,8 @@ namespace SDJK.Map.Ruleset.ADOFAI
                     {
                         if (action.ContainsKey("imageColor"))
                         {
-                            if (ColorUtility.TryParseHtmlString("#" + action["imageColor"], out Color color))
-                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, color, EasingFunction.Ease.Linear);
+                            if (("#" + action["imageColor"]).TryHexToColor(out Color result))
+                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, result, EasingFunction.Ease.Linear);
                             else
                                 effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, JColor.one, EasingFunction.Ease.Linear);
                         }
@@ -517,7 +517,7 @@ namespace SDJK.Map.Ruleset.ADOFAI
                     {
                         if (action.ContainsKey("startColor") && action.ContainsKey("endColor") && action.ContainsKey("startOpacity") && action.ContainsKey("endOpacity") && action.ContainsKey("plane"))
                         {
-                            if (ColorUtility.TryParseHtmlString("#" + action["startColor"], out Color startColor) && ColorUtility.TryParseHtmlString("#" + action["endColor"], out Color endColor))
+                            if (("#" + action["startColor"]).TryHexToColor(out Color startColor) && ("#" + action["endColor"]).TryHexToColor(out Color endColor))
                             {
                                 string plane = action.Value<string>("plane");
                                 startColor.a *= action.Value<float>("startOpacity") * 0.01f;
