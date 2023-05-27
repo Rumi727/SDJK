@@ -34,7 +34,7 @@ namespace SDJK.Effect
             try
             {
                 if (string.IsNullOrWhiteSpace(hitsound.path))
-                    DefaultHitsoundPlay(hitsound.volume, hitsound.pitch);
+                    DefaultHitsoundPlay();
                 else if (loadedHitsounds.TryGetValue(hitsound.path, out HitsoundInfo hitsoundInfo))
                 {
                     if (!hitsoundInfo.defaultAudio)
@@ -44,7 +44,7 @@ namespace SDJK.Effect
                         else if (hitsoundInfo.nbsData != null)
                             SoundManager.PlayNBS(hitsoundInfo.nbsData, hitsound.volume, false, hitsound.pitch);
                         else
-                            DefaultHitsoundPlay(hitsound.volume, hitsound.pitch);
+                            DefaultHitsoundPlay();
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace SDJK.Effect
                         if (ResourceManager.SearchSoundData(key, "sdjk") != null)
                             SoundManager.PlaySound(key, "sdjk", hitsound.volume, false, hitsound.pitch);
                         else
-                            DefaultHitsoundPlay(hitsound.volume, hitsound.pitch);
+                            DefaultHitsoundPlay();
                     }
                 }
                 else
