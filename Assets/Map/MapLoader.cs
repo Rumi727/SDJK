@@ -64,10 +64,9 @@ namespace SDJK.Map
                     }
                 }
 
-                if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= packPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow())
-                    return null;
-
-                if (!Kernel.isPlaying)
+                if (await UniTask.WaitUntil(() => Interlocked.Add(ref loadedMapCount, 0) >= packPaths.Length, PlayerLoopTiming.Update, asyncTask.cancel).SuppressCancellationThrow()
+                    || asyncTask.isCanceled
+                    || !Kernel.isPlaying)
                     return null;
 
                 pack.maps = maps.ToTypeList();
