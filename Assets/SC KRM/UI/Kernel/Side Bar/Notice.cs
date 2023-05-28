@@ -37,10 +37,9 @@ namespace SCKRM.UI.SideBar
                 removeButtonCanvasGroup.alpha = removeButtonCanvasGroup.alpha.MoveTowards(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (base.Remove())
-                return false;
+            base.Remove();
 
             if (icon.gameObject.activeSelf)
                 icon.gameObject.SetActive(false);
@@ -50,8 +49,6 @@ namespace SCKRM.UI.SideBar
             childSizeFitter.min = 40;
             verticalLayout.padding.left = 10;
             removeButtonCanvasGroup.alpha = 0;
-
-            return true;
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData) => pointer = true;

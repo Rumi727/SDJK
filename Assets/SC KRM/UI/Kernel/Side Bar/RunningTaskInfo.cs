@@ -101,10 +101,9 @@ namespace SCKRM.UI.SideBar
 
         public void Cancel() => asyncTask.Remove();
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             rectTransform.sizeDelta = new Vector2(430, 19);
             asyncTask = null;
@@ -122,8 +121,6 @@ namespace SCKRM.UI.SideBar
 
             LanguageManager.currentLanguageChange -= InfoLoad;
             ThreadManager.threadChange -= InfoLoad;
-
-            return true;
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData) => pointer = true;

@@ -8,7 +8,7 @@ namespace SCKRM
         /// Object Remove
         /// </summary>
         /// <returns>Is Remove Success</returns>
-        bool Remove();
+        void Remove();
     }
 
     public interface IRemoveableForce : IRemoveable

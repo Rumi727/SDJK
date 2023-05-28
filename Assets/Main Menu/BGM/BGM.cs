@@ -47,7 +47,7 @@ namespace SDJK.MainMenu
                 SoundData<SoundMetaData> soundData = ResourceManager.CreateSoundData("", true, soundMetaData);
 
                 soundPlayer = SoundManager.PlaySound(soundData, 0);
-                
+
                 RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
             }
@@ -58,7 +58,7 @@ namespace SDJK.MainMenu
                 SoundData<NBSMetaData> soundData = ResourceManager.CreateSoundData("", true, nbsMetaData);
 
                 soundPlayer = SoundManager.PlayNBS(soundData, 0);
-                
+
                 RhythmManager.SoundPlayerChange(soundPlayer);
                 isLoaded = true;
             }
@@ -147,29 +147,24 @@ namespace SDJK.MainMenu
                 MapManager.RulesetNextMapPack();
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (base.Remove())
-            {
-                if (soundPlayer != null && !soundPlayer.IsDestroyed() && !soundPlayer.isRemoved)
-                    soundPlayer.Remove();
+            base.Remove();
 
-                isLoaded = false;
+            if (soundPlayer != null && !soundPlayer.IsDestroyed() && !soundPlayer.isRemoved)
+                soundPlayer.Remove();
 
-                soundPlayer = null;
+            isLoaded = false;
 
-                volumePade = 0;
-                padeOut = false;
+            soundPlayer = null;
 
-                AudioDestroy();
+            volumePade = 0;
+            padeOut = false;
 
-                audioClip = null;
-                accelerationDeceleration = 1;
+            AudioDestroy();
 
-                return true;
-            }
-
-            return false;
+            audioClip = null;
+            accelerationDeceleration = 1;
         }
 
         protected override void OnDestroy()

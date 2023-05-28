@@ -12,10 +12,9 @@ namespace SDJK.MainMenu
         [SerializeField] CustomSpriteRendererBase _icon; public CustomSpriteRendererBase icon => _icon;
         [SerializeField] Image _iconBackground; public Image iconBackground => _iconBackground;
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             canvasGroup.alpha = 1;
 
@@ -25,7 +24,6 @@ namespace SDJK.MainMenu
             icon.index = 0;
 
             icon.Refresh();
-            return true;
         }
     }
 }

@@ -53,13 +53,10 @@ namespace SCKRM.SaveLoad.UI
 
 
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
-
+            base.Remove();
             VarReset();
-            return true;
         }
 
         public virtual void VarReset()

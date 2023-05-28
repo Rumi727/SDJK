@@ -42,13 +42,10 @@ namespace SDJK.Ruleset.UI.ReplayResult
                 ranking.text = "";
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
-
+            base.Remove();
             ObjectReset();
-            return true;
         }
 
         public void ShowResultScreen()

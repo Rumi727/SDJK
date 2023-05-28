@@ -28,10 +28,9 @@ namespace SCKRM.Resource.UI
 
         [SerializeField] TMP_Text _descriptionText; public TMP_Text descriptionText => _descriptionText;
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             if (icon.gameObject.activeSelf)
             {
@@ -44,8 +43,6 @@ namespace SCKRM.Resource.UI
             descriptionText.text = "";
             childSizeFitter.min = 40;
             verticalLayout.padding.left = 10;
-
-            return true;
         }
 
         Vector2 posOffset = Vector2.zero;

@@ -111,18 +111,15 @@ namespace SDJK.Ruleset.SDJK
             this.index = index;
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             bar = null;
             noteFile = default;
 
             transform.localPosition = Vector3.zero;
             gameObject.SetActive(false);
-
-            return true;
         }
     }
 }

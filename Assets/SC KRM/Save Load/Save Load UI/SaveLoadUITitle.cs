@@ -8,13 +8,10 @@ namespace SCKRM
     {
         [SerializeField, FieldNotNull] CustomTextMeshProRenderer _customTextMeshProRenderer; public CustomTextMeshProRenderer customTextMeshProRenderer => _customTextMeshProRenderer;
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
-
+            base.Remove();
             customTextMeshProRenderer.nameSpacePathReplacePair = null;
-            return true;
         }
     }
 }

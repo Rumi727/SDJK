@@ -47,10 +47,9 @@ namespace SDJK.Effect
             this.isLeft = isLeft;
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             yukiModeEffect = null;
 
@@ -63,7 +62,6 @@ namespace SDJK.Effect
             offsetCurrentBeatReapeat = 0;
 
             lastCurrentBeatReapeat = 0;
-            return true;
         }
     }
 }

@@ -352,5 +352,7 @@ namespace SCKRM
 
             return false;
         }
+
+        void IRemoveable.Remove() => Remove(false);
     }
 }

@@ -210,10 +210,9 @@ namespace SDJK.MainMenu.MapSelectScreen
             return top || bottom;
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             cancelSource.Cancel();
             cancelSource.Dispose();
@@ -229,8 +228,6 @@ namespace SDJK.MainMenu.MapSelectScreen
 
             songName.text = "";
             artist.text = "";
-
-            return true;
         }
 
         public void OnPointerClick(PointerEventData eventData)

@@ -28,15 +28,12 @@ namespace SDJK.MainMenu.ModeSelectScreen
             invokeLock = false;
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             onValueChanged.RemoveAllListeners();
             toggle.isOn = false;
-
-            return true;
         }
 
         public void OnValueChangedInvoke(bool value)

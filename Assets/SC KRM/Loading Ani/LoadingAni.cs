@@ -107,10 +107,9 @@ namespace SCKRM.Loading
             }
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             timer = 0;
             alpha = 0;
@@ -140,7 +139,6 @@ namespace SCKRM.Loading
             canvasGroup.alpha = 0;
 
             LoadingAniManager.loadingAnis.Remove(this);
-            return true;
         }
 
         protected override void OnDestroy()

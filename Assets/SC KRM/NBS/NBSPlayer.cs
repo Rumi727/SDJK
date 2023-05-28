@@ -445,10 +445,9 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
         }
 
         [WikiDescription("플레이어 삭제")]
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             soundData = null;
             customSoundData = null;
@@ -461,8 +460,6 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
             SoundPlayer[] soundObjects = GetComponentsInChildren<SoundPlayer>();
             for (int i = 0; i < soundObjects.Length; i++)
                 soundObjects[i].Remove();
-
-            return true;
         }
     }
 }

@@ -144,10 +144,9 @@ namespace SDJK.Effect
             image.sprite = loadedSprites[texturePath];
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             tempTexturePath = "";
             image.color = Color.black;
@@ -158,8 +157,6 @@ namespace SDJK.Effect
             timeoutTimer = 0;
 
             TextureDestroy();
-
-            return true;
         }
 
         protected override void OnDestroy() => TextureDestroy();

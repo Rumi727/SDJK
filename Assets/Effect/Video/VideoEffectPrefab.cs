@@ -84,7 +84,7 @@ namespace SDJK.Effect
                 if (!ResourceManager.FileExtensionExists(videoPath, out fullPath, ResourceManager.videoExtension))
                     videoPath = "";
             }
-            
+
             if (videoPath != "")
             {
                 offset = map.info.videoOffset;
@@ -183,7 +183,7 @@ namespace SDJK.Effect
         public async UniTaskVoid PadeOut()
         {
             isPadeOut = true;
-            
+
             while (canvasGroup.alpha > 0)
             {
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(0, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
@@ -196,10 +196,9 @@ namespace SDJK.Effect
             Remove();
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             isPadeOut = false;
             isPlaying = false;
@@ -210,7 +209,6 @@ namespace SDJK.Effect
             canvasGroup.alpha = 0;
 
             refreshed = false;
-            return true;
         }
     }
 }

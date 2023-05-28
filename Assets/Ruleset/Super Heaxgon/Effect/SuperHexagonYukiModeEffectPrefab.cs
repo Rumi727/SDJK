@@ -37,16 +37,15 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
             else
             {
                 regularPolygonRenderer.distance = superHexagonYukiModeEffect.regularPolygonRenderer.distance;
-                
+
                 regularPolygonRenderer.color = new Color(0, 0, 0, 0);
                 regularPolygonRenderer.sides = (float)field.sides;
             }
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             regularPolygonRenderer.distance = 0;
 
@@ -55,8 +54,6 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
 
             if (superHexagonYukiModeEffect != null)
                 superHexagonYukiModeEffect.glRenderInvoker.polygonRendererBases.Remove(regularPolygonRenderer);
-
-            return true;
         }
     }
 }

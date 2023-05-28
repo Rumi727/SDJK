@@ -19,14 +19,14 @@ namespace SCKRM.FileDialog.MyPC
         [SerializeField, FieldNotNull] CustomTextRendererBase _capacityText; public CustomTextRendererBase capacityText { get => _capacityText; }
 
         [WikiDescription("버튼 삭제")]
-        public override bool Remove()
+        public override void Remove()
         {
+            base.Remove();
+
             button.onClick.RemoveAllListeners();
 
             capacitySlider.gameObject.SetActive(true);
             capacityText.gameObject.SetActive(true);
-
-            return base.Remove();
         }
     }
 }

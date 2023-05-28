@@ -186,10 +186,9 @@ namespace SCKRM.Sound
 
 
         [WikiDescription("플레이어 삭제")]
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             _looped = null;
             _timeChanged = null;
@@ -223,8 +222,6 @@ namespace SCKRM.Sound
 
             spatial = false;
             localPosition = Vector3.zero;
-
-            return true;
         }
 
         protected override void OnDestroy()

@@ -63,10 +63,9 @@ namespace SDJK.Ruleset.SuperHexagon
             }
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             field = null;
             player = null;
@@ -83,8 +82,6 @@ namespace SDJK.Ruleset.SuperHexagon
             wallRenderer.sides = 6;
             wallRenderer.min = 1;
             wallRenderer.index = 0;
-
-            return true;
         }
 
         static bool LineIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, out Vector2 intersection)

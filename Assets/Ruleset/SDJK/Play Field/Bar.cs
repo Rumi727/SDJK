@@ -144,15 +144,12 @@ namespace SDJK.Ruleset.SDJK
             }
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             keyText.text = "";
-
             NoteAllRemove();
-            return true;
         }
     }
 }

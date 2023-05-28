@@ -17,7 +17,7 @@ namespace SDJK.Ruleset
         {
             ResultScreen resultScreen = (ResultScreen)ObjectPoolingSystem.ObjectCreate(prefab).monoBehaviour;
             resultScreen.Refresh(ruleset, map, replay, backEvent);
-            
+
             return resultScreen;
         }
 
@@ -108,10 +108,9 @@ namespace SDJK.Ruleset
             UIManager.BackEventRemove(Hide);
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             ruleset = null;
             map = null;
@@ -122,8 +121,6 @@ namespace SDJK.Ruleset
 
             background.raycastTarget = true;
             replayResultUI.ObjectReset();
-
-            return true;
         }
     }
 }

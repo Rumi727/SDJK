@@ -28,16 +28,14 @@ namespace SDJK.Ruleset.SDJK
                 Remove();
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             rectTransform.anchorMin = new Vector2(0.5f, rectTransform.anchorMin.y);
             rectTransform.anchorMax = new Vector2(0.5f, rectTransform.anchorMax.y);
 
             graphic.color = defaultColor;
-            return true;
         }
     }
 }

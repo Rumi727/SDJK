@@ -46,13 +46,10 @@ namespace SDJK.Ruleset.SDJK
             createdBars.Clear();
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
-
+            base.Remove();
             BarAllRemove();
-            return true;
         }
     }
 }

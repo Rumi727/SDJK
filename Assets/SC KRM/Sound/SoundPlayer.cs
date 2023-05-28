@@ -449,10 +449,9 @@ namespace SCKRM.Sound
 
 
         [WikiDescription("플레이어 삭제")]
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             lastTime = 0;
 
@@ -466,8 +465,6 @@ namespace SCKRM.Sound
 
             SoundManager.soundList.Remove(this);
             lastUseTempo = true;
-
-            return true;
         }
     }
 }

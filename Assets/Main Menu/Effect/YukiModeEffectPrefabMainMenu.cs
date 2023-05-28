@@ -64,15 +64,12 @@ namespace SDJK.MainMenu.Effect
                 graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, 0);
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             rectTransform.anchoredPosition = Vector2.zero;
             graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, 1);
-
-            return true;
         }
     }
 }

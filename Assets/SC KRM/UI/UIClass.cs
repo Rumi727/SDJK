@@ -83,7 +83,7 @@ namespace SCKRM.UI
         /// <summary>
         /// Please put base.Remove() when overriding
         /// </summary>
-        public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
+        public virtual void Remove() => IObjectPooling.RemoveDefault(this, this);
 
         /// <summary>
         /// Please put base.ActiveSceneChanged() when overriding

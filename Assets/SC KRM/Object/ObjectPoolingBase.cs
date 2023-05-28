@@ -120,7 +120,7 @@ namespace SCKRM.Object
         /// Please put base.Remove() when overriding
         /// </summary>
         [WikiDescription("오브젝트 삭제")]
-        public virtual bool Remove() => IObjectPooling.RemoveDefault(this, this);
+        public virtual void Remove() => IObjectPooling.RemoveDefault(this, this);
 
         public bool IsDestroyed() => this == null;
 

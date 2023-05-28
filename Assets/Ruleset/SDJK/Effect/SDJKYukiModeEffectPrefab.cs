@@ -44,15 +44,12 @@ namespace SDJK.Ruleset.SDJK.Effect
                 spriteRenderer.color = new Color(0, 0, 0, 0);
         }
 
-        public override bool Remove()
+        public override void Remove()
         {
-            if (!base.Remove())
-                return false;
+            base.Remove();
 
             transform.localPosition = Vector2.zero;
             spriteRenderer.color = Color.clear;
-
-            return true;
         }
     }
 }
