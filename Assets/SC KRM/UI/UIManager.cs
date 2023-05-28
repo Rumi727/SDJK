@@ -99,6 +99,16 @@ namespace SCKRM.UI
                 backEventList[0].Invoke();
         }
 
+        public static void ForceBackEventInvoke()
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+
+            if (highPriorityBackEventList.Count > 0)
+                highPriorityBackEventList[0].Invoke();
+            else if (backEventList.Count > 0)
+                backEventList[0].Invoke();
+        }
+
         [WikiDescription("홈 이벤트")]
         public static void HomeEventInvoke() => homeEvent?.Invoke();
 
