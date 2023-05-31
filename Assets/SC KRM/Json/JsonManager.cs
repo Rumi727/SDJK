@@ -20,7 +20,20 @@ namespace SCKRM.Json
         /// </param>
         /// <returns></returns>
         [WikiDescription("텍스트 파일에서 Json을 읽고 반환합니다")]
-        public static T JsonRead<T>(string path, bool pathExtensionUse = false)
+        public static T JsonRead<T>(string path, bool pathExtensionUse = false) => (T)JsonRead(typeof(T), path, pathExtensionUse);
+
+        /// <summary>
+        /// 텍스트 파일에서 Json을 읽고 반환합니다
+        /// </summary>
+        /// <param name="path">
+        /// 텍스트 파일 경로
+        /// </param>
+        /// <param name="pathExtensionUse">
+        /// 경로에 확장자 사용
+        /// </param>
+        /// <returns></returns>
+        [WikiDescription("텍스트 파일에서 Json을 읽고 반환합니다")]
+        public static object JsonRead(Type type, string path, bool pathExtensionUse = false)
         {
             string json;
             json = ResourceManager.GetText(path, pathExtensionUse);
@@ -29,7 +42,7 @@ namespace SCKRM.Json
             {
                 try
                 {
-                    return JsonConvert.DeserializeObject<T>(json);
+                    return JsonConvert.DeserializeObject(json, type);
                 }
                 catch (Exception e)
                 {
@@ -82,7 +95,6 @@ namespace SCKRM.Json
             return default;
         }
 
-        [WikiDescription("Json을 오브젝트로 변환합니다")] public static T JsonToObject<T>(string json) => JsonConvert.DeserializeObject<T>(json);
         [WikiDescription("오브젝트를 Json으로 변환합니다")] public static string ObjectToJson(object value) => JsonConvert.SerializeObject(value, Formatting.Indented);
         [WikiIgnore] public static string ObjectToJson(params object[] value) => JsonConvert.SerializeObject(value, Formatting.Indented);
     }
