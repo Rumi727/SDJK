@@ -24,5 +24,7 @@ namespace SDJK.Mode.Difficulty
             [SaveLoadUIToggleConfig("sc-krm:gui.restart_on_fail", "")]
             public bool restartOnFail { get; set; } = true;
         }
+
+        protected override IModeConfig CreateModeConfig() => new Config();
     }
 }
