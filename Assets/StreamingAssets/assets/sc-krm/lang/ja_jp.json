@@ -50,9 +50,11 @@
 	"gui.random": "ランダム",
 	"gui.skip": "スキップ",
 	"gui.coefficient": "係数",
-	"gui.coefficient_per_second": "秒あたりの係数",
+	"gui.coefficient_per_second": "1秒あたりの係数",
+	"gui.coefficient_per_beat": "1秒あたりのビット",
 	"gui.min": "最小",
 	"gui.max": "最大",
+	"gui.restart_on_fail": "失敗した場合の再起動",
 	
 	"gui.ago.years": "%value%年前",
 	"gui.ago.months": "%value%ヶ月前",

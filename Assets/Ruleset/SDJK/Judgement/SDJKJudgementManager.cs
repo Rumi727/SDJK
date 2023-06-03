@@ -369,6 +369,27 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else
                         instance.health += map.globalEffect.hpAddValue.GetValue(beat) * metaData.hpMultiplier;
 
+                    //서든 데스 및 완벽주의자 모드
+                    {
+                        IMode mode;
+                        if (isMiss && (mode = sdjkManager.modes.FindMode<SuddenDeathModeBase>()) != null)
+                        {
+                            SuddenDeathModeBase.Config config = (SuddenDeathModeBase.Config)mode.modeConfig;
+                            if (config.restartOnFail)
+                                sdjkManager.Restart();
+                            else
+                                instance.health = 0;
+                        }
+                        else if (accuracy != 0 && (mode = sdjkManager.modes.FindMode<PerfectModeBase>()) != null)
+                        {
+                            PerfectModeBase.Config config = (PerfectModeBase.Config)mode.modeConfig;
+                            if (config.restartOnFail)
+                                sdjkManager.Restart();
+                            else
+                                instance.health = 0;
+                        }
+                    }
+
                     //게임 오버
                     if (!sdjkManager.isReplay)
                     {

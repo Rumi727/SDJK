@@ -90,13 +90,28 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
             SoundManager.PlaySound("ruleset.super_hexagon.damage", "sdjk");
             judgementAction?.Invoke(true);
 
+            //서든 데스 및 완벽주의자 모드
+            {
+                IMode mode;
+                if ((mode = manager.modes.FindMode<SuddenDeathModeBase>()) != null)
+                {
+                    SuddenDeathModeBase.Config config = (SuddenDeathModeBase.Config)mode.modeConfig;
+                    if (config.restartOnFail)
+                        manager.Restart();
+                    else
+                        instance.health = 0;
+                }
+            }
+
             if (health <= 0)
                 gameOverManager.GameOver();
 
-            IMode mode;
-            if (((mode = manager.modes.FindMode<AccelerationModeBase>()) != null && ((AccelerationModeBase.Config)mode.modeConfig).resetIfMiss) ||
-                ((mode = manager.modes.FindMode<DecelerationModeBase>()) != null && ((DecelerationModeBase.Config)mode.modeConfig).resetIfMiss))
-                manager.accelerationDeceleration = 1;
+            {
+                IMode mode;
+                if (((mode = manager.modes.FindMode<AccelerationModeBase>()) != null && ((AccelerationModeBase.Config)mode.modeConfig).resetIfMiss) ||
+                    ((mode = manager.modes.FindMode<DecelerationModeBase>()) != null && ((DecelerationModeBase.Config)mode.modeConfig).resetIfMiss))
+                    manager.accelerationDeceleration = 1;
+            }
         }
 
         public void Perfect(double beat)

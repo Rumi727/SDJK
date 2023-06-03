@@ -75,6 +75,12 @@
 	"mode.difficulty.slow.info": "カメが通り過ぎていたアリとはさみロックを見て勝つのにかかる時間と同じくらい遅くなります",
 	"mode.difficulty.pinpoint_accuracy": "正確な精度",
 	"mode.difficulty.pinpoint_accuracy.info": "精度を大体計算しない",
+
+	"mode.difficulty.sudden_death": "サドンデス",
+	"mode.difficulty.sudden_death.info": "ノートを見逃す瞬間あなたの命はない",
+
+	"mode.difficulty.perfect": "完璧主義者",
+	"mode.difficulty.perfect.info": "SSでなければ死を！",
 	
 	"mode.difficulty.no_fail": "無敵",
 	"mode.difficulty.no_fail.info": "くるみは死なない！",
@@ -92,6 +98,9 @@
 	"mode.converter.hold_off": "ホールド除去",
 	"mode.converter.hold_off.info": "ホールドノートを打つ途中でノートを打つのは本当に難しい！",
 	"mode.converter.hold_off.remove_hold_note_end_beat": "ホールドノートエンドビート除去",
+
+	"mode.converter.death_note_off": "即時ノートの削除",
+	"mode.converter.death_note_off.info": "位置を区別するのは簡単ですが、色を区別するのは難しいです。",
 	
 	
 

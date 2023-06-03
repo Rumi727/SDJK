@@ -54,6 +54,7 @@
 	"gui.coefficient_per_beat": "Coefficient Per Beat",
 	"gui.min": "Min",
 	"gui.max": "Max",
+	"gui.restart_on_fail": "Restart On Fail",
 	
 	"gui.ago.years": "%value%y ago",
 	"gui.ago.months": "%value%m ago",

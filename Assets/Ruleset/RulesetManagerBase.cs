@@ -205,6 +205,11 @@ namespace SDJK.Ruleset
             if (isRestart)
                 return;
 
+            RhythmManager.Stop();
+
+            SoundManager.StopSoundAll();
+            SoundManager.StopNBSAll();
+
             isRestart = true;
             AudioDestroy();
 
@@ -216,6 +221,11 @@ namespace SDJK.Ruleset
         {
             if (isQuit)
                 return;
+
+            RhythmManager.Stop();
+
+            SoundManager.StopSoundAll();
+            SoundManager.StopNBSAll();
 
             isQuit = true;
             AudioDestroy();

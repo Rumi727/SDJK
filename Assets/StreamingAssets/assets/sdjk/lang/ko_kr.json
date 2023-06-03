@@ -75,6 +75,12 @@
 	"mode.difficulty.slow.info": "거북이가 지나가던 개미랑 가위바위보 해서 이기는 데 걸리는 시간만큼 느려집니다",
 	"mode.difficulty.pinpoint_accuracy": "정확한 정확도",
 	"mode.difficulty.pinpoint_accuracy.info": "정확도를 대강 계산하지 않습니다",
+
+	"mode.difficulty.sudden_death": "서든 데스",
+	"mode.difficulty.sudden_death.info": "노트를 놓치는 순간 너의 목숨은 없다",
+
+	"mode.difficulty.perfect": "완벽주의자",
+	"mode.difficulty.perfect.info": "SS가 아니면 죽음을!",
 	
 	"mode.difficulty.no_fail": "무적",
 	"mode.difficulty.no_fail.info": "쿠루미쨩은 죽지 않아!",
@@ -92,6 +98,9 @@
 	"mode.converter.hold_off": "홀드 제거",
 	"mode.converter.hold_off.info": "홀드 노트를 치는 도중에 노트를 치는건 정말 어려워!",
 	"mode.converter.hold_off.remove_hold_note_end_beat": "홀드 노트 끝 박자 제거",
+
+	"mode.converter.death_note_off": "즉사 노트 제거",
+	"mode.converter.death_note_off.info": "위치를 구별하는 건 쉽지만, 색을 구별하는 건 어렵다",
 
 
 

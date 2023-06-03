@@ -10,14 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SDJK.Mode;
 using SDJK.Mode.Converter;
-
-using Random = System.Random;
 using SDJK.Map.Ruleset.SuperHexagon.Map;
 using System.IO;
 using SCKRM.SaveLoad;
 using Newtonsoft.Json;
 using SDJK.Map.Ruleset.Osu;
-using UnityEngine;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -106,6 +103,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             IMode holdOffMode;
             if ((holdOffMode = modes.FindMode<HoldOffModeBase>()) != null)
                 HoldOff(map, ((HoldOffModeBase.Config)holdOffMode.modeConfig).removeHoldNoteEndBeat);
+
+            if (modes.FindMode<DeathNoteOffModeBase>() != null)
+                DeathNoteOff(map);
         }
 
         static void KeyCountChange(SDJKMapFile map, int count)
@@ -183,6 +183,24 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
                     note.holdLength = 0;
                     notes[j] = note;
+                }
+            }
+        }
+
+        static void DeathNoteOff(SDJKMapFile map)
+        {
+            for (int i = 0; i < map.notes.Count; i++)
+            {
+                TypeList<SDJKNoteFile> notes = map.notes[i];
+                for (int j = 0; j < notes.Count; j++)
+                {
+                    SDJKNoteFile note = notes[j];
+
+                    if (note.type == SDJKNoteTypeFile.instantDeath)
+                    {
+                        notes.Remove(note);
+                        j--;
+                    }
                 }
             }
         }
