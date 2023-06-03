@@ -78,6 +78,9 @@ namespace SCKRM.UI.SideBar
                     removeButtonCanvasGroup.alpha = removeButtonCanvasGroup.alpha.MoveTowards(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else
                     removeButtonCanvasGroup.alpha = removeButtonCanvasGroup.alpha.MoveTowards(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
+
+                removeButtonCanvasGroup.alpha = 1;
+                removeButtonCanvasGroup.interactable = true;
             }
             else
             {
@@ -118,6 +121,9 @@ namespace SCKRM.UI.SideBar
 
             progressBar.gameObject.SetActive(true);
             progressBar.enabled = true;
+
+            removeButtonCanvasGroup.alpha = 1;
+            removeButtonCanvasGroup.interactable = true;
 
             LanguageManager.currentLanguageChange -= InfoLoad;
             ThreadManager.threadChange -= InfoLoad;
