@@ -24,7 +24,7 @@ namespace SDJK.MainMenu
         [GeneralSaveLoad]
         public sealed class SaveData
         {
-            [JsonProperty] public static bool loadInParallel { get; set; } = true;
+            [JsonProperty] public static bool loadInParallel { get; set; } = false;
         }
 
         public static List<MapPack> currentMapPacks { get; private set; } = new List<MapPack>();
@@ -194,7 +194,7 @@ namespace SDJK.MainMenu
 
             Debug.ForceLog("Refreshing map list...", nameof(MapManager));
 
-            AsyncTask asyncTask = new AsyncTask("sdjk:notice.running_task.map_list_refresh.name", "", false, true);
+            AsyncTask asyncTask = new AsyncTask("sdjk:notice.running_task.map_list_refresh.name", "", false, false);
             if (ResourceManager.isResourceRefesh)
                 ResourceManager.resourceRefreshDetailedAsyncTask = asyncTask;
 
@@ -226,12 +226,12 @@ namespace SDJK.MainMenu
                             await UniTask.NextFrame();
                         }
                         else
-                            await UniTask.RunOnThreadPool(() => MapLoad(path));
+                            await MapLoad(path);
 
                         if (asyncTask.isRemoved || !Kernel.isPlaying)
                             return;
 
-                        async UniTaskVoid MapLoad(string path)
+                        async UniTask MapLoad(string path)
                         {
                             try
                             {

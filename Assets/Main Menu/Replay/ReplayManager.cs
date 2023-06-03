@@ -25,7 +25,7 @@ namespace SDJK.MainMenu
         public sealed class SaveData
         {
             [JsonProperty] public static bool replayAsyncLoad { get; set; } = false;
-            [JsonProperty] public static bool loadInParallel { get; set; } = true;
+            [JsonProperty] public static bool loadInParallel { get; set; } = false;
         }
 
         public static Dictionary<string, List<ReplayFile>> currentReplayFiles { get; private set; } = new Dictionary<string, List<ReplayFile>>();
@@ -157,12 +157,11 @@ namespace SDJK.MainMenu
 
                             //기다리게 되면 병렬 처리가 되지 않음
                             if (SaveData.loadInParallel)
-                            {
                                 UniTask.RunOnThreadPool(() => ReplayLoad(path)).Forget();
-                                await UniTask.NextFrame();
-                            }
                             else
-                                await UniTask.RunOnThreadPool(() => ReplayLoad(path));
+                                ReplayLoad(path);
+
+                            await UniTask.NextFrame();
 
                             if (asyncTask.isRemoved || !Kernel.isPlaying)
                                 return null;

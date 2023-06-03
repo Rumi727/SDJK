@@ -20,7 +20,7 @@ namespace SDJK.Map
         [GeneralSaveLoad]
         public sealed class SaveData
         {
-            [JsonProperty] public static bool loadInParallel { get; set; } = true;
+            [JsonProperty] public static bool loadInParallel { get; set; } = false;
         }
 
         /// <summary>
@@ -57,12 +57,11 @@ namespace SDJK.Map
                     string path = packPaths[i];
 
                     if (SaveData.loadInParallel)
-                    {
                         UniTask.RunOnThreadPool(() => MapLoad(path)).Forget();
-                        await UniTask.NextFrame();
-                    }
                     else
-                        await UniTask.RunOnThreadPool(() => MapLoad(path));
+                        MapLoad(path);
+
+                    await UniTask.NextFrame();
 
                     if (asyncTask.isRemoved || !Kernel.isPlaying)
                         return null;
