@@ -5,7 +5,7 @@ namespace SDJK.Mode.Difficulty
 {
     public abstract class ComboMultiplierModeBase : DifficultyModeBase
     {
-        public override int order => 5100;
+        public override int order => 5000;
 
         public override NameSpacePathReplacePair displayName { get; } = "sdjk:mode.difficulty.combo_multiplier";
         public override NameSpacePathPair info { get; } = "sdjk:mode.difficulty.combo_multiplier.info";
