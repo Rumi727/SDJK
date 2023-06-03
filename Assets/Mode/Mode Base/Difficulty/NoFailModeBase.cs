@@ -1,4 +1,6 @@
 using SCKRM.Renderer;
+using SDJK.Mode.Automatic;
+using System;
 
 namespace SDJK.Mode.Difficulty
 {
@@ -10,5 +12,7 @@ namespace SDJK.Mode.Difficulty
         public override NameSpacePathPair info { get; } = "sdjk:mode.difficulty.no_fail.info";
 
         public override NameSpaceIndexTypePathPair icon { get; } = "sdjk:0:mode/difficulty_no_fail";
+
+        public override Type[] incompatibleModes { get; } = new Type[] { typeof(SuddenDeathModeBase), typeof(PerfectModeBase), typeof(AutoModeBase) };
     }
 }
