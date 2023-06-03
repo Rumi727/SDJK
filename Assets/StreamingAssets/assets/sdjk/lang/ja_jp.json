@@ -23,9 +23,9 @@
 
 	"options.map_loader.title": "マップローダー",
 	"options.map_loader.map_manager.loadInParallel": "複数のマップパックを並列にロード",
-	"options.map_loader.map_manager.loadInParallel.info": "複数のマップパックをロードするときに並列にロードします",
+	"options.map_loader.map_manager.loadInParallel.info": "複数のマップパックをロードするときに並列にロードします\n（注意！不安定です）",
 	"options.map_loader.map_loader.loadInParallel": "マップパックを並列にロード",
-	"options.map_loader.map_loader.loadInParallel.info": "1つのマップパックをロードすると、マップを並列にロードします",
+	"options.map_loader.map_loader.loadInParallel.info": "1つのマップパックをロードすると、マップを並列にロードします\n（注意！不安定です）",
 	
 	"options.sdjk_map_loader.title": "SDJKマップローダー",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!maniaノートスピード",
@@ -35,7 +35,7 @@
 	"options.replay_loader.replayAsyncLoad": "リプレイ非同期ロードを有効にする",
 	"options.replay_loader.replayAsyncLoad.info": "リプレイを初期ロードが終了したときにロードします",
 	"options.replay_loader.loadInParallel": "複数のリプレイを並列にロード",
-	"options.replay_loader.loadInParallel.info": "複数のリプレイをロードするときに並列にロードします",
+	"options.replay_loader.loadInParallel.info": "複数のリプレイをロードするときに並列にロードします\n（注意！不安定です）",
 
 
 	

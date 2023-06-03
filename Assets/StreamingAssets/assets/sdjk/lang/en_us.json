@@ -23,9 +23,9 @@
 
 	"options.map_loader.title": "Map Loader",
 	"options.map_loader.map_manager.loadInParallel": "Load multiple mappacks in parallel",
-	"options.map_loader.map_manager.loadInParallel.info": "Loads in parallel when loading multiple map packs",
+	"options.map_loader.map_manager.loadInParallel.info": "Loads in parallel when loading multiple map packs\n(Caution! Unstable)",
 	"options.map_loader.map_loader.loadInParallel": "Loading map packs in parallel",
-	"options.map_loader.map_loader.loadInParallel.info": "Load maps in parallel when loading one map pack",
+	"options.map_loader.map_loader.loadInParallel.info": "Load maps in parallel when loading one map pack\n(Caution! Unstable)",
 	
 	"options.sdjk_map_loader.title": "SDJK Map Loder",
 	"options.sdjk_map_loader.osuManiaNoteSpeed": "osu!mania Note Speed",
@@ -35,7 +35,7 @@
 	"options.replay_loader.replayAsyncLoad": "Enable Replay Asynchronous Loading",
 	"options.replay_loader.replayAsyncLoad.info": "Load the replay when the initial loading is done",
 	"options.replay_loader.loadInParallel": "Load multiple replays in parallel",
-	"options.replay_loader.loadInParallel.info": "Loads in parallel when loading multiple replays",
+	"options.replay_loader.loadInParallel.info": "Loads in parallel when loading multiple replays\n(Caution! Unstable)",
 	
 	
 	
