@@ -18,7 +18,7 @@ namespace SDJK.Mode.Difficulty
 
 
 
-        [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.difficulty.sudden_death")]
+        [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.difficulty.perfect")]
         public sealed class Config : IModeConfig
         {
             [SaveLoadUIToggleConfig("sc-krm:gui.restart_on_fail", "")]
