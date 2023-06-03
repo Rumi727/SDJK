@@ -79,7 +79,6 @@ namespace SCKRM.UI.SideBar
                 else
                     removeButtonCanvasGroup.alpha = removeButtonCanvasGroup.alpha.MoveTowards(0, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
 
-                removeButtonCanvasGroup.alpha = 1;
                 removeButtonCanvasGroup.interactable = true;
             }
             else
