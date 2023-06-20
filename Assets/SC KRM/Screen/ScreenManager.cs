@@ -28,6 +28,9 @@ namespace SCKRM
             }
         }
 
+        [WikiDescription("현재 화면 크기")]
+        public static Vector2Int size => new Vector2Int(width, height);
+
         static Resolution _currentResolution; [WikiDescription("현재 모니터 해상도")] public static Resolution currentResolution
         {
             get

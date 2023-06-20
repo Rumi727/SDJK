@@ -42,6 +42,7 @@ namespace SDJK.MainMenu
         [SerializeField, FieldNotNull] SuperBlur.SuperBlur superBulr;
         [SerializeField, FieldNotNull] GameObject logoVisualizer;
         [SerializeField, FieldNotNull] LogoEffect logoEffect;
+        [SerializeField, FieldNotNull] ParallaxEffect parallaxEffect;
 
 
 
@@ -78,6 +79,8 @@ namespace SDJK.MainMenu
                     mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else if (mapSelectScreen.gameObject.activeSelf)
                     mapSelectScreen.gameObject.SetActive(false);
+
+                parallaxEffect.size = parallaxEffect.size.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
             }
             else if (currentScreenMode == ScreenMode.normal)
             {
@@ -126,6 +129,8 @@ namespace SDJK.MainMenu
                     mapSelectScreen.alpha = mapSelectScreen.alpha.MoveTowards(0, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else if (mapSelectScreen.gameObject.activeSelf)
                     mapSelectScreen.gameObject.SetActive(false);
+
+                parallaxEffect.size = parallaxEffect.size.Lerp(4, 0.2f * Kernel.fpsUnscaledDeltaTime);
             }
             else if (currentScreenMode == ScreenMode.mapPackSelect)
             {
@@ -138,6 +143,8 @@ namespace SDJK.MainMenu
                         if (!mapSelectScreen.gameObject.activeSelf)
                             mapSelectScreen.gameObject.SetActive(true);
                     }
+
+                    parallaxEffect.size = parallaxEffect.size.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
                 }
             }
             else if (currentScreenMode == ScreenMode.mapSelect)
@@ -151,6 +158,8 @@ namespace SDJK.MainMenu
                         if (!mapSelectScreen.gameObject.activeSelf)
                             mapSelectScreen.gameObject.SetActive(true);
                     }
+
+                    parallaxEffect.size = parallaxEffect.size.Lerp(0, 0.2f * Kernel.fpsUnscaledDeltaTime);
                 }
             }
 

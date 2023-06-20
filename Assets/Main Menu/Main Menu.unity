@@ -2983,7 +2983,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 129.6
+  m_fontSize: 129.65
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4647,6 +4647,7 @@ GameObject:
   - component: {fileID: 839120026}
   - component: {fileID: 839120029}
   - component: {fileID: 839120030}
+  - component: {fileID: 839120031}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -4669,7 +4670,7 @@ MonoBehaviour:
   _customSetting: 0
   _worldRenderMode: 0
   _planeDistance: 0
-  _forceSafeScreenEnable: 0
+  _forceSafeScreenEnable: 1
   _safeScreenMultiple: {x: 1, y: 1}
   _safeScreenOffset:
     serializedVersion: 2
@@ -4761,6 +4762,7 @@ MonoBehaviour:
   superBulr: {fileID: 1408405982192361519}
   logoVisualizer: {fileID: 1320217941}
   logoEffect: {fileID: 365730765}
+  parallaxEffect: {fileID: 839120031}
 --- !u!114 &839120027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4827,6 +4829,25 @@ MonoBehaviour:
   _min: {x: 1280, y: 720}
   _max: {x: 0, y: 0}
   _guiSize: 1
+--- !u!114 &839120031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839120021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67af1135942303c48bf207514f0d5b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: 4
+  _safeScreenOffset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!1 &873753397
 GameObject:
   m_ObjectHideFlags: 0
@@ -11006,6 +11027,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8147967673216287751, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
       propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147967673216287751, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147967673216287751, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8158790605648983108, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}

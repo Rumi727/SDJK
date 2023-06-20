@@ -1106,6 +1106,7 @@ GameObject:
   - component: {fileID: 1408405982779672851}
   - component: {fileID: 1408405982779672848}
   - component: {fileID: 1408405982779672849}
+  - component: {fileID: 6567654643100708395}
   m_Layer: 6
   m_Name: Background Canvas
   m_TagString: Untagged
@@ -1206,14 +1207,33 @@ MonoBehaviour:
   _safeScreenMultiple: {x: 0.5, y: 1}
   _safeScreenOffset:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+    x: -16
+    y: -16
+    width: 16
+    height: 16
   _customGuiSize: 0
   _guiSize: 1
   _alwaysVisible: 1
   _safeScreen: {fileID: 8147967673216287751}
+--- !u!114 &6567654643100708395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408405982779672854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67af1135942303c48bf207514f0d5b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: 8
+  _safeScreenOffset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!1 &1431067106369498192
 GameObject:
   m_ObjectHideFlags: 0
