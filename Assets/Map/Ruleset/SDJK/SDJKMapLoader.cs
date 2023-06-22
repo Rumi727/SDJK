@@ -30,7 +30,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         static void Awaken()
         {
             MapLoader.extensionToLoad.Add("sdjk");
-            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, bool liteLoader, IMode[] modes) =>
             {
                 bool typeIsSDJKMap = type == typeof(SDJKMapFile);
                 if (typeIsSDJKMap && !File.Exists(mapFilePath))

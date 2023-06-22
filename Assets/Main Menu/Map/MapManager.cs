@@ -235,7 +235,7 @@ namespace SDJK.MainMenu
                         {
                             try
                             {
-                                MapPack sdjkMapPack = await MapLoader.MapPackLoad(path.Replace("\\", "/"), asyncTask);
+                                MapPack sdjkMapPack = await MapLoader.MapPackLoad(path.Replace("\\", "/"), asyncTask, true);
                                 if (sdjkMapPack != null && sdjkMapPack.maps.Count > 0)
                                     syncMapPacks.Add(sdjkMapPack);
 

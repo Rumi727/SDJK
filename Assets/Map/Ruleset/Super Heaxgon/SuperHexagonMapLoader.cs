@@ -18,7 +18,7 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         static void Awaken()
         {
             MapLoader.extensionToLoad.Add("super_hexagon");
-            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, bool liteLoader, IMode[] modes) =>
             {
                 bool typeIsSuperHexagonMap = type == typeof(SuperHexagonMapFile);
                 if (typeIsSuperHexagonMap && !File.Exists(mapFilePath))

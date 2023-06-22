@@ -15,20 +15,20 @@ namespace SDJK.Map.Ruleset.Osu
         static void Awaken()
         {
             MapLoader.extensionToLoad.Add("osu");
-            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, IMode[] modes) =>
+            MapLoader.mapLoaderFunc += (Type type, string mapFilePath, string extension, bool liteLoader, IMode[] modes) =>
             {
                 bool typeIsOsuManiaMap = type == typeof(OsuMapFile);
                 if (typeIsOsuManiaMap && !File.Exists(mapFilePath))
                     return new OsuMapFile("");
 
                 if (extension == ".osu" && (type == typeof(MapFile) || typeIsOsuManiaMap))
-                    return MapLoad(mapFilePath);
+                    return MapLoad(mapFilePath, liteLoader);
                 else
                     return null;
             };
         }
 
-        public static OsuMapFile MapLoad(string mapFilePath)
+        public static OsuMapFile MapLoad(string mapFilePath, bool liteLoader = false)
         {
             OsuMapFile osuMap = new OsuMapFile(mapFilePath);
 
@@ -493,6 +493,7 @@ namespace SDJK.Map.Ruleset.Osu
                             TypeList<HitsoundFile> hitsoundFiles = HitsoundFile.defaultHitsounds;
                             TypeList<HitsoundFile> holdHitsoundFiles = HitsoundFile.defaultHitsounds;
 
+                            if (!liteLoader)
                             #region Hitsound Loader
                             {
                                 {
@@ -514,7 +515,7 @@ namespace SDJK.Map.Ruleset.Osu
                                         hitsoundColonCount++;
                                         if (hitsoundColonCount >= 5)
                                             break;
-                                        
+
                                         splitHitsoundTexts.Insert(0, new string(splitStringBuilder.ToString().Reverse().ToArray()));
                                         splitStringBuilder.Clear();
                                     }

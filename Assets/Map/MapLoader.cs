@@ -32,11 +32,11 @@ namespace SDJK.Map
         /// <returns>
         /// 맵 인스턴스
         /// </returns>
-        public delegate MapFile MapLoaderFunc(Type type, string mapFilePath, string extension, params IMode[] modes);
+        public delegate MapFile MapLoaderFunc(Type type, string mapFilePath, string extension, bool liteLoader = false, params IMode[] modes);
         public static event MapLoaderFunc mapLoaderFunc;
         public static List<string> extensionToLoad { get; } = new List<string>();
 
-        public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask, params IMode[] modes)
+        public static async UniTask<MapPack> MapPackLoad(string packfolderPath, AsyncTask asyncTask, bool liteLoader = false, params IMode[] modes)
         {
             if (modes == null)
                 modes = IMode.emptyModes;
@@ -70,7 +70,7 @@ namespace SDJK.Map
                     {
                         try
                         {
-                            MapFile map = MapLoad<MapFile>(path.Replace("\\", "/"), modes);
+                            MapFile map = MapLoad<MapFile>(path.Replace("\\", "/"), liteLoader, modes);
                             if (map != null)
                                 maps.Add(map);
                         }
@@ -96,7 +96,7 @@ namespace SDJK.Map
             return pack;
         }
 
-        public static T MapLoad<T>(string mapFilePath, params IMode[] modes) where T : MapFile
+        public static T MapLoad<T>(string mapFilePath, bool liteLoader = false, params IMode[] modes) where T : MapFile
         {
             if (modes == null)
                 modes = IMode.emptyModes;
@@ -109,7 +109,7 @@ namespace SDJK.Map
                     for (int i = 0; i < delegates.Length; i++)
                     {
                         MapLoaderFunc action = (MapLoaderFunc)delegates[i];
-                        object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), modes);
+                        object map = action.Invoke(typeof(T), mapFilePath, Path.GetExtension(mapFilePath), liteLoader, modes);
 
                         if (map != null)
                         {

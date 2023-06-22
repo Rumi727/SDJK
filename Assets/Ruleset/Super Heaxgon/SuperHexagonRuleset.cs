@@ -55,7 +55,7 @@ namespace SDJK.Ruleset.SuperHexagon
             if (replayFilePath != null)
                 replay = ReplayLoader.ReplayLoad<SuperHexagonReplayFile>(replayFilePath, out modes);
 
-            SuperHexagonMapFile map = MapLoader.MapLoad<SuperHexagonMapFile>(mapFilePath, modes);
+            SuperHexagonMapFile map = MapLoader.MapLoad<SuperHexagonMapFile>(mapFilePath, false, modes);
 
             /*if (modes.FindMode<AutoModeBase>() != null)
                 replay = GetAutoModeReplayFile(map, modes);*/

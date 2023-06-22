@@ -71,7 +71,7 @@ namespace SDJK.Ruleset.SDJK
             if (replayFilePath != null)
                 replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath, out modes);
 
-            SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath, modes);
+            SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath, false, modes);
 
             if (modes.FindMode<AutoModeBase>() != null)
                 replay = GetAutoModeReplayFile(map, modes);

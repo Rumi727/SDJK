@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using SCKRM;
 using SCKRM.Object;
 using SCKRM.UI;
 using SDJK.Map;
@@ -12,7 +13,7 @@ using UnityEngine;
 
 namespace SDJK.MainMenu
 {
-    public sealed class ReplayList : SCKRM.UI.UIBase
+    public sealed class ReplayList : UIBase
     {
         [SerializeField] RectTransformTool viewport;
         [SerializeField] Transform content;
@@ -46,18 +47,23 @@ namespace SDJK.MainMenu
         protected override void OnEnable()
         {
             RulesetManager.rulesetChanged += Refresh;
-            ReplayManager.replayLoadingEnd += Refresh;
+
+            ReplayLoader.replaySaveEvent += Refresh;
+            ReplayLoader.replayDeleteEvent += Refresh;
         }
 
         protected override void OnDisable()
         {
             RulesetManager.rulesetChanged -= Refresh;
-            ReplayManager.replayLoadingEnd -= Refresh;
+
+            ReplayLoader.replaySaveEvent -= Refresh;
+            ReplayLoader.replayDeleteEvent -= Refresh;
         }
 
         protected override void OnDestroy() => cancel.Cancel();
 
         public void Refresh() => refresh().Forget();
+        void Refresh(ReplayFile replay) => refresh().Forget();
 
         CancellationTokenSource cancel;
         async UniTaskVoid refresh()
@@ -65,6 +71,7 @@ namespace SDJK.MainMenu
             cancel?.Cancel();
             cancel = new CancellationTokenSource();
 
+            IRuleset ruleset = RulesetManager.selectedRuleset;
             MapFile map = MapManager.selectedMap;
             for (int i = 0; i < replayResultUIs.Count; i++)
             {
@@ -79,58 +86,60 @@ namespace SDJK.MainMenu
 
             int lastReplayRanking = 1;
             ReplayFile lastReplay = null;
-            if (ReplayManager.currentReplayFiles.TryGetValue(map.info.id, out List<ReplayFile> replays))
-            {
-                for (int i = 0; i < replays.Count; i++)
-                {
-                    ReplayFile replay = replays[i];
-                    if (replay.ruleset != RulesetManager.selectedRuleset.name)
-                        continue;
 
-                    //마지막 리플레이 계산
-                    if (lastReplay == null)
+            List<ReplayFile> replays = await ReplayLoader.ReplaysLoad(map);
+            if (replays == null || !Kernel.isPlaying || this == null || ruleset != RulesetManager.selectedRuleset || map != MapManager.selectedMap)
+                return;
+
+            for (int i = 0; i < replays.Count; i++)
+            {
+                ReplayFile replay = replays[i];
+                if (replay.ruleset != ruleset.name)
+                    continue;
+
+                //마지막 리플레이 계산
+                if (lastReplay == null)
+                {
+                    lastReplay = replay;
+                    lastReplayRanking = i + 1;
+                }
+                else
+                {
+                    TimeSpan replayClearTime = DateTime.UtcNow - replay.clearUTCTime;
+                    TimeSpan lastClearTime = DateTime.UtcNow - lastReplay.clearUTCTime;
+
+                    if (replayClearTime <= lastClearTime)
                     {
                         lastReplay = replay;
                         lastReplayRanking = i + 1;
                     }
-                    else
-                    {
-                        TimeSpan replayClearTime = DateTime.UtcNow - replay.clearUTCTime;
-                        TimeSpan lastClearTime = DateTime.UtcNow - lastReplay.clearUTCTime;
-
-                        if (replayClearTime <= lastClearTime)
-                        {
-                            lastReplay = replay;
-                            lastReplayRanking = i + 1;
-                        }
-                    }
                 }
+            }
 
-                if (lastReplay != null)
-                    lastReplayResultUI.Refresh(RulesetManager.selectedRuleset, MapManager.selectedMap, lastReplay, lastReplayRanking);
+            if (lastReplay != null)
+                lastReplayResultUI.Refresh(ruleset, map, lastReplay, lastReplayRanking);
 
-                int loopCount = 0;
-                for (int i = 0; i < replays.Count; i++)
+            int loopCount = 0;
+            for (int i = 0; i < replays.Count; i++)
+            {
+                ReplayFile replay = replays[i];
+                if (replay.ruleset != ruleset.name)
+                    continue;
+
+                ReplayResultUI ui = (ReplayResultUI)ObjectPoolingSystem.ObjectCreate(replayResultUIPrefab, content).monoBehaviour;
+                replayResultUIs.Add(ui);
+
+                ui.Refresh(ruleset, map, replay, i + 1);
+
+                if (loopCount >= 10)
                 {
-                    ReplayFile replay = replays[i];
-                    if (replay.ruleset != RulesetManager.selectedRuleset.name)
-                        continue;
+                    if (await UniTask.DelayFrame(1, PlayerLoopTiming.Update, cancel.Token).SuppressCancellationThrow() || ruleset != RulesetManager.selectedRuleset || map != MapManager.selectedMap)
+                        return;
 
-                    ReplayResultUI ui = (ReplayResultUI)ObjectPoolingSystem.ObjectCreate(replayResultUIPrefab, content).monoBehaviour;
-                    replayResultUIs.Add(ui);
-
-                    ui.Refresh(RulesetManager.selectedRuleset, map, replay, i + 1);
-
-                    if (loopCount >= 10)
-                    {
-                        if (await UniTask.DelayFrame(1, PlayerLoopTiming.Update, cancel.Token).SuppressCancellationThrow())
-                            return;
-
-                        loopCount = 0;
-                    }
-
-                    loopCount++;
+                    loopCount = 0;
                 }
+
+                loopCount++;
             }
         }
     }
