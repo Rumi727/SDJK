@@ -39,7 +39,7 @@ It is recommended to set up a git-like system to make the operation undoable.", 
             start = true;
 
             Debug.Log($"{nameof(Kernel.streamingAssetsPath)} : {Kernel.streamingAssetsPath}");
-            Debug.Log($"{nameof(tempStreamingAssetsFolderPath)}: {tempStreamingAssetsFolderPath}");
+            Debug.Log($"{nameof(tempStreamingAssetsFolderPath)} : {tempStreamingAssetsFolderPath}");
 
             if (Directory.Exists(tempStreamingAssetsFolderPath))
             {
