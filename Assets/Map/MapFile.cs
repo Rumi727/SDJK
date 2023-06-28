@@ -209,6 +209,10 @@ namespace SDJK.Map
         public BeatValuePairAniListVector3 cameraPos { get; set; } = new(new JVector3(0, 0, -14));
         public BeatValuePairAniListVector3 cameraRotation { get; set; } = new(default);
 
+        public BeatValuePairAniListVector3 cameraShakeDrain { get; set; } = new(default);
+        public BeatValuePairAniListVector3 cameraShakeOffset { get; set; } = new(new JVector3(0.5f, 0.5f, 0.5f));
+        public BeatValuePairAniListDouble cameraShakeDelay { get; set; } = new(default);
+
         public BeatValuePairAniListColor backgroundFlash { get; set; } = new(default);
         public BeatValuePairAniListColor fieldFlash { get; set; } = new(default);
         public BeatValuePairAniListColor uiFlash { get; set; } = new(default);
