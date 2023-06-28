@@ -1,19 +1,23 @@
 using SCKRM;
 using SCKRM.Easing;
-using SCKRM.Input;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SCKRM.UI;
 using SDJK.Effect;
 using SDJK.Map;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace SDJK.MainMenu
 {
-    public sealed class Logo : UIBase
+    public sealed class Logo : SCKRM.UI.UIBase, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         BeatValuePairAniListFloat beatScaleAni = new BeatValuePairAniListFloat(0) { new BeatValuePairAni<float>(0, 0.95f, 0, EasingFunction.Ease.Linear), new BeatValuePairAni<float>(0, 1, 0.9, EasingFunction.Ease.EaseOutSine), new BeatValuePairAni<float>(0.9, 0.95f, 0.1, EasingFunction.Ease.Linear) };
-        
+        bool pointer = false;
+        bool click = false;
         float beatScale = 1;
         float pointerScaleStart = 1;
         float pointerScaleT = 0;
@@ -21,35 +25,12 @@ namespace SDJK.MainMenu
         float clickScale = 1;
 
         [SerializeField, FieldNotNull] LogoEffect logoEffect;
-        [SerializeField] float pointerOffsetSize = 1;
 
         int lastCurrentBeat = 0;
         double lastBPMOffsetBeat = 0;
         double lastHitsoundBeat = -1;
-
-        public bool pointer
-        {
-            get => _pointer;
-            set
-            {
-                if (_pointer != value)
-                {
-                    _pointer = value;
-
-                    pointerScaleStart = pointerScale;
-                    pointerScaleT = 0;
-                }
-            }
-        }
-        bool _pointer = false;
-
         void Update()
         {
-            {
-                Rect rect = rectTransformTool.worldCorners.rect;
-                pointer = Vector2.Distance(InputManager.mousePosition, rect.center) <= rect.width * 0.5f * pointerOffsetSize;
-            }
-
             {
                 if (pointerScaleT < 1)
                     pointerScaleT = (pointerScaleT + 0.03f * Kernel.fpsUnscaledSmoothDeltaTime).Clamp01();
@@ -60,15 +41,11 @@ namespace SDJK.MainMenu
                     pointerScale = (float)EasingFunction.EaseOutElastic(pointerScaleStart, 1, pointerScaleT);
             }
 
-            if (pointer)
             {
-                if (InputManager.GetMouseButton(0, InputType.Alway))
+                if (click)
                     clickScale = clickScale.Lerp(0.85f, 0.04f * Kernel.fpsUnscaledSmoothDeltaTime);
                 else
                     clickScale = clickScale.Lerp(1, 0.2f * Kernel.fpsUnscaledSmoothDeltaTime);
-
-                if (InputManager.GetMouseButton(0, InputType.Up))
-                    MainMenu.NextScreen();
             }
 
             double oneBeat = (RhythmManager.currentBeatScreen - RhythmManager.bpmOffsetBeat).Repeat(1);
@@ -118,6 +95,30 @@ namespace SDJK.MainMenu
                 beatScale = 1;
 
             transform.localScale = Vector3.one * beatScale * pointerScale * clickScale;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            pointer = true;
+            pointerScaleStart = pointerScale;
+            pointerScaleT = 0;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            pointer = false;
+            pointerScaleStart = pointerScale;
+            pointerScaleT = 0;
+        }
+
+        public void OnPointerDown(PointerEventData eventData) => click = true;
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            click = false;
+
+            if (pointer)
+                MainMenu.NextScreen();
         }
     }
 }
