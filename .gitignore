@@ -79,5 +79,6 @@ crashlytics-build.properties
 /[Cc]odeCoverage
 
 # Custom Ignore
-.vsconfig
-.idea/*
+*.vsconfig
+*.idea/*
+*.sln.DotSettings
