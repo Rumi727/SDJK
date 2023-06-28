@@ -135,9 +135,11 @@ namespace SCKRM.UI
     {
         public Rect rect
         {
-            get => this;
+            readonly get => this;
             set
             {
+                Rect rect = value;
+
                 bottomLeft = new Vector2(rect.xMin, rect.yMin);
                 topLeft = new Vector2(rect.xMin, rect.yMax);
                 topRight = new Vector2(rect.xMax, rect.yMax);
