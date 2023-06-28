@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -257,6 +257,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2313075162845634480, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
@@ -312,6 +313,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1657977506}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2a11d50d9492a40bd58246408b1260, type: 3}
 --- !u!1 &521749794
 GameObject:
@@ -1375,6 +1379,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1245222863}
     m_Modifications:
     - target: {fileID: 5765649250551961986, guid: 248cc2aab9303f04baf73676d4d7c28d, type: 3}
@@ -1514,6 +1519,9 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 248cc2aab9303f04baf73676d4d7c28d, type: 3}
 --- !u!224 &939114403 stripped
 RectTransform:
@@ -1766,7 +1774,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1836,7 +1846,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1058.75, y: 595}
+  m_ReferenceResolution: {x: 1168.75, y: 657.5}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2120,6 +2130,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1408405980762140138, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
@@ -2274,7 +2285,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8147967673216287751, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147967673216287751, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
 --- !u!114 &1657977506 stripped
 MonoBehaviour:
@@ -2479,7 +2501,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2566,7 +2590,6 @@ MonoBehaviour:
   _inputManager: {fileID: 777097535}
   _effectManager: {fileID: 1657977506}
   _gameOverManager: {fileID: 1561121225}
-  auto: 0
 --- !u!4 &1996896440
 Transform:
   m_ObjectHideFlags: 0
@@ -2823,6 +2846,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1245222863}
     m_Modifications:
     - target: {fileID: 5765649250551961986, guid: c28f7cec51570c246bcb05bbfb7ed2e9, type: 3}
@@ -2910,12 +2934,16 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c28f7cec51570c246bcb05bbfb7ed2e9, type: 3}
 --- !u!1001 &8985394485277846881
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1245222863}
     m_Modifications:
     - target: {fileID: 8985394484543647740, guid: f3246486fc1954d479b60ebf0cb50bad, type: 3}
@@ -3007,4 +3035,7 @@ PrefabInstance:
       value: Skip Screen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3246486fc1954d479b60ebf0cb50bad, type: 3}
