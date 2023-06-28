@@ -36,7 +36,6 @@ namespace SDJK.Effect
             {
                 double delay = map.globalEffect.cameraShakeDelay.GetValue(RhythmManager.currentBeatSound);
                 double time = RhythmManager.time - RhythmManager.time.Repeat(delay);
-                Debug.Log(time);
 
                 Random random = new Random((int)(map.info.randomSeed * time * 5387195).Repeat(int.MaxValue));
                 random.NextDouble();
