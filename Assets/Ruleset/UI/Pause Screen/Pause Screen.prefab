@@ -201,7 +201,7 @@ RectTransform:
   m_Children:
   - {fileID: 5765649250232007078}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 5765649250618424693}
   - component: {fileID: 5765649250618424692}
   - component: {fileID: 5765649250618424691}
+  - component: {fileID: 5765649250618424648}
   - component: {fileID: 7870783240242783393}
   m_Layer: 0
   m_Name: Restart Button
@@ -422,6 +423,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5765649250618424648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765649250618424689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178f1a1c0f53ed04d9327f448b88e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 5765649250618424693}
+  _slicedFilledImage: {fileID: 0}
+  _alphaHitTestMinimumThreshold: 0.5
 --- !u!114 &7870783240242783393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +855,7 @@ GameObject:
   - component: {fileID: 5765649251917701866}
   - component: {fileID: 5765649251917701865}
   - component: {fileID: 5765649251917701864}
+  - component: {fileID: 5765649251917701869}
   - component: {fileID: 3687495438621748613}
   m_Layer: 0
   m_Name: Play Button
@@ -995,6 +1012,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5765649251917701869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765649251917701782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178f1a1c0f53ed04d9327f448b88e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 5765649251917701866}
+  _slicedFilledImage: {fileID: 0}
+  _alphaHitTestMinimumThreshold: 0.5
 --- !u!114 &3687495438621748613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1129,6 +1161,7 @@ GameObject:
   - component: {fileID: 5765649252210383209}
   - component: {fileID: 5765649252210383208}
   - component: {fileID: 5765649252210383127}
+  - component: {fileID: 5765649252210383212}
   - component: {fileID: 3970984683175937760}
   m_Layer: 0
   m_Name: Quit Button
@@ -1285,6 +1318,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5765649252210383212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765649252210383125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178f1a1c0f53ed04d9327f448b88e6d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 5765649252210383209}
+  _slicedFilledImage: {fileID: 0}
+  _alphaHitTestMinimumThreshold: 0.5
 --- !u!114 &3970984683175937760
 MonoBehaviour:
   m_ObjectHideFlags: 0
