@@ -13,7 +13,8 @@ namespace SDJK.Effect
         [GeneralSaveLoad]
         public class SaveData
         {
-            [JsonProperty] public static float backgroundTransparency { get; set; } = 70;
+            [JsonProperty] public static float backgroundTransparency { get => _backgroundTransparency.Clamp(0, 100); set => _backgroundTransparency = value.Clamp(0, 100); }
+            static float _backgroundTransparency = 70;
         }
 
         public Image image => this.GetComponentFieldSave(_image); Image _image;
