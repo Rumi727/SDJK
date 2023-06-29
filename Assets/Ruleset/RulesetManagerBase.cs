@@ -253,6 +253,19 @@ namespace SDJK.Ruleset
                 Destroy(bgmClip, 1);
                 bgmClip = null;
             }
+
+            foreach (var item in loadedHitsounds)
+            {
+                if (item.Value.soundData != null && item.Value.soundData.sounds != null)
+                {
+                    for (int j = 0; j < item.Value.soundData.sounds.Length; j++)
+                    {
+                        SoundMetaData soundMetaData = item.Value.soundData.sounds[j];
+                        if (soundMetaData.audioClip != null)
+                            Destroy(soundMetaData.audioClip);
+                    }
+                }
+            }
         }
 
         async UniTaskVoid BGMPlay()
