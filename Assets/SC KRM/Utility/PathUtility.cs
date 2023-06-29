@@ -1,10 +1,11 @@
 using System.IO;
+using UnityEngine.Networking;
 
 namespace SCKRM
 {
     public static class PathUtility
     {
-        public const string urlPathPrefix = "file://";
+        public const string urlPathPrefix = "file:///";
 
         /// <summary>
         /// (paths = ("asdf", "asdf")) = "asdf/asdf" (Path.Combine is "asdf\asdf")
@@ -52,6 +53,6 @@ namespace SCKRM
                 return path;
         }
 
-        public static string UrlPathPrefix(this string path) => urlPathPrefix + path;
+        public static string UrlPathPrefix(this string path) => urlPathPrefix + UnityWebRequest.EscapeURL(path);
     }
 }
