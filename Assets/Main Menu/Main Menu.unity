@@ -4088,6 +4088,30 @@ MonoBehaviour:
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 760714549}
   _graphic: {fileID: 760714550}
+--- !u!1 &764890861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1408405982779672854, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
+  m_PrefabInstance: {fileID: 1408405982192361517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &764890868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764890861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67af1135942303c48bf207514f0d5b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: 8
+  _safeScreenOffset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!114 &789537519 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1408405982577623746, guid: a23998f25f50b7f4d960b67259d323f6, type: 3}
