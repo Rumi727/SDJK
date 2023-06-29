@@ -40,8 +40,8 @@ namespace SDJK.Ruleset.SDJK
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
-            new JudgementMetaData(sick, 0.0213333333, new Color32(0, 220, 255, 255)),
-            new JudgementMetaData(perfect, 0.064, new Color32(0, 170, 255, 255), 0.75),
+            new JudgementMetaData(sick, 0.0213333333, new Color32(0, 220, 255, 255), 1.5),
+            new JudgementMetaData(perfect, 0.064, new Color32(0, 170, 255, 255)),
             new JudgementMetaData(great, 0.1066666667, new Color32(100, 255, 100, 255), 0.5),
             new JudgementMetaData(good, 0.1493333333, new Color32(230, 230, 0, 255), 0.25),
             new JudgementMetaData(early, 0.192, new Color32(166, 166, 166, 255), 0.5, true)
