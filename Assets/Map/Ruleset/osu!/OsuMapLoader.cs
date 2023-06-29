@@ -306,327 +306,344 @@ namespace SDJK.Map.Ruleset.Osu
                 }
                 #endregion
 
-                #region Events Section
-                using (StringReader stringReader = new StringReader(sections["[Events]"].ToString()))
                 {
-                    while (true)
+                    #region Timing Points Section
+                    using (StringReader stringReader = new StringReader(sections["[TimingPoints]"].ToString()))
                     {
-                        string text = stringReader.ReadLine();
-                        if (text == null)
-                            break;
-
-                        try
+                        while (true)
                         {
-                            splitTexts.Clear();
-                            splitStringBuilder.Clear();
+                            string text = stringReader.ReadLine();
+                            if (text == null)
+                                break;
 
-                            for (int i = 0; i < text.Length; i++)
+                            try
                             {
-                                char currentChar = text[i];
-                                if (currentChar != ',')
-                                {
-                                    splitStringBuilder.Append(currentChar);
-                                    continue;
-                                }
-
-                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitTexts.Clear();
                                 splitStringBuilder.Clear();
-                            }
 
-                            splitTexts.Add(splitStringBuilder.ToString());
-                            splitStringBuilder.Clear();
-
-                            string eventType = splitTexts[0];
-
-                            switch (eventType)
-                            {
-                                case "0":
+                                for (int i = 0; i < text.Length; i++)
                                 {
-                                    if (!eventsSectionBackgroundIgnore)
+                                    char currentChar = text[i];
+                                    if (currentChar != ',')
                                     {
-                                        osuMap.globalEffect.background.Add(new BackgroundEffectPair(PathUtility.GetPathWithExtension(splitTexts[2].Trim('"')), ""));
-                                        eventsSectionBackgroundIgnore = true;
+                                        splitStringBuilder.Append(currentChar);
+                                        continue;
                                     }
 
-                                    break;
-                                }
-                                case "1":
-                                case "Video":
-                                {
-                                    if (!eventsSectionVideoIgnore)
-                                    {
-                                        osuMap.info.videoBackgroundFile = PathUtility.GetPathWithExtension(splitTexts[2].Trim('"'));
-                                        osuMap.info.videoOffset = double.Parse(splitTexts[1]) * 0.001;
-
-                                        eventsSectionVideoIgnore = true;
-                                    }
-
-                                    break;
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            Debug.ForceLogError("[Text] " + text);
-                            throw;
-                        }
-                    }
-                }
-                #endregion
-
-                #region Timing Points Section
-                using (StringReader stringReader = new StringReader(sections["[TimingPoints]"].ToString()))
-                {
-                    while (true)
-                    {
-                        string text = stringReader.ReadLine();
-                        if (text == null)
-                            break;
-
-                        try
-                        {
-                            splitTexts.Clear();
-                            splitStringBuilder.Clear();
-
-                            for (int i = 0; i < text.Length; i++)
-                            {
-                                char currentChar = text[i];
-                                if (currentChar != ',')
-                                {
-                                    splitStringBuilder.Append(currentChar);
-                                    continue;
-                                }
-
-                                splitTexts.Add(splitStringBuilder.ToString());
-                                splitStringBuilder.Clear();
-                            }
-
-                            splitTexts.Add(splitStringBuilder.ToString());
-                            splitStringBuilder.Clear();
-
-                            double time = int.Parse(splitTexts[0]) * 0.001;
-                            double bpm = (1d / double.Parse(splitTexts[1]) * 1000d * 60d).Floor();
-                            int sampleSet = int.Parse(splitTexts[3]);
-                            int sampleIndex = int.Parse(splitTexts[4]);
-                            int volume = int.Parse(splitTexts[5]);
-                            bool uninherited = splitTexts[6] == "0";
-                            bool kiai = splitTexts[7] == "1";
-
-                            if (timingPointsSectionStartLine)
-                            {
-                                osuMap.info.songOffset = time;
-
-                                timingPointsSectionBPM = bpm;
-                                timingPointsSectionLastTime = time;
-
-                                timingPointsSectionStartLine = false;
-                            }
-
-                            double beat = RhythmManager.SecondToBeat(time - timingPointsSectionLastTime, timingPointsSectionBPM) + timingPointsSectionLastBeat;
-                            if (!uninherited)
-                            {
-                                osuMap.globalEffect.bpm.Add(beat, bpm);
-                                timingPointsSectionBPM = bpm;
-                            }
-
-                            if (sampleSet == 0)
-                                timingPointsSampleSet.Add(beat, beatmapSampleSet);
-                            else
-                                timingPointsSampleSet.Add(beat, sampleSet - 1);
-
-                            timingPointsSampleIndex.Add(beat, sampleIndex);
-                            timingPointsVolume.Add(beat, volume);
-
-                            osuMap.globalEffect.yukiMode.Add(beat, kiai, false);
-
-                            timingPointsSectionLastBeat = beat;
-                            timingPointsSectionLastTime = time;
-                        }
-                        catch
-                        {
-                            Debug.ForceLogError("[Text] " + text);
-                            throw;
-                        }
-                    }
-                }
-                #endregion
-
-                #region Hit Objects Section
-                using (StringReader stringReader = new StringReader(sections["[HitObjects]"].ToString()))
-                {
-                    List<string> splitHitsoundTexts = new List<string>();
-
-                    while (true)
-                    {
-                        string text = stringReader.ReadLine();
-                        if (text == null)
-                            break;
-
-                        try
-                        {
-                            splitTexts.Clear();
-                            splitStringBuilder.Clear();
-
-                            for (int i = 0; i < text.Length; i++)
-                            {
-                                char currentChar = text[i];
-                                if (currentChar != ',' && currentChar != ':' && currentChar != '|')
-                                {
-                                    splitStringBuilder.Append(currentChar);
-                                    continue;
-                                }
-
-                                splitTexts.Add(splitStringBuilder.ToString());
-                                splitStringBuilder.Clear();
-                            }
-
-                            splitTexts.Add(splitStringBuilder.ToString());
-                            splitStringBuilder.Clear();
-
-                            double time = int.Parse(splitTexts[2]) * 0.001;
-
-                            BeatValuePairList<double> bpmList = osuMap.globalEffect.bpm;
-                            double beat = GetBeat(time);
-                            double holdBeat = 0;
-
-                            //Hitsound
-                            TypeList<HitsoundFile> hitsoundFiles = HitsoundFile.defaultHitsounds;
-                            TypeList<HitsoundFile> holdHitsoundFiles = HitsoundFile.defaultHitsounds;
-
-                            if (!liteLoader)
-                            #region Hitsound Loader
-                            {
-                                {
-                                    splitHitsoundTexts.Clear();
+                                    splitTexts.Add(splitStringBuilder.ToString());
                                     splitStringBuilder.Clear();
+                                }
 
-                                    int hitsoundColonCount = 0;
-                                    for (int i = text.Length - 1; i >= 0; i--)
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+
+                                double time = int.Parse(splitTexts[0]) * 0.001;
+                                double bpm = (1d / double.Parse(splitTexts[1]) * 1000d * 60d).Floor();
+                                int sampleSet = int.Parse(splitTexts[3]);
+                                int sampleIndex = int.Parse(splitTexts[4]);
+                                int volume = int.Parse(splitTexts[5]);
+                                bool uninherited = splitTexts[6] == "0";
+                                bool kiai = splitTexts[7] == "1";
+
+                                if (timingPointsSectionStartLine)
+                                {
+                                    osuMap.info.songOffset = time;
+
+                                    timingPointsSectionBPM = bpm;
+                                    timingPointsSectionLastTime = time;
+
+                                    timingPointsSectionStartLine = false;
+                                }
+
+                                double beat = RhythmManager.SecondToBeat(time - timingPointsSectionLastTime, timingPointsSectionBPM) + timingPointsSectionLastBeat;
+                                if (!uninherited)
+                                {
+                                    osuMap.globalEffect.bpm.Add(beat, bpm);
+                                    timingPointsSectionBPM = bpm;
+                                }
+
+                                if (sampleSet == 0)
+                                    timingPointsSampleSet.Add(beat, beatmapSampleSet);
+                                else
+                                    timingPointsSampleSet.Add(beat, sampleSet - 1);
+
+                                timingPointsSampleIndex.Add(beat, sampleIndex);
+                                timingPointsVolume.Add(beat, volume);
+
+                                osuMap.globalEffect.yukiMode.Add(beat, kiai, false);
+
+                                timingPointsSectionLastBeat = beat;
+                                timingPointsSectionLastTime = time;
+                            }
+                            catch
+                            {
+                                Debug.ForceLogError("[Text] " + text);
+                                throw;
+                            }
+                        }
+                    }
+                    #endregion
+
+                    #region Events Section
+                    using (StringReader stringReader = new StringReader(sections["[Events]"].ToString()))
+                    {
+                        while (true)
+                        {
+                            string text = stringReader.ReadLine();
+                            if (text == null)
+                                break;
+
+                            try
+                            {
+                                splitTexts.Clear();
+                                splitStringBuilder.Clear();
+
+                                for (int i = 0; i < text.Length; i++)
+                                {
+                                    char currentChar = text[i];
+                                    if (currentChar != ',')
                                     {
-                                        char currentChar = text[i];
-                                        if (currentChar == ',' || currentChar == '|')
-                                            break;
-                                        else if (currentChar != ':')
+                                        splitStringBuilder.Append(currentChar);
+                                        continue;
+                                    }
+
+                                    splitTexts.Add(splitStringBuilder.ToString());
+                                    splitStringBuilder.Clear();
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+
+                                string eventType = splitTexts[0];
+
+                                switch (eventType)
+                                {
+                                    case "0":
+                                    {
+                                        if (!eventsSectionBackgroundIgnore)
                                         {
-                                            splitStringBuilder.Append(currentChar);
-                                            continue;
+                                            osuMap.globalEffect.background.Add(new BackgroundEffectPair(PathUtility.GetPathWithExtension(splitTexts[2].Trim('"')), ""));
+                                            eventsSectionBackgroundIgnore = true;
                                         }
 
-                                        hitsoundColonCount++;
-                                        if (hitsoundColonCount >= 5)
+                                        break;
+                                    }
+                                    case "1":
+                                    case "Video":
+                                    {
+                                        if (!eventsSectionVideoIgnore)
+                                        {
+                                            osuMap.info.videoBackgroundFile = PathUtility.GetPathWithExtension(splitTexts[2].Trim('"'));
+                                            osuMap.info.videoOffset = double.Parse(splitTexts[1]) * 0.001;
+
+                                            eventsSectionVideoIgnore = true;
+                                        }
+
+                                        break;
+                                    }
+                                    case "Sample":
+                                    {
+                                        double time = int.Parse(splitTexts[1]) * 0.001;
+                                        double beat = GetBeat(time);
+                                        int layer = int.Parse(splitTexts[2]);
+                                        string path = splitTexts[3].Trim('"');
+                                        int volume = int.Parse(splitTexts[4]);
+
+                                        if (layer == 1)
                                             break;
+
+                                        HitsoundFile hitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(path), volume * 0.01f, 1);
+                                        osuMap.globalEffect.playSounds.Add(beat, new TypeList<HitsoundFile>() { hitsoundFile });
+
+                                        break;
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                Debug.ForceLogError("[Text] " + text);
+                                throw;
+                            }
+                        }
+                    }
+                    #endregion
+
+                    #region Hit Objects Section
+                    using (StringReader stringReader = new StringReader(sections["[HitObjects]"].ToString()))
+                    {
+                        List<string> splitHitsoundTexts = new List<string>();
+
+                        while (true)
+                        {
+                            string text = stringReader.ReadLine();
+                            if (text == null)
+                                break;
+
+                            try
+                            {
+                                splitTexts.Clear();
+                                splitStringBuilder.Clear();
+
+                                for (int i = 0; i < text.Length; i++)
+                                {
+                                    char currentChar = text[i];
+                                    if (currentChar != ',' && currentChar != ':' && currentChar != '|')
+                                    {
+                                        splitStringBuilder.Append(currentChar);
+                                        continue;
+                                    }
+
+                                    splitTexts.Add(splitStringBuilder.ToString());
+                                    splitStringBuilder.Clear();
+                                }
+
+                                splitTexts.Add(splitStringBuilder.ToString());
+                                splitStringBuilder.Clear();
+
+                                double time = int.Parse(splitTexts[2]) * 0.001;
+
+                                double beat = GetBeat(time);
+                                double holdBeat = 0;
+
+                                //Hitsound
+                                TypeList<HitsoundFile> hitsoundFiles = HitsoundFile.defaultHitsounds;
+                                TypeList<HitsoundFile> holdHitsoundFiles = HitsoundFile.defaultHitsounds;
+
+                                if (!liteLoader)
+                                #region Hitsound Loader
+                                {
+                                    {
+                                        splitHitsoundTexts.Clear();
+                                        splitStringBuilder.Clear();
+
+                                        int hitsoundColonCount = 0;
+                                        for (int i = text.Length - 1; i >= 0; i--)
+                                        {
+                                            char currentChar = text[i];
+                                            if (currentChar == ',' || currentChar == '|')
+                                                break;
+                                            else if (currentChar != ':')
+                                            {
+                                                splitStringBuilder.Append(currentChar);
+                                                continue;
+                                            }
+
+                                            hitsoundColonCount++;
+                                            if (hitsoundColonCount >= 5)
+                                                break;
+
+                                            splitHitsoundTexts.Insert(0, new string(splitStringBuilder.ToString().Reverse().ToArray()));
+                                            splitStringBuilder.Clear();
+                                        }
 
                                         splitHitsoundTexts.Insert(0, new string(splitStringBuilder.ToString().Reverse().ToArray()));
                                         splitStringBuilder.Clear();
                                     }
 
-                                    splitHitsoundTexts.Insert(0, new string(splitStringBuilder.ToString().Reverse().ToArray()));
-                                    splitStringBuilder.Clear();
-                                }
-
-                                if (splitHitsoundTexts.Count == 5)
-                                {
-                                    int hitsound = int.Parse(splitTexts[4]);
-                                    int sampleSet = timingPointsSampleSet.GetValue(beat);
-                                    int sampleIndex = timingPointsSampleIndex.GetValue(beat);
-                                    int sampleVolume = timingPointsVolume.GetValue(beat);
-                                    string fileName;
-
-                                    if (hitsound == 0)
+                                    if (splitHitsoundTexts.Count == 5)
                                     {
-                                        int value = int.Parse(splitHitsoundTexts[0]);
-                                        if (value != 0)
-                                            sampleSet = value - 1;
-                                    }
-                                    else
-                                    {
-                                        int value = int.Parse(splitHitsoundTexts[1]);
-                                        if (value != 0)
-                                            sampleSet = value - 1;
-                                    }
+                                        int hitsound = int.Parse(splitTexts[4]);
+                                        int sampleSet = timingPointsSampleSet.GetValue(beat);
+                                        int sampleIndex = timingPointsSampleIndex.GetValue(beat);
+                                        int sampleVolume = timingPointsVolume.GetValue(beat);
+                                        string fileName;
 
-                                    {
-                                        int value = int.Parse(splitHitsoundTexts[2]);
-                                        if (value != 0)
-                                            sampleIndex = value;
-                                    }
-
-                                    {
-                                        int value = int.Parse(splitHitsoundTexts[3]);
-                                        if (value != 0)
-                                            sampleVolume = value;
-                                    }
-
-                                    fileName = splitHitsoundTexts[4];
-
-                                    {
-                                        string sampleSetText = sampleSet switch
+                                        if (hitsound == 0)
                                         {
-                                            1 => "soft",
-                                            2 => "drum",
-                                            _ => "normal",
-                                        };
-
-                                        string hitsoundText = hitsound switch
-                                        {
-                                            1 or 4 => "finish",
-                                            2 => "whistle",
-                                            3 or 8 => "clap",
-                                            _ => "normal",
-                                        };
-
-                                        HitsoundFile hitsoundFile;
-                                        if (sampleIndex == 0 || sampleIndex == 1)
-                                            hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
-                                        else
-                                            hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
-
-                                        if (!string.IsNullOrWhiteSpace(fileName))
-                                        {
-                                            HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
-                                            hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile, customHitsoundFile };
+                                            int value = int.Parse(splitHitsoundTexts[0]);
+                                            if (value != 0)
+                                                sampleSet = value - 1;
                                         }
                                         else
-                                            hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile };
+                                        {
+                                            int value = int.Parse(splitHitsoundTexts[1]);
+                                            if (value != 0)
+                                                sampleSet = value - 1;
+                                        }
 
-                                        holdHitsoundFiles = new TypeList<HitsoundFile>();
+                                        {
+                                            int value = int.Parse(splitHitsoundTexts[2]);
+                                            if (value != 0)
+                                                sampleIndex = value;
+                                        }
+
+                                        {
+                                            int value = int.Parse(splitHitsoundTexts[3]);
+                                            if (value != 0)
+                                                sampleVolume = value;
+                                        }
+
+                                        fileName = splitHitsoundTexts[4];
+
+                                        {
+                                            string sampleSetText = sampleSet switch
+                                            {
+                                                1 => "soft",
+                                                2 => "drum",
+                                                _ => "normal",
+                                            };
+
+                                            string hitsoundText = hitsound switch
+                                            {
+                                                1 or 4 => "finish",
+                                                2 => "whistle",
+                                                3 or 8 => "clap",
+                                                _ => "normal",
+                                            };
+
+                                            HitsoundFile hitsoundFile;
+                                            if (sampleIndex == 0 || sampleIndex == 1)
+                                                hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
+                                            else
+                                                hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
+
+                                            if (!string.IsNullOrWhiteSpace(fileName))
+                                            {
+                                                HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
+                                                hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile, customHitsoundFile };
+                                            }
+                                            else
+                                                hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile };
+
+                                            holdHitsoundFiles = new TypeList<HitsoundFile>();
+                                        }
                                     }
                                 }
+                                #endregion
+
+
+                                //Mania Note Loader
+                                if (isOsuMania)
+                                {
+                                    OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
+
+                                    double holdTime = 0;
+                                    bool isHold = splitTexts.Count == 11;
+                                    if (isHold)
+                                        holdTime = int.Parse(splitTexts[5]) * 0.001;
+
+                                    int index = (int.Parse(splitTexts[0]) * keyCount / 512d).FloorToInt();
+
+                                    if (time < holdTime)
+                                        holdBeat = GetBeat(holdTime) - beat;
+
+                                    osuManiaMap.notes[index].Add(new OsuNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
+                                }
+
+                                osuMap.beats.Add(new OsuNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
                             }
-                            #endregion
-
-
-                            //Mania Note Loader
-                            if (isOsuMania)
+                            catch
                             {
-                                OsuManiaMapFile osuManiaMap = (OsuManiaMapFile)osuMap;
-
-                                double holdTime = 0;
-                                bool isHold = splitTexts.Count == 11;
-                                if (isHold)
-                                    holdTime = int.Parse(splitTexts[5]) * 0.001;
-
-                                int index = (int.Parse(splitTexts[0]) * keyCount / 512d).FloorToInt();
-
-                                if (time < holdTime)
-                                    holdBeat = GetBeat(holdTime) - beat;
-
-                                osuManiaMap.notes[index].Add(new OsuNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
-                            }
-
-                            osuMap.beats.Add(new OsuNoteFile(beat, holdBeat, hitsoundFiles, holdHitsoundFiles));
-
-                            double GetBeat(double time)
-                            {
-                                double bpm = RhythmManager.TimeUseBPMChangeCalulate(bpmList, time, osuMap.info.songOffset, out double hitObjectsSectionBPMOffsetBeat, out double hitObjectsSectionBPMOffsetTime);
-                                return RhythmManager.SecondToBeat(time - hitObjectsSectionBPMOffsetTime - osuMap.info.songOffset, bpm) + hitObjectsSectionBPMOffsetBeat;
+                                Debug.ForceLogError("[Text] " + text);
+                                throw;
                             }
                         }
-                        catch
-                        {
-                            Debug.ForceLogError("[Text] " + text);
-                            throw;
-                        }
+                    }
+
+                    double GetBeat(double time)
+                    {
+                        double bpm = RhythmManager.TimeUseBPMChangeCalulate(osuMap.globalEffect.bpm, time, osuMap.info.songOffset, out double hitObjectsSectionBPMOffsetBeat, out double hitObjectsSectionBPMOffsetTime);
+                        return RhythmManager.SecondToBeat(time - hitObjectsSectionBPMOffsetTime - osuMap.info.songOffset, bpm) + hitObjectsSectionBPMOffsetBeat;
                     }
                 }
 

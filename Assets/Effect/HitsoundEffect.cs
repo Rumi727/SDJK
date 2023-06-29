@@ -60,27 +60,45 @@ namespace SDJK.Effect
                     string path = PathUtility.Combine(map.mapFilePathParent, hitsound.path);
                     if (ResourceManager.FileExtensionExists(path, out string fullPath, ResourceManager.audioExtension))
                     {
-                        loadedHitsounds.Add(hitsound.path, new HitsoundInfo());
-
-                        AudioClip audioClip2 = await ResourceManager.GetAudio(fullPath, true);
-                        if (!Kernel.isPlaying || instance == null)
+                        try
                         {
-                            DestroyImmediate(audioClip2);
-                            return;
+                            AudioClip audioClip2 = await ResourceManager.GetAudio(fullPath, true);
+                            if (!Kernel.isPlaying || instance == null)
+                            {
+                                DestroyImmediate(audioClip2);
+                                return;
+                            }
+
+                            SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip2);
+                            SoundData<SoundMetaData> soundData = new SoundData<SoundMetaData>("", false, soundMetaData);
+
+                            loadedHitsounds.Add(hitsound.path, new HitsoundInfo(soundData));
                         }
+                        catch (Exception e)
+                        {
+                            Debug.LogException(e);
+                            Debug.ForceLogError($"[Path] {fullPath}", nameof(HitsoundEffect));
 
-                        SoundMetaData soundMetaData = ResourceManager.CreateSoundMetaData(1, 1, 0, audioClip2);
-                        SoundData<SoundMetaData> soundData = new SoundData<SoundMetaData>("", false, soundMetaData);
-
-                        loadedHitsounds[hitsound.path] = new HitsoundInfo(soundData);
+                            loadedHitsounds.Add(hitsound.path, new HitsoundInfo());
+                        }
                     }
                     else if (File.Exists(path + ".nbs"))
                     {
-                        NBSFile nbsFile2 = NBSManager.ReadNBSFile(path + ".nbs");
-                        NBSMetaData nbsMetaData = ResourceManager.CreateNBSMetaData(1, 1, nbsFile2);
-                        SoundData<NBSMetaData> soundData = new SoundData<NBSMetaData>("", false, nbsMetaData);
+                        try
+                        {
+                            NBSFile nbsFile2 = NBSManager.ReadNBSFile(path + ".nbs");
+                            NBSMetaData nbsMetaData = ResourceManager.CreateNBSMetaData(1, 1, nbsFile2);
+                            SoundData<NBSMetaData> soundData = new SoundData<NBSMetaData>("", false, nbsMetaData);
 
-                        loadedHitsounds.Add(hitsound.path, new HitsoundInfo(soundData));
+                            loadedHitsounds.Add(hitsound.path, new HitsoundInfo(soundData));
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogException(e);
+                            Debug.ForceLogError($"[Path] {fullPath}", nameof(HitsoundEffect));
+
+                            loadedHitsounds.Add(hitsound.path, new HitsoundInfo());
+                        }
                     }
                     else
                         loadedHitsounds.Add(hitsound.path, new HitsoundInfo());

@@ -230,6 +230,10 @@ namespace SDJK.Map
 
 
 
+        public BeatValuePairList<TypeList<HitsoundFile>> playSounds { get; set; } = new(new TypeList<HitsoundFile>());
+
+
+
         public BeatValuePairAniListDouble hpAddValue { get; set; } = new(6.25);
         public BeatValuePairAniListDouble hpMissValue { get; set; } = new(25);
         public BeatValuePairAniListDouble hpRemoveValue { get; set; } = new(6.25);
