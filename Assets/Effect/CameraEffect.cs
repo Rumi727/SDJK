@@ -34,7 +34,7 @@ namespace SDJK.Effect
             //Camer Shake
             Vector3 drain = map.globalEffect.cameraShakeDrain.GetValue(RhythmManager.currentBeatScreen);
             {
-                double delay = map.globalEffect.cameraShakeDelay.GetValue(RhythmManager.currentBeatSound);
+                double delay = map.globalEffect.cameraShakeDelay.GetValue(RhythmManager.currentBeatScreen);
                 double time = RhythmManager.time - RhythmManager.time.Repeat(delay);
 
                 Random random = new Random((int)(map.info.randomSeed * time * 5387195).Repeat(int.MaxValue));
