@@ -119,7 +119,7 @@ namespace SDJK.Ruleset
 
         protected virtual void OnApplicationFocus(bool focus)
         {
-            if (!focus)
+            if (!focus && !isReplay)
                 Pause();
         }
 
