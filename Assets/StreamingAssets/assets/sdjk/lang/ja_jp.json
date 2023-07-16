@@ -78,6 +78,7 @@
 
 	"mode.difficulty.sudden_death": "サドンデス",
 	"mode.difficulty.sudden_death.info": "ノートを見逃す瞬間あなたの命はない",
+	"mode.difficulty.sudden_death.super_hexagon.info": "チューニングの終わりは純粋です",
 
 	"mode.difficulty.perfect": "完璧主義者",
 	"mode.difficulty.perfect.info": "SSでなければ死を！",
@@ -94,6 +95,8 @@
 	
 	"mode.converter.key_count": "キー数",
 	"mode.converter.key_count.info": "やはりキー数が多いと難しいと思います。 そうですか？",
+	"mode.converter.key_count.super_hexagon": "最大辺の数",
+	"mode.converter.key_count.super_hexagon.info": "やはり辺の数が多ければ難しいと思います。 そうですか？",
 	
 	"mode.converter.hold_off": "ホールド除去",
 	"mode.converter.hold_off.info": "ホールドノートを打つ途中でノートを打つのは本当に難しい！",

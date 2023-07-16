@@ -78,6 +78,7 @@
 
 	"mode.difficulty.sudden_death": "Sudden Death",
 	"mode.difficulty.sudden_death.info": "The moment you miss the note, your life is lost",
+	"mode.difficulty.sudden_death.super_hexagon.info": "튜닝의 끝은 순정이다",
 
 	"mode.difficulty.perfect": "Perfectionist",
 	"mode.difficulty.perfect.info": "SS or death!",
@@ -94,6 +95,8 @@
 	
 	"mode.converter.key_count": "Key Count",
 	"mode.converter.key_count.info": "I think it will be difficult if there are too many keys. Yes?",
+	"mode.converter.key_count.super_hexagon": "Maximum Sides",
+	"mode.converter.key_count.super_hexagon.info": "I think it will be difficult if there are too many sides. yes?",
 	
 	"mode.converter.hold_off": "Hold Off",
 	"mode.converter.hold_off.info": "It's really hard to hit a note in the middle of a hold note!",

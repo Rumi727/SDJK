@@ -78,6 +78,7 @@
 
 	"mode.difficulty.sudden_death": "서든 데스",
 	"mode.difficulty.sudden_death.info": "노트를 놓치는 순간 너의 목숨은 없다",
+	"mode.difficulty.sudden_death.super_hexagon.info": "튜닝의 끝은 순정이다",
 
 	"mode.difficulty.perfect": "완벽주의자",
 	"mode.difficulty.perfect.info": "SS가 아니면 죽음을!",
@@ -94,6 +95,8 @@
 	
 	"mode.converter.key_count": "키 개수",
 	"mode.converter.key_count.info": "역시 키 개수가 많으면 어려울 것 같아요. 그렇죠?",
+	"mode.converter.key_count.super_hexagon": "최대 변의 수",
+	"mode.converter.key_count.super_hexagon.info": "역시 변의 수가 많으면 어려울 것 같아요. 그렇죠?",
 	
 	"mode.converter.hold_off": "홀드 제거",
 	"mode.converter.hold_off.info": "홀드 노트를 치는 도중에 노트를 치는건 정말 어려워!",
