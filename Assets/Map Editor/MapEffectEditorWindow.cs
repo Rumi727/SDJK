@@ -55,6 +55,8 @@ namespace SDJK.MapEditor
 
                 void Recursion(object targetObject, PropertyInfo propertyInfo, int tab)
                 {
+                    InfiniteLoopDetector.Run();
+
                     EditorGUILayout.BeginHorizontal();
                     CustomInspectorEditor.TabSpace(tab);
 
@@ -75,6 +77,8 @@ namespace SDJK.MapEditor
 
                     bool Field(string fieldName, object currentObject, out object outObject, bool isList, int tab)
                     {
+                        InfiniteLoopDetector.Run();
+
                         Type type = currentObject.GetType();
 
                         if (type == typeof(bool))
@@ -298,7 +302,7 @@ namespace SDJK.MapEditor
                         }
                         else
                         {
-                            PropertyInfo[] propertyInfos = type.GetProperties();
+                            PropertyInfo[] propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
                             for (int i = 0; i < propertyInfos.Length; i++)
                             {
                                 PropertyInfo propertyInfo2 = propertyInfos[i];
@@ -397,7 +401,9 @@ namespace SDJK.MapEditor
 
         void ReflectionRecursion(Type type, TreeViewItem item, object targetObject, ref int id)
         {
-            PropertyInfo[] propertyInfos = type.GetProperties();
+            InfiniteLoopDetector.Run();
+
+            PropertyInfo[] propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             for (int i = 0; i < propertyInfos.Length; i++)
             {
                 PropertyInfo propertyInfo = propertyInfos[i];
