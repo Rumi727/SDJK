@@ -117,6 +117,12 @@ namespace SDJK.Ruleset
             AudioDestroy();
         }
 
+        protected virtual void OnApplicationFocus(bool focus)
+        {
+            if (!focus)
+                Pause();
+        }
+
         public virtual bool Refresh(TMapFile map, TReplayFile replay, TRuleset ruleset, bool isEditor, IMode[] modes)
         {
             if (SingletonCheck(this))
@@ -236,9 +242,7 @@ namespace SDJK.Ruleset
 
         public virtual void Pause()
         {
-            if (isGameOver)
-                return;
-            else if (isPaused)
+            if (isGameOver || isPaused || isClear)
                 return;
 
             pauseScreen.Show();
