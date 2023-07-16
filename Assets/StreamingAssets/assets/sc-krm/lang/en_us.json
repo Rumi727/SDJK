@@ -98,6 +98,7 @@
 	
 	"options.sound.title": "Sound",
 	"options.sound.mainVolume": "Main",
+	"options.sound.mainVolumeNoFocus": "Main (Inactive Window)",
 	"options.sound.bgmVolume": "Music",
 	"options.sound.soundVolume": "SFX",
 	"options.sound.noteBlockVolume": "Note Block",

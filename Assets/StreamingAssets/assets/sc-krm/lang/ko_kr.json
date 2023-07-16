@@ -98,6 +98,7 @@
 	
 	"options.sound.title": "소리",
 	"options.sound.mainVolume": "메인",
+	"options.sound.mainVolumeNoFocus": "메인 (비활성 창)",
 	"options.sound.bgmVolume": "음악",
 	"options.sound.soundVolume": "효과음",
 	"options.sound.noteBlockVolume": "노트 블록",

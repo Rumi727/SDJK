@@ -98,6 +98,7 @@
 	
 	"options.sound.title": "音",
 	"options.sound.mainVolume": "メイン",
+	"options.sound.mainVolumeNoFocus": "メイン (非アクティブウィンドウ)",
 	"options.sound.bgmVolume": "音楽",
 	"options.sound.soundVolume": "効果音",
 	"options.sound.noteBlockVolume": "ノートブロック",

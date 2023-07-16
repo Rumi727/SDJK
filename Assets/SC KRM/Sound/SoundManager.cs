@@ -38,11 +38,21 @@ namespace SCKRM.Sound
                     {
                         //볼륨을 사용자가 설정한 볼륨으로 조정시킵니다. 사용자가 설정한 볼륨은 int 0 ~ 200 이기 때문에 0.01을 곱해주어야 하고,
                         //100 ~ 200 볼륨이 먹혀야하기 때문에 0.5로 볼륨을 낮춰야하기 때문에 0.005를 곱합니다
-                        AudioListener.volume = value.Clamp(0, 200) * 0.005f;
+                        AudioListener.volume = value.Clamp(0, 200) * 0.005f * (Application.isFocused ? 1f : mainVolumeNoFocus * 0.01f);
                     }
                 }
             }
             static int _mainVolume = 100;
+            static int _mainVolumeNoFocus = 25; [JsonProperty] public static int mainVolumeNoFocus
+            {
+                get => _mainVolumeNoFocus.Clamp(0, 200);
+                set
+                {
+                    _mainVolumeNoFocus = value;
+                    mainVolume = mainVolume;
+                }
+            }
+
             static int _bgmVolume = 100; [JsonProperty] public static int bgmVolume { get => _bgmVolume.Clamp(0, 200); set => _bgmVolume = value; }
             static int _soundVolume = 100; [JsonProperty] public static int soundVolume { get => _soundVolume.Clamp(0, 200); set => _soundVolume = value; }
 
@@ -108,6 +118,8 @@ namespace SCKRM.Sound
                 lastGameSpeed = Kernel.gameSpeed;
             }
         }
+
+        void OnApplicationFocus(bool focus) => SaveData.mainVolume = SaveData.mainVolume;
 
         /// <summary>
         /// It should only run on the main thread
