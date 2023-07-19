@@ -38,7 +38,7 @@ namespace SCKRM.Sound
                     {
                         //볼륨을 사용자가 설정한 볼륨으로 조정시킵니다. 사용자가 설정한 볼륨은 int 0 ~ 200 이기 때문에 0.01을 곱해주어야 하고,
                         //100 ~ 200 볼륨이 먹혀야하기 때문에 0.5로 볼륨을 낮춰야하기 때문에 0.005를 곱합니다
-                        AudioListener.volume = value.Clamp(0, 200) * 0.005f * (Application.isFocused ? 1f : mainVolumeNoFocus * 0.01f);
+                        AudioListener.volume = value.Clamp(0, 200) * 0.005f * mainVolumeNoFocusAni;
                     }
                 }
             }
@@ -107,7 +107,9 @@ namespace SCKRM.Sound
 
         void Awake() => SingletonCheck(this);
 
-        float lastGameSpeed = Kernel.gameSpeed;
+        static float lastGameSpeed = Kernel.gameSpeed;
+        static float mainVolumeNoFocusAni = 1;
+        static float lastMainVolumeNoFocusAni = 1;
         void Update()
         {
             if (Kernel.gameSpeed != lastGameSpeed)
@@ -116,6 +118,17 @@ namespace SCKRM.Sound
                     soundList[i].RefreshTempoAndPitch();
 
                 lastGameSpeed = Kernel.gameSpeed;
+            }
+
+            if (Application.isFocused)
+                mainVolumeNoFocusAni = mainVolumeNoFocusAni.MoveTowards(1, 0.03f * Kernel.fpsDeltaTime);
+            else
+                mainVolumeNoFocusAni = mainVolumeNoFocusAni.MoveTowards(SaveData.mainVolumeNoFocus * 0.01f, 0.01f * Kernel.fpsDeltaTime);
+
+            if (lastMainVolumeNoFocusAni != mainVolumeNoFocusAni)
+            {
+                SaveData.mainVolume = SaveData.mainVolume;
+                lastMainVolumeNoFocusAni = mainVolumeNoFocusAni;
             }
         }
 
