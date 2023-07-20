@@ -12,16 +12,23 @@ using UnityEngine.UI;
 
 namespace SDJK.Effect
 {
-    [RequireComponent(typeof(Image)), RequireComponent(typeof(CanvasGroup))]
+    [RequireComponent(typeof(RawImage)), RequireComponent(typeof(RawImageUVPos)), RequireComponent(typeof(CanvasGroup))]
     public sealed class BackgroundEffectPrefab : UIObjectPoolingBase
     {
-        public Image image => this.GetComponentFieldSave(_image); [SerializeField] Image _image;
+        public RawImage rawImage => this.GetComponentFieldSave(_rawImage); [SerializeField] RawImage _rawImage;
+        public RawImageUVPos rawImageUVPos => this.GetComponentFieldSave(_rawImageUVPos); [SerializeField] RawImageUVPos _rawImageUVPos;
         public CanvasGroup canvasGroup => this.GetComponentFieldSave(_canvasGroup); [SerializeField] CanvasGroup _canvasGroup;
 
         public EffectManager effectManager { get; private set; } = null;
         public MapFile map { get; private set; }
 
         public bool isRemoveQueue { get; set; } = false;
+
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            transform.localScale = new Vector3(3, 3, 1);
+        }
 
         bool refreshed = false;
         public void Refresh(EffectManager effectManager)
@@ -41,9 +48,37 @@ namespace SDJK.Effect
 
         float timeoutTimer = 0;
         string tempTexturePath = "";
-        Dictionary<string, Sprite> loadedSprites = new Dictionary<string, Sprite>();
+        Dictionary<string, Texture2D> loadedSprites = new Dictionary<string, Texture2D>();
         void Update()
         {
+            BackgroundEffectPair background = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen);
+
+            if (background.positionUnfreeze)
+            {
+                Vector2 pos;
+                pos = effectManager.mainCamera.WorldToViewportPoint(Vector3.zero);
+
+                pos.x *= canvas.pixelRect.width;
+                pos.y *= canvas.pixelRect.height;
+
+                pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
+                pos /= canvas.scaleFactor;
+
+                rawImageUVPos.position = pos;
+            }
+            else
+                rawImageUVPos.position = Vector2.zero;
+
+            if (background.rotationUnfreeze)
+                rectTransform.localEulerAngles = new Vector3(0, 0, -effectManager.mainCamera.transform.localEulerAngles.z);
+            else
+                rectTransform.localEulerAngles = Vector2.zero;
+
+            if (background.scaleUnfreeze)
+                rectTransform.anchoredPosition3D = new Vector3(0, 0, -((effectManager.mainCamera.transform.position.z + CameraEffect.defaultDistance) / canvas.transform.localScale.z));
+            else
+                rectTransform.anchoredPosition3D = Vector3.zero;
+
             if (!isRemoveQueue && loadedSprites.Count > 0 && map == effectManager.selectedMap)
             {
                 //1초동안 배경이 로딩되지 않았으면 알파값이 1이 될때까지 텍스쳐를 변경하지 않음
@@ -53,13 +88,13 @@ namespace SDJK.Effect
                     string texturePath;
                     if (now.Hour >= 0 && now.Hour < 4)
                     {
-                        texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundNightFile;
+                        texturePath = background.backgroundNightFile;
 
                         if (string.IsNullOrEmpty(texturePath))
-                            texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundFile;
+                            texturePath = background.backgroundFile;
                     }
                     else
-                        texturePath = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen).backgroundFile;
+                        texturePath = background.backgroundFile;
 
                     if (texturePath != tempTexturePath)
                     {
@@ -73,10 +108,10 @@ namespace SDJK.Effect
                 }
             }
 
-            if (loadedSprites.Count > 0 && image.sprite != null)
+            if (loadedSprites.Count > 0 && rawImage.texture != null)
             {
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-                image.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
+                rawImage.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
             }
             else
             {
@@ -84,11 +119,11 @@ namespace SDJK.Effect
                 if (timeoutTimer >= 1)
                 {
                     canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-                    image.color = Color.black;
+                    rawImage.color = Color.black;
                 }
                 else
                 {
-                    image.color = Color.clear;
+                    rawImage.color = Color.clear;
                     timeoutTimer += Kernel.unscaledDeltaTime;
                 }
             }
@@ -107,10 +142,10 @@ namespace SDJK.Effect
                     string backgroundNight = backgroundEffect.backgroundNightFile;
 
                     string texturePath = PathUtility.Combine(map.mapFilePathParent, background);
-                    Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
+                    Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, TextureWrapMode.Repeat, true, TextureMetaData.CompressionType.none);
 
                     if (texture != null && !loadedSprites.ContainsKey(background))
-                        loadedSprites.Add(background, ResourceManager.GetSprite(texture));
+                        loadedSprites.Add(background, texture);
 
                     if (!Kernel.isPlaying || isRemoved || IsDestroyed())
                     {
@@ -119,10 +154,10 @@ namespace SDJK.Effect
                     }
 
                     string nightTexturePath = PathUtility.Combine(map.mapFilePathParent, backgroundNight);
-                    Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
+                    Texture2D nightTexture = await ResourceManager.GetTextureAsync(nightTexturePath, false, FilterMode.Bilinear, TextureWrapMode.Repeat, true, TextureMetaData.CompressionType.none);
 
                     if (nightTexture != null && !loadedSprites.ContainsKey(backgroundNight))
-                        loadedSprites.Add(backgroundNight, ResourceManager.GetSprite(nightTexture));
+                        loadedSprites.Add(backgroundNight, texture);
 
                     if (!Kernel.isPlaying || isRemoved || IsDestroyed())
                     {
@@ -141,7 +176,7 @@ namespace SDJK.Effect
         async UniTaskVoid TextureChange(string texturePath)
         {
             await UniTask.WaitUntil(() => loadedSprites.ContainsKey(texturePath), PlayerLoopTiming.Update, textureChangeCancelSource.Token);
-            image.sprite = loadedSprites[texturePath];
+            rawImage.texture = loadedSprites[texturePath];
         }
 
         public override void Remove()
@@ -149,12 +184,17 @@ namespace SDJK.Effect
             base.Remove();
 
             tempTexturePath = "";
-            image.color = Color.black;
+            rawImage.color = Color.black;
             canvasGroup.alpha = 0;
             refreshed = false;
             effectManager = null;
             isRemoveQueue = false;
             timeoutTimer = 0;
+
+            rawImageUVPos.position = Vector2.zero;
+            transform.localEulerAngles = Vector2.zero;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.anchoredPosition3D = Vector3.zero;
 
             TextureDestroy();
         }
@@ -168,22 +208,16 @@ namespace SDJK.Effect
                 if (item.Value != null)
                 {
                     if (Kernel.isPlaying)
-                    {
-                        Destroy(item.Value.texture);
                         Destroy(item.Value);
-                    }
                     else
-                    {
-                        DestroyImmediate(item.Value.texture);
                         DestroyImmediate(item.Value);
-                    }
                 }
             }
 
             loadedSprites.Clear();
 
             if (Kernel.isPlaying)
-                image.sprite = null;
+                rawImage.texture = null;
         }
     }
 }

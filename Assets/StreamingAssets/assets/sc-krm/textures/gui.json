@@ -1,5 +1,6 @@
 {
-  "Filter Mode": 1,
-  "Mipmap Use": true,
-  "Compression": 1
+  "filterMode": 1,
+  "mipmapUse": true,
+  "compressionType": 1,
+  "warpMode": 1
 }

@@ -56,8 +56,16 @@ namespace SCKRM.UI
             float ySize = LayoutUtility.GetPreferredSize(targetRectTransform, 1);
 
             float aspectRatio = xSize / ySize;
+
+            if (graphic is RawImage)
+            {
+                RawImage rawImage = (RawImage)graphic;
+                if (rawImage.texture != null)
+                    aspectRatio = (float)rawImage.texture.width / rawImage.texture.height;
+            }
+
             if (float.IsNormal(aspectRatio))
-                this.aspectRatio = xSize / ySize;
+                this.aspectRatio = aspectRatio;
             else
                 this.aspectRatio = 1;
         }

@@ -168,7 +168,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     string texturePath = selectedMap.globalEffect.background[0].value.backgroundFile;
                     texturePath = PathUtility.Combine(selectedMap.mapFilePathParent, texturePath);
 
-                    Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, true, TextureMetaData.CompressionType.none);
+                    Texture2D texture = await ResourceManager.GetTextureAsync(texturePath, false, FilterMode.Bilinear, TextureWrapMode.Clamp, true, TextureMetaData.CompressionType.none);
                     if (!Kernel.isPlaying || isRemoved || IsDestroyed())
                     {
                         TextureDestroy();

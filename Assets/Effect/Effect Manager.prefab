@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 1408405981388133528}
   - component: {fileID: 1408405981388133530}
   - component: {fileID: 1015002862377895578}
-  - component: {fileID: 1967383904992561625}
+  - component: {fileID: 8371528525992227336}
   - component: {fileID: 1408405981388133531}
   m_Layer: 6
   m_Name: Background Setting
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentRectTransform: {fileID: 0}
   _rectTransform: {fileID: 1408405981388133528}
-  _graphic: {fileID: 1967383904992561625}
+  _graphic: {fileID: 8371528525992227336}
 --- !u!222 &1015002862377895578
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408405981388133529}
   m_CullTransparentMesh: 1
---- !u!114 &1967383904992561625
+--- !u!114 &8371528525992227336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1091,6 +1091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4677e109f2c68b84781b603f59743324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 1408405981619606514}
   _effects:
   - {fileID: 1408405981388133531}
   - {fileID: 1408405981375181737}

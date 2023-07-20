@@ -273,10 +273,45 @@ namespace SDJK.Map
         }
         string _backgroundNightFile;
 
+        public bool positionUnfreeze
+        {
+            get => _positionUnfreeze;
+            set => _positionUnfreeze = value;
+        }
+        bool _positionUnfreeze;
+
+        public bool rotationUnfreeze
+        {
+            get => _rotationUnfreeze;
+            set => _rotationUnfreeze = value;
+        }
+        bool _rotationUnfreeze;
+
+        public bool scaleUnfreeze
+        {
+            get => _scaleUnfreeze;
+            set => _scaleUnfreeze = value;
+        }
+        bool _scaleUnfreeze;
+
         public BackgroundEffectPair(string backgroundFile, string backgroundNightFile)
         {
             _backgroundFile = backgroundFile;
             _backgroundNightFile = backgroundNightFile;
+
+            _positionUnfreeze = false;
+            _rotationUnfreeze = false;
+            _scaleUnfreeze = false;
+        }
+
+        public BackgroundEffectPair(string backgroundFile, string backgroundNightFile, bool positionUnfreeze, bool rotationUnfreeze, bool scaleUnfreeze)
+        {
+            _backgroundFile = backgroundFile;
+            _backgroundNightFile = backgroundNightFile;
+
+            _positionUnfreeze = positionUnfreeze;
+            _rotationUnfreeze = rotationUnfreeze;
+            _scaleUnfreeze = scaleUnfreeze;
         }
     }
 

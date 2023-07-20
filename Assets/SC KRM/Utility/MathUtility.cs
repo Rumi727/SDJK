@@ -1214,6 +1214,124 @@ namespace SCKRM
         }
         #endregion
 
+        #region Inverse Lerp Unclamped
+        public static sbyte InverseLerpUnclamped(this sbyte a, sbyte b, sbyte t)
+        {
+            if (a != b)
+                return (sbyte)((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static byte InverseLerpUnclamped(this byte a, byte b, byte t)
+        {
+            if (a != b)
+                return (byte)((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static short InverseLerpUnclamped(this short a, short b, short t)
+        {
+            if (a != b)
+                return (short)((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static ushort InverseLerpUnclamped(this ushort a, ushort b, ushort t)
+        {
+            if (a != b)
+                return (ushort)((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static int InverseLerpUnclamped(this int a, int b, int t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static uint InverseLerpUnclamped(this uint a, uint b, uint t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static long InverseLerpUnclamped(this long a, long b, long t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static ulong InverseLerpUnclamped(this ulong a, ulong b, ulong t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static float InverseLerpUnclamped(this float a, float b, float t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static double InverseLerpUnclamped(this double a, double b, double t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static decimal InverseLerpUnclamped(this decimal a, decimal b, decimal t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static BigInteger InverseLerpUnclamped(this BigInteger a, BigInteger b, BigInteger t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+
+        [WikiIgnore]
+        public static BigDecimal InverseLerpUnclamped(this BigDecimal a, BigDecimal b, BigDecimal t)
+        {
+            if (a != b)
+                return ((t - a) / (b - a));
+
+            return 0;
+        }
+        #endregion
+
         public static bool IsPowerOfTwo(this int value) => Mathf.IsPowerOfTwo(value);
 
         #region Lerp

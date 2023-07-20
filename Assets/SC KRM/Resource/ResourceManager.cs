@@ -9,6 +9,7 @@ using SCKRM.Sound;
 using SCKRM.Threads;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -1339,9 +1340,9 @@ Various formats are supported. Among them, there are formats supported by SC KRM
             if (textureMetaData == null)
             {
                 textureMetaData = new TextureMetaData();
-                return GetTextureAsync(path, true, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
+                return GetTextureAsync(path, true, textureMetaData.filterMode, textureMetaData.warpMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
             }
-            return GetTextureAsync(path, true, FilterMode.Point, true, TextureMetaData.CompressionType.none, textureFormat, hideFlags);
+            return GetTextureAsync(path, true, FilterMode.Point, TextureWrapMode.Clamp, true, TextureMetaData.CompressionType.none, textureFormat, hideFlags);
         }
 
         /// <summary>
@@ -1362,7 +1363,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
         /// 텍스쳐 포맷
         /// </param>
         /// <returns></returns>
-        [WikiIgnore] public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave) => GetTextureAsync(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
+        [WikiIgnore] public static UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, TextureMetaData textureMetaData, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave) => GetTextureAsync(path, pathExtensionUse, textureMetaData.filterMode, textureMetaData.warpMode, textureMetaData.mipmapUse, textureMetaData.compressionType, textureFormat, hideFlags);
 
         /// <summary>
         /// 이미지 파일을 Texture2D 타입으로 비동기로 가져옵니다
@@ -1383,7 +1384,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
         /// </param>
         /// <returns></returns>
         [WikiIgnore]
-        public static async UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, FilterMode filterMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
+        public static async UniTask<Texture2D> GetTextureAsync(string path, bool pathExtensionUse, FilterMode filterMode, TextureWrapMode wrapMode, bool mipmapUse, TextureMetaData.CompressionType compressionType, TextureFormat textureFormat = TextureFormat.RGBA32, HideFlags hideFlags = HideFlags.DontSave)
         {
             if (!ThreadManager.isMainThread)
                 throw new NotMainThreadMethodException();
@@ -1436,6 +1437,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
                 allLoadedResources.Add(texture);
 
                 texture.hideFlags = hideFlags;
+                texture.wrapMode = TextureWrapMode.Repeat;
 
                 if (compressionType == TextureMetaData.CompressionType.normal)
                     texture.Compress(false);
@@ -2388,9 +2390,10 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
 
     public class TextureMetaData
     {
-        [JsonProperty("Filter Mode")] public FilterMode filterMode = FilterMode.Point;
-        [JsonProperty("Mipmap Use")] public bool mipmapUse = true;
-        [JsonProperty("Compression")] public CompressionType compressionType = CompressionType.none;
+        public FilterMode filterMode = FilterMode.Point;
+        public bool mipmapUse = true;
+        public CompressionType compressionType = CompressionType.none;
+        public TextureWrapMode warpMode = TextureWrapMode.Clamp;
 
         public enum CompressionType
         {

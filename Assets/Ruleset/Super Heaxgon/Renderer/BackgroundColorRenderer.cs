@@ -28,7 +28,7 @@ namespace SDJK.Ruleset.SuperHexagon.Renderer
                 else
                     color = this.color;
 
-                bool backgroundImageShow = backgroundEffect != null && backgroundEffect.background != null && !backgroundEffect.background.isRemoved && backgroundEffect.background.image.sprite != null;
+                bool backgroundImageShow = backgroundEffect != null && backgroundEffect.background != null && !backgroundEffect.background.isRemoved && backgroundEffect.background.rawImage.texture != null;
                 bool videoShow = videoEffect != null && videoEffect.video != null && !videoEffect.video.isRemoved;
 
                 if (backgroundImageShow || videoShow)

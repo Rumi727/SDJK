@@ -8,6 +8,8 @@ namespace SDJK.Effect
 {
     public sealed class EffectManager : MonoBehaviour
     {
+        [SerializeField] Camera _mainCamera; public Camera mainCamera => _mainCamera;
+
         public IRuleset selectedRuleset { get; set; }
         public IMode[] selectedModes { get; set; }
 
