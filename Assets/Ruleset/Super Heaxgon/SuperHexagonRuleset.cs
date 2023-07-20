@@ -10,6 +10,7 @@ using SDJK.Map;
 using SDJK.Ruleset.SuperHexagon.Judgement;
 using SDJK.Ruleset.SuperHexagon.GameOver;
 using SCKRM.Sound;
+using SCKRM;
 
 namespace SDJK.Ruleset.SuperHexagon
 {
@@ -48,14 +49,23 @@ namespace SDJK.Ruleset.SuperHexagon
 
             base.GameStart(mapFilePath, replayFilePath, isEditor, modes);
 
-            await SceneManager.LoadScene(4);
+            SuperHexagonMapFile map = null;
+            SuperHexagonReplayFile replay = null;
+
+            await SceneManager.LoadScene(4, () => UniTask.RunOnThreadPool(MapLoad));
             await UniTask.NextFrame();
 
-            SuperHexagonReplayFile replay = null;
-            if (replayFilePath != null)
-                replay = ReplayLoader.ReplayLoad<SuperHexagonReplayFile>(replayFilePath, out modes);
+            void MapLoad()
+            {
+                replay = null;
+                if (replayFilePath != null)
+                    replay = ReplayLoader.ReplayLoad<SuperHexagonReplayFile>(replayFilePath, out modes);
 
-            SuperHexagonMapFile map = MapLoader.MapLoad<SuperHexagonMapFile>(mapFilePath, false, modes);
+                map = MapLoader.MapLoad<SuperHexagonMapFile>(mapFilePath, false, modes);
+            }
+
+            if (!Kernel.isPlaying)
+                return;
 
             /*if (modes.FindMode<AutoModeBase>() != null)
                 replay = GetAutoModeReplayFile(map, modes);*/

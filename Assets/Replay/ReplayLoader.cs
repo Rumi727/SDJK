@@ -192,7 +192,7 @@ namespace SDJK.Replay
             replay.mapId = map.info.id;
 
             replay.sckrmVersion = Kernel.sckrmVersion;
-            replay.sdjkVersion = new Version(Application.version);
+            replay.sdjkVersion = new Version(Kernel.version);
 
             replay.clearUTCTime = NTPDateTime.utcNow;
             replay.ruleset = map.info.ruleset;

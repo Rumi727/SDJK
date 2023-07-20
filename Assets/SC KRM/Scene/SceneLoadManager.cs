@@ -12,22 +12,27 @@ namespace SCKRM.Scene
 
         public static event Action activeSceneChanged;
 
-        public static async UniTask LoadScene(int sceneBuildIndex) => await loadScene(sceneBuildIndex);
-
-        static async UniTask loadScene(int sceneBuildIndex)
+        public static UniTask LoadScene(int sceneBuildIndex, Func<UniTask> loadingDelay = null)
         {
             if (isLoading)
             {
                 Debug.LogWarning("Could not load another scene while loading scene");
-                return;
+                return UniTask.CompletedTask;
             }
-            
+
+            return loadScene(sceneBuildIndex, loadingDelay);
+        }
+
+        static async UniTask loadScene(int sceneBuildIndex, Func<UniTask> loadingDelay)
+        {
             isLoading = true;
             isDone = false;
 
             try
             {
                 LoadingAni loadingAni = LoadingAniManager.LoadingStart();
+
+                loadingAni.progress = 0;
                 loadingAni.maxProgress = 1;
 
                 await UniTask.WaitUntil(() => loadingAni.isStartAniEnd || loadingAni.isRemoved);
@@ -47,13 +52,21 @@ namespace SCKRM.Scene
                 AsyncOperation asyncOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneBuildIndex);
                 asyncOperation.allowSceneActivation = false;
 
+                if (loadingDelay != null)
+                    await loadingDelay.Invoke();
+
                 while (!asyncOperation.isDone || !asyncOperation.allowSceneActivation)
                 {
-                    loadingAni.progress = asyncOperation.progress + 0.1f;
-                    asyncOperation.allowSceneActivation = loadingAni.isLongLoadingAniEnd && loadingAni.progress >= 1;
+                    if (asyncOperation.progress >= 0.89f)
+                        loadingAni.progress = 1;
+                    else
+                        loadingAni.progress = asyncOperation.progress;
 
+                    asyncOperation.allowSceneActivation = loadingAni.isLongLoadingAniEnd && asyncOperation.progress >= 0.89f;
                     await UniTask.NextFrame(PlayerLoopTiming.Initialization);
                 }
+
+                loadingAni.progress = 1;
             }
             finally
             {

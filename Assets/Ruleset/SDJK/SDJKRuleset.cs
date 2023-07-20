@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using SDJK.Mode.Automatic;
 using SDJK.Replay.Ruleset.SDJK;
 using SDJK.Ruleset.SDJK.GameOver;
+using SCKRM;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -64,17 +65,26 @@ namespace SDJK.Ruleset.SDJK
 
             base.GameStart(mapFilePath, replayFilePath, isEditor, modes);
 
-            await SceneManager.LoadScene(3);
+            SDJKMapFile map = null;
+            SDJKReplayFile replay = null;
+
+            await SceneManager.LoadScene(3, () => UniTask.RunOnThreadPool(MapLoad));
             await UniTask.NextFrame();
 
-            SDJKReplayFile replay = null;
-            if (replayFilePath != null)
-                replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath, out modes);
+            void MapLoad()
+            {
+                replay = null;
+                if (replayFilePath != null)
+                    replay = ReplayLoader.ReplayLoad<SDJKReplayFile>(replayFilePath, out modes);
 
-            SDJKMapFile map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath, false, modes);
+                map = MapLoader.MapLoad<SDJKMapFile>(mapFilePath, false, modes);
 
-            if (modes.FindMode<AutoModeBase>() != null)
-                replay = GetAutoModeReplayFile(map, modes);
+                if (modes.FindMode<AutoModeBase>() != null)
+                    replay = GetAutoModeReplayFile(map, modes);
+            }
+
+            if (!Kernel.isPlaying)
+                return;
 
             Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SDJKInputManager>(true).Refresh();

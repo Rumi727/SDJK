@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using SCKRM;
 using SCKRM.Input;
 using SCKRM.Object;
@@ -103,19 +104,11 @@ namespace SDJK.Ruleset.SDJK
             if (InputManager.controlSettingList.TryGetValue(inputKey, out List<KeyCode> value) && value.Count > 0)
                 keyText.text = value[0].KeyCodeToString();
 
-            NoteRefresh();
+            NoteRefresh().Forget();
 
             backgroundCustomSpriteRendererBase.spriteTag = tag;
             customSpriteRendererBase.spriteTag = tag;
             keyCustomSpriteRendererBase.spriteTag = tag;
-
-            for (int i = 0; i < createdNotes.Count; i++)
-            {
-                Note note = createdNotes[i];
-
-                note.customSpriteRendererBase.spriteTag = tag;
-                note.holdNoteCustomSpriteRendererBase.spriteTag = tag;
-            }
         }
 
         void NoteAllRemove()
@@ -126,9 +119,10 @@ namespace SDJK.Ruleset.SDJK
             createdNotes.Clear();
         }
 
-        void NoteRefresh()
+        async UniTaskVoid NoteRefresh()
         {
             NoteAllRemove();
+            string tag = map.notes.Count + "." + barIndex;
 
             if (map.notes.Count > barIndex)
             {
@@ -140,6 +134,17 @@ namespace SDJK.Ruleset.SDJK
 
                     note.Refresh(this, noteFile, i);
                     createdNotes.Add(note);
+
+                    note.customSpriteRendererBase.spriteTag = tag;
+                    note.holdNoteCustomSpriteRendererBase.spriteTag = tag;
+
+                    note.customSpriteRendererBase.Refresh();
+                    note.holdNoteCustomSpriteRendererBase.Refresh();
+
+                    await UniTask.NextFrame();
+
+                    if (!Kernel.isPlaying || IsDestroyed() || isRemoved)
+                        return;
                 }
             }
         }
