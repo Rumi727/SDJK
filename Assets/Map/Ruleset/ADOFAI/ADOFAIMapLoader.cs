@@ -66,15 +66,15 @@ namespace SDJK.Map.Ruleset.ADOFAI
                             adofaiMap.info.difficultyLabel = "ADOFAI";
                     }
 
-                    adofaiMap.globalEffect.background.Add(new BackgroundEffectPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""));
+                    adofaiMap.globalEffect.backgroundEffect.background.Add(new BackgroundFileInfoPair(Path.GetFileNameWithoutExtension(adofai.settings.bgImage), ""));
 
                     if (("#" + adofai.settings.bgImageColor).TryHexToColor(out Color result))
-                        adofaiMap.globalEffect.backgroundColor.Add(result);
+                        adofaiMap.globalEffect.backgroundEffect.backgroundColor.Add(result);
                     else
-                        adofaiMap.globalEffect.backgroundColor.Add(JColor.one);
+                        adofaiMap.globalEffect.backgroundEffect.backgroundColor.Add(JColor.one);
 
                     adofaiMap.info.videoBackgroundFile = Path.GetFileNameWithoutExtension(adofai.settings.bgVideo);
-                    adofaiMap.globalEffect.videoColor.Add(JColor.one);
+                    adofaiMap.globalEffect.backgroundEffect.videoColor.Add(JColor.one);
                     adofaiMap.info.videoOffset = (adofai.settings.vidOffset - adofai.settings.offset) * 0.001f;
 
                     adofaiMap.info.songFile = Path.GetFileNameWithoutExtension(adofai.settings.songFilename);
@@ -502,15 +502,15 @@ namespace SDJK.Map.Ruleset.ADOFAI
                         if (action.ContainsKey("imageColor"))
                         {
                             if (("#" + action["imageColor"]).TryHexToColor(out Color result))
-                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, result, EasingFunction.Ease.Linear);
+                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundEffect.backgroundColor, beat, 0, result, EasingFunction.Ease.Linear);
                             else
-                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundColor, beat, 0, JColor.one, EasingFunction.Ease.Linear);
+                                effect.action += (double beat) => EffectAddMethod2(adofaiMap.globalEffect.backgroundEffect.backgroundColor, beat, 0, JColor.one, EasingFunction.Ease.Linear);
                         }
 
                         if (action.ContainsKey("bgImage"))
                         {
                             string background = Path.GetFileNameWithoutExtension(action["bgImage"].Value<string>());
-                            effect.action += (double beat) => EffectAddMethod(adofaiMap.globalEffect.background, beat, new BackgroundEffectPair(background, ""));
+                            effect.action += (double beat) => EffectAddMethod(adofaiMap.globalEffect.backgroundEffect.background, beat, new BackgroundFileInfoPair(background, ""));
                         }
                     }
                     else if (eventType == "Flash")

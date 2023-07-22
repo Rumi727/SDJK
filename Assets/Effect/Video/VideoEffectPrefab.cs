@@ -126,7 +126,7 @@ namespace SDJK.Effect
                 if (videoPlayer.width != renderTexture.width || videoPlayer.height != renderTexture.height)
                     SetResolution();
 
-                rawImage.color = map.globalEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
+                rawImage.color = map.globalEffect.backgroundEffect.videoColor.GetValue(RhythmManager.currentBeatScreen);
 
                 double time = RhythmManager.internalTime + offset;
                 if (time >= 0 && time < videoPlayer.length - 0.1f)

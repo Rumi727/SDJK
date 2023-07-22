@@ -26,7 +26,7 @@ namespace SDJK.Effect
         }
 
         MapPack lastMapPack;
-        BeatValuePairList<BackgroundEffectPair> lastBackgrounds = new BeatValuePairList<BackgroundEffectPair>(default);
+        BeatValuePairList<BackgroundFileInfoPair> lastBackgrounds = new BeatValuePairList<BackgroundFileInfoPair>(default);
         public override void Refresh(bool force = false)
         {
             if (force || BackgroundCheck() || lastMapPack != mapPack)
@@ -40,20 +40,20 @@ namespace SDJK.Effect
                 background = (BackgroundEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
                 background.Refresh(effectManager);
 
-                lastBackgrounds.CopyTo(map.globalEffect.background.ToArray());
+                lastBackgrounds.CopyTo(map.globalEffect.backgroundEffect.background.ToArray());
                 lastMapPack = mapPack;
             }
         }
 
         bool BackgroundCheck()
         {
-            if (lastBackgrounds.Count != map.globalEffect.background.Count)
+            if (lastBackgrounds.Count != map.globalEffect.backgroundEffect.background.Count)
                 return true;
 
-            for (int i = 0; i < map.globalEffect.background.Count; i++)
+            for (int i = 0; i < map.globalEffect.backgroundEffect.background.Count; i++)
             {
-                BeatValuePair<BackgroundEffectPair> lastBackground = lastBackgrounds[i];
-                BeatValuePair<BackgroundEffectPair> background = map.globalEffect.background[i];
+                BeatValuePair<BackgroundFileInfoPair> lastBackground = lastBackgrounds[i];
+                BeatValuePair<BackgroundFileInfoPair> background = map.globalEffect.backgroundEffect.background[i];
 
                 if (lastBackground.Equals(background) || lastBackground.Equals(background))
                     return true;

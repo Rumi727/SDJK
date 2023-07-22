@@ -54,12 +54,13 @@ namespace SDJK.Effect
             if (!isRemoveQueue && loadedSprites.Count > 0 && map == effectManager.selectedMap)
             {
                 double currentBeat = RhythmManager.currentBeatScreen;
-                BackgroundEffectPair background = map.globalEffect.background.GetValue(currentBeat);
+                MapGlobalEffect.BackgroundEffect backgroundEffect = map.globalEffect.backgroundEffect;
+                BackgroundFileInfoPair background = backgroundEffect.background.GetValue(currentBeat);
 
                 //Background Position, Rotation, Scale Effect
                 {
                     Transform mainCamera = effectManager.mainCamera.transform;
-                    if (background.positionUnfreeze)
+                    if (backgroundEffect.positionUnfreeze.GetValue(currentBeat))
                     {
                         Vector2 pos;
                         pos = effectManager.mainCamera.WorldToViewportPoint(Vector3.zero);
@@ -70,28 +71,28 @@ namespace SDJK.Effect
                         pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
                         pos /= canvas.scaleFactor;
 
-                        rawImageUVPos.position = (pos * background.positionFactor.GetValue(currentBeat)) + background.positionOffset.GetValue(currentBeat);
+                        rawImageUVPos.position = (pos * backgroundEffect.positionFactor.GetValue(currentBeat)) + backgroundEffect.positionOffset.GetValue(currentBeat);
                     }
                     else
                         rawImageUVPos.position = Vector2.zero;
 
-                    if (background.zPositionUnfreeze)
+                    if (backgroundEffect.zPositionUnfreeze.GetValue(currentBeat))
                     {
                         float cameraZPos = -((mainCamera.position.z + CameraEffect.defaultDistance) / canvas.transform.localScale.z);
                         rectTransform.anchoredPosition3D = new Vector3(0, 0,
-                            (cameraZPos * background.zPositionFactor.GetValue(currentBeat))
-                            + background.zPositionOffset.GetValue(currentBeat));
+                            (cameraZPos * backgroundEffect.zPositionFactor.GetValue(currentBeat))
+                            + backgroundEffect.zPositionOffset.GetValue(currentBeat));
                     }
                     else
                         rectTransform.anchoredPosition3D = Vector3.zero;
 
-                    if (background.rotationUnfreeze)
+                    if (backgroundEffect.rotationUnfreeze.GetValue(currentBeat))
                     {
                         Vector3 cameraRotation = map.globalEffect.cameraRotation.GetValue(currentBeat); //유니티는 쿼터니언을 변환하는거라 회전 값이 부정확해서 원본 회전 값을 사용해야함
 
                         rectTransform.localEulerAngles = new Vector3(0, 0,
-                            (-cameraRotation.z * background.rotationFactor.GetValue(currentBeat))
-                            + background.rotationOffset.GetValue(currentBeat));
+                            (-cameraRotation.z * backgroundEffect.rotationFactor.GetValue(currentBeat))
+                            + backgroundEffect.rotationOffset.GetValue(currentBeat));
                     }
                     else
                         rectTransform.localEulerAngles = Vector2.zero;
@@ -127,7 +128,7 @@ namespace SDJK.Effect
             if (loadedSprites.Count > 0 && rawImage.texture != null)
             {
                 canvasGroup.alpha = canvasGroup.alpha.MoveTowards(1, 0.05f * Kernel.fpsUnscaledSmoothDeltaTime);
-                rawImage.color = map.globalEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
+                rawImage.color = map.globalEffect.backgroundEffect.backgroundColor.GetValue(RhythmManager.currentBeatScreen);
             }
             else
             {
@@ -151,9 +152,9 @@ namespace SDJK.Effect
             {
                 disableCreation = true;
 
-                for (int i = 0; i < map.globalEffect.background.Count; i++)
+                for (int i = 0; i < map.globalEffect.backgroundEffect.background.Count; i++)
                 {
-                    BackgroundEffectPair backgroundEffect = map.globalEffect.background[i].value;
+                    BackgroundFileInfoPair backgroundEffect = map.globalEffect.backgroundEffect.background[i].value;
                     string background = backgroundEffect.backgroundFile;
                     string backgroundNight = backgroundEffect.backgroundNightFile;
 

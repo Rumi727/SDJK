@@ -670,12 +670,12 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
 
 
-            map.globalEffect.background.Add(new BackgroundEffectPair(oldMap.Background, oldMap.BackgroundNight));
-            map.globalEffect.backgroundColor.Add(JColor.one);
+            map.globalEffect.backgroundEffect.background.Add(new BackgroundFileInfoPair(oldMap.Background, oldMap.BackgroundNight));
+            map.globalEffect.backgroundEffect.backgroundColor.Add(JColor.one);
 
             map.info.videoBackgroundFile = oldMap.VideoBackground;
             map.info.videoBackgroundNightFile = oldMap.VideoBackgroundNight;
-            map.globalEffect.videoColor.Add(JColor.one);
+            map.globalEffect.backgroundEffect.videoColor.Add(JColor.one);
 
             map.info.videoOffset = oldMap.VideoOffset;
 

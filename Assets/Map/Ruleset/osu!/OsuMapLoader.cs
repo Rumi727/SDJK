@@ -422,7 +422,7 @@ namespace SDJK.Map.Ruleset.Osu
                                     {
                                         if (!eventsSectionBackgroundIgnore)
                                         {
-                                            osuMap.globalEffect.background.Add(new BackgroundEffectPair(PathUtility.GetPathWithExtension(splitTexts[2].Trim('"')), ""));
+                                            osuMap.globalEffect.backgroundEffect.background.Add(new BackgroundFileInfoPair(PathUtility.GetPathWithExtension(splitTexts[2].Trim('"')), ""));
                                             eventsSectionBackgroundIgnore = true;
                                         }
 
