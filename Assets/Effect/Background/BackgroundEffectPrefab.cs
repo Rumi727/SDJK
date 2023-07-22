@@ -51,52 +51,52 @@ namespace SDJK.Effect
         Dictionary<string, Texture2D> loadedSprites = new Dictionary<string, Texture2D>();
         void Update()
         {
-            double currentBeat = RhythmManager.currentBeatScreen;
-            BackgroundEffectPair background = map.globalEffect.background.GetValue(currentBeat);
-
-            //Background Position, Rotation, Scale Effect
-            {
-                Transform mainCamera = effectManager.mainCamera.transform;
-                if (background.positionUnfreeze)
-                {
-                    Vector2 pos;
-                    pos = effectManager.mainCamera.WorldToViewportPoint(Vector3.zero);
-
-                    pos.x *= canvas.pixelRect.width;
-                    pos.y *= canvas.pixelRect.height;
-
-                    pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
-                    pos /= canvas.scaleFactor;
-
-                    rawImageUVPos.position = (pos * background.positionFactor.GetValue(currentBeat)) + background.positionOffset.GetValue(currentBeat);
-                }
-                else
-                    rawImageUVPos.position = Vector2.zero;
-
-                if (background.zPositionUnfreeze)
-                {
-                    float cameraZPos = -((mainCamera.position.z + CameraEffect.defaultDistance) / canvas.transform.localScale.z);
-                    rectTransform.anchoredPosition3D = new Vector3(0, 0,
-                        (cameraZPos * background.zPositionFactor.GetValue(currentBeat))
-                        + background.zPositionOffset.GetValue(currentBeat));
-                }
-                else
-                    rectTransform.anchoredPosition3D = Vector3.zero;
-
-                if (background.rotationUnfreeze)
-                {
-                    Vector3 cameraRotation = map.globalEffect.cameraRotation.GetValue(currentBeat); //유니티는 쿼터니언을 변환하는거라 회전 값이 부정확해서 원본 회전 값을 사용해야함
-
-                    rectTransform.localEulerAngles = new Vector3(0, 0,
-                        (-cameraRotation.z * background.rotationFactor.GetValue(currentBeat))
-                        + background.rotationOffset.GetValue(currentBeat));
-                }
-                else
-                    rectTransform.localEulerAngles = Vector2.zero;
-            }
-
             if (!isRemoveQueue && loadedSprites.Count > 0 && map == effectManager.selectedMap)
             {
+                double currentBeat = RhythmManager.currentBeatScreen;
+                BackgroundEffectPair background = map.globalEffect.background.GetValue(currentBeat);
+
+                //Background Position, Rotation, Scale Effect
+                {
+                    Transform mainCamera = effectManager.mainCamera.transform;
+                    if (background.positionUnfreeze)
+                    {
+                        Vector2 pos;
+                        pos = effectManager.mainCamera.WorldToViewportPoint(Vector3.zero);
+
+                        pos.x *= canvas.pixelRect.width;
+                        pos.y *= canvas.pixelRect.height;
+
+                        pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
+                        pos /= canvas.scaleFactor;
+
+                        rawImageUVPos.position = (pos * background.positionFactor.GetValue(currentBeat)) + background.positionOffset.GetValue(currentBeat);
+                    }
+                    else
+                        rawImageUVPos.position = Vector2.zero;
+
+                    if (background.zPositionUnfreeze)
+                    {
+                        float cameraZPos = -((mainCamera.position.z + CameraEffect.defaultDistance) / canvas.transform.localScale.z);
+                        rectTransform.anchoredPosition3D = new Vector3(0, 0,
+                            (cameraZPos * background.zPositionFactor.GetValue(currentBeat))
+                            + background.zPositionOffset.GetValue(currentBeat));
+                    }
+                    else
+                        rectTransform.anchoredPosition3D = Vector3.zero;
+
+                    if (background.rotationUnfreeze)
+                    {
+                        Vector3 cameraRotation = map.globalEffect.cameraRotation.GetValue(currentBeat); //유니티는 쿼터니언을 변환하는거라 회전 값이 부정확해서 원본 회전 값을 사용해야함
+
+                        rectTransform.localEulerAngles = new Vector3(0, 0,
+                            (-cameraRotation.z * background.rotationFactor.GetValue(currentBeat))
+                            + background.rotationOffset.GetValue(currentBeat));
+                    }
+                    else
+                        rectTransform.localEulerAngles = Vector2.zero;
+                }
+
                 //1초동안 배경이 로딩되지 않았으면 알파값이 1이 될때까지 텍스쳐를 변경하지 않음
                 if (timeoutTimer < 1 || (timeoutTimer >= 1 && canvasGroup.alpha >= 1))
                 {
