@@ -47880,6 +47880,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6203627955292521566, guid: de8f7150def470d428ea15394d816456, type: 3}
+      propertyPath: _mouseSensitivity
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203627955292521566, guid: de8f7150def470d428ea15394d816456, type: 3}
       propertyPath: _saveLoadClassName
       value: SCKRM.Rhythm.RhythmManager+SaveData
       objectReference: {fileID: 0}
@@ -54849,6 +54853,10 @@ PrefabInstance:
     - target: {fileID: 6203627955292521566, guid: de8f7150def470d428ea15394d816456, type: 3}
       propertyPath: _noObjectPooling
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203627955292521566, guid: de8f7150def470d428ea15394d816456, type: 3}
+      propertyPath: _mouseSensitivity
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6203627955292521566, guid: de8f7150def470d428ea15394d816456, type: 3}
       propertyPath: _saveLoadClassName
