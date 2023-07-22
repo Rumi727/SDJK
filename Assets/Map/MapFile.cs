@@ -273,34 +273,105 @@ namespace SDJK.Map
         }
         string _backgroundNightFile;
 
-        public BeatValuePairAniListVector2 positionOffset { get; set; }
-        public BeatValuePairAniListFloat zPositionOffset { get; set; }
-        public BeatValuePairAniListFloat rotationOffset { get; set; }
+        public BeatValuePairAniListVector2 positionOffset
+        {
+            get
+            {
+                if (_positionOffset == null)
+                    _positionOffset = new(default);
+
+                return _positionOffset;
+            }
+            set => _positionOffset = value;
+        }
+        BeatValuePairAniListVector2 _positionOffset;
+
+        public BeatValuePairAniListFloat zPositionOffset
+        {
+            get
+            {
+                if (_zPositionOffset == null)
+                    _zPositionOffset = new(default);
+
+                return _zPositionOffset;
+            }
+            set => _zPositionOffset = value;
+        }
+        BeatValuePairAniListFloat _zPositionOffset;
+
+        public BeatValuePairAniListFloat rotationOffset
+        {
+            get
+            {
+                if (_rotationOffset == null)
+                    _rotationOffset = new(default);
+
+                return _rotationOffset;
+            }
+            set => _rotationOffset = value;
+        }
+        BeatValuePairAniListFloat _rotationOffset;
 
         public bool positionUnfreeze { get; set; }
         public bool zPositionUnfreeze { get; set; }
         public bool rotationUnfreeze { get; set; }
 
-        public BeatValuePairAniListFloat positionFactor { get; set; }
-        public BeatValuePairAniListFloat zPositionFactor { get; set; }
-        public BeatValuePairAniListFloat rotationFactor { get; set; }
+        public BeatValuePairAniListFloat positionFactor
+        {
+            get
+            {
+                if (_positionFactor == null)
+                    _positionFactor = new(1);
+
+                return _positionFactor;
+            }
+
+            set => _positionFactor = value;
+        }
+        BeatValuePairAniListFloat _positionFactor;
+
+        public BeatValuePairAniListFloat zPositionFactor
+        {
+            get
+            {
+                if (_zPositionFactor == null)
+                    _zPositionFactor = new(1);
+
+                return _zPositionFactor;
+            }
+            set => _zPositionFactor = value;
+        }
+        BeatValuePairAniListFloat _zPositionFactor;
+
+        public BeatValuePairAniListFloat rotationFactor
+        {
+            get
+            {
+                if (_rotationFactor == null)
+                    _rotationFactor = new(1);
+
+                return _rotationFactor;
+            }
+            set => _rotationFactor = value;
+        }
+        BeatValuePairAniListFloat _rotationFactor;
 
         public BackgroundEffectPair(string backgroundFile, string backgroundNightFile)
         {
             _backgroundFile = backgroundFile;
             _backgroundNightFile = backgroundNightFile;
 
-            positionOffset = new(JVector2.zero);
-            zPositionOffset = new(0);
-            rotationOffset = new(0);
+            _positionOffset = new(default);
+            _zPositionOffset = new(default);
+            _rotationOffset = new(default);
 
             positionUnfreeze = false;
             zPositionUnfreeze = false;
             rotationUnfreeze = false;
 
-            positionFactor = new(1);
-            zPositionFactor = new(1);
-            rotationFactor = new(1);
+            _positionFactor = new(1);
+            _zPositionFactor = new(1);
+            _rotationFactor = new(1);
         }
     }
 
