@@ -20,6 +20,8 @@
 	"options.background.title": "背景",
 	"options.background.backgroundTransparency": "背景透明度",
 	"options.background.backgroundTransparency.info": "背景が暗い程度",
+	"options.background.videoBackgroundEnable": "映像の背景を使う",
+	"options.background.videoBackgroundEnable.info": "ビデオ背景ロード条件が満たされたら、ビデオの背景をロードするかどうかを決定します",
 
 	"options.map_loader.title": "マップローダー",
 	"options.map_loader.map_manager.loadInParallel": "複数のマップパックを並列にロード",

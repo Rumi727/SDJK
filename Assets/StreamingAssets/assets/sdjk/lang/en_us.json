@@ -20,6 +20,8 @@
 	"options.background.title": "Background",
 	"options.background.backgroundTransparency": "Background Transparency",
 	"options.background.backgroundTransparency.info": "How dark the background is",
+	"options.background.videoBackgroundEnable": "Use video background",
+	"options.background.videoBackgroundEnable.info": "Determines whether to load the video background when the video background loading conditions are met next time",
 
 	"options.map_loader.title": "Map Loader",
 	"options.map_loader.map_manager.loadInParallel": "Load multiple mappacks in parallel",

@@ -1,4 +1,6 @@
+using Newtonsoft.Json;
 using SCKRM.Object;
+using SCKRM.SaveLoad;
 using SDJK.Map;
 using UnityEngine;
 
@@ -6,6 +8,12 @@ namespace SDJK.Effect
 {
     public sealed class VideoEffect : Effect
     {
+        [GeneralSaveLoad]
+        public sealed class SaveData
+        {
+            [JsonProperty] public static bool videoBackgroundEnable { get; set; } = true;
+        }
+
         [SerializeField] string _prefab = "video_effect.video"; public string prefab { get => _prefab; set => _prefab = value; }
         public VideoEffectPrefab video { get; private set; } = null;
 
@@ -20,8 +28,11 @@ namespace SDJK.Effect
                 if (video != null && !video.isRemoved)
                     video.PadeOut().Forget();
 
-                video = (VideoEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
-                video.Refresh(effectManager);
+                if (SaveData.videoBackgroundEnable)
+                {
+                    video = (VideoEffectPrefab)ObjectPoolingSystem.ObjectCreate(prefab, transform, false).monoBehaviour;
+                    video.Refresh(effectManager);
+                }
 
                 lastVideoBackgroundFile = map.info.videoBackgroundFile;
                 lastVideoBackgroundNightFile = map.info.videoBackgroundNightFile;

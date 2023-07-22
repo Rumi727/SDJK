@@ -20,6 +20,8 @@
 	"options.background.title": "배경",
 	"options.background.backgroundTransparency": "배경 투명도",
 	"options.background.backgroundTransparency.info": "배경이 어두운 정도",
+	"options.background.videoBackgroundEnable": "영상 배경 사용",
+	"options.background.videoBackgroundEnable.info": "다음에 영상 배경 로딩 조건이 충족되면 영상 배경을 불러올지 여부를 결정합니다",
 
 	"options.map_loader.title": "맵 로더",
 	"options.map_loader.map_manager.loadInParallel": "여러 맵 팩을 병렬로 로드",
