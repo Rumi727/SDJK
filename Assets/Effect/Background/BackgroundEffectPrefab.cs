@@ -57,7 +57,6 @@ namespace SDJK.Effect
             //Background Position, Rotation, Scale Effect
             {
                 Transform mainCamera = effectManager.mainCamera.transform;
-
                 if (background.positionUnfreeze)
                 {
                     Vector2 pos;
@@ -86,8 +85,10 @@ namespace SDJK.Effect
 
                 if (background.rotationUnfreeze)
                 {
+                    Vector3 cameraRotation = map.globalEffect.cameraRotation.GetValue(currentBeat); //유니티는 쿼터니언을 변환하는거라 회전 값이 부정확해서 원본 회전 값을 사용해야함
+
                     rectTransform.localEulerAngles = new Vector3(0, 0,
-                        (-mainCamera.localEulerAngles.z * background.rotationFactor.GetValue(currentBeat))
+                        (-cameraRotation.z * background.rotationFactor.GetValue(currentBeat))
                         + background.rotationOffset.GetValue(currentBeat));
                 }
                 else
