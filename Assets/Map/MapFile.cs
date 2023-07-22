@@ -273,45 +273,34 @@ namespace SDJK.Map
         }
         string _backgroundNightFile;
 
-        public bool positionUnfreeze
-        {
-            get => _positionUnfreeze;
-            set => _positionUnfreeze = value;
-        }
-        bool _positionUnfreeze;
+        public BeatValuePairAniListVector2 positionOffset { get; set; }
+        public BeatValuePairAniListFloat zPositionOffset { get; set; }
+        public BeatValuePairAniListFloat rotationOffset { get; set; }
 
-        public bool rotationUnfreeze
-        {
-            get => _rotationUnfreeze;
-            set => _rotationUnfreeze = value;
-        }
-        bool _rotationUnfreeze;
+        public bool positionUnfreeze { get; set; }
+        public bool zPositionUnfreeze { get; set; }
+        public bool rotationUnfreeze { get; set; }
 
-        public bool scaleUnfreeze
-        {
-            get => _scaleUnfreeze;
-            set => _scaleUnfreeze = value;
-        }
-        bool _scaleUnfreeze;
+        public BeatValuePairAniListFloat positionFactor { get; set; }
+        public BeatValuePairAniListFloat zPositionFactor { get; set; }
+        public BeatValuePairAniListFloat rotationFactor { get; set; }
 
         public BackgroundEffectPair(string backgroundFile, string backgroundNightFile)
         {
             _backgroundFile = backgroundFile;
             _backgroundNightFile = backgroundNightFile;
 
-            _positionUnfreeze = false;
-            _rotationUnfreeze = false;
-            _scaleUnfreeze = false;
-        }
+            positionOffset = new(JVector2.zero);
+            zPositionOffset = new(0);
+            rotationOffset = new(0);
 
-        public BackgroundEffectPair(string backgroundFile, string backgroundNightFile, bool positionUnfreeze, bool rotationUnfreeze, bool scaleUnfreeze)
-        {
-            _backgroundFile = backgroundFile;
-            _backgroundNightFile = backgroundNightFile;
+            positionUnfreeze = false;
+            zPositionUnfreeze = false;
+            rotationUnfreeze = false;
 
-            _positionUnfreeze = positionUnfreeze;
-            _rotationUnfreeze = rotationUnfreeze;
-            _scaleUnfreeze = scaleUnfreeze;
+            positionFactor = new(1);
+            zPositionFactor = new(1);
+            rotationFactor = new(1);
         }
     }
 

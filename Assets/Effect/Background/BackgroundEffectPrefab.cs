@@ -51,33 +51,48 @@ namespace SDJK.Effect
         Dictionary<string, Texture2D> loadedSprites = new Dictionary<string, Texture2D>();
         void Update()
         {
-            BackgroundEffectPair background = map.globalEffect.background.GetValue(RhythmManager.currentBeatScreen);
+            double currentBeat = RhythmManager.currentBeatScreen;
+            BackgroundEffectPair background = map.globalEffect.background.GetValue(currentBeat);
 
-            if (background.positionUnfreeze)
+            //Background Position, Rotation, Scale Effect
             {
-                Vector2 pos;
-                pos = effectManager.mainCamera.WorldToViewportPoint(Vector3.zero);
+                Transform mainCamera = effectManager.mainCamera.transform;
 
-                pos.x *= canvas.pixelRect.width;
-                pos.y *= canvas.pixelRect.height;
+                if (background.positionUnfreeze)
+                {
+                    Vector2 pos;
+                    pos = effectManager.mainCamera.WorldToViewportPoint(Vector3.zero);
 
-                pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
-                pos /= canvas.scaleFactor;
+                    pos.x *= canvas.pixelRect.width;
+                    pos.y *= canvas.pixelRect.height;
 
-                rawImageUVPos.position = pos;
+                    pos -= new Vector2(canvas.pixelRect.width * 0.5f, canvas.pixelRect.height * 0.5f);
+                    pos /= canvas.scaleFactor;
+
+                    rawImageUVPos.position = (pos * background.positionFactor.GetValue(currentBeat)) + background.positionOffset.GetValue(currentBeat);
+                }
+                else
+                    rawImageUVPos.position = Vector2.zero;
+
+                if (background.zPositionUnfreeze)
+                {
+                    float cameraZPos = -((mainCamera.position.z + CameraEffect.defaultDistance) / canvas.transform.localScale.z);
+                    rectTransform.anchoredPosition3D = new Vector3(0, 0,
+                        (cameraZPos * background.zPositionFactor.GetValue(currentBeat))
+                        + background.zPositionOffset.GetValue(currentBeat));
+                }
+                else
+                    rectTransform.anchoredPosition3D = Vector3.zero;
+
+                if (background.rotationUnfreeze)
+                {
+                    rectTransform.localEulerAngles = new Vector3(0, 0,
+                        (-mainCamera.localEulerAngles.z * background.rotationFactor.GetValue(currentBeat))
+                        + background.rotationOffset.GetValue(currentBeat));
+                }
+                else
+                    rectTransform.localEulerAngles = Vector2.zero;
             }
-            else
-                rawImageUVPos.position = Vector2.zero;
-
-            if (background.rotationUnfreeze)
-                rectTransform.localEulerAngles = new Vector3(0, 0, -effectManager.mainCamera.transform.localEulerAngles.z);
-            else
-                rectTransform.localEulerAngles = Vector2.zero;
-
-            if (background.scaleUnfreeze)
-                rectTransform.anchoredPosition3D = new Vector3(0, 0, -((effectManager.mainCamera.transform.position.z + CameraEffect.defaultDistance) / canvas.transform.localScale.z));
-            else
-                rectTransform.anchoredPosition3D = Vector3.zero;
 
             if (!isRemoveQueue && loadedSprites.Count > 0 && map == effectManager.selectedMap)
             {
