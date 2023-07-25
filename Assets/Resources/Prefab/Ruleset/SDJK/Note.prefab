@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2.5, y: 1}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   _type: ruleset/sdjk/play_field
   _spriteTag: global
   _index: 0
-  _size: {x: 2.5, y: 1}
+  _size: {x: 2, y: 1}
   _drawMode: 1
 --- !u!1 &8589586867891242023
 GameObject:
@@ -186,7 +186,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2.5, y: 1}
+  m_Size: {x: 2, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   _type: ruleset/sdjk/play_field
   _spriteTag: global
   _index: 0
-  _size: {x: 2.5, y: 1}
+  _size: {x: 2, y: 1}
   _drawMode: 1
 --- !u!114 &2539432471969247502
 MonoBehaviour:
