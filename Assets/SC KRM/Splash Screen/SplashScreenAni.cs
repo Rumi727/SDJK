@@ -3,6 +3,7 @@ using SCKRM.Resource;
 using UnityEngine;
 using SCKRM.UI;
 using TMPro;
+using SCKRM.Logo;
 
 namespace SCKRM.Splash
 {
@@ -13,20 +14,21 @@ namespace SCKRM.Splash
         [SerializeField] ProgressBar progressBar;
         [SerializeField] ProgressBar progressBarDetailed;
 
+        [SerializeField] MainLogo logo;
         [SerializeField] CanvasGroup canvasGroup;
-        [SerializeField] Transform CSImage;
-        [SerializeField] Transform CS;
+        //[SerializeField] Transform CSImage;
+        //[SerializeField] Transform CS;
         [SerializeField] TMP_Text text;
-        [SerializeField] string showText = "";
+        //[SerializeField] string showText = "";
 
-        float xV;
+        /*float xV;
         float yV;
         float rV;
 
         bool xFlip = false;
 
         AudioClip bow;
-        AudioClip drawmap;
+        AudioClip drawmap;*/
 
         async UniTaskVoid Awake()
         {
@@ -45,7 +47,7 @@ namespace SCKRM.Splash
                 else if (!SplashScreen.isAniPlaying)
                     return;
 
-                bow = await ResourceManager.GetAudio(PathUtility.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", "minecraft"), "random/bow"));
+                /*bow = await ResourceManager.GetAudio(PathUtility.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", "minecraft"), "random/bow"));
                 drawmap = await ResourceManager.GetAudio(PathUtility.Combine(Kernel.streamingAssetsPath, ResourceManager.soundPath.Replace("%NameSpace%", "minecraft"), "ui/cartography_table/drawmap") + Random.Range(1, 4));
 
                 if (await UniTask.DelayFrame(10, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
@@ -71,30 +73,33 @@ namespace SCKRM.Splash
                     rV = Random.Range(-10f, -20f);
                 }
 
-                yV = Random.Range(8f, 15f);
+                yV = Random.Range(8f, 15f);*/
+
+                await UniTask.NextFrame();
+
+                logo.aniProgress = 0;
+                logo.state = MainLogoState.start;
 
                 //페이드 인
                 while (canvasGroup.alpha < 1)
                 {
                     canvasGroup.alpha += 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
-                    if (await UniTask.DelayFrame(1, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
+                    if (await UniTask.NextFrame(PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
                         return;
                     else if (!SplashScreen.isAniPlaying)
                         return;
                 }
 
-                if (await UniTask.WaitUntil(() => InitialLoadManager.isSettingLoadEnd, PlayerLoopTiming.Initialization, AsyncTaskManager.cancelToken).SuppressCancellationThrow())
-                    return;
-                else if (!SplashScreen.isAniPlaying)
+                if (!SplashScreen.isAniPlaying)
                     return;
 
                 canvasGroup.alpha = 1;
 
-                if (bow != null)
-                    AudioSource.PlayClipAtPoint(bow, Vector3.zero);
+                /*if (bow != null)
+                    AudioSource.PlayClipAtPoint(bow, Vector3.zero);*/
 
                 //C# 던지기
-                while (!((CS.localPosition.x >= -75 && CS.localPosition.x <= 75 && CS.localPosition.y >= -75 && CS.localPosition.y <= 75) || (xFlip && (CS.localPosition.x <= -500 || CS.localPosition.y <= -300)) || (!xFlip && (CS.localPosition.x >= 500 || CS.localPosition.y <= -300))))
+                /*while (!((CS.localPosition.x >= -75 && CS.localPosition.x <= 75 && CS.localPosition.y >= -75 && CS.localPosition.y <= 75) || (xFlip && (CS.localPosition.x <= -500 || CS.localPosition.y <= -300)) || (!xFlip && (CS.localPosition.x >= 500 || CS.localPosition.y <= -300))))
                 {
                     CS.localPosition = new Vector2(CS.localPosition.x + xV * Kernel.fpsUnscaledSmoothDeltaTime, CS.localPosition.y + yV * Kernel.fpsUnscaledSmoothDeltaTime);
                     CSImage.transform.localEulerAngles = new Vector3(CSImage.transform.localEulerAngles.x, CSImage.transform.localEulerAngles.y, CSImage.transform.localEulerAngles.z + rV * Kernel.fpsUnscaledSmoothDeltaTime);
@@ -113,16 +118,16 @@ namespace SCKRM.Splash
                 text.text = showText;
 
                 if (drawmap != null)
-                    AudioSource.PlayClipAtPoint(drawmap, Vector3.zero);
+                    AudioSource.PlayClipAtPoint(drawmap, Vector3.zero);*/
 
                 //페이드 아웃
                 {
                     float timer = 0;
                     while (canvasGroup.alpha > 0)
                     {
-                        text.rectTransform.anchoredPosition = text.rectTransform.anchoredPosition.Lerp(Vector3.zero, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
-                        CSImage.transform.rotation = Quaternion.Lerp(CSImage.transform.rotation, Quaternion.Euler(Vector3.zero), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
-                        CS.localPosition = CS.localPosition.Lerp(new Vector3(24, -24), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                        //text.rectTransform.anchoredPosition = text.rectTransform.anchoredPosition.Lerp(Vector3.zero, 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                        /*CSImage.transform.rotation = Quaternion.Lerp(CSImage.transform.rotation, Quaternion.Euler(Vector3.zero), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);
+                        CS.localPosition = CS.localPosition.Lerp(new Vector3(24, -24), 0.1f * Kernel.fpsUnscaledSmoothDeltaTime);*/
 
                         if (timer >= 2 && InitialLoadManager.isInitialLoadEnd)
                             canvasGroup.alpha -= 0.05f * Kernel.fpsUnscaledSmoothDeltaTime;
@@ -149,10 +154,10 @@ namespace SCKRM.Splash
 
                 SplashScreen.isAniPlaying = false;
 
-                if (bow != null)
+                /*if (bow != null)
                     Destroy(bow);
                 if (drawmap)
-                    Destroy(drawmap);
+                    Destroy(drawmap);*/
             }
         }
 
