@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using SCKRM.SaveLoad;
 using SCKRM.Sound;
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace SCKRM.Rhythm
@@ -112,6 +113,8 @@ namespace SCKRM.Rhythm
         [WikiDescription("현재 스크린 비트")] public static double currentBeatScreen { get; private set; }
         [WikiDescription("현재 1 스크린 비트")] public static double currentBeatScreen1Beat { get; private set; }
 
+        [WikiDescription("오디오 델타 타임")] public static double audioDeltaTime { get; private set; }
+
         public static double bpmOffsetBeat { get; private set; }
         public static double bpmOffsetTime { get; private set; }
 
@@ -129,6 +132,8 @@ namespace SCKRM.Rhythm
         static int tempCurrentBeat = 0;
         static bool isStart = false;
         static double lastBPM = 0;
+        static double lastRealAudioTime = 0;
+        static Stopwatch audioDeltaTimeStopwatch = new Stopwatch();
         void Update()
         {
             if (isPlaying)
@@ -144,6 +149,17 @@ namespace SCKRM.Rhythm
                 double timePlusValue = Kernel.deltaTime * speed;
                 if (soundPlayer != null && soundPlayer.isActived)
                 {
+                    //Audio Delta Time
+                    {
+                        audioDeltaTime = audioDeltaTimeStopwatch.Elapsed.TotalSeconds;
+
+                        if (soundPlayer.time != lastRealAudioTime)
+                        {
+                            audioDeltaTimeStopwatch.Restart();
+                            lastRealAudioTime = soundPlayer.time;
+                        }
+                    }
+
                     double sync = soundPlayer.time - internalTime;
                     if (internalTime < 0)
                     {
@@ -168,7 +184,7 @@ namespace SCKRM.Rhythm
                         if (!isPaused)
                             _internalTime += timePlusValue;
                     }
-                    else if (sync.Abs() >= 0.015625)
+                    else if (sync.Abs() >= audioDeltaTime * 4)
                     {
                         if (sync * speed.Sign() >= 0)
                         {

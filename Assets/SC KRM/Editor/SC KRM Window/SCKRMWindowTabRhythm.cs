@@ -59,6 +59,10 @@ namespace SCKRM.Editor
             {
                 CustomInspectorEditor.Space();
 
+                EditorGUILayout.LabelField("오디오 델타 타임 - " + RhythmManager.audioDeltaTime);
+
+                CustomInspectorEditor.Space();
+
                 EditorGUILayout.LabelField("BPM 델타 타임 - " + RhythmManager.bpmDeltaTime);
                 EditorGUILayout.LabelField("BPM FPS 델타 타임 - " + RhythmManager.bpmFpsDeltaTime);
                 EditorGUILayout.LabelField("BPM 스케일 되지 않은 델타 타임 - " + RhythmManager.bpmUnscaledDeltaTime);
