@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
 
 namespace SDJK.Map.Ruleset.Osu

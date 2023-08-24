@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System.Collections.Generic;
@@ -13,36 +14,52 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// notes[bar_index][note_index] = note
         /// </summary>
         public TypeList<TypeList<SDJKNoteFile>> notes { get; set; } = new TypeList<TypeList<SDJKNoteFile>>();
-        public TypeList<SDJKAllNoteFile> allNotes { get; set; } = new TypeList<SDJKAllNoteFile>();
-
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
 
-        /*public override double GetDifficulty()
+        [JsonIgnore]
+        public TypeList<SDJKAllNoteFile> allNotes
         {
-            List<double> diff = new List<double>();
-
-            for (int i = 0; i < notes.Count; i++)
+            get
             {
-                TypeList<SDJKNoteFile> notes = this.notes[i];
-                List<double> beats = new List<double>();
+                if (_allNotes == null)
+                    FixAllJudgmentBeat();
 
-                for (int j = 0; j < notes.Count; j++)
-                {
-                    SDJKNoteFile note = notes[j];
+                return _allNotes;
+            }
+            set => _allNotes = value;
+        }
+        [JsonIgnore] TypeList<SDJKAllNoteFile> _allNotes = null;
 
-                    if (note.type != SDJKNoteTypeFile.instantDeath)
-                    {
-                        beats.Add(note.beat);
-                        beats.Add(note.beat + note.holdLength);
-                    }
-                }
+        public override TypeList<double> GetDifficulty() => GetSDJKStyleDifficulty(this, allNotes);
 
-                beats.Sort();
-                diff.Add(DifficultyCalculation(beats));
+        public static TypeList<double> GetSDJKStyleDifficulty(MapFile mapFile, TypeList<SDJKAllNoteFile> allNotes)
+        {
+            TypeList<double> diff = new TypeList<double>();
+            if (allNotes.Count <= 0)
+                return diff;
+
+            double holdBeat = 0;
+            for (int i = 0; i < allNotes.Count - 1; i++)
+            {
+                SDJKAllNoteFile allNote = allNotes[i];
+
+                double size = 0.33;
+                if (allNote.holdLength > 0)
+                    size *= 1.25;
+
+                if (allNote.beat < holdBeat)
+                    size *= 2;
+
+                double? result = DifficultyCalculation(mapFile, allNote.beat, allNotes[i + 1].beat, size);
+                if (result != null)
+                    diff.Add((double)result);
+
+                if (allNote.holdLength > 0 && allNote.beat >= holdBeat)
+                    holdBeat = allNote.beat + allNote.holdLength;
             }
 
-            return diff.Average();
-        }*/
+            return diff;
+        }
 
         public override void FixAllJudgmentBeat()
         {

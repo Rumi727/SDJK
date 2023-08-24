@@ -75,26 +75,32 @@ namespace SDJK.Map
         /// <summary>
         /// 0 ~ 10 ~
         /// </summary>
-        public virtual TypeList<double> GetDifficulty() => DifficultyCalculation(allJudgmentBeat);
+        public virtual TypeList<double> GetDifficulty() => ListDifficultyCalculation(allJudgmentBeat);
 
-        public TypeList<double> DifficultyCalculation(IList<double> beatList, double size = 0.33, double ignoreBeat = 0.03125)
+        public TypeList<double> ListDifficultyCalculation(IList<double> list, double size = 0.33, double ignoreBeat = 0.03125)
         {
             TypeList<double> diff = new TypeList<double>();
-
-            for (int i = 0; i < beatList.Count - 1; i++)
+            for (int i = 0; i < list.Count - 1; i++)
             {
-                double beat = beatList[i];
-                double nextBeat = beatList[i + 1];
-                double bpm = globalEffect.bpm.GetValue(beat) * globalEffect.tempo.GetValue(beat);
-
-                double delayBeat = nextBeat - beat;
-                double delay = RhythmManager.BeatToSecond(delayBeat, bpm);
-
-                if (delayBeat >= ignoreBeat)
-                    diff.Add(size / delay);
+                double? result = DifficultyCalculation(this, list[i], list[i + 1], size, ignoreBeat);
+                if (result != null)
+                    diff.Add((double)result);
             }
 
             return diff;
+        }
+
+        public static double? DifficultyCalculation(MapFile mapFile, double beat, double nextBeat, double size = 0.33, double ignoreBeat = 0.03125)
+        {
+            double bpm = mapFile.globalEffect.bpm.GetValue(beat) * mapFile.globalEffect.tempo.GetValue(beat);
+
+            double delayBeat = nextBeat - beat;
+            double delay = RhythmManager.BeatToSecond(delayBeat, bpm);
+
+            if (delayBeat >= ignoreBeat)
+                return size / delay;
+
+            return null;
         }
 
         public abstract void FixAllJudgmentBeat();

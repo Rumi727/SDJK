@@ -1,5 +1,7 @@
-using SCKRM.Rhythm;
+using Newtonsoft.Json;
+using SDJK.Map.Ruleset.SDJK.Map;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SDJK.Map.Ruleset.Osu
 {
@@ -11,9 +13,28 @@ namespace SDJK.Map.Ruleset.Osu
 
 
 
+        [JsonIgnore]
+        public TypeList<SDJKAllNoteFile> allNotes
+        {
+            get
+            {
+                if (_allNotes == null)
+                    FixAllJudgmentBeat();
+
+                return _allNotes;
+            }
+            set => _allNotes = value;
+        }
+        [JsonIgnore] TypeList<SDJKAllNoteFile> _allNotes = null;
+
+        public override TypeList<double> GetDifficulty() => SDJKMapFile.GetSDJKStyleDifficulty(this, allNotes);
+
+
+
         public override void FixAllJudgmentBeat()
         {
             TypeList<double> allJudgmentBeat = new TypeList<double>();
+            TypeList<SDJKAllNoteFile> allNotes = new TypeList<SDJKAllNoteFile>();
 
             for (int i = 0; i < notes.Count; i++)
             {
@@ -27,11 +48,15 @@ namespace SDJK.Map.Ruleset.Osu
                     allJudgmentBeat.Add(note.beat);
                     if (note.holdLength > 0)
                         allJudgmentBeat.Add(note.beat + note.holdLength);
+
+                    allNotes.Add(new SDJKAllNoteFile(note.beat, note.holdLength, i, j));
                 }
             }
 
             allJudgmentBeat.Sort();
             this.allJudgmentBeat = allJudgmentBeat;
+
+            this.allNotes = allNotes.OrderBy(x => x.beat).ToTypeList();
         }
     }
 }
