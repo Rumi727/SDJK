@@ -18,7 +18,7 @@ namespace SDJK.Mode.Converter
         public sealed class Config : IModeConfig
         {
             [SaveLoadUISliderConfig("sdjk:mode.converter.chordjack_off.removeBeat", "", 0.03125f, 1, 0.01f, 5)]
-            public double removeBeat { get; set; } = 0.25;
+            public double removeBeat { get; set; } = 0.5;
         }
 
         protected override IModeConfig CreateModeConfig() => new Config();

@@ -106,6 +106,10 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             if (modes.FindMode<DeathNoteOffModeBase>() != null)
                 DeathNoteOff(map);
+
+            IMode chordjackOffMode;
+            if ((chordjackOffMode = modes.FindMode<ChordjackOffModeBase>()) != null)
+                ChordjackOff(map, ((ChordjackOffModeBase.Config)chordjackOffMode.modeConfig).removeBeat);
         }
 
         static void KeyCountChange(SDJKMapFile map, int count)
@@ -202,6 +206,35 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         j--;
                     }
                 }
+            }
+        }
+
+        static void ChordjackOff(SDJKMapFile map, double removeBeat)
+        {
+            map.FixAllJudgmentBeat();
+
+            if (map.allNotes.Count <= 0)
+                return;
+
+            Dictionary<int, int> removedNoteCountList = new Dictionary<int, int>();
+            double lastBeat = 0;
+
+            for (int i = 0; i < map.allNotes.Count - 1; i++)
+            {
+                SDJKAllNoteFile allNote = map.allNotes[i];
+                double beat = allNote.beat - allNote.beat.Repeat(removeBeat);
+
+                if (beat < lastBeat)
+                {
+                    int removedNoteCount = 0;
+                    if (removedNoteCountList.TryGetValue(allNote.keyIndex, out int value))
+                        removedNoteCount = value;
+
+                    map.notes[allNote.keyIndex].RemoveAt(allNote.index - removedNoteCount);
+                    removedNoteCountList[allNote.keyIndex] = removedNoteCount + 1;
+                }
+                else
+                    lastBeat = beat + removeBeat;
             }
         }
 
@@ -586,6 +619,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     notes[j] = note;
                 }
             }
+
+            map.FixAllJudgmentBeat();
         }
 
         /*static void FixOverlappingAutoNotes(SDJKMapFile map)
