@@ -107,6 +107,10 @@
 	"mode.converter.death_note_off": "즉사 노트 제거",
 	"mode.converter.death_note_off.info": "위치를 구별하는 건 쉽지만, 색을 구별하는 건 어렵다",
 
+	"mode.converter.chordjack_off": "연타 제거",
+	"mode.converter.chordjack_off.info": "손이 아파!",
+	"mode.converter.chordjack_off.removeBeat": "제거할 비트",
+
 
 
 	"mode.fun": "재미",

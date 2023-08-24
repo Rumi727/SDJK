@@ -106,6 +106,10 @@
 
 	"mode.converter.death_note_off": "即時ノートの削除",
 	"mode.converter.death_note_off.info": "位置を区別するのは簡単ですが、色を区別するのは難しいです。",
+
+	"mode.converter.chordjack_off": "Chordjackの削除",
+	"mode.converter.chordjack_off.info": "手が痛い！",
+	"mode.converter.chordjack_off.removeBeat": "削除するビット",
 	
 	
 
