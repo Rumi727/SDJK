@@ -121,7 +121,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                     icon.icon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(ruleset)?.icon ?? "";
                     icon.icon.Refresh();
 
-                    icon.iconBackground.color = difficultyGradient.Evaluate((float)(map2.difficulty.Average() / 10d));
+                    icon.iconBackground.color = difficultyGradient.Evaluate((float)(map2.difficultyAverage / 10d));
                     mapPackListRulesetIcons.Add(icon);
                 }
             }
@@ -134,7 +134,7 @@ namespace SDJK.MainMenu.MapSelectScreen
                 rulesetIcon.nameSpaceIndexTypePathPair = RulesetManager.FindRuleset(selectedMap.info.ruleset)?.icon ?? "";
                 rulesetIcon.Refresh();
 
-                double difficulty = map.difficulty.Average();
+                double difficulty = map.difficultyAverage;
 
                 Color color = difficultyGradient.Evaluate((float)(difficulty / 10d));
                 difficultyBackground.color = color;

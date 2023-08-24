@@ -64,7 +64,7 @@ namespace SDJK.Map
         [JsonIgnore] public TypeList<double> difficulty => _difficulty ??= GetDifficulty();
         [JsonIgnore] TypeList<double> _difficulty = null;
 
-        [JsonIgnore] public double difficultyAverage => _difficultyAverage ??= difficulty.Average();
+        [JsonIgnore] public double difficultyAverage => _difficultyAverage ??= difficulty.Count > 0 ? difficulty.Average() : 0;
         [JsonIgnore] double? _difficultyAverage = null;
 
         [JsonIgnore] public string mapFilePathParent { get; set; } = null;
