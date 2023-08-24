@@ -1,6 +1,7 @@
 using SCKRM.Json;
 using SCKRM.Rhythm;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SDJK.Map.Ruleset.SDJK.Map
 {
@@ -12,6 +13,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         /// notes[bar_index][note_index] = note
         /// </summary>
         public TypeList<TypeList<SDJKNoteFile>> notes { get; set; } = new TypeList<TypeList<SDJKNoteFile>>();
+        public TypeList<SDJKAllNoteFile> allNotes { get; set; } = new TypeList<SDJKAllNoteFile>();
 
         public SDJKMapEffectFile effect { get; set; } = new SDJKMapEffectFile();
 
@@ -45,6 +47,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public override void FixAllJudgmentBeat()
         {
             TypeList<double> allJudgmentBeat = new TypeList<double>();
+            TypeList<SDJKAllNoteFile> allNotes = new TypeList<SDJKAllNoteFile>();
 
             for (int i = 0; i < notes.Count; i++)
             {
@@ -60,12 +63,16 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                         allJudgmentBeat.Add(note.beat);
                         if (note.holdLength > 0)
                             allJudgmentBeat.Add(note.beat + note.holdLength);
+
+                        allNotes.Add(new SDJKAllNoteFile(note.beat, note.holdLength, i, j));
                     }
                 }
             }
 
             allJudgmentBeat.Sort();
             this.allJudgmentBeat = allJudgmentBeat;
+
+            this.allNotes = allNotes.OrderBy(x => x.beat).ToTypeList();
         }
     }
 
@@ -110,6 +117,24 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         normal,
         instantDeath,
         auto
+    }
+
+    public readonly struct SDJKAllNoteFile
+    {
+        public double beat { get; }
+        public double holdLength { get; }
+
+        public int keyIndex { get; }
+        public int index { get; }
+
+        public SDJKAllNoteFile(double beat, double holdLength, int keyIndex, int index)
+        {
+            this.beat = beat;
+            this.holdLength = holdLength;
+
+            this.keyIndex = keyIndex;
+            this.index = index;
+        }
     }
 
     public sealed class SDJKMapEffectFile
