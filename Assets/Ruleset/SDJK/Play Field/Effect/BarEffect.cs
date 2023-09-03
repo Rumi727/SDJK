@@ -81,7 +81,7 @@ namespace SDJK.Ruleset.SDJK.Effect
 
         void SizeUpdate()
         {
-            float fieldHeight = (float)playField.fieldHeight;
+            float fieldHeight = (float)bar.currentBarHeight;
             backgroundSpriteRenderer.size = new Vector2(Bar.barWidth, fieldHeight);
             spriteRenderer.size = new Vector2(Bar.barWidth, fieldHeight);
             spriteMask.localScale = new Vector3(spriteMask.localScale.x, fieldHeight, spriteMask.localScale.z);
@@ -98,7 +98,7 @@ namespace SDJK.Ruleset.SDJK.Effect
             if (isKeyEnable)
                 inputColor = new Color(0.2f, 0.2f, 0.2f);
 
-            Color color = inputColor * bar.barEffectFile.color.GetValue(RhythmManager.currentBeatScreen);
+            Color color = inputColor * bar.barEffectFile.color.GetValue(RhythmManager.currentBeatScreen) * playField.fieldEffectFile.color.GetValue(RhythmManager.currentBeatScreen);
 
             backgroundSpriteRenderer.color = new Color(0, 0, 0, color.a * backgroundAlpha);
             spriteRenderer.color = color;

@@ -16,6 +16,8 @@ namespace SDJK.Ruleset.SDJK
         [SerializeField] SpriteRenderer holdNoteSpriteRenderer;
 
         Bar bar => note.bar;
+        PlayField playField => bar.playField;
+
         SDJKNoteTypeFile type => note.type;
 
         void OnEnable() => Update();
@@ -25,7 +27,7 @@ namespace SDJK.Ruleset.SDJK
         void ColorUpdate()
         {
             double currentBeat = RhythmManager.currentBeatSound;
-            Color color = bar.barEffectFile.noteColor.GetValue(currentBeat) * (Color)note.config.noteColor.GetValue(currentBeat);
+            Color color = bar.barEffectFile.noteColor.GetValue(currentBeat) * (Color)playField.fieldEffectFile.noteColor.GetValue(currentBeat) * (Color)note.config.noteColor.GetValue(currentBeat);
 
             if (type == SDJKNoteTypeFile.instantDeath)
                 color = new Color(1, 0, 0, color.a);

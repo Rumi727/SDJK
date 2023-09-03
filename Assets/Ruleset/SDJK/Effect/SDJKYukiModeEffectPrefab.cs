@@ -37,7 +37,7 @@ namespace SDJK.Ruleset.SDJK.Effect
                 else
                     transform.localPosition = new Vector2((float)(yukiModeEffect.width * (float)div) + Bar.barWidthWithoutBoardHalf, 0);
 
-                spriteRenderer.size = new Vector2(Bar.barBoardWidth, (float)bar.playField.fieldHeight);
+                spriteRenderer.size = new Vector2(Bar.barBoardWidth, (float)bar.currentBarHeight);
                 spriteRenderer.color = new Color(color.r, color.g, color.b, (float)(1 - div));
             }
             else

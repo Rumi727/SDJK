@@ -175,6 +175,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
         public TypeList<SDJKBarEffectFile> barEffect { get; set; } = new();
 
+        public BeatValuePairAniListColor color { get; set; } = new(JColor.one);
+        public BeatValuePairAniListColor noteColor { get; set; } = new(JColor.one);
+
         public BeatValuePairAniListDouble noteDistance { get; set; } = new(1);
     }
 
@@ -183,6 +186,8 @@ namespace SDJK.Map.Ruleset.SDJK.Map
         public BeatValuePairAniListVector3 pos { get; set; } = new(JVector3.zero);
         public BeatValuePairAniListVector3 scale { get; set; } = new(new JVector3(1));
         public BeatValuePairAniListVector3 rotation { get; set; } = new(JVector3.zero);
+
+        public BeatValuePairAniListDouble height { get; set; } = new(1);
 
         public BeatValuePairAniListColor color { get; set; } = new(JColor.one);
         public BeatValuePairAniListColor noteColor { get; set; } = new(new JColor(0, 1, 0));

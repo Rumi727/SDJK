@@ -91,7 +91,7 @@ namespace SDJK.Ruleset.SDJK
             holdYSize *= noteDis;
 
             y -= noteOffset;
-            y -= playField.fieldHeight * 0.5;
+            y -= bar.currentBarHeight * 0.5;
 
             allowRemove = false;
             return y;

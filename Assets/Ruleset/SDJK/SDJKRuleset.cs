@@ -92,6 +92,95 @@ namespace SDJK.Ruleset.SDJK
             Object.FindObjectOfType<SDJKGameOverManager>(true).Refresh();
 
             //나중에 다시 필요할 수도...
+            /*for (int i = 16; i < 135; i += 8)
+            {
+                for (int j = 0; j < 8; j++)
+                    map.globalEffect.cameraPos.Add(i + j - 0.1, 0.25, new SCKRM.Json.JVector3(-0.8f + (j * 1.5f), 0, -14), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+
+                map.globalEffect.cameraPos.Add(i + 7.4, 0, new SCKRM.Json.JVector3(-0.8f, 0, -14));
+
+                for (int j = 0; j < map.effect.fieldEffect.Count; j++)
+                {
+                    var field = map.effect.fieldEffect[j];
+                    field.pos.Add(i + j, 0.1, new SCKRM.Json.JVector3(j * 1.5f, -1));
+                    field.pos.Add(i + j + 0.1, 0.25, new SCKRM.Json.JVector3(j * 1.5f, 0), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+                    field.pos.Add(i + 7.4, 0, new SCKRM.Json.JVector3(j * 1.5f, 16));
+
+                    if (j < map.effect.fieldEffect.Count - 1)
+                    {
+                        for (int k = 1; k < field.barEffect.Count; k++)
+                        {
+                            var bar = field.barEffect[k];
+                            bar.color.Add(i + j + 1, 0.25, new SCKRM.Json.JColor(1, 1, 1, 0));
+                            bar.color.Add(i + 7.4, 0, new SCKRM.Json.JColor(1, 1, 1, 1));
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < map.effect.fieldEffect.Count; i++)
+            {
+                var field = map.effect.fieldEffect[i];
+                for (int j = 0; j < field.barEffect.Count; j++)
+                {
+                    var bar = field.barEffect[j];
+                    if (i == 1 && j != 0)
+                    {
+                        bar.pos.Add();
+                        bar.height.Add();
+                    }
+                }
+            }
+
+            for (double i = 357.7; i < 421.5; i += 8)
+            {
+                for (int j = 0; j < 8; j++)
+                    map.globalEffect.cameraPos.Add(i + j - 0.1, 0.25, new SCKRM.Json.JVector3(-0.8f + (j * 1.5f), 0, -14), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+
+                map.globalEffect.cameraPos.Add(i + 7.4, 0, new SCKRM.Json.JVector3(-0.8f, 0, -14));
+
+                for (int j = 0; j < map.effect.fieldEffect.Count; j++)
+                {
+                    var field = map.effect.fieldEffect[j];
+
+                    if (j != 1)
+                    {
+                        field.pos.Add(i + j, 0.1, new SCKRM.Json.JVector3(j * 1.5f, -1 + 8));
+                        field.pos.Add(i + j + 0.1, 0.25, new SCKRM.Json.JVector3(j * 1.5f, 0 + 8), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+                        field.pos.Add(i + 7.4, 0, new SCKRM.Json.JVector3(j * 1.5f, 16 + 8));
+                    }
+                    else
+                    {
+                        field.pos.Add(i + j, 0.1, new SCKRM.Json.JVector3(j * 1.5f, -1));
+                        field.pos.Add(i + j + 0.1, 0.25, new SCKRM.Json.JVector3(j * 1.5f, 0), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+                        field.pos.Add(i + 7.4, 0, new SCKRM.Json.JVector3(j * 1.5f, 16));
+                    }
+
+                    if (j < map.effect.fieldEffect.Count - 1)
+                    {
+                        for (int k = 1; k < field.barEffect.Count; k++)
+                        {
+                            var bar = field.barEffect[k];
+                            if (j != 1)
+                            {
+                                bar.color.Add(i + j + 1, 0.25, new SCKRM.Json.JColor(1, 1, 1, 0));
+                                bar.color.Add(i + 7.4, 0, new SCKRM.Json.JColor(1, 1, 1, 1));
+                            }
+                            else
+                            {
+                                bar.pos.Add(i + j + 1, 0.1, new SCKRM.Json.JVector3(0, -6.6255f, 0));
+                                bar.pos.Add(i + j + 1.1, 0.25, new SCKRM.Json.JVector3(0, -5.878f, 0), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+                                bar.pos.Add(i + 7.4, 0, new SCKRM.Json.JVector3(0, 0, 0));
+
+                                bar.height.Add(i + j + 1, 0.1, 0.448);
+                                bar.height.Add(i + j + 1.1, 0.25, 0.5102f, SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
+                                bar.height.Add(i + 7.4, 1, 1);
+                            }
+                        }
+                    }
+                }
+            }*/
+
             /*System.Collections.Generic.List<SCKRM.Rhythm.BeatValuePairAni<double>> beats = new System.Collections.Generic.List<SCKRM.Rhythm.BeatValuePairAni<double>>();
             for (int i = 0; i < map.allJudgmentBeat[map.allJudgmentBeat.Count - 1]; i++)
             {

@@ -38,6 +38,7 @@ namespace SDJK.Ruleset.SDJK
         public SDJKBarEffectFile barEffectFile { get; private set; }
         public int barIndex { get; private set; }
         public double noteDistance { get; private set; }
+        public double currentBarHeight { get; private set; } = 16;
 
         List<Note> createdNotes = new List<Note>();
 
@@ -52,6 +53,8 @@ namespace SDJK.Ruleset.SDJK
             double localNoteDistance = barEffectFile.noteDistance.GetValue(currentBeat);
 
             noteDistance = globalNoteDistance * fieldNoteDistance * localNoteDistance;
+            currentBarHeight = playField.fieldHeight * barEffectFile.height.GetValue(RhythmManager.currentBeatScreen);
+
             NotePosAndHideUpdate();
         }
 
@@ -78,7 +81,7 @@ namespace SDJK.Ruleset.SDJK
                     continue;
                 }
 
-                double fieldHeight = playField.fieldHeight * 0.5;
+                double fieldHeight = currentBarHeight * 0.5;
                 bool top = y <= fieldHeight - barBottomKeyHeight;
                 bool bottom = y + holdYSize.Max(Note.noteYSize) >= -fieldHeight - barBottomKeyHeight;
                 bool active = top && bottom;
