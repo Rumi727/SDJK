@@ -45,6 +45,9 @@ namespace SDJK.MapEditor
 
             splitView.Split();
 
+            bool isMapChanged = false;
+            bool isListChanged = false;
+
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
             if (treeView.selectedItem != null)
@@ -67,8 +70,13 @@ namespace SDJK.MapEditor
                     if (propertyInfo.GetCustomAttributes<JsonIgnoreAttribute>().Count() > 0 || !propertyInfo.CanWrite)
                         GUI.enabled = false;
 
-                    if (Field(propertyInfo.Name, propertyInfo.GetValue(targetObject), out object value, false, tab + 1))
+                    EditorGUI.BeginChangeCheck();
+
+                    Field(propertyInfo.Name, propertyInfo.GetValue(targetObject), out object value, false, tab + 1);
+
+                    if (EditorGUI.EndChangeCheck())
                     {
+                        isMapChanged = true;
                         if (propertyInfo.CanWrite)
                             propertyInfo.SetValue(targetObject, value);
                     }
@@ -103,7 +111,7 @@ namespace SDJK.MapEditor
                             || type == typeof(nint)
                             || type == typeof(nuint))
                         {
-                            outObject = IntField();
+                            outObject = LongField();
                             return true;
                         }
                         else if (type == typeof(float) || type == typeof(double) || type == typeof(decimal) || type == typeof(BigDecimal))
@@ -208,8 +216,12 @@ namespace SDJK.MapEditor
                         {
                             object value = currentObject;
                             ITypeList list = (ITypeList)value;
-                            
+
+                            int lastCount = list.Count;
                             displayRestrictionsIndex = CustomInspectorEditor.DrawList(list.listType, list, "", Top, StringDefault, tab, tab + 1, true, 30, displayRestrictionsIndex);
+
+                            if (list.listType.IsClass && lastCount != list.Count)
+                                isListChanged = true;
 
                             object Top(object currentObject)
                             {
@@ -271,7 +283,7 @@ namespace SDJK.MapEditor
                             pair.disturbance = EditorGUILayout.Toggle(pair.disturbance, GUILayout.ExpandWidth(false));
 
                             EditorGUILayout.EndHorizontal();
-
+                            
                             outObject = pair;
                             return true;
                         }
@@ -316,26 +328,29 @@ namespace SDJK.MapEditor
                             return true;
                         }
                         
-                        object IntField()
+                        object LongField()
                         {
                             EditorGUILayout.BeginHorizontal();
                             CustomInspectorEditor.TabSpace(tab);
 
-                            int value = (int)Convert.ChangeType(currentObject, typeof(int));
-
-                            if (!string.IsNullOrEmpty(fieldName))
+                            unchecked
                             {
-                                int value2 = EditorGUILayout.IntField(fieldName, value);
+                                long value = (long)Convert.ChangeType(currentObject, typeof(long));
 
-                                EditorGUILayout.EndHorizontal();
-                                return Convert.ChangeType(value2, type);
-                            }
-                            else
-                            {
-                                int value2 = EditorGUILayout.IntField(value);
+                                if (!string.IsNullOrEmpty(fieldName))
+                                {
+                                    long value2 = EditorGUILayout.LongField(fieldName, value);
 
-                                EditorGUILayout.EndHorizontal();
-                                return Convert.ChangeType(value2, type);
+                                    EditorGUILayout.EndHorizontal();
+                                    return Convert.ChangeType(value2, type);
+                                }
+                                else
+                                {
+                                    long value2 = EditorGUILayout.LongField(value);
+
+                                    EditorGUILayout.EndHorizontal();
+                                    return Convert.ChangeType(value2, type);
+                                }
                             }
                         }
 
@@ -365,11 +380,12 @@ namespace SDJK.MapEditor
                 }
             }
 
-            if (GUI.changed)
+            if (isMapChanged)
                 RhythmManager.MapChange(mapFile.globalEffect.bpm, mapFile.info.songOffset, mapFile.globalEffect.yukiMode);
+            if (isListChanged)
+                treeView = new MapEffectTreeView(treeView.state, mapFile);
 
             EditorGUILayout.EndScrollView();
-
             splitView.EndSplitView();
         }
     }
@@ -413,9 +429,9 @@ namespace SDJK.MapEditor
                     continue;
 
                 if (typeof(IBeatValuePairAniList).IsAssignableFrom(propertyType))
-                    AddChild(ref id);
+                    AddChild(item, propertyInfo, targetObject, ref id);
                 else if (typeof(IBeatValuePairList).IsAssignableFrom(propertyType))
-                    AddChild(ref id);
+                    AddChild(item, propertyInfo, targetObject, ref id);
                 else
                 {
                     if (propertyType == typeof(bool)
@@ -442,16 +458,42 @@ namespace SDJK.MapEditor
                         || propertyType == typeof(JRect)
                         || propertyType == typeof(JColor)
                         || propertyType == typeof(JColor32)
-                        || propertyType == typeof(AnimationCurve)
-                        || typeof(ITypeList).IsAssignableFrom(propertyType))
-                        AddChild(ref id);
+                        || propertyType == typeof(AnimationCurve))
+                        AddChild(item, propertyInfo, targetObject, ref id);
+                    else if (typeof(ITypeList).IsAssignableFrom(propertyType))
+                        ListReflectionRecursion(AddChild(item, propertyInfo, targetObject, ref id), (ITypeList)propertyInfo.GetValue(targetObject), ref id);
                     else if (typeof(ICollection).IsAssignableFrom(propertyType))
                         continue;
                     else
-                        ReflectionRecursion(propertyType, AddChild(ref id), propertyInfo.GetValue(targetObject), ref id);
+                        ReflectionRecursion(propertyType, AddChild(item, propertyInfo, targetObject, ref id), propertyInfo.GetValue(targetObject), ref id);
                 }
 
-                MapEffectTreeViewItem AddChild(ref int id)
+                void ListReflectionRecursion(TreeViewItem item, ITypeList list, ref int id)
+                {
+                    InfiniteLoopDetector.Run();
+
+                    if (!list.listType.IsClass)
+                        return;
+
+                    for (int j = 0; j < list.Count; j++)
+                    {
+                        object value = list[j];
+                        if (value == null)
+                            continue;
+
+                        if (typeof(ITypeList).IsAssignableFrom(list.listType))
+                        {
+                            ListReflectionRecursion(AddChild(item, propertyInfo, targetObject, ref id), (ITypeList)value, ref id);
+                            continue;
+                        }
+                        else if (typeof(ICollection).IsAssignableFrom(list.listType))
+                            continue;
+
+                        ReflectionRecursion(list.listType, AddChild(item, propertyInfo, targetObject, ref id), value, ref id);
+                    }
+                }
+
+                static MapEffectTreeViewItem AddChild(TreeViewItem item, PropertyInfo propertyInfo, object targetObject, ref int id)
                 {
                     id++;
 
