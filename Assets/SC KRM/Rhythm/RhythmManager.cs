@@ -131,7 +131,7 @@ namespace SCKRM.Rhythm
 
         static int tempCurrentBeat = 0;
         static bool isStart = false;
-        static double lastBPM = 0;
+        static double lastBPMBeat = 0;
         static double lastRealAudioTime = 0;
         static Stopwatch audioDeltaTimeStopwatch = new Stopwatch();
         void Update()
@@ -211,12 +211,12 @@ namespace SCKRM.Rhythm
                 {
                     bpm = bpmList.GetValue(currentBeat, out double beat);
 
-                    if (lastBPM != bpm)
+                    if (lastBPMBeat != beat)
                     {
                         BPMChange(bpm, beat);
                         SetCurrentBeat();
 
-                        lastBPM = bpm;
+                        lastBPMBeat = beat;
                     }
                 }
 
