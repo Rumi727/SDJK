@@ -8,7 +8,7 @@ namespace SCKRM.Rhythm
 {
     #region Beat Value Pair List
     //리플랙션 용
-    public interface IBeatValuePairList : IList
+    public interface IBeatValuePairList : ITypeList
     {
         void Add();
         void Insert(int index);

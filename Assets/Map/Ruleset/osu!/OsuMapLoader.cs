@@ -358,7 +358,11 @@ namespace SDJK.Map.Ruleset.Osu
                                 double beat = RhythmManager.SecondToBeat(time - timingPointsSectionLastTime, timingPointsSectionBPM) + timingPointsSectionLastBeat;
                                 if (!uninherited)
                                 {
-                                    osuMap.globalEffect.bpm.Add(beat, bpm);
+                                    if (osuMap.globalEffect.bpm.Count <= 0)
+                                        osuMap.globalEffect.bpm.Add(double.MinValue, bpm);
+                                    else
+                                        osuMap.globalEffect.bpm.Add(beat, bpm);
+
                                     timingPointsSectionBPM = bpm;
                                 }
 
