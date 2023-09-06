@@ -122,7 +122,7 @@ namespace SCKRM.Editor
 
         public static void DrawLine(Color color, int thickness = 2, int padding = 10)
         {
-            Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
+            Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding));
             r.height = thickness;
             r.y += padding / 2;
             r.x -= 18;
@@ -134,7 +134,7 @@ namespace SCKRM.Editor
 
         public static void DrawLineVertical(Color color, int thickness = 2, int padding = 10)
         {
-            Rect r = EditorGUILayout.GetControlRect(GUILayout.Width(padding + thickness));
+            Rect r = EditorGUILayout.GetControlRect(GUILayout.Width(padding));
             r.width = thickness;
             r.x += padding / 2;
             r.y -= 18;
