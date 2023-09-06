@@ -1308,6 +1308,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 1408405982577623746}
   _profile: {fileID: 11400000, guid: beb65030da8a8e14081e777c35957973, type: 2}
+--- !u!1 &2349418834211335959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 799044456336295133}
+  - component: {fileID: 7329736232162623539}
+  m_Layer: 3
+  m_Name: Chromatic Aberration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &799044456336295133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349418834211335959}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4853040281548595880}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7329736232162623539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349418834211335959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e047a7763aa51e04dbbfcf916998567a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectManager: {fileID: 1408405982577623746}
+  _profile: {fileID: 11400000, guid: beb65030da8a8e14081e777c35957973, type: 2}
 --- !u!1 &3806279430917769488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,7 +1574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 553230654801822994}
-  - component: {fileID: 3239036363953180800}
+  - component: {fileID: 3912376841298945658}
   m_Layer: 3
   m_Name: Vignette
   m_TagString: Untagged
@@ -1551,7 +1597,7 @@ Transform:
   m_Father: {fileID: 4853040281548595880}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3239036363953180800
+--- !u!114 &3912376841298945658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1560,7 +1606,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5706669687724305539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e047a7763aa51e04dbbfcf916998567a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c4f6d3a88c068e45ab1fde60db92944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _effectManager: {fileID: 1408405982577623746}
@@ -1654,6 +1700,7 @@ Transform:
   - {fileID: 6581391275217436108}
   - {fileID: 1592805076414548577}
   - {fileID: 553230654801822994}
+  - {fileID: 799044456336295133}
   m_Father: {fileID: 1408405982577623773}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
