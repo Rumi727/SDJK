@@ -92,7 +92,7 @@ namespace SDJK.Ruleset.SDJK
             Object.FindObjectOfType<SDJKGameOverManager>(true).Refresh();
 
             //나중에 다시 필요할 수도...
-            /*for (int i = 16; i < 135; i += 8)
+            /*for (int i = 8; i < 135; i += 8)
             {
                 for (int j = 0; j < 8; j++)
                     map.globalEffect.cameraPos.Add(i + j - 0.1, 0.25, new SCKRM.Json.JVector3(-0.8f + (j * 1.5f), 0, -14), SCKRM.Easing.EasingFunction.Ease.EaseInOutBack);
@@ -113,6 +113,9 @@ namespace SDJK.Ruleset.SDJK
                             var bar = field.barEffect[k];
                             bar.color.Add(i + j + 1, 0.25, new SCKRM.Json.JColor(1, 1, 1, 0));
                             bar.color.Add(i + 7.4, 0, new SCKRM.Json.JColor(1, 1, 1, 1));
+
+                            bar.noteColor.Add(i + j + 1, 0.25, new SCKRM.Json.JColor(1, 1, 1, 0));
+                            bar.noteColor.Add(i + 7.4, 0, new SCKRM.Json.JColor(1, 1, 1, 1));
                         }
                     }
                 }
@@ -165,6 +168,9 @@ namespace SDJK.Ruleset.SDJK
                             {
                                 bar.color.Add(i + j + 1, 0.25, new SCKRM.Json.JColor(1, 1, 1, 0));
                                 bar.color.Add(i + 7.4, 0, new SCKRM.Json.JColor(1, 1, 1, 1));
+
+                                bar.noteColor.Add(i + j + 1, 0.25, new SCKRM.Json.JColor(1, 1, 1, 0));
+                                bar.noteColor.Add(i + 7.4, 0, new SCKRM.Json.JColor(1, 1, 1, 1));
                             }
                             else
                             {
