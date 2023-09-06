@@ -355,6 +355,8 @@ namespace SCKRM.Rhythm
     #region Beat Value Pair
     public interface IBeatValuePair
     {
+        Type type { get; }
+
         double beat { get; set; }
         object value { get; set; }
 
@@ -376,6 +378,8 @@ namespace SCKRM.Rhythm
 
     public struct BeatValuePair<TValue> : IBeatValuePair<TValue>
     {
+        public Type type => typeof(TValue);
+
         public double beat { get; set; }
 
         public TValue value { get; set; }
@@ -394,6 +398,8 @@ namespace SCKRM.Rhythm
 
     public struct BeatValuePairAni<TValue> : IBeatValuePairAni<TValue>
     {
+        public Type type => typeof(TValue);
+
         public double beat { get; set; }
 
         public TValue value { get; set; }
