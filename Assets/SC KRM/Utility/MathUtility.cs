@@ -3084,9 +3084,1015 @@ namespace SCKRM
         }
         #endregion
 
+        #region Next Power Of
+        public static sbyte NextPowerOf(this sbyte value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = (sbyte)-value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = (sbyte)(tempValue * power);
+                if (negative)
+                    return (sbyte)-result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = (sbyte)tempValue;
+                if (negative)
+                    return (sbyte)-result;
+                else
+                    return result;
+            }
+        }
+
+        public static byte NextPowerOf(this byte value, int power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return (byte)(tempValue * power);
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return (byte)tempValue;
+            }
+        }
+
+        public static short NextPowerOf(this short value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = (short)-value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = (short)(tempValue * power);
+                if (negative)
+                    return (short)-result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = (short)tempValue;
+                if (negative)
+                    return (short)-result;
+                else
+                    return result;
+            }
+        }
+
+        public static ushort NextPowerOf(this ushort value, int power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return (ushort)(tempValue * power);
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return (ushort)tempValue;
+            }
+        }
+
+        public static int NextPowerOf(this int value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static uint NextPowerOf(this uint value, uint power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            uint tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return tempValue * power;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return tempValue;
+            }
+        }
+
+        public static long NextPowerOf(this long value, long power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+
+            power = power.Clamp(1);
+
+            long tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static ulong NextPowerOf(this ulong value, ulong power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            ulong tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return tempValue * power;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return tempValue;
+            }
+        }
+
+        public static float NextPowerOf(this float value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            float tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static double NextPowerOf(this double value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            double tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static decimal NextPowerOf(this decimal value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            decimal tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static BigInteger NextPowerOf(this BigInteger value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            BigInteger tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static BigDecimal NextPowerOf(this BigDecimal value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            BigDecimal tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static nint NextPowerOf(this nint value, nint power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            nint tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue * power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static nuint NextPowerOf(this nuint value, nuint power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            nuint tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return tempValue * power;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return tempValue;
+            }
+        }
+        #endregion
+
         public static int NextPowerOfTwo(this int value) => Mathf.NextPowerOfTwo(value);
 
         public static float PerlinNoise(this float x, float y) => Mathf.PerlinNoise(x, y);
+
+        #region Pre Power Of
+        public static sbyte PrePowerOf(this sbyte value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = (sbyte)-value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = (sbyte)tempValue;
+                if (negative)
+                    return (sbyte)-result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = (sbyte)(tempValue / power);
+                if (negative)
+                    return (sbyte)-result;
+                else
+                    return result;
+            }
+        }
+
+        public static byte PrePowerOf(this byte value, int power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return (byte)tempValue;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return (byte)(tempValue / power);
+            }
+        }
+
+        public static short PrePowerOf(this short value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = (short)-value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = (short)tempValue;
+                if (negative)
+                    return (short)-result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = (short)(tempValue / power);
+                if (negative)
+                    return (short)-result;
+                else
+                    return result;
+            }
+        }
+
+        public static ushort PrePowerOf(this ushort value, int power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return (ushort)tempValue;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return (ushort)(tempValue / power);
+            }
+        }
+
+        public static int PrePowerOf(this int value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            int tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static uint PrePowerOf(this uint value, uint power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            uint tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return tempValue;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return tempValue / power;
+            }
+        }
+
+        public static long PrePowerOf(this long value, long power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+
+            power = power.Clamp(1);
+
+            long tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static ulong PrePowerOf(this ulong value, ulong power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            ulong tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return tempValue;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return tempValue / power;
+            }
+        }
+
+        public static float PrePowerOf(this float value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            float tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static double PrePowerOf(this double value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            double tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static decimal PrePowerOf(this decimal value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            decimal tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static BigInteger PrePowerOf(this BigInteger value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            BigInteger tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static BigDecimal PrePowerOf(this BigDecimal value, int power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            BigDecimal tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static nint PrePowerOf(this nint value, nint power)
+        {
+            bool negative = false;
+            if (value == 0)
+                return 0;
+            else if (value < 0)
+            {
+                value = -value;
+                negative = true;
+            }
+
+            power = power.Clamp(1);
+
+            nint tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                var result = tempValue;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                var result = tempValue / power;
+                if (negative)
+                    return -result;
+                else
+                    return result;
+            }
+        }
+
+        public static nuint PrePowerOf(this nuint value, nuint power)
+        {
+            if (value == 0)
+                return 0;
+
+            power = power.Clamp(1);
+
+            nuint tempValue = 1;
+            if (value < 1)
+            {
+                while (tempValue > value)
+                    tempValue /= power;
+
+                return tempValue;
+            }
+            else
+            {
+                while (tempValue < value)
+                    tempValue *= power;
+
+                return tempValue / power;
+            }
+        }
+        #endregion
 
         #region Ping Pong
         public static sbyte PingPong(this sbyte value, sbyte length) => (sbyte)(length - (value.Repeat((sbyte)(length * 2)) - length).Abs());
