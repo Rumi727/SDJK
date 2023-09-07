@@ -77,11 +77,11 @@ namespace SDJK.MainMenu
         double accelerationDeceleration = 1;
         void Update()
         {
-            if (!padeOut && RhythmManager.isPlaying && (soundPlayer == null || soundPlayer.IsDestroyed() || soundPlayer.isRemoved))
-                SoundPlayerRemoved();
-
             if (!isLoaded || ResourceManager.isAudioReset)
                 return;
+
+            if (!padeOut && RhythmManager.isPlaying && (soundPlayer == null || soundPlayer.IsDestroyed() || soundPlayer.isRemoved))
+                SoundPlayerRemoved();
 
             if (padeOut)
             {
