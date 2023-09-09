@@ -11,6 +11,8 @@ namespace SCKRM.Rhythm
     //리플랙션 용
     public interface IBeatValuePairList : ITypeList
     {
+        object defaultValue { get; }
+
         void Add();
         void Insert(int index);
         void Sort();
@@ -25,6 +27,7 @@ namespace SCKRM.Rhythm
     {
         public BeatValuePairList(TValue defaultValue) => this.defaultValue = defaultValue;
 
+        object IBeatValuePairList.defaultValue => defaultValue;
         public TValue defaultValue { get; } = default;
 
         public TPair First()
@@ -154,13 +157,11 @@ namespace SCKRM.Rhythm
 
         public new virtual void Sort()
         {
-            TPair[] list = this.OrderBy(x => x.beat).ToArray();
-            Clear();
-
-            for (int i = 0; i < list.Length; i++)
+            List<TPair> list = this.OrderBy(x => x.beat).ToList();
+            for (int i = 0; i < list.Count; i++)
             {
-                TPair item = list[i];
-                Add(item);
+                TPair pair = list[i];
+                this[i] = new TPair() { beat = pair.beat, value = pair.value, disturbance = pair.disturbance };
             }
         }
 
@@ -249,13 +250,11 @@ namespace SCKRM.Rhythm
 
         public override void Sort()
         {
-            TPair[] list = this.OrderBy(x => x.beat).ToArray();
-            Clear();
-
-            for (int i = 0; i < list.Length; i++)
+            List<TPair> list = this.OrderBy(x => x.beat).ToList();
+            for (int i = 0; i < list.Count; i++)
             {
-                TPair item = list[i];
-                Add(item);
+                TPair pair = list[i];
+                this[i] = new TPair() { beat = pair.beat, length = pair.length, value = pair.value, easingFunction = pair.easingFunction, disturbance = pair.disturbance };
             }
         }
     }

@@ -62,11 +62,12 @@ namespace SDJK.MapEditor
         bool alt = false;
         bool inspectorUpdate = true;
         MapFile lastMapFile;
+        EffectManager effectManager;
         void OnGUI()
         {
             if (rhythmWindow == null)
                 rhythmWindow = new SCKRMWindowTabRhythm();
-
+            
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
 
@@ -121,27 +122,30 @@ namespace SDJK.MapEditor
                 return;
             }
 
-            EffectManager effectManager = FindObjectOfType<EffectManager>();
-            if (effectManager != null)
+            if (effectManager == null || !effectManager.isActiveAndEnabled)
             {
-                mapFile = effectManager.selectedMap;
-
-                if (mapFile == null)
+                effectManager = FindObjectOfType<EffectManager>();
+                if (effectManager == null)
                 {
-                    EditorGUILayout.HelpBox("No map selected in effect manager", MessageType.Info);
+                    mapFile = null;
+
+                    EditorGUILayout.HelpBox("Effect Manager script not found", MessageType.Info);
                     return;
                 }
-
-                if (lastMapFile != mapFile)
-                {
-                    Init(mapFile);
-                    lastMapFile = mapFile;
-                }
             }
-            else
+
+            mapFile = effectManager.selectedMap;
+
+            if (mapFile == null)
             {
-                EditorGUILayout.HelpBox("Effect Manager script not found", MessageType.Info);
+                EditorGUILayout.HelpBox("No map selected in effect manager", MessageType.Info);
                 return;
+            }
+
+            if (lastMapFile != mapFile)
+            {
+                Init(mapFile);
+                lastMapFile = mapFile;
             }
 
             EditorGUILayout.BeginHorizontal();
@@ -211,7 +215,7 @@ namespace SDJK.MapEditor
 
             if (mapFile != null)
                 speed *= mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
-
+            
             if (down)
             {
                 RhythmManager.isPaused = true;
@@ -256,7 +260,7 @@ namespace SDJK.MapEditor
                     if (HitsoundEffect.GetHitsoundPlayCount(mapFile, RhythmManager.currentBeatSound, ref hitsoundBeat) > 0)
                         HitsoundEffect.DefaultHitsoundPlay();
                 }
-
+                
                 if (await UniTask.NextFrame(PlayerLoopTiming.LastUpdate, cancel.Token).SuppressCancellationThrow())
                     return;
             }
