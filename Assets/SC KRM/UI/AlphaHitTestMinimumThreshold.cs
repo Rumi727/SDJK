@@ -33,7 +33,7 @@ namespace SCKRM.UI
                 slicedFilledImage.alphaHitTestMinimumThreshold = alphaHitTestMinimumThreshold;
 
 #if UNITY_2022_1_OR_NEWER
-            if (alphaHitTestMinimumThreshold != 0)
+            if (Kernel.isPlaying && alphaHitTestMinimumThreshold != 0)
             {
                 CustomSpriteRendererBase renderer = GetComponent<CustomSpriteRendererBase>();
                 if (renderer != null && !renderer.forceLocalSprite)
