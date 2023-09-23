@@ -1,5 +1,5 @@
 {
-  "splashScenePath": "Assets/Splash Screen/Splash Screen.unity",
+  "splashScenePath": "Assets/SC KRM/Splash/Default Splash Scene.unity",
   "sceneLoadingScenePath": "Assets/SC KRM/Scene/Scene Load Scene.unity",
   "kernelPrefabPath": "Assets/SDJK Kernel.prefab",
   "startSceneIndex": 2
