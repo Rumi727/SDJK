@@ -8,6 +8,11 @@ namespace SCKRM.Renderer
     [WikiDescription("모든 스프라이트 렌더러의 부모")]
     public abstract class CustomSpriteRendererBase : CustomRendererBase
     {
+        /// <summary>
+        /// cachedLocalSprites[nameSpace][type][name][tag] = Sprite[];
+        /// </summary>
+        protected static Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>> cachedLocalSprites = new Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>>();
+
         int typeLock = 0;
         [SerializeField] string _type = "";
         public string type
@@ -83,18 +88,59 @@ namespace SCKRM.Renderer
             }
         }
 
+        int nameSpaceIndexTypePathPairLock = 0;
         public NameSpaceIndexTypePathPair nameSpaceIndexTypePathPair
         {
-            get => new NameSpaceIndexTypePathPair(nameSpace, index, type, path);
+            get
+            {
+                while (Interlocked.CompareExchange(ref nameSpaceIndexTypePathPairLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                NameSpaceIndexTypePathPair result;
+
+                try
+                {
+                    result = new NameSpaceIndexTypePathPair(nameSpace, index, type, path);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref nameSpaceIndexTypePathPairLock);
+                }
+
+                return result;
+            }
+
             set
             {
+                while (Interlocked.CompareExchange(ref nameSpaceIndexTypePathPairLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
                 nameSpace = value.nameSpace;
                 index = value.index;
 
                 type = value.type;
                 path = value.path;
+
+                Interlocked.Decrement(ref nameSpaceIndexTypePathPairLock);
             }
         }
+
+        int forceLocalSpriteLock = 0;
+        public bool forceLocalSprite
+        {
+            get
+            {
+                while (Interlocked.CompareExchange(ref forceLocalSpriteLock, 1, 0) != 0)
+                    Thread.Sleep(1);
+
+                bool result = _forceLocalSprite;
+                Interlocked.Decrement(ref forceLocalSpriteLock);
+
+                return result;
+            }
+        }
+
+        [SerializeField] bool _forceLocalSprite = false;
 
         /*protected virtual void OnDrawGizmos()
         {
@@ -113,7 +159,7 @@ namespace SCKRM.Renderer
             queue.Enqueue();
         }*/
 
-        public Sprite GetSprite() => GetSprite(type, path, index, nameSpace, spriteTag);
+        public Sprite GetSprite() => GetSprite(type, path, index, nameSpace, spriteTag, forceLocalSprite);
 
         public static Sprite GetSprite(string type, string name, int index, string nameSpace = "", string tag = ResourceManager.spriteDefaultTag, bool forceLocalSprite = false)
         {
@@ -127,20 +173,67 @@ namespace SCKRM.Renderer
             }
             else
             {
-                Dictionary<string, Sprite[]> sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace);
-                if (sprites == null)
-                    return null;
+                if (Kernel.isPlaying)
+                {
+                    if (cachedLocalSprites.TryGetValue(nameSpace, out var result))
+                    {
+                        if (result.TryGetValue(type, out var result2))
+                        {
+                            if (result2.TryGetValue(name, out var sprites))
+                            {
+                                Sprite[] sprites2 = null;
+                                if (sprites.ContainsKey(tag))
+                                    sprites2 = sprites[tag];
+                                else if (sprites.ContainsKey(ResourceManager.spriteDefaultTag))
+                                    sprites2 = sprites[ResourceManager.spriteDefaultTag];
 
-                Sprite[] sprites2 = null;
-                if (sprites.ContainsKey(tag))
-                    sprites2 = sprites[tag];
-                else if (sprites.ContainsKey(ResourceManager.spriteDefaultTag))
-                    sprites2 = sprites[ResourceManager.spriteDefaultTag];
+                                if (sprites2 != null && sprites2.Length > 0)
+                                    return sprites2[index.Clamp(0, sprites2.Length - 1)];
+                                else
+                                    return null;
+                            }
+                            else
+                                result2[name] = new Dictionary<string, Sprite[]>();
+                        }
+                        else
+                        {
+                            result[nameSpace][type] = new()
+                            {
+                                [name] = new Sprite[0]
+                            };
+                        }
+                    }
+                    else
+                    {
+                        cachedLocalSprites[nameSpace] = new Dictionary<string, Dictionary<string, Dictionary<string, Sprite[]>>>
+                        {
+                            [type] = new()
+                            {
+                                [name] = new()
+                            }
+                        };
+                    }
+                }
 
-                if (sprites2 != null && sprites2.Length > 0)
-                    return sprites2[index.Clamp(0, sprites2.Length - 1)];
-                else
-                    return null;
+                {
+                    Dictionary<string, Sprite[]> sprites = ResourceManager.GetSprites(Kernel.streamingAssetsPath, type, name, nameSpace);
+                    if (sprites == null)
+                        return null;
+
+                    Sprite[] sprites2 = null;
+                    if (sprites.ContainsKey(tag))
+                        sprites2 = sprites[tag];
+                    else if (sprites.ContainsKey(ResourceManager.spriteDefaultTag))
+                        sprites2 = sprites[ResourceManager.spriteDefaultTag];
+
+                    if (Kernel.isPlaying)
+                        cachedLocalSprites[nameSpace][type][name] = sprites;
+
+                    if (sprites2 != null && sprites2.Length > 0)
+                        return sprites2[index.Clamp(0, sprites2.Length - 1)];
+                    else
+                        return null;
+                }
             }
         }
     }

@@ -40,6 +40,7 @@ namespace SCKRM.Editor
             EditorGUILayout.Space();
 
             UseProperty("_index", "스프라이트 인덱스");
+            UseProperty("_forceLocalSprite", "스프라이트 강제 로드 (캐시됨)");
 
             SpriteProjectSetting.DrawGUI(editor.nameSpace, editor.type, editor.path, editor.spriteTag, editor.index);
 
