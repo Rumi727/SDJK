@@ -450,7 +450,9 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     else if (currentBeat >= sdjkManager.currentReplay.gameOverBeat)
                         instance.gameOverManager.GameOver();
 
-                    if (sdjkManager.isReplay)
+                    if (!sdjkManager.isReplay)
+                        CreatedReplayFileAdd();
+                    else
                         GetReplayFileValue();
 
                     instance.judgementAction?.Invoke(disSecond, isMiss, ruleset.GetAccuracy(disSecond), accuracy, metaData);
@@ -502,6 +504,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     double currentBeat = RhythmManager.currentBeatSound;
 
                     sdjkManager.createdReplay.combos.Add(currentBeat, instance.combo);
+                    sdjkManager.createdReplay.maxCombo.Add(currentBeat, instance.maxCombo);
                     sdjkManager.createdReplay.scores.Add(currentBeat, instance.score);
                     sdjkManager.createdReplay.healths.Add(currentBeat, instance.health);
                     sdjkManager.createdReplay.accuracyAbses.Add(currentBeat, instance.accuracyAbs);
