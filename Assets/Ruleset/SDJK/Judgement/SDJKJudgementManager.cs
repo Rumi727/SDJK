@@ -66,9 +66,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
         {
             if (base.Refresh())
             {
-                if (sdjkManager.isReplay)
-                    RhythmManager.timeChanged += TimeChanged;
-
                 judgements.Clear();
 
                 lastJudgementIndex.Clear();
@@ -128,7 +125,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
             }
         }
 
-        void OnDestroy() => RhythmManager.timeChanged -= TimeChanged;
+        void OnEnable()
+        {
+            if (sdjkManager.isReplay)
+                RhythmManager.timeChanged += TimeChanged;
+        }
+        void OnDisable() => RhythmManager.timeChanged -= TimeChanged;
 
         double lastTime = 0;
         public override void TimeChanged()
