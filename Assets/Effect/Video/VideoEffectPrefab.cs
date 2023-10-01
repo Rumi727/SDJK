@@ -103,6 +103,7 @@ namespace SDJK.Effect
 
         double offset = 0;
         bool isPlaying = false;
+        double timeChangeDelayTimer = 0;
         void Update()
         {
             if (isPlaying && !videoPlayer.isPlaying && !videoPlayer.isPaused)
@@ -149,9 +150,19 @@ namespace SDJK.Effect
                             if (dis <= -0.015625)
                                 videoPlayer.playbackSpeed = speed * 0.25f;
                         }
+
+                        timeChangeDelayTimer = 0.1f;
                     }
                     else if (!videoPlayer.isPaused)
-                        videoPlayer.time = time;
+                    {
+                        if (timeChangeDelayTimer >= 0.1f)
+                        {
+                            videoPlayer.time = time;
+                            timeChangeDelayTimer = 0;
+                        }
+                        else
+                            timeChangeDelayTimer += Kernel.fpsDeltaTime;
+                    }
 
                     if (videoPlayer.isPaused != (RhythmManager.isPaused && RhythmManager.time >= 0))
                     {

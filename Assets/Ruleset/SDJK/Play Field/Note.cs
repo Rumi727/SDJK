@@ -62,13 +62,11 @@ namespace SDJK.Ruleset.SDJK
                 lastJudgementBeat = SDJKJudgementManager.instance.lastJudgementBeat[bar.barIndex];
             }
 
+            allowRemove = false;
             if (index <= lastJudgementIndex)
             {
                 if (beat + holdLength <= lastJudgementBeat)
-                {
                     allowRemove = true;
-                    return 0;
-                }
                 else if (beat <= lastJudgementBeat)
                 {
                     float cutY = (float)(RhythmManager.currentBeatScreen - beat);
@@ -93,7 +91,6 @@ namespace SDJK.Ruleset.SDJK
             y -= noteOffset;
             y -= bar.currentBarHeight * 0.5;
 
-            allowRemove = false;
             return y;
         }
 

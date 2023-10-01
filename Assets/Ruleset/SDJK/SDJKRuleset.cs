@@ -13,6 +13,7 @@ using SDJK.Mode.Automatic;
 using SDJK.Replay.Ruleset.SDJK;
 using SDJK.Ruleset.SDJK.GameOver;
 using SCKRM;
+using SDJK.Mode.Difficulty;
 
 namespace SDJK.Ruleset.SDJK
 {
@@ -243,21 +244,46 @@ namespace SDJK.Ruleset.SDJK
         static SDJKReplayFile GetAutoModeReplayFile(SDJKMapFile map, params IMode[] modes)
         {
             SDJKReplayFile replay = ReplayLoader.CreateReplay<SDJKReplayFile>(map, modes);
+            double comboMultiplier = 0.75;
+            {
+                IMode comboMultiplierMode;
+                if ((comboMultiplierMode = modes.FindMode<ComboMultiplierModeBase>()) != null)
+                    comboMultiplier = (float)((ComboMultiplierModeBase.Config)comboMultiplierMode.modeConfig).multiplier;
+            }
 
+            int combo = 0;
+            double score = 0;
             for (int i = 0; i < map.notes.Count; i++)
             {
                 replay.pressBeat.Add(new List<double>());
                 replay.pressUpBeat.Add(new List<double>());
+            }
 
-                TypeList<SDJKNoteFile> notes = map.notes[i];
-                for (int j = 0; j < notes.Count; j++)
+            for (int i = 0; i < map.allNotes.Count; i++)
+            {
+                SDJKAllNoteFile allNote = map.allNotes[i];
+                SDJKNoteFile note = map.notes[allNote.keyIndex][allNote.index];
+                if (note.type == SDJKNoteTypeFile.instantDeath || note.type == SDJKNoteTypeFile.auto)
+                    continue;
+
+                replay.pressBeat[allNote.keyIndex].Add(note.beat);
+                replay.pressUpBeat[allNote.keyIndex].Add(note.beat + note.holdLength);
+
+                combo++;
+                score += JudgementUtility.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier);
+
+                replay.scores.Add(note.beat, score);
+                replay.combos.Add(note.beat, combo);
+                replay.maxCombo.Add(note.beat, combo);
+
+                if (note.holdLength > 0)
                 {
-                    SDJKNoteFile note = notes[j];
-                    if (note.type == SDJKNoteTypeFile.instantDeath || note.type == SDJKNoteTypeFile.auto)
-                        continue;
+                    combo++;
+                    score += JudgementUtility.GetScoreAddValue(0, map.allJudgmentBeat.Count, combo, comboMultiplier);
 
-                    replay.pressBeat[i].Add(note.beat);
-                    replay.pressUpBeat[i].Add(note.beat + note.holdLength);
+                    replay.scores.Add(note.beat + note.holdLength, score);
+                    replay.combos.Add(note.beat + note.holdLength, combo);
+                    replay.maxCombo.Add(note.beat + note.holdLength, combo);
                 }
             }
 

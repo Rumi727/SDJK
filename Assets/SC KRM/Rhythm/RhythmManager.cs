@@ -68,10 +68,11 @@ namespace SCKRM.Rhythm
                     _internalTime = value;
                     soundPlayer.time = (float)_internalTime.Clamp(0, soundPlayer.length - 0.01f);
 
-                    FixBPM();
-
                     timeChangedEventLock = false;
                 }
+
+                FixBPM();
+                timeChanged?.Invoke();
             }
         }
         static double _internalTime;
@@ -122,6 +123,8 @@ namespace SCKRM.Rhythm
 
         [Obsolete("Use currentBeat1Beat instead")] public static event Action oneBeat;
         [Obsolete("Use currentBeat1Beat instead")] public static event Action oneBeatYukiMode;
+
+        public static event Action timeChanged;
 
 
 
@@ -452,6 +455,8 @@ namespace SCKRM.Rhythm
 
                 _internalTime = soundPlayer.time;
                 FixBPM();
+
+                timeChanged?.Invoke();
             }
         }
 

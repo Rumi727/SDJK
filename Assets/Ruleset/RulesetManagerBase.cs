@@ -139,10 +139,13 @@ namespace SDJK.Ruleset
                 else
                 {
                     isReplay = false;
-                    currentReplay = null;
-
                     replaySaveButton.interactable = true;
+
                     createdReplay = ReplayLoader.CreateReplay<TReplayFile>(map, modes);
+                    currentReplay = createdReplay;
+
+                    Debug.Log(currentReplay);
+                    Debug.Log("Asdf");
                 }
 
                 this.modes = modes;

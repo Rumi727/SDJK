@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using SCKRM.Json;
 using SCKRM.Rhythm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -90,6 +91,34 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             this.allJudgmentBeat = allJudgmentBeat;
 
             this.allNotes = allNotes.OrderBy(x => x.beat).ToTypeList();
+        }
+
+        public int NoteBinarySearch(double beat, int keyIndex, Func<SDJKNoteFile, bool> condition = null)
+        {
+            TypeList<SDJKNoteFile> notes = this.notes[keyIndex];
+
+            if (notes.Count <= 0)
+                return 0;
+            else if (beat < notes[0].beat)
+                return 0;
+            else if (beat >= notes[notes.Count - 1].beat)
+                return notes.Count - 1;
+
+            int low = 0;
+            int high = notes.Count - 1;
+
+            while (low < high)
+            {
+                int index = (low + high) / 2;
+                SDJKNoteFile note = notes[index];
+
+                if (note.beat <= beat && (condition == null || condition.Invoke(note)))
+                    low = index + 1;
+                else
+                    high = index;
+            }
+
+            return low - 1;
         }
     }
 

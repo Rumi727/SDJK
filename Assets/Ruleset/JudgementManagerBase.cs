@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SDJK.Ruleset
 {
-    public class JudgementManagerBase : ManagerBase<JudgementManagerBase>
+    public abstract class JudgementManagerBase : ManagerBase<JudgementManagerBase>
     {
         public int combo { get; set; }
         public int maxCombo { get; set; }
@@ -36,5 +36,6 @@ namespace SDJK.Ruleset
 
 
         public virtual bool Refresh() => SingletonCheck(this);
+        public virtual void TimeChanged() { }
     }
 }

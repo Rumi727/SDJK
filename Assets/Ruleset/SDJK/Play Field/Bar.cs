@@ -72,22 +72,13 @@ namespace SDJK.Ruleset.SDJK
                 }
 
                 double y = note.GetYPos(note.GetNoteDis(), out double holdYSize, out bool allowRemove);
-                if (allowRemove)
-                {
-                    note.Remove();
-                    createdNotes.RemoveAt(i);
-                    i--;
-
-                    continue;
-                }
-
                 double fieldHeight = currentBarHeight * 0.5;
                 bool top = y <= fieldHeight - barBottomKeyHeight;
                 bool bottom = y + holdYSize.Max(Note.noteYSize) >= -fieldHeight - barBottomKeyHeight;
                 bool active = top && bottom;
 
-                if ((top && bottom) != note.gameObject.activeSelf)
-                    note.gameObject.SetActive(top && bottom);
+                if ((top && bottom && !allowRemove) != note.gameObject.activeSelf)
+                    note.gameObject.SetActive(top && bottom && !allowRemove);
 
                 if (active)
                     note.PosAndHoldScaleUpdate(y, holdYSize);

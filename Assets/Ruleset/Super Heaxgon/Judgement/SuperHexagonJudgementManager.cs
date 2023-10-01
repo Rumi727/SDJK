@@ -2,7 +2,6 @@ using SCKRM;
 using SCKRM.Rhythm;
 using SCKRM.Sound;
 using SDJK.Effect;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using SDJK.Mode;
