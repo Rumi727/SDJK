@@ -522,10 +522,10 @@ namespace SCKRM.Rhythm
 
         public static double BeatUseBPMChangeCalulate(double beat, BeatValuePairList<double> bpmList)
         {
-            double bpm = bpmList.GetValue(beat);
-            BPMChangeCalculate(beat, bpmList, out double bpmOffsetBeat, out double bpmOffsetTime);
+            double bpm = bpmList.GetValue(beat, out double outBeat);
+            BPMChangeCalculate(outBeat, bpmList, out double bpmOffsetBeat, out double bpmOffsetTime);
 
-            return bpmOffsetTime + BeatToSecond(bpmOffsetBeat - beat, bpm);
+            return bpmOffsetTime + BeatToSecond(beat - bpmOffsetBeat, bpm);
         }
 
         public static double SecondToBeat(double second, double bpm) => second * (bpm / 60);

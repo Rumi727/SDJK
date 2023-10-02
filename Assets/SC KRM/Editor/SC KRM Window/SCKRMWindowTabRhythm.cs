@@ -26,11 +26,12 @@ namespace SCKRM.Editor
             CustomInspectorEditor.DrawLine();
 
             EditorGUILayout.LabelField("현재 시간 - " + RhythmManager.time);
+            EditorGUILayout.LabelField("길이 - " + RhythmManager.length);
 
-            if (!simple)
-                CustomInspectorEditor.DrawLine();
+            CustomInspectorEditor.DrawLine();
 
             EditorGUILayout.LabelField("현재 비트 - " + RhythmManager.currentBeat);
+            EditorGUILayout.LabelField("길이 비트 - " + RhythmManager.lengthBeat);
 
             if (!simple)
             {
@@ -52,6 +53,8 @@ namespace SCKRM.Editor
 
                 CustomInspectorEditor.DrawLine();
             }
+            else
+                CustomInspectorEditor.DrawLine();
 
             EditorGUILayout.LabelField("BPM - " + RhythmManager.bpm);
 
