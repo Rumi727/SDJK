@@ -187,7 +187,7 @@ namespace SCKRM.Rhythm
                         if (!isPaused)
                             _internalTime += timePlusValue;
                     }
-                    else if (sync.Abs() >= audioDeltaTime * 4)
+                    else if (sync.Abs() >= audioDeltaTime)
                     {
                         if (sync * speed.Sign() >= 0)
                         {
