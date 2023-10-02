@@ -75,10 +75,10 @@ namespace SDJK.Ruleset.SDJK
                 double fieldHeight = currentBarHeight * 0.5;
                 bool top = y <= fieldHeight - barBottomKeyHeight;
                 bool bottom = y + holdYSize.Max(Note.noteYSize) >= -fieldHeight - barBottomKeyHeight;
-                bool active = top && bottom;
+                bool active = top && bottom && !allowRemove;
 
-                if ((top && bottom && !allowRemove) != note.gameObject.activeSelf)
-                    note.gameObject.SetActive(top && bottom && !allowRemove);
+                if (active != note.gameObject.activeSelf)
+                    note.gameObject.SetActive(active);
 
                 if (active)
                     note.PosAndHoldScaleUpdate(y, holdYSize);

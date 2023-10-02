@@ -120,8 +120,6 @@ namespace SDJK.Ruleset.SDJK.Judgement
 
                 if (RhythmManager.currentBeatSound >= 0)
                     instance.health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
-
-                lastTime = RhythmManager.time;
             }
         }
 
@@ -132,13 +130,12 @@ namespace SDJK.Ruleset.SDJK.Judgement
         }
         void OnDisable() => RhythmManager.timeChanged -= TimeChanged;
 
-        double lastTime = 0;
         public override void TimeChanged()
         {
             SDJKManager manager = sdjkManager;
             double currentBeat = RhythmManager.currentBeatSound;
 
-            if (!manager.isReplay || lastTime < RhythmManager.time)
+            if (!manager.isReplay)
                 return;
 
             for (int i = 0; i < judgements.Count; i++)
