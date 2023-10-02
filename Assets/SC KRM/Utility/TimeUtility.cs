@@ -34,7 +34,7 @@ namespace SCKRM
         /// <param name="hourAlwayShow">시간, 분 단위 항상 표시</param>
         /// <param name="dayAlwayShow">하루, 시간, 분 단위 항상 표시</param>
         /// <returns></returns>
-        public static string ToTime(this int second, bool minuteAlwayShow = false, bool hourAlwayShow = false, bool dayAlwayShow = false) => ToString(TimeSpan.FromSeconds(second), false, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
+        public static string ToTime(this int second, bool minuteAlwayShow = false, bool hourAlwayShow = false, bool dayAlwayShow = false) => (second < 0 ? "-" : "") + ToString(TimeSpan.FromSeconds(second), false, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
 
         /// <summary>
         /// (second = 70.1f) = "1:10.1"
@@ -51,7 +51,7 @@ namespace SCKRM
             if (!double.IsNormal(second))
                 return "--:--";
 
-            return ToString(TimeSpan.FromSeconds(second), decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
+            return (second < 0 ? "-" : "") + ToString(TimeSpan.FromSeconds(second), decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace SCKRM
             if (!double.IsNormal(second))
                 return "--:--";
 
-            return ToString(TimeSpan.FromSeconds(second), decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
+            return (second < 0 ? "-" : "") + ToString(TimeSpan.FromSeconds(second), decimalShow, minuteAlwayShow, hourAlwayShow, dayAlwayShow);
         }
         #endregion
 
