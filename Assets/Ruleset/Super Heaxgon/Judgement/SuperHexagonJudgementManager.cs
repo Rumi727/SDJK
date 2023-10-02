@@ -10,6 +10,7 @@ using SDJK.Map.Ruleset.SuperHexagon.Map;
 using SDJK.Ruleset.SuperHexagon.GameOver;
 using SDJK.Replay.Ruleset.SuperHexagon;
 using SDJK.Mode.Fun;
+using SDJK.Effect.PostProcessing;
 
 namespace SDJK.Ruleset.SuperHexagon.Judgement
 {
@@ -20,6 +21,8 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
         [SerializeField] SuperHexagonManager _manager; public SuperHexagonManager manager => _manager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] SuperHexagonGameOverManager _gameOverManager; public SuperHexagonGameOverManager gameOverManager => _gameOverManager;
+
+        [SerializeField] HPVignette _hpVignette; public HPVignette hpVignette => _hpVignette;
 
         public SuperHexagonMapFile map => manager.map;
         public SuperHexagonRuleset ruleset => manager.ruleset;
@@ -62,6 +65,9 @@ namespace SDJK.Ruleset.SuperHexagon.Judgement
                 }
 
                 SetRankProgress();
+
+                hpVignette.hp = (float)health;
+                hpVignette.maxHp = (float)maxHealth;
             }
         }
 

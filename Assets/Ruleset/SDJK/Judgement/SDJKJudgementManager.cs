@@ -14,6 +14,7 @@ using SDJK.Ruleset.SDJK.GameOver;
 using SDJK.Replay.Ruleset.SDJK;
 using SDJK.Map;
 using SDJK.Mode.Fun;
+using SDJK.Effect.PostProcessing;
 
 namespace SDJK.Ruleset.SDJK.Judgement
 {
@@ -25,6 +26,8 @@ namespace SDJK.Ruleset.SDJK.Judgement
         [SerializeField] SDJKInputManager _inputManager; public SDJKInputManager inputManager => _inputManager;
         [SerializeField] EffectManager _effectManager; public EffectManager effectManager => _effectManager;
         [SerializeField] SDJKGameOverManager _gameOverManager; public SDJKGameOverManager gameOverManager => _gameOverManager;
+
+        [SerializeField] HPVignette _hpVignette; public HPVignette hpVignette => _hpVignette;
 
         public SDJKMapFile map => (SDJKMapFile)effectManager.selectedMap;
 
@@ -122,7 +125,10 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
 
                 if (RhythmManager.currentBeatSound >= 0)
-                    instance.health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+                    health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+
+                hpVignette.hp = (float)health;
+                hpVignette.maxHp = (float)maxHealth;
             }
         }
 
