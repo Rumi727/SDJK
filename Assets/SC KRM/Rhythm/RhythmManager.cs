@@ -77,6 +77,9 @@ namespace SCKRM.Rhythm
         }
         static double _internalTime;
 
+        public static double length { get; private set; } = 0;
+        public static double lengthBeat { get; private set; } = 0;
+
         public static bool isPaused
         {
             get
@@ -303,7 +306,7 @@ namespace SCKRM.Rhythm
         }
 
         [WikiDescription("리듬 재생")]
-        public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> yukiModeList, ISoundPlayer soundPlayer = null, double startDelay = 0)
+        public static void Play(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> yukiModeList, double lengthBeat, ISoundPlayer soundPlayer = null, double startDelay = 0)
         {
             Debug.Log("Play");
 
@@ -335,6 +338,9 @@ namespace SCKRM.Rhythm
                 RhythmManager.soundPlayer.timeChanged += SoundPlayerTimeChange;
                 RhythmManager.soundPlayer.looped += SoundPlayerTimeChange;
             }
+
+            RhythmManager.lengthBeat = lengthBeat;
+            length = BeatUseBPMChangeCalulate(lengthBeat, bpmList);
 
             isPlaying = true;
             isPaused = false;
@@ -368,6 +374,9 @@ namespace SCKRM.Rhythm
             offset = 0;
             yukiModeList = null;
             soundPlayer = null;
+
+            lengthBeat = 0;
+            length = 0;
 
             isPlaying = false;
             isStart = false;
@@ -408,7 +417,7 @@ namespace SCKRM.Rhythm
             }
         }
 
-        public static void MapChange(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> yukiModeList)
+        public static void MapChange(BeatValuePairList<double> bpmList, double offset, BeatValuePairList<bool> yukiModeList, double lengthBeat)
         {
             Debug.Log("Map Changed");
 
@@ -441,6 +450,9 @@ namespace SCKRM.Rhythm
             }
 
             RhythmManager.yukiModeList = yukiModeList;
+
+            RhythmManager.lengthBeat = lengthBeat;
+            length = BeatUseBPMChangeCalulate(lengthBeat, bpmList);
         }
 
         static bool timeChangedEventLock = false;
@@ -506,6 +518,14 @@ namespace SCKRM.Rhythm
             }
 
             return bpm;
+        }
+
+        public static double BeatUseBPMChangeCalulate(double beat, BeatValuePairList<double> bpmList)
+        {
+            double bpm = bpmList.GetValue(beat);
+            BPMChangeCalculate(beat, bpmList, out double bpmOffsetBeat, out double bpmOffsetTime);
+
+            return bpmOffsetTime + BeatToSecond(bpmOffsetBeat - beat, bpm);
         }
 
         public static double SecondToBeat(double second, double bpm) => second * (bpm / 60);

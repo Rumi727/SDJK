@@ -63,7 +63,7 @@ namespace SDJK.MapEditor
             }
 
             if (isMapChanged)
-                RhythmManager.MapChange(mapFile.globalEffect.bpm, mapFile.info.songOffset, mapFile.globalEffect.yukiMode);
+                RhythmManager.MapChange(mapFile.globalEffect.bpm, mapFile.info.songOffset, mapFile.globalEffect.yukiMode, mapFile.info.clearBeat);
             if (isListChanged)
                 treeView = new MapEffectTreeView(treeView.state, mapFile);
 

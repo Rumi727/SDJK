@@ -160,7 +160,7 @@ namespace SDJK.Ruleset
                 effectManager.selectedMap = map;
                 effectManager.AllRefresh();
 
-                RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.yukiMode, null, 2);
+                RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.yukiMode, map.info.clearBeat, null, 2);
                 BGMPlay().Forget();
 
                 return true;

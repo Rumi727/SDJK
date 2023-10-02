@@ -75,7 +75,7 @@ namespace SDJK.MainMenu
                     selectedMapInfo = selectedMap.info;
                     selectedMapEffect = selectedMap.globalEffect;
 
-                    RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode);
+                    RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode, selectedMap.info.clearBeat);
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace SDJK.MainMenu
                     selectedMapInfo = value.info;
                     selectedMapEffect = value.globalEffect;
 
-                    RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode);
+                    RhythmManager.MapChange(selectedMap.globalEffect.bpm, selectedMap.info.songOffset, selectedMap.globalEffect.yukiMode, selectedMap.info.clearBeat);
                 }
                 else
                 {

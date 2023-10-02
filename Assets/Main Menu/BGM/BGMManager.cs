@@ -44,7 +44,7 @@ namespace SDJK.MainMenu
             }
 
             RhythmManager.Stop();
-            RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.yukiMode);
+            RhythmManager.Play(MapManager.selectedMapEffect.bpm, MapManager.selectedMapInfo.songOffset, MapManager.selectedMapEffect.yukiMode, MapManager.selectedMapInfo.clearBeat);
 
             bgm = (BGM)ObjectPoolingSystem.ObjectCreate("bgm_manager.bgm", transform, false).monoBehaviour;
             bgm.Refresh(tempSDJKMapPack, lastTime).Forget();
