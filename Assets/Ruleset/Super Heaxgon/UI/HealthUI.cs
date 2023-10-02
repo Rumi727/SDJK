@@ -1,5 +1,7 @@
 using SCKRM;
 using SCKRM.Rhythm;
+using SDJK.Mode;
+using SDJK.Mode.Difficulty;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,10 @@ namespace SDJK.Ruleset.SuperHexagon.UI
             if (!RhythmManager.isPlaying)
                 return;
 
+            bool active = judgementManager.manager.modes.FindMode<SuddenDeathModeBase>() == null;
+            if (active != gameObject.activeSelf)
+                gameObject.SetActive(active);
+            
             backgroundImage.color = field.backgroundColor * new Color(0.25f, 0.25f, 0.25f);
             valueImage.color = field.mainColor;
 
