@@ -337,7 +337,7 @@ namespace SDJK.Map.Ruleset.Osu
                                 splitTexts.Add(splitStringBuilder.ToString());
                                 splitStringBuilder.Clear();
 
-                                double time = int.Parse(splitTexts[0]) * 0.001;
+                                double time = double.Parse(splitTexts[0]) * 0.001;
                                 double bpm = (1d / double.Parse(splitTexts[1]) * 1000d * 60d).Round(4);
                                 int sampleSet = int.Parse(splitTexts[3]);
                                 int sampleIndex = int.Parse(splitTexts[4]);
