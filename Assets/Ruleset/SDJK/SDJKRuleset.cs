@@ -42,11 +42,11 @@ namespace SDJK.Ruleset.SDJK
 
         public override JudgementMetaData[] judgementMetaDatas { get; } = new JudgementMetaData[]
         {
-            new JudgementMetaData(sick, 0.0213333333, new Color32(0, 220, 255, 255), 1.5),
-            new JudgementMetaData(perfect, 0.064, new Color32(0, 170, 255, 255)),
-            new JudgementMetaData(great, 0.1066666667, new Color32(100, 255, 100, 255), 0.5),
-            new JudgementMetaData(good, 0.1493333333, new Color32(230, 230, 0, 255), 0.25),
-            new JudgementMetaData(early, 0.192, new Color32(166, 166, 166, 255), 0.5, true)
+            new JudgementMetaData(sick, 0.0142222222, new Color32(0, 220, 255, 255), 1),
+            new JudgementMetaData(perfect, 0.0426666667, new Color32(0, 170, 255, 255), 0.5),
+            new JudgementMetaData(great, 0.0711111111, new Color32(100, 255, 100, 255), 0.125),
+            new JudgementMetaData(good, 0.0995555555, new Color32(230, 230, 0, 255), 0),
+            new JudgementMetaData(early, 0.128, new Color32(166, 166, 166, 255), 0.5, true)
         };
         public override JudgementMetaData missJudgementMetaData { get; } = new JudgementMetaData(miss, double.MaxValue, new Color32(255, 50, 50, 255), 1, true);
         public JudgementMetaData instantDeathJudgementMetaData { get; } = new JudgementMetaData(instantDeath, double.MaxValue, new Color32(255, 50, 50, 255), double.MaxValue, true);
