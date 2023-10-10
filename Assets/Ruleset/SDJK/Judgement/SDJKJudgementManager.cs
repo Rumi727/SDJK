@@ -124,7 +124,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                         holdJudgements[i].Update();
                 }
 
-                if (RhythmManager.time >= 0 && RhythmManager.time < RhythmManager.length)
+                if (RhythmManager.time >= 0 && RhythmManager.time < RhythmManager.length && !RhythmManager.isPaused)
                     health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
 
                 hpVignette.hp = (float)health;
