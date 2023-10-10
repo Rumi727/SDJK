@@ -21,7 +21,7 @@ namespace SDJK.Ruleset.SDJK.UI
         double startDelay = 0;
         void Update()
         {
-            if (!RhythmManager.isPlaying || RhythmManager.isPaused)
+            if (!RhythmManager.isPlaying)
                 return;
 
             if (RhythmManager.offset > RhythmManager.startDelay)
@@ -29,8 +29,8 @@ namespace SDJK.Ruleset.SDJK.UI
             else
                 startDelay = RhythmManager.startDelay;
 
-            double tempoTime = RhythmManager.time / (RhythmManager.speed * Kernel.gameSpeed);
-            double tempoLength = RhythmManager.length / (RhythmManager.speed * Kernel.gameSpeed);
+            double tempoTime = RhythmManager.time / RhythmManager.speed;
+            double tempoLength = RhythmManager.length / RhythmManager.speed;
 
             invokeLock = true;
             lerpValue = lerpValue.Lerp(0, lerpAniValue * Kernel.fpsSmoothDeltaTime);
@@ -39,9 +39,6 @@ namespace SDJK.Ruleset.SDJK.UI
             slider.maxValue = (float)(startDelay + RhythmManager.length);
             
             invokeLock = false;
-
-            timeText.text = tempoTime.ToTime(false, true);
-            timeRemainingText.text = (tempoLength - tempoTime).ToTime(false, true);
 
             if (judgementManager.sdjkManager.isReplay)
             {
@@ -52,6 +49,12 @@ namespace SDJK.Ruleset.SDJK.UI
 
                 if (InputManager.TryGetKey("map_manager.pause_music"))
                     RhythmManager.isPaused = !RhythmManager.isPaused;
+            }
+
+            if (!RhythmManager.isPaused)
+            {
+                timeText.text = tempoTime.ToTime(false, true);
+                timeRemainingText.text = (tempoLength - tempoTime).ToTime(false, true);
             }
         }
 
