@@ -257,9 +257,8 @@ namespace SDJK.Map
 
 
 
-        public BeatValuePairAniListDouble hpAddValue { get; set; } = new(6.25);
+        public BeatValuePairAniListDouble hpAddValue { get; set; } = new(0.78125);
         public BeatValuePairAniListDouble hpMissValue { get; set; } = new(12.5);
-        public BeatValuePairAniListDouble hpRemoveValue { get; set; } = new(6.25);
 
 
 

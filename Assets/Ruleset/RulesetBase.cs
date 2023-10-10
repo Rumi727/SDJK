@@ -149,7 +149,9 @@ namespace SDJK.Ruleset
         public double hpMultiplier;
         public bool missHp;
 
-        public JudgementMetaData(string nameKey, double sizeSecond, Color color, double hpMultiplier = 1, bool missHp = false)
+        public bool allowGameOver;
+
+        public JudgementMetaData(string nameKey, double sizeSecond, Color color, double hpMultiplier = 1, bool missHp = false, bool allowGameOver = true)
         {
             this.nameKey = nameKey;
             this.sizeSecond = sizeSecond;
@@ -158,6 +160,8 @@ namespace SDJK.Ruleset
 
             this.hpMultiplier = hpMultiplier;
             this.missHp = missHp;
+
+            this.allowGameOver = allowGameOver;
         }
 
         public static bool operator ==(JudgementMetaData left, JudgementMetaData right) => left.Equals(right);

@@ -1329,6 +1329,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 229896182}
 --- !u!114 &229896182
 MonoBehaviour:
@@ -2032,6 +2033,7 @@ MonoBehaviour:
   _type: main_menu/logo
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 365730762}
 --- !u!114 &365730762
 MonoBehaviour:
@@ -2532,6 +2534,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 545999867}
 --- !u!114 &545999867
 MonoBehaviour:
@@ -2718,6 +2721,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 600672712}
 --- !u!114 &600672712
 MonoBehaviour:
@@ -3269,6 +3273,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 664342574}
 --- !u!114 &664342574
 MonoBehaviour:
@@ -3790,6 +3795,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 742838645}
 --- !u!114 &742838653
 MonoBehaviour:
@@ -3862,6 +3868,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 746872858}
 --- !u!114 &746872858
 MonoBehaviour:
@@ -4403,6 +4410,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 801193746}
 --- !u!114 &801193746
 MonoBehaviour:
@@ -4584,6 +4592,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 825597851}
 --- !u!114 &825597851
 MonoBehaviour:
@@ -4994,6 +5003,7 @@ MonoBehaviour:
   _type: main_menu/logo
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 875737820}
 --- !u!114 &875737820
 MonoBehaviour:
@@ -6324,6 +6334,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1115671587}
 --- !u!114 &1115671594
 MonoBehaviour:
@@ -6428,6 +6439,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1118339284}
 --- !u!114 &1118339284
 MonoBehaviour:
@@ -6694,6 +6706,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1145636269}
 --- !u!1 &1161430166
 GameObject:
@@ -6908,6 +6921,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1166608787}
 --- !u!1 &1178163183
 GameObject:
@@ -7397,6 +7411,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1300057148}
 --- !u!114 &1300057148
 MonoBehaviour:
@@ -8142,6 +8157,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1354914823}
 --- !u!114 &1354914830
 MonoBehaviour:
@@ -8311,6 +8327,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1460817933}
 --- !u!114 &1460817933
 MonoBehaviour:
@@ -8567,6 +8584,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1470272456}
 --- !u!1 &1541896755
 GameObject:
@@ -8962,6 +8980,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1594275208}
 --- !u!114 &1594275208
 MonoBehaviour:
@@ -9327,6 +9346,7 @@ MonoBehaviour:
   _type: main_menu
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1727622065}
 --- !u!1 &1746046731
 GameObject:
@@ -10184,6 +10204,7 @@ MonoBehaviour:
   _type: gui
   _spriteTag: global
   _index: 0
+  _forceLocalSprite: 0
   _image: {fileID: 1867952276}
 --- !u!1 &1924403158
 GameObject:

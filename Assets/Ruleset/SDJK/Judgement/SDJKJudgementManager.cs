@@ -125,7 +125,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                 }
 
                 if (RhythmManager.time >= 0 && RhythmManager.time < RhythmManager.length && !RhythmManager.isPaused)
-                    health -= map.globalEffect.hpRemoveValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
+                    health += map.globalEffect.hpAddValue.GetValue(RhythmManager.currentBeatSound) * RhythmManager.bpmDeltaTime;
 
                 hpVignette.hp = (float)health;
                 hpVignette.maxHp = (float)maxHealth;
@@ -455,7 +455,7 @@ namespace SDJK.Ruleset.SDJK.Judgement
                     //게임 오버
                     if (!sdjkManager.isReplay)
                     {
-                        if (instance.health <= 0)
+                        if (instance.health <= 0 && metaData.allowGameOver)
                             instance.gameOverManager.GameOver();
                     }
                     else if (currentBeat >= sdjkManager.currentReplay.gameOverBeat)
