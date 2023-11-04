@@ -1,5 +1,4 @@
 using Discord;
-using SCKRM.Discord;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -91,7 +90,7 @@ namespace SCKRM.Discord
                 }
                 catch
                 {
-                    Debug.Log("Discord is not running");
+                    Debug.ForceLog("Discord is not running");
                 }
             }
         }
@@ -109,7 +108,7 @@ namespace SCKRM.Discord
             catch (ResultException)
             {
                 if (discordIsRunning)
-                    Debug.Log("Discord is not running");
+                    Debug.ForceLog("Discord is not running");
 
                 _discord = null;
                 currentUser = null;
@@ -207,16 +206,16 @@ namespace SCKRM.Discord
             {
                 currentUser = userManager.GetCurrentUser();
 
-                Debug.Log("Discord api refresh...", nameof(DiscordManager));
-                Debug.Log("Discord user id: " + currentUser.Value.Id, nameof(DiscordManager));
-                Debug.Log("Discord user username: " + currentUser.Value.Username, nameof(DiscordManager));
+                Debug.ForceLog("Discord api refresh...", nameof(DiscordManager));
+                Debug.ForceLog("Discord user id: " + currentUser.Value.Id, nameof(DiscordManager));
+                Debug.ForceLog("Discord user username: " + currentUser.Value.Username, nameof(DiscordManager));
 
                 //디스코드 API를 정상적으로 불러왔는지 체크하고, 실패하면 심각한 오류가 발생할 수 있으니, 프로그램을 종료합니다
                 if (!DiscordCheck(Kernel.saveDataPath, currentUser.Value.Id))
                     InitialLoadManager.ApplicationForceQuit("Discord check failed", nameof(DiscordManager));
             };
 
-            Debug.Log("Discord is running");
+            Debug.ForceLog("Discord is running");
             UpdateActivity();
         }
 
@@ -225,7 +224,7 @@ namespace SCKRM.Discord
             if (discordIsRunning)
             {
                 discord?.Dispose();
-                Debug.Log("Discord api disposed");
+                Debug.ForceLog("Discord api disposed");
             }
         }
 
