@@ -73,10 +73,10 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 else
                 {
                     map = jObjectMap.ToObject<SDJKMapFile>();
-                    map.Init(mapFilePath);
-
                     if (map == null)
                         return null;
+
+                    map.Init(mapFilePath);
 
                     if (map.info.ruleset != "sdjk")
                         return null;

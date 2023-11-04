@@ -48,7 +48,13 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public static SuperHexagonMapFile MapLoad(string mapFilePath, IMode[] modes)
         {
             SuperHexagonMapFile map = JsonManager.JsonRead<JObject>(mapFilePath, true).ToObject<SuperHexagonMapFile>();
+            if (map == null)
+                return null;
+
             map.Init(mapFilePath);
+
+            if (map.info.ruleset != "super_hexagon")
+                return null;
 
             FixMode(map, modes);
             return map;
