@@ -1,4 +1,4 @@
-﻿///Credit Martin Nerurkar // www.martin.nerurkar.de // www.sharkbombs.com
+///Credit Martin Nerurkar // www.martin.nerurkar.de // www.sharkbombs.com
 ///Sourced from - http://www.sharkbombs.com/2015/02/10/tooltips-with-the-new-unity-ui-ugui/
 
 namespace UnityEngine.UI.Extensions
@@ -46,7 +46,11 @@ namespace UnityEngine.UI.Extensions
             get
             {
                 if (instance == null)
-                    instance = GameObject.FindObjectOfType<BoundTooltipItem>();
+#if UNITY_2023_1_OR_NEWER
+                    instance = FindFirstObjectByType<BoundTooltipItem>();
+#else
+                    instance = FindObjectOfType<BoundTooltipItem>();
+#endif
                 return instance;
             }
         }

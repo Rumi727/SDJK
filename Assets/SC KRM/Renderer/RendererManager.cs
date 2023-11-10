@@ -8,11 +8,35 @@ namespace SCKRM.Renderer
     [WikiDescription("렌더러를 관리하는 클래스 입니다")]
     public static class RendererManager
     {
-        [WikiDescription("새로고침 가능한 모든 오브젝트 새로고침")] public static void AllRefresh(bool thread = true) => Refresh(UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true).OfType<IRefreshable>().ToArray(), thread);
+        [WikiDescription("새로고침 가능한 모든 오브젝트 새로고침")]
+        public static void AllRefresh(bool thread = true)
+        {
+#if UNITY_2023_1_OR_NEWER
+            Refresh(UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IRefreshable>().ToArray(), thread);
+#else
+            Refresh(UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true).OfType<IRefreshable>().ToArray(), thread);
+#endif
+        }
 
-        [WikiDescription("모든 렌더러 새로고침")] public static void AllRerender(bool thread = true) => Refresh(UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true).OfType<IRendererRefreshable>().ToArray(), thread);
+        [WikiDescription("모든 렌더러 새로고침")]
+        public static void AllRerender(bool thread = true)
+        {
+#if UNITY_2023_1_OR_NEWER
+            Refresh(UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IRendererRefreshable>().ToArray(), thread);
+#else
+            Refresh(UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true).OfType<IRendererRefreshable>().ToArray(), thread);
+#endif
+        }
 
-        [WikiDescription("모든 텍스트 렌더러 새로고침")] public static void AllTextRerender(bool thread = true) => Refresh(UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true).OfType<ITextRefreshable>().ToArray(), thread);
+        [WikiDescription("모든 텍스트 렌더러 새로고침")]
+        public static void AllTextRerender(bool thread = true)
+        {
+#if UNITY_2023_1_OR_NEWER
+            Refresh(UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<ITextRefreshable>().ToArray(), thread);
+#else
+            Refresh(UnityEngine.Object.FindObjectsOfType<MonoBehaviour>(true).OfType<ITextRefreshable>().ToArray(), thread);
+#endif
+        }
 
         static ThreadMetaData rerenderThread;
         [WikiDescription("새로고침 가능한 특정 오브젝트들을 새로고침")]

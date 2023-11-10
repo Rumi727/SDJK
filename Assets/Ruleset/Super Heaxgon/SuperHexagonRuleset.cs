@@ -70,9 +70,15 @@ namespace SDJK.Ruleset.SuperHexagon
             /*if (modes.FindMode<AutoModeBase>() != null)
                 replay = GetAutoModeReplayFile(map, modes);*/
 
+#if UNITY_2023_1_OR_NEWER
+            Object.FindFirstObjectByType<SuperHexagonManager>(FindObjectsInactive.Include).Refresh(map, replay, this, isEditor, modes);
+            Object.FindFirstObjectByType<SuperHexagonJudgementManager>(FindObjectsInactive.Include).Refresh();
+            Object.FindFirstObjectByType<SuperHexagonGameOverManager>(FindObjectsInactive.Include).Refresh();
+#else
             Object.FindObjectOfType<SuperHexagonManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SuperHexagonJudgementManager>(true).Refresh();
             Object.FindObjectOfType<SuperHexagonGameOverManager>(true).Refresh();
+#endif
 
             SoundManager.PlaySound("ruleset.super_hexagon.start", "sdjk");
             SoundManager.PlaySound("ruleset.super_hexagon.begin", "sdjk");

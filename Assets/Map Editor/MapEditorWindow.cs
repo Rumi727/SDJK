@@ -44,7 +44,11 @@ namespace SDJK.MapEditor
         void ActiveSceneChanged(Scene arg0, Scene arg1)
         {
             judgementManagers.Clear();
+#if UNITY_2023_1_OR_NEWER
+            MonoBehaviour[] monoBehaviours = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
             MonoBehaviour[] monoBehaviours = FindObjectsOfType<MonoBehaviour>(true);
+#endif
 
             for (int i = 0; i < monoBehaviours.Length; i++)
             {
@@ -124,7 +128,11 @@ namespace SDJK.MapEditor
 
             if (effectManager == null || !effectManager.isActiveAndEnabled)
             {
+#if UNITY_2023_1_OR_NEWER
+                effectManager = FindFirstObjectByType<EffectManager>();
+#else
                 effectManager = FindObjectOfType<EffectManager>();
+#endif
                 if (effectManager == null)
                 {
                     mapFile = null;

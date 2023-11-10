@@ -685,7 +685,12 @@ namespace SCKRM.Command
         public override Transform Parse(IStringReader reader)
         {
             int hashCode = reader.ReadInt();
+
+#if UNITY_2023_1_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsSortMode.None).First(x => x.GetHashCode() == hashCode);
+#else
             return UnityEngine.Object.FindObjectsOfType<Transform>().First(x => x.GetHashCode() == hashCode);
+#endif
         }
     }
 
@@ -694,7 +699,12 @@ namespace SCKRM.Command
         public override Transform[] Parse(IStringReader reader)
         {
             string name = reader.ReadString();
+
+#if UNITY_2023_1_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsSortMode.None).Where(x => x.name == name).ToArray();
+#else
             return UnityEngine.Object.FindObjectsOfType<Transform>().Where(x => x.name == name).ToArray();
+#endif
         }
     }
 
@@ -703,7 +713,12 @@ namespace SCKRM.Command
         public override GameObject Parse(IStringReader reader)
         {
             int hashCode = reader.ReadInt();
+
+#if UNITY_2023_1_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None).First(x => x.GetHashCode() == hashCode);
+#else
             return UnityEngine.Object.FindObjectsOfType<GameObject>().First(x => x.GetHashCode() == hashCode);
+#endif
         }
     }
 
@@ -712,7 +727,12 @@ namespace SCKRM.Command
         public override GameObject[] Parse(IStringReader reader)
         {
             string name = reader.ReadString();
+
+#if UNITY_2023_1_OR_NEWER
+            return UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None).Where(x => x.name == name).ToArray();
+#else
             return UnityEngine.Object.FindObjectsOfType<GameObject>().Where(x => x.name == name).ToArray();
+#endif
         }
     }
 

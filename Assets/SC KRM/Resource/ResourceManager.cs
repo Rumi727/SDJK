@@ -1278,7 +1278,7 @@ Import image files as Texture2D type"
 
             if (exists)
             {
-                Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse, false);
+                Texture2D texture = new Texture2D(1, 1, textureFormat, mipmapUse, false);
                 allLoadedResources.Add(texture);
 
                 texture.filterMode = filterMode;
@@ -1415,7 +1415,7 @@ Various formats are supported. Among them, there are formats supported by SC KRM
                 byte[] textureBytes = www.downloadHandler.data;
 #endif
 
-                Texture2D texture = new Texture2D(0, 0, textureFormat, mipmapUse);
+                Texture2D texture = new Texture2D(1, 1, textureFormat, mipmapUse);
                 allLoadedResources.Add(texture);
 
                 texture.filterMode = filterMode;

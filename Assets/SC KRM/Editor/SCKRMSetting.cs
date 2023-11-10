@@ -66,7 +66,11 @@ namespace SCKRM.Editor
             CustomRendererBase[] customAllRenderers;
 
             if (prefabStage == null)
+#if UNITY_2023_1_OR_NEWER
+                customAllRenderers = UnityEngine.Object.FindObjectsByType<CustomRendererBase>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
                 customAllRenderers = UnityEngine.Object.FindObjectsOfType<CustomRendererBase>(true);
+#endif
             else
                 customAllRenderers = prefabStage.FindComponentsOfType<CustomRendererBase>();
 
@@ -206,7 +210,11 @@ namespace SCKRM.Editor
                 #region Kernel
                 if (activeScene.path == splashScenePath)
                 {
+#if UNITY_2023_1_OR_NEWER
+                    Kernel kernel = UnityEngine.Object.FindFirstObjectByType<Kernel>(FindObjectsInactive.Include);
+#else
                     Kernel kernel = UnityEngine.Object.FindObjectOfType<Kernel>(true);
+#endif
                     Kernel kernelPrefab = AssetDatabase.LoadAssetAtPath<Kernel>(kernelPrefabPath);
                     if (kernelPrefab == null)
                         throw new NullFolderObjectException(kernelPrefabPath);
@@ -231,7 +239,11 @@ namespace SCKRM.Editor
                 }
                 else
                 {
+#if UNITY_2023_1_OR_NEWER
+                    Kernel kernel = UnityEngine.Object.FindFirstObjectByType<Kernel>(FindObjectsInactive.Include);
+#else
                     Kernel kernel = UnityEngine.Object.FindObjectOfType<Kernel>(true);
+#endif
                     if (kernel != null)
                     {
                         UnityEngine.Object.DestroyImmediate(kernel.gameObject);
@@ -245,7 +257,11 @@ namespace SCKRM.Editor
                 if (prefabStage != null)
                     cameras = prefabStage.FindComponentsOfType<UnityEngine.Camera>();
                 else
+#if UNITY_2023_1_OR_NEWER
+                    cameras = UnityEngine.Object.FindObjectsByType<UnityEngine.Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
                     cameras = UnityEngine.Object.FindObjectsOfType<UnityEngine.Camera>(true);
+#endif
 
                 for (int i = 0; i < cameras.Length; i++)
                 {
@@ -263,7 +279,11 @@ namespace SCKRM.Editor
                 if (prefabStage != null)
                     canvases = prefabStage.FindComponentsOfType<Canvas>();
                 else
-                    canvases = UnityEngine.Object.FindObjectsOfType<Canvas>(true);
+#if UNITY_2023_1_OR_NEWER
+                    canvases = UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
+                    canvases  = UnityEngine.Object.FindObjectsOfType<Canvas>(true);
+#endif
 
                 for (int i = 0; i < canvases.Length; i++)
                 {
@@ -296,7 +316,11 @@ namespace SCKRM.Editor
                 if (prefabStage != null)
                     transforms = prefabStage.FindComponentsOfType<Transform>();
                 else
+#if UNITY_2023_1_OR_NEWER
+                    transforms = UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
                     transforms = UnityEngine.Object.FindObjectsOfType<Transform>(true);
+#endif
 
                 for (int i = 0; i < transforms.Length; i++)
                 {

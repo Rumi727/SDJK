@@ -60,7 +60,11 @@ namespace SCKRM
 #if UNITY_EDITOR
                 if (UnityEditor.EditorSettings.enterPlayModeOptionsEnabled && UnityEditor.EditorSettings.enterPlayModeOptions.HasFlag(UnityEditor.EnterPlayModeOptions.DisableDomainReload))
                 {
+#if UNITY_2023_1_OR_NEWER
+                    GameObject[] gameObjects = UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
                     GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(true);
+#endif
                     int length = gameObjects.Length;
                     for (int i = 0; i < length; i++)
                     {
@@ -74,8 +78,8 @@ namespace SCKRM
                 }
 #endif
 
-                //UniTask를 초기화 합니다
-                PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
+                    //UniTask를 초기화 합니다
+                    PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
                 PlayerLoopHelper.Initialize(ref loop);
 
                 StatusBarManager.allowStatusBarShow = false;
@@ -315,7 +319,11 @@ namespace SCKRM
                 TMP_Text exceptionText = UnityEngine.Object.Instantiate(UIManager.instance.exceptionText, UIManager.instance.kernelCanvas.transform);
                 exceptionText.text = $"{typeName}: {message}";
 
+#if UNITY_2023_1_OR_NEWER
+                GameObject[] gameObjects = UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
                 GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>(true);
+#endif
                 GameObject kernel = Kernel.instance.gameObject;
                 GameObject uiManager = UIManager.instance.gameObject;
                 GameObject kernelCanvas = UIManager.instance.kernelCanvas.gameObject;

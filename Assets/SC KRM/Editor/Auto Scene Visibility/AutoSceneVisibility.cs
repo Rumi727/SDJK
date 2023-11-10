@@ -15,7 +15,11 @@ namespace SCKRM.Editor
 
         public static void Update()
         {
+#if UNITY_2023_1_OR_NEWER
+            CanvasSetting[] canvasSettings = UnityEngine.Object.FindObjectsByType<CanvasSetting>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+#else
             CanvasSetting[] canvasSettings = UnityEngine.Object.FindObjectsOfType<CanvasSetting>(true);
+#endif
             for (int i = 0; i < canvasSettings.Length; i++)
             {
                 CanvasSetting canvasSetting = canvasSettings[i];

@@ -149,7 +149,11 @@ namespace SCKRM.Sound
 
 
 
+#if UNITY_2023_1_OR_NEWER
+            ISoundPlayer[] soundPlayer = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<ISoundPlayer>().ToArray();
+#else
             ISoundPlayer[] soundPlayer = FindObjectsOfType<MonoBehaviour>().OfType<ISoundPlayer>().ToArray();
+#endif
             for (int i = 0; i < soundPlayer.Length; i++)
                 soundPlayer[i].Refresh();
         }

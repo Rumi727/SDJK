@@ -88,7 +88,11 @@ namespace UnityEngine.UI.Extensions
             get
             {
                 if (instance == null)
+#if UNITY_2023_1_OR_NEWER
+                    instance = FindFirstObjectByType<ToolTip>();
+#else
                     instance = FindObjectOfType<ToolTip>();
+#endif
                 return instance;
             }
         }

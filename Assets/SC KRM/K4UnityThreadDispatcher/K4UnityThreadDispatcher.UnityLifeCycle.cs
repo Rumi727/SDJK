@@ -1,5 +1,7 @@
 using System.Diagnostics;
+using System.Management.Instrumentation;
 using UnityEngine;
+using UnityEngine.UI.Extensions;
 
 namespace K4.Threading
 {
@@ -27,10 +29,14 @@ namespace K4.Threading
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
 		public static void CreateDispatcher()
-		{
-			if(Instance == null)
+        {
+            if(Instance == null)
 			{
-				SelfType dispatcher = FindObjectOfType<SelfType>() ?? new GameObject("Unity Thread Dispatcher").AddComponent<SelfType>();
+#if UNITY_2023_1_OR_NEWER
+                SelfType dispatcher = FindFirstObjectByType<SelfType>() ?? new GameObject("Unity Thread Dispatcher").AddComponent<SelfType>();
+#else
+                SelfType dispatcher = FindObjectOfType<SelfType>() ?? new GameObject("Unity Thread Dispatcher").AddComponent<SelfType>();
+#endif
 				DontDestroyOnLoad(dispatcher);
 				Instance = dispatcher;
 			}

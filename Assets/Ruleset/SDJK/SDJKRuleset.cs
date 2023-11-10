@@ -86,11 +86,17 @@ namespace SDJK.Ruleset.SDJK
 
             if (!Kernel.isPlaying)
                 return;
-
+#if UNITY_2023_1_OR_NEWER
+            Object.FindFirstObjectByType<SDJKManager>(FindObjectsInactive.Include).Refresh(map, replay, this, isEditor, modes);
+            Object.FindFirstObjectByType<SDJKInputManager>(FindObjectsInactive.Include).Refresh();
+            Object.FindFirstObjectByType<SDJKJudgementManager>(FindObjectsInactive.Include).Refresh();
+            Object.FindFirstObjectByType<SDJKGameOverManager>(FindObjectsInactive.Include).Refresh();
+#else
             Object.FindObjectOfType<SDJKManager>(true).Refresh(map, replay, this, isEditor, modes);
             Object.FindObjectOfType<SDJKInputManager>(true).Refresh();
             Object.FindObjectOfType<SDJKJudgementManager>(true).Refresh();
             Object.FindObjectOfType<SDJKGameOverManager>(true).Refresh();
+#endif
 
             //나중에 다시 필요할 수도...
             /*for (int i = 8; i < 135; i += 8)
