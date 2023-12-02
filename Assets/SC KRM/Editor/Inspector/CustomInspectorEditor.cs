@@ -265,13 +265,12 @@ namespace SCKRM.Editor
                 }
 
                 {
-                    if (deleteSafety && (list.Count <= 0 || (list[list.Count - 1] != null && !defaultValueFunc.Invoke(list.Count - 1))))
-                        GUI.enabled = false;
+                    EditorGUI.BeginDisabledGroup(deleteSafety && (list.Count <= 0 || (list[list.Count - 1] != null && !defaultValueFunc.Invoke(list.Count - 1))));
 
                     if (GUILayout.Button("삭제", GUILayout.ExpandWidth(false)) && list.Count > 0)
                         list.RemoveAt(list.Count - 1);
 
-                    GUI.enabled = true;
+                    EditorGUI.EndDisabledGroup();
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -303,23 +302,21 @@ namespace SCKRM.Editor
                 }
 
                 {
-                    if (displayRestrictionsIndex <= 0)
-                        GUI.enabled = false;
+                    EditorGUI.BeginDisabledGroup(displayRestrictionsIndex <= 0);
 
                     if (GUILayout.Button("이전", GUILayout.ExpandWidth(false)))
                         displayRestrictionsIndex--;
 
-                    GUI.enabled = true;
+                    EditorGUI.EndDisabledGroup();
                 }
 
                 {
-                    if ((list.Count - (displayRestrictions * displayRestrictionsIndex)) <= displayRestrictions)
-                        GUI.enabled = false;
+                    EditorGUI.BeginDisabledGroup((list.Count - (displayRestrictions * displayRestrictionsIndex)) <= displayRestrictions);
 
                     if (GUILayout.Button("다음", GUILayout.ExpandWidth(false)))
                         displayRestrictionsIndex++;
 
-                    GUI.enabled = true;
+                    EditorGUI.EndDisabledGroup();
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -359,33 +356,30 @@ namespace SCKRM.Editor
                 }
 
                 {
-                    if (deleteSafety && list[i] != null && !defaultValueFunc.Invoke(i))
-                        GUI.enabled = false;
+                    EditorGUI.BeginDisabledGroup(deleteSafety && list[i] != null && !defaultValueFunc.Invoke(i));
 
                     if (GUILayout.Button("삭제", GUILayout.ExpandWidth(false)))
                         list.RemoveAt(i);
 
-                    GUI.enabled = true;
+                    EditorGUI.EndDisabledGroup();
                 }
 
                 {
-                    if (i - 1 < 0)
-                        GUI.enabled = false;
+                    EditorGUI.BeginDisabledGroup(i - 1 < 0);
 
                     if (GUILayout.Button("이전", GUILayout.ExpandWidth(false)))
                         list.Move(i, i - 1);
 
-                    GUI.enabled = true;
+                    EditorGUI.EndDisabledGroup();
                 }
 
                 {
-                    if (i + 1 >= list.Count)
-                        GUI.enabled = false;
+                    EditorGUI.BeginDisabledGroup(i + 1 >= list.Count);
 
                     if (GUILayout.Button("다음", GUILayout.ExpandWidth(false)))
                         list.Move(i, i + 1);
 
-                    GUI.enabled = true;
+                    EditorGUI.EndDisabledGroup();
                 }
 
                 EditorGUILayout.EndHorizontal();

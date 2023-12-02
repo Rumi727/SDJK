@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using SCKRM.Easing;
 using SCKRM.Json;
 using System;
@@ -403,7 +404,7 @@ namespace SCKRM.Rhythm
 
     public struct BeatValuePair<TValue> : IBeatValuePair<TValue>
     {
-        public Type type => typeof(TValue);
+        [JsonIgnore] public Type type => typeof(TValue);
 
         public double beat { get; set; }
 
@@ -423,7 +424,7 @@ namespace SCKRM.Rhythm
 
     public struct BeatValuePairAni<TValue> : IBeatValuePairAni<TValue>
     {
-        public Type type => typeof(TValue);
+        [JsonIgnore] public Type type => typeof(TValue);
 
         public double beat { get; set; }
 
