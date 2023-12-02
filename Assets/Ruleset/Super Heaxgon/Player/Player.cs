@@ -58,7 +58,15 @@ namespace SDJK.Ruleset.SuperHexagon
 
             if (!field.manager.gameOverManager.isGameOver && !field.manager.isPaused && Kernel.gameSpeed != 0)
             {
-                double speed = map.effect.playerSpeed.GetValue(RhythmManager.currentBeatScreen) * Kernel.fpsSmoothDeltaTime * (field.manager.soundPlayer != null ? field.manager.soundPlayer.realSpeed : 0);
+                double speed = map.effect.playerSpeed.GetValue(RhythmManager.currentBeatScreen) * Kernel.fpsSmoothDeltaTime;
+                double mapSpeed = map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+
+                if (mapSpeed != 0)
+                {
+                    speed *= field.manager.soundPlayer != null ? field.manager.soundPlayer.realSpeed : 0;
+                    speed /= map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
+                }
+
                 if (InputManager.GetKey("ruleset.super_hexagon.left", InputType.Alway))
                     rotation -= speed;
                 if (InputManager.GetKey("ruleset.super_hexagon.right", InputType.Alway))
