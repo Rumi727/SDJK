@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace SDJK.MainMenu
@@ -303,58 +304,93 @@ namespace SDJK.MainMenu
         #region 가독성 씹창난 맵 이동 코드
         public static void RulesetBackMap()
         {
-            for (int i = 0; i < currentMapPacks.Count; i++)
-            {
-                if (selectedMapIndex - 1 < 0)
-                    selectedMapIndex = selectedMapPack.maps.Count - 1;
-                else
-                    selectedMapIndex--;
+            int index = selectedMapIndex;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
+            for (int i = 0; i < selectedMapPack.maps.Count; i++)
+            {
+                if (index - 1 < 0)
+                    index = selectedMapPack.maps.Count - 1;
+                else
+                    index--;
+
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[index].info.ruleset))
                     break;
             }
+
+            selectedMapIndex = index;
         }
 
         public static void RulesetNextMap()
         {
-            for (int i = 0; i < currentMapPacks.Count; i++)
+            int index = selectedMapIndex;
+            for (int i = 0; i < selectedMapPack.maps.Count; i++)
             {
-                if (selectedMapIndex + 1 >= selectedMapPack.maps.Count)
-                    selectedMapIndex = 0;
+                if (index + 1 >= selectedMapPack.maps.Count)
+                    index = 0;
                 else
-                    selectedMapIndex++;
+                    index++;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
+                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapPack.maps[index].info.ruleset))
                     break;
             }
+
+            selectedMapIndex = index;
         }
 
         public static void RulesetBackMapPack()
         {
+            int index = selectedMapPackIndex;
             for (int i = 0; i < currentMapPacks.Count; i++)
             {
-                if (selectedMapPackIndex - 1 < 0)
-                    selectedMapPackIndex = currentMapPacks.Count - 1;
+                if (index - 1 < 0)
+                    index = currentMapPacks.Count - 1;
                 else
-                    selectedMapPackIndex--;
+                    index--;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
+                bool compatible = false;
+                List<MapFile> maps = currentMapPacks[index].maps;
+                for (int j = 0; j < maps.Count; j++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(maps[j].info.ruleset))
+                    {
+                        compatible = true;
+                        break;
+                    }
+                }
+
+                if (compatible)
                     break;
             }
+
+            selectedMapPackIndex = index;
         }
 
         public static void RulesetNextMapPack()
         {
+            int index = selectedMapPackIndex;
             for (int i = 0; i < currentMapPacks.Count; i++)
             {
-                if (selectedMapPackIndex + 1 >= currentMapPacks.Count)
-                    selectedMapPackIndex = 0;
+                if (index + 1 >= currentMapPacks.Count)
+                    index = 0;
                 else
-                    selectedMapPackIndex++;
+                    index++;
 
-                if (RulesetManager.selectedRuleset.IsCompatibleRuleset(selectedMapInfo.ruleset))
+                bool compatible = false;
+                List<MapFile> maps = currentMapPacks[index].maps;
+                for (int j = 0; j < maps.Count; j++)
+                {
+                    if (RulesetManager.selectedRuleset.IsCompatibleRuleset(maps[j].info.ruleset))
+                    {
+                        compatible = true;
+                        break;
+                    }
+                }
+
+                if (compatible)
                     break;
             }
+
+            selectedMapPackIndex = index;
         }
         #endregion
     }
