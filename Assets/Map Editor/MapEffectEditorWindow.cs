@@ -16,7 +16,6 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
-using Object = UnityEngine.Object;
 
 namespace SDJK.MapEditor
 {
@@ -59,7 +58,9 @@ namespace SDJK.MapEditor
                 object targetObject = treeView.selectedItem.targetObject;
                 PropertyInfo propertyInfo = treeView.selectedItem.propertyInfo;
 
+                EditorGUI.BeginDisabledGroup(treeView.selectedItem.readonlyField);
                 DrawClass(targetObject, propertyInfo, 0, ref isMapChanged, ref isListChanged);
+                EditorGUI.EndDisabledGroup();
             }
 
             if (isMapChanged)
@@ -82,9 +83,7 @@ namespace SDJK.MapEditor
 
             EditorGUILayout.EndHorizontal();
 
-            if (propertyInfo.GetCustomAttributes<JsonIgnoreAttribute>().Count() > 0 || !propertyInfo.CanWrite)
-                GUI.enabled = false;
-
+            EditorGUI.BeginDisabledGroup(propertyInfo.GetCustomAttributes<JsonIgnoreAttribute>().Count() > 0 || !propertyInfo.CanWrite);
             EditorGUI.BeginChangeCheck();
 
             (isMapChanged, isListChanged) = DrawField(propertyInfo.Name, propertyInfo.PropertyType, propertyInfo.GetValue(targetObject), out object value, false, tab + 1, isMapChanged, isListChanged);
@@ -96,10 +95,10 @@ namespace SDJK.MapEditor
                     propertyInfo.SetValue(targetObject, value);
             }
 
-            GUI.enabled = true;
+            EditorGUI.EndDisabledGroup();
         }
 
-        public (bool isMapChanged, bool isListChanged) DrawBeatValuePair(string fieldName, Type type, object currentObject, out object outObject, bool isList, int tab, bool isMapChanged, bool isListChanged, bool beatMixed, out bool beatChange, bool valueMixed, out bool valueChange, bool disturbanceMixed, out bool disturbanceChange, bool lengthMixed, out bool lengthChange, bool easingFunctionMixed, out bool easingFuctionChange)
+        public (bool isMapChanged, bool isListChanged) DrawBeatValuePair(Type type, object currentObject, out object outObject, bool isList, int tab, bool isMapChanged, bool isListChanged, bool beatMixed, out bool beatChange, bool valueMixed, out bool valueChange, bool disturbanceMixed, out bool disturbanceChange, bool lengthMixed, out bool lengthChange, bool easingFunctionMixed, out bool easingFuctionChange)
         {
             beatChange = false;
             valueChange = false;
@@ -412,7 +411,7 @@ namespace SDJK.MapEditor
             }
             else if (typeof(IBeatValuePair).IsAssignableFrom(type))
             {
-                DrawBeatValuePair(fieldName, type, currentObject, out outObject, isList, tab, isMapChanged, isListChanged, false, out bool beatChange, false, out bool valueChange, false, out bool disturbanceChange, false, out bool lengthChange, false, out bool easingFunctionChange);
+                DrawBeatValuePair(type, currentObject, out outObject, isList, tab, isMapChanged, isListChanged, false, out bool beatChange, false, out bool valueChange, false, out bool disturbanceChange, false, out bool lengthChange, false, out bool easingFunctionChange);
                 return (isMapChanged || beatChange || valueChange || disturbanceChange || lengthChange || disturbanceChange, isListChanged);
             }
             else

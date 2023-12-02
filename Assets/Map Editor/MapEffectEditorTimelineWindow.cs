@@ -1,6 +1,8 @@
+using ExtendedNumerics;
 using SCKRM;
 using SCKRM.Cursor;
 using SCKRM.Editor;
+using SCKRM.Json;
 using SCKRM.Rhythm;
 using SDJK.Map;
 using System;
@@ -9,8 +11,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 namespace SDJK.MapEditor
 {
@@ -61,6 +61,7 @@ namespace SDJK.MapEditor
         public MapEffectTreeViewItem[] lastItems;
         public List<IBeatValuePair> clipboards = new List<IBeatValuePair>();
         public double createBeatOffset = 0;
+        public bool initValueShow = false;
         public bool OnGUI(MapEffectTreeViewItem[] items)
         {
             List<PropertyInfoTypeListPair> lists = new List<PropertyInfoTypeListPair>();
@@ -90,73 +91,92 @@ namespace SDJK.MapEditor
             if (lists.Count <= 0 && items.Length <= 1)
                 return false;
 
-            rawGUI = EditorGUILayout.Toggle("Raw GUI", rawGUI);
-            if (!rawGUI)
-                createBeatOffset = EditorGUILayout.DoubleField("생성 비트 오프셋", createBeatOffset);
-
-            CustomInspectorEditor.DrawLine(2, 0);
-            EditorGUILayout.Space(0);
-
-            if (rawGUI)
-                return false;
-
-            Rect backgroundRect = splitView.availableRect;
-            backgroundRect.x = 3;
-            backgroundRect.y = 2;
-
-            backgroundRect.width *= 1 - splitView.splitNormalizedPosition;
-            backgroundRect.width -= 5;
-            backgroundRect.height -= 4;
-
-
-            #region Init Value
-            GUILayout.Label("초기 값", EditorStyles.boldLabel);
+            Rect backgroundRect;
 
             double minBeat = 0;
             double maxBeat = 0;
-            for (int i = 0; i < lists.Count; i++)
             {
-                PropertyInfoTypeListPair listPair = lists[i];
-                bool initValueExists = false;
-
-                for (int j = 0; j < listPair.list.Count; j++)
+                rawGUI = EditorGUILayout.Toggle("Raw GUI", rawGUI);
+                if (!rawGUI)
                 {
-                    IBeatValuePair pair = (IBeatValuePair)listPair.list[j];
+                    createBeatOffset = EditorGUILayout.DoubleField("생성 비트 오프셋", createBeatOffset);
+                    initValueShow = EditorGUILayout.Toggle("초기 값 표시", initValueShow);
+                }
 
-                    if (pair.beat < sbyte.MinValue)
+                CustomInspectorEditor.DrawLine(2, 0);
+                EditorGUILayout.Space(0);
+
+                if (rawGUI)
+                    return false;
+
+                backgroundRect = splitView.availableRect;
+                backgroundRect.x = 3;
+                backgroundRect.y = 2;
+
+                backgroundRect.width *= 1 - splitView.splitNormalizedPosition;
+                backgroundRect.width -= 5;
+                backgroundRect.height -= 4;
+
+                #region Init Value
+                if (initValueShow)
+                    GUILayout.Label("초기 값", EditorStyles.boldLabel);
+
+                for (int i = 0; i < lists.Count; i++)
+                {
+                    PropertyInfoTypeListPair listPair = lists[i];
+                    bool initValueExists = false;
+
+                    for (int j = 0; j < listPair.list.Count; j++)
                     {
-                        if (!initValueExists)
+                        IBeatValuePair pair = (IBeatValuePair)listPair.list[j];
+
+                        if (pair.beat < sbyte.MinValue)
                         {
-                            GUILayout.Label(listPair.info.Name, EditorStyles.boldLabel);
+                            if (!initValueExists)
+                            {
+                                if (initValueShow)
+                                {
+                                    GUILayout.Label(listPair.info.Name, EditorStyles.boldLabel);
 
-                            effectEditor.DrawField(listPair.info.Name, listPair.list.listType, pair, out object outPair, false, 0, false, false);
-                            if (i < lists.Count - 1)
-                                CustomInspectorEditor.DrawLine(2, 0);
+                                    effectEditor.DrawField(listPair.info.Name, listPair.list.listType, pair, out object outPair, false, 0, false, false);
+                                    if (i < lists.Count - 1)
+                                        CustomInspectorEditor.DrawLine(2, 0);
 
-                            listPair.list[j] = outPair;
+                                    listPair.list[j] = outPair;
+                                }
 
-                            initValueExists = true;
+                                initValueExists = true;
+                            }
+
+                            continue;
                         }
 
-                        continue;
+                        minBeat = minBeat.Min(pair.beat);
+                        maxBeat = maxBeat.Max(pair.beat);
                     }
 
-                    minBeat = minBeat.Min(pair.beat);
-                    maxBeat = maxBeat.Max(pair.beat);
-                }
-                
-                if (!initValueExists)
-                {
-                    IBeatValuePair pair = (IBeatValuePair)Activator.CreateInstance(listPair.list.listType);
-                    pair.beat = double.MinValue;
+                    if (!initValueExists)
+                    {
+                        if (GUILayout.Button("초기값 생성", GUILayout.ExpandWidth(false)))
+                        {
+                            IBeatValuePair pair = (IBeatValuePair)Activator.CreateInstance(listPair.list.listType);
+                            pair.beat = double.MinValue;
 
-                    listPair.list.Insert(0);
+                            listPair.list.Insert(0);
+                        }
+                    }
+                    else if (GUILayout.Button("초기값 삭제", GUILayout.ExpandWidth(false)))
+                        listPair.list.RemoveAt(0);
+
+                    EditorGUILayout.Space(0);
                 }
+                #endregion
             }
-            #endregion
 
             CustomInspectorEditor.DrawLine(2, 0);
-            verticalScroll = EditorGUILayout.BeginScrollView(verticalScroll, GUILayout.MinHeight(60 * lists.Count + 132));
+
+            verticalScroll = EditorGUILayout.BeginScrollView(verticalScroll);
+
             backgroundRect = EditorGUILayout.BeginVertical();
             backgroundRect.height += 2;
 
@@ -445,7 +465,7 @@ namespace SDJK.MapEditor
                 else //Overlay
                 {
                     GUI.BeginGroup(overlays.rect);
-                    GUILayout.BeginArea(new Rect(Vector2.zero, new Vector2(300, 145)), GUI.skin.button);
+                    GUILayout.BeginArea(new Rect(Vector2.zero, new Vector2(300, 150)), GUI.skin.button);
 
                     #region Mixed Check
                     bool beatMixed = false;
@@ -479,7 +499,7 @@ namespace SDJK.MapEditor
                     }
                     #endregion
 
-                    (bool isMapChanged, _) = effectEditor.DrawBeatValuePair(pairListFirst.listPair.info.Name, pairListFirst.listPair.list.listType, pairListFirst.pair, out object outValue, false, 0, false, false, beatMixed, out bool beatChange, valueMixed, out bool valueChange, disturbanceMixed, out bool disturbanceChange, lengthMixed, out bool lengthChange, easingFunctionMixed, out bool easingFunctionChange);
+                    (bool isMapChanged, _) = effectEditor.DrawBeatValuePair(pairListFirst.listPair.list.listType, pairListFirst.pair, out object outValue, false, 0, false, false, beatMixed, out bool beatChange, valueMixed, out bool valueChange, disturbanceMixed, out bool disturbanceChange, lengthMixed, out bool lengthChange, easingFunctionMixed, out bool easingFunctionChange);
 
                     #region Map Change
                     if (isMapChanged)
@@ -745,7 +765,7 @@ namespace SDJK.MapEditor
             }
 
 
-            GUILayout.FlexibleSpace();
+            GUILayout.Space(60 * lists.Count + 22);
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndScrollView();
 

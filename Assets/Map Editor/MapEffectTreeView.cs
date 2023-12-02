@@ -48,55 +48,38 @@ namespace SDJK.MapEditor
             {
                 PropertyInfo propertyInfo = propertyInfos[i];
                 Type propertyType = propertyInfo.PropertyType;
-
+                
                 if (!propertyInfo.CanRead)
                     continue;
 
-                if (typeof(IBeatValuePairAniList).IsAssignableFrom(propertyType))
+                object value = propertyInfo.GetValue(targetObject);
+                if (!propertyInfo.DeclaringType.IsClass && !propertyInfo.PropertyType.IsClass)
+                    continue;
+
+                if (propertyType == typeof(Type))
+                    continue;
+                else if (IsDefaultType(propertyType))
                     AddChild(item, propertyInfo, targetObject, ref id);
-                else if (typeof(IBeatValuePairList).IsAssignableFrom(propertyType))
+                else if (typeof(IBeatValuePairList).IsAssignableFrom(propertyType) && IsDefaultType(((IBeatValuePairList)value).defaultValue.GetType()))
                     AddChild(item, propertyInfo, targetObject, ref id);
+                else if (typeof(ITypeList).IsAssignableFrom(propertyType))
+                    ListReflectionRecursion(AddChild(item, propertyInfo, targetObject, ref id), (ITypeList)propertyInfo.GetValue(targetObject), ref id);
+                else if (typeof(ICollection).IsAssignableFrom(propertyType))
+                    continue;
                 else
-                {
-                    if (propertyType == typeof(bool)
-                        || propertyType == typeof(byte)
-                        || propertyType == typeof(sbyte)
-                        || propertyType == typeof(short)
-                        || propertyType == typeof(ushort)
-                        || propertyType == typeof(int)
-                        || propertyType == typeof(uint)
-                        || propertyType == typeof(long)
-                        || propertyType == typeof(ulong)
-                        || propertyType == typeof(float)
-                        || propertyType == typeof(double)
-                        || propertyType == typeof(decimal)
-                        || propertyType == typeof(nint)
-                        || propertyType == typeof(nuint)
-                        || propertyType == typeof(char)
-                        || propertyType == typeof(string)
-                        || propertyType == typeof(BigInteger)
-                        || propertyType == typeof(BigDecimal)
-                        || propertyType == typeof(JVector2)
-                        || propertyType == typeof(JVector3)
-                        || propertyType == typeof(JVector4)
-                        || propertyType == typeof(JRect)
-                        || propertyType == typeof(JColor)
-                        || propertyType == typeof(JColor32)
-                        || propertyType == typeof(AnimationCurve))
-                        AddChild(item, propertyInfo, targetObject, ref id);
-                    else if (typeof(ITypeList).IsAssignableFrom(propertyType))
-                        ListReflectionRecursion(AddChild(item, propertyInfo, targetObject, ref id), (ITypeList)propertyInfo.GetValue(targetObject), ref id);
-                    else if (typeof(ICollection).IsAssignableFrom(propertyType))
-                        continue;
-                    else
-                        ReflectionRecursion(propertyType, AddChild(item, propertyInfo, targetObject, ref id), propertyInfo.GetValue(targetObject), ref id);
-                }
+                    ReflectionRecursion(propertyType, AddChild(item, propertyInfo, targetObject, ref id), propertyInfo.GetValue(targetObject), ref id);
 
                 void ListReflectionRecursion(TreeViewItem item, ITypeList list, ref int id)
                 {
                     InfiniteLoopDetector.Run();
 
-                    if (!list.listType.IsClass)
+                    if (typeof(IBeatValuePairList).IsAssignableFrom(list.GetType()))
+                    {
+                        IBeatValuePairList pair = (IBeatValuePairList)list;
+                        if (!pair.defaultValue.GetType().IsClass)
+                            return;
+                    }
+                    else if (IsDefaultType(list.listType))
                         return;
 
                     for (int j = 0; j < list.Count; j++)
@@ -112,8 +95,8 @@ namespace SDJK.MapEditor
                         }
                         else if (typeof(ICollection).IsAssignableFrom(list.listType))
                             continue;
-
-                        ReflectionRecursion(list.listType, AddChild(item, propertyInfo, targetObject, ref id), value, ref id);
+                        else
+                            ReflectionRecursion(list.listType, AddChild(item, propertyInfo, targetObject, ref id), value, ref id);
                     }
                 }
 
@@ -128,6 +111,38 @@ namespace SDJK.MapEditor
 
                     item.AddChild(childItem);
                     return childItem;
+                }
+
+                static bool IsDefaultType(Type type)
+                {
+                    if (type == typeof(bool)
+                        || type == typeof(byte)
+                        || type == typeof(sbyte)
+                        || type == typeof(short)
+                        || type == typeof(ushort)
+                        || type == typeof(int)
+                        || type == typeof(uint)
+                        || type == typeof(long)
+                        || type == typeof(ulong)
+                        || type == typeof(float)
+                        || type == typeof(double)
+                        || type == typeof(decimal)
+                        || type == typeof(nint)
+                        || type == typeof(nuint)
+                        || type == typeof(char)
+                        || type == typeof(string)
+                        || type == typeof(BigInteger)
+                        || type == typeof(BigDecimal)
+                        || type == typeof(JVector2)
+                        || type == typeof(JVector3)
+                        || type == typeof(JVector4)
+                        || type == typeof(JRect)
+                        || type == typeof(JColor)
+                        || type == typeof(JColor32)
+                        || type == typeof(AnimationCurve))
+                        return true;
+
+                    return false;
                 }
             }
         }
@@ -153,5 +168,6 @@ namespace SDJK.MapEditor
 
         public object targetObject;
         public PropertyInfo propertyInfo;
+        public bool readonlyField;
     }
 }
