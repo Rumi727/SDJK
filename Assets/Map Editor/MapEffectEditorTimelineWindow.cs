@@ -155,25 +155,29 @@ namespace SDJK.MapEditor
                         maxBeat = maxBeat.Max(pair.beat);
                     }
 
-                    if (!initValueExists)
+                    if (initValueShow)
                     {
-                        if (GUILayout.Button("초기값 생성", GUILayout.ExpandWidth(false)))
+                        if (!initValueExists)
                         {
-                            IBeatValuePair pair = (IBeatValuePair)Activator.CreateInstance(listPair.list.listType);
-                            pair.beat = double.MinValue;
+                            if (GUILayout.Button("초기값 생성", GUILayout.ExpandWidth(false)))
+                            {
+                                IBeatValuePair pair = (IBeatValuePair)Activator.CreateInstance(listPair.list.listType);
+                                pair.beat = double.MinValue;
 
-                            listPair.list.Insert(0);
+                                listPair.list.Insert(0);
+                            }
                         }
+                        else if (GUILayout.Button("초기값 삭제", GUILayout.ExpandWidth(false)))
+                            listPair.list.RemoveAt(0);
                     }
-                    else if (GUILayout.Button("초기값 삭제", GUILayout.ExpandWidth(false)))
-                        listPair.list.RemoveAt(0);
 
                     EditorGUILayout.Space(0);
                 }
                 #endregion
             }
 
-            CustomInspectorEditor.DrawLine(2, 0);
+            if (initValueShow)
+                CustomInspectorEditor.DrawLine(2, 0);
 
             verticalScroll = EditorGUILayout.BeginScrollView(verticalScroll);
 
@@ -807,7 +811,7 @@ namespace SDJK.MapEditor
             }
             #endregion
 
-            if (isDown || isDrag || isUp)
+            if (isDown || isDrag || isUp || Event.current.isScrollWheel)
                 editor.Repaint();
 
             double PosToBeat(float xPos) => (xPos / width) + minScroll;
