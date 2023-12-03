@@ -101,8 +101,12 @@ namespace SDJK.MapEditor
                 {
                     createBeatOffset = EditorGUILayout.DoubleField("생성 비트 오프셋", createBeatOffset);
                     initValueShow = EditorGUILayout.Toggle("초기 값 표시", initValueShow);
+
+                    if (GUILayout.Button("클립보드 비우기", GUILayout.ExpandWidth(false)))
+                        clipboards.Clear();
                 }
 
+                EditorGUILayout.Space(0.1f);
                 CustomInspectorEditor.DrawLine(2, 0);
                 EditorGUILayout.Space(0);
 
