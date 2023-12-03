@@ -10,6 +10,10 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
     {
         [SerializeField, FieldNotNull] Field _field; public Field field => _field;
 
+        ThemeEffect<BeatValuePairAniListFloat, float> fieldXPosition = new();
+        ThemeEffect<BeatValuePairAniListFloat, float> fieldYPosition = new();
+        ThemeEffect<BeatValuePairAniListFloat, float> fieldZPosition = new();
+
         ThemeEffect<BeatValuePairAniListFloat, float> fieldXRotation = new();
         ThemeEffect<BeatValuePairAniListFloat, float> fieldYRotation = new();
         ThemeEffect<BeatValuePairAniListFloat, float> fieldZRotation = new();
@@ -29,6 +33,10 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
             SuperHexagonThemeFile theme = map.effect.themes.GetValue(currentBeat, out double beat);
 
             #region Field Rotation
+            float fieldXPosition = this.fieldXPosition.Update(theme, beat, theme.fieldXPosition);
+            float fieldYPosition = this.fieldYPosition.Update(theme, beat, theme.fieldYPosition);
+            float fieldZPosition = this.fieldZPosition.Update(theme, beat, theme.fieldZPosition);
+
             float fieldXRotation = this.fieldXRotation.Update(theme, beat, theme.fieldXRotation);
             float fieldYRotation = this.fieldYRotation.Update(theme, beat, theme.fieldYRotation);
             float fieldZRotation = this.fieldZRotation.Update(theme, beat, theme.fieldZRotation);
@@ -46,7 +54,8 @@ namespace SDJK.Ruleset.SuperHexagon.Effect
                 fieldAutoZRotation = fieldAutoZRotation.Repeat(360);
             }
 
-            field.transform.localEulerAngles = new Vector3(fieldXRotation, fieldYRotation, fieldZRotation + fieldAutoZRotation);
+            field.transform.localPosition = map.effect.fieldPosition.GetValue(currentBeat) + new Vector3(fieldXPosition, fieldYPosition, fieldZPosition);
+            field.transform.localEulerAngles = map.effect.fieldRotation.GetValue(currentBeat) + new Vector3(fieldXRotation, fieldYRotation, fieldZRotation + fieldAutoZRotation);
             #endregion
 
             #region Background Color

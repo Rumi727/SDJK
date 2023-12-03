@@ -70,6 +70,9 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
         public BeatValuePairAniListDouble sidesList { get; set; } = new(6);
         public BeatValuePairAniListDouble playerSpeed { get; set; } = new(12);
 
+        public BeatValuePairAniListVector3 fieldPosition { get; set; } = new(Vector3.zero);
+        public BeatValuePairAniListVector3 fieldRotation { get; set; } = new(Vector3.zero);
+
         public BeatValuePairList<SuperHexagonThemeFile> themes { get; set; } = new(new SuperHexagonThemeFile());
 
         public TypeList<SuperHexagonBarEffectFile> barEffect { get; set; } = new();
@@ -87,6 +90,10 @@ namespace SDJK.Map.Ruleset.SuperHexagon.Map
 
     public sealed class SuperHexagonThemeFile
     {
+        public BeatValuePairAniListFloat fieldXPosition { get; set; } = new(0);
+        public BeatValuePairAniListFloat fieldYPosition { get; set; } = new(0);
+        public BeatValuePairAniListFloat fieldZPosition { get; set; } = new(0);
+
         public BeatValuePairAniListFloat fieldXRotation { get; set; } = new(0);
         public BeatValuePairAniListFloat fieldYRotation { get; set; } = new(0);
         public BeatValuePairAniListFloat fieldZRotation { get; set; } = new(0);
