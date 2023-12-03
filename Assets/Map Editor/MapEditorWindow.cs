@@ -223,14 +223,19 @@ namespace SDJK.MapEditor
 
             if (mapFile != null)
                 speed *= mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
-            
+
             if (down)
             {
                 RhythmManager.isPaused = true;
                 RhythmManager.Rewind(Kernel.deltaTimeDouble * speed);
+
+                Repaint();
             }
             else if (up || space)
+            {
                 RhythmManager.isPaused = false;
+                Repaint();
+            }
             else
                 RhythmManager.isPaused = true;
 
