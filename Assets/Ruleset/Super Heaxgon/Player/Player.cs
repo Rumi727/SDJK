@@ -62,10 +62,7 @@ namespace SDJK.Ruleset.SuperHexagon
                 double mapSpeed = map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
 
                 if (mapSpeed != 0)
-                {
-                    speed *= field.manager.soundPlayer != null ? field.manager.soundPlayer.realSpeed : 0;
-                    speed /= map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
-                }
+                    speed *= RhythmManager.speed / mapSpeed;
 
                 if (InputManager.GetKey("ruleset.super_hexagon.left", InputType.Alway))
                     rotation -= speed;
