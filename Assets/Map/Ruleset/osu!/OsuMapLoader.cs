@@ -456,7 +456,7 @@ namespace SDJK.Map.Ruleset.Osu
                                         if (layer == 1)
                                             break;
 
-                                        HitsoundFile hitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(path), volume * 0.01f, 1);
+                                        HitsoundFile hitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(path), volume * 0.01f, 1, 1);
                                         osuMap.globalEffect.playSounds.Add(beat, new TypeList<HitsoundFile>() { hitsoundFile });
 
                                         break;
@@ -597,13 +597,13 @@ namespace SDJK.Map.Ruleset.Osu
 
                                             HitsoundFile hitsoundFile;
                                             if (sampleIndex == 0 || sampleIndex == 1)
-                                                hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1);
+                                                hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText, sampleVolume * 0.01f, 1, 1);
                                             else
-                                                hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1);
+                                                hitsoundFile = new HitsoundFile(sampleSetText + "-hit" + hitsoundText + sampleIndex, sampleVolume * 0.01f, 1, 1);
 
                                             if (!string.IsNullOrWhiteSpace(fileName))
                                             {
-                                                HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1);
+                                                HitsoundFile customHitsoundFile = new HitsoundFile(PathUtility.GetPathWithExtension(fileName), sampleVolume * 0.01f, 1, 1);
                                                 hitsoundFiles = new TypeList<HitsoundFile>() { hitsoundFile, customHitsoundFile };
                                             }
                                             else

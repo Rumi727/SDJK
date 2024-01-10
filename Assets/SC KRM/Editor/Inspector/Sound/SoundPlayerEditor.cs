@@ -49,20 +49,11 @@ namespace SCKRM.Editor
                 if (soundObject.metaData.stream)
                     minPitch = 0;
 
-                if (soundObject.soundData.isBGM && SoundManager.SaveData.useTempo)
-                {
-                    GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                    soundObject.pitch = EditorGUILayout.Slider(soundObject.pitch, soundObject.tempo.Abs() * 0.5f, soundObject.tempo.Abs() * 2f);
+                GUILayout.Label("피치", GUILayout.ExpandWidth(false));
+                soundObject.pitch = EditorGUILayout.Slider(soundObject.pitch, soundObject.tempo.Abs() * 0.5f, soundObject.tempo.Abs() * 2f);
 
-                    GUILayout.Label("템포", GUILayout.ExpandWidth(false));
-                    soundObject.tempo = EditorGUILayout.Slider(soundObject.tempo, minPitch.Min(soundObject.tempo), 3f.Max(soundObject.tempo));
-                }
-                else
-                {
-                    GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                    soundObject.pitch = EditorGUILayout.Slider(soundObject.pitch, minPitch.Min(soundObject.pitch), 3f.Max(soundObject.pitch));
-                    ;
-                }
+                GUILayout.Label("템포", GUILayout.ExpandWidth(false));
+                soundObject.tempo = EditorGUILayout.Slider(soundObject.tempo, minPitch.Min(soundObject.tempo), 3f.Max(soundObject.tempo));
 
                 EditorGUILayout.EndHorizontal();
             }

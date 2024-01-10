@@ -336,11 +336,12 @@ But it's read-only so you can't insert DPS chains and it converts to mono."
                         else if (nbsNoteMetaData.instrument == 15)
                             blockType += "pling";
 
+                        float realPitch = pitch * this.pitch * metaData.pitch / Kernel.gameSpeed;
                         SoundPlayer soundPlayer;
                         if (spatial)
-                            soundPlayer = SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, pitch * this.pitch * metaData.pitch / Kernel.gameSpeed, 1, panStereo + this.panStereo, minDistance, maxDistance, transform);
+                            soundPlayer = SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, realPitch, realPitch, panStereo + this.panStereo, minDistance, maxDistance, transform);
                         else
-                            soundPlayer = SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, pitch * this.pitch * metaData.pitch / Kernel.gameSpeed, 1, panStereo + this.panStereo);
+                            soundPlayer = SoundManager.PlaySound(blockType, "minecraft", volume * this.volume, false, realPitch, realPitch, panStereo + this.panStereo);
 
                         allPlayingSounds.Add(soundPlayer);
                     }

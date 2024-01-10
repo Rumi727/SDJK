@@ -70,6 +70,8 @@ namespace SDJK.Ruleset.SuperHexagon
             /*if (modes.FindMode<AutoModeBase>() != null)
                 replay = GetAutoModeReplayFile(map, modes);*/
 
+            replay = new SuperHexagonReplayFile();
+
 #if UNITY_2023_1_OR_NEWER
             Object.FindFirstObjectByType<SuperHexagonManager>(FindObjectsInactive.Include).Refresh(map, replay, this, isEditor, modes);
             Object.FindFirstObjectByType<SuperHexagonJudgementManager>(FindObjectsInactive.Include).Refresh();

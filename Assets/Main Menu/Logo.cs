@@ -59,9 +59,9 @@ namespace SDJK.MainMenu
                     if (pointer)
                     {
                         if (currentBeat == 0)
-                            SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.35f);
+                            SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 1.35f, 1.35f);
 
-                        SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f);
+                        SoundManager.PlaySound("hitsound.normal", "sdjk", 0.5f, false, 0.95f, 0.95f);
                     }
 
                     lastCurrentBeat = currentBeat;

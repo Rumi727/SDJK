@@ -284,7 +284,7 @@ namespace SCKRM.Editor
                                         bool stream = soundMetaData.stream;
                                         float pitch = soundMetaData.pitch;
                                         float tempo = soundMetaData.tempo;
-                                        float loopStartTime = soundMetaData.loopStartTime;
+                                        int loopStartIndex = soundMetaData.loopStartIndex;
 
                                         //CustomInspectorEditor.DrawLine();
 
@@ -334,35 +334,24 @@ namespace SCKRM.Editor
                                             }
                                         }
 
-                                        if (soundData.Value.isBGM && SoundManager.SaveData.useTempo)
-                                        {
-                                            GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                                            pitch = EditorGUILayout.FloatField(pitch, GUILayout.Width(30)).Clamp(soundMetaData.tempo.Abs() * 0.5f, soundMetaData.tempo.Abs() * 2f);
+                                        GUILayout.Label("피치", GUILayout.ExpandWidth(false));
+                                        pitch = EditorGUILayout.FloatField(pitch, GUILayout.Width(30)).Clamp(soundMetaData.tempo.Abs() * 0.5f, soundMetaData.tempo.Abs() * 2f);
 
-                                            GUILayout.Label("템포", GUILayout.ExpandWidth(false));
-                                            tempo = EditorGUILayout.FloatField(tempo, GUILayout.Width(30));
+                                        GUILayout.Label("템포", GUILayout.ExpandWidth(false));
+                                        tempo = EditorGUILayout.FloatField(tempo, GUILayout.Width(30));
 
-                                            if (soundMetaData.stream)
-                                                tempo = tempo.Clamp(0);
-                                        }
-                                        else
-                                        {
-                                            GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                                            pitch = EditorGUILayout.FloatField(pitch, GUILayout.Width(30));
-
-                                            if (soundMetaData.stream)
-                                                pitch = pitch.Clamp(0);
-                                        }
+                                        if (soundMetaData.stream)
+                                            tempo = tempo.Clamp(0);
 
                                         GUILayout.Label("루프 시작 시간", GUILayout.ExpandWidth(false));
-                                        loopStartTime = EditorGUILayout.FloatField(loopStartTime, GUILayout.Width(50)).Clamp(0);
+                                        loopStartIndex = EditorGUILayout.IntField(loopStartIndex, GUILayout.Width(50)).Clamp(0);
 
                                         GUILayout.Label("스트림", GUILayout.ExpandWidth(false));
                                         stream = EditorGUILayout.Toggle(stream, GUILayout.Width(20));
 
                                         EditorGUILayout.EndHorizontal();
 
-                                        soundMetaDatas[j] = new SoundMetaData(soundPath, pitch, tempo, stream, loopStartTime, null);
+                                        soundMetaDatas[j] = new SoundMetaData(soundPath, pitch, tempo, stream, loopStartIndex, null);
                                     }
                                     valueList.Add(new SoundData<SoundMetaData>(subtitle, isBGM, soundMetaDatas.ToArray()));
 

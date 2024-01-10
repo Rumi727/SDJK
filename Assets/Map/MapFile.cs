@@ -313,25 +313,29 @@ namespace SDJK.Map
     public struct HitsoundFile : IEquatable<HitsoundFile>
     {
         public static TypeList<HitsoundFile> defaultHitsounds => new TypeList<HitsoundFile> { defaultHitsound };
-        public static HitsoundFile defaultHitsound { get; } = new HitsoundFile("normal", 0.5f, 0.95f);
+        public static HitsoundFile defaultHitsound { get; } = new HitsoundFile("normal", 0.5f, 0.95f, 0.95f);
 
-        public HitsoundFile(string path, float volume, float pitch)
+        public HitsoundFile(string path, float volume, float pitch, float tempo)
         {
             this.path = path;
 
             this.volume = volume;
+
             this.pitch = pitch;
+            this.tempo = tempo;
         }
 
         public string path { get; set; }
 
         public float volume { get; set; }
-        public float pitch { get; set; }
 
-        public bool Equals(HitsoundFile other) => path == other.path && volume == other.volume && pitch == other.pitch;
+        public float pitch { get; set; }
+        public float tempo { get; set; }
+
+        public bool Equals(HitsoundFile other) => path == other.path && volume == other.volume && pitch == other.pitch && tempo == other.tempo;
 
         public override bool Equals(object obj) => obj is HitsoundFile other && Equals(other);
-        public override int GetHashCode() => HashCode.Combine(path, volume, pitch);
+        public override int GetHashCode() => HashCode.Combine(path, volume, pitch, tempo);
     }
     #endregion
 }

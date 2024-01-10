@@ -19,26 +19,30 @@ namespace SCKRM.Sound
         [WikiDescription("현재 시간 (Get is Thread-safe)")]
         public override double time
         {
-            get => (double)audioSource.timeSamples / frequency;
+            get => frequency != 0 ? (double)timeSamples / frequency : 0;
+            set => timeSamples = (int)(value * frequency);
+        }
+
+        public int timeSamples
+        {
+            get => _timeSamples;
             set
             {
-                if (!ThreadManager.isMainThread)
-                    throw new NotMainThreadMethodException();
-
-                double lastTime = time;
-
-                if (lastTime != value)
+                if (_timeSamples != value)
                 {
-                    audioSource.timeSamples = (int)(value * frequency);
-                    this.lastTime = time;
+                    _timeSamples = value;
+                    if (audioSource != null)
+                        audioSource.timeSamples = value.Clamp(0, samples);
 
                     _timeChanged?.Invoke();
                 }
             }
         }
+        int _timeSamples = 0;
+
         [WikiDescription("현재 실제 시간")] public override double realTime { get => time / speed; set => time = value * speed; }
 
-        [WikiDescription("곡의 길이")] public override double length => audioSource.clip != null ? (double)lengthSamples / frequency : 0;
+        [WikiDescription("곡의 길이")] public override double length => metaData != null ? metaData.length : 0;
         [WikiDescription("곡의 실제 길이")] public override double realLength => length / speed;
 
         [WikiDescription("루프 가능 여부")]
@@ -114,7 +118,6 @@ namespace SCKRM.Sound
                 if (base.tempo != value)
                 {
                     base.tempo = value;
-
                     RefreshTempoAndPitch();
                 }
             }
@@ -123,35 +126,11 @@ namespace SCKRM.Sound
         [WikiDescription("속도")]
         public override float speed
         {
-            get
-            {
-                if (soundData != null && soundData.isBGM && SoundManager.SaveData.useTempo)
-                    return tempo;
-                else
-                    return pitch;
-            }
-            set
-            {
-                if (soundData != null && soundData.isBGM && SoundManager.SaveData.useTempo)
-                    tempo = value;
-                else
-                    pitch = value;
-            }
+            get => tempo;
+            set => tempo = value;
         }
         [WikiDescription("실제 속도")]
-        public override float realSpeed
-        {
-            get
-            {
-                if (metaData == null)
-                    return 0;
-
-                if (soundData != null && soundData.isBGM && SoundManager.SaveData.useTempo)
-                    return tempo * metaData.tempo;
-                else
-                    return pitch * metaData.pitch;
-            }
-        }
+        public override float realSpeed => metaData != null ? tempo * metaData.tempo : 0;
 
         [WikiDescription("볼륨")]
         public override float volume
@@ -224,63 +203,87 @@ namespace SCKRM.Sound
             }
         }
 
-        public int frequency { get; private set; }
-        public int lengthSamples { get; private set; }
+        public int frequency => metaData != null ? metaData.frequency : 0;
+        public int channels => metaData != null ? metaData.channels : 0;
+
+        public int samples => metaData != null ? metaData.samples : 0;
 
         public bool isSpeedZero { get; private set; }
 
 
 
-        bool lastUseTempo = true;
         double lastTime = 0;
+        double tempoAdjustmentTime = 0;
         void Update()
         {
-            if (lastUseTempo != SoundManager.SaveData.useTempo)
+            //시간 보정
+            if (!isPaused)
             {
-                if (soundData.isBGM && SoundManager.SaveData.useTempo)
-                    audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
-                else
-                    audioSource.outputAudioMixerGroup = null;
+                int value = (int)(frequency * Kernel.unscaledDeltaTime);
+                _timeSamples += (int)(value * realSpeed * Kernel.gameSpeed);
+                
+                //템포
+                if (audioSource.isPlaying && timeSamples >= 0 && timeSamples <= samples)
+                {
+                    int condition = (int)(2048 / (realSpeed != 0 ? realSpeed : 1).Clamp(1).Pow(0.5f));
+                    double pitchDivideTempo = realSpeed * Kernel.gameSpeed / (pitch != 0 ? pitch : 1);
 
-                lastUseTempo = SoundManager.SaveData.useTempo;
-                RefreshTempoAndPitch();
+                    tempoAdjustmentTime += value;
+                    if (tempoAdjustmentTime >= condition)
+                    {
+                        float result = (float)((1 - pitchDivideTempo.Abs()) * pitch * condition * realSpeed.Sign());
+                        
+                        int tempTimeSamples = audioSource.timeSamples;
+                        while (tempoAdjustmentTime >= condition)
+                        {
+                            if (result != 0)
+                                tempTimeSamples -= (int)result;
+
+                            tempoAdjustmentTime -= condition;
+                        }
+
+                        audioSource.timeSamples = tempTimeSamples.Clamp(0, samples - 1);
+                        _timeSamples = tempTimeSamples;
+                    }
+                }
+                else
+                    tempoAdjustmentTime = 0;
             }
+            else
+                tempoAdjustmentTime = 0;
 
             if (UIOverlayManager.isOverlayShow)
                 audioLowPassFilter.cutoffFrequency = 687.5f;
             else
                 audioLowPassFilter.cutoffFrequency = 22000f;
 
-            if (audioSource.loop)
+            if (loop)
             {
-                isLooped = false;
-                if (audioSource.pitch < 0)
-                {
-                    if (time < metaData.loopStartTime)
-                        time = length - 0.001;
+                int loopStartIndex = metaData.loopStartIndex;
+                bool isLooped = false;
 
-                    if (time > lastTime)
-                    {
-                        isLooped = true;
-                        _looped?.Invoke();
-                    }
-                }
-                else
+                while (tempo >= 0 && timeSamples >= samples)
                 {
-                    if (time < lastTime)
-                    {
-                        if (metaData.loopStartTime > 0)
-                            time = metaData.loopStartTime;
-
-                        isLooped = true;
-                        _looped?.Invoke();
-                    }
+                    _timeSamples -= samples - loopStartIndex;
+                    isLooped = true;
                 }
 
-                lastTime = time;
+                while (tempo < 0 && timeSamples < loopStartIndex)
+                {
+                    _timeSamples += samples - loopStartIndex;
+                    isLooped = true;
+                }
+
+                if (isLooped)
+                {
+                    if (loopStartIndex != 0 || timeSamples.Abs() > 2048)
+                        audioSource.timeSamples = timeSamples;
+
+                    _looped?.Invoke();
+                }
             }
 
-            if (!isPaused && !isSpeedZero && !audioSource.isPlaying && !ResourceManager.isAudioReset)
+            if (!loop && ((timeSamples < 0 && tempo < 0) || (timeSamples > samples && tempo > 0)))
                 Remove();
         }
 
@@ -340,15 +343,6 @@ namespace SCKRM.Sound
             {
                 metaData = soundData.sounds[Random.Range(0, soundData.sounds.Length)];
                 audioSource.clip = metaData.audioClip;
-                frequency = metaData.audioClip.frequency;
-                lengthSamples = metaData.audioClip.samples;
-
-                if (soundData.isBGM && SoundManager.SaveData.useTempo)
-                    audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixerGroup;
-                else
-                    audioSource.outputAudioMixerGroup = null;
-
-                lastUseTempo = SoundManager.SaveData.useTempo;
 
                 RefreshTempoAndPitch();
                 RefreshVolume();
@@ -357,20 +351,18 @@ namespace SCKRM.Sound
             if (!SoundManager.soundList.Contains(this))
                 SoundManager.soundList.Add(this);
 
+            if (!audioSource.isPlaying)
             {
-                if (!audioSource.isPlaying)
-                {
-                    if (audioSource.pitch < 0 && !metaData.stream && lastTime == 0)
-                        time = length - 0.001;
-                    else
-                        time = time.Min(length - 0.001);
+                if (audioSource.pitch < 0 && !metaData.stream && lastTime == 0)
+                    time = length - 0.001;
+                else
+                    time = time.Min(length - 0.001);
 
-                    lastTime = time;
-                    audioSource.Play();
+                lastTime = time;
+                audioSource.Play();
 
-                    if (isPaused || isSpeedZero)
-                        audioSource.Pause();
-                }
+                if (isPaused || isSpeedZero)
+                    audioSource.Pause();
             }
         }
 
@@ -404,27 +396,10 @@ namespace SCKRM.Sound
                 }
             }
 
-            if (soundData.isBGM && SoundManager.SaveData.useTempo)
-            {
-                if (metaData.stream)
-                    base.tempo = base.tempo.Clamp(0);
+            if (metaData.stream)
+                base.pitch = base.pitch.Clamp(0);
 
-                float allPitch = base.pitch * metaData.pitch;
-                float allTempo = base.tempo * metaData.tempo;
-
-                //base.pitch = allPitch.Clamp(allTempo.Abs() * 0.5f, allTempo.Abs() * 2f) / metaData.pitch;
-
-                allTempo *= Kernel.gameSpeed;
-                audioSource.pitch = allTempo;
-                audioSource.outputAudioMixerGroup.audioMixer.SetFloat("pitch", 1f / allTempo.Abs() * allPitch.Clamp(allTempo.Abs() * 0.5f, allTempo.Abs() * 2f));
-            }
-            else
-            {
-                if (metaData.stream)
-                    base.pitch = base.pitch.Clamp(0);
-
-                audioSource.pitch = base.pitch * metaData.pitch * Kernel.gameSpeed;
-            }
+            audioSource.pitch = base.pitch * metaData.pitch * realSpeed.Sign();
         }
 
         public void RefreshVolume()
@@ -464,7 +439,6 @@ namespace SCKRM.Sound
             customSoundData = null;
 
             SoundManager.soundList.Remove(this);
-            lastUseTempo = true;
         }
     }
 }

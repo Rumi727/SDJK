@@ -218,6 +218,9 @@
 	"notice.running_task.drag_and_drop.file_load": "ファイルを読み込んでいます...",
 	"notice.running_task.drag_and_drop.resource_pack_load": "リソースパックを読み込んでいます...",
 	"notice.running_task.drag_and_drop.resource_pack_load.exists": "同じ名前のリソースパックがすでに存在しています",
+
+	"notice.resource_manager.audio_ogg.warning": "オーディオ警告",
+	"notice.resource_manager.audio_ogg.warning.info": "oggファイルでないと、オーディオを読み込むとレックが発生する可能性があります！\n\nパス：{path}",
 	
 	
 	

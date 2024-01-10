@@ -218,6 +218,9 @@
 	"notice.running_task.drag_and_drop.file_load": "Loading file...",
 	"notice.running_task.drag_and_drop.resource_pack_load": "Loading resource pack...",
 	"notice.running_task.drag_and_drop.resource_pack_load.exists": "A resource pack with the same name already exists.",
+
+	"notice.resource_manager.audio_ogg.warning": "Audio Warning",
+	"notice.resource_manager.audio_ogg.warning.info": "If it is not an ogg file, lag may occur when loading audio!\n\nPath: {path}",
 	
 	
 	

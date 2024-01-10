@@ -1,12 +1,15 @@
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using OggVorbis;
 using SCKRM.Json;
 using SCKRM.Language;
 using SCKRM.NBS;
 using SCKRM.ProjectSetting;
+using SCKRM.Renderer;
 using SCKRM.SaveLoad;
 using SCKRM.Sound;
 using SCKRM.Threads;
+using SCKRM.UI.SideBar;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
@@ -672,7 +675,7 @@ Resource refresh (Since the Unity API is used, we need to run it on the main thr
                             return null;
 
                         if (audioClip != null)
-                            return new SoundMetaData(soundMetaData.path, soundMetaData.pitch, soundMetaData.tempo, soundMetaData.stream, soundMetaData.loopStartTime, audioClip);
+                            return new SoundMetaData(soundMetaData.path, soundMetaData.pitch, soundMetaData.tempo, soundMetaData.stream, soundMetaData.loopStartIndex, audioClip);
 
                         return null;
                     }
@@ -1691,7 +1694,7 @@ Import text file as string type"
 @"오디오 파일을 오디오 클립으로 가져옵니다 (Unity API를 사용하기 때문에 메인 스레드에서 실행해야 합니다)
 Import audio files as audio clips (Since the Unity API is used, we need to run it on the main thread)"
 )]
-        public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false, HideFlags hideFlags = HideFlags.DontSave)
+        public static async UniTask<AudioClip> GetAudio(string path, bool pathExtensionUse = false, bool stream = false, HideFlags hideFlags = HideFlags.DontSave, bool oggWarning = false)
         {
 #if !((UNITY_STANDALONE_LINUX && !UNITY_EDITOR) || UNITY_EDITOR_LINUX)
             if (!ThreadManager.isMainThread)
@@ -1732,6 +1735,26 @@ Import audio files as audio clips (Since the Unity API is used, we need to run i
             {
                 if (File.Exists(path + extension))
                 {
+                    if (type == AudioType.OGGVORBIS && !stream)
+                        return await VorbisPlugin.ToAudioClipAsync(await File.ReadAllBytesAsync(path + extension), Path.GetFileNameWithoutExtension(path));
+
+                    if (oggWarning)
+                    {
+                        NoticeManager.Notice
+                        (
+                            "sc-krm:notice.resource_manager.audio_ogg.warning",
+                            new NameSpacePathReplacePair
+                            (
+                                "sc-krm",
+                                "notice.resource_manager.audio_ogg.warning.info",
+                                new ReplaceOldNewPair("{path}", path + extension)
+                            ),
+                            NoticeManager.Type.warning
+                        );
+
+                        Debug.LogWarning(LanguageManager.LanguageLoad("notice.resource_manager.audio_ogg.warning.info", "sc-krm").Replace("{path}", path + extension));
+                    }
+
                     using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip((path + extension).UrlPathPrefix(), type);
                     DownloadHandlerAudioClip downloadHandlerAudioClip = (DownloadHandlerAudioClip)www.downloadHandler;
                     downloadHandlerAudioClip.streamAudio = stream;
@@ -2368,15 +2391,15 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         public static SoundData<MetaData> CreateSoundData<MetaData>(string subtitle, bool isBGM, MetaData[] sounds) where MetaData : SoundMetaDataBase
             => new SoundData<MetaData>(subtitle, isBGM, sounds);
 
-        public static SoundMetaData CreateSoundMetaData(float pitch, float tempo, float loopStartTime, AudioClip audioClip)
+        public static SoundMetaData CreateSoundMetaData(float pitch, float tempo, int loopStartIndex, AudioClip audioClip)
         {
             if (audioClip == null)
                 return null;
 
             if (audioClip.loadType == AudioClipLoadType.Streaming)
-                return new SoundMetaData("", pitch, tempo, true, loopStartTime, audioClip);
+                return new SoundMetaData("", pitch, tempo, true, loopStartIndex, audioClip);
             else
-                return new SoundMetaData("", pitch, tempo, false, loopStartTime, audioClip);
+                return new SoundMetaData("", pitch, tempo, false, loopStartIndex, audioClip);
         }
 
         public static NBSMetaData CreateNBSMetaData(float pitch, float tempo, NBSFile nbsFile)
@@ -2467,29 +2490,46 @@ Convert color to sprite (Since the Unity API is used, we need to run it on the m
         public SoundMetaDataBase(string path, float pitch, float tempo)
         {
             this.path = path;
+
             this.pitch = pitch;
             this.tempo = tempo;
         }
 
         public string path { get; } = "";
+
         public float pitch { get; } = 1;
         public float tempo { get; } = 1;
     }
 
     public class SoundMetaData : SoundMetaDataBase
     {
-        public SoundMetaData(string path, float pitch, float tempo, bool stream, float loopStartTime, AudioClip audioClip) : base(path, pitch, tempo)
+        public SoundMetaData(string path, float pitch, float tempo, bool stream, int loopStartIndex, AudioClip audioClip) : base(path, pitch, tempo)
         {
             this.stream = stream;
-            this.loopStartTime = loopStartTime;
+            this.loopStartIndex = loopStartIndex;
 
             this.audioClip = audioClip;
+
+            if (audioClip != null)
+            {
+                frequency = audioClip.frequency;
+                channels = audioClip.channels;
+
+                length = audioClip.length;
+                samples = audioClip.samples;
+            }
         }
 
         public bool stream { get; } = false;
-        public float loopStartTime { get; } = 0;
+        public int loopStartIndex { get; } = 0;
 
         [JsonIgnore] public AudioClip audioClip { get; }
+
+        [JsonIgnore] public int frequency { get; }
+        [JsonIgnore] public int channels { get; }
+
+        [JsonIgnore] public float length { get; }
+        [JsonIgnore] public int samples { get; }
     }
 
     public class NBSMetaData : SoundMetaDataBase

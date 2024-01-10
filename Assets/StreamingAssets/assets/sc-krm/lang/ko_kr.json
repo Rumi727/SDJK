@@ -218,6 +218,9 @@
 	"notice.running_task.drag_and_drop.file_load": "파일 로드 중...",
 	"notice.running_task.drag_and_drop.resource_pack_load": "리소스팩 로드 중...",
 	"notice.running_task.drag_and_drop.resource_pack_load.exists": "같은 이름의 리소스 팩이 이미 있습니다",
+
+	"notice.resource_manager.audio_ogg.warning": "오디오 경고",
+	"notice.resource_manager.audio_ogg.warning.info": "ogg 파일이 아니면 오디오를 불러올때 렉이 발생할 수 있습니다!\n\n경로 : {path}",
 	
 	
 	
