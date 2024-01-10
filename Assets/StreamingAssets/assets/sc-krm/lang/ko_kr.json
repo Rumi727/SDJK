@@ -55,6 +55,7 @@
 	"gui.min": "최소",
 	"gui.max": "최대",
 	"gui.restart_on_fail": "실패 시 재시작",
+	"gui.pitch": "피치",
 	
 	"gui.ago.years": "%value%년 전",
 	"gui.ago.months": "%value%달 전",

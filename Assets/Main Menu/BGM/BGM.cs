@@ -106,9 +106,15 @@ namespace SDJK.MainMenu
                 {
                     IMode mode;
                     if ((mode = ModeManager.selectedModeList.FindMode<FastModeBase>()) != null)
+                    {
                         RhythmManager.speed *= (float)((FastModeBase.Config)mode.modeConfig).speed;
+                        soundPlayer.pitch *= (float)((FastModeBase.Config)mode.modeConfig).pitch;
+                    }
                     else if ((mode = ModeManager.selectedModeList.FindMode<SlowModeBase>()) != null)
+                    {
                         RhythmManager.speed *= (float)((SlowModeBase.Config)mode.modeConfig).speed;
+                        soundPlayer.pitch *= (float)((SlowModeBase.Config)mode.modeConfig).pitch;
+                    }
 
                     if (RhythmManager.currentBeatSound >= 0)
                     {

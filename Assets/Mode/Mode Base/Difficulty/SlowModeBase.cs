@@ -21,9 +21,13 @@ namespace SDJK.Mode.Difficulty
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.difficulty.slow")]
         public sealed class Config : IModeConfig
         {
-            [SaveLoadUISliderConfig("sc-krm:gui.speed", "", 0.25f, 0.9999f, 0.002f, 4)]
-            public double speed { get => _speed.Clamp(0.0001, 0.9999); set => _speed = value.Clamp(0.0001, 0.9999); }
+            [SaveLoadUISliderConfig("sc-krm:gui.speed", "", 0.25f, 1, 0.002f, 4)]
+            public double speed { get => _speed.Clamp(0.0001, 1); set => _speed = value.Clamp(0.0001, 1); }
             double _speed = 0.75;
+
+            [SaveLoadUISliderConfig("sc-krm:gui.pitch", "", 0.25f, 1, 0.002f, 4)]
+            public double pitch { get => _pitch.Clamp(0.0001, 1); set => _pitch = value.Clamp(0.0001, 1); }
+            double _pitch = 1;
         }
 
         protected override IModeConfig CreateModeConfig() => new Config();

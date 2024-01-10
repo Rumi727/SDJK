@@ -68,9 +68,15 @@ namespace SDJK.Ruleset
             {
                 IMode mode;
                 if ((mode = modes.FindMode<FastModeBase>()) != null)
+                {
                     RhythmManager.speed *= (float)((FastModeBase.Config)mode.modeConfig).speed;
+                    soundPlayer.pitch *= (float)((FastModeBase.Config)mode.modeConfig).pitch;
+                }
                 else if ((mode = modes.FindMode<SlowModeBase>()) != null)
+                {
                     RhythmManager.speed *= (float)((SlowModeBase.Config)mode.modeConfig).speed;
+                    soundPlayer.pitch *= (float)((SlowModeBase.Config)mode.modeConfig).pitch;
+                }
 
                 if (RhythmManager.currentBeatSound >= 0)
                 {

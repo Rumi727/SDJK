@@ -55,6 +55,7 @@
 	"gui.min": "最小",
 	"gui.max": "最大",
 	"gui.restart_on_fail": "失敗した場合の再起動",
+	"gui.pitch": "ピッチ",
 	
 	"gui.ago.years": "%value%年前",
 	"gui.ago.months": "%value%ヶ月前",
