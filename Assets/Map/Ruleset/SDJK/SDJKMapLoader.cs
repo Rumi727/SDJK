@@ -218,23 +218,29 @@ namespace SDJK.Map.Ruleset.SDJK.Map
 
             Dictionary<int, int> removedNoteCountList = new Dictionary<int, int>();
             double lastBeat = 0;
+            double realLastBeat = 0;
 
             for (int i = 0; i < map.allNotes.Count - 1; i++)
             {
                 SDJKAllNoteFile allNote = map.allNotes[i];
-                double beat = allNote.beat - allNote.beat.Repeat(removeBeat);
+                double beat = allNote.beat;
 
-                if (beat < lastBeat)
+                if (beat <= lastBeat)
                 {
-                    int removedNoteCount = 0;
-                    if (removedNoteCountList.TryGetValue(allNote.keyIndex, out int value))
-                        removedNoteCount = value;
+                    if (beat - realLastBeat > MathUtility.epsilonFloatWithAccuracy)
+                    {
+                        int removedNoteCount = 0;
+                        if (removedNoteCountList.TryGetValue(allNote.keyIndex, out int value))
+                            removedNoteCount = value;
 
-                    map.notes[allNote.keyIndex].RemoveAt(allNote.index - removedNoteCount);
-                    removedNoteCountList[allNote.keyIndex] = removedNoteCount + 1;
+                        map.notes[allNote.keyIndex].RemoveAt(allNote.index - removedNoteCount);
+                        removedNoteCountList[allNote.keyIndex] = removedNoteCount + 1;
+                    }
                 }
                 else
                     lastBeat = beat + removeBeat;
+
+                realLastBeat = beat;
             }
         }
 
