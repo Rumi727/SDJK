@@ -107,9 +107,9 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             if (modes.FindMode<DeathNoteOffModeBase>() != null)
                 DeathNoteOff(map);
 
-            IMode chordjackOffMode;
-            if ((chordjackOffMode = modes.FindMode<ChordjackOffModeBase>()) != null)
-                ChordjackOff(map, ((ChordjackOffModeBase.Config)chordjackOffMode.modeConfig).removeBeat);
+            IMode streamOffMode;
+            if ((streamOffMode = modes.FindMode<StreamOffModeBase>()) != null)
+                StreamOff(map, ((StreamOffModeBase.Config)streamOffMode.modeConfig).removeBeat);
         }
 
         static void KeyCountChange(SDJKMapFile map, int count)
@@ -209,7 +209,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
             }
         }
 
-        static void ChordjackOff(SDJKMapFile map, double removeBeat)
+        static void StreamOff(SDJKMapFile map, double removeBeat)
         {
             map.FixAllJudgmentBeat();
 

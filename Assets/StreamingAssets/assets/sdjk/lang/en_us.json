@@ -80,13 +80,13 @@
 
 	"mode.difficulty.sudden_death": "Sudden Death",
 	"mode.difficulty.sudden_death.info": "The moment you miss the note, your life is lost",
-	"mode.difficulty.sudden_death.super_hexagon.info": "튜닝의 끝은 순정이다",
+	"mode.difficulty.sudden_death.super_hexagon.info": "The end of tuning is pure",
 
 	"mode.difficulty.perfect": "Perfectionist",
 	"mode.difficulty.perfect.info": "SS or death!",
 	
 	"mode.difficulty.no_fail": "No Fail",
-	"mode.difficulty.no_fail.info": "Kurumi-chan never dies!",
+	"mode.difficulty.no_fail.info": "Klee-chan never dies!",
 	
 	"mode.difficulty.combo_multiplier": "Combo Multiplier",
 	"mode.difficulty.combo_multiplier.info": "Are you getting a low score because you keep missing? Give this mod a try!",
@@ -107,9 +107,9 @@
 	"mode.converter.death_note_off": "Instant death note removed",
 	"mode.converter.death_note_off.info": "Distinguishing location is easy, but distinguishing colors is difficult",
 
-	"mode.converter.chordjack_off": "Chordjack Off",
-	"mode.converter.chordjack_off.info": "My hands hurt! (Instability)",
-	"mode.converter.chordjack_off.removeBeat": "Beat to remove",
+	"mode.converter.stream_off": "Stream Off",
+	"mode.converter.stream_off.info": "My hands hurt! (Instability)",
+	"mode.converter.stream_off.removeBeat": "Beat to remove",
 	
 
 	

@@ -86,7 +86,7 @@
 	"mode.difficulty.perfect.info": "SSでなければ死を！",
 	
 	"mode.difficulty.no_fail": "無敵",
-	"mode.difficulty.no_fail.info": "くるみは死なない！",
+	"mode.difficulty.no_fail.info": "クレーちゃんは死なない！",
 	
 	"mode.difficulty.combo_multiplier": "コンボ排水",
 	"mode.difficulty.combo_multiplier.info": "ずっとミスしてからスコアが低いって？ このモードを一度使ってみてください！",
@@ -107,9 +107,9 @@
 	"mode.converter.death_note_off": "即時ノートの削除",
 	"mode.converter.death_note_off.info": "位置を区別するのは簡単ですが、色を区別するのは難しいです。",
 
-	"mode.converter.chordjack_off": "Chordjackの削除",
-	"mode.converter.chordjack_off.info": "手が痛い！（不安定）",
-	"mode.converter.chordjack_off.removeBeat": "削除するビット",
+	"mode.converter.stream_off": "乱打の削除",
+	"mode.converter.stream_off.info": "手が痛い！（不安定）",
+	"mode.converter.stream_off.removeBeat": "削除するビット",
 	
 	
 
