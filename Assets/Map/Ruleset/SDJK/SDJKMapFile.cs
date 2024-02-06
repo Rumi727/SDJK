@@ -40,6 +40,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 return diff;
 
             double holdBeat = 0;
+            double doublesBeat = 1;
             for (int i = 0; i < allNotes.Count - 1; i++)
             {
                 SDJKAllNoteFile allNote = allNotes[i];
@@ -51,9 +52,14 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                 if (allNote.beat < holdBeat)
                     size *= 2;
 
-                double? result = DifficultyCalculation(mapFile, allNote.beat, allNotes[i + 1].beat, size);
+                double? result = DifficultyCalculation(mapFile, allNote.beat, allNotes[i + 1].beat, size * doublesBeat);
                 if (result != null)
+                {
+                    doublesBeat = 1;
                     diff.Add((double)result);
+                }
+                else
+                    doublesBeat *= 1.1f;
 
                 if (allNote.holdLength > 0 && allNote.beat >= holdBeat)
                     holdBeat = allNote.beat + allNote.holdLength;
