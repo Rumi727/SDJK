@@ -59,7 +59,7 @@ namespace SDJK.Map.Ruleset.SDJK.Map
                     diff.Add((double)result);
                 }
                 else
-                    doublesBeat *= 1.1f;
+                    doublesBeat *= 1.5f;
 
                 if (allNote.holdLength > 0 && allNote.beat >= holdBeat)
                     holdBeat = allNote.beat + allNote.holdLength;
