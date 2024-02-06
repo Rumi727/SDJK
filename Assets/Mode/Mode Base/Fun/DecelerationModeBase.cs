@@ -33,6 +33,8 @@ namespace SDJK.Mode.Fun
             double _min = 0.25;
 
             [SaveLoadUIToggleConfig("sdjk:mode.fun.deceleration.resetIfMiss", "")] public bool resetIfMiss { get; set; } = true;
+
+            [SaveLoadUIToggleConfig("gui.pitch", "")] public bool changePitch { get; set; } = true;
         }
 
         protected override IModeConfig CreateModeConfig() => new Config();

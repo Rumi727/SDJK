@@ -17,6 +17,7 @@ namespace SDJK.Mode.Fun
         public override Type[] incompatibleModes => new Type[] { typeof(DecelerationModeBase), typeof(AdaptiveSpeedModeBase) };
 
 
+
         [ModeConfigSaveLoad, SaveLoadUI("sdjk:mode.fun.acceleration")]
         public sealed class Config : IModeConfig
         {
@@ -32,6 +33,8 @@ namespace SDJK.Mode.Fun
             double _max = 2;
 
             [SaveLoadUIToggleConfig("sdjk:mode.fun.acceleration.resetIfMiss", "")] public bool resetIfMiss { get; set; } = true;
+
+            [SaveLoadUIToggleConfig("gui.pitch", "")] public bool changePitch { get; set; } = true;
         }
 
         protected override IModeConfig CreateModeConfig() => new Config();

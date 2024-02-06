@@ -126,6 +126,8 @@ namespace SDJK.MainMenu
                             accelerationDeceleration = accelerationDeceleration.Clamp(0, config.max);
 
                             RhythmManager.speed *= accelerationDeceleration;
+                            if (config.changePitch)
+                                soundPlayer.pitch *= (float)accelerationDeceleration;
                         }
                         else if ((mode = ModeManager.selectedModeList.FindMode<DecelerationModeBase>()) != null)
                         {
@@ -135,6 +137,8 @@ namespace SDJK.MainMenu
                             accelerationDeceleration = accelerationDeceleration.Clamp(config.min);
 
                             RhythmManager.speed *= accelerationDeceleration;
+                            if (config.changePitch)
+                                soundPlayer.pitch *= (float)accelerationDeceleration;
                         }
                         else
                             accelerationDeceleration = 1;
