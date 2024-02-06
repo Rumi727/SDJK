@@ -39,6 +39,8 @@ namespace SDJK.Ruleset
         public ISoundPlayer soundPlayer { get; private set; }
         public AudioClip bgmClip { get; private set; }
 
+        public double gameOverPitch { get; set; } = 1;
+
         public bool isEditor { get; private set; }
         public IMode[] modes { get; private set; }
 
@@ -56,16 +58,13 @@ namespace SDJK.Ruleset
             if (!RhythmManager.isPlaying || map == null)
                 return;
 
-            if (soundPlayer != null)
-            {
-                soundPlayer.pitch = (float)map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound);
-                soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound);
-            }
-
             RhythmManager.speed = (float)map.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
 
-            //모드
+            if (soundPlayer != null)
             {
+                soundPlayer.pitch = (float)(map.globalEffect.pitch.GetValue(RhythmManager.currentBeatSound) * gameOverPitch);
+                soundPlayer.volume = (float)map.globalEffect.volume.GetValue(RhythmManager.currentBeatSound);
+
                 IMode mode;
                 if ((mode = modes.FindMode<FastModeBase>()) != null)
                 {
@@ -93,6 +92,9 @@ namespace SDJK.Ruleset
 
                         realAccelerationDeceleration = realAccelerationDeceleration.Lerp(accelerationDeceleration, 0.0625f * Kernel.fpsUnscaledDeltaTime);
                         RhythmManager.speed *= realAccelerationDeceleration;
+
+                        if (config.changePitch)
+                            soundPlayer.pitch *= (float)realAccelerationDeceleration;
                     }
                     else if ((mode = modes.FindMode<DecelerationModeBase>()) != null)
                     {
@@ -106,7 +108,10 @@ namespace SDJK.Ruleset
                         accelerationDeceleration = accelerationDeceleration.Clamp(config.min);
 
                         realAccelerationDeceleration = realAccelerationDeceleration.Lerp(accelerationDeceleration, 0.0625f * Kernel.fpsUnscaledDeltaTime);
+
                         RhythmManager.speed *= realAccelerationDeceleration;
+                        if (config.changePitch)
+                            soundPlayer.pitch *= (float)realAccelerationDeceleration;
                     }
                     else
                         accelerationDeceleration = 1;
@@ -165,6 +170,8 @@ namespace SDJK.Ruleset
 
                 effectManager.selectedMap = map;
                 effectManager.AllRefresh();
+
+                gameOverPitch = 1;
 
                 RhythmManager.Play(map.globalEffect.bpm, map.info.songOffset, map.globalEffect.yukiMode, map.info.clearBeat, null, 2);
                 BGMPlay().Forget();

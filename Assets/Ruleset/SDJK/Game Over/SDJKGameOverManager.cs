@@ -30,7 +30,10 @@ namespace SDJK.Ruleset.SDJK.GameOver
             if (instance != null && RhythmManager.isPlaying && isGameOver)
             {
                 if (Kernel.gameSpeed > 0.001f)
+                {
                     Kernel.gameSpeed = Kernel.gameSpeed.Lerp(0, speed * Kernel.fpsUnscaledSmoothDeltaTime);
+                    manager.gameOverPitch = Kernel.gameSpeed;
+                }
                 else
                 {
                     Kernel.gameSpeed = 0;
