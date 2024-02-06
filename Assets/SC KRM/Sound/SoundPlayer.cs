@@ -219,15 +219,16 @@ namespace SCKRM.Sound
             //시간 보정
             if (!isPaused)
             {
+                float pitch = this.pitch * metaData.pitch;
                 int value = (int)(frequency * Kernel.unscaledDeltaTime);
                 _timeSamples += (int)(value * realSpeed * Kernel.gameSpeed);
                 
                 //템포
                 if (audioSource.isPlaying && timeSamples >= 0 && timeSamples <= samples)
                 {
-                    int condition = (int)(2048 / (realSpeed != 0 ? realSpeed : 1).Clamp(1).Pow(0.5f));
+                    int condition = (int)(2048);
                     double pitchDivideTempo = realSpeed * Kernel.gameSpeed / (pitch != 0 ? pitch : 1);
-
+                    
                     tempoAdjustmentTime += value;
                     if (tempoAdjustmentTime >= condition)
                     {
@@ -242,7 +243,9 @@ namespace SCKRM.Sound
                             tempoAdjustmentTime -= condition;
                         }
 
-                        audioSource.timeSamples = tempTimeSamples.Clamp(0, samples - 1);
+                        if (result != 0)
+                            audioSource.timeSamples = tempTimeSamples.Clamp(0, samples - 1);
+
                         _timeSamples = tempTimeSamples;
                     }
                 }

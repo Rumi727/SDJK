@@ -50,7 +50,7 @@ namespace SCKRM.Editor
                     minPitch = 0;
 
                 GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                soundObject.pitch = EditorGUILayout.Slider(soundObject.pitch, soundObject.tempo.Abs() * 0.5f, soundObject.tempo.Abs() * 2f);
+                soundObject.pitch = EditorGUILayout.Slider(soundObject.pitch, 0f.Min(soundObject.pitch), 3f.Max(soundObject.pitch));
 
                 GUILayout.Label("템포", GUILayout.ExpandWidth(false));
                 soundObject.tempo = EditorGUILayout.Slider(soundObject.tempo, minPitch.Min(soundObject.tempo), 3f.Max(soundObject.tempo));

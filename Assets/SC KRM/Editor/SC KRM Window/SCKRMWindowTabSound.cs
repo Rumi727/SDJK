@@ -66,7 +66,7 @@ namespace SCKRM.Editor
                         audioLoop = EditorGUILayout.Toggle(audioLoop, GUILayout.Width(15));
 
                         GUILayout.Label("피치", GUILayout.ExpandWidth(false));
-                        audioPitch = EditorGUILayout.Slider(audioPitch, -3, 3);
+                        audioPitch = EditorGUILayout.Slider(audioPitch, 0, 3);
 
                         GUILayout.Label("템포", GUILayout.ExpandWidth(false));
                         audioTempo = EditorGUILayout.Slider(audioTempo, -3, 3);
