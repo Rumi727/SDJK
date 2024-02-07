@@ -40,10 +40,10 @@ namespace SCKRM.Sound
         }
         int _timeSamples = 0;
 
-        [WikiDescription("현재 실제 시간")] public override double realTime { get => time / speed; set => time = value * speed; }
+        [WikiDescription("현재 실제 시간")] public override double realTime { get => time / speed.Abs(); set => time = value * speed.Abs(); }
 
         [WikiDescription("곡의 길이")] public override double length => metaData != null ? metaData.length : 0;
-        [WikiDescription("곡의 실제 길이")] public override double realLength => length / speed;
+        [WikiDescription("곡의 실제 길이")] public override double realLength => length / speed.Abs();
 
         [WikiDescription("루프 가능 여부")]
         public override bool loop
