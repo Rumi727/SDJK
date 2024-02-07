@@ -105,12 +105,25 @@ namespace SCKRM.Rhythm
             set
             {
                 _speed = value;
-
+                
                 if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed())
-                    soundPlayer.speed = (float)value;
+                    soundPlayer.speed = (float)(value * speed2);
             }
         }
         static double _speed;
+
+        public static double speed2
+        {
+            get => _speed2;
+            set
+            {
+                _speed2 = value;
+
+                if (soundPlayer != null && !soundPlayer.isRemoved && !soundPlayer.IsDestroyed())
+                    soundPlayer.speed = (float)(speed * value);
+            }
+        }
+        static double _speed2;
 
         [WikiDescription("현재 비트")] public static double currentBeat { get; private set; }
         [WikiDescription("현재 사운드 비트")] public static double currentBeatSound { get; private set; }
@@ -147,7 +160,7 @@ namespace SCKRM.Rhythm
                 if (soundPlayer != null)
                 {
                     if (soundPlayer.isActived && !soundPlayer.IsDestroyed())
-                        soundPlayer.speed = (float)speed;
+                        soundPlayer.speed = (float)(speed * speed2);
                     else
                         soundPlayer = null;
                 }

@@ -210,28 +210,7 @@ namespace SDJK.MapEditor
             if (!Kernel.isPlaying || !RhythmManager.isPlaying)
                 return;
 
-            double speed = 1;
-            if (ctrl && shift)
-                speed = 8;
-            else if (shift)
-                speed = 4;
-            else if (ctrl)
-                speed = 2;
-
-            if (alt)
-                speed = 1d / speed;
-
-            if (mapFile != null)
-                speed *= mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound);
-
-            if (down)
-            {
-                RhythmManager.isPaused = true;
-                RhythmManager.Rewind(Kernel.deltaTimeDouble * speed);
-
-                Repaint();
-            }
-            else if (up || space)
+            if (up || space || down)
             {
                 RhythmManager.isPaused = false;
                 Repaint();
@@ -266,8 +245,11 @@ namespace SDJK.MapEditor
 
                         if (alt)
                             speed = 1d / speed;
+                        
+                        if (down)
+                            speed *= -1;
 
-                        RhythmManager.speed = mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound) * speed;
+                        RhythmManager.speed2 = mapFile.globalEffect.tempo.GetValue(RhythmManager.currentBeatSound) * speed;
                     }
 
                     if (HitsoundEffect.GetHitsoundPlayCount(mapFile, RhythmManager.currentBeatSound, ref hitsoundBeat) > 0)
