@@ -110,7 +110,7 @@ namespace SCKRM.Rhythm
                     soundPlayer.speed = (float)(value * speed2);
             }
         }
-        static double _speed;
+        static double _speed = 1;
 
         public static double speed2
         {
@@ -123,7 +123,7 @@ namespace SCKRM.Rhythm
                     soundPlayer.speed = (float)(speed * value);
             }
         }
-        static double _speed2;
+        static double _speed2 = 1;
 
         [WikiDescription("현재 비트")] public static double currentBeat { get; private set; }
         [WikiDescription("현재 사운드 비트")] public static double currentBeatSound { get; private set; }
