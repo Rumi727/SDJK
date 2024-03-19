@@ -72,32 +72,6 @@ osu! 맵을 변환시킬때 시간 기준을 초에서 비트로 변환하는데
 
 위에 서술 된 타입이 아니더라도 정상 작동은 하나, 에디터에서 표시되지 않음  
 (주의: [ITypeList] 인터페이스를 상속하지 않았지만 [ICollection](https://learn.microsoft.com/ko-kr/dotnet/api/System.Collections.ICollection) 인터페이스는 상속한 경우 [object] 클래스를 상속했더라도 제외됩니다)
-  
-## 라이선스
-[Blacklist]: https://docs.google.com/document/d/1A8kz4DJOdLEtf-kybrKnGR51XDNZVHmojCU86KaDgKg
-[SC KRM]: https://github.com/SimsimhanChobo/SC-KRM-1.0
-[SDJK]: https://github.com/SimsimhanChobo/SDJK
-[Simsimhan Chobo]: https://github.com/SimsimhanChobo
-[discord_check.dll]: Assets/SC%20KRM/Discord/Library/discord_check.dll
-[C++ Namu]: https://namu.wiki/w/C%2B%2B
-[C++]: https://ko.wikipedia.org/wiki/C%2B%2B
-[MIT]: https://opensource.org/licenses/mit
-[GPL]: https://opensource.org/license/gpl-3-0
-
-[TEAM Bucket 블랙리스트][Blacklist]에 등록된 사람은 [SDJK] 및 [SDJK]의 파생 저작물을 이용할 수 없습니다.
-
-또한 [discord_check.dll] 파일을 디컴파일하거나 (내용을 보거나) 수정할 수 없습니다.  
-[discord_check.dll] 파일은 [C++][C++ Namu] 프로그래밍 언어로 작성되었으며 저작권은 [Simsimhan Chobo] 에게 있습니다.
-
-위의 내용에 영향을 받지 않는다면 [SDJK]은 [GPL 3.0 라이선스][GPL]를 따르게 됩니다.
-
-## English Translation
-[SDJK] and derivative works of [SDJK] cannot be used by persons on the [TEAM Bucket Blacklist][Blacklist]
-
-Also, you cannot decompile (view contents) or modify the file [discord_check.dll]
-The [discord_check.dll] file is written in [C++] programming language and copyrighted by [Simsimhan Chobo].
-
-Unless affected by the above, [SDJK] is under the [GPL 3.0 License][GPL]
 
 ## 사용된 패키지와 DLL, 오픈 소스
 - [SC KRM 1.0](https://github.com/SimsimhanChobo/SC-KRM-1.0)
